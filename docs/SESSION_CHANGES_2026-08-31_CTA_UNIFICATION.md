@@ -18,13 +18,25 @@ got the memo:
 So two tokens claimed the same job and disagreed. Both now resolve to
 `--cera-cta`.
 
-**A second palette.** `.cera-page.genosys-page` redeclared the whole cera block
-inside `editorial.css`. Nine of its ten tokens were the globals value off by a
-digit or two, but `--cera-rose` was `#c0392f` and `--cera-rose-ink` `#97281f` —
-a vivid red left over from when the house colour was red and only the product
-pages were on cera. That class is on 85 pages, so the entire shopping path, the
-blog and the footer were running on a red-tinted fork while the product pages
-and the app ran on the real palette.
+**Four more palettes.** `.cera-page.genosys-page` redeclared the whole cera
+block inside `editorial.css`. Nine of its ten tokens were the globals value off
+by a digit or two, but `--cera-rose` was `#c0392f` and `--cera-rose-ink`
+`#97281f` — a vivid red left over from when the house colour was red and only
+the product pages were on cera. That class is on 85 pages, so the entire
+shopping path, the blog and the footer were running on a red-tinted fork while
+the product pages and the app ran on the real palette.
+
+The same ten declarations, character for character, also sat in `blog.css`,
+`training.css` and `skin-recommendation.css` under their own page classes. All
+four are gone. The per-product stylesheets under `components/product/` still
+declare `--cera-rose` in twenty-odd colours, and those stay: tinting the palette
+to the product is the designed behaviour there, not a fork.
+
+Fifteen shadows and one scanning gradient also spelled the old red out by hand
+as `rgba(151, 40, 31, …)`, which survived the token removal. They now carry
+`rgba(143, 90, 90, …)`, the same `#8f5a5a` in the rest of the palette. The one
+that mattered visibly was the selected tile on the skin quiz, which was throwing
+a red glow onto an otherwise rose page.
 
 `npm run verify:tokens` could not catch it: it checks `globals.css` against
 `design-tokens.json`, and this was a third copy hidden in a component
@@ -72,9 +84,19 @@ Read back from a production build with computed styles, not by eye: hero CTA
 `--cera-rose` `#c98b8b` / `--cera-rose-ink` `#8f5a5a` on `.genosys-page`, which
 is the forked red gone.
 
-## Loose end
+## Loose ends
 
 `components/ui/Button.tsx` has no importers anywhere in the repo. It documents
 itself as the replacement for "ad-hoc `bg-red-600`/`bg-primary-600` button
 classes", which is exactly the problem this change had to fix by hand across 18
 sites. Either adopt it or delete it; leaving it is how the next fork starts.
+
+`npm run verify:tokens` only reads `globals.css`. Nothing stops a fifth copy of
+the palette appearing in a component stylesheet tomorrow. The check that would
+catch it is a scan for `--cera-` declarations outside `globals.css` and
+`components/product/`, which is a short script and would have caught all four of
+these on the day they were written.
+
+The shadow tints still use `rgba(23, 20, 15, …)`, the forked ink, where the real
+one is `rgb(25, 23, 22)`. Left alone deliberately: at 4% alpha the two are
+indistinguishable, and there is no token for a shadow tint to point them at.

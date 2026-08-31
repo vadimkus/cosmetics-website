@@ -217,7 +217,7 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                   className="pointer-events-none absolute inset-x-0 h-10 opacity-60"
                   style={{
                     background:
-                      'linear-gradient(to bottom, transparent, rgba(151,40,31,0.14) 45%, rgba(151,40,31,0.34) 50%, rgba(151,40,31,0.14) 55%, transparent)',
+                      'linear-gradient(to bottom, transparent, rgba(143,90,90,0.14) 45%, rgba(143,90,90,0.34) 50%, rgba(143,90,90,0.14) 55%, transparent)',
                   }}
                 />
               )}

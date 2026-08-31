@@ -46,7 +46,7 @@
   .genosys-home .home-product-card:hover {
     transform: translateY(-3px);
     border-color: var(--cera-blush-deep);
-    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(151, 40, 31, 0.3);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(143, 90, 90, 0.3);
   }
 }
 

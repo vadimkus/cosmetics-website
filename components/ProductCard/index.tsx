@@ -118,7 +118,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     <MotionWrapper 
       {...animationProps}
       onClickCapture={handleMorphClickCapture}
-      className="product-card product-card-cq flex flex-col overflow-hidden rounded-[18px] border border-[var(--cera-line)] bg-white transition-shadow hover:shadow-[0_2px_4px_rgba(23,20,15,0.04),0_22px_44px_-26px_rgba(151,40,31,0.3)]"
+      className="product-card product-card-cq flex flex-col overflow-hidden rounded-[18px] border border-[var(--cera-line)] bg-white transition-shadow hover:shadow-[0_2px_4px_rgba(23,20,15,0.04),0_22px_44px_-26px_rgba(143,90,90,0.3)]"
       role="article"
       aria-label={productAriaLabel}
       aria-describedby={`${descriptionId} ${priceId} ${stockId}`}

@@ -7,18 +7,13 @@
  * under `.training-page` so it cannot leak.
  */
 
-.cera-page.training-page {
-  --cera-cream: #faf8f7;
-  --cera-cream-deep: #f2eceb;
-  --cera-blush: #fbeceb;
-  --cera-blush-deep: #f0cfcd;
-  --cera-rose: #c0392f;
-  --cera-rose-ink: #97281f;
-  --cera-ink: #17140f;
-  --cera-body: #3c3733;
-  --cera-muted: #6a625d;
-  --cera-line: #e9e1de;
-}
+/* The palette block that used to sit here is gone. It was a copy of the cera
+   tokens from globals.css with one real difference, a vivid red on --cera-rose
+   and --cera-rose-ink left over from when the house colour was red, and it put
+   this page on a different palette from the product pages and the app. See the
+   header of components/editorial/editorial.css for the full account. The class
+   stays in the markup as a hook if a page-level tint is ever wanted again. */
+
 
 /* --- Counts under the hero ---------------------------------------------
    Three figures separated by hairlines rather than boxed in a grid, so the
@@ -57,7 +52,7 @@
   .training-row:hover {
     transform: translateY(-2px);
     border-color: var(--cera-blush-deep);
-    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 36px -26px rgba(151, 40, 31, 0.32);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 36px -26px rgba(143, 90, 90, 0.32);
   }
 }
 

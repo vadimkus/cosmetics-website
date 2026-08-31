@@ -7,18 +7,13 @@
  * `.blog-page` so it cannot leak.
  */
 
-.cera-page.blog-page {
-  --cera-cream: #faf8f7;
-  --cera-cream-deep: #f2eceb;
-  --cera-blush: #fbeceb;
-  --cera-blush-deep: #f0cfcd;
-  --cera-rose: #c0392f;
-  --cera-rose-ink: #97281f;
-  --cera-ink: #17140f;
-  --cera-body: #3c3733;
-  --cera-muted: #6a625d;
-  --cera-line: #e9e1de;
-}
+/* The palette block that used to sit here is gone. It was a copy of the cera
+   tokens from globals.css with one real difference, a vivid red on --cera-rose
+   and --cera-rose-ink left over from when the house colour was red, and it put
+   this page on a different palette from the product pages and the app. See the
+   header of components/editorial/editorial.css for the full account. The class
+   stays in the markup as a hook if a page-level tint is ever wanted again. */
+
 
 /* --- Article thumbnails -------------------------------------------------
    Most posts announce a product and so carry its packshot, which is square.

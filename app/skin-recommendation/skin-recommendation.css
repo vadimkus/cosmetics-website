@@ -11,18 +11,13 @@
  * story. Everything is nested under `.skinrec-page` so it cannot leak.
  */
 
-.cera-page.skinrec-page {
-  --cera-cream: #faf8f7;
-  --cera-cream-deep: #f2eceb;
-  --cera-blush: #fbeceb;
-  --cera-blush-deep: #f0cfcd;
-  --cera-rose: #c0392f;
-  --cera-rose-ink: #97281f;
-  --cera-ink: #17140f;
-  --cera-body: #3c3733;
-  --cera-muted: #6a625d;
-  --cera-line: #e9e1de;
-}
+/* The palette block that used to sit here is gone. It was a copy of the cera
+   tokens from globals.css with one real difference, a vivid red on --cera-rose
+   and --cera-rose-ink left over from when the house colour was red, and it put
+   this page on a different palette from the product pages and the app. See the
+   header of components/editorial/editorial.css for the full account. The class
+   stays in the markup as a hook if a page-level tint is ever wanted again. */
+
 
 /* --- Quiz option tiles -------------------------------------------------- */
 
@@ -40,7 +35,7 @@
   .skinrec-option:hover {
     transform: translateY(-2px);
     border-color: var(--cera-blush-deep);
-    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 20px 40px -28px rgba(151, 40, 31, 0.3);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 20px 40px -28px rgba(143, 90, 90, 0.3);
   }
 }
 
@@ -51,7 +46,7 @@
 .skinrec-option[data-selected='true'] {
   border-color: var(--cera-rose);
   background: color-mix(in srgb, var(--cera-blush) 55%, #fff);
-  box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 38px -26px rgba(151, 40, 31, 0.42);
+  box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 38px -26px rgba(143, 90, 90, 0.42);
 }
 
 /* --- Skin-type artwork ---------------------------------------------------
@@ -243,7 +238,7 @@
   background: var(--cera-rose);
   color: #fff;
   border-radius: 18px;
-  box-shadow: 0 14px 30px -16px rgba(151, 40, 31, 0.7);
+  box-shadow: 0 14px 30px -16px rgba(143, 90, 90, 0.7);
 }
 
 .skinrec-ghost {

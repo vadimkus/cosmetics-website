@@ -69,7 +69,7 @@ const CUTOUTS: Record<string, string> = {
   // 24 EyeCell EYE CONTOUR CREAM
   '/images/eye_cream/main.jpeg': '/images/cutout/24.webp',
   // 25 SOOTHING REPAIR POSTCREAM
-  '/images/SRC.jpg': '/images/cutout/25.webp',
+  '/images/soothing_rep_o/Main.jpeg': '/images/cutout/25-v2.webp',
   // 26 EGF REPAIR OXYMASK CREAM
   '/images/EGF.jpg': '/images/cutout/26.webp',
   // 27 SKIN BARRIER PROTECTING CREAM

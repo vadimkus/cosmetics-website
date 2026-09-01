@@ -160,7 +160,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'نظام الوخز الدقيق GENOSYS', href: '/ar/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'نظام GENOSYS الاحترافي للوخز الدقيق', description: 'معدات احترافية ينبغي أن تعمل ضمن ممارسة مدرّبة وبروتوكول واضح.' },
       { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'أمبولة سبكيولية احترافية تحتوي على Hydrolyzed Sponge بنسبة 5.72022% وSodium DNA بتركيز 1,120 جزءاً في المليون، وتستخدم وفق بروتوكول مختص مدرّب.' },
-      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'كريم GENOSYS Soothing Repair Postcream', description: 'دعم لما بعد العلاج بأحجام احترافية ومنزلية.' },
+      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'كريم GENOSYS Soothing Repair Postcream', description: 'دعم لما بعد العلاج بأحجام احترافية ومنزلية.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'أقنعة GENOSYS Skin Reboot PDRN', description: '30 قناع ليوسيل فائق الرقة مع نياسيناميد 2% وSodium DNA بتركيز 1,000 جزء في المليون.' },
     ],
     sections: [
@@ -267,7 +267,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'تواصلي سريعاً مع العيادة عند زيادة الألم أو انتشار الاحمرار أو القيح أو الفقاعات أو الحمى أو رد فعل غير متوقع.',
     ],
     featuredProducts: [
-      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
+      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
@@ -313,7 +313,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'تركيبة احترافية مع Hydrolyzed Sponge بنسبة 5.72022%؛ يشير 60000 إلى المركب كاملاً، بينما يبلغ Sodium DNA ‏1,120 جزءاً في المليون.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ar/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'أمبولة منزلية بحجم 50 ml: مركب BIO-MESO™ PDRN الكامل 5,000 جزء في المليون، وSodium DNA بتركيز 1,010 أجزاء في المليون، وHydrolyzed Sponge بنسبة 0.476685%؛ تستخدم مرة أسبوعياً مساءً وفق دليل التدريب.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'عبوة من 30 قناع ليوسيل مرطب مع ملقط مدمج؛ يترك كل قناع لمدة 10-20 دقيقة.' },
-      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم تعافٍ مكمل وليس علاج PDRN.' },
+      { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم تعافٍ مكمل وليس علاج PDRN.' },
     ],
     sections: [
       { heading: 'ماذا يعني PDRN', body: 'يشير Polydeoxyribonucleotide إلى شظايا DNA منقاة بأحجام مختلفة. تصف المراجعات نشاطاً حيوياً مرتبطاً بإصلاح الأنسجة ومستقبلات الأدينوزين ومسارات إعادة تدوير النيوكليوتيدات، لكنها تشير أيضاً إلى خلط بين PDRN والبولينيوكليوتيدات الأطول. الاسم وحده لا يوضح الجرعة أو الحجم أو النقاء أو التوصيل.' },

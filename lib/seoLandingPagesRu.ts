@@ -160,7 +160,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Система микронидлинга GENOSYS', href: '/ru/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'Профессиональная система микронидлинга GENOSYS', description: 'Профессиональное оборудование для работы обученных специалистов по протоколу.' },
       { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'Профессиональная ампула GENOSYS BIO-MESO PDRN Expert 60000', description: 'Профессиональная спикульная ампула: Hydrolyzed Sponge 5,72022% и Sodium DNA 1 120 ppm; по протоколу обученного специалиста.' },
-      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'Восстанавливающий крем GENOSYS Soothing Repair Postcream', description: 'Поддержка после процедур в профессиональном и домашнем объёме.' },
+      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'Восстанавливающий крем GENOSYS Soothing Repair Postcream', description: 'Поддержка после процедур в профессиональном и домашнем объёме.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'Маски GENOSYS Skin Reboot PDRN Mask Pack', description: '30 ультратонких лиоцелловых масок с ниацинамидом 2% и Sodium DNA 1 000 ppm.' },
     ],
     sections: [
@@ -267,7 +267,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Свяжитесь с клиникой при нарастающей боли, распространяющемся покраснении, гное, пузырях, температуре или нетипичной реакции.',
     ],
     featuredProducts: [
-      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Поддержка увлажнения после процедуры в домашнем и профессиональном объёме.' },
+      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Поддержка увлажнения после процедуры в домашнем и профессиональном объёме.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/ru/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'Успокаивающий гель-крем для увлажнения, если он разрешён протоколом.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Более насыщенная поддержка барьера на позднем этапе восстановления.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Высокая UV-защита после разрешения специалиста возобновить санскрин.' },
@@ -313,7 +313,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'Профессиональная ампула GENOSYS BIO-MESO PDRN Expert 60000', description: 'Профессиональная формула с Hydrolyzed Sponge 5,72022%; число 60000 относится ко всему комплексу, а Sodium DNA содержится в концентрации 1 120 ppm.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ru/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'Домашняя ампула 50 ml: полный комплекс BIO-MESO™ PDRN 5 000 ppm, Sodium DNA 1 010 ppm и Hydrolyzed Sponge 0,476685%; раз в неделю вечером по учебному протоколу.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'Банка на 30 увлажняющих лиоцелловых масок со встроенным пинцетом; время применения 10-20 минут.' },
-      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Дополняющий восстановительный уход, а не PDRN-процедура.' },
+      { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Дополняющий восстановительный уход, а не PDRN-процедура.' },
     ],
     sections: [
       { heading: 'Что означает PDRN', body: 'Polydeoxyribonucleotide - очищенные фрагменты ДНК разного молекулярного размера. Обзоры описывают механизмы, связанные с репарацией тканей, аденозиновыми рецепторами и утилизацией нуклеотидов, но также отмечают путаницу между PDRN и более длинными полинуклеотидами. Одно название не раскрывает дозу, размер, чистоту, доставку и эффект.' },

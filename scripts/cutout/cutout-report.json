@@ -172,11 +172,11 @@
   {
     "product": "25",
     "status": "ok",
-    "source": "/images/SRC.jpg",
-    "file": "/images/cutout/25.webp",
+    "source": "/images/soothing_rep_o/Main.jpeg",
+    "file": "/images/cutout/25-v2.webp",
     "name": "SOOTHING REPAIR POSTCREAM",
-    "coverage": 0.093,
-    "bytes": 28186,
+    "coverage": 0.32,
+    "bytes": 52582,
     "review": false
   },
   {

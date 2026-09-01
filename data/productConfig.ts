@@ -324,7 +324,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '20g', label: '20g', available: true },
       { value: '100g', label: '100g', available: true }
     ],
-    images: ['/images/SRC.jpg', '/images/Second/soothrep.png']
+    // Gallery migrated to the DB `images` field (single source of truth)
   },
   '27': {
     id: '27',

@@ -115,6 +115,9 @@ REVISION = {
     "35": 2,
     # The front tube's floor reflection is no longer kept as part of the product.
     "32": 2,
+    # New campaign packshot: the 20 g and 100 g tubes together on white, where
+    # the previous source was the older single-tube shot.
+    "25": 2,
     # New campaign packshot: the bottle square on white, replacing the single
     # legacy shot this page had been running on.
     "23": 2,

@@ -191,7 +191,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'GENOSYS Microneedling System', href: '/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'GENOSYS professional microneedling system', description: 'Professional equipment that belongs in trained, protocol-led practice.' },
       { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
-      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
+      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'A professional sheet-mask format pairing PDRN positioning with hydration-focused care.' },
     ],
     sections: [
@@ -297,7 +297,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       'Contact the clinic promptly for worsening pain, spreading redness, pus, blistering, fever, or other symptoms outside the expected recovery plan.',
     ],
     featuredProducts: [
-      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
+      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'A soothing gel-cream option for hydration when approved for the protocol.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
@@ -355,7 +355,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'A lower-intensity home-care Bio Meso format for structured maintenance.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'A professional sheet-mask format pairing PDRN positioning with hydration-focused care.' },
-      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
+      { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
     ],
     sections: [
       {

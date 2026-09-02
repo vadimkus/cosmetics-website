@@ -31,7 +31,7 @@ export default function HeaderDesktopBranding({ isRTL, isHeartBeating }: HeaderD
       <span className="text-lg md:text-2xl font-bold text-[var(--brand-wordmark)] tracking-tight whitespace-nowrap">
         GENOSYS MIDDLE EAST
       </span>
-      <div className="flex w-full justify-center items-center gap-1 text-sm text-gray-600 header-margin">
+      <div className="flex w-full justify-center items-center gap-1 text-sm text-[var(--cera-muted)] header-margin">
         {isRTL ? (
           <>
             {heartIcon}

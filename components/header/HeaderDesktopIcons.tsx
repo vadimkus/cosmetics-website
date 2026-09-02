@@ -38,18 +38,18 @@ export default function HeaderDesktopIcons({
   // hover surface, a keyboard `focus-visible` ring, and the 44x44 touch target
   // that was previously duplicated across some (but not all) links/buttons.
   const iconShell =
-    'relative inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white touch-manipulation min-h-[44px] min-w-[44px]'
+    'relative inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--cera-body)] transition-colors hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-rose-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cera-cream)] touch-manipulation min-h-[44px] min-w-[44px]'
 
   const contactInfo = (
     <div className={`flex flex-col ${isRTL ? 'items-start text-left' : 'items-end text-right'} header-contact`}>
-      <div className="text-sm text-gray-600">
+      <div className="text-sm text-[var(--cera-muted)]">
         {t('footer.officialDistributor')}
       </div>
       <a 
         href="https://wa.me/971585487665" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="text-sm text-gray-600 hover:text-[var(--cera-ok)] transition-colors flex items-center gap-1 header-contact-link"
+        className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-ok)] transition-colors flex items-center gap-1 header-contact-link"
       >
         {isRTL ? (
           <><span aria-hidden="true">📱</span> +971 58 548 76 65</>
@@ -59,7 +59,7 @@ export default function HeaderDesktopIcons({
       </a>
       <a 
         href="mailto:sales@genosys.ae"
-        className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
+        className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] transition-colors"
       >
         sales@genosys.ae
       </a>

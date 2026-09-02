@@ -20,7 +20,7 @@ export default function HeaderDesktopNav({ isRTL, isClient }: HeaderDesktopNavPr
   const { user } = useAuth()
   const pathname = usePathname()
 
-  const linkClass = "text-gray-700 hover:text-primary-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 rounded"
+  const linkClass = "text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 rounded"
   
   // Navigation links (in LTR order)
   const links = [

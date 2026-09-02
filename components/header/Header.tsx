@@ -80,7 +80,7 @@ const Header = memo(function Header() {
   
   return (
     <header 
-      className="main-header sticky top-0 z-50 bg-white shadow-sm border-b hidden md:block"
+      className="main-header sticky top-0 z-50 bg-[var(--cera-cream)] border-b border-[var(--cera-line)] hidden md:block"
       suppressHydrationWarning
     >
       <div className="container mx-auto px-4">

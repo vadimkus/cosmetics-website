@@ -65,7 +65,7 @@ export default function HeaderRussianDesktop() {
         <span className="text-lg md:text-2xl font-bold text-[var(--brand-wordmark)] tracking-tight whitespace-nowrap">
           GENOSYS MIDDLE EAST
         </span>
-        <div className="flex w-full justify-center items-center gap-1 text-sm text-gray-600 header-margin whitespace-nowrap">
+        <div className="flex w-full justify-center items-center gap-1 text-sm text-[var(--cera-muted)] header-margin whitespace-nowrap">
           <span className="whitespace-nowrap">{t('common.uae')}</span>
           <Heart className={`h-3 w-3 text-[var(--brand-wordmark)] fill-current transition-transform duration-300 flex-shrink-0 ${
             isHeartBeating ? 'animate-pulse' : ''
@@ -78,47 +78,47 @@ export default function HeaderRussianDesktop() {
       
       {/* Desktop Navigation */}
       <nav className="hidden md:flex space-x-4" role="navigation" aria-label="Основная навигация">
-        <Link href={getLocalizedPath('/', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.home')}
         </Link>
-        <Link href={getLocalizedPath('/about', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/about', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.about')}
         </Link>
-        <Link href={getLocalizedPath('/brand', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/brand', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.brand')}
         </Link>
-        <Link href={getLocalizedPath('/products', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/products', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.products')}
         </Link>
         {isClient && user && (
-          <Link href={getLocalizedPath('/training', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+          <Link href={getLocalizedPath('/training', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
             {t('navigation.training')}
           </Link>
         )}
-        <Link href={getLocalizedPath('/contact', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/contact', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.contact')}
         </Link>
-        <Link href={getLocalizedPath('/delivery', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
+        <Link href={getLocalizedPath('/delivery', 'ru')} className="text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors">
           {t('navigation.delivery')}
         </Link>
       </nav>
       
       <div className="hidden lg:flex items-center space-x-6 header-desktop-right">
         <div className="flex flex-col items-end text-right header-contact">
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-[var(--cera-muted)]">
             {t('footer.officialDistributor')}
           </div>
           <a 
             href="https://wa.me/971585487665" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-sm text-gray-600 hover:text-[var(--cera-ok)] transition-colors flex items-center gap-1 header-contact-link"
+            className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-ok)] transition-colors flex items-center gap-1 header-contact-link"
           >
             +971 58 548 76 65 📱
           </a>
           <a 
             href="mailto:sales@genosys.ae"
-            className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
+            className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] transition-colors"
           >
             sales@genosys.ae
           </a>
@@ -130,14 +130,14 @@ export default function HeaderRussianDesktop() {
               <LanguageSwitcher />
               <Link 
                 href={getLocalizedPath('/profile', 'ru')} 
-                className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                className="p-2 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors"
                 aria-label={t('common.profile')}
               >
                 <User className="h-6 w-6 text-[var(--cera-ok)]" aria-hidden="true" />
               </Link>
               <button 
                 onClick={() => logout()}
-                className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                className="p-2 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors"
                 aria-label={t('common.logout')}
               >
                 <LogOut className="h-6 w-6" aria-hidden="true" />
@@ -148,7 +148,7 @@ export default function HeaderRussianDesktop() {
               <LanguageSwitcher />
               <button 
                 onClick={handleLoginClick}
-                className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
+                className="p-2 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors touch-manipulation"
                 aria-label={t('common.login')}
               >
                 <User className="h-5 w-5" aria-hidden="true" />
@@ -158,7 +158,7 @@ export default function HeaderRussianDesktop() {
           
           <Link 
             href={getLocalizedPath('/favorites', 'ru')} 
-            className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="relative p-2 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={`${t('common.favorites')} с ${isClient ? favorites.length : 0} товарами`}
           >
             <Heart className={`h-6 w-6 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -171,7 +171,7 @@ export default function HeaderRussianDesktop() {
           
           <Link 
             href={getLocalizedPath('/cart', 'ru')} 
-            className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="relative p-2 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={`${t('common.cart')} с ${isClient ? cartCount : 0} товарами`}
           >
             <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-[var(--cera-ok)]' : ''}`} aria-hidden="true" />

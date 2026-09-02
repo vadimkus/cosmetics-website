@@ -114,8 +114,18 @@ export const viewTransitionStyles = `
  */
 export async function startViewTransition(callback: () => void | Promise<void>): Promise<void> {
   if (supportsViewTransitions() && 'startViewTransition' in document) {
-    const transition = (document as Document & { startViewTransition: (cb: () => void | Promise<void>) => { finished: Promise<void> } }).startViewTransition(callback)
-    await transition.finished
+    // `finished` rejects with InvalidStateError when a second navigation
+    // interrupts this one, which is a person tapping twice, not a fault. The
+    // callback has already run by then; there is nothing to recover. Letting
+    // the rejection escape sent it to Sentry as an error on every fast tap.
+    try {
+      const transition = (document as Document & { startViewTransition: (cb: () => void | Promise<void>) => { finished: Promise<void> } }).startViewTransition(callback)
+      await transition.finished.catch(() => undefined)
+    } catch {
+      // Thrown synchronously when the document is hidden or mid-transition;
+      // fall back to running the callback plainly.
+      await callback()
+    }
   } else {
     await callback()
   }
@@ -130,9 +140,14 @@ export function navigateWithTransition(
   url: string
 ): void {
   if (supportsViewTransitions() && 'startViewTransition' in document) {
-    (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(() => {
+    try {
+      const transition = (document as Document & { startViewTransition: (cb: () => void) => { finished?: Promise<void> } }).startViewTransition(() => {
+        router.push(url)
+      })
+      transition?.finished?.catch(() => undefined)
+    } catch {
       router.push(url)
-    })
+    }
   } else {
     router.push(url)
   }

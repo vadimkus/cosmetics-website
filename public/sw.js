@@ -288,7 +288,17 @@ async function handleAPIRequest(request) {
   // Private/authenticated endpoints: always go to the network, never cache,
   // never serve a stale copy (prevents cross-user data leakage offline).
   if (isPrivateAPIRequest(request)) {
-    return fetch(request)
+    // Still network-only, but a failed fetch must resolve to a response.
+    // Returning the rejected promise made respondWith() throw, which Sentry
+    // logged as a worker fault every time someone opened the site offline.
+    try {
+      return await fetch(request)
+    } catch (error) {
+      return new Response(JSON.stringify({ error: 'You appear to be offline.' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
   }
 
   // Network-first for other API requests
@@ -905,7 +915,11 @@ function openDatabase() {
     }
     
     request.onupgradeneeded = (event) => {
-      const db = event.target.result
+      // Safari in private browsing fires upgradeneeded with no database on the
+      // event; reading objectStoreNames off undefined was the crash. Let the
+      // open fail through onerror instead, which every caller already handles.
+      const db = (event && event.target && event.target.result) || request.result
+      if (!db || !db.objectStoreNames) return
       
       // Create cart store if it doesn't exist
       if (!db.objectStoreNames.contains(CART_STORE)) {

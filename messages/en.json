@@ -96,7 +96,8 @@
     "orderHistoryTitle": "Orders",
     "noOrdersYetTitle": "No orders yet",
     "noOrdersYetDescription": "Your order history will appear here after your first order.",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "language": "Language"
   },
   "theme": {
     "appearance": "Appearance",

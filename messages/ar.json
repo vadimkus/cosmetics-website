@@ -96,7 +96,8 @@
     "orderHistoryTitle": "الطلبات",
     "noOrdersYetTitle": "لا توجد طلبات بعد",
     "noOrdersYetDescription": "سيظهر سجل طلباتك هنا بعد طلبك الأول.",
-    "confirm": "تأكيد"
+    "confirm": "تأكيد",
+    "language": "اللغة"
   },
   "theme": {
     "appearance": "المظهر",

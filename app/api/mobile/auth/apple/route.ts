@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         memberNumber,
         memberSince: nowIso,
         memberTier: 'MEMBER',
-      } as any)
+      })
       user = created
       // Update lastActiveAt immediately for online status tracking
       await trackUserActivityNow(created.id)

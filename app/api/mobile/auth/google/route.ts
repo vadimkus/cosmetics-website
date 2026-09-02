@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
           memberNumber,
           memberSince: new Date().toISOString(),
           memberTier: 'MEMBER',
-        } as any)
+        })
         
         debugLog('[MOBILE_AUTH] New user created:', { id: user.id, email: user.email })
 

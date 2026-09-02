@@ -9,6 +9,7 @@ import { createSessionToken } from '@/lib/jwt'
 import { Prisma } from '@prisma/client'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserActivityNow } from '@/lib/activityTracker'
+import { isMemberNumberCollision, newMemberFields } from '@/lib/membership'
 
 // Types for Apple OAuth responses
 interface AppleTokenResponse {
@@ -248,7 +249,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         // Apply promo code at account creation time (if provided from /login?promo=...).
         // Use transaction so usedCount increments only if user is created.
         if (promoFromCookie) {
-          user = await prisma.$transaction(async (tx) => {
+          const createWithPromo = () => prisma.$transaction(async (tx) => {
             let discountType: string | null = null
             let discountPercentage: number | null = null
 
@@ -299,9 +300,21 @@ async function handleAppleCallback(request: NextRequest, params: {
                 discountPercentage,
                 lastLoginAt: now,
                 lastLoginSource: loginSource,
+                ...(await newMemberFields(tx, now)),
               } as Prisma.UserCreateInput,
             })
           })
+          // A member-number collision rolls the transaction back, promo
+          // increment included, so it is safe to simply run it again.
+          for (let attempt = 1; ; attempt++) {
+            try {
+              user = await createWithPromo()
+              break
+            } catch (error) {
+              if (isMemberNumberCollision(error) && attempt < 3) continue
+              throw error
+            }
+          }
           isNewUser = true
           // Update lastActiveAt immediately for online status tracking
           if (user) await trackUserActivityNow(user.id)

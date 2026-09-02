@@ -15,6 +15,7 @@ import { getGeolocationData } from '@/lib/geolocation'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
+import { isMemberNumberCollision, newMemberFields } from '@/lib/membership'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
 
@@ -184,7 +185,11 @@ export async function POST(request: NextRequest) {
 
     let createdUser: Record<string, unknown> | null = null
     try {
-      createdUser = await prisma.$transaction(async (tx) => {
+      // The member number is read-then-write, so two sign-ups in the same
+      // instant can pick the same one and the unique index rejects the second.
+      // The transaction has rolled back by then, promo increment included, so
+      // running it again with a fresh number is safe and the user never knows.
+      const createOnce = () => prisma.$transaction(async (tx) => {
         let discountType: string | null = null
         let discountPercentage: number | null = null
 
@@ -237,9 +242,21 @@ export async function POST(request: NextRequest) {
           birthday: normalizedBirthday,
           lastLoginAt: now,
           lastLoginSource: loginSource,
+          // Same fields the app routes set. Staying on `tx` keeps the read on
+          // the transaction's connection; see the mobile route for why.
+          ...(await newMemberFields(tx, now)),
         }
         return await tx.user.create({ data: userData })
       })
+      for (let attempt = 1; ; attempt++) {
+        try {
+          createdUser = await createOnce()
+          break
+        } catch (error) {
+          if (isMemberNumberCollision(error) && attempt < 3) continue
+          throw error
+        }
+      }
     } catch (error: unknown) {
       const code =
         typeof error === 'object' && error && 'code' in error

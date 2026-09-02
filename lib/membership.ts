@@ -53,6 +53,42 @@ export async function generateMemberNumber(db: MembershipDb = prisma): Promise<s
   return `GNS-${String(seq).padStart(5, '0')}-AE`
 }
 
+/**
+ * The membership fields every new account gets, whichever door it came in by.
+ *
+ * For a long time only the three mobile routes set these. Website sign-ups,
+ * by email, Google or Apple, were created without a number and nothing ever
+ * assigned one later, so a customer who joined on the site and then installed
+ * the app saw a membership card with a blank where the number goes. Creation
+ * sites should spread this rather than list the fields themselves, so the
+ * next route cannot leave them out.
+ */
+export async function newMemberFields(db: MembershipDb = prisma, now: Date = new Date()) {
+  return {
+    memberNumber: await generateMemberNumber(db),
+    memberSince: now,
+    memberTier: 'MEMBER' as MemberTier,
+  }
+}
+
+/**
+ * True when a unique-constraint failure is on memberNumber rather than email.
+ *
+ * generateMemberNumber reads the highest number and adds one, so two accounts
+ * created in the same instant can pick the same value; the unique index then
+ * rejects the second. That is a retry, not a duplicate account. Routes that
+ * map every P2002 to "email already exists" would otherwise tell the second
+ * person their address is taken when it is not.
+ */
+export function isMemberNumberCollision(error: unknown): boolean {
+  if (typeof error !== 'object' || !error) return false
+  const e = error as { code?: unknown; meta?: { target?: unknown } }
+  if (e.code !== 'P2002') return false
+  const target = e.meta?.target
+  const fields = Array.isArray(target) ? target.map(String) : typeof target === 'string' ? [target] : []
+  return fields.some((f) => f.includes('memberNumber'))
+}
+
 export async function recalcUserStats(userId: string) {
   const agg = await prisma.order.aggregate({
     where: {

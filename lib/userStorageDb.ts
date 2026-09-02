@@ -1,6 +1,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
 import { User, Prisma } from '@prisma/client'
+import { isMemberNumberCollision, newMemberFields } from '@/lib/membership'
 
 export interface UserData {
   id?: string
@@ -30,6 +31,10 @@ export interface UserData {
   lastLoginAt?: string | null
   lastLoginSource?: string | null // desktop_web, mobile_web, mobile_app
   createdAt?: string
+  // Optional on the way in; addUser fills them when a caller leaves them out.
+  memberNumber?: string | null
+  memberSince?: string | Date | null
+  memberTier?: string | null
 }
 
 const normalizeEmail = (email: string): string => String(email || '').trim().toLowerCase()
@@ -99,43 +104,63 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
-  try {
-    const discountFields = normalizeUserDiscountFields(userData.discountType ?? null, userData.discountPercentage ?? null)
-    const baseData = {
-      name: userData.name,
-      email: userData.email,
-      appleSub: userData.appleSub || null,
-      phone: userData.phone || null,
-      address: userData.address || null,
-      profilePicture: userData.profilePicture || null,
-      isAdmin: userData.isAdmin || false,
-      canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
-      discountType: discountFields.discountType,
-      discountPercentage: discountFields.discountPercentage,
-      birthday: userData.birthday || null,
-      gender: userData.gender || null,
-      billingAddress: userData.billingAddress || null,
-      vatNumber: userData.vatNumber || null,
-      expoPushToken: userData.expoPushToken || null,
-      lastLoginSource: userData.lastLoginSource || null,
-      lastLoginAt: userData.lastLoginAt ? new Date(userData.lastLoginAt) : null,
-      ...((userData as any).memberNumber && { memberNumber: (userData as any).memberNumber }),
-      ...((userData as any).memberSince && { memberSince: new Date((userData as any).memberSince) }),
-      ...((userData as any).memberTier && { memberTier: (userData as any).memberTier }),
+  // Every account gets a member number here, whichever route asked. The
+  // number is read-then-write, so two sign-ups in the same instant can pick the
+  // same value and the unique index rejects one; that is retried with a fresh
+  // number rather than surfaced, since nothing about the account was wrong.
+  const attempts = 3
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await insertUser(userData)
+    } catch (error) {
+      if (isMemberNumberCollision(error) && !userData.memberNumber && attempt < attempts) {
+        debugLog(`Member number collision on attempt ${attempt}, retrying`)
+        continue
+      }
+      errorLog('Error creating user:', error)
+      throw error
     }
-    
-    const createData = {
-      ...baseData,
-      ...(userData.password !== undefined && userData.password !== null && { password: userData.password }),
-    } as Prisma.UserCreateInput
-    
-    return await prisma.user.create({
-      data: createData
-    })
-  } catch (error) {
-    errorLog('Error creating user:', error)
-    throw error
   }
+}
+
+const insertUser = async (userData: UserData): Promise<User> => {
+  const discountFields = normalizeUserDiscountFields(userData.discountType ?? null, userData.discountPercentage ?? null)
+  const membership = userData.memberNumber
+    ? {
+        memberNumber: userData.memberNumber,
+        memberSince: userData.memberSince ? new Date(userData.memberSince) : new Date(),
+        memberTier: userData.memberTier || 'MEMBER',
+      }
+    : await newMemberFields(prisma)
+  const baseData = {
+    name: userData.name,
+    email: userData.email,
+    appleSub: userData.appleSub || null,
+    phone: userData.phone || null,
+    address: userData.address || null,
+    profilePicture: userData.profilePicture || null,
+    isAdmin: userData.isAdmin || false,
+    canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
+    discountType: discountFields.discountType,
+    discountPercentage: discountFields.discountPercentage,
+    birthday: userData.birthday || null,
+    gender: userData.gender || null,
+    billingAddress: userData.billingAddress || null,
+    vatNumber: userData.vatNumber || null,
+    expoPushToken: userData.expoPushToken || null,
+    lastLoginSource: userData.lastLoginSource || null,
+    lastLoginAt: userData.lastLoginAt ? new Date(userData.lastLoginAt) : null,
+    ...membership,
+  }
+  
+  const createData = {
+    ...baseData,
+    ...(userData.password !== undefined && userData.password !== null && { password: userData.password }),
+  } as Prisma.UserCreateInput
+  
+  return await prisma.user.create({
+    data: createData
+  })
 }
 
 // Find user by email (with retry for Neon cold starts)

@@ -46,12 +46,7 @@ async function testWelcomeEmails() {
   
   for (const locale of LOCALES) {
     try {
-      const result = await sendWelcomeEmail(
-        'Test User',
-        TEST_EMAIL,
-        'TestPassword123',
-        locale
-      )
+      const result = await sendWelcomeEmail('Test User', TEST_EMAIL, locale)
       console.log(`  ✅ Welcome email (${locale}): ${result.success ? 'SENT' : 'FAILED'}`)
       await delay(1000) // Rate limiting
     } catch (error) {

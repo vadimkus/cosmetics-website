@@ -10,7 +10,12 @@ import { orderChannelLabel } from '@/lib/orderChannel'
 // Email templates
 export const emailTemplates = {
   // Welcome email for new user registration - Apple style
-  welcomeUser: (userName: string, userEmail: string, password?: string, locale: string = 'en') => {
+  // No password parameter. This card used to print the plaintext password the
+  // user had just chosen, which then lived in their inbox indefinitely, went
+  // wherever the mail was forwarded, and sat in whatever backup the provider
+  // keeps. We cannot take a sent mail back, so the only fix is to stop sending
+  // it. The address is worth confirming; the password never was.
+  welcomeUser: (userName: string, userEmail: string, locale: string = 'en') => {
     const t = loadEmailTranslations(locale, 'welcome')
     const { dir, textAlign } = getLocaleSettings(locale)
     const firstName = userName.split(' ')[0]
@@ -58,7 +63,6 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
-          ${password ? `
                 <!-- Account Details Card -->
                 <tr>
                   <td style="padding-bottom: 32px;">
@@ -67,19 +71,15 @@ export const emailTemplates = {
                         <td style="padding: 24px;">
                           <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 16px; text-align: ${textAlign};">${t.accountDetails || 'Account Details'}</div>
                           <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.6; text-align: ${textAlign};">
-                            <div style="margin-bottom: 8px;">
+                            <div>
                               <span style="color: #86868b;">${t.email || 'Email:'}</span> <strong>${userEmail}</strong>
           </div>
-                            <div>
-                              <span style="color: #86868b;">${t.password || 'Password:'}</span> <strong style="font-family: 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 0.5px;">${password}</strong>
-        </div>
         </div>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
-                ` : ''}
                 
                 <!-- CTA Button -->
                 <tr>

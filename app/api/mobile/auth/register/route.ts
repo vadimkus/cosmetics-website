@@ -311,7 +311,7 @@ export async function POST(request: NextRequest) {
       debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', normalizedEmail)
     } else {
       try {
-        await sendWelcomeEmail(name, normalizedEmail, password, locale)
+        await sendWelcomeEmail(name, normalizedEmail, locale)
         debugLog('✅ Welcome email sent to:', normalizedEmail)
       } catch (error) {
         errorLog('❌ Failed to send welcome email:', error)

@@ -12,8 +12,8 @@ import type { OrderConfirmationEmailData, AdminNewOrderEmailData } from './types
 import { resolveOrderChannel } from '@/lib/orderChannel'
 
 // Specific email functions
-export const sendWelcomeEmail = async (userName: string, userEmail: string, password?: string, locale: string = 'en') => {
-  const template = emailTemplates.welcomeUser(userName, userEmail, password, locale)
+export const sendWelcomeEmail = async (userName: string, userEmail: string, locale: string = 'en') => {
+  const template = emailTemplates.welcomeUser(userName, userEmail, locale)
   return await sendEmail(userEmail, template.subject, template.html)
 }
 

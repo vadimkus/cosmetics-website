@@ -5,7 +5,6 @@ const http = require('http')
 
 const targetEmail = process.argv[2] || 'f.this.that@gmail.com'
 const userName = process.argv[3] || 'John Doe'
-const password = process.argv[4] || 'TempPassword123!'
 const baseUrl = 'http://localhost:3000'
 
 // Function to make POST request
@@ -53,7 +52,6 @@ async function sendWelcomeEmail() {
   try {
     console.log('📧 Sending welcome email to', targetEmail + '...')
     console.log(`👤 Name: ${userName}`)
-    console.log(`🔑 Password: ${password}`)
     console.log('')
     
     // Try to use the test-email API endpoint
@@ -64,7 +62,7 @@ async function sendWelcomeEmail() {
     const emailModule = await Function('return import("../lib/email.ts")')()
     const { sendWelcomeEmail } = emailModule
     
-    const result = await sendWelcomeEmail(userName, targetEmail, password)
+    const result = await sendWelcomeEmail(userName, targetEmail)
     
     if (result.success) {
       console.log('✅ Welcome email sent successfully!')
@@ -85,8 +83,7 @@ async function sendWelcomeEmail() {
       const apiResult = await makeRequest('/api/test-email', {
         type: 'welcome',
         testEmail: targetEmail,
-        userName: userName,
-        password: password
+        userName: userName
       })
       
       if (apiResult.status === 200 && apiResult.data.success) {

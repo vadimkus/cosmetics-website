@@ -8,10 +8,16 @@ live CDN, and translation parity plus keys used in code.
 
 ## Sentry: 9 unresolved issues, 18 events, 0 affected users in 14 days
 
-Low volume. Reached via the DSN's org and project ids on the `de` region; the
-env has `SENTRY_AUTH_TOKEN` but no `SENTRY_ORG`/`SENTRY_PROJECT`, which also
-means the build's source-map upload in `next.config.js` has nothing to point at.
-Worth setting both (`genosys-middle-east-fz-llc`, project id `4511240467972176`).
+Low volume. Reached via the DSN's org and project ids on the `de` region.
+
+**Source maps were never uploaded.** The env had `SENTRY_AUTH_TOKEN` but no
+`SENTRY_ORG`/`SENTRY_PROJECT`, so the upload step in `next.config.js` had
+nothing to point at and every production stack trace was minified. Set at
+15:05: `SENTRY_ORG=genosys-middle-east-fz-llc`,
+`SENTRY_PROJECT=javascript-nextjs` in Vercel (production and preview) and in
+`.env.local`, then redeployed. The redeploy produced the project's first two
+artifact bundles (2,812 and 159 files, debug-ID based). Traces from this build
+onwards resolve to source.
 
 Fixed:
 

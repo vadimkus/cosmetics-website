@@ -35,7 +35,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '31': '/images/radiance/main.jpeg',
   '32': '/images/multifunc_cream/main.jpeg',
   '33': '/images/patch/main.jpeg',
-  '34': '/images/overnight/main.jpeg',
+  '34': '/images/overnight/main-v2.jpeg',
   '35': '/images/hydro_o/Main.jpeg',
   '36': '/images/sea_algae/Main.jpeg',
   '37': '/images/peptide_mask/main.jpeg',

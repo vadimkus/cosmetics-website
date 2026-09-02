@@ -87,7 +87,7 @@ const CUTOUTS: Record<string, string> = {
   // 33 EyeCell EYE PEPTIDE GEL PATCH
   '/images/patch/main.jpeg': '/images/cutout/33.webp',
   // 34 SKIN RESCUE OVERNIGHT CREAM MASK
-  '/images/overnight/main.jpeg': '/images/cutout/34.webp',
+  '/images/overnight/main-v2.jpeg': '/images/cutout/34-v2.webp',
   // 35 HYDRO COOL MODELING MASK
   '/images/hydro_o/Main.jpeg': '/images/cutout/35-v2.webp',
   // 36 SOOTHING BOMB SEA ALGAE MASK

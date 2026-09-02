@@ -19,6 +19,7 @@ const FALLBACK: BlogImageDimensions = { width: 1522, height: 922 }
  */
 const BLOG_IMAGE_DIMENSIONS: Readonly<Record<string, BlogImageDimensions>> = {
   '/images/overnight/main.jpeg': { width: 1024, height: 1024 },
+  '/images/overnight/main-v2.jpeg': { width: 1254, height: 1254 },
   '/images/revita/main.jpg': { width: 1024, height: 1024 },
   '/images/cera/cera.jpeg': { width: 1220, height: 1252 },
   '/images/6000/S1.jpeg': { width: 1200, height: 896 },

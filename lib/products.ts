@@ -523,7 +523,7 @@ export const products: Product[] = [
     name: 'SKIN RESCUE OVERNIGHT CREAM MASK',
     price: 340,
     description: '100g. Leave-on overnight cream mask for soothing and revitalizing tired-looking skin. Niacinamide 2% and Adenosine 0.04% are the Korean functional pair. Last step of the evening. Do not wash off. Dermatologically tested.',
-    image: '/images/overnight/main.jpeg',
+    image: '/images/overnight/main-v2.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,

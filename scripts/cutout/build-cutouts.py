@@ -121,6 +121,9 @@ REVISION = {
     # New campaign packshot: the bottle square on white, replacing the single
     # legacy shot this page had been running on.
     "23": 2,
+    # New campaign packshot: the tube square on white, replacing the shot the
+    # page had run on since July.
+    "34": 2,
 }
 
 

@@ -22,7 +22,9 @@ const ROOT = path.join(__dirname, '../..')
 function creationSites(): string[] {
   // Files that call prisma/tx `.user.create(`, outside tests and node_modules.
   const out = execSync(
-    `rg -l --glob '!node_modules' --glob '!__tests__' --glob '!docs' 'user\\.create\\(' app lib`,
+    // lib/generated holds a Prisma client another test emits mid-run; its
+    // typings mention user.create and are not a creation site.
+    `rg -l --glob '!node_modules' --glob '!__tests__' --glob '!docs' --glob '!lib/generated/**' --glob '!*.d.ts' 'user\\.create\\(' app lib`,
     { cwd: ROOT, encoding: 'utf8' }
   )
   return out.split('\n').filter(Boolean).sort()

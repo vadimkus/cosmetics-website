@@ -108,7 +108,7 @@ describe('label capitalisation', () => {
     const words = text.split(/\s+/)
     if (words.length < 2 || words.length > 8) return false
     // A full stop means a sentence, where capitals are grammar not style.
-    return !/[.!?](\s|$)/.test(text)
+    return !/[.!?\u2026](\s|$)/.test(text)
   })
 
   it('has chrome labels to check', () => {

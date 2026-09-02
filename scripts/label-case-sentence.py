@@ -125,7 +125,7 @@ def in_scope(key, raw):
     if len(words) < 2 or len(words) > 8:
         return False
     # A full stop means a sentence, where capitals are grammar rather than style.
-    if re.search(r"[.!?](\s|$)", text):
+    if re.search(r"[.!?…](\s|$)", text):
         return False
     return any(w[:1].isupper() and w[:1].isalpha() for w in words[1:])
 

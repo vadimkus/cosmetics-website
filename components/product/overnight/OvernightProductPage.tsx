@@ -94,13 +94,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. S3 prints the
- *  documented four-week TEWL / erythema figures and stays beside the
- *  complex; S5 is the overnight ritual. S1 / S2 / S4 still sell oxygen
- *  therapy and the growth-factor list, so they stay in the thumbnail strip
- *  only and are queued for re-export. */
-const HOWTO_IMAGE = '/images/overnight/S5.jpeg'
-const ENGINE_IMAGE = '/images/overnight/S3.jpeg'
+/** Section art from the September 2026 campaign set, each slide paired with the
+ *  section it illustrates. S2 prints the four-week TEWL / erythema figures and
+ *  sits beside the complex; S6 is the ritual (press, smooth, leave, once or
+ *  twice a week). The full set S1-S7 plus Closing runs in the gallery strip.
+ *  The previous /images/overnight/S1-S5 stay on disk: the blog post built from
+ *  them embeds those URLs. */
+const HOWTO_IMAGE = '/images/overnight_o/S6.jpeg'
+const ENGINE_IMAGE = '/images/overnight_o/S2.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

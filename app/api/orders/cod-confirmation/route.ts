@@ -94,7 +94,7 @@ function detectDeviceType(userAgent: string | null): string {
 // Each COD order writes a DB row + sends a customer email + an admin email.
 // Rate-limit per IP so a script with one CSRF token can't flood orders/email.
 // 5 / 10 min is generous for a real shopper.
-const codLimiter = rateLimitSimple({ windowMs: 10 * 60 * 1000, max: 5 })
+const codLimiter = rateLimitSimple({ name: 'cod', windowMs: 10 * 60 * 1000, max: 5 })
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Abuse protection (email/DB flood)
-  const rl = await codLimiter(`cod:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await codLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json(
       { error: rl.message || 'Too many requests' },

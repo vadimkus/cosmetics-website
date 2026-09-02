@@ -7,6 +7,7 @@ import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
 
 const googleVerifyLimiter = rateLimitSimple({
+  name: 'google-verify',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20, // 20 attempts per window
 })

@@ -11,7 +11,7 @@ import { getClientIdentifierFromNextRequest, rateLimitSimple } from '@/lib/rateL
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const createLimiter = rateLimitSimple({ windowMs: 10 * 60 * 1000, max: 20 })
+const createLimiter = rateLimitSimple({ name: 'homecare-create', windowMs: 10 * 60 * 1000, max: 20 })
 
 export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: HOMECARE_CORS_HEADERS })
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
   }
 
   const rl = await createLimiter(
-    `homecare-create:${result.auth.user.id}:${getClientIdentifierFromNextRequest(request)}`,
+    `${result.auth.user.id}:${getClientIdentifierFromNextRequest(request)}`,
   )
   if (!rl.success) {
     return NextResponse.json(

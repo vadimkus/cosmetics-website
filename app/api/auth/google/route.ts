@@ -5,6 +5,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 const googleAuthLimiter = rateLimitSimple({
+  name: 'google',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // 10 attempts per window
 })

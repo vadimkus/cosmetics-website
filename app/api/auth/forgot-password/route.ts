@@ -10,6 +10,7 @@ import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 // Rate limiter for password reset requests (20 requests per hour per IP)
 const forgotPasswordLimiter = rateLimitSimple({
+  name: 'forgot-password',
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 20, // 20 attempts per hour
   message: 'Too many password reset requests. Please try again later.'

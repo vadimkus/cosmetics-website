@@ -7,6 +7,7 @@ import { generateAdminSessionToken } from '@/lib/adminAuth'
 import { getDirectPrismaClient } from '@/lib/prisma'
 
 const adminLoginLimiter = rateLimitSimple({
+  name: 'admin-login',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // 10 attempts per window for admin
   message: 'Too many admin login attempts. Please try again later.'

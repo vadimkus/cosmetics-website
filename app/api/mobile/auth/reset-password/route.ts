@@ -9,6 +9,7 @@ import bcrypt from 'bcryptjs'
 
 // Rate limiter for reset attempts (10 / 15 minutes per IP)
 const resetPasswordLimiter = rateLimitSimple({
+  name: 'mobile-reset-password',
   windowMs: 15 * 60 * 1000,
   max: 10,
   message: 'Too many password reset attempts. Please try again later.',

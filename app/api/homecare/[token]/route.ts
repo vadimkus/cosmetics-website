@@ -5,13 +5,13 @@ import { getClientIdentifierFromNextRequest, rateLimitSimple } from '@/lib/rateL
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const publicLimiter = rateLimitSimple({ windowMs: 60 * 1000, max: 60 })
+const publicLimiter = rateLimitSimple({ name: 'homecare-public', windowMs: 60 * 1000, max: 60 })
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ token: string }> },
 ) {
-  const rl = await publicLimiter(`homecare-public:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await publicLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json({ success: false, error: 'Too many requests' }, { status: 429 })
   }

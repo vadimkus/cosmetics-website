@@ -6,7 +6,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 // Hybrid (in-memory + DB) rate limiter so the cap survives serverless cold
 // starts - the previous in-memory Map reset per instance, letting the OpenAI
 // call be hammered under load. 10 analyses / hour / IP.
-const aiAnalysisLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 10 })
+const aiAnalysisLimiter = rateLimitSimple({ name: 'skin-ai', windowMs: 60 * 60 * 1000, max: 10 })
 
 const getLanguageInstruction = (locale: string): string => {
   switch (locale) {
@@ -88,7 +88,7 @@ Be professional, evidence-based, and reference specific ingredients when explain
 export async function POST(request: NextRequest) {
   try {
     // Check rate limit
-    const rl = await aiAnalysisLimiter(`skin-ai:${getClientIdentifierFromNextRequest(request)}`)
+    const rl = await aiAnalysisLimiter(getClientIdentifierFromNextRequest(request))
     if (!rl.success) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },

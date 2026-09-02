@@ -21,6 +21,7 @@ const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCas
 // Rate limiting for registration (mirrors mobile register: bulk account
 // creation protection; generous enough for legitimate shared-IP users)
 const registerLimiter = rateLimitSimple({
+  name: 'register',
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 10, // 10 registration attempts per hour per client
 })

@@ -6,10 +6,10 @@ import { verifySessionToken } from '@/lib/jwt'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 // Public, unauthenticated tracker → cap per IP to prevent table flooding.
-const pdfLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 40 })
+const pdfLimiter = rateLimitSimple({ name: 'pdf', windowMs: 60 * 60 * 1000, max: 40 })
 
 export async function POST(request: NextRequest) {
-  const rl = await pdfLimiter(`pdf:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await pdfLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json({ error: rl.message || 'Too many requests' }, { status: 429 })
   }

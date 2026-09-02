@@ -25,7 +25,7 @@ import {
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 // Each call hits Stripe (billable) + writes an order + N product lookups.
-const checkoutSessionLimiter = rateLimitSimple({ windowMs: 60 * 1000, max: 8 })
+const checkoutSessionLimiter = rateLimitSimple({ name: 'cs', windowMs: 60 * 1000, max: 8 })
 
 interface CheckoutItem {
   product: Product
@@ -80,7 +80,7 @@ function getSubmittedProductId(item: CheckoutItem): string {
 
 export async function POST(request: NextRequest) {
   // Per-IP rate limit (before any expensive work)
-  const rl = await checkoutSessionLimiter(`cs:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await checkoutSessionLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json(
       { error: 'Too many payment attempts. Please wait a moment and try again.' },

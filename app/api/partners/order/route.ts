@@ -33,7 +33,7 @@ interface SubmittedPartnerItem {
   color?: string
 }
 
-const partnerLimiter = rateLimitSimple({ windowMs: 10 * 60 * 1000, max: 10 })
+const partnerLimiter = rateLimitSimple({ name: 'partner-order', windowMs: 10 * 60 * 1000, max: 10 })
 
 export async function POST(request: NextRequest) {
   // CSRF protection (same pattern as retail checkout)
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Abuse protection
-  const rl = await partnerLimiter(`partner-order:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await partnerLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json({ error: rl.message || 'Too many requests' }, { status: 429 })
   }

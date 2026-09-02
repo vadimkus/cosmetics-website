@@ -36,7 +36,7 @@ import {
 // Each call hits Stripe (billable) + writes an order + N product lookups.
 // Cap per-IP to blunt DoS / billing amplification. Genuine checkout retries
 // stay well under this.
-const paymentIntentLimiter = rateLimitSimple({ windowMs: 60 * 1000, max: 8 })
+const paymentIntentLimiter = rateLimitSimple({ name: 'pi', windowMs: 60 * 1000, max: 8 })
 
 interface CheckoutItem {
   product: Product
@@ -84,7 +84,7 @@ function getSubmittedProductId(item: CheckoutItem): string {
 
 export async function POST(request: NextRequest) {
   // Per-IP rate limit (before any expensive work)
-  const rl = await paymentIntentLimiter(`pi:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await paymentIntentLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json(
       { error: 'Too many payment attempts. Please wait a moment and try again.' },

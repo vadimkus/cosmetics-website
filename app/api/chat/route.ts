@@ -26,10 +26,12 @@ interface MessagePart {
 // on every new instance, so the limit was effectively bypassable - and every
 // message costs an OpenAI call).
 const chatBurstLimiter = rateLimitSimple({
+  name: 'chat',
   windowMs: 60 * 1000,
   max: CHATBOT_CONFIG.maxMessagesPerMinute,
 })
 const chatDailyLimiter = rateLimitSimple({
+  name: 'chat-daily',
   windowMs: 24 * 60 * 60 * 1000,
   max: 200,
 })
@@ -51,14 +53,14 @@ export async function POST(request: NextRequest) {
 
     // Rate limiting (burst + daily), keyed per IP+UA, DB-backed
     const clientId = getClientIdentifierFromNextRequest(request)
-    const burst = await chatBurstLimiter(`chat:${clientId}`)
+    const burst = await chatBurstLimiter(clientId)
     if (!burst.success) {
       return NextResponse.json(
         { error: 'Too many messages. Please wait a minute before sending more.' },
         { status: 429 }
       )
     }
-    const daily = await chatDailyLimiter(`chat-daily:${clientId}`)
+    const daily = await chatDailyLimiter(clientId)
     if (!daily.success) {
       return NextResponse.json(
         { error: 'Daily chat limit reached. Please try again tomorrow or contact us on WhatsApp.' },

@@ -8,6 +8,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 // Rate limit to stop bulk enumeration harvesting customer names/items/totals,
 // while staying generous for a real customer checking a few orders.
 const trackLimiter = rateLimitSimple({
+  name: 'order-track',
   windowMs: 10 * 60 * 1000, // 10 minutes
   max: 30,
   message: 'Too many tracking requests. Please try again later.',

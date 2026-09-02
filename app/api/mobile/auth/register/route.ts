@@ -17,8 +17,14 @@ import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
 
 // Rate limiting for mobile registration
 const mobileRegisterLimiter = rateLimitSimple({
+  name: 'mobile-register',
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // 5 registration attempts per hour
+  // Matching the website's registration budget, and raised from 5 because the
+  // limiter runs ahead of validation: a rejected attempt, a mistyped email or a
+  // password under eight characters, spends the allowance as surely as a real
+  // one. Five left a user who fumbled the form locked out for the hour. The
+  // identifier is an IP, which carrier NAT shares between unrelated people.
+  max: 10,
 })
 
 /**

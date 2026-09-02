@@ -9,6 +9,7 @@ import { createSessionToken } from '@/lib/jwt'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 
 const googleCallbackLimiter = rateLimitSimple({
+  name: 'google-callback',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20, // 20 attempts per window
 })

@@ -9,6 +9,7 @@ import { trackUserActivityNow } from '@/lib/activityTracker'
 import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimitSimple({
+  name: 'login',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20, // 20 attempts per window
 })

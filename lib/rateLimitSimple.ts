@@ -3,6 +3,18 @@ import { prisma } from './prisma'
 import { NextRequest } from 'next/server'
 
 interface RateLimitOptions {
+  /**
+   * What is being limited, e.g. 'mobile-register'.
+   *
+   * Counters are keyed by identifier alone, and the identifier a route hands in
+   * is usually just the caller's IP and user agent, which is identical across
+   * every route that caller touches. Without a namespace all of them share one
+   * row: sign-in attempts spend the sign-up budget, each route measures that
+   * shared count against its own `max`, and whichever route created the row
+   * imposes its window on the rest. Required rather than optional so a new
+   * limiter cannot quietly land back in the shared bucket.
+   */
+  name: string
   windowMs: number
   max: number
   message?: string
@@ -72,9 +84,10 @@ startCleanupInterval()
  * - memoryOnly: false -> ~0.1ms for cached, falls back to DB for persistence
  */
 export function rateLimitSimple(options: RateLimitOptions) {
-  const { windowMs, max, message = 'Too many requests', memoryOnly = false } = options
+  const { name, windowMs, max, message = 'Too many requests', memoryOnly = false } = options
 
-  return async (identifier: string): Promise<RateLimitResult> => {
+  return async (rawIdentifier: string): Promise<RateLimitResult> => {
+    const identifier = `${name}:${rawIdentifier}`
     const now = Date.now()
     const newResetTime = now + windowMs
 

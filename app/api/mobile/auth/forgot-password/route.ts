@@ -10,6 +10,7 @@ import { validateMobileAuth } from '@/lib/jwt'
 
 // Rate limiter for password reset requests (20 requests per hour per IP)
 const forgotPasswordLimiter = rateLimitSimple({
+  name: 'mobile-forgot-password',
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 20,
   message: 'Too many password reset requests. Please try again later.'

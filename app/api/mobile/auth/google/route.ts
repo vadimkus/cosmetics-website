@@ -13,6 +13,7 @@ export const maxDuration = 30
 
 // Rate limiting for mobile Google OAuth
 const mobileGoogleLimiter = rateLimitSimple({
+  name: 'mobile-google',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20, // 20 attempts per window
 })

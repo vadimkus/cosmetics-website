@@ -32,6 +32,7 @@ interface AppleIdTokenClaims {
 }
 
 const appleCallbackLimiter = rateLimitSimple({
+  name: 'apple-callback',
   windowMs: 15 * 60 * 1000,
   max: 20,
 })

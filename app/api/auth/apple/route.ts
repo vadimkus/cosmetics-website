@@ -5,6 +5,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { getAppleWebClientId, getAppleWebRedirectUri } from '@/lib/appleWebAuth'
 
 const appleAuthLimiter = rateLimitSimple({
+  name: 'apple',
   windowMs: 15 * 60 * 1000,
   max: 10,
 })

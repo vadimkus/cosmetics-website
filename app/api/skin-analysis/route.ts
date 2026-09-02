@@ -35,10 +35,10 @@ async function getUserFromSession(request: NextRequest) {
 
 // Unauthenticated writes allowed (guests can run analysis), so cap per IP to
 // stop table flooding. 20/hr covers repeated real sessions comfortably.
-const skinLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 20 })
+const skinLimiter = rateLimitSimple({ name: 'skin', windowMs: 60 * 60 * 1000, max: 20 })
 
 export async function POST(request: NextRequest) {
-  const rl = await skinLimiter(`skin:${getClientIdentifierFromNextRequest(request)}`)
+  const rl = await skinLimiter(getClientIdentifierFromNextRequest(request))
   if (!rl.success) {
     return NextResponse.json(
       { error: rl.message || 'Too many requests' },

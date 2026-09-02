@@ -29,6 +29,7 @@ import { sendNewsletterWelcomeEmail } from '@/lib/email'
  */
 
 const subscribeLimiter = rateLimitSimple({
+  name: 'newsletter',
   windowMs: 10 * 60 * 1000,
   max: 10,
   message: 'Too many subscribe attempts. Please try again in a few minutes.',
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
     } catch {
       // non-fatal; treat as a bucket of its own
     }
-    const rl = await subscribeLimiter(`newsletter:${clientId}`)
+    const rl = await subscribeLimiter(clientId)
     if (!rl.success) {
       return NextResponse.json({ error: rl.message || 'Too many requests' }, { status: 429 })
     }

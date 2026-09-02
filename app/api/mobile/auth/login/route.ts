@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs'
 
 // Rate limiting for mobile login
 const mobileLoginLimiter = rateLimitSimple({
+  name: 'mobile-login',
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // 10 attempts per window (more lenient for mobile)
 })

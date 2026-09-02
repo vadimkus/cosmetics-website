@@ -107,6 +107,37 @@ Live against production:
   fails on the next rule instead, so **Keep entered** genuinely breaks the loop.
   Probed with a short password so no account was created.
 
+## Registration verified on all three surfaces (11:15)
+
+Asked whether new users can register everywhere. Ran a real registration through
+each surface against production, then deleted the accounts.
+
+| Surface | How | Result | Recorded as |
+|---|---|---|---|
+| Mobile app | `POST /api/mobile/auth/register` with the app key | 200, token issued | `mobile_app`, member `GNS-00876-AE` |
+| Website | Real browser, 1440 px, `/login` → Create account form | Redirected to `/products`, logged in | `desktop_web`, member **null** |
+| Mobile web | Real browser, 390 px, iPhone UA, same form | Redirected to `/products`, logged in | `mobile_web`, member **null** |
+
+All three rows existed in the DB with bcrypt hashes and the correct
+`lastLoginSource`. Nothing overlapped or was unreachable at phone width. A bare
+`curl` to the website route returns 403 "CSRF token cookie missing", which is the
+guard working; the form itself is fine.
+
+### Found on the way: web sign-ups never get a member number
+
+Only the three mobile routes (`register`, `google`, `apple`) call
+`generateMemberNumber`. The website's email registration and its social sign-ins
+do not, and nothing assigns one later. Today: **131 of 1004 users have no member
+number**, 122 of them web sign-ups (29 desktop, 93 mobile web), 8 from the app
+(presumably pre-dating the app-side assignment).
+
+Where it shows: the app's `MembershipCard` prints the number when present and
+leaves the line blank otherwise, so a customer who signed up on the site and then
+installs the app sees a card with no number. The partner portal shows it as
+"Partner ID". Not a registration blocker, but the two halves of the same product
+disagree about whether a customer has an ID. Not fixed; the fix is to assign in the
+web routes and backfill the 131.
+
 ## Also
 
 Typecheck clean. Jest: 1442 pass, 1 pre-existing failure in `noDashes` from an

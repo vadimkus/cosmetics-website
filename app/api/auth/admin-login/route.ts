@@ -81,39 +81,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check password - handle both bcrypt and legacy plaintext passwords
-    let isValid = false
-    let needsPasswordUpgrade = false
-    
-    if (user.password && user.password.startsWith('$2')) {
-      // bcrypt hash - normal verification
-      isValid = await bcrypt.compare(password, user.password)
-    } else {
-      // Legacy plaintext password - check if it matches, then upgrade to bcrypt
-      if (user.password === password) {
-        isValid = true
-        needsPasswordUpgrade = true
-      } else {
-        isValid = false
-      }
-    }
+    // bcrypt only. The legacy plaintext branch compared with `===`, which leaks
+    // how many leading characters matched through timing, and every admin has
+    // long since been migrated to a hash, so the branch could only ever help an
+    // attacker. A non-hash value in the column now simply fails to log in.
+    const isValid =
+      typeof user.password === 'string' && user.password.startsWith('$2')
+        ? await bcrypt.compare(password, user.password)
+        : false
 
     if (!isValid) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
-    }
-
-    // Upgrade plaintext password to bcrypt if needed
-    if (needsPasswordUpgrade) {
-      try {
-        const hashedPassword = await bcrypt.hash(password, 12)
-        await updateUser(user.id, { password: hashedPassword })
-      } catch (upgradeError) {
-        errorLog('Error upgrading admin password:', upgradeError)
-        // Don't fail login if upgrade fails
-      }
     }
 
     // Update last login timestamp

@@ -542,7 +542,9 @@ export default function CheckoutClient() {
 
       // For Cash on Delivery, proceed with normal flow using the same
       // codOrderNumber that has been displayed to the customer since mount.
-      // Send COD order confirmation email
+      // The server keeps it when it is free; if it answers with a different
+      // number, that one is the order's.
+      let finalOrderNumber: string = codOrderNumber
       try {
         // Combine regular items with free masks
         const allItems = [
@@ -627,11 +629,31 @@ export default function CheckoutClient() {
           clearTimeout(timeoutId)
 
           if (!response.ok) {
+            // The server did nothing: no order row, no email. Sending the
+            // customer to the success page here, as this used to, told them an
+            // order existed when it did not. Only a network timeout is
+            // ambiguous enough to fall through, since the server may still be
+            // finishing the save.
             const errorText = await response.text()
             errorLog('❌ COD confirmation API returned error:', response.status, errorText)
-          } else {
-            const responseData = await response.json().catch(() => ({}))
-            debugLog('✅ COD confirmation API response:', responseData)
+            let serverMessage = ''
+            try {
+              serverMessage = String(JSON.parse(errorText)?.error || '')
+            } catch {
+              // not JSON
+            }
+            alert(serverMessage || t('checkout.orderNotPlaced'))
+            isSubmittingRef.current = false
+            setIsProcessing(false)
+            return
+          }
+
+          const responseData = await response.json().catch(() => ({}))
+          debugLog('✅ COD confirmation API response:', responseData)
+          // The server keeps the number the page showed when it is free, and
+          // mints a new one when it is not. Follow whatever it settled on.
+          if (typeof responseData?.orderNumber === 'string' && responseData.orderNumber) {
+            finalOrderNumber = responseData.orderNumber
           }
         } catch (fetchError: unknown) {
           clearTimeout(timeoutId)
@@ -645,10 +667,10 @@ export default function CheckoutClient() {
         errorLog('Error in COD order processing:', error)
       }
       
-      // Always redirect to success page (emails are non-blocking)
+      // Redirect on success or on an ambiguous timeout (emails are non-blocking)
       isSubmittingRef.current = false
       setIsProcessing(false)
-      router.push(`${getLocalizedPath('/success', locale)}?order_id=${codOrderNumber}&payment=cod`)
+      router.push(`${getLocalizedPath('/success', locale)}?order_id=${encodeURIComponent(finalOrderNumber)}&payment=cod`)
     } catch (error) {
       errorLog('Order processing failed:', error)
       isSubmittingRef.current = false

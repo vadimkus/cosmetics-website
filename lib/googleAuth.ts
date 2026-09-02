@@ -241,6 +241,16 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       return null
     }
 
+    // A Google account can carry an address Google has not confirmed the
+    // holder controls (a non-Gmail address that was never verified). Signing
+    // in with one is then a claim about someone else's email, and downstream
+    // this links to whichever existing account has that address. Gmail and
+    // Workspace addresses are always verified, so real users lose nothing.
+    if (payload.email_verified !== true) {
+      errorLog('Google ID token email is not verified', { email: payload.email })
+      return null
+    }
+
     const email = payload.email
     const name =
       payload.name ||

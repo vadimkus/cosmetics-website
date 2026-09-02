@@ -1,6 +1,7 @@
 import { POST } from '@/app/api/orders/cod-confirmation/route'
-import { addOrder } from '@/lib/orderStorageDb'
+import { addOrder, getOrderByNumber } from '@/lib/orderStorageDb'
 import { getProductById } from '@/lib/productsDb'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { Product } from '@/types'
 
@@ -27,6 +28,13 @@ jest.mock('@/lib/logger', () => ({
 
 jest.mock('@/lib/orderStorageDb', () => ({
   addOrder: jest.fn(async () => ({ id: 'cod-db-id' })),
+  // The route now checks the page's provisional number is unused before
+  // keeping it. Nothing is taken in these tests.
+  getOrderByNumber: jest.fn(async () => null),
+}))
+
+jest.mock('@/lib/orderNumber', () => ({
+  generateUniqueOrderNumber: jest.fn(async () => 'CODW2609020000'),
 }))
 
 jest.mock('@/lib/csrf', () => ({
@@ -298,5 +306,49 @@ describe('web COD confirmation pricing', () => {
         }),
       ],
     }))
+  })
+
+  const baseOrder = (orderNumber: unknown) => ({
+    orderNumber,
+    customerName: 'Customer',
+    customerEmail: 'customer@example.com',
+    customerPhone: '+971500000000',
+    customerAddress: 'Dubai Marina',
+    emirate: 'Dubai',
+    items: [{ id: 'product-1', name: 'Serum', price: 200, quantity: 1 }],
+    locale: 'en',
+  })
+
+  describe('order number', () => {
+    it('keeps the number the page showed when it is well-formed and unused', async () => {
+      const response = await POST(createRequest(baseOrder('CODW2609020042')))
+      const body = await response.json()
+      expect(body.orderNumber).toBe('CODW2609020042')
+      expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({ orderNumber: 'CODW2609020042' }))
+      expect(generateUniqueOrderNumber).not.toHaveBeenCalled()
+    })
+
+    it('mints a new number when the page\'s one is already taken', async () => {
+      ;(getOrderByNumber as jest.Mock).mockResolvedValueOnce({ id: 'someone-else' })
+      const response = await POST(createRequest(baseOrder('CODW2609020042')))
+      const body = await response.json()
+      expect(body.orderNumber).toBe('CODW2609020000')
+      expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({ orderNumber: 'CODW2609020000' }))
+    })
+
+    it.each([
+      ['a string of the client\'s choosing', 'FREE-ORDER-00001'],
+      ['a mobile-shaped number', 'CODM2609020042'],
+      ['a card-shaped number', 'GENCardW2609020042'],
+      ['too short', 'CODW260902'],
+      ['missing', undefined],
+      ['not a string', 42],
+    ])('replaces %s', async (_label, sent) => {
+      const response = await POST(createRequest(baseOrder(sent)))
+      const body = await response.json()
+      expect(response.status).toBe(200)
+      expect(body.orderNumber).toBe('CODW2609020000')
+      expect(getOrderByNumber).not.toHaveBeenCalled()
+    })
   })
 })

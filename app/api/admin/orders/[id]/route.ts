@@ -9,7 +9,7 @@ import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { isTwilioConfigured } from '@/lib/twilio'
 import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
-import { awardPointsForDeliveredOrder, reverseRedemptionForOrder } from '@/lib/loyalty'
+import { awardPointsForDeliveredOrder, reverseEarnForOrder, reverseRedemptionForOrder } from '@/lib/loyalty'
 import { syncOrderLiveActivity } from '@/lib/orderLiveActivity'
 import { sendLoyaltyPointsEarnedEmail, sendLoyaltyTierUpgradeEmail } from '@/lib/email'
 import {
@@ -115,6 +115,14 @@ export async function PUT(
         if (reversed) debugLog(`✅ Loyalty: redeemed points returned for cancelled order ${order.orderNumber}`)
       } catch (loyaltyError) {
         errorLog('❌ Loyalty redemption reversal failed on admin cancel:', loyaltyError)
+      }
+      // And the other direction: points this order paid out, if it had been
+      // delivered before being cancelled. No-op when it never earned any.
+      try {
+        const withdrawn = await reverseEarnForOrder(id)
+        if (withdrawn) debugLog(`✅ Loyalty: earned points withdrawn for cancelled order ${order.orderNumber}`)
+      } catch (loyaltyError) {
+        errorLog('❌ Loyalty earn reversal failed on admin cancel:', loyaltyError)
       }
       try {
         await reverseClinicPointsForOrder(id, order.total)

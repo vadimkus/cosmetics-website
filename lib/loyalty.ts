@@ -13,7 +13,7 @@
  *   user.loyaltyPoints is the materialized balance.
  */
 import { prisma } from '@/lib/prisma'
-import { computeTier, type MemberTier } from '@/lib/membership'
+import { computeTier, recalcUserStats, type MemberTier } from '@/lib/membership'
 import { debugLog, errorLog } from '@/lib/logger'
 
 export const PARTNER_DISCOUNT_THRESHOLD = 20
@@ -358,6 +358,42 @@ export async function recordRedemption(params: {
  * Return redeemed points to the customer when an order is cancelled.
  * Idempotent via the (orderId, 'REDEEM_REVERSAL') unique constraint.
  */
+/**
+ * Take back the points an order earned, when it is cancelled after delivery.
+ *
+ * Cancelling used to reverse only what the customer had spent at checkout
+ * (REDEEM), never what the order had paid out (ORDER_EARN). An admin moving an
+ * order DELIVERED -> CANCELLED, a return or a refund, left the customer holding
+ * points for goods they no longer had. Idempotent through the (orderId, type)
+ * unique index like every other ledger write; the stats recalculation runs
+ * afterwards so the tier follows the spend that actually stood.
+ */
+export async function reverseEarnForOrder(orderId: string): Promise<boolean> {
+  const earnTx = await prisma.loyaltyTransaction.findFirst({
+    where: { orderId, type: 'ORDER_EARN' },
+  })
+  if (!earnTx || earnTx.points <= 0) return false
+
+  let reversed = false
+  try {
+    await prisma.loyaltyTransaction.create({
+      data: {
+        userId: earnTx.userId,
+        points: -earnTx.points,
+        type: 'EARN_REVERSAL',
+        orderId,
+        description: 'Points withdrawn - order cancelled after delivery',
+      },
+    })
+    reversed = true
+  } catch (err: unknown) {
+    const code = (err as { code?: string })?.code
+    if (code !== 'P2002') throw err
+  }
+  await recalcUserStats(earnTx.userId)
+  return reversed
+}
+
 export async function reverseRedemptionForOrder(orderId: string): Promise<boolean> {
   const redeemTx = await prisma.loyaltyTransaction.findFirst({
     where: { orderId, type: 'REDEEM' },

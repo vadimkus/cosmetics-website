@@ -51,7 +51,7 @@ export async function verifyPasswordResetToken(
   error?: string
 }> {
   try {
-    debugLog('🔍 Starting token verification for token:', plainToken.substring(0, 10) + '...')
+    debugLog('🔍 Starting reset token verification')
     
     // First, verify Prisma client has the passwordResetToken model
     // In serverless environments, we need to check more carefully

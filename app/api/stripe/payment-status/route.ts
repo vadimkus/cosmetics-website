@@ -343,7 +343,9 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Return comprehensive payment status
+    // Return payment status. No name or email in either response shape: this
+    // route is unauthenticated, keyed by an id that sits in the redirect URL,
+    // and the success page reads only the items, number, total and status.
     return NextResponse.json({
       sessionId,
       orderId: order.orderNumber,
@@ -355,15 +357,12 @@ export async function GET(request: NextRequest) {
         status: session.status,
         amount_total: session.amount_total,
         currency: session.currency,
-        customer_email: session.customer_email,
         created: session.created,
         expires_at: session.expires_at
       },
       order: {
         id: order.id,
         orderNumber: order.orderNumber,
-        customerEmail: order.customerEmail,
-        customerName: order.customerName,
         total: order.total,
         status: orderStatus,
         paymentMethod: order.paymentMethod,
@@ -536,15 +535,12 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
         status: paymentIntent.status,
         amount_total: paymentIntent.amount,
         currency: paymentIntent.currency,
-        customer_email: paymentIntent.receipt_email,
         created: paymentIntent.created,
         expires_at: null
       },
       order: {
         id: order.id,
         orderNumber: order.orderNumber,
-        customerEmail: order.customerEmail,
-        customerName: order.customerName,
         total: order.total,
         status: orderStatus,
         paymentMethod: order.paymentMethod,

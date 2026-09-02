@@ -12,6 +12,7 @@ import {
   OrderItemData,
 } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
@@ -96,6 +97,19 @@ function detectDeviceType(userAgent: string | null): string {
 // 5 / 10 min is generous for a real shopper.
 const codLimiter = rateLimitSimple({ name: 'cod', windowMs: 10 * 60 * 1000, max: 5 })
 
+// What the checkout page mints: CODW + yymmdd + four digits. Same shape the
+// server's own generator produces for a website COD order.
+const CLIENT_COD_NUMBER = /^CODW\d{10}$/
+
+async function resolveCodOrderNumber(requested: unknown): Promise<string> {
+  if (typeof requested === 'string' && CLIENT_COD_NUMBER.test(requested)) {
+    const taken = await getOrderByNumber(requested)
+    if (!taken) return requested
+    debugLog('COD order number already in use, minting a fresh one:', requested)
+  }
+  return generateUniqueOrderNumber({ channel: 'W', payment: 'COD' })
+}
+
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
@@ -119,7 +133,7 @@ export async function POST(request: NextRequest) {
     
     const orderData = await request.json()
     const {
-      orderNumber,
+      orderNumber: requestedOrderNumber,
       customerName,
       customerEmail,
       customerPhone,
@@ -137,20 +151,21 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!customerEmail || !customerEmail.trim()) {
-      errorLog('❌ COD order missing customerEmail:', orderNumber)
+      errorLog('❌ COD order missing customerEmail:', requestedOrderNumber)
       return NextResponse.json(
         { error: 'Customer email is required' },
         { status: 400 }
       )
     }
 
-    if (!orderNumber) {
-      errorLog('❌ COD order missing orderNumber')
-      return NextResponse.json(
-        { error: 'Order number is required' },
-        { status: 400 }
-      )
-    }
+    // The checkout page shows the customer a provisional CODW number from the
+    // moment it mounts, so they can quote it on WhatsApp before placing the
+    // order. It is kept when it is well-formed and unused, so the number they
+    // saw is the number they get. Anything else, a wrong shape, a string of
+    // someone's choosing, or a number another order already holds, is replaced
+    // by one minted here; the response carries the final number and the page
+    // uses that. Previously the body's value was stored as-is.
+    const orderNumber = await resolveCodOrderNumber(requestedOrderNumber)
 
     debugLog('📧 COD order received:', {
       orderNumber,

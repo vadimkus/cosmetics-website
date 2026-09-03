@@ -422,7 +422,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -448,7 +448,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
                   <th scope="row" className="px-5 py-4 text-start align-middle text-[15px] leading-snug text-[var(--cera-ink)]">
                     {row.product}
                   </th>
-                  <td dir="ltr" className="cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[21px] text-[var(--cera-rose)]">
+                  <td dir="ltr" className="cera-serif cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[21px] text-[var(--cera-rose)]">
                     {row.caffeine}
                   </td>
                   <td dir="ltr" className="whitespace-nowrap px-5 py-4 text-end align-middle text-[13px] text-[var(--cera-muted)]">
@@ -475,7 +475,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
                 <p dir="ltr" className="cera-serif text-[18px] leading-tight text-[var(--cera-ink)]">
                   {item.name}
                 </p>
-                <p dir="ltr" className="cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
+                <p dir="ltr" className="cera-serif cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
                   {item.dose}
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
@@ -497,7 +497,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
           <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-5 lg:gap-4">
             {copy.trace.items.map((item, i) => (
               <CeraReveal key={item.name} delay={i * 60} className="cera-card p-4 text-center md:p-5">
-                <p dir="ltr" className="cera-numeral hr3-figure text-[21px] leading-none text-[var(--cera-rose)]">
+                <p dir="ltr" className="cera-serif cera-numeral hr3-figure text-[21px] leading-none text-[var(--cera-rose)]">
                   {item.dose}
                 </p>
                 <p className="mt-2 text-[13px] leading-snug text-[var(--cera-muted)]">{item.name}</p>
@@ -543,7 +543,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
                   <CeraReveal key={step.title} as="li" delay={i * 80}>
                     <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                       <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                        <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                        <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                       </span>
                       <div className="min-w-0 flex-1">
                         <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">

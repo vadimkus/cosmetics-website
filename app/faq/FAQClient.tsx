@@ -278,7 +278,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                     <BookOpen className="h-3.5 w-3.5" />
                     {locale === 'ar' ? 'سؤال موثق' : locale === 'ru' ? 'опубликованных вопросов' : 'curated questions'}
                   </dt>
-                  <dd className="cera-numeral mt-2.5 text-[30px] leading-none text-[var(--cera-ink)]">
+                  <dd className="cera-serif cera-numeral mt-2.5 text-[30px] leading-none text-[var(--cera-ink)]">
                     {faqs.length}+
                   </dd>
                 </div>
@@ -287,7 +287,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                     <LayoutGrid className="h-3.5 w-3.5" />
                     {locale === 'ar' ? 'فئات' : locale === 'ru' ? 'категорий' : 'topics covered'}
                   </dt>
-                  <dd className="cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
+                  <dd className="cera-serif cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
                     <span>{availableCategories.filter(c => c !== 'all').length}</span>
                     <span className="text-[13px] text-[var(--cera-muted)]">
                       {locale === 'ar'
@@ -303,7 +303,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                     <Clock className="h-3.5 w-3.5" />
                     {locale === 'ar' ? 'متوسط الرد' : locale === 'ru' ? 'средний ответ' : 'avg. human reply'}
                   </dt>
-                  <dd className="cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
+                  <dd className="cera-serif cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
                     <span>&lt; 4h</span>
                     <span className="text-[13px] text-[var(--cera-muted)] inline-flex items-center gap-1">
                       <Globe2 className="h-3.5 w-3.5" />

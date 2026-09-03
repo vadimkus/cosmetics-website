@@ -408,7 +408,7 @@ export default function AntiWrinkleSerumProductPage({ product, unitsSold = 0, ro
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -438,7 +438,7 @@ export default function AntiWrinkleSerumProductPage({ product, unitsSold = 0, ro
             {copy.bakuchiol.rows.map((row, i) => (
               <CeraReveal key={row.label} delay={i * 80} className="cera-card flex flex-col p-6">
                 <dt className="cera-eyebrow">{row.label}</dt>
-                <dd dir="ltr" className="cera-numeral aws-figure mt-2.5 text-[26px] leading-none text-[var(--cera-rose-ink)]">
+                <dd dir="ltr" className="cera-serif cera-numeral aws-figure mt-2.5 text-[26px] leading-none text-[var(--cera-rose-ink)]">
                   {row.value}
                 </dd>
                 <dd className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{row.note}</dd>
@@ -463,7 +463,7 @@ export default function AntiWrinkleSerumProductPage({ product, unitsSold = 0, ro
               <p dir="ltr" className="cera-serif text-[19px] leading-tight text-[var(--cera-ink)]">
                 {item.name}
               </p>
-              <p dir="ltr" className="cera-numeral aws-figure mt-2 text-[27px] leading-none text-[var(--cera-rose)]">
+              <p dir="ltr" className="cera-serif cera-numeral aws-figure mt-2 text-[27px] leading-none text-[var(--cera-rose)]">
                 {item.dose}
               </p>
               <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
@@ -596,7 +596,7 @@ export default function AntiWrinkleSerumProductPage({ product, unitsSold = 0, ro
                   <CeraReveal key={step.title} as="li" delay={i * 80}>
                     <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                       <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                        <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                        <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                       </span>
                       <div className="min-w-0 flex-1">
                         <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">

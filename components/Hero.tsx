@@ -318,7 +318,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 key={item.label}
                 className={`px-8 text-center ${i > 0 ? 'border-s border-[var(--cera-line)]' : ''}`}
               >
-                <dd className="cera-numeral text-[26px] leading-none text-[var(--cera-ink)]">{item.value}</dd>
+                <dd className="cera-serif cera-numeral text-[26px] leading-none text-[var(--cera-ink)]">{item.value}</dd>
                 <dt className="mt-2 text-[13px] leading-tight text-[var(--cera-muted)]">{item.label}</dt>
               </div>
             ))}

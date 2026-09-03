@@ -605,7 +605,7 @@ export default function EyeCreamProductPage({
               delay={i * 70}
               className="cera-card cera-card-hover flex gap-5 p-6 lg:p-7"
             >
-              <span className="cera-numeral flex-none text-[26px] text-[var(--cera-rose)] sm:text-[30px]" aria-hidden="true">
+              <span className="cera-serif cera-numeral flex-none text-[26px] text-[var(--cera-rose)] sm:text-[30px]" aria-hidden="true">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <div className="min-w-0 flex-1">
@@ -700,7 +700,7 @@ export default function EyeCreamProductPage({
               <CeraReveal key={step.title} as="li" delay={i * 80}>
                 <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                   <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                    <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                    <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                   </span>
                   <div className="min-w-0 flex-1">
                     <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[24px]">

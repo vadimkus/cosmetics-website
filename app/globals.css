@@ -736,8 +736,6 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Headings use display font with proper tracking */
-h1, h2, h3, h4, h5, h6,
 /* The house display serif, Cormorant Garamond. One definition for the whole
    site. It used to live in one product page's CSS and depend on a variable
    each page mounted for itself; a component rendered under a page that had
@@ -750,6 +748,8 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: -0.01em;
 }
 
+/* Headings use display font with proper tracking */
+h1, h2, h3, h4, h5, h6,
 .font-display {
   font-family: var(--font-display);
   font-weight: var(--font-weight-bold);

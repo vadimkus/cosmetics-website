@@ -619,7 +619,7 @@ export default function CerabarrierProductPage({
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[32px] text-[var(--cera-ink)] sm:text-[40px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[32px] text-[var(--cera-ink)] sm:text-[40px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -722,7 +722,7 @@ export default function CerabarrierProductPage({
               {copy.complex.points.map((point, i) => (
                 <CeraReveal key={point.title} as="li" delay={i * 70}>
                   <div className="flex gap-4">
-                    <span className="cera-numeral mt-0.5 w-8 flex-none text-[20px] text-[var(--cera-rose)]">
+                    <span className="cera-serif cera-numeral mt-0.5 w-8 flex-none text-[20px] text-[var(--cera-rose)]">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
@@ -756,7 +756,7 @@ export default function CerabarrierProductPage({
                     className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6"
                   >
                     <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                      <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                      <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                     </span>
                     <div className="min-w-0 flex-1">
                       <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[24px]">
@@ -908,7 +908,7 @@ export default function CerabarrierProductPage({
             <div className="mt-6 grid grid-cols-2 gap-4">
               {copy.proof.claims.map((claim, i) => (
                 <CeraReveal key={claim.label} delay={i * 90} className="cera-card p-6">
-                  <p className="cera-numeral text-[34px] text-[var(--cera-ink)] sm:text-[42px]">{claim.value}</p>
+                  <p className="cera-serif cera-numeral text-[34px] text-[var(--cera-ink)] sm:text-[42px]">{claim.value}</p>
                   <p className="mt-2 text-[14px] leading-snug text-[var(--cera-body)]">{claim.label}</p>
                 </CeraReveal>
               ))}

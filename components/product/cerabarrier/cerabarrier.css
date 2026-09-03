@@ -163,7 +163,9 @@
    any other figure a shopper has to read exactly opt into lining, tabular
    digits with room to breathe. */
 .cera-numeral {
-  font-family: var(--font-cera-serif), Georgia, serif;
+  /* Numerals only. The face comes from .cera-serif on the same element when
+     the figure is display-sized; small figures (step numbers, pack sizes)
+     stay in the interface font, where the serif was never legible. */
   font-variant-numeric: lining-nums tabular-nums;
   /* Same request in the low-level syntax, for engines that drop the
      font-variant-numeric shorthand once a fallback face takes over. */

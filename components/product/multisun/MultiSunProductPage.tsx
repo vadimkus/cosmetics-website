@@ -413,7 +413,7 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -672,7 +672,7 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                 <CeraReveal key={step.title} as="li" delay={i * 80}>
                   <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                     <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                      <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                      <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                     </span>
                     <div className="min-w-0 flex-1">
                       <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">

@@ -1808,7 +1808,7 @@ export default function SkinRecommendationClient() {
                                 <div>
                                   {pricing.hasDiscount ? (
                                     <div className={`flex items-baseline gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                      <span className="cera-numeral text-[22px] text-[var(--cera-ink)]">
+                                      <span className="cera-serif cera-numeral text-[22px] text-[var(--cera-ink)]">
                                         AED {pricing.displayPrice.toFixed(0)}
                                       </span>
                                       {pricing.originalPrice ? (
@@ -1818,7 +1818,7 @@ export default function SkinRecommendationClient() {
                                       ) : null}
                                     </div>
                                   ) : (
-                                    <span className="cera-numeral text-[22px] text-[var(--cera-ink)]">
+                                    <span className="cera-serif cera-numeral text-[22px] text-[var(--cera-ink)]">
                                       AED {pricing.displayPrice.toFixed(0)}
                                     </span>
                                   )}

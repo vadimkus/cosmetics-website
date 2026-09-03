@@ -664,14 +664,14 @@ export default function CartClient() {
                     
                     <div className={`flex items-center justify-center gap-2 md:gap-3 my-3 md:my-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className="ed-row flex flex-col items-center px-4 py-3">
-                        <div className="cera-numeral text-[22px] text-[var(--cera-rose-ink)]">15%</div>
+                        <div className="cera-serif cera-numeral text-[22px] text-[var(--cera-rose-ink)]">15%</div>
                         <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                           {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'СКИДКА' : 'OFF'}
                         </div>
                       </div>
                       <div className="text-[20px] text-[var(--cera-muted)]">=</div>
                       <div className="flex flex-col items-center rounded-2xl border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-4 py-3">
-                        <div className="cera-numeral whitespace-nowrap text-[22px] text-[var(--cera-ok)]">
+                        <div className="cera-serif cera-numeral whitespace-nowrap text-[22px] text-[var(--cera-ok)]">
                           {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
                         <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--cera-ok)]">

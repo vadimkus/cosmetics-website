@@ -789,7 +789,7 @@ export default function BeautyBoxProductPage({
               <dl>
                 <div className="flex items-baseline justify-between gap-4 px-6 py-4 lg:px-8">
                   <dt className="text-[15px] text-[var(--cera-body)]">{copy.contents.boughtSeparately}</dt>
-                  <dd className="cera-numeral text-[19px] text-[var(--cera-muted)] line-through">
+                  <dd className="cera-serif cera-numeral text-[19px] text-[var(--cera-muted)] line-through">
                     {value.separately.toFixed(2)} {currency}
                   </dd>
                 </div>
@@ -835,7 +835,7 @@ export default function BeautyBoxProductPage({
               <CeraReveal key={step.title} as="li" delay={i * 70}>
                 <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                   <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                    <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                    <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                   </span>
                   <div className="min-w-0 flex-1">
                     <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[24px]">

@@ -474,7 +474,7 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -490,7 +490,7 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:gap-6">
           {copy.clinical.findings.map((f, i) => (
             <CeraReveal key={f.label} delay={i * 90} as="article" className="hsc-finding p-7 md:p-8">
-              <p dir="ltr" className="cera-numeral hsc-finding__value text-[46px] leading-none text-[var(--cera-rose)] sm:text-[56px]">
+              <p dir="ltr" className="cera-serif cera-numeral hsc-finding__value text-[46px] leading-none text-[var(--cera-rose)] sm:text-[56px]">
                 {f.value}
               </p>
               <p className="mt-3 text-[13px] font-semibold uppercase tracking-[0.07em] text-[var(--cera-rose-ink)]">
@@ -528,7 +528,7 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
                 <p dir="ltr" className="cera-serif text-[19px] leading-tight text-[var(--cera-ink)]">
                   {item.name}
                 </p>
-                <p dir="ltr" className="cera-numeral hsc-figure mt-2 text-[25px] leading-none text-[var(--cera-rose)]">
+                <p dir="ltr" className="cera-serif cera-numeral hsc-figure mt-2 text-[25px] leading-none text-[var(--cera-rose)]">
                   {item.dose}
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
@@ -661,7 +661,7 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
                   <CeraReveal key={step.title} as="li" delay={i * 80}>
                     <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
                       <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                        <span className="cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                        <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                       </span>
                       <div className="min-w-0 flex-1">
                         <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">

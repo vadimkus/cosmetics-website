@@ -128,7 +128,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
               <dl className="mt-10 flex items-start justify-center md:mt-12">
                 {counts.map((count) => (
                   <div key={count.label} className="training-count text-center">
-                    <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
+                    <dd className="cera-serif cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
                       {count.value}
                     </dd>
                     <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
@@ -145,7 +145,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
           <dl className="flex items-start justify-center rounded-3xl border border-[var(--cera-line)] bg-white px-3 py-6 shadow-[0_12px_32px_-24px_rgba(23,20,15,0.22)]">
             {counts.map((count) => (
               <div key={count.label} className="training-count text-center">
-                <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
+                <dd className="cera-serif cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
                   {count.value}
                 </dd>
                 <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">

@@ -74,7 +74,7 @@ const SKINS = {
     panel: 'cera-card p-6 lg:p-7',
     card: 'cera-card p-5 sm:p-6',
     avatar: 'bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]',
-    name: 'cera-serif text-[17px] text-[var(--cera-ink)]',
+    name: 'cera-serif text-[18px] text-[var(--cera-ink)]',
     meta: 'text-[var(--cera-muted)]',
     body: 'text-[var(--cera-body)]',
     star: 'text-[#d8a24a]',

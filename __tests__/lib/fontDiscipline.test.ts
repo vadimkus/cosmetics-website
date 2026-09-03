@@ -57,6 +57,22 @@ describe('display serif', () => {
     expect(mounts).toEqual(['app/layout.tsx'])
   })
 
+  it('is applied by .cera-serif alone; no other rule sets the face', () => {
+    // .cera-numeral used to set the family itself, which put the serif on 13px
+    // step numbers and pack sizes regardless of the floor.
+    const out = execSync(`rg -n --glob '!node_modules' 'font-cera-serif' app components -g '*.css' | rg -v 'app/globals.css' || true`, {
+      cwd: ROOT,
+      encoding: 'utf8',
+    }).trim()
+    expect(out).toBe('')
+  })
+
+  it('does not leak into the global heading rule', () => {
+    // The rule is `h1, ..., h6,\n.font-display {`; a block inserted between the
+    // two lines once made every heading on the site render in the serif.
+    expect(read('app/globals.css')).toMatch(/h1, h2, h3, h4, h5, h6,\n\.font-display \{/)
+  })
+
   it('is never used below 18px', () => {
     const attr = /className=(?:"([^"]*)"|\{`([^`]*)`\}|\{'([^']*)'\})/g
     const sizeTok = /(?:[a-z]+:)*text-(?:\[(\d+)px\]|(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl))(?![a-z0-9-])/g

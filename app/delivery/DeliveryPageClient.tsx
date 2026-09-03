@@ -121,7 +121,7 @@ export default function DeliveryPageClient() {
                 key={fact.label}
                 className={`text-center md:px-8 ${i > 0 ? 'md:border-s md:border-[var(--cera-line)]' : ''}`}
               >
-                <dd className="cera-numeral text-[24px] leading-none text-[var(--cera-ink)] md:text-[30px]">
+                <dd className="cera-serif cera-numeral text-[24px] leading-none text-[var(--cera-ink)] md:text-[30px]">
                   {fact.value}
                 </dd>
                 <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">

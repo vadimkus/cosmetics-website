@@ -430,7 +430,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                 i % 2 === 0 ? 'border-e border-[var(--cera-line)] lg:border-e' : ''
               }`}
             >
-              <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
+              <p className="cera-serif cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
               <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
@@ -461,7 +461,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                   </th>
                   <td
                     dir="ltr"
-                    className="cera-numeral hr3-figure whitespace-nowrap px-5 py-3.5 text-end align-middle text-[19px] text-[var(--cera-rose)]"
+                    className="cera-serif cera-numeral hr3-figure whitespace-nowrap px-5 py-3.5 text-end align-middle text-[19px] text-[var(--cera-rose)]"
                   >
                     {row.dose}
                   </td>
@@ -473,7 +473,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                 </th>
                 <td
                   dir="ltr"
-                  className="cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[24px]"
+                  className="cera-serif cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[24px]"
                 >
                   {copy.growthFactors.total}
                 </td>
@@ -506,7 +506,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                 <p dir="ltr" className="cera-serif text-[18px] leading-tight text-[var(--cera-ink)]">
                   {item.name}
                 </p>
-                <p dir="ltr" className="cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
+                <p dir="ltr" className="cera-serif cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
                   {item.dose}
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
@@ -536,7 +536,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                     </th>
                     <td
                       dir="ltr"
-                      className="cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[21px] text-[var(--cera-rose)]"
+                      className="cera-serif cera-numeral hr3-figure whitespace-nowrap px-5 py-4 text-end align-middle text-[21px] text-[var(--cera-rose)]"
                     >
                       {row.dose}
                     </td>

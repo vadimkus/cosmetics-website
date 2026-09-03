@@ -10,7 +10,6 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -156,7 +155,7 @@ export default function ResetPasswordClient() {
 
   // All four states share the same centred card, so the chrome lives here once.
   const shell = (children: React.ReactNode, { withCrumbs = true } = {}) => (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] flex-col`} dir={dir}>
+    <div className={`cera-page genosys-page flex min-h-[100dvh] flex-col`} dir={dir}>
       {withCrumbs && (
         <>
           <BreadcrumbSchema
@@ -211,7 +210,7 @@ export default function ResetPasswordClient() {
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">
           {error || t('auth.linkExpiredMessage') || 'This password reset link is invalid or has expired.'}
         </p>
-        <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">
+        <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-muted)]">
           {t('auth.linksExpireIn30') || 'Password reset links expire after 30 minutes. Please request a new one.'}
         </p>
         <div className="mt-7 space-y-3">
@@ -239,7 +238,7 @@ export default function ResetPasswordClient() {
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">
           {t('auth.canNowLogin') || 'Your password has been reset successfully. You can now log in with your new password.'}
         </p>
-        <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">
+        <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-muted)]">
           {t('auth.redirectingToLogin') || 'Redirecting to login page...'}
         </p>
         <Link href={getLocalizedPath('/login', locale)} className="ed-cta mt-7 w-full py-3.5 text-[15px]">

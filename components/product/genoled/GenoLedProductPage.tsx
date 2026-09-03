@@ -61,7 +61,6 @@ import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 
-import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
@@ -216,7 +215,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           : copy.addToBag
 
   return (
-    <div className={`cera-page led-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page led-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -291,7 +290,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -437,7 +436,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
               }`}
             >
               <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -465,13 +464,13 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                   />
                   <div className={isRtl ? 'text-right' : ''}>
                     <h3 className="cera-serif text-[21px] leading-none text-[var(--cera-ink)]">{wave.name}</h3>
-                    <p dir="ltr" className="cera-numeral mt-1 text-[12.5px] text-[var(--cera-muted)]">
+                    <p dir="ltr" className="cera-numeral mt-1 text-[13px] text-[var(--cera-muted)]">
                       {wave.nm} nm
                     </p>
                   </div>
                 </div>
 
-                <p className="mt-4 flex-1 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{wave.body}</p>
+                <p className="mt-4 flex-1 text-[15px] leading-relaxed text-[var(--cera-body)]">{wave.body}</p>
 
                 <dl className="mt-5 grid grid-cols-3 gap-2 border-t border-[var(--cera-line)] pt-4">
                   {[
@@ -480,10 +479,10 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                     { k: copy.dosimetry.columns.time, v: wave.time },
                   ].map(cell => (
                     <div key={cell.k}>
-                      <dd dir="ltr" className="led-figure text-[13.5px] font-semibold text-[var(--cera-ink)]">
+                      <dd dir="ltr" className="led-figure text-[14px] font-semibold text-[var(--cera-ink)]">
                         {cell.v}
                       </dd>
-                      <dt className="mt-1 text-[10.5px] uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                      <dt className="mt-1 text-[11px] uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                         {cell.k}
                       </dt>
                     </div>
@@ -510,7 +509,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                 <p className="cera-eyebrow">{copy.dosimetry.eyebrow}</p>
                 <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.dosimetry.title}</h2>
                 <div className="led-spectrum mt-5 w-full max-w-[240px]" aria-hidden="true" />
-                <p className="mt-5 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-5 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                   {copy.dosimetry.intro}
                 </p>
                 <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
@@ -545,7 +544,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                   <tbody>
                     {copy.wavelengths.items.map(wave => (
                       <tr key={wave.nm} className="border-b border-[var(--cera-line)] last:border-b-0">
-                        <th scope="row" className="px-3.5 py-4 text-start text-[13.5px] font-medium text-[var(--cera-ink)]">
+                        <th scope="row" className="px-3.5 py-4 text-start text-[14px] font-medium text-[var(--cera-ink)]">
                           <span className={`flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
                             <span
                               aria-hidden="true"
@@ -557,19 +556,19 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                                 cell as "Red640". */}
                             <span>
                               {wave.name}{' '}
-                              <span dir="ltr" className="text-[11.5px] text-[var(--cera-muted)]">
+                              <span dir="ltr" className="text-[12px] text-[var(--cera-muted)]">
                                 {wave.nm}
                               </span>
                             </span>
                           </span>
                         </th>
-                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[13.5px] text-[var(--cera-rose-ink)]">
+                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[14px] text-[var(--cera-rose-ink)]">
                           {wave.irradiance}
                         </td>
-                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[13.5px] text-[var(--cera-ink)]">
+                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[14px] text-[var(--cera-ink)]">
                           {wave.dose}
                         </td>
-                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[13.5px] text-[var(--cera-body)]">
+                        <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[14px] text-[var(--cera-body)]">
                           {wave.time}
                         </td>
                         <td dir="ltr" className="led-figure whitespace-nowrap px-3.5 py-4 text-start text-[13px] text-[var(--cera-muted)]">
@@ -623,7 +622,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                   <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[22px]">
                     {point.title}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{point.body}</p>
+                  <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)]">{point.body}</p>
                 </div>
               </CeraReveal>
             ))}
@@ -643,8 +642,8 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           <dl className="divide-y divide-[var(--cera-line)]">
             {copy.protocols.rows.map(row => (
               <div key={row.concern} className="grid gap-1.5 p-5 sm:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] sm:gap-5 sm:p-6">
-                <dt className="cera-serif text-[17px] leading-tight text-[var(--cera-ink)]">{row.concern}</dt>
-                <dd className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{row.protocol}</dd>
+                <dt className="text-[17px] leading-tight text-[var(--cera-ink)]">{row.concern}</dt>
+                <dd className="text-[15px] leading-relaxed text-[var(--cera-body)]">{row.protocol}</dd>
               </div>
             ))}
           </dl>
@@ -660,7 +659,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           <div className="mx-auto mt-12 max-w-[1040px]">
             <CeraReveal className="text-center">
               <h3 className="cera-serif text-[24px] leading-tight sm:text-[28px]">{copy.protocols.pairTitle}</h3>
-              <p className="mx-auto mt-2 max-w-[52ch] text-[14.5px] text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[52ch] text-[15px] text-[var(--cera-muted)]">
                 {copy.protocols.pairIntro}
               </p>
             </CeraReveal>
@@ -683,7 +682,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                           />
                         ) : null}
                       </div>
-                      <p className="cera-serif p-3.5 text-[14.5px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
+                      <p className="p-3.5 text-[15px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
                         {item.name}
                       </p>
                     </Link>
@@ -701,7 +700,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           <CeraReveal>
             <p className="cera-eyebrow">{copy.study.eyebrow}</p>
             <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[38px]">{copy.study.title}</h2>
-            <p className="mt-5 text-[15.5px] leading-relaxed text-[var(--cera-body)]">{copy.study.body}</p>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.study.body}</p>
 
             <figure className="mt-7 border-s-2 border-[var(--cera-blush-deep)] ps-5">
               <blockquote dir="ltr" className={`text-[14px] leading-relaxed text-[var(--cera-muted)] ${isRtl ? 'text-right' : ''}`}>
@@ -712,7 +711,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
                   href={STUDY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
                 >
                   {copy.study.link}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -794,12 +793,12 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
             {copy.safety.points.map((point, i) => (
               <CeraReveal key={point} as="li" delay={i * 60} className="cera-card flex gap-4 p-5">
                 <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
-                <span className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+                <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
               </CeraReveal>
             ))}
           </ul>
           <CeraReveal>
-            <p className="mt-6 text-[13.5px] text-[var(--cera-muted)]">{copy.safety.note}</p>
+            <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.safety.note}</p>
           </CeraReveal>
         </div>
       </section>
@@ -811,7 +810,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           <dl className="divide-y divide-[var(--cera-line)]">
             {copy.spec.rows.map(row => (
               <div key={row.label} className="flex gap-4 py-3.5">
-                <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                   {row.label}
                 </dt>
                 <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -884,7 +883,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p dir="ltr" className={`truncate text-[11px] text-[var(--cera-muted)] ${isRtl ? 'text-right' : ''}`}>
                 1,710 LED · 423-830 nm · 70 W
               </p>

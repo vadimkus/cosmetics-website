@@ -4,7 +4,6 @@ import ProductsPageClient from '../../products/ProductsPageClient'
 import ConcernShowcase from '@/components/concerns/ConcernShowcase'
 import { getConcernCounts } from '@/lib/concernCounts'
 import { getProductsListCached } from '@/lib/productsDb'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Match the English route's ISR window.
 export const revalidate = 60
@@ -90,7 +89,7 @@ export default async function ArabicProductsPage() {
           products client component. Hidden below sm; still in the DOM for crawlers. */}
       <section
         data-products-concern-section
-        className={`cera-page genosys-page ${ceraSerif.variable} hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
+        className={`cera-page genosys-page hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
         aria-labelledby="products-concern-heading"
         dir="rtl"
       >

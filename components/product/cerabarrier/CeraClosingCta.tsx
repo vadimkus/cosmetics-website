@@ -5,7 +5,6 @@ import type { ReactNode, RefObject } from 'react'
 
 import { cutoutImage, hasCutout } from '@/lib/productCutouts'
 
-import { ceraSerif } from './ceraFont'
 
 /**
  * Closing band for the bespoke product pages.
@@ -113,7 +112,7 @@ export default function CeraClosingCta({
         </div>
 
         <div className="min-w-0 flex-1 px-4 pt-10 sm:px-6 lg:px-10 lg:py-16">
-          <p className={`${ceraSerif.variable} cera-serif text-[26px] leading-[1.15] sm:text-[32px]`}>
+          <p className={`cera-serif text-[26px] leading-[1.15] sm:text-[32px]`}>
             {headline}
           </p>
           <p className="mt-2 text-[13px] uppercase tracking-[0.14em] text-[var(--cera-muted)]">{name}</p>

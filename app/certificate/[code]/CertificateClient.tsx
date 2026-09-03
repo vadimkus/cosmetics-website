@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Gift, Calendar, Phone, Mail, Globe, Sparkles, Award, QrCode } from 'lucide-react'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -156,7 +155,7 @@ export default function CertificateClient({
         }
       `}</style>
 
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)] py-8 px-4 sm:py-12 sm:px-6 lg:px-8`}>
+      <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream)] py-8 px-4 sm:py-12 sm:px-6 lg:px-8`}>
         {/* No Print - Action Buttons */}
         <div className="no-print max-w-4xl mx-auto mb-6 flex justify-between items-center">
           <button

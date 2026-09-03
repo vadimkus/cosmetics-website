@@ -7,7 +7,6 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath, switchLocaleHardNav } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -88,7 +87,7 @@ export default function LanguagePage() {
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Unified nav header */}
       <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button

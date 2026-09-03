@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { buildUrl } from '@/lib/siteConfig'
 import { SEO_LANDING_PAGES_AR } from '@/lib/seoLandingPagesAr'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function ArabicGuidesPage() {
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} bg-white min-h-screen`} dir="rtl">
+    <div className={`cera-page genosys-page cera-page genosys-page bg-white min-h-screen`} dir="rtl">
       <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },

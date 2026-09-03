@@ -6,7 +6,6 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 import PartnersSchema from '@/components/schema/PartnersSchema'
 import { partnersData } from '@/lib/partners'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -84,7 +83,7 @@ export default function RussianPartnersPage() {
         ]}
       />
       <PartnersSchema />
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+      <div className={`cera-page genosys-page min-h-screen`}>
         <PageBreadcrumb
           items={[
             { name: 'Главная', href: '/ru' },

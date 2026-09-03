@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { Share2, ExternalLink, Copy, Check, Home } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -48,7 +47,7 @@ function ShareContent() {
 
   if (!hasContent) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center px-4`}>
+      <div className={`cera-page genosys-page min-h-screen flex items-center justify-center px-4`}>
         <div className="text-center max-w-md">
           <div className="w-16 h-16 bg-[var(--cera-cream-deep)] rounded-full flex items-center justify-center mx-auto mb-4">
             <Share2 className="w-8 h-8 text-[var(--cera-muted)]" />
@@ -70,7 +69,7 @@ function ShareContent() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen py-12 px-4`}>
+    <div className={`cera-page genosys-page min-h-screen py-12 px-4`}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -159,7 +158,7 @@ export default function ShareClient() {
   const { t } = useTranslation()
   return (
     <Suspense fallback={
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center bg-[var(--cera-cream-deep)]`}>
+      <div className={`cera-page genosys-page min-h-screen flex items-center justify-center bg-[var(--cera-cream-deep)]`}>
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-[var(--cera-line)] border-t-gray-900 rounded-full animate-spin mx-auto mb-4" />
           <p className="text-[var(--cera-body)]">{t('share.loadingSharedContent')}</p>

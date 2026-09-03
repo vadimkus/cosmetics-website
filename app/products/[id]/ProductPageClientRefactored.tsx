@@ -43,7 +43,6 @@ import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
@@ -310,7 +309,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const availableColors = colorOptions
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] pb-24 md:pb-0`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] pb-24 md:pb-0`} dir={dir}>
       {/* PWA / Mobile Web Simple Navigation Header.
           mweb-float-sticky-top is what makes this stick and float, and only on
           mobile web. In the PWA the bar stays static in flow as before. */}

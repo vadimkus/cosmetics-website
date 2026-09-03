@@ -8,7 +8,6 @@ import ConcernProductGrid from '@/components/ConcernProductGrid'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -78,7 +77,7 @@ export default async function ArabicCategoryPage({ params }: { params: Promise<{
   const seo = category.seo.ar
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir="rtl">
+    <div className={`cera-page genosys-page min-h-screen`} dir="rtl">
       <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },

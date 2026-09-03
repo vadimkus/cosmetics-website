@@ -63,7 +63,6 @@ import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 
-import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
@@ -220,7 +219,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
           : copy.addToBag
 
   return (
-    <div className={`cera-page hr3-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page hr3-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -294,7 +293,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -420,7 +419,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
               }`}
             >
               <p dir="ltr" className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -435,17 +434,17 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
           <h2 className="cera-serif hr3-alert__title mt-3 text-[26px] leading-tight sm:text-[33px]">
             {copy.whatItIs.title}
           </h2>
-          <p className="mt-5 text-[15.5px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.body}</p>
+          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.body}</p>
           <ul className="mt-5 space-y-2.5">
             {copy.whatItIs.items.map(item => (
               <li key={item} className={`flex gap-2.5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
                 <span className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-[#b4801f]" aria-hidden="true" />
-                <span className="text-[14.5px] font-medium leading-relaxed text-[var(--cera-ink)]">{item}</span>
+                <span className="text-[15px] font-medium leading-relaxed text-[var(--cera-ink)]">{item}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.detail}</p>
-          <p className="mt-4 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.leaflet}</p>
+          <p className="mt-5 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.detail}</p>
+          <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.leaflet}</p>
         </CeraReveal>
       </section>
 
@@ -467,7 +466,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
                 <p dir="ltr" className="cera-numeral hr3-figure mt-2 text-[24px] leading-none text-[var(--cera-rose)]">
                   {item.dose}
                 </p>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
+                <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
               </CeraReveal>
             ))}
           </div>
@@ -494,7 +493,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
                       data-real={row.here ? 'true' : undefined}
                       className="border-b border-[var(--cera-line)] last:border-b-0"
                     >
-                      <th scope="row" className="px-5 py-4 text-start align-middle text-[14.5px] leading-snug text-[var(--cera-ink)]">
+                      <th scope="row" className="px-5 py-4 text-start align-middle text-[15px] leading-snug text-[var(--cera-ink)]">
                         {row.label}
                       </th>
                       <td
@@ -503,7 +502,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
                       >
                         {row.value}
                       </td>
-                      <td className="hidden whitespace-nowrap px-5 py-4 text-end align-middle text-[12.5px] text-[var(--cera-muted)] sm:table-cell">
+                      <td className="hidden whitespace-nowrap px-5 py-4 text-end align-middle text-[13px] text-[var(--cera-muted)] sm:table-cell">
                         {row.note}
                       </td>
                     </tr>
@@ -513,7 +512,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
             </CeraReveal>
 
             <CeraReveal>
-              <p className="mt-7 text-[15.5px] leading-relaxed text-[var(--cera-body)]">{copy.running.body}</p>
+              <p className="mt-7 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.running.body}</p>
             </CeraReveal>
           </div>
         </section>
@@ -565,7 +564,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
               </ol>
 
               <CeraReveal>
-                <p className="mt-8 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[14.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-8 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]">
                   {copy.howTo.note}
                 </p>
               </CeraReveal>
@@ -580,8 +579,8 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
           <CeraReveal className="hr3-note p-6 md:p-9">
             <p className="cera-eyebrow">{copy.depth.eyebrow}</p>
             <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.depth.title}</h2>
-            <p className="mt-5 text-[15.5px] leading-relaxed text-[var(--cera-body)]">{copy.depth.body}</p>
-            <p className="mt-4 flex items-start gap-2.5 text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.depth.body}</p>
+            <p className="mt-4 flex items-start gap-2.5 text-[15px] leading-relaxed text-[var(--cera-muted)]">
               <Info className="mt-[3px] h-4 w-4 flex-none" aria-hidden="true" />
               <span>{copy.depth.note}</span>
             </p>
@@ -596,12 +595,12 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
           {copy.safety.points.map((point, i) => (
             <CeraReveal key={point} as="li" delay={i * 60} className="cera-card flex gap-4 p-5">
               <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
-              <span className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+              <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
             </CeraReveal>
           ))}
         </ul>
         <CeraReveal>
-          <p className="mt-6 text-[13.5px] text-[var(--cera-muted)]">{copy.safety.note}</p>
+          <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.safety.note}</p>
         </CeraReveal>
       </section>
 
@@ -629,7 +628,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
                         />
                       ) : null}
                     </div>
-                    <p className="cera-serif p-3.5 text-[14.5px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
+                    <p className="p-3.5 text-[15px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
                       {item.name}
                     </p>
                   </Link>
@@ -647,7 +646,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
           <dl className="divide-y divide-[var(--cera-line)]">
             {copy.spec.rows.map(row => (
               <div key={row.label} className="flex gap-4 py-3.5">
-                <dt className="w-[36%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                <dt className="w-[36%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                   {row.label}
                 </dt>
                 <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -719,7 +718,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
             </div>
           </div>

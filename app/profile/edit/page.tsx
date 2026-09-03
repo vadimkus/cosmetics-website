@@ -10,7 +10,6 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { getLocalTodayYmd } from '@/lib/validation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -359,7 +358,7 @@ export default function EditProfilePage() {
   // Show loading state while auth is loading
   if (authLoading) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] flex flex-col items-center justify-center`}>
         <div className="w-8 h-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] rounded-full animate-spin mb-3" />
         <p className="text-[var(--cera-muted)] text-sm">
           {locale === 'ar' ? 'جارٍ التحميل...' : locale === 'ru' ? 'Загрузка...' : 'Loading...'}
@@ -371,7 +370,7 @@ export default function EditProfilePage() {
   // Show sign in message if not authenticated
   if (!user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] flex flex-col items-center justify-center`}>
         <p className="text-[var(--cera-muted)] mb-4">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
         <button
           onClick={() => router.push(getLocalizedPath('/login', locale))}
@@ -386,7 +385,7 @@ export default function EditProfilePage() {
   // Show loading state while form data is loading
   if (!isFormLoaded) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] flex flex-col items-center justify-center`}>
         <div className="w-8 h-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] rounded-full animate-spin mb-3" />
         <p className="text-[var(--cera-muted)] text-sm">
           {locale === 'ar' ? 'جارٍ تحميل الملف الشخصي...' : locale === 'ru' ? 'Загрузка профиля...' : 'Loading profile...'}
@@ -396,14 +395,13 @@ export default function EditProfilePage() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Toast Notifications */}
       <div className="fixed top-4 left-4 right-4 z-[60] flex flex-col gap-2 pointer-events-none safe-area-top">
         {toasts.map(toast => (
           <div
             key={toast.id}
-            className={`
-              pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg
+            className={`pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg
               transform transition-all duration-300 animate-spring-in
               ${toast.type === 'success' ? 'bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)]' : 'bg-red-50 border border-red-200'}
             `}

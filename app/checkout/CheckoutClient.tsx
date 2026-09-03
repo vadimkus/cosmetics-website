@@ -38,7 +38,6 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import dynamic from 'next/dynamic'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Lazy load heavy checkout components (Stripe SDK + BottomSheet only needed conditionally)
 const BottomSheet = dynamic(() => import('@/components/ui/BottomSheet'), { ssr: false })
@@ -681,7 +680,7 @@ export default function CheckoutClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="animate-pulse">
             <div className="h-24 w-24 bg-[var(--cera-cream-deep)] rounded-full mx-auto mb-4" />
@@ -695,7 +694,7 @@ export default function CheckoutClient() {
 
   if (items.length === 0) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
             <CreditCard className="mx-auto mb-4 h-24 w-24 text-[var(--cera-blush-deep)]" />
@@ -719,7 +718,7 @@ export default function CheckoutClient() {
 
   if (!user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
             <Lock className="mx-auto mb-4 h-24 w-24 text-[var(--cera-blush-deep)]" />
@@ -744,7 +743,7 @@ export default function CheckoutClient() {
   const isAppLikeMode = (isPWAClient && isPWA) || isMobileWeb
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
       {/* The header carries the breadcrumb and the back link, so it needs the
           same measure as the content below it. Without this wrapper it sat
           against the left edge of the viewport while the form stayed centred. */}
@@ -974,7 +973,7 @@ export default function CheckoutClient() {
                     <span className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)]">AED {total.toFixed(2)}</span>
                   </div>
                   {earnPreviewPoints > 0 && (
-                    <div className={`flex items-center gap-1.5 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-1.5 text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />
                       {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
                     </div>
@@ -1253,7 +1252,7 @@ export default function CheckoutClient() {
                           return (
                             <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               <div className="flex-1 min-w-0">
-                                <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                                <h4 className={`text-[14px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                                   {item.product.name}
                                 </h4>
                                 <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1286,7 +1285,7 @@ export default function CheckoutClient() {
                         return (
                           <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                              <h4 className={`text-[14px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {item.product.name}
                               </h4>
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1325,7 +1324,7 @@ export default function CheckoutClient() {
                       {freeMasks.map((mask) => (
                         <div key={mask.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className="flex-1 min-w-0">
-                            <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            <h4 className={`text-[14px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {mask.name}
                             </h4>
                             <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1361,11 +1360,11 @@ export default function CheckoutClient() {
                   {hasAnyDiscount ? (
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
-                          <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                             + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
                           </span>
                         )}
@@ -1375,11 +1374,11 @@ export default function CheckoutClient() {
                   ) : (
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {t('checkout.subtotal')}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
-                          <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                             + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
                           </span>
                         )}
@@ -1422,7 +1421,7 @@ export default function CheckoutClient() {
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--cera-ok)]" />
-                      <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
+                      <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     </div>
                     <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">
                       {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-[var(--cera-ok)] font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
@@ -1442,11 +1441,11 @@ export default function CheckoutClient() {
                   )}
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
+                    <span className={`text-[13px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
                     <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className={`rounded-xl bg-[var(--cera-cream)] px-2 py-2 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`rounded-xl bg-[var(--cera-cream)] px-2 py-2 text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('checkout.allPricesIncludeVat')}
                   </div>
                   
@@ -1481,7 +1480,7 @@ export default function CheckoutClient() {
                   <div className="cera-card p-4 md:p-5">
                     <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-4 w-4 text-[var(--cera-ok)] md:h-5 md:w-5" />
-                      <span className="cera-serif text-[17px] text-[var(--cera-ink)]">{t('checkout.deliveryInformation')}</span>
+                      <span className="text-[17px] text-[var(--cera-ink)]">{t('checkout.deliveryInformation')}</span>
                     </div>
                     <p className={`text-[13px] leading-relaxed text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {selectedEmirate === 'Dubai' 
@@ -1501,14 +1500,14 @@ export default function CheckoutClient() {
                   <div className="cera-card p-4 md:p-5">
                     <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <MessageCircle className="h-4 w-4 text-[var(--cera-rose)] md:h-5 md:w-5" />
-                      <span className="cera-serif text-[17px] text-[var(--cera-ink)]">{t('checkout.needHelp')}</span>
+                      <span className="text-[17px] text-[var(--cera-ink)]">{t('checkout.needHelp')}</span>
                     </div>
                     <p className={`mb-3 text-[13px] leading-relaxed text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.haveQuestions')}
                     </p>
                     <button
                       onClick={contactWhatsApp}
-                      className={`flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-[#1da851] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#1da851] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('checkout.contactSupportViaWhatsApp')}

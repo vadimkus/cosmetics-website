@@ -7,7 +7,6 @@ import GeoFaqSchema, { GENOSYS_FAQ_RU } from '@/components/schema/GeoFaqSchema'
 import HomeItemListSchema from '@/components/schema/HomeItemListSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import { getHomeData, HOME_CATEGORY_SLUGS } from '@/lib/homeData'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import type { Metadata } from 'next'
 
 // Revalidate every 5 minutes - matches `/` so all three locale homepages
@@ -83,7 +82,7 @@ export default async function RussianHome() {
 
   return (
     <MobileRedirect to="/ru/products">
-      <div className={`cera-page genosys-page genosys-home ${ceraSerif.variable} flex flex-1 flex-col`} dir="ltr">
+      <div className={`cera-page genosys-page genosys-home flex flex-1 flex-col`} dir="ltr">
         <BreadcrumbSchema
           items={[
             { name: 'Главная', url: '/ru' }

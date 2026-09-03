@@ -18,7 +18,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 export default function AboutPageClient() {
   const { t, locale, dir } = useTranslation()
@@ -38,7 +37,7 @@ export default function AboutPageClient() {
       title={locale === 'ar' ? 'حول جينوسيس' : locale === 'ru' ? 'О Genosys' : 'About Genosys'}
       defaultBackPath="/products"
     >
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
         <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -62,7 +61,7 @@ export default function AboutPageClient() {
           {/* About + Mission - single divided card (was two cards). */}
           <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm overflow-hidden mb-4">
             <div className="p-4">
-              <h2 className={`cera-serif text-sm text-[var(--cera-ink)] mb-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.aboutUs')}</h2>
+              <h2 className={`text-sm text-[var(--cera-ink)] mb-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.aboutUs')}</h2>
               <p className={`text-sm text-[var(--cera-body)] leading-relaxed mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.aboutUsDescription')}</p>
               <p className={`text-sm text-[var(--cera-body)] leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('about.productsCertifiedDescription')}{' '}
@@ -72,14 +71,14 @@ export default function AboutPageClient() {
               </p>
             </div>
             <div className="border-t border-[var(--cera-line)] p-4">
-              <h2 className={`cera-serif text-sm text-[var(--cera-ink)] mb-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.ourMission')}</h2>
+              <h2 className={`text-sm text-[var(--cera-ink)] mb-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.ourMission')}</h2>
               <p className={`text-sm text-[var(--cera-body)] leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.missionDescription')}</p>
             </div>
           </div>
 
           {/* Section label for legal/contact details (small caps, tight) */}
           <div className={`px-1 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
-            <h2 className="cera-serif text-xs text-[var(--cera-muted)] uppercase tracking-wide">
+            <h2 className="text-xs text-[var(--cera-muted)] uppercase tracking-wide">
               {t('about.legalInformationContact')}
             </h2>
           </div>
@@ -89,7 +88,7 @@ export default function AboutPageClient() {
           <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm overflow-hidden mb-4">
             {/* Company Details */}
             <div className="p-4">
-              <h3 className={`cera-serif text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.companyDetails')}</h3>
+              <h3 className={`text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.companyDetails')}</h3>
               <dl className="divide-y divide-gray-100">
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-[var(--cera-muted)] flex-shrink-0">{locale === 'ru' ? 'Компания' : locale === 'ar' ? 'الشركة' : 'Company'}</dt>
@@ -120,7 +119,7 @@ export default function AboutPageClient() {
 
             {/* Contact */}
             <div className="border-t border-[var(--cera-line)] p-4">
-              <h3 className={`cera-serif text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.contactInformation')}</h3>
+              <h3 className={`text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.contactInformation')}</h3>
               <dl className="divide-y divide-gray-100">
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-[var(--cera-muted)] flex-shrink-0">{t('contact.phoneWhatsapp')}</dt>
@@ -143,7 +142,7 @@ export default function AboutPageClient() {
 
             {/* Business */}
             <div className="border-t border-[var(--cera-line)] p-4">
-              <h3 className={`cera-serif text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.businessInformation')}</h3>
+              <h3 className={`text-xs text-[var(--cera-muted)] uppercase tracking-wide mb-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.businessInformation')}</h3>
               <dl className="divide-y divide-gray-100">
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-[var(--cera-muted)] flex-shrink-0">{locale === 'ru' ? 'Дистрибьютор' : locale === 'ar' ? 'الموزع' : 'Distributor'}</dt>
@@ -175,7 +174,7 @@ export default function AboutPageClient() {
 
           {/* CTA - full-width stacked buttons feel native on mobile. */}
           <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm p-5 text-center">
-            <h2 className="cera-serif text-base text-[var(--cera-ink)] mb-1.5">{t('about.getInTouch')}</h2>
+            <h2 className="text-base text-[var(--cera-ink)] mb-1.5">{t('about.getInTouch')}</h2>
             <p className="text-xs text-[var(--cera-muted)] mb-4 leading-relaxed">{t('about.getInTouchDescription')}</p>
             <div className={`flex flex-col gap-2 ${dir === 'rtl' ? 'items-stretch' : 'items-stretch'}`}>
               <Link
@@ -335,7 +334,7 @@ export default function AboutPageClient() {
               <div className={`bg-white p-6 md:p-7 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className={`flex items-center gap-2.5 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Building2 className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
-                  <h3 className="cera-serif text-xs cera-eyebrow text-[var(--cera-muted)]">
+                  <h3 className="text-xs cera-eyebrow text-[var(--cera-muted)]">
                     {t('about.companyDetails')}
                   </h3>
                 </div>
@@ -375,7 +374,7 @@ export default function AboutPageClient() {
               <div className={`bg-white p-6 md:p-7 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className={`flex items-center gap-2.5 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <PhoneIcon className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
-                  <h3 className="cera-serif text-xs cera-eyebrow text-[var(--cera-muted)]">
+                  <h3 className="text-xs cera-eyebrow text-[var(--cera-muted)]">
                     {t('about.contactInformation')}
                   </h3>
                 </div>
@@ -411,7 +410,7 @@ export default function AboutPageClient() {
               <div className={`bg-white p-6 md:p-7 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className={`flex items-center gap-2.5 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <IconOfficialDistributor className="h-4 w-4 text-[var(--cera-rose)]" />
-                  <h3 className="cera-serif text-xs cera-eyebrow text-[var(--cera-muted)]">
+                  <h3 className="text-xs cera-eyebrow text-[var(--cera-muted)]">
                     {t('about.businessInformation')}
                   </h3>
                 </div>

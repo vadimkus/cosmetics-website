@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { Check, Loader2, LockKeyhole, ShoppingBag, Stethoscope } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -85,12 +84,12 @@ export default function HomecareRecommendationClient({ token }: { token: string 
   }
 
   if (loading) {
-    return <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center`}><Loader2 className="w-7 h-7 animate-spin text-[var(--cera-muted)]" /></main>
+    return <main className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center`}><Loader2 className="w-7 h-7 animate-spin text-[var(--cera-muted)]" /></main>
   }
 
   if (error || !script) {
     return (
-      <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center p-5`}>
+      <main className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center p-5`}>
         <div className="max-w-md w-full rounded-2xl bg-white border border-[var(--cera-line)] shadow-sm p-8 text-center">
           <LockKeyhole className="w-10 h-10 text-[var(--cera-blush-deep)] mx-auto mb-4" />
           <h1 className="cera-serif text-xl text-[var(--cera-ink)]">Recommendation unavailable</h1>
@@ -109,7 +108,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
   const inactive = script.status !== 'ACTIVE'
 
   return (
-    <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-28`}>
+    <main className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] pb-28`}>
       <header className="bg-[var(--cera-cta)] text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-7 sm:py-9">
           <div className="flex items-center justify-between gap-4 mb-7">

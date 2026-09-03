@@ -6,7 +6,6 @@ import './blog.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Calendar, Eye } from 'lucide-react'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -110,7 +109,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
   }
 
   return (
-    <div className={`cera-page blog-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page blog-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* In the installed app and on mobile web the site chrome is hidden, so
           the page carries its own back / title / profile bar. */}
       {isAppLikeMode && (
@@ -140,7 +139,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                     : 'Products'}
             </span>
           </button>
-          <span className="cera-serif text-[17px]">{label.blog}</span>
+          <span className="text-[17px]">{label.blog}</span>
           <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <LocaleSwitchInline />
           <button
@@ -182,7 +181,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
         <header className={`mt-8 md:mt-16 ${isRTL ? 'text-right' : ''}`}>
           <p className="cera-eyebrow mb-3">{label.blog}</p>
           <h1 className="cera-serif text-[34px] leading-[1.05] md:text-[56px] lg:text-[64px]">{label.title}</h1>
-          <p className="mt-5 max-w-[62ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+          <p className="mt-5 max-w-[62ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
             {label.lead}
           </p>
           {posts.length > 0 && (

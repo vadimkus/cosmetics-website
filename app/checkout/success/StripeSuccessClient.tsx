@@ -9,7 +9,6 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { debugLog, errorLog } from '@/lib/logger'
 import ConfettiCelebration from '@/components/ConfettiCelebration'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -138,7 +137,7 @@ export default function StripeSuccessClient() {
 
   if (loading) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] items-center justify-center`} dir={dir}>
+      <div className={`cera-page genosys-page flex min-h-[100dvh] items-center justify-center`} dir={dir}>
         <div className="text-center p-8">
           <div className="animate-spin rounded-full h-16 w-16 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] mx-auto mb-4"></div>
           <h2 className="cera-serif mb-2 text-[22px] leading-tight text-[var(--cera-ink)]">
@@ -154,7 +153,7 @@ export default function StripeSuccessClient() {
 
   if (error || !orderDetails) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] items-center justify-center`} dir={dir}>
+      <div className={`cera-page genosys-page flex min-h-[100dvh] items-center justify-center`} dir={dir}>
         <div className="text-center p-8 max-w-md mx-auto">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-red-200 bg-red-50">
             <RefreshCw className="h-7 w-7 text-red-600" />
@@ -187,7 +186,7 @@ export default function StripeSuccessClient() {
   const isPaymentSuccessful = orderDetails.paymentStatus === 'paid'
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] py-12`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] py-12`} dir={dir}>
       {/* Confetti Celebration */}
       <ConfettiCelebration 
         trigger={showConfetti}

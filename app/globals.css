@@ -5,8 +5,9 @@
    ============================================================================
    
    Font Strategy:
-   - Primary: SF Pro Display (headings) / SF Pro Text (body) on Apple devices
-   - Fallback: Inter (loaded from Google Fonts) for cross-platform consistency
+   - Interface: Inter on every device (self-hosted via next/font)
+   - Display: Cormorant Garamond via .cera-serif, 18px and up
+   - Fallback: system sans for the instant before Inter arrives
    
    Features:
    - Dynamic Type support for iOS accessibility
@@ -24,16 +25,18 @@
      TYPOGRAPHY - Font Families
      ======================================================================== */
   
-  /* Display font for headings - SF Pro Display with Inter fallback
-     var(--font-inter) is set by Next.js font loader when Inter loads */
-  --font-display: "SF Pro Display", var(--font-inter, "Inter"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
-  /* Body font - SF Pro Text with Inter fallback
-     var(--font-inter) is set by Next.js font loader when Inter loads */
-  --font-body: "SF Pro Text", var(--font-inter, "Inter"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* One interface face on every device: Inter, self-hosted by next/font.
+     Until September 2026 both stacks put "SF Pro" first, so Mac and iPhone
+     users saw Apple's system font while everyone else saw Inter, and the site
+     was reviewed on Macs. Apple users also downloaded Inter for nothing.
+     var(--font-inter) is set by the Next.js font loader; the rest is the
+     fallback for the instant before it arrives. `--font-display` is the same
+     face: hierarchy comes from size and weight, not a second sans. */
+  --font-body: var(--font-inter, "Inter"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-body);
   
   /* Monospace font for code */
-  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   
   /* ========================================================================
      TYPOGRAPHY - Font Weights
@@ -735,6 +738,18 @@ html {
 
 /* Headings use display font with proper tracking */
 h1, h2, h3, h4, h5, h6,
+/* The house display serif, Cormorant Garamond. One definition for the whole
+   site. It used to live in one product page's CSS and depend on a variable
+   each page mounted for itself; a component rendered under a page that had
+   not mounted it fell back to sans without a word. The variable is now set
+   once on <body> in app/layout.tsx. Display roles only: 18px and up. Below
+   that the face loses legibility and the interface font takes over. */
+.cera-serif {
+  font-family: var(--font-cera-serif), var(--font-arabic), "Iowan Old Style", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
 .font-display {
   font-family: var(--font-display);
   font-weight: var(--font-weight-bold);

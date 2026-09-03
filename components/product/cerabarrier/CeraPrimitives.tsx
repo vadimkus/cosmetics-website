@@ -268,7 +268,7 @@ export function CeraBarcodeRows({
 
   return (
     <div className="flex gap-4 py-3.5">
-      <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+      <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
         {label}
       </dt>
       <dd className="text-[15px] leading-snug text-[var(--cera-body)]">
@@ -308,7 +308,7 @@ export function CeraBrochureLinks({
           href={doc.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-[44px] items-center gap-2 py-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
+          className="inline-flex min-h-[44px] items-center gap-2 py-2 text-[14px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
         >
           <Download className="h-4 w-4" />
           {doc.title}

@@ -6,7 +6,6 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -65,7 +64,7 @@ const locations = [
 export default function ArabicLocationsPageClient() {
   const { t, locale, dir } = useTranslation()
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('navigation.home'), url: getLocalizedPath('/', locale) },

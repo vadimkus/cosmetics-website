@@ -15,7 +15,6 @@ import ConcernWhySection from '@/components/ConcernWhySection'
 import ConcernStickyBar from '@/components/ConcernStickyBar'
 import ConcernCTA from '@/components/ConcernCTA'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -133,7 +132,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       {/* Structured Data */}
       {/* Breadcrumb JSON-LD points to indexable pages only - the previous
           intermediate `/products?categories=skin-concern` is a client-filtered

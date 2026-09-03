@@ -81,7 +81,6 @@ import ProductReviews from '@/components/product/ProductReviews'
 import ProductOptionDialog from '@/components/product/ProductOptionDialog'
 import type { ProductOptionSelection } from '@/lib/productOptions'
 
-import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
@@ -349,7 +348,7 @@ export default function PdrnMaskProductPage({
           : copy.addToBag
 
   return (
-    <div className={`cera-page pdrnmask-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page pdrnmask-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -424,7 +423,7 @@ export default function PdrnMaskProductPage({
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -433,7 +432,7 @@ export default function PdrnMaskProductPage({
                 wet-use note sits beside it because treating this as a dry
                 styling brush is the one way people misread the product. */}
             <div className="mt-7 flex flex-wrap items-center gap-2.5">
-              <span className="cera-serif cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
+              <span className="cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
                 {copy.packSize}
               </span>
               <span className="rounded-full bg-[var(--cera-blush)] px-4 py-2 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
@@ -568,7 +567,7 @@ export default function PdrnMaskProductPage({
               <p className="cera-serif text-[24px] leading-tight text-[var(--cera-ink)] sm:text-[30px]">
                 {stat.value}
               </p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -583,7 +582,7 @@ export default function PdrnMaskProductPage({
             <CeraReveal>
               <p className="cera-eyebrow">{copy.licence.eyebrow}</p>
               <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.licence.title}</h2>
-              <p className="mt-4 max-w-[52ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+              <p className="mt-4 max-w-[52ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                 {copy.licence.body}
               </p>
             </CeraReveal>
@@ -599,7 +598,7 @@ export default function PdrnMaskProductPage({
                   <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
                     {point.title}
                   </h3>
-                  <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[15.5px]">
+                  <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
                     {point.body}
                   </p>
                 </CeraReveal>
@@ -662,13 +661,13 @@ export default function PdrnMaskProductPage({
 
               <div className="mt-3 grid grid-cols-3 gap-3.5 border-t border-[var(--cera-line)] pt-3">
                 {copy.proof.stages.map(stage => (
-                  <p key={stage} className="text-center text-[12.5px] leading-snug text-[var(--cera-muted)]">
+                  <p key={stage} className="text-center text-[13px] leading-snug text-[var(--cera-muted)]">
                     {stage}
                   </p>
                 ))}
               </div>
 
-              <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[12.5px] text-[var(--cera-muted)]">
+              <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-[var(--cera-muted)]">
                 <li className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-sm bg-[color-mix(in_srgb,var(--cera-rose)_26%,#fff)]" />
                   {copy.proof.controlLabel}
@@ -686,12 +685,12 @@ export default function PdrnMaskProductPage({
                   <p className="cera-numeral text-[38px] leading-none text-[var(--cera-rose-ink)] sm:text-[46px]">
                     {claim.value}
                   </p>
-                  <p className="mt-2.5 text-[14.5px] leading-snug text-[var(--cera-body)]">{claim.label}</p>
+                  <p className="mt-2.5 text-[15px] leading-snug text-[var(--cera-body)]">{claim.label}</p>
                 </CeraReveal>
               ))}
               <CeraReveal delay={180}>
-                <p className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{copy.proof.note}</p>
-                <p className="mt-4 text-[12.5px] leading-relaxed text-[var(--cera-muted)]">
+                <p className="text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.proof.note}</p>
+                <p className="mt-4 text-[13px] leading-relaxed text-[var(--cera-muted)]">
                   {copy.proof.attribution}
                 </p>
               </CeraReveal>
@@ -720,7 +719,7 @@ export default function PdrnMaskProductPage({
             <CeraReveal>
               <p className="cera-eyebrow">{copy.sheet.eyebrow}</p>
               <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.sheet.title}</h2>
-              <p className="mt-4 max-w-[50ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+              <p className="mt-4 max-w-[50ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                 {copy.sheet.body}
               </p>
             </CeraReveal>
@@ -736,7 +735,7 @@ export default function PdrnMaskProductPage({
                   <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
                     {point.title}
                   </h3>
-                  <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[15.5px]">
+                  <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
                     {point.body}
                   </p>
                 </CeraReveal>
@@ -818,7 +817,7 @@ export default function PdrnMaskProductPage({
               does not reverse the commas. */}
           <CeraReveal className="mx-auto mt-10 max-w-[820px]">
             <CeraAccordion title={copy.actives.inciTitle}>
-              <p dir="ltr" className="text-start text-[14.5px] leading-[1.9] text-[var(--cera-body)]">
+              <p dir="ltr" className="text-start text-[15px] leading-[1.9] text-[var(--cera-body)]">
                 {FULL_INCI}
               </p>
               <p className="mt-3 text-[13px] text-[var(--cera-muted)]">{copy.actives.inciNote}</p>
@@ -865,7 +864,7 @@ export default function PdrnMaskProductPage({
           </CeraReveal>
         </div>
         <CeraReveal>
-          <p className="mt-6 text-[13.5px] text-[var(--cera-muted)]">{copy.suited.note}</p>
+          <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.suited.note}</p>
         </CeraReveal>
       </section>
 
@@ -929,7 +928,7 @@ export default function PdrnMaskProductPage({
                     <div className="flex flex-1 flex-col p-3.5">
                       <Link
                         href={href}
-                        className="cera-serif text-[15.5px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
+                        className="text-[16px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
                       >
                         {step.title}
                       </Link>
@@ -958,7 +957,7 @@ export default function PdrnMaskProductPage({
                             type="button"
                             onClick={handleAdd}
                             disabled={!product.inStock || isAdding}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               justAdded
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -972,7 +971,7 @@ export default function PdrnMaskProductPage({
                             type="button"
                             onClick={() => handleAddRoutineProduct(item)}
                             disabled={!item.inStock || busy}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -992,7 +991,7 @@ export default function PdrnMaskProductPage({
                             type="button"
                             onClick={() => handleChooseRoutineOptions(item)}
                             disabled={!item.inStock || busy}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-line)] text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]'
@@ -1010,7 +1009,7 @@ export default function PdrnMaskProductPage({
                         ) : (
                           <Link
                             href={href}
-                            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[12.5px] font-semibold text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]"
+                            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[13px] font-semibold text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]"
                           >
                             {copy.routine.viewProduct}
                             <ChevronRight className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} />
@@ -1018,7 +1017,7 @@ export default function PdrnMaskProductPage({
                         )}
 
                         {inBag > 0 ? (
-                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[11.5px] text-[var(--cera-ok)]">
+                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[12px] text-[var(--cera-ok)]">
                             <Check className="h-3.5 w-3.5 flex-none" />
                             {copy.inBag} · {inBag}
                           </p>
@@ -1041,7 +1040,7 @@ export default function PdrnMaskProductPage({
             <dl className="divide-y divide-[var(--cera-line)]">
               {copy.details.rows.map(row => (
                 <div key={row.label} className="flex gap-4 py-3.5">
-                  <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                  <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                     {row.label}
                   </dt>
                   <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -1121,7 +1120,7 @@ export default function PdrnMaskProductPage({
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
                 {copy.packSize} · {copy.usageNote}
               </p>

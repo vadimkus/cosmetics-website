@@ -6,7 +6,6 @@ import { Instagram } from '@/components/icons/BrandIcons'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -45,7 +44,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
 
   if (!location) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+      <div className={`cera-page genosys-page min-h-screen`}>
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="cera-serif text-4xl text-[var(--cera-ink)] mb-4">{t('locations.locationNotFound')}</h1>
@@ -60,7 +59,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       <BreadcrumbSchema 
         items={[
           { name: t('locations.home'), url: '/' },

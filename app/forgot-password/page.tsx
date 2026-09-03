@@ -9,7 +9,6 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -75,7 +74,7 @@ export default function ForgotPasswordClient() {
   )
 
   const shell = (children: React.ReactNode) => (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] flex-col`} dir={dir}>
+    <div className={`cera-page genosys-page flex min-h-[100dvh] flex-col`} dir={dir}>
       {schema}
       <div className="hidden md:block">
         <PageBreadcrumb items={crumbs} />
@@ -104,7 +103,7 @@ export default function ForgotPasswordClient() {
           {t('auth.resetLinkSent') || 'A password reset link has been sent to'}
         </p>
         <p dir="ltr" className="mt-1 text-[15px] font-semibold text-[var(--cera-ink)]">{email}</p>
-        <p className="mt-4 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">
+        <p className="mt-4 text-[14px] leading-relaxed text-[var(--cera-muted)]">
           {t('auth.linkExpiresIn') || 'The password reset link will expire in 30 minutes.'}
         </p>
         <Link

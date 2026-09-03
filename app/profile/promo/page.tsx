@@ -9,7 +9,6 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -177,7 +176,7 @@ export default function PromoPage() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
+    <div className={`cera-page genosys-page min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* Unified nav header */}
       <div
         className="mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)]"

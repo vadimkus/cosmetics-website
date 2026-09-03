@@ -6,7 +6,6 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import PasskeySettings from '@/components/profile/PasskeySettings'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -21,7 +20,7 @@ export default function PasskeysPage() {
 
   if (isLoading) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-screen flex items-center justify-center`}>
         <div className="w-8 h-8 border-4 border-[var(--cera-rose)] border-t-transparent rounded-full animate-spin" />
       </div>
     )
@@ -33,7 +32,7 @@ export default function PasskeysPage() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen`} dir={dir}>
       {/* Unified nav header */}
       <div
         className="mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)]"

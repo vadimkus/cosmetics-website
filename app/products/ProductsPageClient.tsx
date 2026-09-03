@@ -49,7 +49,6 @@ import NewsletterSignup from '@/components/NewsletterSignup'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { isNewCategoryFilterId } from '@/lib/productBadges'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Catalog order: discovery tool first, then skincare routine flow, then specialty.
 // "New" badges are product-level only - see lib/productBadges.ts.
@@ -405,7 +404,7 @@ export default function ProductsPageClient({
     : { min: 0, max: 10000 }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} suppressHydrationWarning>
+    <div className={`cera-page genosys-page min-h-[100dvh]`} suppressHydrationWarning>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
       <BreadcrumbSchema 
         items={[
@@ -471,7 +470,7 @@ export default function ProductsPageClient({
             The claims still matter on mobile - the site footer is suppressed below 768px, so
             this is their only appearance - so they moved below the grid, where they close the
             page instead of interrupting it. See the block after the product grid. */}
-        <div className="mb-5 hidden flex-wrap items-center justify-center gap-x-10 gap-y-2 border-y border-[var(--cera-line)] bg-white py-3 text-[13.5px] text-[var(--cera-body)] md:flex">
+        <div className="mb-5 hidden flex-wrap items-center justify-center gap-x-10 gap-y-2 border-y border-[var(--cera-line)] bg-white py-3 text-[14px] text-[var(--cera-body)] md:flex">
           {TRUST_ITEMS.map(item => (
             <span key={item.key} className="flex items-center gap-2">
               <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
@@ -569,7 +568,7 @@ export default function ProductsPageClient({
                  the products. The exit below restores that. */
               <>
                 <div className="products-header mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-                  <p className="text-[13.5px] text-[var(--cera-muted)]">
+                  <p className="text-[14px] text-[var(--cera-muted)]">
                     {t('products.concernModeCount', { count: CONCERN_PAGES.length })}
                   </p>
                   <button
@@ -604,7 +603,7 @@ export default function ProductsPageClient({
               <>
                 {/* Results Header with Sort */}
                 <div className="products-header mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-                  <div className="text-[13.5px] text-[var(--cera-muted)]">
+                  <div className="text-[14px] text-[var(--cera-muted)]">
                     {filteredAndSortedProducts.length === products.length ? (
                       <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
                     ) : (
@@ -705,7 +704,7 @@ export default function ProductsPageClient({
                               <path strokeLinecap="round" strokeLinejoin="round" d={item.path} />
                             </svg>
                           </span>
-                          <span className="pt-[6px] text-[13.5px] leading-snug text-[var(--cera-body)]">{t(item.key)}</span>
+                          <span className="pt-[6px] text-[14px] leading-snug text-[var(--cera-body)]">{t(item.key)}</span>
                         </li>
                       ))}
                     </ul>
@@ -714,7 +713,7 @@ export default function ProductsPageClient({
                         a clear terminus + a quick way back to the filters. Hidden on
                         mobile web / PWA because those already have a scroll-to-top
                         gesture (and the mobile bottom nav). */}
-                    <div className="mt-10 hidden items-center justify-between gap-4 border-t border-[var(--cera-line)] pt-6 text-[13.5px] text-[var(--cera-muted)] md:flex">
+                    <div className="mt-10 hidden items-center justify-between gap-4 border-t border-[var(--cera-line)] pt-6 text-[14px] text-[var(--cera-muted)] md:flex">
                       <span>
                         {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
                       </span>

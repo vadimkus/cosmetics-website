@@ -262,7 +262,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               )}
             </div>
 
-            <p className="mb-5 text-[12.5px] leading-relaxed text-[var(--cera-muted)]">{socialProofText}</p>
+            <p className="mb-5 text-[13px] leading-relaxed text-[var(--cera-muted)]">{socialProofText}</p>
 
             <StoreBadges locale={locale} size="compact" />
           </div>
@@ -319,7 +319,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 className={`px-8 text-center ${i > 0 ? 'border-s border-[var(--cera-line)]' : ''}`}
               >
                 <dd className="cera-numeral text-[26px] leading-none text-[var(--cera-ink)]">{item.value}</dd>
-                <dt className="mt-2 text-[12.5px] leading-tight text-[var(--cera-muted)]">{item.label}</dt>
+                <dt className="mt-2 text-[13px] leading-tight text-[var(--cera-muted)]">{item.label}</dt>
               </div>
             ))}
           </dl>

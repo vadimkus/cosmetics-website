@@ -13,7 +13,6 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 import { PartnerGuard } from '@/components/partners/PartnerGuard'
 import { errorLog } from '@/lib/logger'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -255,7 +254,7 @@ function PartnerDashboardInner() {
   // ── Desktop / laptop: compact multi-column dashboard ──
   if (!isAppLikeMode) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)]`} dir={dir}>
+      <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)]`} dir={dir}>
         {welcome && (
           <div className="fixed top-4 right-6 z-50 max-w-sm">
             <div className="flex items-center gap-3 bg-[var(--cera-cta)] text-white rounded-xl px-4 py-3 shadow-lg">
@@ -501,7 +500,7 @@ function PartnerDashboardInner() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] ${isAppLikeMode ? 'pb-28' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] ${isAppLikeMode ? 'pb-28' : ''}`} dir={dir}>
       {/* Welcome toast */}
       {welcome && (
         <div className="fixed top-4 inset-x-4 z-50 mx-auto max-w-sm">

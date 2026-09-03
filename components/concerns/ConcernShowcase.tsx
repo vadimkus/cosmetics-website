@@ -339,7 +339,7 @@ export default function ConcernShowcase({
                 <span className="cera-serif block text-[18px] leading-tight text-[var(--cera-ink)]">
                   {copy.ctaTitle}
                 </span>
-                <span className="mt-1 block text-[12.5px] text-[var(--cera-muted)]">{copy.ctaBody}</span>
+                <span className="mt-1 block text-[13px] text-[var(--cera-muted)]">{copy.ctaBody}</span>
               </span>
             </div>
             <Link

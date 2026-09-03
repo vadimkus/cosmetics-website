@@ -8,7 +8,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -153,7 +152,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
 
   if (!user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-screen flex items-center justify-center`}>
         <p className="text-[var(--cera-muted)]">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
       </div>
     )
@@ -164,7 +163,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
       className={
         embedded
           ? 'overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)]'
-          : `cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`
+          : `cera-page genosys-page min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`
       }
       dir={dir}
     >

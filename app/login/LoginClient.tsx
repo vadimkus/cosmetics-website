@@ -57,7 +57,6 @@ import {
   suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
 import { getLocalTodayYmd } from '@/lib/validation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 /** 16px on every control: anything smaller makes iOS Safari zoom on focus. */
 const FIELD = 'ed-field !text-[16px]'
@@ -288,7 +287,7 @@ export default function LoginClient() {
       onClick={() => setShowPartnerLogin(false)}
     >
       <div
-        className={`w-full max-w-sm rounded-[28px] border border-[var(--cera-line)] bg-white p-7 shadow-2xl ${ceraSerif.variable}`}
+        className={`w-full max-w-sm rounded-[28px] border border-[var(--cera-line)] bg-white p-7 shadow-2xl`}
         dir={dir}
         onClick={e => e.stopPropagation()}
       >
@@ -373,7 +372,7 @@ export default function LoginClient() {
 
         <a
           href="mailto:sales@genosys.ae?subject=Partner%20Portal%20Access%20Request"
-          className="mt-4 block text-center text-[12.5px] text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-rose-ink)]"
+          className="mt-4 block text-center text-[13px] text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-rose-ink)]"
         >
           {locale === 'ru'
             ? 'Запросить партнёрский доступ - sales@genosys.ae'
@@ -389,7 +388,7 @@ export default function LoginClient() {
     <button
       type="button"
       onClick={() => { setShowPartnerLogin(true); setPartnerError('') }}
-      className={`ed-ghost mt-4 w-full py-3 text-[13.5px] uppercase tracking-[0.08em] ${isRTL ? 'flex-row-reverse' : ''}`}
+      className={`ed-ghost mt-4 w-full py-3 text-[14px] uppercase tracking-[0.08em] ${isRTL ? 'flex-row-reverse' : ''}`}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-[var(--cera-rose)]" aria-hidden="true" />
       {copy.partnerAccess}
@@ -399,7 +398,7 @@ export default function LoginClient() {
   // ───────────────────────── Already signed in ─────────────────────────
   if (user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh]`} dir={dir}>
         <div className="mx-auto max-w-md px-4 py-16 text-center sm:px-6 md:py-24">
           <span className="ed-mark ed-mark--tactile ed-mark--round mx-auto h-14 w-14" aria-hidden="true">
             <Check className="h-6 w-6" strokeWidth={2} />
@@ -407,7 +406,7 @@ export default function LoginClient() {
           <h1 className="cera-serif mt-5 text-[28px] leading-tight text-[var(--cera-ink)] md:text-[36px]">
             {t('login.alreadyLoggedIn')}
           </h1>
-          <p className="mt-3 text-[14.5px] text-[var(--cera-muted)]">
+          <p className="mt-3 text-[15px] text-[var(--cera-muted)]">
             {t('login.loggedInAs')} <span dir="ltr">{user.email}</span>
           </p>
           <Link
@@ -428,7 +427,7 @@ export default function LoginClient() {
         type="button"
         onClick={() => loginWithGoogle()}
         disabled={isLoading}
-        className={`ed-ghost w-full py-3 text-[14.5px] disabled:opacity-50 ${isRTL ? 'flex-row-reverse' : ''}`}
+        className={`ed-ghost w-full py-3 text-[15px] disabled:opacity-50 ${isRTL ? 'flex-row-reverse' : ''}`}
       >
         <svg className="h-[18px] w-[18px]" viewBox="0 0 24 24" aria-hidden="true">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -443,7 +442,7 @@ export default function LoginClient() {
         type="button"
         onClick={() => loginWithApple()}
         disabled={isLoading}
-        className={`ed-cta w-full py-3 text-[14.5px] disabled:opacity-50 ${isRTL ? 'flex-row-reverse' : ''}`}
+        className={`ed-cta w-full py-3 text-[15px] disabled:opacity-50 ${isRTL ? 'flex-row-reverse' : ''}`}
       >
         <svg className="h-[18px] w-[18px]" viewBox="0 0 814 1000" aria-hidden="true">
           <path fill="currentColor" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
@@ -457,7 +456,7 @@ export default function LoginClient() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t('login.downloadAppApple')}
-          className={`ed-ghost py-2.5 text-[12.5px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`ed-ghost py-2.5 text-[13px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <svg className="h-4 w-4" viewBox="0 0 814 1000" aria-hidden="true">
             <path fill="currentColor" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
@@ -469,7 +468,7 @@ export default function LoginClient() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t('login.downloadAppGoogle')}
-          className={`ed-ghost py-2.5 text-[12.5px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`ed-ghost py-2.5 text-[13px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
@@ -488,7 +487,7 @@ export default function LoginClient() {
 
   return (
     <div
-      className={`cera-page genosys-page ${ceraSerif.variable} lg:grid lg:min-h-[calc(100dvh-64px)] lg:grid-cols-2`}
+      className={`cera-page genosys-page lg:grid lg:min-h-[calc(100dvh-64px)] lg:grid-cols-2`}
       dir={dir}
     >
       {/* ─── Brand panel, lg and up ───────────────────────────────────────
@@ -529,7 +528,7 @@ export default function LoginClient() {
               ? 'Войдите в мир GENOSYS'
               : 'Sign in to the GENOSYS world.'}
           </h2>
-          <p className="mt-5 text-[15.5px] leading-relaxed text-white/65">
+          <p className="mt-5 text-[16px] leading-relaxed text-white/65">
             {locale === 'ar'
               ? 'مستحضرات تجميل كورية احترافية، تتبع الطلبات، ومزايا حصرية - من موزّع GENOSYS الرسمي في الإمارات.'
               : locale === 'ru'
@@ -547,7 +546,7 @@ export default function LoginClient() {
                 <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-white/10">
                   <Check className="h-[11px] w-[11px] text-white/80" strokeWidth={3} />
                 </span>
-                <span className="text-[14.5px] leading-snug text-white/75">{line}</span>
+                <span className="text-[15px] leading-snug text-white/75">{line}</span>
               </li>
             ))}
           </ul>
@@ -603,7 +602,7 @@ export default function LoginClient() {
                       key={code}
                       type="button"
                       onClick={() => handleLanguageChange(code)}
-                      className={`block w-full px-4 py-2.5 text-start text-[13.5px] transition-colors hover:bg-[var(--cera-cream)] ${
+                      className={`block w-full px-4 py-2.5 text-start text-[14px] transition-colors hover:bg-[var(--cera-cream)] ${
                         locale === code ? 'bg-[var(--cera-blush)] font-semibold text-[var(--cera-rose-ink)]' : 'text-[var(--cera-body)]'
                       }`}
                     >
@@ -638,7 +637,7 @@ export default function LoginClient() {
               {error && (
                 <p
                   role="alert"
-                  className="rounded-xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)] px-3.5 py-2.5 text-[13.5px] leading-relaxed text-[var(--cera-rose-ink)]"
+                  className="rounded-xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)] px-3.5 py-2.5 text-[14px] leading-relaxed text-[var(--cera-rose-ink)]"
                 >
                   {error}
                 </p>
@@ -646,10 +645,10 @@ export default function LoginClient() {
 
               {!isLoginMode && (
                 <div className="rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream)] px-4 py-3">
-                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-rose-ink)]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-rose-ink)]">
                     {copy.valuePropTitle}
                   </p>
-                  <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--cera-body)]">{copy.valuePropBody}</p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-[var(--cera-body)]">{copy.valuePropBody}</p>
                 </div>
               )}
 
@@ -660,8 +659,8 @@ export default function LoginClient() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLoginMode && normalizedPromo && (
                   <div className="rounded-xl border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-3.5 py-2.5">
-                    <p className="text-[12.5px] font-semibold text-[var(--cera-ok)]">{t('errors.promoApplied')}</p>
-                    <p dir="ltr" className="text-[12.5px] text-[var(--cera-ok)]">{normalizedPromo}</p>
+                    <p className="text-[13px] font-semibold text-[var(--cera-ok)]">{t('errors.promoApplied')}</p>
+                    <p dir="ltr" className="text-[13px] text-[var(--cera-ok)]">{normalizedPromo}</p>
                   </div>
                 )}
 
@@ -854,7 +853,7 @@ export default function LoginClient() {
                       >
                         {privacyConsent && <Check className="h-3 w-3" strokeWidth={3} />}
                       </button>
-                      <p className={`flex-1 text-[12.5px] leading-snug text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
+                      <p className={`flex-1 text-[13px] leading-snug text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
                         {t('login.agreeToPrivacy')}{' '}
                         <Link
                           href={getLocalizedPath('/privacy-policy', locale)}
@@ -887,7 +886,7 @@ export default function LoginClient() {
                 <button
                   type="button"
                   onClick={toggleMode}
-                  className="mt-1 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] hover:underline"
+                  className="mt-1 text-[14px] font-semibold text-[var(--cera-rose-ink)] hover:underline"
                 >
                   {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
                 </button>

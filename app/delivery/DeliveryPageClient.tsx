@@ -5,7 +5,6 @@ import '@/components/editorial/editorial.css'
 
 import Link from 'next/link'
 import { ArrowLeft, Clock, Gift, Mail, Phone, RotateCcw, Truck } from 'lucide-react'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -51,7 +50,7 @@ export default function DeliveryPageClient() {
   ]
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {isAppLikeMode && (
         <div
           className={`mweb-float-sticky-top sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
@@ -67,7 +66,7 @@ export default function DeliveryPageClient() {
               {fromProfile ? pick('Account', 'الحساب', 'Аккаунт') : pick('Products', 'المنتجات', 'Продукты')}
             </span>
           </button>
-          <span className="cera-serif text-[17px]">{pick('Delivery', 'التوصيل', 'Доставка')}</span>
+          <span className="text-[17px]">{pick('Delivery', 'التوصيل', 'Доставка')}</span>
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="flex min-w-[80px] justify-end"
@@ -108,7 +107,7 @@ export default function DeliveryPageClient() {
           <h1 className="cera-serif text-[32px] leading-[1.05] md:text-[54px] lg:text-[62px]">
             {pick('Getting it to you', 'كيف يصلك طلبك', 'Как заказ доедет')}
           </h1>
-          <p className="mx-auto mt-5 max-w-[58ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+          <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
             {pick(
               'Same-day inside Dubai, next day everywhere else in the country, on a tracked courier from our own stock in Dubai.',
               'في اليوم نفسه داخل دبي، وفي اليوم التالي في بقية الدولة، عبر شركة توصيل مع تتبّع ومن مخزوننا في دبي.',
@@ -125,7 +124,7 @@ export default function DeliveryPageClient() {
                 <dd className="cera-numeral text-[24px] leading-none text-[var(--cera-ink)] md:text-[30px]">
                   {fact.value}
                 </dd>
-                <dt className="mt-2 text-[11.5px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
+                <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
                   {fact.label}
                 </dt>
               </div>
@@ -164,7 +163,7 @@ export default function DeliveryPageClient() {
                   <Icon className="h-[18px] w-[18px]" />
                 </span>
                 <h2 className="cera-serif text-[19px] leading-tight md:text-[23px]">{card.title}</h2>
-                <p className="mt-2.5 text-[14.5px] leading-relaxed text-[var(--cera-muted)]">{card.body}</p>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-muted)]">{card.body}</p>
               </section>
             )
           })}
@@ -178,7 +177,7 @@ export default function DeliveryPageClient() {
           <h2 className="cera-serif text-[24px] leading-tight md:text-[32px]">
             {pick('Free over AED 1,000', 'شحن مجاني فوق 1,000 درهم', 'Бесплатно от 1 000 AED')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[48ch] text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+          <p className="mx-auto mt-3 max-w-[48ch] text-[15px] leading-relaxed text-[var(--cera-muted)]">
             {pick(
               'Applied at checkout on its own. Below that the courier fee shows before you pay, and there is nothing added afterwards.',
               'يُطبّق تلقائياً عند الدفع. وتحت هذا المبلغ تظهر رسوم التوصيل قبل الدفع، ولا يُضاف شيء بعده.',
@@ -197,7 +196,7 @@ export default function DeliveryPageClient() {
             <h2 className="cera-serif text-[26px] leading-tight md:text-[36px]">
               {pick('Returns', 'الإرجاع', 'Возврат')}
             </h2>
-            <p className="mt-2.5 text-[14.5px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">
+            <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">
               {pick(
                 'Sealed skincare cannot be resold once it is opened, so returns are for unopened product. Tell us what went wrong either way and we will sort it out.',
                 'مستحضرات العناية المختومة لا يمكن إعادة بيعها بعد فتحها، لذا الإرجاع للمنتج غير المفتوح. أخبرنا بما حدث في كل الأحوال وسنجد حلاً.',
@@ -213,8 +212,8 @@ export default function DeliveryPageClient() {
                   {i + 1}
                 </span>
                 <div className="min-w-0">
-                  <dt className="cera-serif text-[16px] leading-tight text-[var(--cera-ink)]">{item.term}</dt>
-                  <dd className="mt-1 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">{item.detail}</dd>
+                  <dt className="text-[16px] leading-tight text-[var(--cera-ink)]">{item.term}</dt>
+                  <dd className="mt-1 text-[14px] leading-relaxed text-[var(--cera-muted)]">{item.detail}</dd>
                 </div>
               </div>
             ))}
@@ -228,7 +227,7 @@ export default function DeliveryPageClient() {
           <h2 className="cera-serif text-[24px] leading-tight md:text-[30px]">
             {pick('Something not clear?', 'شيء غير واضح؟', 'Что-то непонятно?')}
           </h2>
-          <p className="mx-auto mt-3 max-w-[50ch] text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+          <p className="mx-auto mt-3 max-w-[50ch] text-[15px] leading-relaxed text-[var(--cera-muted)]">
             {pick(
               'Ask before you order rather than after. We answer from Dubai, usually within the hour.',
               'اسأل قبل الطلب لا بعده. نردّ من دبي، غالباً خلال ساعة.',

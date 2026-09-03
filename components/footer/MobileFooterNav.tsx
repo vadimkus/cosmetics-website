@@ -128,7 +128,7 @@ export default function MobileFooterNav() {
               filled={activeTab === 'home'} 
               className="w-8 h-8"
             />
-            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
+            <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.home') || 'Home'}
             </span>
           </button>
@@ -154,7 +154,7 @@ export default function MobileFooterNav() {
               filled={activeTab === 'orders'} 
               className="w-8 h-8"
             />
-            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
+            <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.orders') || 'Orders'}
             </span>
           </button>
@@ -191,7 +191,7 @@ export default function MobileFooterNav() {
                 </span>
               )}
             </div>
-            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
+            <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.bag') || 'Bag'}
             </span>
           </button>

@@ -23,7 +23,10 @@
  *
  * Import this alongside cerabarrier.css and put both classes on the root:
  *
- *     <div className={`cera-page genosys-page ${ceraSerif.variable}`}>
+ *     <div className="cera-page genosys-page">
+ *
+ * The serif variable is mounted once on <body> in app/layout.tsx; pages no
+ * longer set it themselves.
  *
  * Page-specific pieces stay in that page's own stylesheet. Only things a
  * second page would also want belong here.

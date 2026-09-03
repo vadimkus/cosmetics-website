@@ -26,11 +26,8 @@
   color: var(--cera-body);
 }
 
-.cera-serif {
-  font-family: var(--font-cera-serif), var(--font-arabic), "Iowan Old Style", Georgia, serif;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
+/* .cera-serif now lives in app/globals.css: the face is site-wide, and the
+   variable it reads is mounted once on <body> in app/layout.tsx. */
 
 .cera-page :where(h1, h2, h3) {
   color: var(--cera-ink);

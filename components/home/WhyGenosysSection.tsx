@@ -139,7 +139,7 @@ export default function WhyGenosysSection({
             </h2>
           </div>
           <p
-            className={`max-w-[44ch] text-[14.5px] leading-relaxed text-[var(--cera-body)] md:col-span-5 ${
+            className={`max-w-[44ch] text-[15px] leading-relaxed text-[var(--cera-body)] md:col-span-5 ${
               isRtl ? 'md:me-auto' : 'md:ms-auto'
             }`}
           >
@@ -160,7 +160,7 @@ export default function WhyGenosysSection({
                 </span>
                 <p className="cera-eyebrow mt-5 text-[10px]">{card.label}</p>
                 <h3 className="cera-serif mt-2 text-[19px] leading-tight lg:text-[20px]">{card.title}</h3>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">{card.body}</p>
+                <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-muted)]">{card.body}</p>
               </article>
             )
           })}

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { ArrowLeft, Shield, Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -50,7 +49,7 @@ export default function PrivacyPolicyPageRussian() {
         ]}
       />
 
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`}>
+      <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream)]`}>
         <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
           {/* Back Button */}
           <Link 

@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useCartStore } from '@/lib/cartStore'
 import { useTranslation } from '@/hooks/useTranslation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
@@ -116,8 +115,7 @@ function SwitchItem({
           disabled={disabled}
           className="sr-only peer"
         />
-        <div className={`
-          w-[51px] h-[31px] rounded-full transition-colors duration-200
+        <div className={`w-[51px] h-[31px] rounded-full transition-colors duration-200
           ${value ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-cream-deep)]'}
           ${disabled ? 'opacity-50' : ''}
           after:content-[''] after:absolute after:top-[2px] after:left-[2px]
@@ -435,7 +433,7 @@ export default function PWAProfilePage() {
 
   if (authLoading || !user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-screen flex items-center justify-center`}>
         <div className="animate-spin rounded-full h-8 w-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)]" />
       </div>
     )
@@ -446,7 +444,7 @@ export default function PWAProfilePage() {
     // MobileWebFooterNav is 80px sticky - both already reserve space below main.
     // Adding pb-20 here created ~80px of visible empty gray at the bottom of
     // the page (the "white space" reported on mobile web).
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       {/* Unified nav header (matches all profile sub-pages):
           sticky + border-b, px-5 py-4, text-base title, red back without bold */}
       <div className={`mweb-float-sticky-top sticky top-0 z-30 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

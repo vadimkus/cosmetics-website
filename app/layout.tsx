@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Noto_Sans_Arabic } from 'next/font/google'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import Script from 'next/script'
 import { headers } from 'next/headers'
 import './globals.css'
@@ -12,7 +13,7 @@ import { MessagesProvider } from '@/components/i18n/MessagesProvider'
 /**
  * Typography System - Font Loading Strategy
  * 
- * Primary: SF Pro Display/Text (Apple devices - loaded via system font stack)
+ * Interface: Inter on every device. Display: Cormorant Garamond (.cera-serif).
  * Fallback: Inter (loaded as variable font for non-Apple devices)
  * Arabic: Noto Sans Arabic (loaded for Arabic language support)
  * 
@@ -323,7 +324,7 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} notranslate flex flex-col min-h-screen antialiased`} translate="no" suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} ${ceraSerif.variable} notranslate flex flex-col min-h-screen antialiased`} translate="no" suppressHydrationWarning>
         <LocaleManifest />
         <WebSiteSchema />
         <OrganizationSchema />

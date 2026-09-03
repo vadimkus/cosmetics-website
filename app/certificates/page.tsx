@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function CertificatesIndexPage() {
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)] py-12 px-4`}>
+    <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream)] py-12 px-4`}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="cera-serif text-5xl text-[var(--cera-ink)] mb-4">

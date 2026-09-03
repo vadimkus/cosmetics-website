@@ -20,7 +20,6 @@ import type { User } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useMembershipData } from '@/hooks/useMembershipData'
 import { getLocalizedPath } from '@/lib/i18n'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 export type DesktopProfileTab =
   | 'overview'
@@ -87,7 +86,7 @@ export default function DesktopProfileShell({
     } ${isRTL ? 'flex-row-reverse text-right' : ''}`
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh]`} dir={dir}>
       <div className="mx-auto max-w-[1440px] px-6 py-8 lg:px-10 lg:py-10">
         <div className="grid grid-cols-[260px_minmax(0,1fr)] items-start gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10">
           <aside className="sticky top-24 overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_18px_50px_-30px_rgba(23,20,15,0.18)]">

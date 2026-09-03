@@ -9,7 +9,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -215,7 +214,7 @@ export default function TermsClient() {
   // Mobile Web + PWA - unified app-like layout
   if (isAppLikeMode) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-32`} dir={dir}>
+      <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] pb-32`} dir={dir}>
         {/* Unified nav header - matches /profile and Privacy Policy exactly:
             sticky, z-10, bg-white/95 + backdrop-blur, border-b border-[var(--cera-line)]. */}
         <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -339,7 +338,7 @@ export default function TermsClient() {
 
   // Non-PWA Mode - Full page
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`} dir={dir}>
+    <div className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream)]`} dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: translations.home, url: getLocalizedPath('/', locale) },

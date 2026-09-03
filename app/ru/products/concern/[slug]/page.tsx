@@ -15,7 +15,6 @@ import ConcernWhySection from '@/components/ConcernWhySection'
 import ConcernStickyBar from '@/components/ConcernStickyBar'
 import ConcernCTA from '@/components/ConcernCTA'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -117,7 +116,7 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },

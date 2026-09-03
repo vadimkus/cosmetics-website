@@ -2,7 +2,6 @@
 
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import BlogArticleBar from '@/components/blog/BlogArticleBar'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -22,7 +21,7 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       <BlogArticleBar />
       {children}
     </div>

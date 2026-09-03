@@ -15,7 +15,6 @@ import useReducedMotion from '@/hooks/useReducedMotion'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
@@ -80,7 +79,7 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
     // min-h on desktop too: the empty state is short, and without it the cream stops
     // mid-page and a band of body white shows between the content and the footer.
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : 'min-h-[72vh]'}`} dir={dir}>
+      <div className={`cera-page genosys-page ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : 'min-h-[72vh]'}`} dir={dir}>
         {/* PWA/Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -213,7 +212,7 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : ''}`} dir={dir}>
       {/* PWA/Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

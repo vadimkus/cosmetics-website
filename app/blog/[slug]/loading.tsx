@@ -1,4 +1,3 @@
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 /**
@@ -6,7 +5,7 @@ import '@/components/editorial/editorial.css'
  */
 export default function BlogPostLoading() {
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page min-h-screen`}>
       <div className="container mx-auto px-4 py-4 md:py-8 max-w-3xl">
         {/* Back link skeleton */}
         <div className="mb-6">

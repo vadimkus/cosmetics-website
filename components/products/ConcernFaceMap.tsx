@@ -185,7 +185,7 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
           <h2 id={`${groupId}-heading`} className="cera-serif mt-3 text-[26px] leading-[1.14] text-[var(--cera-ink)] sm:text-[34px]">
             {COPY.title[locale]}
           </h2>
-          <p className="mx-auto mt-3 max-w-[54ch] text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+          <p className="mx-auto mt-3 max-w-[54ch] text-[15px] leading-relaxed text-[var(--cera-muted)]">
             {COPY.subtitle[locale]}
           </p>
         </div>
@@ -338,11 +338,11 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                               {seo.h1}
                             </h3>
                             {seo.heroShort && (
-                              <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">
+                              <p className="mt-1.5 line-clamp-2 text-[14px] leading-relaxed text-[var(--cera-muted)]">
                                 {seo.heroShort}
                               </p>
                             )}
-                            <span className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[var(--cera-rose-ink)]">
+                            <span className="mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-[var(--cera-rose-ink)]">
                               {COPY.explore[locale]}
                               <Arrow className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
                             </span>

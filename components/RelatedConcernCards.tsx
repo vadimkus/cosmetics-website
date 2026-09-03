@@ -64,8 +64,7 @@ export default function RelatedConcernCards({
                 <div className={`max-w-[72%] ${isRtl ? 'ml-auto text-right' : 'text-left'}`}>
                   <span className="text-lg" aria-hidden="true">{concern.icon}</span>
                   <h3
-                    className="mt-3 text-[17px] font-semibold leading-tight text-[#1d1b18]"
-                    style={{ fontFamily: 'Georgia, "Times New Roman", ui-serif, serif' }}
+                    className="cera-serif mt-3 text-[18px] leading-tight text-[var(--cera-ink)]"
                   >
                     {concern.seo[locale].h1}
                   </h3>

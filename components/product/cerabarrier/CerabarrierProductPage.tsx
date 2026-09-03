@@ -40,7 +40,6 @@ import ProductReviews from '@/components/product/ProductReviews'
 import ProductOptionDialog from '@/components/product/ProductOptionDialog'
 import type { ProductOptionSelection } from '@/lib/productOptions'
 
-import { ceraSerif } from './ceraFont'
 import { getCeraCopy } from './cerabarrierCopy'
 import CeraGallery, { CeraGalleryImage } from './CeraGallery'
 import CeraClosingCta from './CeraClosingCta'
@@ -365,7 +364,7 @@ export default function CerabarrierProductPage({
           : copy.addToBag
 
   return (
-    <div className={`cera-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -441,7 +440,7 @@ export default function CerabarrierProductPage({
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -479,10 +478,10 @@ export default function CerabarrierProductPage({
                         <span className="cera-serif block text-[24px] leading-none text-[var(--cera-ink)]">
                           {option.label}
                         </span>
-                        <span className="mt-1.5 block text-[11.5px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-rose-ink)]">
+                        <span className="mt-1.5 block text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-rose-ink)]">
                           {label}
                         </span>
-                        <span className="mt-2 block text-[13.5px] leading-snug text-[var(--cera-body)]">{note}</span>
+                        <span className="mt-2 block text-[14px] leading-snug text-[var(--cera-body)]">{note}</span>
                         {canSeePrices ? (
                           <span className="mt-3 block text-[15px] font-semibold text-[var(--cera-ink)]">
                             {optionPrice.toFixed(2)} {isRtl ? 'درهم' : 'AED'}
@@ -621,7 +620,7 @@ export default function CerabarrierProductPage({
               }`}
             >
               <p className="cera-numeral text-[32px] text-[var(--cera-ink)] sm:text-[40px]">{stat.value}</p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -818,7 +817,7 @@ export default function CerabarrierProductPage({
                 <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">
                   {copy.video.title}
                 </h2>
-                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                   {copy.video.body}
                 </p>
               </CeraReveal>
@@ -873,7 +872,7 @@ export default function CerabarrierProductPage({
           {fullInci ? (
             <CeraReveal className="mx-auto mt-10 max-w-[820px]">
               <CeraAccordion title={copy.actives.fullInci}>
-                <p className="text-[14.5px] leading-[1.9] text-[var(--cera-body)]">{fullInci}</p>
+                <p className="text-[15px] leading-[1.9] text-[var(--cera-body)]">{fullInci}</p>
                 <p className="mt-3 text-[13px] text-[var(--cera-muted)]">{copy.actives.fullInciNote}</p>
               </CeraAccordion>
             </CeraReveal>
@@ -921,7 +920,7 @@ export default function CerabarrierProductPage({
                 {copy.proof.feels.map(feel => (
                   <li key={feel} className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--cera-rose)]" />
-                    <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{feel}</span>
+                    <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{feel}</span>
                   </li>
                 ))}
               </ul>
@@ -984,7 +983,7 @@ export default function CerabarrierProductPage({
                       type="button"
                       onClick={() => handleAddSize(option.value)}
                       disabled={!product.inStock || busy}
-                      className={`mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-[13.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                      className={`mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                         done
                           ? 'bg-[var(--cera-ink)] text-white'
                           : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'
@@ -1011,7 +1010,7 @@ export default function CerabarrierProductPage({
               <dl className="divide-y divide-[var(--cera-line)]">
                 {copy.details.rows.map(row => (
                   <div key={row.label} className="flex gap-4 py-3.5">
-                    <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                    <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                       {row.label}
                     </dt>
                     <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -1026,7 +1025,7 @@ export default function CerabarrierProductPage({
                 href={BROCHURE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-[44px] items-center gap-2 py-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
+                className="mt-4 inline-flex min-h-[44px] items-center gap-2 py-2 text-[14px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
               >
                 <Download className="h-4 w-4" />
                 {copy.details.brochure}
@@ -1097,7 +1096,7 @@ export default function CerabarrierProductPage({
                     <div className="flex flex-1 flex-col p-3.5">
                       <Link
                         href={step.productId ? getLocalizedPath(`/products/${step.productId}`, locale) : '#'}
-                        className="cera-serif text-[15.5px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
+                        className="text-[16px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
                       >
                         {step.title}
                       </Link>
@@ -1125,7 +1124,7 @@ export default function CerabarrierProductPage({
                             type="button"
                             onClick={handleAdd}
                             disabled={!product.inStock || isAdding}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               justAdded
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -1139,7 +1138,7 @@ export default function CerabarrierProductPage({
                             type="button"
                             onClick={() => handleAddRoutineProduct(item)}
                             disabled={!item.inStock || busy}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -1159,7 +1158,7 @@ export default function CerabarrierProductPage({
                             type="button"
                             onClick={() => handleChooseRoutineOptions(item)}
                             disabled={!item.inStock || busy}
-                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                            className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
                                 ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-line)] text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]'
@@ -1177,7 +1176,7 @@ export default function CerabarrierProductPage({
                         ) : (
                           <Link
                             href={step.productId ? getLocalizedPath(`/products/${step.productId}`, locale) : '#'}
-                            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[12.5px] font-semibold text-[var(--cera-rose-ink)]"
+                            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[13px] font-semibold text-[var(--cera-rose-ink)]"
                           >
                             {copy.routine.viewProduct}
                             <ChevronRight className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} />
@@ -1185,7 +1184,7 @@ export default function CerabarrierProductPage({
                         )}
 
                         {inBag > 0 ? (
-                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[11.5px] text-[var(--cera-ok)]">
+                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[12px] text-[var(--cera-ok)]">
                             <Check className="h-3.5 w-3.5 flex-none" />
                             {copy.inBag} · {inBag}
                           </p>
@@ -1261,7 +1260,7 @@ export default function CerabarrierProductPage({
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
                 {selectedSize} · {copy.eyebrow}
               </p>

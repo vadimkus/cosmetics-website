@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import { unsubscribeAction, resubscribeAction } from './actions'
 import { errorLog } from '@/lib/logger'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -98,7 +97,7 @@ export default async function UnsubscribePage({
   return (
     <main
       dir={dir}
-      className={`cera-page genosys-page ${ceraSerif.variable} min-h-[calc(100vh-0px)] bg-gradient-to-b from-[var(--cera-cream-deep)] to-white flex items-center justify-center px-4 py-20`}
+      className={`cera-page genosys-page min-h-[calc(100vh-0px)] bg-gradient-to-b from-[var(--cera-cream-deep)] to-white flex items-center justify-center px-4 py-20`}
     >
       <div className="w-full max-w-lg bg-white rounded-3xl shadow-sm border border-[var(--cera-line)] p-8 md:p-10">
         <div className="flex justify-center mb-8">

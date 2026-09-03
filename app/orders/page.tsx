@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown, MapPin } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
@@ -351,7 +350,7 @@ export default function OrdersPage() {
   // Loading state - wait for auth to finish loading before showing content
   if (!isClient || authLoading || !user) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex items-center justify-center`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] flex items-center justify-center`}>
         <div className="flex flex-col items-center gap-3">
           <div className="animate-spin rounded-full h-10 w-10 border-2 border-[var(--cera-line)] border-t-red-600"></div>
           <p className="text-sm text-[var(--cera-muted)]">{authLoading ? 'Loading...' : 'Checking authentication...'}</p>
@@ -361,7 +360,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
+    <div className={`cera-page genosys-page min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },

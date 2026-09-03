@@ -23,7 +23,6 @@ import { buildUrl } from '@/lib/siteConfig'
 import BlogContentHtml from '@/components/blog/BlogContentHtml'
 import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
 import { getBlogImageDimensions } from '@/lib/blogImageDimensions.server'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -203,7 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <BlogPostClient>
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+      <div className={`cera-page genosys-page min-h-screen`}>
         <BreadcrumbSchema 
           items={[
             { name: 'Home', url: '/' },

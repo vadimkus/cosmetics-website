@@ -14,7 +14,6 @@ import { useMemo } from 'react'
 import ReadingProgress from '@/components/ui/ReadingProgressV3'
 import BlogContentHtml from '@/components/blog/BlogContentHtml'
 import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -48,7 +47,7 @@ export default function RussianBlogPostClient({
   const { t, locale, dir } = useTranslation()
 
   return (
-    <article className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
+    <article className={`cera-page genosys-page min-h-screen`} dir={dir}>
       <ReadingProgress />
       {/* The same bar the English route uses. See the Arabic route. */}
       <BlogArticleBar />

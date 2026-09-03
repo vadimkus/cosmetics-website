@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -442,7 +441,7 @@ export default async function ProfPage() {
   })
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)] py-3 px-2 md:py-8 md:px-6`}>
+    <div className={`cera-page genosys-page min-h-screen bg-[var(--cera-cream)] py-3 px-2 md:py-8 md:px-6`}>
       <div className="max-w-7xl mx-auto">
         <h1 className="cera-serif mb-3 text-center text-[19px] text-[var(--cera-ink)] md:mb-4 md:text-[24px]">
           Basic Microneedling Treatment: Roller

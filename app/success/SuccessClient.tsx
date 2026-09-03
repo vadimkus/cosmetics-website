@@ -40,7 +40,6 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import ConfettiCelebration from '@/components/ConfettiCelebration'
 import CheckoutProgress from '@/components/checkout/CheckoutProgress'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 interface OrderItem {
   id: string
@@ -203,7 +202,7 @@ function SuccessContent() {
   const DeliveryIcon = orderData?.customerEmirate?.toLowerCase() === 'dubai' ? Clock : Truck
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh]`} dir={dir}>
       {/* Confetti, retuned from the old green/orange mix to the page palette. */}
       <ConfettiCelebration
         trigger={showConfetti}
@@ -237,7 +236,7 @@ function SuccessContent() {
               ? (t('success.orderSuccess') || 'Order Confirmed!')
               : (t('success.paymentSuccessful') || 'Payment Successful!')}
           </h1>
-          <p className="mx-auto mt-3 max-w-[46ch] text-[14.5px] leading-relaxed text-[var(--cera-muted)] md:text-[15.5px]">
+          <p className="mx-auto mt-3 max-w-[46ch] text-[15px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">
             {t('success.orderBeingProcessed') || 'Your order has been confirmed and is being processed.'}
           </p>
           {orderId && (
@@ -364,17 +363,17 @@ function SuccessContent() {
 
                           <div className="min-w-0 flex-1">
                             <div className={`flex justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                              <p className="flex-1 text-[13.5px] font-semibold uppercase leading-snug tracking-wide text-[var(--cera-ink)]">
+                              <p className="flex-1 text-[14px] font-semibold uppercase leading-snug tracking-wide text-[var(--cera-ink)]">
                                 {item.productName}
                               </p>
                               <div dir="ltr" className={`whitespace-nowrap ${isRtl ? 'text-left' : 'text-right'}`}>
                                 {isFreeItem ? (
-                                  <span className="text-[13.5px] font-semibold text-[var(--cera-ok)]">
+                                  <span className="text-[14px] font-semibold text-[var(--cera-ok)]">
                                     {t('cart.free') || 'FREE'}
                                   </span>
                                 ) : showDiscount ? (
                                   <>
-                                    <span className="block text-[11.5px] tabular-nums text-[var(--cera-muted)] line-through">
+                                    <span className="block text-[12px] tabular-nums text-[var(--cera-muted)] line-through">
                                       AED {originalTotal.toFixed(2)}
                                     </span>
                                     <span className="text-[14px] font-semibold tabular-nums text-[var(--cera-ok)]">
@@ -520,7 +519,7 @@ function SuccessContent() {
                     </div>
 
                     {hasAnySavings && (
-                      <p dir="ltr" className="rounded-xl bg-[var(--cera-ok-bg)] px-3 py-2 text-center text-[13.5px] font-semibold text-[var(--cera-ok)]">
+                      <p dir="ltr" className="rounded-xl bg-[var(--cera-ok-bg)] px-3 py-2 text-center text-[14px] font-semibold text-[var(--cera-ok)]">
                         {t('cart.youSaved') || 'You saved'}: {totalSaved.toFixed(2)} AED
                       </p>
                     )}
@@ -559,7 +558,7 @@ function SuccessContent() {
                         {(t('success.rewardsPendingTitle') || 'You’ll earn {points} GENOSYS Rewards points')
                           .replace('{points}', orderData.loyaltyPointsExpected.toLocaleString(locale))}
                       </h2>
-                      <p className="mt-2 text-[13.5px] leading-relaxed text-[var(--cera-body)]">
+                      <p className="mt-2 text-[14px] leading-relaxed text-[var(--cera-body)]">
                         {t('success.rewardsCodTiming') || 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'}
                       </p>
                     </div>
@@ -629,7 +628,7 @@ function SuccessContent() {
           {!isAppLikeMode && (
             <Link
               href={getLocalizedPath('/orders', locale)}
-              className={`inline-flex items-center justify-center gap-1.5 pt-1 text-[13.5px] text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-rose-ink)] ${isRtl ? 'flex-row-reverse' : ''}`}
+              className={`inline-flex items-center justify-center gap-1.5 pt-1 text-[14px] text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-rose-ink)] ${isRtl ? 'flex-row-reverse' : ''}`}
             >
               <ArrowLeft className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
               {t('orders.title') || 'My orders'}
@@ -652,7 +651,7 @@ export default function SuccessClient() {
   return (
     <Suspense
       fallback={
-        <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`}>
+        <div className={`cera-page genosys-page min-h-[100dvh]`}>
           <p className="px-4 py-16 text-center text-[14px] text-[var(--cera-muted)]">{t('common.loading')}</p>
         </div>
       }

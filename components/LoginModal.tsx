@@ -290,7 +290,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
               app-store CTAs to distract them from registering). */}
           {!isLoginMode && (
             <div className={`rounded-lg border border-primary-100 bg-primary-50/60 px-3.5 py-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
-              <p className="text-[10.5px] font-semibold uppercase tracking-wider text-primary-700">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-primary-700">
                 {locale === 'ar'
                   ? 'إنشاء حساب - دقيقة واحدة'
                   : locale === 'ru'

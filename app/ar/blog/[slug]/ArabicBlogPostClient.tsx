@@ -14,7 +14,6 @@ import { useMemo } from 'react'
 import ReadingProgress from '@/components/ui/ReadingProgressV3'
 import BlogContentHtml from '@/components/blog/BlogContentHtml'
 import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -48,7 +47,7 @@ export default function ArabicBlogPostClient({
   const { t, locale, dir } = useTranslation()
 
   return (
-    <article className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
+    <article className={`cera-page genosys-page min-h-screen`} dir={dir}>
       <ReadingProgress />
       {/* The same bar the English route uses. This route renders its own body rather
           than going through BlogPostClient, which is why it reached for the product

@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { CheckCircle, Package, ArrowRight } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -48,7 +47,7 @@ export default function PaymentSuccessClient() {
   )
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] items-center justify-center p-4`} dir={dir}>
+    <div className={`cera-page genosys-page flex min-h-[100dvh] items-center justify-center p-4`} dir={dir}>
       <div className="w-full max-w-[440px]">
         <div className="rounded-[28px] border border-[var(--cera-line)] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(23,20,15,0.45)] md:p-9">
           {/* Green is kept throughout this page: it reports the payment succeeded. */}

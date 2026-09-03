@@ -20,7 +20,6 @@ import { sanitizeHtml } from '@/lib/sanitize'
 import { stripHtml } from '@/lib/sanitizeHtml'
 import { toJsonLd } from '@/lib/jsonLd'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 interface FaqItemData {
   id: string
@@ -192,7 +191,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
       title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
       defaultBackPath="/products"
     >
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -268,7 +267,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
               <h1 className="cera-serif mt-3 max-w-[20ch] text-[36px] md:text-[56px] lg:text-[64px] leading-[1.05]">
                 {t('faq.subtitle')}
               </h1>
-              <p className="mt-5 max-w-[62ch] text-[15.5px] md:text-[17px] leading-relaxed text-[var(--cera-muted)]">
+              <p className="mt-5 max-w-[62ch] text-[16px] md:text-[17px] leading-relaxed text-[var(--cera-muted)]">
                 {t('faq.description')}
               </p>
 
@@ -290,7 +289,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                   </dt>
                   <dd className="cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
                     <span>{availableCategories.filter(c => c !== 'all').length}</span>
-                    <span className="text-[12.5px] text-[var(--cera-muted)]">
+                    <span className="text-[13px] text-[var(--cera-muted)]">
                       {locale === 'ar'
                         ? 'منتجات · طلبات · تطبيق · حساب'
                         : locale === 'ru'
@@ -306,7 +305,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                   </dt>
                   <dd className="cera-numeral mt-2.5 flex items-baseline gap-2 text-[30px] leading-none text-[var(--cera-ink)]">
                     <span>&lt; 4h</span>
-                    <span className="text-[12.5px] text-[var(--cera-muted)] inline-flex items-center gap-1">
+                    <span className="text-[13px] text-[var(--cera-muted)] inline-flex items-center gap-1">
                       <Globe2 className="h-3.5 w-3.5" />
                       EN · AR · RU
                     </span>
@@ -359,7 +358,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => handleCategoryChange(cat)}
-                        className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 md:px-4 py-1.5 md:py-2 text-[12.5px] md:text-[13.5px] font-semibold transition-all duration-200 ${
+                        className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 md:px-4 py-1.5 md:py-2 text-[13px] md:text-[14px] font-semibold transition-all duration-200 ${
                           isActive
                             ? 'border border-transparent bg-[var(--cera-cta)] text-white'
                             : 'border border-[var(--cera-line)] bg-white text-[var(--cera-muted)] hover:border-[var(--cera-blush-deep)] hover:text-[var(--cera-rose-ink)]'
@@ -434,7 +433,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                         const Icon = CATEGORIES[groupCat]?.icon || Store
                         return <Icon className="h-4 w-4 text-[var(--cera-rose)]" />
                       })()}
-                      <h2 className="cera-serif text-[16px] leading-tight">
+                      <h2 className="text-[16px] leading-tight">
                         {getCategoryLabel(groupCat)}
                       </h2>
                     </div>
@@ -452,7 +451,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                           {getCategoryLabel(groupCat)}
                         </h2>
                       </div>
-                      <span className="cera-numeral text-[12.5px] text-[var(--cera-muted)]">
+                      <span className="cera-numeral text-[13px] text-[var(--cera-muted)]">
                         {items.length} {locale === 'ar' ? 'سؤال' : locale === 'ru' ? 'вопр.' : items.length === 1 ? 'question' : 'questions'}
                       </span>
                     </div>
@@ -477,7 +476,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                             aria-expanded={isOpen}
                             aria-controls={`faq-answer-${faq.id}`}
                           >
-                            <h3 className={`cera-serif text-[15px] leading-snug ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
+                            <h3 className={`text-[15px] leading-snug ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
                               {faq.question}
                             </h3>
                             <div className="flex-shrink-0">
@@ -559,7 +558,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                           >
                             <div className={`px-5 md:px-7 pb-5 md:pb-7 ${dir === 'rtl' ? 'md:pr-[4.5rem] md:pl-7' : 'md:pl-[4.5rem] md:pr-7'}`}>
                               <div
-                                className="prose prose-sm max-w-none text-[14.5px] leading-relaxed text-[var(--cera-muted)] prose-a:text-[var(--cera-rose-ink)] prose-a:no-underline hover:prose-a:underline"
+                                className="prose prose-sm max-w-none text-[15px] leading-relaxed text-[var(--cera-muted)] prose-a:text-[var(--cera-rose-ink)] prose-a:no-underline hover:prose-a:underline"
                                 dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
                               />
                             </div>

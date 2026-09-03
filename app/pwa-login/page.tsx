@@ -17,7 +17,6 @@ import {
   normalizeEmailAddress,
   suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -182,7 +181,7 @@ export default function PWALoginPage() {
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
       {/* Language Selector */}
       <div className={`pt-12 px-6 ${isRTL ? 'text-right' : 'text-left'}`}>
         <div className="relative inline-block">

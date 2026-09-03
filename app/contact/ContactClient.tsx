@@ -19,7 +19,6 @@ import {
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -107,7 +106,7 @@ export default function ContactClient() {
 
   return (
     <PWAPageWrapper title={pick('Contact Us', 'اتصل بنا', 'Контакты')}>
-      <div className={`cera-page genosys-page ${ceraSerif.variable} ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
         <BreadcrumbSchema
           items={[
             { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -145,7 +144,7 @@ export default function ContactClient() {
             <h1 className="cera-serif text-[34px] leading-[1.05] md:text-[56px] lg:text-[64px]">
               {t('navigation.contact')}
             </h1>
-            <p className="mx-auto mt-5 max-w-[58ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
               {pick(
                 'Questions about a product, an order, or which routine suits your skin. A real person in Dubai answers, usually the same day.',
                 'أسئلة عن منتج أو طلب أو الروتين المناسب لبشرتك. يردّ عليك شخص حقيقي في دبي، غالباً في اليوم نفسه.',
@@ -173,18 +172,18 @@ export default function ContactClient() {
                       <Icon className="h-[19px] w-[19px]" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="cera-serif block text-[16px] leading-tight text-[var(--cera-ink)]">
+                      <span className="block text-[16px] leading-tight text-[var(--cera-ink)]">
                         {channel.name}
                       </span>
                       <span
                         {...(channel.ltr ? { dir: 'ltr' } : {})}
-                        className={`mt-1 block cursor-text select-text break-words text-[13.5px] text-[var(--cera-muted)] ${
+                        className={`mt-1 block cursor-text select-text break-words text-[14px] text-[var(--cera-muted)] ${
                           channel.ltr && isRTL ? 'text-right' : ''
                         }`}
                       >
                         {channel.value}
                       </span>
-                      <span className="mt-2.5 block text-[12.5px] font-semibold text-[var(--cera-rose-ink)]">
+                      <span className="mt-2.5 block text-[13px] font-semibold text-[var(--cera-rose-ink)]">
                         {channel.action}
                       </span>
                     </span>
@@ -208,7 +207,7 @@ export default function ContactClient() {
                     'Официальный дистрибьютор в ОАЭ',
                   )}
                 </h2>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+                <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-muted)]">
                   {pick(
                     'For DTS MG Co., Ltd of Korea since 2019, with every product registered in the Dubai Municipality Montaji system.',
                     'لشركة DTS MG Co., Ltd الكورية منذ 2019، وكل منتج مسجّل في نظام مونتاجي ببلدية دبي.',

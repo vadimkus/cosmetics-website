@@ -8,7 +8,6 @@ import { Package, Truck, CheckCircle, XCircle, Clock, ArrowLeft, RefreshCw, Cred
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 import { translateSize } from '@/utils/sizeTranslations'
@@ -192,7 +191,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (loading) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Loading State */}
         {isMobileWeb && (
           <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -233,7 +232,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (error) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Error State */}
         {isMobileWeb && (
           <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -294,7 +293,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (!trackingData) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex items-center justify-center`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-[100dvh] flex items-center justify-center`} dir={dir}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] mx-auto mb-4"></div>
           <p className="text-[var(--cera-muted)]">{t('common.loading') || 'Loading tracking information...'}</p>
@@ -306,7 +305,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
   const statusDisplay = getStatusDisplay(trackingData.status)
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Mobile Header */}
       {isAppLikeMode && (
         <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

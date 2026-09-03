@@ -128,7 +128,7 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
         <span className="text-[10px] md:text-xs text-[var(--cera-ok)] font-medium">
           {pricing.discountPercentage}% {t('product.off')}
         </span>
-        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
+        <span className="text-[11px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>
@@ -157,7 +157,7 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
           {pricing.discountPercentage}% {t('product.off')}
           {pricing.discountLabel && ` (${pricing.discountLabel})`}
         </span>
-        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
+        <span className="text-[11px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>
@@ -175,7 +175,7 @@ function RegularPrice({ pricing, t }: PricingDisplayProps) {
         {pricing.displayPrice.toFixed(2)} AED
       </span>
       <div className="flex items-center gap-1 mt-1">
-        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
+        <span className="text-[11px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>

@@ -3,7 +3,6 @@
 import '@/components/product/cerabarrier/cerabarrier.css'
 import './skin-recommendation.css'
 
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
@@ -653,7 +652,7 @@ export default function SkinRecommendationClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`cera-page skinrec-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
+    <div className={`cera-page skinrec-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -1337,7 +1336,7 @@ export default function SkinRecommendationClient() {
             </h2>
             <p
               className={`text-[var(--cera-muted)] ${
-                isAppLikeMode ? 'text-[13px] line-clamp-2 leading-relaxed' : 'text-[15.5px] md:text-[17px] max-w-[54ch] mx-auto leading-relaxed'
+                isAppLikeMode ? 'text-[13px] line-clamp-2 leading-relaxed' : 'text-[16px] md:text-[17px] max-w-[54ch] mx-auto leading-relaxed'
               }`}
             >
               {t('skinRecommendation.subtitle')}
@@ -1463,7 +1462,7 @@ export default function SkinRecommendationClient() {
                 </div>
                 <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatsYourSkinType')}</h2>
               </div>
-              <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectBestDescribes')}</p>
+              <p className="text-[14px] md:text-[16px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectBestDescribes')}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {SKIN_TYPES.map((skinType) => {
                   const Icon = skinType.Icon
@@ -1501,12 +1500,12 @@ export default function SkinRecommendationClient() {
                       </span>
                       <div className="cera-serif text-[16px] md:text-[19px] leading-tight">{skinType.label}</div>
                     </div>
-                    <p className="max-w-[74%] text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{skinType.description}</p>
+                    <p className="max-w-[74%] text-[13px] md:text-[14px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{skinType.description}</p>
                     {selectedSkinType === skinType.value && (
                       <div className="mt-3 pt-3 border-t border-[var(--cera-blush-deep)]">
                         <div className="flex items-start gap-2">
                           <Info className="w-3.5 h-3.5 text-[var(--cera-rose)] mt-[3px] flex-shrink-0" />
-                          <p className="text-[11.5px] md:text-xs text-[var(--cera-rose-ink)] leading-relaxed">{skinType.tips}</p>
+                          <p className="text-[12px] md:text-xs text-[var(--cera-rose-ink)] leading-relaxed">{skinType.tips}</p>
                         </div>
                       </div>
                     )}
@@ -1525,7 +1524,7 @@ export default function SkinRecommendationClient() {
                   </div>
                   <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
                 </div>
-                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
+                <p className="text-[14px] md:text-[16px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   {AGE_GROUPS.map((ageGroup) => (
                     <button
@@ -1543,7 +1542,7 @@ export default function SkinRecommendationClient() {
                         <span className="text-xl md:text-2xl leading-none">{ageGroup.icon}</span>
                         <div className="cera-serif text-[16px] md:text-[19px] leading-tight">{ageGroup.label}</div>
                       </div>
-                      <p className="text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed">{ageGroup.focus}</p>
+                      <p className="text-[13px] md:text-[14px] text-[var(--cera-muted)] leading-relaxed">{ageGroup.focus}</p>
                     </button>
                   ))}
                 </div>
@@ -1559,7 +1558,7 @@ export default function SkinRecommendationClient() {
                   </div>
                   <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatAreMainConcerns')}</h2>
                 </div>
-                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectAllThatApply')}</p>
+                <p className="text-[14px] md:text-[16px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectAllThatApply')}</p>
                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {TARGET_CONCERNS.map((concern) => (
                     <button
@@ -1575,9 +1574,9 @@ export default function SkinRecommendationClient() {
                       <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
                       <div className="flex items-center gap-2 mb-1.5 md:mb-2 pe-7">
                         <span className="text-lg md:text-[22px] leading-none">{concern.icon}</span>
-                        <span className="cera-serif text-[14px] md:text-[16px] leading-tight">{concern.label}</span>
+                        <span className="text-[14px] md:text-[16px] leading-tight">{concern.label}</span>
                       </div>
-                      <p className="text-[11px] md:text-[12.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{concern.description}</p>
+                      <p className="text-[11px] md:text-[13px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{concern.description}</p>
                       {selectedTargetConcerns.includes(concern.value) && concern.keyIngredients && (
                         <div className="mt-2 pt-2 border-t border-[var(--cera-blush-deep)]">
                           <p className="text-[11px] md:text-xs text-[var(--cera-rose-ink)]">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
@@ -1598,7 +1597,7 @@ export default function SkinRecommendationClient() {
                   </div>
                   <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
                 </div>
-                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendRoutine')}</p>
+                <p className="text-[14px] md:text-[16px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendRoutine')}</p>
                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {USAGE_OPTIONS.map((usage) => (
                     <button
@@ -1611,7 +1610,7 @@ export default function SkinRecommendationClient() {
                       <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
                       <div className="text-2xl md:text-[34px] leading-none mb-2 md:mb-3">{usage.icon}</div>
                       <div className="cera-serif text-[14px] md:text-[18px] leading-tight mb-1">{usage.label}</div>
-                      <p className="text-[11px] md:text-[12.5px] text-[var(--cera-muted)] leading-relaxed">{usage.description}</p>
+                      <p className="text-[11px] md:text-[13px] text-[var(--cera-muted)] leading-relaxed">{usage.description}</p>
                     </button>
                   ))}
                 </div>
@@ -1670,13 +1669,13 @@ export default function SkinRecommendationClient() {
             <div className={`flex flex-wrap items-center justify-center gap-3 mt-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {/* Text only: the concern pills beside this one still carry emoji,
                   so a line icon here would sit oddly next to them. */}
-              <span className="skinrec-pill inline-flex items-center gap-2 px-4 py-2 text-[13.5px]">
+              <span className="skinrec-pill inline-flex items-center gap-2 px-4 py-2 text-[14px]">
                 {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
               </span>
               {selectedTargetConcerns.slice(0, 3).map(concern => {
                 const concernData = TARGET_CONCERNS.find(c => c.value === concern)
                 return concernData ? (
-                  <span key={concern} className="skinrec-pill skinrec-pill--accent inline-flex items-center gap-1.5 px-4 py-2 text-[13.5px]">
+                  <span key={concern} className="skinrec-pill skinrec-pill--accent inline-flex items-center gap-1.5 px-4 py-2 text-[14px]">
                     {concernData.icon} {concernData.label}
                   </span>
                 ) : null
@@ -1716,7 +1715,7 @@ export default function SkinRecommendationClient() {
                     <h2 className={`cera-serif text-[26px] md:text-[38px] leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {category}
                     </h2>
-                    <p className={`cera-numeral text-[var(--cera-muted)] mt-2 text-[14.5px] md:text-[16px] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`cera-numeral text-[var(--cera-muted)] mt-2 text-[15px] md:text-[16px] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {products.length}{' '}
                       {locale === 'ar'
                         ? 'منتج مختار لك'
@@ -1799,7 +1798,7 @@ export default function SkinRecommendationClient() {
                             </Link>
                             
                             {/* Subtle Description */}
-                            <p className={`text-[var(--cera-muted)] text-[13.5px] leading-relaxed mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            <p className={`text-[var(--cera-muted)] text-[14px] leading-relaxed mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {product.description}
                             </p>
                             
@@ -1862,7 +1861,7 @@ export default function SkinRecommendationClient() {
               <h3 className="cera-serif text-[22px] sm:text-[28px] leading-tight mb-2.5">
                 {locale === 'ar' ? 'استكشفي حسب مشكلة البشرة' : locale === 'ru' ? 'Подберите по проблеме кожи' : 'Browse by Skin Concern'}
               </h3>
-              <p className="text-[14.5px] text-[var(--cera-muted)] leading-relaxed mb-6 max-w-[46ch] mx-auto">
+              <p className="text-[15px] text-[var(--cera-muted)] leading-relaxed mb-6 max-w-[46ch] mx-auto">
                 {locale === 'ar'
                   ? 'صفحات مخصصة لكل مشكلة جلدية مع منتجات مختارة وروتين يومي كامل'
                   : locale === 'ru'

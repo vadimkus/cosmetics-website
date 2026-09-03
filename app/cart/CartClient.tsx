@@ -40,7 +40,6 @@ import { calculateVatIncluded, calculateMobileShipping, MOBILE_CHECKOUT_CONFIG }
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import AccountAvatar from '@/components/AccountAvatar'
 
 
@@ -263,7 +262,7 @@ export default function CartClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -290,7 +289,7 @@ export default function CartClient() {
   if (items.length === 0) {
     const emptyBackLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
+      <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -459,7 +458,7 @@ export default function CartClient() {
   const backLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -682,7 +681,7 @@ export default function CartClient() {
                     </div>
 
                     <div className={`mt-3 border-t border-[var(--cera-line)] pt-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className="text-center text-[13.5px] font-semibold text-[var(--cera-ok)]">
+                      <p className="text-center text-[14px] font-semibold text-[var(--cera-ok)]">
                         ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
@@ -894,7 +893,7 @@ export default function CartClient() {
                       </option>
                     ))}
                   </select>
-                  <p className={`mt-1.5 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`mt-1.5 text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.shippingCostsVary')}
                   </p>
                 </div>
@@ -943,7 +942,7 @@ export default function CartClient() {
                     <span>{user ? `AED ${calculateVatIncluded(subtotal + shippingCost).toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                   </div>
                   
-                  <div className={`text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('cart.allPricesIncludeVat')}
                   </div>
                   
@@ -959,7 +958,7 @@ export default function CartClient() {
                           AED {total.toFixed(2)}
                         </span>
                       ) : (
-                        <span className="text-[13.5px] text-[var(--cera-muted)]">{t('cart.loginToSeePrice')}</span>
+                        <span className="text-[14px] text-[var(--cera-muted)]">{t('cart.loginToSeePrice')}</span>
                       )}
                     </div>
                   </div>
@@ -1036,7 +1035,7 @@ export default function CartClient() {
                 <div className="mt-5 border-t border-[var(--cera-line)] pt-5">
                   <Link
                     href={getLocalizedPath('/products', locale)}
-                    className={`flex items-center gap-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`flex items-center gap-2 text-[14px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <ArrowLeft className={`h-3.5 w-3.5 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                     {t('cart.continueShopping')}
@@ -1047,7 +1046,7 @@ export default function CartClient() {
                 {!user && (
                   <div className={`mt-5 border-t border-[var(--cera-line)] pt-5 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className="text-center">
-                      <p className={`mb-3 text-[13.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`mb-3 text-[14px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('cart.needHelp')}
                       </p>
                       <div className="space-y-2">

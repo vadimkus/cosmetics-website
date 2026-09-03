@@ -13,7 +13,6 @@ import { useWebShare } from '@/hooks/useWebShare'
 import { classifyPartnerLine } from '@/lib/partnerCatalog'
 import { fetchCsrfToken, getCsrfHeaders } from '@/lib/csrfClient'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -256,7 +255,7 @@ function HomecareScriptsInner() {
     })
 
   return (
-    <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-24`} dir={dir}>
+    <main className={`cera-page genosys-page cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] pb-24`} dir={dir}>
       <div className="bg-[var(--cera-cta)] text-white">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-5">
           <button onClick={() => router.push('/partner-portal')} className="mb-5 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-[var(--cera-muted)] transition-all duration-200 hover:-translate-x-0.5 hover:bg-white/10 hover:text-white active:translate-x-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]">

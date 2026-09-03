@@ -6,7 +6,6 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { LocationPageProps } from '@/types/common'
 import { notFound } from 'next/navigation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -209,7 +208,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir="rtl">
+    <div className={`cera-page genosys-page min-h-screen`} dir="rtl">
       <BreadcrumbSchema 
         items={[
           { name: 'الرئيسية', url: '/ar' },

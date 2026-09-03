@@ -6,7 +6,6 @@ import './training.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Download, FileText, PlayCircle } from 'lucide-react'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PDFDownloadButton from '@/components/PDFDownloadButton'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -68,7 +67,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
           {/* Both lines are Latin runs. Left to themselves inside an Arabic
               paragraph the bidi algorithm reorders them, which turned
               "39.9 MB" into "MB 9.9 3" on /ar/training. */}
-          <p dir="ltr" className={`cera-serif truncate text-[15px] leading-snug text-[var(--cera-ink)] ${rtl ? 'text-right' : ''}`}>
+          <p dir="ltr" className={`truncate text-[15px] leading-snug text-[var(--cera-ink)] ${rtl ? 'text-right' : ''}`}>
             {doc.title}
           </p>
           <p dir="ltr" className={`cera-numeral mt-0.5 text-[12px] text-[var(--cera-muted)] ${rtl ? 'text-right' : ''}`}>
@@ -89,13 +88,13 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
       <header className="mb-7 max-w-[62ch] md:mb-9">
         <p className="cera-eyebrow mb-2.5">{eyebrow}</p>
         <h2 className="cera-serif text-[26px] leading-tight md:text-[38px]">{title}</h2>
-        <p className="mt-2.5 text-[14.5px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">{lead}</p>
+        <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">{lead}</p>
       </header>
     )
   }
 
   return (
-    <div className={`cera-page training-page ${ceraSerif.variable} ${embedded ? '' : 'min-h-[100dvh]'}`} dir={dir}>
+    <div className={`cera-page training-page ${embedded ? '' : 'min-h-[100dvh]'}`} dir={dir}>
       {!embedded && (
         <PageBreadcrumb
           items={[
@@ -122,7 +121,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
             <header className="mt-10 text-center md:mt-16">
               <p className="cera-eyebrow mb-3">{copy.eyebrow}</p>
               <h1 className="cera-serif text-[36px] leading-[1.05] md:text-[58px] lg:text-[68px]">{copy.title}</h1>
-              <p className="mx-auto mt-5 max-w-[60ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+              <p className="mx-auto mt-5 max-w-[60ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
                 {copy.lead}
               </p>
 
@@ -132,7 +131,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
                     <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
                       {count.value}
                     </dd>
-                    <dt className="mt-2 text-[11.5px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
+                    <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
                       {count.label}
                     </dt>
                   </div>
@@ -149,7 +148,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
                 <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
                   {count.value}
                 </dd>
-                <dt className="mt-2 text-[11.5px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
+                <dt className="mt-2 text-[12px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
                   {count.label}
                 </dt>
               </div>
@@ -214,7 +213,7 @@ export default function TrainingLibrary({ embedded = false }: { embedded?: boole
 
         <div className="cera-rule mt-14 md:mt-20" />
 
-        <p className="mx-auto mt-8 flex max-w-[62ch] items-start gap-3 text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+        <p className="mx-auto mt-8 flex max-w-[62ch] items-start gap-3 text-[15px] leading-relaxed text-[var(--cera-muted)]">
           <PlayCircle className="mt-[3px] h-4 w-4 flex-none text-[var(--cera-rose)]" aria-hidden="true" />
           {copy.closing}
         </p>

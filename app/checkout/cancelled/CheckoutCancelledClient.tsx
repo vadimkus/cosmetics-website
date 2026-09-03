@@ -7,7 +7,6 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
@@ -20,7 +19,7 @@ export default function CheckoutCancelledClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobile ? '' : 'py-12'}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-[100dvh] ${isMobile ? '' : 'py-12'}`} dir={dir}>
       {/* Mobile Header */}
       {isClient && isMobile && (
         <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

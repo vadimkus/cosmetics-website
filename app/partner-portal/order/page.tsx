@@ -17,7 +17,6 @@ import BottomSheet from '@/components/ui/BottomSheet'
 import StripeProvider from '@/components/stripe/StripeProvider'
 import PaymentForm from '@/components/stripe/PaymentForm'
 import type { Product } from '@/types'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -394,7 +393,7 @@ function PartnerOrderInner() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] ${isAppLikeMode ? 'pb-36' : 'pb-28'}`} dir={dir}>
+    <div className={`cera-page genosys-page min-h-screen bg-[var(--cera-cream-deep)] ${isAppLikeMode ? 'pb-36' : 'pb-28'}`} dir={dir}>
       {/* Header (content constrained to the same column as the list) */}
       <div className={`sticky top-0 z-20 bg-white border-b border-[var(--cera-line)]`}>
         <div className={isAppLikeMode ? '' : 'container mx-auto max-w-3xl'}>

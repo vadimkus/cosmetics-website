@@ -17,7 +17,6 @@ import { getCartLinePricing } from '@/lib/cartPricing'
 import { Product } from '@/types'
 import type { ApiUser, User } from '@/types/user'
 import BottomSheet from '@/components/ui/BottomSheet'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -59,8 +58,7 @@ function StepIndicator({
           <button
             key={step.id}
             onClick={() => onStepClick(index)}
-            className={`
-              flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-xs sm:text-sm font-medium
+            className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-xs sm:text-sm font-medium
               transition-all duration-300 whitespace-nowrap min-w-fit
               ${isActive 
                 ? 'bg-[var(--cera-cta)] text-white shadow-lg scale-105' 
@@ -195,8 +193,7 @@ function BundleProductCard({
         transition: { duration: 0.2 }
       } : {})}
       onClick={handleClick}
-      className={`
-        relative cursor-pointer rounded-2xl overflow-hidden
+      className={`relative cursor-pointer rounded-2xl overflow-hidden
         transition-all duration-300 select-none
         ${isSelected 
           ? 'ring-2 ring-[var(--cera-ink)] shadow-lg bg-[var(--cera-cream-deep)]' 
@@ -467,8 +464,7 @@ function BundleSummary({
             <button
               onClick={onAddToCart}
               disabled={!canAddToCart()}
-              className={`
-                w-full py-3.5 rounded-xl font-medium text-sm
+              className={`w-full py-3.5 rounded-xl font-medium text-sm
                 transition-all duration-200
                 ${canAddToCart()
                   ? 'bg-[var(--cera-rose)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-[0.98]'
@@ -703,7 +699,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   }
   
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable}`}>
+    <div className={`cera-page genosys-page`}>
       {/* Header */}
       <header className="mweb-float-sticky-top sticky top-0 z-40 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/90 backdrop-blur-lg">
         <div className="container mx-auto px-4">
@@ -884,8 +880,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               <button
                 onClick={handlePrevStep}
                 disabled={currentStep === 0}
-                className={`
-                  flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
                   transition-all duration-200
                   ${currentStep === 0
                     ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
@@ -910,8 +905,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               <button
                 onClick={handleNextStep}
                 disabled={currentStep === ROUTINE_STEPS.length - 1}
-                className={`
-                  flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
                   transition-all duration-200
                   ${currentStep === ROUTINE_STEPS.length - 1
                     ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
@@ -1002,8 +996,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             <button
               onClick={handlePrevStep}
               disabled={currentStep === 0}
-              className={`
-                flex items-center gap-1.5 px-3 py-2.5 rounded-xl font-medium text-sm
+              className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl font-medium text-sm
                 transition-all duration-200
                 ${currentStep === 0
                   ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
@@ -1210,8 +1203,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                               handleProductSelect(detailProduct)
                               setDetailProduct(null)
                             }}
-                            className={`
-                              w-full py-3.5 rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]
+                            className={`w-full py-3.5 rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]
                               ${isProductSelected
                                 ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
                                 : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'
@@ -1341,8 +1333,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                       handleProductSelect(detailProduct)
                       setDetailProduct(null)
                     }}
-                    className={`
-                      w-full py-3.5 rounded-xl font-medium text-sm transition-all active:scale-[0.98]
+                    className={`w-full py-3.5 rounded-xl font-medium text-sm transition-all active:scale-[0.98]
                       ${isProductSelected
                         ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
                         : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ArabicNotFound() {
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`} dir="rtl">
+    <div className={`cera-page genosys-page flex min-h-[70vh] items-center justify-center px-4 py-16`} dir="rtl">
       <div className="max-w-2xl w-full text-center">
         {/* "نهاية الطريق" - رمز ماتريكس للاختيار بين زرّي الإجراء بالأسفل */}
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
@@ -35,7 +34,7 @@ export default function ArabicNotFound() {
         <h1 className="cera-serif mb-2 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[34px]">
           هذه نهاية الطريق، عليك الآن أن تختار&hellip;
         </h1>
-        <p className="mb-10 text-[15.5px] leading-relaxed text-[var(--cera-body)] md:text-base">
+        <p className="mb-10 text-[16px] leading-relaxed text-[var(--cera-body)] md:text-base">
           &hellip;ماذا ستفعل بعد ذلك.
         </p>
 

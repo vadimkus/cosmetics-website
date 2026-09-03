@@ -241,13 +241,13 @@ function RailProductCard({
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
         <p className={`mb-2 flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
           {badge === 'new' ? (
-            <span className="inline-flex items-center rounded-full bg-[var(--cera-cta)] px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-white">
+            <span className="inline-flex items-center rounded-full bg-[var(--cera-cta)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white">
               {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
             </span>
           ) : (
             product.inStock && (
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full border border-[var(--cera-line)] bg-white px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] ${
+                className={`inline-flex items-center gap-1.5 rounded-full border border-[var(--cera-line)] bg-white px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] ${
                   isRtl ? 'flex-row-reverse' : ''
                 }`}
               >
@@ -268,7 +268,7 @@ function RailProductCard({
           {displayName}
         </h3>
         {product.isPriceOnRequest ? (
-          <p className="text-[13.5px] font-semibold text-[var(--cera-rose-ink)]">
+          <p className="text-[14px] font-semibold text-[var(--cera-rose-ink)]">
             {locale === 'ar'
               ? 'السعر عند الطلب'
               : locale === 'ru'
@@ -295,7 +295,7 @@ function RailProductCard({
                   {/* Green is the one colour kept off the palette here: a saving
                       is information, not decoration, the same call /orders made
                       for its status badges. */}
-                  <span dir="ltr" className="mt-1 inline-block text-[10.5px] font-semibold text-[var(--cera-ok)]">
+                  <span dir="ltr" className="mt-1 inline-block text-[11px] font-semibold text-[var(--cera-ok)]">
                     −{pricing.discountPercentage}%{' '}
                     {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
                   </span>
@@ -547,7 +547,7 @@ export default function HomeDesktopSections({
                       {title}
                     </h3>
                     {descriptor && (
-                      <p className="mt-1.5 line-clamp-2 min-h-[38px] text-[13.5px] leading-[1.45] text-[var(--cera-muted)]">
+                      <p className="mt-1.5 line-clamp-2 min-h-[38px] text-[14px] leading-[1.45] text-[var(--cera-muted)]">
                         {descriptor}
                       </p>
                     )}
@@ -822,7 +822,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
               </p>
             )}
 
-            <p className={`mt-4 flex items-center gap-2 text-[12.5px] text-[var(--cera-muted)] ${isRtl ? 'flex-row-reverse' : ''}`}>
+            <p className={`mt-4 flex items-center gap-2 text-[13px] text-[var(--cera-muted)] ${isRtl ? 'flex-row-reverse' : ''}`}>
               <Check className="h-3.5 w-3.5 flex-none" aria-hidden="true" />
               {locale === 'ar'
                 ? 'إلغاء الاشتراك بنقرة واحدة. نحن نحترم خصوصيتك.'
@@ -845,7 +845,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
                 {benefits.map(benefit => (
                   <li
                     key={benefit}
-                    className={`flex items-start gap-3 text-[14.5px] leading-relaxed text-[var(--cera-body)] ${
+                    className={`flex items-start gap-3 text-[15px] leading-relaxed text-[var(--cera-body)] ${
                       isRtl ? 'flex-row-reverse text-right' : ''
                     }`}
                   >
@@ -857,7 +857,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
 
               {/* Frequency promise - handles the #1 objection */}
               <div className="mt-6 border-t border-[var(--cera-line)] pt-5">
-                <p className="text-[12.5px] leading-relaxed text-[var(--cera-muted)]">
+                <p className="text-[13px] leading-relaxed text-[var(--cera-muted)]">
                   {locale === 'ar'
                     ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط - لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
                     : locale === 'ru'

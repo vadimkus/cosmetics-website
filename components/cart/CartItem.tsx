@@ -311,7 +311,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
           </Link>
           {/* Size below image */}
           {displaySize && (
-            <span className="mt-2 rounded-full border border-[var(--cera-line)] bg-white px-2 py-0.5 text-center text-[10.5px] font-medium text-[var(--cera-muted)] md:text-[11.5px]">
+            <span className="mt-2 rounded-full border border-[var(--cera-line)] bg-white px-2 py-0.5 text-center text-[11px] font-medium text-[var(--cera-muted)] md:text-[12px]">
               {t('product.size')}: {translateSize(displaySize, locale, product.category)}
             </span>
           )}
@@ -320,9 +320,9 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         {/* Middle: Product Info */}
         <div className="flex-1 min-w-0">
           <Link href={`/products/${product.id}`}>
-            <h3 className="cera-serif mb-1 cursor-pointer break-words text-[15px] leading-tight transition-colors hover:text-[var(--cera-rose-ink)] md:text-[17px]">{product.name}</h3>
+            <h3 className="mb-1 cursor-pointer break-words text-[15px] leading-tight transition-colors hover:text-[var(--cera-rose-ink)] md:text-[17px]">{product.name}</h3>
           </Link>
-          <p className="mb-2 text-[11.5px] uppercase tracking-[0.1em] text-[var(--cera-muted)]">{translateCategory(product.category, messages)}</p>
+          <p className="mb-2 text-[12px] uppercase tracking-[0.1em] text-[var(--cera-muted)]">{translateCategory(product.category, messages)}</p>
           
           {/* Color Selector */}
           {showColorSelector && (

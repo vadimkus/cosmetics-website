@@ -54,7 +54,6 @@ import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 
-import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
@@ -219,7 +218,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
           : copy.addToBag
 
   return (
-    <div className={`cera-page sea-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page sea-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -293,7 +292,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -419,7 +418,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
               }`}
             >
               <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -445,7 +444,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                 <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)] sm:text-[22px]">
                   {point.title}
                 </h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{point.body}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)]">{point.body}</p>
               </div>
             </CeraReveal>
           ))}
@@ -460,7 +459,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
               <CeraReveal>
                 <p className="cera-eyebrow">{copy.formula.eyebrow}</p>
                 <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.formula.title}</h2>
-                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                   {copy.formula.intro}
                 </p>
                 <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
@@ -479,7 +478,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                         <th
                           key={head}
                           scope="col"
-                          className="px-4 py-3.5 text-start text-[11.5px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)]"
+                          className="px-4 py-3.5 text-start text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)]"
                         >
                           {head}
                         </th>
@@ -502,7 +501,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                         >
                           {row.amount}
                         </td>
-                        <td className="px-4 py-4 text-start align-top text-[13.5px] leading-snug text-[var(--cera-body)]">
+                        <td className="px-4 py-4 text-start align-top text-[14px] leading-snug text-[var(--cera-body)]">
                           {row.role}
                         </td>
                       </tr>
@@ -520,8 +519,8 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
         <CeraReveal className="sea-note p-6 md:p-10">
           <p className="cera-eyebrow">{copy.honesty.eyebrow}</p>
           <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[34px]">{copy.honesty.title}</h2>
-          <p className="mt-5 text-[15.5px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
-          <p className="mt-5 border-s-2 border-[var(--cera-blush-deep)] ps-5 text-[14.5px] italic leading-relaxed text-[var(--cera-muted)]">
+          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
+          <p className="mt-5 border-s-2 border-[var(--cera-blush-deep)] ps-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">
             {copy.honesty.aside}
           </p>
         </CeraReveal>
@@ -530,7 +529,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
           <div className="cera-card p-6 md:p-8">
             <p className="cera-eyebrow">{copy.colour.eyebrow}</p>
             <h3 className="cera-serif mt-2 text-[22px] leading-tight sm:text-[26px]">{copy.colour.title}</h3>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--cera-body)]">{copy.colour.body}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.colour.body}</p>
           </div>
         </CeraReveal>
       </section>
@@ -594,7 +593,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
               </ol>
 
               <CeraReveal>
-                <p className="mt-8 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[14.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-8 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]">
                   {copy.howTo.note}
                 </p>
               </CeraReveal>
@@ -610,7 +609,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
           {copy.when.items.map((item, i) => (
             <CeraReveal key={item} as="li" delay={i * 60} className="cera-card flex gap-3.5 p-5">
               <Check className="mt-0.5 h-[18px] w-[18px] flex-none text-[var(--cera-rose)]" strokeWidth={2.5} aria-hidden="true" />
-              <span className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{item}</span>
+              <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{item}</span>
             </CeraReveal>
           ))}
         </ul>
@@ -641,7 +640,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
             <CeraReveal className="mx-auto mt-10 max-w-[820px]">
               <div className="border-t border-[var(--cera-line)]">
                 <CeraAccordion title={copy.actives.fullInci}>
-                  <p className="text-[14.5px] leading-[1.9] text-[var(--cera-body)]" dir="ltr">
+                  <p className="text-[15px] leading-[1.9] text-[var(--cera-body)]" dir="ltr">
                     {fullInci}
                   </p>
                   <p className="mt-3 text-[13px] text-[var(--cera-muted)]">{copy.actives.fullInciNote}</p>
@@ -659,7 +658,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
             <CeraReveal>
               <p className="cera-eyebrow">{copy.lab.eyebrow}</p>
               <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.lab.title}</h2>
-              <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+              <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                 {copy.lab.intro}
               </p>
               <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
@@ -676,7 +675,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                   <tr key={row.label} className="border-b border-[var(--cera-line)] last:border-b-0">
                     <th
                       scope="row"
-                      className="w-[38%] px-5 py-4 text-start align-top text-[12.5px] font-semibold uppercase tracking-[0.07em] text-[var(--cera-muted)]"
+                      className="w-[38%] px-5 py-4 text-start align-top text-[13px] font-semibold uppercase tracking-[0.07em] text-[var(--cera-muted)]"
                     >
                       {row.label}
                     </th>
@@ -699,12 +698,12 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
             {copy.safety.points.map((point, i) => (
               <CeraReveal key={point} as="li" delay={i * 60} className="cera-card flex gap-4 p-5">
                 <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
-                <span className="text-[14.5px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+                <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
               </CeraReveal>
             ))}
           </ul>
           <CeraReveal>
-            <p className="mt-6 text-[13.5px] text-[var(--cera-muted)]">{copy.safety.note}</p>
+            <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.safety.note}</p>
           </CeraReveal>
         </div>
       </section>
@@ -735,7 +734,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                       />
                     ) : null}
                   </div>
-                  <p className="cera-serif p-3.5 text-[14.5px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
+                  <p className="p-3.5 text-[15px] leading-snug text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)]">
                     {item.name}
                   </p>
                 </Link>
@@ -753,7 +752,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
             <dl className="divide-y divide-[var(--cera-line)]">
               {copy.spec.rows.map(row => (
                 <div key={row.label} className="flex gap-4 py-3.5">
-                  <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                  <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                     {row.label}
                   </dt>
                   <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -824,7 +823,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
             </div>
           </div>

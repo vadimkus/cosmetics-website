@@ -1,5 +1,4 @@
 import { ProductCardSkeletonGrid } from '@/components/ProductCardSkeleton'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -11,7 +10,7 @@ import '@/components/editorial/editorial.css'
  */
 export default function ProductsLoading() {
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
+    <div className={`cera-page genosys-page cera-page genosys-page min-h-screen`}>
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Header skeleton */}
         <div className="text-center mb-4 md:mb-8">

@@ -9,7 +9,6 @@ import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { partnersData } from '@/lib/partners'
-import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -28,7 +27,7 @@ export default function ArabicPartnersPageClient() {
         ]}
       />
       <PartnersSchema />
-      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
+      <div className={`cera-page genosys-page min-h-screen`} dir={dir}>
         <PageBreadcrumb
           items={[
             { name: t('navigation.home'), href: getLocalizedPath('/', locale) },

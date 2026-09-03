@@ -73,7 +73,6 @@ import {
   PRODUCT_63_RU_TRANSLATION,
 } from '@/data/product63LocalizedCopy'
 
-import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
@@ -412,7 +411,7 @@ export default function RevitaGlowProductPage({
   const shadePicker = (
     <div ref={shadeGroupRef} className="mt-7 scroll-mt-28">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-ink)]">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-ink)]">
           {copy.shadeLabel}
         </p>
         <p className="text-[13px] text-[var(--cera-muted)]">{copy.shadeHelp}</p>
@@ -450,7 +449,7 @@ export default function RevitaGlowProductPage({
                 <span className="flex items-baseline gap-2">
                   <span
                     dir="ltr"
-                    className="cera-serif text-[17px] leading-none text-[var(--cera-ink)] [unicode-bidi:isolate]"
+                    className="text-[17px] leading-none text-[var(--cera-ink)] [unicode-bidi:isolate]"
                   >
                     {option.code} {option.name}
                   </span>
@@ -478,7 +477,7 @@ export default function RevitaGlowProductPage({
   )
 
   return (
-    <div className={`cera-page revitaglow-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div className={`cera-page revitaglow-page min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <PageBreadcrumb
@@ -553,7 +552,7 @@ export default function RevitaGlowProductPage({
                   <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
                     <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
                   </span>
-                  <span className="text-[15.5px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
+                  <span className="text-[16px] leading-relaxed text-[var(--cera-body)]">{bullet}</span>
                 </li>
               ))}
             </ul>
@@ -561,7 +560,7 @@ export default function RevitaGlowProductPage({
             {shadePicker}
 
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
-              <span className="cera-serif cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
+              <span className="cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
                 {product.size}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-blush)] px-4 py-2 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
@@ -699,7 +698,7 @@ export default function RevitaGlowProductPage({
               }`}
             >
               <p className="cera-numeral text-[28px] text-[var(--cera-ink)] sm:text-[36px]">{stat.value}</p>
-              <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
+              <p className="mx-auto mt-2 max-w-[24ch] text-[14px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
             </CeraReveal>
@@ -729,7 +728,7 @@ export default function RevitaGlowProductPage({
                 <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
                   {card.title}
                 </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[15.5px]">
+                <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
                   {card.body}
                 </p>
               </div>
@@ -772,7 +771,7 @@ export default function RevitaGlowProductPage({
               <h3 className="cera-serif mt-3 text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
                 {step.title}
               </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[15.5px]">
+              <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
                 {step.body}
               </p>
             </CeraReveal>
@@ -795,7 +794,7 @@ export default function RevitaGlowProductPage({
               <CeraReveal>
                 <p className="cera-eyebrow">{copy.filters.eyebrow}</p>
                 <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.filters.title}</h2>
-                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                   {copy.filters.intro}
                 </p>
                 <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
@@ -828,7 +827,7 @@ export default function RevitaGlowProductPage({
                         <th
                           key={head}
                           scope="col"
-                          className={`px-4 py-3.5 text-[11.5px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] text-start`}
+                          className={`px-4 py-3.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] text-start`}
                         >
                           {head}
                         </th>
@@ -850,7 +849,7 @@ export default function RevitaGlowProductPage({
                           {row.amount}
                         </td>
                         <td
-                          className={`px-4 py-4 align-top text-[13.5px] leading-snug text-[var(--cera-body)] text-start`}
+                          className={`px-4 py-4 align-top text-[14px] leading-snug text-[var(--cera-body)] text-start`}
                         >
                           {row.role}
                         </td>
@@ -888,7 +887,7 @@ export default function RevitaGlowProductPage({
                       className="revitaglow-swatch h-16 w-16 rounded-full"
                       style={{ ['--swatch' as string]: option.hex }}
                     />
-                    <p className="mt-4 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)]">
+                    <p className="mt-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)]">
                       {option.tagline}
                     </p>
                     <h3 className="cera-serif mt-1.5 text-[24px] leading-tight text-[var(--cera-ink)]">
@@ -1064,7 +1063,7 @@ export default function RevitaGlowProductPage({
 
         <CeraReveal className="mx-auto mt-10 max-w-[820px]">
           <p
-            className="flex gap-3 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[14.5px] leading-relaxed text-[var(--cera-body)]"
+            className="flex gap-3 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]"
           >
             <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
             <span>{copy.actives.fragranceNote}</span>
@@ -1072,7 +1071,7 @@ export default function RevitaGlowProductPage({
 
           <div className="mt-6 border-t border-[var(--cera-line)]">
             <CeraAccordion title={copy.actives.fullInci}>
-              <p className="text-[14.5px] leading-[1.9] text-[var(--cera-body)]" dir="ltr">
+              <p className="text-[15px] leading-[1.9] text-[var(--cera-body)]" dir="ltr">
                 {fullInci}
               </p>
               <p className="mt-3 text-[13px] text-[var(--cera-muted)]">{copy.actives.fullInciNote}</p>
@@ -1089,7 +1088,7 @@ export default function RevitaGlowProductPage({
               <CeraReveal>
                 <p className="cera-eyebrow">{copy.lab.eyebrow}</p>
                 <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.lab.title}</h2>
-                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                   {copy.lab.intro}
                 </p>
                 <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
@@ -1106,7 +1105,7 @@ export default function RevitaGlowProductPage({
                     <tr key={row.label} className="border-b border-[var(--cera-line)] last:border-b-0">
                       <th
                         scope="row"
-                        className={`w-[42%] px-5 py-4 align-top text-[12.5px] font-semibold uppercase tracking-[0.07em] text-[var(--cera-muted)] text-start`}
+                        className={`w-[42%] px-5 py-4 align-top text-[13px] font-semibold uppercase tracking-[0.07em] text-[var(--cera-muted)] text-start`}
                       >
                         {row.label}
                       </th>
@@ -1141,7 +1140,7 @@ export default function RevitaGlowProductPage({
           ))}
         </ul>
         <CeraReveal>
-          <p className="mt-6 text-[13.5px] text-[var(--cera-muted)]">
+          <p className="mt-6 text-[14px] text-[var(--cera-muted)]">
             {copy.safety.note}
           </p>
         </CeraReveal>
@@ -1204,7 +1203,7 @@ export default function RevitaGlowProductPage({
                       <div className="flex flex-1 flex-col p-3.5">
                         <Link
                           href={href}
-                          className="cera-serif text-[15.5px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
+                          className="text-[16px] leading-snug text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)]"
                         >
                           {step.title}
                         </Link>
@@ -1234,7 +1233,7 @@ export default function RevitaGlowProductPage({
                               type="button"
                               onClick={handleAdd}
                               disabled={!product.inStock || isAdding}
-                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                                 justAdded
                                   ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                   : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -1248,7 +1247,7 @@ export default function RevitaGlowProductPage({
                               type="button"
                               onClick={() => handleAddRoutineProduct(item)}
                               disabled={!item.inStock || busy}
-                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                                 done
                                   ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                   : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
@@ -1268,7 +1267,7 @@ export default function RevitaGlowProductPage({
                               type="button"
                               onClick={() => handleChooseRoutineOptions(item)}
                               disabled={!item.inStock || busy}
-                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                              className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[13px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                                 done
                                   ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                   : 'border-[var(--cera-line)] text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]'
@@ -1286,7 +1285,7 @@ export default function RevitaGlowProductPage({
                           ) : (
                             <Link
                               href={href}
-                              className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[12.5px] font-semibold text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]"
+                              className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-[var(--cera-line)] text-[13px] font-semibold text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]"
                             >
                               {copy.routine.viewProduct}
                               <ChevronRight className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} />
@@ -1294,7 +1293,7 @@ export default function RevitaGlowProductPage({
                           )}
 
                           {inBag > 0 ? (
-                            <p className="mt-2 flex items-center justify-center gap-1.5 text-[11.5px] text-[var(--cera-ok)]">
+                            <p className="mt-2 flex items-center justify-center gap-1.5 text-[12px] text-[var(--cera-ok)]">
                               <Check className="h-3.5 w-3.5 flex-none" />
                               {copy.inBag} · {inBag}
                             </p>
@@ -1317,7 +1316,7 @@ export default function RevitaGlowProductPage({
           <dl className="divide-y divide-[var(--cera-line)]">
             {copy.details.rows.map(row => (
               <div key={row.label} className="flex gap-4 py-3.5">
-                <dt className="w-[38%] flex-none text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                <dt className="w-[38%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                   {row.label}
                 </dt>
                 <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
@@ -1332,7 +1331,7 @@ export default function RevitaGlowProductPage({
             href={BROCHURE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex min-h-[44px] items-center gap-2 py-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
+            className="mt-4 inline-flex min-h-[44px] items-center gap-2 py-2 text-[14px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
           >
             <Download className="h-4 w-4" />
             {copy.details.brochure}
@@ -1403,7 +1402,7 @@ export default function RevitaGlowProductPage({
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
                 {product.size} · SPF 38 PA+++
                 {selectedShade ? ` · ${selectedShade.code} ${selectedShade.name}` : ''}

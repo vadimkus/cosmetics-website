@@ -1,7 +1,7 @@
 # Website fonts: investigation and recommendation
 
 **Date:** 3 September 2026
-**Status:** investigation only, nothing changed
+**Status:** all four steps shipped the same evening (commits `074bc76e`, `78989b89`)
 
 ## What is declared
 
@@ -96,3 +96,37 @@ Steps 1 and 2 are small, low-risk, and fix real defects (device split, silent
 fallback). Step 3 is a legibility fix with visible but wanted change. Step 4
 is mechanical with a screenshot pass on the main templates. All four in one
 afternoon; each can ship on its own.
+
+## Outcome (measured live, 23:12, `/products/34`, macOS Chrome)
+
+| Family | Before | After |
+|---|---|---|
+| Inter | 0 elements (loaded, never drawn) | 185, sizes 10-24px |
+| SF Pro Text / Display | 175 | 0 |
+| Cormorant Garamond | 60, down to 13px | 50, minimum 18px |
+| Helvetica Neue (payment badges) | 3 | 3 |
+| Fractional font sizes | ~1,000 in code | 0 rendered |
+
+What it took, beyond the plan:
+
+- **1,016 half-pixel sizes** snapped (269 of 15.5, 245 of 12.5, 212 of 14.5,
+  209 of 13.5, 66 of 11.5, 8 of 10.5, 2 of 17.5, 5 of 9.5).
+- **152 classNames** lost `cera-serif` for sitting under 18px: product names in
+  routine strips, step titles, pack-size pills, FAQ questions, cart item names.
+- **189 per-page `ceraSerif.variable` mounts** removed across 134 files, 52
+  dead imports with them, the variable now set once on `<body>`.
+- **`.cera-numeral` set the serif face itself**, which the first census after
+  deploy exposed: step numbers "01-04" and pack sizes at 13-16px were still
+  Cormorant. It now handles numerals only; 152 display-sized figures take
+  `cera-serif` explicitly and 92 small ones stay on Inter.
+- **A mistake of mine, caught by the same census.** The `.cera-serif` block was
+  first inserted between the global `h1, ..., h6,` selector list and its
+  `.font-display {` line, so for one deploy every heading on the site read the
+  serif rule (the footer's 12px eyebrows went serif). Moved out; the guard now
+  asserts the selector list is intact.
+- `RelatedConcernCards` used an inline Georgia; it is on the house serif at 18px.
+
+Guard: `__tests__/lib/fontDiscipline.test.ts`, seven checks: Inter first and no
+SF Pro; display equals body; serif defined once, mounted once; no other rule
+sets the face; heading rule intact; no serif under 18px in any className; no
+half-pixel sizes.

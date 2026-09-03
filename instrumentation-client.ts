@@ -397,6 +397,34 @@ function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): bool
   })
 }
 
+/**
+ * WebKit's own media controls, not our code.
+ *
+ * Safari's modern-media-controls script has `MediaController.NullMedia`
+ * getters (`buffered`, `played`, `seekable`) that reference an unqualified
+ * `EmptyRanges`, so they throw "Can't find variable: EmptyRanges" once the
+ * video element's weak reference has been collected. WebKit bug 318284, fixed
+ * upstream in July 2026, still shipping on iOS 18.x. Our product pages carry
+ * a <video>, so it surfaces here through window.onerror with no filename.
+ * There is nothing to fix on our side and nothing a user sees.
+ */
+function isWebKitEmptyRangesBug(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'ReferenceError' || !/Can't find variable: EmptyRanges/i.test(exc.value || '')) {
+    return false
+  }
+  // Every frame is anonymous: the throwing script is the browser's, so it has
+  // no URL. A frame from our bundle would mean something else is going on.
+  const frames = exc.stacktrace?.frames || []
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return file === '' || file === 'undefined' || file === '<anonymous>'
+  })
+}
+
 function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
@@ -498,6 +526,7 @@ if (dsn) {
       if (isBlobOnlyBoundingClientRectProbe(event)) return null
       if (isInstagramAndroidNavigationLoggerError(event)) return null
       if (isInjectedZpScriptError(event)) return null
+      if (isWebKitEmptyRangesBug(event)) return null
       if (isInjectedShopLookupRejection(event)) return null
       if (isInjectedWebkitMessageHandlersError(event)) return null
 

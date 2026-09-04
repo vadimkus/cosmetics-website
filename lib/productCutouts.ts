@@ -39,7 +39,7 @@ const CUTOUTS: Record<string, string> = {
   // 9 POWER SOLUTION AWS
   '/images/aws-hero.jpg': '/images/cutout/9.webp',
   // 10 SNOW O₂ CLEANSER
-  '/images/cleanser/main_clean.jpeg': '/images/cutout/10.webp',
+  '/images/cleanser_o/Main.jpeg': '/images/cutout/10-v2.webp',
   // 11 SKIN DEFENDER LIP & EYE MAKEUP REMOVER
   '/images/defender_0/Main.jpeg': '/images/cutout/11.webp',
   // 12 EPI TURNOVER BOOSTING PEELING GEL

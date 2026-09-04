@@ -471,7 +471,8 @@ function buildCounterpartyAddressFull(
 
 /**
  * Find or create a counterparty (customer) in MoySklad.
- * Searches by phone first, then by email. Creates if not found.
+ * Searches by normalized phone, then email. Creates if not found.
+ * Does not match on name alone.
  *
  * When CREATING a new counterparty we also set actualAddressFull so the
  * customer card, delivery slips, and printed invoices populate correctly -
@@ -480,6 +481,16 @@ function buildCounterpartyAddressFull(
  * NEVER modifies existing counterparties - if admin curated the address on
  * a returning customer, we preserve it.
  */
+function phoneDigits(value: string | undefined): string {
+  return String(value || '').replace(/\D/g, '')
+}
+
+function uaePhoneTail(value: string | undefined): string {
+  const digits = phoneDigits(value)
+  if (digits.length < 9) return ''
+  return digits.slice(-9)
+}
+
 async function findOrCreateCounterparty(
   name: string,
   email: string,
@@ -487,23 +498,38 @@ async function findOrCreateCounterparty(
   customerAddress?: string,
   customerEmirate?: string
 ): Promise<CounterpartyResult | null> {
-  // Search by phone (most reliable for UAE customers)
-  if (phone) {
-    const cleanPhone = phone.replace(/\s/g, '')
-    const result = await moySkladFetch(
-      `/entity/counterparty?filter=phone=${encodeURIComponent(cleanPhone)}&limit=1`
+  // Phone first. MoySklad stores "+971 58 560 2388" while the website
+  // sends "+971585602388" — exact filter misses. Search the last 9 digits
+  // and compare normalized tails. Never fall back to name-only: that attached
+  // Olga Lysenko (Studio City, 058 560 2388) to a 2020 card in Arjan.
+  const tail = uaePhoneTail(phone)
+  if (tail) {
+    const exact = phone.replace(/\s/g, '')
+    const exactHit = await moySkladFetch(
+      `/entity/counterparty?filter=phone=${encodeURIComponent(exact)}&limit=5`
     )
-    if (result.ok && result.data) {
-      const rows = (result.data as { rows: Array<{ id: string; meta: MoySkladMeta }> }).rows
-      const first = rows?.[0]
+    if (exactHit.ok && exactHit.data) {
+      const rows = (exactHit.data as { rows: Array<{ id: string; meta: MoySkladMeta; phone?: string }> }).rows || []
+      const first = rows[0]
       if (first) {
-        debugLog('✅ MoySklad: Found counterparty by phone:', first.id)
+        debugLog('✅ MoySklad: Found counterparty by exact phone:', first.id)
         return { id: first.id, meta: first.meta }
+      }
+    }
+
+    const searchHit = await moySkladFetch(
+      `/entity/counterparty?search=${encodeURIComponent(tail)}&limit=25`
+    )
+    if (searchHit.ok && searchHit.data) {
+      const rows = (searchHit.data as { rows: Array<{ id: string; meta: MoySkladMeta; phone?: string }> }).rows || []
+      const match = rows.find((row) => uaePhoneTail(row.phone) === tail)
+      if (match) {
+        debugLog('✅ MoySklad: Found counterparty by normalized phone:', match.id)
+        return { id: match.id, meta: match.meta }
       }
     }
   }
 
-  // Search by email
   if (email) {
     const result = await moySkladFetch(
       `/entity/counterparty?filter=email=${encodeURIComponent(email)}&limit=1`
@@ -515,19 +541,6 @@ async function findOrCreateCounterparty(
         debugLog('✅ MoySklad: Found counterparty by email:', first.id)
         return { id: first.id, meta: first.meta }
       }
-    }
-  }
-
-  // Search by name (last resort)
-  const nameResult = await moySkladFetch(
-    `/entity/counterparty?filter=name=${encodeURIComponent(name)}&limit=1`
-  )
-  if (nameResult.ok && nameResult.data) {
-    const rows = (nameResult.data as { rows: Array<{ id: string; meta: MoySkladMeta }> }).rows
-    const first = rows?.[0]
-    if (first) {
-      debugLog('✅ MoySklad: Found counterparty by name:', first.id)
-      return { id: first.id, meta: first.meta }
     }
   }
 

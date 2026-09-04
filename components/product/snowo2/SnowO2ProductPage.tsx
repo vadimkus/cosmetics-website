@@ -92,14 +92,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. S5 is the
- *  fresh-and-clean results slide, S4 the four-step how-to. Leftover slide
- *  copy (paraben-free, sensitive, Phytolex-as-engine) is queued for
- *  re-export; the editorial copy does not repeat it. The engine figure
- *  stays on the two-pump packshot. */
-const EFFECTS_IMAGE = '/images/cleanser/S5.jpg'
-const HOWTO_IMAGE = '/images/cleanser/S4.jpg'
-const ENGINE_IMAGE = '/images/cleanser/main_clean.jpeg'
+/** Section art from the September 2026 campaign set (cleanser_o), each slide
+ *  paired with the section it illustrates. S2 is "make-up, dirt, impurities.
+ *  off", S4 the bubble engine with the 8% ether figure, S6 the four-step
+ *  "don't add water" how-to. All figures on the slides match Formula_up and
+ *  COA WOB052. */
+const EFFECTS_IMAGE = '/images/cleanser_o/S2.jpeg'
+const HOWTO_IMAGE = '/images/cleanser_o/S6.jpeg'
+const ENGINE_IMAGE = '/images/cleanser_o/S4.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -680,7 +680,7 @@ export default function SnowO2ProductPage({
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
                   quality={85}
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </CeraReveal>

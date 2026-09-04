@@ -124,6 +124,9 @@ REVISION = {
     # New campaign packshot: the tube square on white, replacing the shot the
     # page had run on since July.
     "34": 2,
+    # New campaign packshot: both bottles square on white, replacing the
+    # August main_clean render.
+    "10": 2,
 }
 
 

@@ -51,7 +51,7 @@ export default function CookieConsentBanner() {
       role="dialog"
       aria-label={t.privacy}
       dir={dir}
-      className="fixed z-[60] inset-x-[var(--mweb-chrome-inset)] bottom-[var(--mobile-nav-height)] rounded-[var(--mweb-chrome-radius)] border border-[var(--cera-line,#e8e0db)] bg-white/95 backdrop-blur px-4 py-3 shadow-[var(--mweb-chrome-shadow)] print:hidden md:inset-x-0 md:bottom-0 md:rounded-none md:border-0 md:border-t md:shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)]"
+      className="fixed z-[60] inset-x-[var(--mweb-chrome-inset)] bottom-[var(--mobile-nav-height)] rounded-[var(--mweb-chrome-radius)] border border-[var(--cera-line,#e8e0db)] bg-[var(--cera-cream)] px-4 py-3 shadow-[var(--mweb-chrome-shadow)] print:hidden md:inset-x-0 md:bottom-0 md:rounded-none md:border-0 md:border-t md:shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)]"
     >
       <div
         className={`container mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ${isRtl ? 'sm:flex-row-reverse text-right' : ''}`}

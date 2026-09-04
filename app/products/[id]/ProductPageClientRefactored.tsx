@@ -1540,7 +1540,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
       <div 
         // The home indicator sits in the bar's own padding here, and moves out
         // into the gap beneath it once mweb-float-sticky-bottom applies.
-        className="pdp-buy-bar mweb-float-sticky-bottom md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-[var(--cera-line)] shadow-lg z-50"
+        className="pdp-buy-bar mweb-float-sticky-bottom md:hidden sticky bottom-0 left-0 right-0 bg-[var(--cera-cream)] border-t border-[var(--cera-line)] shadow-lg z-50"
       >
         <div className="container mx-auto px-3 pt-3 pb-1">
           <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

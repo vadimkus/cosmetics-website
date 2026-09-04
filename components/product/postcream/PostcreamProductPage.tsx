@@ -809,7 +809,7 @@ export default function PostcreamProductPage({ product, unitsSold = 0, routinePr
 
       {/* ─────────────────────── Sticky add to bag ─────────────────────── */}
       <div
-        className={`mweb-float-bottom fixed inset-x-0 bottom-0 z-50 border-t border-[var(--cera-line)] bg-white/95 pb-3 backdrop-blur-xl transition-transform duration-300 ${
+        className={`mweb-float-bottom fixed inset-x-0 bottom-0 z-50 border-t border-[var(--cera-line)] bg-[var(--cera-cream)] pb-3 backdrop-blur-xl transition-transform duration-300 ${
           showStickyBar ? 'translate-y-0' : 'translate-y-full mweb-float-bottom-hidden'
         }`}
         aria-hidden={!showStickyBar}

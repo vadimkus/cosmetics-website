@@ -185,7 +185,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
       </div>
 
       {!inactive && availableItems.length > 0 && (
-        <div className="fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur border-t border-[var(--cera-line)] p-4 z-40">
+        <div className="fixed inset-x-0 bottom-0 bg-[var(--cera-cream)] border-t border-[var(--cera-line)] p-4 z-40">
           <div className="max-w-3xl mx-auto">
             <button
               onClick={addAll}

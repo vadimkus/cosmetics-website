@@ -738,7 +738,7 @@ function PartnerOrderInner() {
 
       {/* Sticky submit bar (settlement selector always visible here) */}
       {itemCount > 0 && (
-        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-[var(--cera-line)] px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
+        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-[var(--cera-cream)] border-t border-[var(--cera-line)] px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
           <div className="container mx-auto max-w-3xl">
             {availableClinicPoints > 0 && (
               <label className={`mb-2 flex items-center justify-between gap-3 rounded-xl bg-amber-50 px-3 py-2 text-xs ${payOption === 'consignment' ? 'opacity-50' : ''}`}>

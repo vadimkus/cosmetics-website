@@ -177,7 +177,7 @@ export default function PWAInstallPrompt({
   // Banner variant (default)
   return (
     <div className={cn(
-      'fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg p-4',
+      'fixed bottom-0 left-0 right-0 z-40 bg-[var(--cera-cream)] border-t border-[var(--cera-line)] shadow-lg p-4',
       className
     )}>
       <div className="flex items-center justify-between max-w-md mx-auto">

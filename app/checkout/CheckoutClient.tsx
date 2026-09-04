@@ -1522,7 +1522,7 @@ export default function CheckoutClient() {
       {/* Sticky Bottom CTA - mobile + PWA */}
       {isAppLikeMode && !isPaymentSheetOpen && (
         <div
-          className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-t border-[var(--cera-line)]"
+          className="fixed bottom-0 left-0 right-0 z-30 bg-[var(--cera-cream)] border-t border-[var(--cera-line)]"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
           <div className="px-4 py-3">

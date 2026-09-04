@@ -127,7 +127,7 @@ export default function ProductActionFooter({
       
       {/* Product Action Footer - PWA Only */}
       <div 
-        className="fixed bottom-0 left-0 right-0 z-[9999] bg-white md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-[9999] bg-[var(--cera-cream)] md:hidden"
         style={{ 
           borderTop: '1px solid #e5e5e5',
           boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',

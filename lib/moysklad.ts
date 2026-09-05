@@ -474,12 +474,10 @@ function buildCounterpartyAddressFull(
  * Searches by normalized phone, then email. Creates if not found.
  * Does not match on name alone.
  *
- * When CREATING a new counterparty we also set actualAddressFull so the
- * customer card, delivery slips, and printed invoices populate correctly -
- * otherwise admin has to type the address manually in MoySklad's UI.
- *
- * NEVER modifies existing counterparties - if admin curated the address on
- * a returning customer, we preserve it.
+ * The latest non-empty website checkout address is authoritative for the
+ * counterparty's actual address. Returning customers can move or select a new
+ * delivery address, so update the MoySklad card whenever an existing customer
+ * is matched. Historical orders keep their own shipmentAddressFull snapshots.
  */
 function phoneDigits(value: string | undefined): string {
   return String(value || '').replace(/\D/g, '')
@@ -489,6 +487,28 @@ function uaePhoneTail(value: string | undefined): string {
   const digits = phoneDigits(value)
   if (digits.length < 9) return ''
   return digits.slice(-9)
+}
+
+async function updateCounterpartyAddress(
+  counterparty: CounterpartyResult,
+  customerAddress?: string,
+  customerEmirate?: string
+): Promise<CounterpartyResult | null> {
+  const address = buildCounterpartyAddressFull(customerAddress, customerEmirate)
+  if (!('actualAddressFull' in address)) return counterparty
+
+  const result = await moySkladFetch(`/entity/counterparty/${counterparty.id}`, {
+    method: 'PUT',
+    body: address,
+  })
+  if (!result.ok || !result.data) {
+    errorLog('❌ MoySklad: Failed to update counterparty address:', result.error)
+    return null
+  }
+
+  const updated = result.data as { id: string; meta: MoySkladMeta }
+  debugLog('✅ MoySklad: Updated counterparty address from website order:', updated.id)
+  return { id: updated.id, meta: updated.meta }
 }
 
 async function findOrCreateCounterparty(
@@ -513,7 +533,11 @@ async function findOrCreateCounterparty(
       const first = rows[0]
       if (first) {
         debugLog('✅ MoySklad: Found counterparty by exact phone:', first.id)
-        return { id: first.id, meta: first.meta }
+        return updateCounterpartyAddress(
+          { id: first.id, meta: first.meta },
+          customerAddress,
+          customerEmirate
+        )
       }
     }
 
@@ -525,7 +549,11 @@ async function findOrCreateCounterparty(
       const match = rows.find((row) => uaePhoneTail(row.phone) === tail)
       if (match) {
         debugLog('✅ MoySklad: Found counterparty by normalized phone:', match.id)
-        return { id: match.id, meta: match.meta }
+        return updateCounterpartyAddress(
+          { id: match.id, meta: match.meta },
+          customerAddress,
+          customerEmirate
+        )
       }
     }
   }
@@ -539,7 +567,11 @@ async function findOrCreateCounterparty(
       const first = rows?.[0]
       if (first) {
         debugLog('✅ MoySklad: Found counterparty by email:', first.id)
-        return { id: first.id, meta: first.meta }
+        return updateCounterpartyAddress(
+          { id: first.id, meta: first.meta },
+          customerAddress,
+          customerEmirate
+        )
       }
     }
   }
@@ -677,9 +709,8 @@ export async function createMoySkladOrder(
 
     debugLog('🔄 MoySklad: Creating order', orderData.orderNumber)
 
-    // Step 1: Find or create counterparty (pass address so new counterparties
-    // get a populated address card in MoySklad - existing counterparties are
-    // left untouched to preserve admin-curated addresses).
+    // Step 1: Find or create counterparty. A non-empty checkout address updates
+    // the matched customer card; historical documents retain their own address.
     const counterparty = await findOrCreateCounterparty(
       orderData.customerName,
       orderData.customerEmail,

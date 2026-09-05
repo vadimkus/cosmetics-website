@@ -96,6 +96,22 @@ REPAIR = {
     "65": [(0.1850, 0.7400, 0.4737, 0.8880)],
 }
 
+# Secondary subjects Vision drops when it locks onto the largest object.
+#
+# Each entry is (x0, y0, x1, y1, mode) in frame fractions. "vision" runs the
+# segmenter again on just that crop, so a second product standing beside the
+# first is traced on its own terms. "keywhite" keeps every pixel darker than
+# the paper, for flat type such as a quantity mark, which no segmenter treats
+# as a subject. The result is merged over the main cut-out.
+PARTS = {
+    # Closed box with one vial and an "x10" mark beside it. Vision keeps the
+    # box and discards both the vial and the mark.
+    "7": [
+        (0.740, 0.280, 0.970, 0.790, "vision"),
+        (0.735, 0.800, 0.925, 0.900, "keywhite"),
+    ],
+}
+
 # Bumped whenever a cut-out's pixels change.
 #
 # public/images is served with a one-year immutable cache, so a file rewritten
@@ -127,6 +143,9 @@ REVISION = {
     # New campaign packshot: both bottles square on white, replacing the
     # August main_clean render.
     "10": 2,
+    # New campaign packshot: closed box and vial on white, replacing the
+    # squared studio-sweep shot.
+    "7": 2,
 }
 
 
@@ -167,6 +186,46 @@ def assemble(png_path, source_path, rects):
         )
         patch = source.crop(box).convert("RGBA")
         im.paste(patch, box[:2])
+    return im
+
+
+def add_parts(im, source_path, parts):
+    """Merge secondary subjects (see PARTS) into Vision's main cut-out."""
+    if not parts:
+        return im
+    source = Image.open(source_path).convert("RGB")
+    if source.size != im.size:
+        source = source.resize(im.size, Image.LANCZOS)
+    for x0, y0, x1, y1, mode in parts:
+        box = (
+            int(round(im.width * x0)),
+            int(round(im.height * y0)),
+            int(round(im.width * x1)),
+            int(round(im.height * y1)),
+        )
+        crop = source.crop(box)
+        if mode == "vision":
+            with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as src_tmp, \
+                 tempfile.NamedTemporaryFile(suffix=".png", delete=False) as out_tmp:
+                crop.save(src_tmp.name, "PNG")
+                result = subprocess.run(
+                    [CUTOUT_TOOL, src_tmp.name, out_tmp.name], capture_output=True, text=True
+                )
+                if result.returncode != 0:
+                    raise RuntimeError(f"part segmentation failed: {result.stderr.strip()[:200]}")
+                part = Image.open(out_tmp.name).convert("RGBA")
+            os.unlink(src_tmp.name)
+            os.unlink(out_tmp.name)
+        elif mode == "keywhite":
+            grey = crop.convert("L")
+            # Full opacity below 200, fading to none at the paper tone, so
+            # anti-aliased type edges stay soft instead of jagged.
+            alpha = grey.point(lambda v: 255 if v < 200 else max(0, int(255 * (240 - v) / 40)))
+            part = crop.convert("RGBA")
+            part.putalpha(alpha)
+        else:
+            raise ValueError(f"unknown part mode {mode}")
+        im.alpha_composite(part, box[:2])
     return im
 
 
@@ -301,7 +360,7 @@ def main():
                 continue
 
             canvas = normalize(
-                assemble(raw, disk, REPAIR.get(number)),
+                add_parts(assemble(raw, disk, REPAIR.get(number)), disk, PARTS.get(number)),
                 FLOOR.get(number),
             )
             share = coverage(canvas)

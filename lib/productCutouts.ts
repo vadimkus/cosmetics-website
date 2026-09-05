@@ -33,7 +33,7 @@ const CUTOUTS: Record<string, string> = {
   // 6 POWER SOLUTION CTS
   '/images/cts-hero.jpg': '/images/cutout/6.webp',
   // 7 POWER SOLUTION PCS
-  '/images/pcs-hero.jpg': '/images/cutout/7.webp',
+  '/images/pcs_v/Main.jpeg': '/images/cutout/7-v2.webp',
   // 8 POWER SOLUTION SWS
   '/images/sws_0/Main.jpeg': '/images/cutout/8.webp',
   // 9 POWER SOLUTION AWS

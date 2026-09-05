@@ -84,12 +84,11 @@ export const products: Product[] = [
     name: 'POWER SOLUTION PCS',
     price: 580,
     description: 'PCS is Problem Control Solution. The carton function is oil and sebum control: it controls excessive oil production and helps reduce the appearance of blemishes. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
-    // The squared hero, matching the database. PCS.jpg is the same shot at 956x662
-    // and leaves a hard-cornered band above and below it in the square gallery
-    // stage. The main image is deliberately not repeated in `images`: web and
-    // mobile both prepend it.
-    image: '/images/pcs-hero.jpg',
-    images: JSON.stringify(['/images/Second/pcs_big1.jpg', '/images/Second/pcs_big2.jpg']),
+    // September 2026 campaign set (pcs_v), matching the database. The main
+    // image is deliberately not repeated in `images`: web and mobile both
+    // prepend it.
+    image: '/images/pcs_v/Main.jpeg',
+    images: JSON.stringify(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`)),
     category: 'PRO Solution',
     inStock: true,
   },

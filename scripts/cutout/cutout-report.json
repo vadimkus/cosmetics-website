@@ -632,11 +632,11 @@
   {
     "product": "7",
     "status": "ok",
-    "source": "/images/pcs-hero.jpg",
-    "file": "/images/cutout/7.webp",
+    "source": "/images/pcs_v/Main.jpeg",
+    "file": "/images/cutout/7-v2.webp",
     "name": "POWER SOLUTION PCS",
-    "coverage": 0.207,
-    "bytes": 28198,
+    "coverage": 0.465,
+    "bytes": 46422,
     "review": false
   },
   {

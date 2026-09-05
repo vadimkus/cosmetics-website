@@ -116,19 +116,18 @@
  *   - LAYERING UNDER ANY GENOSYS SERUM. The Russian panel invents it.
  *   - LOT CODES. And the contract manufacturer. DTS MG only.
  *
- * IMAGE NOTE. Three shots on file, all real photographs:
+ * IMAGE NOTE. September 2026 campaign set in /images/pcs_v:
  *
- *   pcs-hero.jpg             main. Box, ten vials, flask, petri dish and
- *                            pipette on a cool studio sweep, squared from
- *                            PCS.jpg (956x662) by
- *                            scripts/square-pcs-hero-image-20260816.py.
- *                            NOT on white, so it must never carry .ps-figure.
- *   Second/pcs_big1.jpg      the open box, 2000px, pure white. The 5-Free
- *                            panel is legible on the closed face.
- *   Second/pcs_big2.jpg      a single vial, 2000px, pure white.
+ *   Main.jpeg    hero. Closed box and one vial with "x10", on white.
+ *   S1           the open box, ten vials. Carries the box figure.
+ *   S2           one vial, "the vial for oil". Carries the vial figure.
+ *   S3-S8        one vial one treatment, the shine complaint, 22.98% base,
+ *                5-Free, cleanse/open/apply/absorb, oil and sebum control.
+ *   Closing      PCS summary card.
  *
- * The two on white carry the inline figures and multiply into the stage tint.
- * PCS.jpg stays on disk for historical order emails.
+ * S1 and S2 sit on white and multiply into the stage tint. Every figure on
+ * the slides is already verified above. pcs-hero.jpg and Second/pcs_big*.jpg
+ * stay on disk for historical order emails.
  */
 
 import { RANGE, type PowerSolutionCopy, type PowerSolutionLocale, type PowerSolutionVariant } from './powerSolutionCopy'
@@ -985,10 +984,10 @@ export const PCS_VARIANT: PowerSolutionVariant = {
   formulaBase: PCS_FORMULA_BASE,
   formulaActives: PCS_FORMULA_ACTIVES,
   fullInci: PCS_FULL_INCI,
-  vialImage: '/images/Second/pcs_big2.jpg',
-  boxImage: '/images/Second/pcs_big1.jpg',
-  blendGallerySlides: new Set(['/images/Second/pcs_big1.jpg', '/images/Second/pcs_big2.jpg']),
-  heroOnWhite: false,
+  vialImage: '/images/pcs_v/S2.jpeg',
+  boxImage: '/images/pcs_v/S1.jpeg',
+  blendGallerySlides: new Set(['/images/pcs_v/S1.jpeg', '/images/pcs_v/S2.jpeg']),
+  heroOnWhite: true,
 }
 
 if (

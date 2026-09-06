@@ -35,6 +35,7 @@ import { trackBeginCheckout } from '@/lib/analytics'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import dynamic from 'next/dynamic'
@@ -354,7 +355,7 @@ export default function CheckoutClient() {
   // Redirect if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
     }
   }, [user, authLoading, router, locale])
 
@@ -729,7 +730,7 @@ export default function CheckoutClient() {
           </div>
           
           <Link
-            href={getLocalizedPath('/login', locale)}
+            href={loginPathWithReturn(locale)}
             className={`ed-cta px-7 py-3 text-[15px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <Lock className="h-5 w-5" />

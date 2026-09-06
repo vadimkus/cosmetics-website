@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
 import { exchangeCodeForTokens, verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -300,6 +301,8 @@ export async function GET(request: NextRequest) {
     }
     // For English (default), use /products without prefix
     
+    const returnTo = request.cookies.get(POST_LOGIN_REDIRECT_COOKIE)?.value
+    if (isSafeReturnPath(returnTo)) redirectPath = returnTo
     debugLog('[GOOGLE_CALLBACK] Redirecting to:', redirectPath)
     
     // Clear OAuth cookies and redirect directly to products
@@ -308,6 +311,7 @@ export async function GET(request: NextRequest) {
     )
     response.cookies.delete('google-oauth-state')
     response.cookies.delete('oauth-from-pwa')
+    response.cookies.delete(POST_LOGIN_REDIRECT_COOKIE)
 
     // Create signed session token (prevents tampering)
     // Fallback to legacy JSON if JWT creation fails (e.g., missing JWT_SECRET)

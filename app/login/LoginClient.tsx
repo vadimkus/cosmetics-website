@@ -47,6 +47,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isSafeReturnPath } from '@/lib/loginReturn'
 import { getLocalizedPath, switchLocaleHardNav } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -60,6 +61,15 @@ import { getLocalTodayYmd } from '@/lib/validation'
 
 /** 16px on every control: anything smaller makes iOS Safari zoom on focus. */
 const FIELD = 'ed-field !text-[16px]'
+
+// Safe internal post-login redirect (/login?redirect=/products/7 from a
+// product page's "Log in to shop", /partner-portal from PartnerGuard).
+// Localised paths are accepted as-is; getLocalizedPath leaves them alone.
+function getSafeRedirect(): string | null {
+  if (typeof window === 'undefined') return null
+  const r = new URLSearchParams(window.location.search).get('redirect')
+  return isSafeReturnPath(r) ? r : null
+}
 
 export default function LoginClient() {
   const { user, login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
@@ -119,14 +129,15 @@ export default function LoginClient() {
       const path = String(window.location.pathname || '')
 
       if (success === 'google_signin' && email) {
+        const dest = getLocalizedPath(getSafeRedirect() || '/products', locale)
         forceRefreshUser()
           .then(() => {
             setTimeout(() => {
-              router.push(getLocalizedPath('/products', locale))
+              router.push(dest)
             }, 300)
           })
           .catch(() => {
-            router.push(getLocalizedPath('/products', locale))
+            router.push(dest)
           })
       } else if (errorParam) {
         const errorMessages: Record<string, string> = {
@@ -153,14 +164,6 @@ export default function LoginClient() {
     }
   }, [router, locale, forceRefreshUser, t])
 
-  // Safe internal post-login redirect (e.g. /login?redirect=/partner-portal
-  // set by PartnerGuard or the Partner Access link below).
-  const getSafeRedirect = (): string | null => {
-    if (typeof window === 'undefined') return null
-    const r = new URLSearchParams(window.location.search).get('redirect')
-    if (r && r.startsWith('/') && !r.startsWith('//') && !r.includes(':')) return r
-    return null
-  }
 
   useEffect(() => {
     if (user) {

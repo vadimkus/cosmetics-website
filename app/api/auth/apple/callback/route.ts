@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
 import { exchangeAppleCodeForTokens, getAppleWebClientId, getAppleWebRedirectUri } from '@/lib/appleWebAuth'
@@ -443,7 +444,8 @@ async function handleAppleCallback(request: NextRequest, params: {
       }
     }
 
-    const redirectPath = getLocaleRedirectPath(request)
+    const returnTo = request.cookies.get(POST_LOGIN_REDIRECT_COOKIE)?.value
+    const redirectPath = isSafeReturnPath(returnTo) ? returnTo : getLocaleRedirectPath(request)
     // IMPORTANT: This callback is typically a cross-site POST (response_mode=form_post).
     // NextResponse.redirect defaults to 307 which preserves the method, causing a POST to /products → 405.
     // Use 303 See Other to force a GET on the redirected page.
@@ -454,6 +456,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     response.cookies.delete('apple-oauth-nonce')
     response.cookies.delete('apple-oauth-promo')
     response.cookies.delete('oauth-from-pwa')
+    response.cookies.delete(POST_LOGIN_REDIRECT_COOKIE)
 
     // Create signed session token (prevents tampering)
     // Fallback to legacy JSON if JWT creation fails

@@ -5,7 +5,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { Product } from '@/types'
-import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { useTranslation } from '@/hooks/useTranslation'
 
 export interface UseProductActionsReturn {
@@ -42,7 +42,7 @@ export const useProductActions = (): UseProductActionsReturn => {
     selectedColor?: string
   ) => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
 
@@ -66,7 +66,7 @@ export const useProductActions = (): UseProductActionsReturn => {
 
   const handleToggleFavorite = useCallback((product: Product) => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
     toggleFavorite(product)

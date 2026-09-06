@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
 import { generateCsrfToken } from '@/lib/csrf'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -138,6 +139,19 @@ export async function GET(request: NextRequest) {
     }
 
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')
+    // Post-login return path from /login?redirect=..., carried across the
+    // provider round trip in a short-lived cookie for the callback.
+    const returnTo = request.nextUrl.searchParams.get('redirect')
+    if (isSafeReturnPath(returnTo)) {
+      response.cookies.set(POST_LOGIN_REDIRECT_COOKIE, returnTo, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 600,
+        path: '/',
+      })
+    }
+
     return response
   } catch (error) {
     errorLog('[APPLE_AUTH] Error:', error)

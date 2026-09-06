@@ -25,6 +25,7 @@ import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { translateSize } from '@/utils/sizeTranslations'
@@ -158,7 +159,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   // Handle add to cart
   const handleAddToCart = useCallback(async (quantity: number) => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
 
@@ -273,7 +274,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
     toggleFavorite(product)

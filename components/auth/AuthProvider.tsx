@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { isSafeReturnPath } from '@/lib/loginReturn'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
 import { useToast } from '@/components/ToastProvider'
@@ -498,6 +499,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const params = new URLSearchParams()
         if (promo) params.set('promo', promo)
         if (isPWA) params.set('from_pwa', 'true')
+        // Where to land after the round trip (/login?redirect=/products/7).
+        const redirect = sp.get('redirect')
+        if (isSafeReturnPath(redirect)) params.set('redirect', redirect)
         const queryString = params.toString()
         window.location.href = queryString ? `/api/auth/google?${queryString}` : '/api/auth/google'
       }
@@ -520,6 +524,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const params = new URLSearchParams()
         if (promo) params.set('promo', promo)
         if (isPWA) params.set('from_pwa', 'true')
+        // Where to land after the round trip (/login?redirect=/products/7).
+        const redirect = sp.get('redirect')
+        if (isSafeReturnPath(redirect)) params.set('redirect', redirect)
         const queryString = params.toString()
         window.location.href = queryString ? `/api/auth/apple?${queryString}` : '/api/auth/apple'
       }

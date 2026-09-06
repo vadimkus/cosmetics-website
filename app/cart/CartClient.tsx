@@ -34,6 +34,7 @@ import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award, Trash2
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateVatIncluded, calculateMobileShipping, MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
@@ -865,7 +866,7 @@ export default function CartClient() {
                       {t('cart.loginRequiredMessage')}
                     </p>
                     <Link
-                      href={getLocalizedPath('/login', locale)}
+                      href={loginPathWithReturn(locale)}
                       className={`ed-cta px-4 py-2 text-[13px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <Lock className="h-3.5 w-3.5 md:h-4 md:w-4" />
@@ -1013,7 +1014,7 @@ export default function CartClient() {
                 ) : (
                   <div className="space-y-2 md:space-y-3">
                     <Link
-                      href={getLocalizedPath('/login', locale)}
+                      href={loginPathWithReturn(locale)}
                       className="ed-cta w-full py-3.5 text-[15px] touch-manipulation md:py-4"
                     >
                       {t('cart.loginToCheckout')}

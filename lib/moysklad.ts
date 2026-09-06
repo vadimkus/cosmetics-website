@@ -519,7 +519,7 @@ async function findOrCreateCounterparty(
   customerEmirate?: string
 ): Promise<CounterpartyResult | null> {
   // Phone first. MoySklad stores "+971 58 560 2388" while the website
-  // sends "+971585602388" — exact filter misses. Search the last 9 digits
+  // sends "+971585602388" - exact filter misses. Search the last 9 digits
   // and compare normalized tails. Never fall back to name-only: that attached
   // Olga Lysenko (Studio City, 058 560 2388) to a 2020 card in Arjan.
   const tail = uaePhoneTail(phone)

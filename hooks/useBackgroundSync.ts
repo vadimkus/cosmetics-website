@@ -70,8 +70,11 @@ function openSyncDB(): Promise<IDBDatabase> {
       resolve(request.result)
     }
 
-    request.onupgradeneeded = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result
+    request.onupgradeneeded = () => {
+      // Safari in private browsing fires upgradeneeded with no `result`
+      // (JAVASCRIPT-NEXTJS-1Y); `onerror` follows and rejects the open.
+      const db = request.result as IDBDatabase | undefined
+      if (!db) return
 
       if (!db.objectStoreNames.contains(SYNC_STORE_NAME)) {
         const store = db.createObjectStore(SYNC_STORE_NAME, { keyPath: 'id' })

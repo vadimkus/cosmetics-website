@@ -49,7 +49,13 @@ function createPooledPrismaClient(connectionString: string, maxConnections: numb
 } {
   const { PrismaPg } = require('@prisma/adapter-pg')
   const { Pool } = require('pg')
-  const connectionTimeoutMillis = maxConnections === 1 ? 10000 : 5000
+  // Neon resumes a suspended compute in 3-8 s. A 5 s budget lost that race
+  // on cold ISR revalidations (/faq: JAVASCRIPT-NEXTJS-P and -W, "timeout
+  // exceeded when trying to connect") even after three retries, and the
+  // first request of the morning also paid for it as a Slow DB Query on
+  // trivial unique-key lookups. 15 s covers the resume with margin; the
+  // function itself has a 30 s ceiling.
+  const connectionTimeoutMillis = 15000
 
   const pool: Pool = new Pool({
     connectionString,

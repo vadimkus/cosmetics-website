@@ -300,6 +300,7 @@ export function navigateProductWithTransition(
     })
 
     if (transition?.finished) {
+      settleViewTransition(transition as ViewTransitionLike)
       void transition.finished
         .catch(() => {
           markTransition('finished-error', transitionName)
@@ -328,12 +329,34 @@ export function updateProductImageWithTransition(update: () => void) {
   }
 
   try {
-    ;(
+    const transition = (
       document as Document & {
-        startViewTransition: (callback: () => void) => unknown
+        startViewTransition: (callback: () => void) => ViewTransitionLike | undefined
       }
     ).startViewTransition(update)
+    settleViewTransition(transition)
   } catch {
     update()
   }
+}
+
+type ViewTransitionLike = {
+  ready?: Promise<void>
+  finished?: Promise<void>
+  updateCallbackDone?: Promise<void>
+}
+
+/**
+ * A view transition that is skipped (a second tap arrives before the first
+ * one finishes, or the tab is hidden) rejects `ready`, `finished` and
+ * `updateCallbackDone` with "InvalidStateError: Transition was aborted
+ * because of invalid state". Chrome surfaces any of the three left dangling
+ * as an unhandled rejection (JAVASCRIPT-NEXTJS-1T). The update has already
+ * run by then, so there is nothing to recover: just swallow them.
+ */
+export function settleViewTransition(transition: ViewTransitionLike | null | undefined): void {
+  if (!transition) return
+  transition.ready?.catch(() => undefined)
+  transition.finished?.catch(() => undefined)
+  transition.updateCallbackDone?.catch(() => undefined)
 }

@@ -127,6 +127,17 @@ function isBotPrismaRetry(event: Sentry.ErrorEvent): boolean {
   return isBotTraffic(event)
 }
 
+/**
+ * A page from one deployment posts a server action id that the next
+ * deployment no longer has (JAVASCRIPT-NEXTJS-T). Next.js reports it as
+ * "Failed to find Server Action". It clears on reload and is not a code
+ * fault; Vercel Skew Protection is the structural fix.
+ */
+function isDeploymentSkewServerAction(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values || []
+  return values.length > 0 && values.every((v) => /Failed to find Server Action/i.test(v.value || ''))
+}
+
 // Silent no-op when DSN is absent (preview branches, local dev without opt-in).
 if (dsn) {
   Sentry.init({
@@ -138,6 +149,7 @@ if (dsn) {
     beforeSend(event) {
       if (isUnactionablePrismaFetchReject(event)) return null
       if (isBotPrismaRetry(event)) return null
+      if (isDeploymentSkewServerAction(event)) return null
       // Strip PII before sending (mirror of the client config). Server events
       // can carry request cookies (session token) and user context.
       if (event.request?.cookies) delete event.request.cookies

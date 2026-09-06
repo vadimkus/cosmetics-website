@@ -184,17 +184,36 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // Handle different types of requests
+  // Handle different types of requests. Every handler catches its own
+  // failures, but a rejection escaping any of them (a cache API throwing
+  // while storage is evicted, a "Load failed" from a dropped connection)
+  // makes respondWith() fail the page's fetch with a worker error
+  // (JAVASCRIPT-NEXTJS-20). Fall back to the network, then to an offline
+  // response, so the page only ever sees a Response.
+  let handled
   if (isImageRequest(request)) {
-    event.respondWith(handleImageRequest(request))
+    handled = handleImageRequest(request)
   } else if (isAPIRequest(request)) {
-    event.respondWith(handleAPIRequest(request))
+    handled = handleAPIRequest(request)
   } else if (isStaticAsset(request)) {
-    event.respondWith(handleStaticRequest(request))
+    handled = handleStaticRequest(request)
   } else {
-    event.respondWith(handlePageRequest(request))
+    handled = handlePageRequest(request)
   }
+  event.respondWith(
+    handled.catch(() => fetch(request)).catch(() => offlineFallbackResponse(request))
+  )
 })
+
+function offlineFallbackResponse(request) {
+  if (isAPIRequest(request)) {
+    return new Response(JSON.stringify({ error: 'Offline', message: 'You appear to be offline.' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+  return new Response('', { status: 503, statusText: 'Offline' })
+}
 
 // Check if request is for an image
 function isImageRequest(request) {

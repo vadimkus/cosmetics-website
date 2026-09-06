@@ -425,6 +425,55 @@ function isWebKitEmptyRangesBug(event: Sentry.ErrorEvent): boolean {
   })
 }
 
+/**
+ * iOS Safari raises a bare `InvalidStateError: The object is in an invalid
+ * state.` through window.onerror with no frames of ours, the only frame being
+ * the document itself (JAVASCRIPT-NEXTJS-22: one device, ten throws in a
+ * single session, tens of seconds after the last tap). It is a DOMException
+ * from a WebKit-internal object (media element, observer) with no user-facing
+ * effect and no stack to act on. Anything with a frame from our bundles is
+ * still reported.
+ */
+function isWebKitBareInvalidStateError(event: Sentry.ErrorEvent): boolean {
+  if (!isIOSWebKitBrowser(event)) return false
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc || !/InvalidStateError: The object is in an invalid state/i.test(exc.value || '')) return false
+  const frames = exc.stacktrace?.frames || []
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return file === '' || file === '<anonymous>' || !/\/_next\//.test(file)
+  })
+}
+
+/**
+ * A browser holding a page from one deployment asks the CDN for a chunk or a
+ * server action that only the next deployment knows about. The chunk request
+ * is answered with an HTML 404 page, which the script parser reports as
+ * `SyntaxError: Unexpected token '<'` (JAVASCRIPT-NEXTJS-23); the action
+ * request fails server-side with "Failed to find Server Action"
+ * (JAVASCRIPT-NEXTJS-T). Both clear on reload and neither is a code fault.
+ * Vercel's Skew Protection is the real fix; the filter keeps the residue out.
+ */
+function isDeploymentSkewChunkError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type === 'SyntaxError' && /Unexpected token '<'/.test(exc.value || '')) {
+    const frames = exc.stacktrace?.frames || []
+    return frames.every((frame) => {
+      const file = frame.filename || frame.abs_path || ''
+      return file === '' || file === '<anonymous>'
+    })
+  }
+  if (/Failed to find Server Action/i.test(exc.value || '')) return true
+  return /ChunkLoadError|Loading chunk [\w-]+ failed|Failed to fetch dynamically imported module/i.test(
+    `${exc.type || ''} ${exc.value || ''}`
+  )
+}
+
 function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
@@ -527,6 +576,8 @@ if (dsn) {
       if (isInstagramAndroidNavigationLoggerError(event)) return null
       if (isInjectedZpScriptError(event)) return null
       if (isWebKitEmptyRangesBug(event)) return null
+      if (isWebKitBareInvalidStateError(event)) return null
+      if (isDeploymentSkewChunkError(event)) return null
       if (isInjectedShopLookupRejection(event)) return null
       if (isInjectedWebkitMessageHandlersError(event)) return null
 

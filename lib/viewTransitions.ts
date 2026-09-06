@@ -1,3 +1,4 @@
+import { settleViewTransition } from '@/lib/productViewTransition'
 /**
  * View Transitions API utilities for smooth page navigation
  * 
@@ -120,6 +121,7 @@ export async function startViewTransition(callback: () => void | Promise<void>):
     // the rejection escape sent it to Sentry as an error on every fast tap.
     try {
       const transition = (document as Document & { startViewTransition: (cb: () => void | Promise<void>) => { finished: Promise<void> } }).startViewTransition(callback)
+      settleViewTransition(transition)
       await transition.finished.catch(() => undefined)
     } catch {
       // Thrown synchronously when the document is hidden or mid-transition;
@@ -144,7 +146,7 @@ export function navigateWithTransition(
       const transition = (document as Document & { startViewTransition: (cb: () => void) => { finished?: Promise<void> } }).startViewTransition(() => {
         router.push(url)
       })
-      transition?.finished?.catch(() => undefined)
+      settleViewTransition(transition)
     } catch {
       router.push(url)
     }

@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 const PRODUCT_NUMBER = '44'
 const DIR = '/images/shampoo_o'
 const MAIN = `${DIR}/Main.jpeg`
-const GALLERY = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'Closing'].map((n) => `${DIR}/${n}.jpeg`)
+const GALLERY = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S7a', 'S8', 'Closing'].map((n) => `${DIR}/${n}.jpeg`)
 const apply = process.argv.includes('--apply')
 
 async function main() {

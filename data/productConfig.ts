@@ -59,7 +59,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '7': {
     id: '7',
-    images: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`),
+    images: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8-v2', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`),
     pricing: {
       basePrice: 580
     },

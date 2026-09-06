@@ -88,7 +88,7 @@ export const products: Product[] = [
     // image is deliberately not repeated in `images`: web and mobile both
     // prepend it.
     image: '/images/pcs_v/Main.jpeg',
-    images: JSON.stringify(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`)),
+    images: JSON.stringify(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8-v2', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`)),
     category: 'PRO Solution',
     inStock: true,
   },

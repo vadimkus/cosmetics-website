@@ -129,11 +129,30 @@ const getProductByIdFromDb = unstable_cache(
  * Shared here on the same cache key so all three routes hit one entry rather than
  * three, and so the next locale added cannot forget it.
  */
-export const getProductsListCached = unstable_cache(
-  async (): Promise<Product[]> => getAllProducts(),
+const getProductsListFromDb = unstable_cache(
+  async (): Promise<Product[]> =>
+    withProductReadRecovery(
+      'getProductsListCached',
+      () => readAllProducts(prisma),
+      (client) => readAllProducts(client)
+    ),
   ['products-list'],
   { revalidate: 60, tags: ['products'] }
 )
+
+export async function getProductsListCached(): Promise<Product[]> {
+  try {
+    return await getProductsListFromDb()
+  } catch (error) {
+    // The fallback lives outside the cache on purpose. When it sat inside,
+    // one Neon cold-start timeout wrote the static catalogue into the
+    // 60-second entry and every visitor for the next minute saw it, in
+    // every locale (6 Sep 2026: a product hidden in the database since
+    // August reappeared on the grid). Now a failed read costs one request.
+    if (isPrismaTransientError(error)) return warnAndUseStaticCatalog('getProductsListCached', error)
+    throw error
+  }
+}
 
 /**
  * Preferred product fetch for page.tsx + generateMetadata + opengraph-image +

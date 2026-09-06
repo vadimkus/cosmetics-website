@@ -107,7 +107,7 @@ const CUTOUTS: Record<string, string> = {
   // 43 HR³ MATRIX HAIR TONIC α
   '/images/hair_tonic/main-v2.jpeg': '/images/cutout/43.webp',
   // 44 HR³ MATRIX MEDI SCALP SHAMPOO α
-  '/images/shampoo/Main.jpg': '/images/cutout/44.webp',
+  '/images/shampoo_o/Main.jpeg': '/images/cutout/44-v2.webp',
   // 45 HR³ MATRIX HAIR SOLUTION α
   '/images/HHR.jpg': '/images/cutout/45.webp',
   // 46 HR³ MATRIX SCALP PEELING α

@@ -382,11 +382,11 @@
   {
     "product": "44",
     "status": "ok",
-    "source": "/images/shampoo/Main.jpg",
-    "file": "/images/cutout/44.webp",
+    "source": "/images/shampoo_o/Main.jpeg",
+    "file": "/images/cutout/44-v2.webp",
     "name": "HR\u00b3 MATRIX MEDI SCALP SHAMPOO \u03b1",
-    "coverage": 0.243,
-    "bytes": 21656,
+    "coverage": 0.247,
+    "bytes": 32458,
     "review": false
   },
   {

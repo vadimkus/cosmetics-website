@@ -146,6 +146,9 @@ REVISION = {
     # New campaign packshot: closed box and vial on white, replacing the
     # squared studio-sweep shot.
     "7": 2,
+    # New campaign packshot: the pump bottle square on white, replacing the
+    # earlier shampoo/Main.jpg render.
+    "44": 2,
 }
 
 

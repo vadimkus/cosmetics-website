@@ -125,7 +125,7 @@
  *                5-Free, cleanse/open/apply/absorb, oil and sebum control.
  *   Closing      PCS summary card.
  *
- * S1 and S2 sit on white and multiply into the stage tint. Every figure on
+ * All slides stay on the white stage, no multiply blend. Every figure on
  * the slides is already verified above. pcs-hero.jpg and Second/pcs_big*.jpg
  * stay on disk for historical order emails.
  */
@@ -986,7 +986,9 @@ export const PCS_VARIANT: PowerSolutionVariant = {
   fullInci: PCS_FULL_INCI,
   vialImage: '/images/pcs_v/S2.jpeg',
   boxImage: '/images/pcs_v/S1.jpeg',
-  blendGallerySlides: new Set(['/images/pcs_v/S1.jpeg', '/images/pcs_v/S2.jpeg']),
+  // Vadim wants the campaign slides on the same white stage as the hero, not
+  // multiplied into the grey tint, so nothing blends here.
+  blendGallerySlides: new Set<string>(),
   heroOnWhite: true,
 }
 

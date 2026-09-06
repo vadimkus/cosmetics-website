@@ -10,6 +10,7 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 
 /**
@@ -454,7 +455,7 @@ export default function PWAHeader() {
                   </button>
                 ) : (
                   <Link 
-                    href={getLocalizedPath('/login', locale)} 
+                    href={loginPathWithReturn(locale)} 
                     className={`col-span-2 py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >

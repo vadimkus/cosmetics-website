@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 
 interface ProductPriceDisplayProps {
   product: Product
@@ -89,7 +89,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
         </div>
       ) : (
         <button
-          onClick={() => router.push(getLocalizedPath('/login', locale))}
+          onClick={() => router.push(loginPathWithReturn(locale))}
           className="bg-primary-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-medium hover:bg-primary-700 transition-colors touch-manipulation"
         >
           {t('product.loginToSeePrice')}

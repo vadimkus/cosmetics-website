@@ -12,7 +12,7 @@ import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
-import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 
 interface ProductInfoProps {
   product: Product
@@ -65,7 +65,7 @@ export default function ProductInfo({
 
   const handleAddToCart = useCallback(async () => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
 
@@ -87,7 +87,7 @@ export default function ProductInfo({
 
   const handleToggleFavorite = useCallback(() => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
     toggleFavorite(product)
@@ -197,7 +197,7 @@ export default function ProductInfo({
           </div>
         ) : (
           <button
-            onClick={() => router.push(getLocalizedPath('/login', locale))}
+            onClick={() => router.push(loginPathWithReturn(locale))}
             className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
           >
             {t('product.loginToSeePrice')}

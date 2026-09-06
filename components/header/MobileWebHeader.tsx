@@ -11,6 +11,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { getLocalizedPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 import { useHideOnScroll } from '@/hooks/useHideOnScroll'
 import '@/components/product/cerabarrier/cerabarrier.css'
@@ -607,7 +608,7 @@ export default function MobileWebHeader() {
                   </button>
                 ) : (
                   <Link
-                    href={getLocalizedPath('/login', locale)}
+                    href={loginPathWithReturn(locale)}
                     onClick={() => setShowMobileMenu(false)}
                     className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-[var(--cera-rose-ink)] active:bg-[var(--cera-blush)] transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >

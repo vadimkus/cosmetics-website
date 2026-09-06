@@ -14,7 +14,7 @@ import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
 import { sanitizeHtml } from '@/lib/sanitize'
-import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 
 interface ProductRecommendationProps {
   recommendedProductId: string
@@ -57,7 +57,7 @@ export default function ProductRecommendation({
 
   const handleAddBothToCart = async () => {
     if (!user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
       return
     }
 

@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 export default function RussianTrainingPage() {
   return (
     <>
-      <BreadcrumbSchema
+      <BreadcrumbSchema 
         items={[
           { name: 'Главная', url: '/ru' },
           { name: 'Обучение', url: '/ru/training' }

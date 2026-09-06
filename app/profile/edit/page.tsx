@@ -6,6 +6,7 @@ import { User, Camera, Mail, Lock, Calendar, ChevronDown, ArrowLeft, X, AlertTri
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
@@ -302,7 +303,7 @@ export default function EditProfilePage() {
         showToast(locale === 'ar' ? 'تم حذف حسابك بنجاح.' : locale === 'ru' ? 'Ваш аккаунт успешно удален.' : 'Your account has been deleted successfully.', 'success')
         // Redirect to login page after a short delay
         deleteRedirectTimerRef.current = setTimeout(() => {
-          router.push(getLocalizedPath('/login', locale))
+          router.push(loginPathWithReturn(locale))
         }, 1000)
       } else {
         const data = await response.json()
@@ -373,7 +374,7 @@ export default function EditProfilePage() {
       <div className={`cera-page genosys-page min-h-[100dvh] flex flex-col items-center justify-center`}>
         <p className="text-[var(--cera-muted)] mb-4">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
         <button
-          onClick={() => router.push(getLocalizedPath('/login', locale))}
+          onClick={() => router.push(loginPathWithReturn(locale))}
           className="px-6 py-2 bg-[var(--cera-rose)] text-white rounded-lg font-medium active:opacity-80"
         >
           {locale === 'ar' ? 'تسجيل الدخول' : locale === 'ru' ? 'Войти' : 'Sign In'}

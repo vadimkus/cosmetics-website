@@ -36,6 +36,7 @@ import type { Product } from '@/types'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import AccountAvatar from '@/components/AccountAvatar'
 
 // Product type from @/types now includes skinType, targetConcerns, usage, and ageGroup fields
@@ -619,7 +620,7 @@ export default function SkinRecommendationClient() {
 
   const handleAddToCart = (product: SkinRecommendationProduct) => {
     if (!user) {
-      window.location.href = getLocalizedPath('/login', locale)
+      window.location.href = loginPathWithReturn(locale)
       return
     }
     addItem(product, 1, '', '')

@@ -9,6 +9,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import PWAProfilePage from '@/components/pwa/PWAProfilePage'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -183,7 +184,7 @@ export default function ProfilePageRefactored() {
   // Redirect to login page if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
     }
   }, [user, authLoading, router, locale])
 

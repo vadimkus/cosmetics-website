@@ -54,6 +54,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { localizeProductImage } from '@/lib/localizedProductImages'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -276,7 +277,7 @@ export default function RevitaGlowProductPage({
   const addToCart = useCallback(
     async (qty: number) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       if (!shade) {
@@ -328,7 +329,7 @@ export default function RevitaGlowProductPage({
   const handleAddRoutineProduct = useCallback(
     async (item: Product, selection?: ProductOptionSelection, quantity = 1) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       if (routineAdding) return
@@ -361,7 +362,7 @@ export default function RevitaGlowProductPage({
   const handleChooseRoutineOptions = useCallback(
     (item: Product) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       setOptionStep(item)

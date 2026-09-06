@@ -46,6 +46,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
@@ -154,7 +155,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
   const addToCart = useCallback(
     async (qty: number) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       try {

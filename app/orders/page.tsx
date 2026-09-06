@@ -14,6 +14,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { translateSize } from '@/utils/sizeTranslations'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -224,7 +225,7 @@ export default function OrdersPage() {
   // Redirect to login if not authenticated - wait for auth to finish loading first
   useEffect(() => {
     if (isClient && !authLoading && !user) {
-      router.push(getLocalizedPath('/login', locale))
+      router.push(loginPathWithReturn(locale))
     }
   }, [user, authLoading, router, locale, isClient])
 

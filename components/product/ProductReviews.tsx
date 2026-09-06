@@ -7,7 +7,7 @@ import { Star, Edit2, Trash2, Check, AlertCircle, PenLine } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 
 interface Review {
   id: string
@@ -522,7 +522,7 @@ export default function ProductReviews({ productId, variant = 'default' }: Produ
           <div className="mt-5">
             {user
               ? writeButton(t('product.writeReview'), () => setShowForm(true))
-              : writeButton(t('product.loginToReview'), undefined, getLocalizedPath('/login', locale))}
+              : writeButton(t('product.loginToReview'), undefined, loginPathWithReturn(locale))}
           </div>
           <p className={`mt-3 text-xs font-medium ${s.accent}`}>
             {t('product.reviewBonusHint', { points: '50' })}
@@ -648,7 +648,7 @@ export default function ProductReviews({ productId, variant = 'default' }: Produ
                 : writeButton(
                     t('product.loginToReview'),
                     undefined,
-                    getLocalizedPath('/login', locale)
+                    loginPathWithReturn(locale)
                   )}
               <p className={`mt-2 text-xs font-medium ${s.accent}`}>
                 {t('product.reviewBonusHint', { points: '50' })}

@@ -48,6 +48,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
@@ -231,7 +232,7 @@ export default function BoosterProductPage({
   const addToCart = useCallback(
     async (qty: number) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       try {
@@ -275,7 +276,7 @@ export default function BoosterProductPage({
   const handleAddRoutineProduct = useCallback(
     async (item: Product, selection?: ProductOptionSelection, quantity = 1) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       if (routineAdding) return
@@ -308,7 +309,7 @@ export default function BoosterProductPage({
   const handleChooseRoutineOptions = useCallback(
     (item: Product) => {
       if (!user) {
-        router.push(getLocalizedPath('/login', locale))
+        router.push(loginPathWithReturn(locale))
         return
       }
       setOptionStep(item)

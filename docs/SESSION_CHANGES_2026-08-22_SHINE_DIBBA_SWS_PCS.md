@@ -40,3 +40,7 @@ node --import dotenv/config scripts/generate-delivery-signoff.js \
   --payment-days 31 \
   --out "$HOME/Desktop/orders/Delivery-Signoff-04964-SHINE-MEDICAL.pdf"
 ```
+
+## 2026-09-03 — Friday trainer request declined
+
+WhatsApp from Shine Dibba: trainer Friday 2pm or after. Reply: already did multiple trainings, cannot keep repeating on-site. Point to https://genosys.ae/training (login). Invite to Dubai Derma 8–10 Sep, stand Z2E15.

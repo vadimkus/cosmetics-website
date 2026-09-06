@@ -689,7 +689,7 @@ export const products: Product[] = [
     price: 340,
     description: '300ml. Functional shampoo that improves the conditions of hair loss. It is a functional shampoo approved as a \'functional product that improves the symptoms of hair loss\' by KFDA. It cools down scalp heat and helps control excess sebum on the scalp, making scalp and hair healthy. Key ingredients: Menthol, Caffeine, Copper Tripeptide-1, Biotin, Panthenol, Viscum Album (Mistletoe) Extract, Saccharomyces Cerevisiae Extract, Malt Extract, Acorus Calamus Root Extract, Serenoa Serrulata Fruit Extract, Piroctone Olamine. Dermatologically tested. KFDA approved as a functional product for improving hair loss symptoms.',
     image: '/images/shampoo_o/Main.jpeg',
-    images: JSON.stringify(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S7a', 'S8', 'Closing'].map((n) => `/images/shampoo_o/${n}.jpeg`)),
+    images: JSON.stringify(['S1', 'S3', 'S2', 'S5', 'S4', 'S7a', 'S6', 'S7', 'Closing'].map((n) => `/images/shampoo_o/${n}.jpeg`)),
     category: 'Scalp/Hair',
     inStock: true,
     videoUrl: '/videos/shamp.mp4',

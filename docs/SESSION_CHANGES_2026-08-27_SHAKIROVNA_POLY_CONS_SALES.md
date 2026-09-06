@@ -9,9 +9,11 @@ First sales report on this agreement.
 | | |
 |---|---|
 | Report | **01441** |
+| Matching demand | **06789** |
 | Sum | **280.00 AED** |
 | Pay status | Not Paid |
-| PDF | `~/Desktop/orders/GENOSYS_SHAKIROVNA_POLY_CLINIC_Consignment_Sales_01441.pdf` |
+| Sales PDF | `~/Desktop/orders/GENOSYS_SHAKIROVNA_POLY_CLINIC_Consignment_Sales_01441.pdf` |
+| Stock note | `~/Desktop/orders/GENOSYS_Shakirovna_Poly_Clinic_Consignment_Stock_Note_06789.pdf` |
 
 | Code | Product | Qty | Unit | Line |
 |---|---|---:|---:|---:|
@@ -19,8 +21,9 @@ First sales report on this agreement.
 | 00144 | BB Cushion #2 Beige | 1 | 150 | 150 |
 | | | **2** | | **280** |
 
-Report only — no replenishment, no paymentin. Not printed.
+Matching demand 2026-09-02: **06789** on agr. **41**. Same 2 SKU / 2 pcs / 280 AED. Shipped. No SO, no invoice, no paymentin. Not printed.
 
-https://online.moysklad.ru/app/#commissionreport/edit?id=01999f25-a1e9-11f1-0a80-0e41005c67df
+https://online.moysklad.ru/app/#commissionreport/edit?id=01999f25-a1e9-11f1-0a80-0e41005c67df  
+https://online.moysklad.ru/app/#demand/edit?id=779551e8-a6d0-11f1-0a80-1db3003585b4
 
 Script: `scripts/moysklad-create-shakirovna-poly-clinic-consignment-sales-20260827.js`

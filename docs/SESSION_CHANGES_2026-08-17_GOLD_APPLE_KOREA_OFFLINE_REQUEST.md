@@ -9,3 +9,7 @@ Saved: `~/Desktop/Gold_apple/04_working/2026-08-17_DRAFT_EMAIL_KOREA_GOLD_APPLE_
 ## Reply to Mariia
 
 Told her we sent the offline-only question to Korea. Draft: `~/Desktop/Gold_apple/04_working/2026-08-17_DRAFT_EMAIL_GOLD_APPLE_WE_ASKED_KOREA_RU.md`
+
+## 2026-09-02 — Maria asked for ОС on the repeat request
+
+Reply: HQ answered, still not ready (HQ policy). Hope it changes later. Invite to Dubai Derma 8–10 Sep, stand Z2E15.

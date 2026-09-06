@@ -46,6 +46,17 @@ DTSMG letter (19 Aug, ref **Z2E15**) tells Dubai Customs goods are **display/mar
 
 18 sqm allotment is 9 badges. Four names only.
 
+## Badge correction email (1 Sep 2026)
+
+Organiser had cancelled or altered registrations. Ask: restore the team, then cancel only these two:
+
+| Reg no. | Name | Action |
+|---|---|---|
+| 1553711 | Iryna Kobzarenko | Cancel |
+| 1553064 | Jeongmi Kim | Cancel |
+
+Keep: Vadim Sagatdinov, Natalia Kormishina, Yana Kochetkova, Tatyana Malashevich.
+
 ## Open items (as of 27 Aug)
 
 1. Exhibitor e-badges (deadline missed — escalate to cx@dubaiderma.com). Draft sent to Vadim 27 Aug.

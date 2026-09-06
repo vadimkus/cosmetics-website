@@ -13,3 +13,6 @@ Two fixes:
 2. `getProductsListCached` no longer caches a fallback. The `unstable_cache` entry now wraps only the DB read; the static fallback is applied outside it, so a single failed read costs one request instead of poisoning the shared 60-second entry for all locales.
 
 Commits `45949cf8`, plus the cache change.
+
+## Sequence locked (17:50)
+Main, then S1 (favorite place), S3 (head start), S2 (clean deeper), S5 (keep the comfort), S4 (too hot), S7a (3 minutes), S6 (root is only the beginning), S7 (dream team), Closing. `S8.jpeg` (Instagram stories "Want the rest?") removed from the site.

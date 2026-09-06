@@ -6,7 +6,9 @@
 
 | | |
 |---|---|
-| Report | **01444** / **2,990.00 AED** / Not Paid |
+| Report | **01444** / **2,990.00 AED** |
+| Paymentin | **06186** |
+| Pay status | **Paid** |
 | Matching demand | **06748** / **2,990.00 AED** into agr. 37 |
 | Qty | **29 pcs** / 16 lines |
 
@@ -35,9 +37,11 @@ Separate from today’s replenish **06747** (camel ×3 + Snow O₂ 180 ×3 only)
 | 00038 | Soothing Repair Post Cream 20g | 1 | 102 | 102 |
 | | | **29** | | **2,990** |
 
-No paymentin. Not printed.
+Paymentin **06186** posted 2026-09-03 on report **01444**. Report → **Paid**. Demand **06748** left unpaid (replenishment). Not printed.
 
 https://online.moysklad.ru/app/#commissionreport/edit?id=1c4dd504-a1f8-11f1-0a80-1a7100624673  
 https://online.moysklad.ru/app/#demand/edit?id=1d6f98e8-a1f8-11f1-0a80-136b0061dcfb
 
-Script: `scripts/moysklad-create-new-you-star-consignment-sales-demand-20260827.js`
+Scripts:
+- `scripts/moysklad-create-new-you-star-consignment-sales-demand-20260827.js --commit`
+- `scripts/moysklad-create-new-you-star-paymentin-01444-20260903.js --commit`

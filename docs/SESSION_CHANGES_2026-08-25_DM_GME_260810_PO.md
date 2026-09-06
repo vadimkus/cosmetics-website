@@ -66,3 +66,7 @@ Warehouse `00038` = **29** loose tubes is not the full 20g position. Same store 
 
 Script: `scripts/moysklad-create-po-dm-gme-260810-20260825.js`  
 CSV: `docs/DM_GME_260810_Shipping_Invoice_normalized.csv`
+
+## MOFA attestation (2026-09-02)
+
+Paymentout **00694** / **302.15 AED**. Attestation **AECI1056219107091964354**. See `docs/SESSION_CHANGES_2026-09-02_MOFA_ATTESTATION_260810.md`.

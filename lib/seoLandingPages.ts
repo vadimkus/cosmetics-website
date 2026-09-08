@@ -52,7 +52,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A gel cleanser positioned for microbiome- and barrier-conscious cleansing.' },
-      { name: 'Multi Vita Radiance Serum', href: '/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'GENOSYS Multi Vita Radiance Serum', description: 'A targeted brightening step for uneven-looking tone and radiance.' },
+      { name: 'Multi Vita Radiance Serum', href: '/products/21', image: '/images/radiance_serum/Main.jpeg', imageAlt: 'GENOSYS Multi Vita Radiance Serum', description: 'A targeted brightening step for uneven-looking tone and radiance.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
     ],

@@ -127,7 +127,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'SNOW O₂ CLEANSER': '/images/cleanser_o/Main.jpeg',
       'SNOW BOOSTER': '/images/BOOS.jpg',
       'MULTI VITA RADIANCE CREAM': '/images/radiance/main.jpeg',
-      'MULTI VITA RADIANCE SERUM': '/images/radiance_serum/main.jpeg',
+      'MULTI VITA RADIANCE SERUM': '/images/radiance_serum/Main.jpeg',
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/multif_serum/main.jpeg',
       'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '/images/multifunc_cream/main.jpeg',
       'INTENSIVE PROBLEM CONTROL CREAM': '/images/problem_cream/main.jpeg',

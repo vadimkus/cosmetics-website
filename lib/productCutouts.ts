@@ -60,8 +60,8 @@ const CUTOUTS: Record<string, string> = {
   '/images/sensitive_serum/main.jpeg': '/images/cutout/19.webp',
   // 20 PROBLEM CONTROL SERUM
   '/images/problems_serum/main.jpeg': '/images/cutout/20.webp',
-  // 21 MULTI VITA RADIANCE SERUM
-  '/images/radiance_serum/main.jpeg': '/images/cutout/21.webp',
+  // 21 
+  '/images/radiance_serum/Main.jpeg': '/images/cutout/21-v2.webp',
   // 22 MULTI FUNCTIONAL ANTI-WRINKLE SERUM
   '/images/multif_serum/main.jpeg': '/images/cutout/22.webp',
   // 23 ND Cell ANTI-WRINKLE CREAM

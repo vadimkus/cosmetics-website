@@ -342,7 +342,7 @@ export const products: Product[] = [
     name: 'MULTI VITA RADIANCE SERUM',
     price: 330,
     description: 'Twelve vitamins, and the carton prints the dose beside every one of them. Niacinamide at 20,000 ppm, panthenol at 10,000, stable vitamin C at 1,000, vitamin E at 300, and then eleven more measured in parts per billion. Korea registers this as a whitening functional cosmetic with niacinamide named as the active. MELAZERO, the patented complex, is loquat leaf and spearmint. In the maker\'s two-week trial, surface melanin fell 28.0%. Pat it in morning and night, and wear sunscreen over it by day. Not for use during pregnancy.',
-    image: '/images/radiance_serum/main.jpeg',
+    image: '/images/radiance_serum/Main.jpeg',
     images: null,
     category: 'Serum',
     inStock: true,

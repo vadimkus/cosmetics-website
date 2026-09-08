@@ -149,6 +149,8 @@ REVISION = {
     # New campaign packshot: the pump bottle square on white, replacing the
     # earlier shampoo/Main.jpg render.
     "44": 2,
+    # New studio packshot on white, replacing the July render.
+    "21": 2,
 }
 
 

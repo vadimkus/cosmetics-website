@@ -49,7 +49,7 @@ export const HOME_CATEGORY_SLUGS = [
 const CATEGORY_PREFERRED_PRODUCT_IDS: Record<string, string> = {
   microneedling: '1', // Microneedle Roller
   'pro-solution': '4', // POWER SOLUTION HES - hes_power/main.jpeg
-  serum: '21', // MULTI VITA RADIANCE SERUM - radiance_serum/main.jpeg
+  serum: '21', // MULTI VITA RADIANCE SERUM - radiance_serum/Main.jpeg
   cream: '32', // MULTI FUNCTIONAL ANTI-WRINKLE CREAM - clearer Cream tile product
   mask: '36', // SOOTHING BOMB SEA ALGAE MASK - has a large shot
   sun: '39', // ULTRA SHIELD SUN CREAM SPF 50+ - has large shot

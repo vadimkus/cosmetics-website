@@ -45,6 +45,21 @@ describe('buildMoySkladAddressFull', () => {
       country: countryMeta,
       city: 'Dubai',
       street: 'Binghatti Jasmine 218',
+      addInfo: '',
+    })
+  })
+
+  it('explicitly clears stale MoySklad addInfo on updates', () => {
+    expect(
+      buildMoySkladAddressFull(
+        'Casa Dora villa 233, Dubai, UAE',
+        'Dubai',
+        countryMeta,
+      ),
+    ).toMatchObject({
+      city: 'Dubai',
+      street: 'Casa Dora villa 233',
+      addInfo: '',
     })
   })
 })

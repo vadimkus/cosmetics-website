@@ -66,7 +66,10 @@ export function streetForMoySklad(
   return parts.join(', ').trim()
 }
 
-/** Structured MoySklad address fragment (no addInfo - avoids street duplication). */
+/**
+ * Structured MoySklad address fragment. addInfo is explicitly empty because
+ * MoySklad merges nested address fields on PUT instead of replacing them.
+ */
 export function buildMoySkladAddressFull(
   customerAddress: string | undefined,
   customerEmirate: string | undefined,
@@ -75,6 +78,7 @@ export function buildMoySkladAddressFull(
   country: { meta: { href: string; type: string; mediaType: string } }
   city?: string
   street?: string
+  addInfo: string
 } {
   const street = streetForMoySklad(customerAddress, customerEmirate)
   const city = String(customerEmirate || '').trim()
@@ -82,5 +86,8 @@ export function buildMoySkladAddressFull(
     country: countryEntityMeta,
     ...(city ? { city } : {}),
     ...(street ? { street } : {}),
+    // MoySklad merges *AddressFull on PUT. Omitting addInfo preserves a stale
+    // value, which its invoice template then appends after street.
+    addInfo: '',
   }
 }

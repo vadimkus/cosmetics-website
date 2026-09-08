@@ -325,3 +325,11 @@ No database migrations required. Changes are purely presentational in email temp
 - RTL support for Arabic
 - Apple-style minimalist design
 - Admin new order notifications
+
+## 2026-09-08: Admin new-order email shows GENOSYS Rewards
+
+Order #CODM2609082352 (mobile app, COD) arrived with Subtotal 1430 and Total 1350 and no line explaining the 80 AED gap: the customer had redeemed 800 points. The admin template already had a "★ GENOSYS Rewards (pts)" summary row, but the mobile COD route (and the admin resend / manual-notification routes) never passed `loyaltyPointsRedeemed` / `loyaltyDiscountAmount`, so it never rendered.
+
+- Callers fixed: `app/api/mobile/orders/route.ts`, `app/api/admin/resend-order-notification/route.ts`, `app/api/admin/manual-order-notification/route.ts`. Stripe webhook, payment-status and web COD already passed them.
+- Template: new "★ GENOSYS Rewards" card under Order Source, "Redeemed N pts (-AED X) · Will earn M pts" (`loyaltyPointsExpected` added to `AdminNewOrderEmailData`).
+- Template: free-gift items no longer print `Size: __PROMO__`; the sentinel is hidden.

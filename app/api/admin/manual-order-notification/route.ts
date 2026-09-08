@@ -57,7 +57,9 @@ export async function POST(request: NextRequest) {
       shipping: order.shipping || 0,
       vat: order.vat,
       address: order.customerAddress || undefined,
-      emirate: order.customerEmirate || undefined
+      emirate: order.customerEmirate || undefined,
+      loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
+      loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined,
     })
 
     if (result.success && 'messageId' in result) {

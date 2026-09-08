@@ -1194,6 +1194,22 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 ` : ''}
+
+                <!-- GENOSYS Rewards (ADMIN ONLY): points spent on this order and points it will earn -->
+                ${((orderData.loyaltyPointsRedeemed || 0) > 0 || (orderData.loyaltyPointsExpected || 0) > 0) ? `
+                <tr>
+                  <td style="padding: 0 20px 20px 20px; text-align: center;">
+                    <div style="display: inline-block; background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 24px;">
+                      <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">★ GENOSYS Rewards</p>
+                      <p style="margin: 0; color: #1d4ed8; font-size: 14px; font-weight: 600;">
+                        ${(orderData.loyaltyPointsRedeemed || 0) > 0 ? `Redeemed ${(orderData.loyaltyPointsRedeemed || 0).toLocaleString('en-US')} pts (-AED ${(orderData.loyaltyDiscountAmount || 0).toFixed(2)})` : ''}
+                        ${(orderData.loyaltyPointsRedeemed || 0) > 0 && (orderData.loyaltyPointsExpected || 0) > 0 ? ' · ' : ''}
+                        ${(orderData.loyaltyPointsExpected || 0) > 0 ? `Will earn ${(orderData.loyaltyPointsExpected || 0).toLocaleString('en-US')} pts` : ''}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                ` : ''}
                 
                 <!-- Order Information -->
                 <tr>
@@ -1366,7 +1382,8 @@ export const emailTemplates = {
                   
                   // Detail line: size + color
                   const details: string[] = []
-                  if (item.size) details.push(`Size: ${item.size}`)
+                  // '__PROMO__' is the free-gift sentinel, not a size.
+                  if (item.size && item.size !== '__PROMO__') details.push(`Size: ${item.size}`)
                   if (item.color) details.push(`Color: ${item.color}`)
                   
                   return `

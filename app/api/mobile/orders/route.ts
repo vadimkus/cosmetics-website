@@ -755,7 +755,10 @@ export async function POST(request: NextRequest) {
           discountPercentage: userDiscountPctForOrder ?? 0,
           discountAmount: order.discountAmount ?? 0,
           bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
+          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined,
+          loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
+          loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined,
+          loyaltyPointsExpected: estimateOrderPoints({ total: order.total, shipping: order.shipping, user }),
         })
         if (adminResult.success) {
           debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)

@@ -76,7 +76,9 @@ export async function POST(request: NextRequest) {
           shipping: order.shipping || undefined,
           vat: order.vat || undefined,
           address: order.customerAddress || undefined,
-          emirate: order.customerEmirate || undefined
+          emirate: order.customerEmirate || undefined,
+          loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
+          loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined,
         })
         
         results.push({

@@ -273,7 +273,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/radiance_serum/S5.jpeg',
       '/images/radiance_serum/S6.jpeg',
       '/images/radiance_serum/S7.jpeg',
-      '/images/radiance_serum/S8.jpeg',
+      '/images/radiance_serum/S8b.jpeg',
     ],
     videoUrl: '/videos/radiance_serum.mp4',
     pricing: {

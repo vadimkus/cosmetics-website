@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 // Product 21, MULTI VITA RADIANCE SERUM: Sep 2026 campaign slides S1-S8
 // (Olga Artjomova, campaign order per INSTRUCTIONS.txt). Main unchanged.
 // Run after the deploy carrying the files is live.
-const GALLERY = Array.from({ length: 8 }, (_, i) => `/images/radiance_serum/S${i + 1}.jpeg`)
+const GALLERY = Array.from({ length: 8 }, (_, i) => `/images/radiance_serum/S${i + 1}${i === 7 ? "b" : ""}.jpeg`)
 const apply = process.argv.includes('--apply')
 
 async function main() {

@@ -33,3 +33,7 @@ Mobile app reads the same DB/config via API; no OTA needed.
 ## Open item from Olga
 
 FINAL slide: redraw the small bottle (original shape, logo on the silver collar, label sharp at 10x). Not done in this pass; slide shipped as delivered.
+
+## Update 17:15 — FINAL slide bottle redraw (done)
+
+Replaced the generated small bottle on the FINAL slide with the studio packshot cutout (`cutout/21-v2.webp`), same footprint (base y=1145, centre x=1032), contact shadow and faded reflection added, old bottle and reflection erased from the floor gradient by row interpolation. Copy on the slide untouched. Shipped as `S8b.jpeg` (new name, immutable cache); `S8.jpeg` removed. Cache key v75. Fixed PNG kept beside the source as `radiance_serum_oo/08_FINAL_..._fixed_bottle.png` (untracked) for Olga.

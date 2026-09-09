@@ -93,17 +93,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s1 is the
- *  four-step melanin mechanism, s3 the complex with the ppm figures, s2 the
- *  two-week trial and the panel, s4 the routine with the go-slowly and
- *  close-the-cap notes.
- *
- *  s1 credits step 4 to PHA / gluconolactone, which sits at 10 ppb. Queued
- *  for re-export; the copy does not repeat it. */
-const ENGINE_IMAGE = '/images/radiance_serum/s3.jpeg'
-const HOWTO_IMAGE = '/images/radiance_serum/s4.jpeg'
-const EFFECTS_IMAGE = '/images/radiance_serum/s1.jpeg'
-const PROOF_IMAGE = '/images/radiance_serum/s2.jpeg'
+/** Section art from the Sep 2026 campaign set, each slide paired with the
+ *  section it illustrates: S1 the two-week melanin result, S3 the Vita 12
+ *  ladder with the ppm figures, S7 the two-to-three-drops ritual, S6 the
+ *  21-woman tolerance panel. */
+const ENGINE_IMAGE = '/images/radiance_serum/S3.jpeg'
+const HOWTO_IMAGE = '/images/radiance_serum/S7.jpeg'
+const EFFECTS_IMAGE = '/images/radiance_serum/S1.jpeg'
+const PROOF_IMAGE = '/images/radiance_serum/S6.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

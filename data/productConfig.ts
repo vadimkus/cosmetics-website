@@ -266,11 +266,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '21': {
     id: '21',
     images: [
-      '/images/radiance_serum/s1.jpeg',
-      '/images/radiance_serum/s2.jpeg',
-      '/images/radiance_serum/s3.jpeg',
-      '/images/radiance_serum/s4.jpeg',
-      '/images/radiance_serum/s5.jpeg',
+      '/images/radiance_serum/S1.jpeg',
+      '/images/radiance_serum/S2.jpeg',
+      '/images/radiance_serum/S3.jpeg',
+      '/images/radiance_serum/S4.jpeg',
+      '/images/radiance_serum/S5.jpeg',
+      '/images/radiance_serum/S6.jpeg',
+      '/images/radiance_serum/S7.jpeg',
+      '/images/radiance_serum/S8.jpeg',
     ],
     videoUrl: '/videos/radiance_serum.mp4',
     pricing: {

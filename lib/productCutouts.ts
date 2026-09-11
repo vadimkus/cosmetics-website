@@ -109,7 +109,7 @@ const CUTOUTS: Record<string, string> = {
   // 44 HR³ MATRIX MEDI SCALP SHAMPOO α
   '/images/shampoo_o/Main.jpeg': '/images/cutout/44-v2.webp',
   // 45 HR³ MATRIX HAIR SOLUTION α
-  '/images/HHR.jpg': '/images/cutout/45.webp',
+  '/images/hair_sol_v/Main.jpeg': '/images/cutout/45-v2.webp',
   // 46 HR³ MATRIX SCALP PEELING α
   '/images/scal.jpg': '/images/cutout/46.webp',
   // 47 HR³ MATRIX MESOPECIA KIT

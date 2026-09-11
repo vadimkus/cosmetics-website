@@ -107,7 +107,7 @@ export const PRODUCT_SHEETS: ProductSheet[] = [
   { id: 'eye-patch', title: 'EyeCell EYE PEPTIDE GEL PATCH', size: '1.4 MB', href: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf', image: '/images/patch/main.jpeg', productId: '33' },
   { id: 'bio-ferment', title: 'BIO-FERMENT AGE DEFYING POWDER MASK', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf', image: '/images/BFAD.png', productId: '51' },
   { id: 'hair-gentron', title: 'HAIR GENTRON', size: '1.8 MB', href: '/documents/PPT/HAIR%20GENTRON.pdf', image: '/images/gen.jpg', productId: '48' },
-  { id: 'hair-solution', title: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf', image: '/images/HHR.jpg', productId: '45' },
+  { id: 'hair-solution', title: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf', image: '/images/hair_sol_v/Main.jpeg', productId: '45' },
   { id: 'hair-tonic', title: 'HR³ MATRIX HAIR TONIC α', size: '1.9 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf', image: '/images/hair_tonic/main-v2.jpeg', productId: '43' },
   { id: 'scalp-peeling', title: 'HR³ MATRIX SCALP PEELING α', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf', image: '/images/scal.jpg', productId: '46' },
   { id: 'scalp-brush', title: 'HR³ MATRIX SCALP BRUSH', size: '0.4 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf', image: '/images/Second/brush.jpg', productId: '61' },

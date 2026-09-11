@@ -151,6 +151,9 @@ REVISION = {
     "44": 2,
     # New studio packshot on white, replacing the July render.
     "21": 2,
+    # New campaign packshot: box and ten vials square on white, replacing the
+    # small legacy HHR.jpg render.
+    "45": 2,
 }
 
 

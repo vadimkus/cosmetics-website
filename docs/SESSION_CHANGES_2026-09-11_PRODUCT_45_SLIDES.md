@@ -30,3 +30,5 @@ No numeric claims on the slides; nothing to verify against the dossier.
 
 S6 "A LIGHT GEL. MADE TO STAY PUT." (gel in a glass dish). Appended to the gallery and used as the formula-section art in place of S1, since that section is about the carrier gel. Cache key v77.
 Reverted formula-section art to S1 at Vadim's request; S6 stays in the gallery only.
+
+## Update 23:30 — S6 replaced by S6a (vial on side with cap, warm shadow). S6.jpeg removed. Cache key v78.

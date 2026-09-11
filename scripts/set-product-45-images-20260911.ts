@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 // Product 45, HR3 MATRIX HAIR SOLUTION a: new studio main (box + ten vials)
 // and five campaign slides. Run after the deploy carrying the files is live.
 const MAIN = '/images/hair_sol_v/Main.jpeg'
-const GALLERY = [1, 2, 3, 4, 5, 6].map((i) => `/images/hair_sol_v/S${i}.jpeg`)
+const GALLERY = [...[1, 2, 3, 4, 5].map((i) => `/images/hair_sol_v/S${i}.jpeg`), '/images/hair_sol_v/S6a.jpeg']
 const apply = process.argv.includes('--apply')
 
 async function main() {

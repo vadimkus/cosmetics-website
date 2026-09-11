@@ -18,3 +18,10 @@ No numeric claims on the slides; nothing to verify against the dossier.
 - Cutout rebuilt as `cutout/45-v2.webp` (revision 2 in `build-cutouts.py`), manifest updated.
 - `lib/productsDb.ts` cache key v76.
 - `scripts/set-product-45-images-20260911.ts --apply` after deploy.
+
+## Update 17:40 — slides used through the bespoke page
+
+`HairSolutionProductPage.tsx` previously had no section art (gallery only). Added, mvserum-style:
+- Formula section: two columns, S1 (single vial) sticky beside the four carrier cards.
+- Copper table: S5 (scalp and hair) sticky beside the table.
+- How to use: S2 (the parting) beside the header; S3 (manual stamp) on the clinic card, S4 (HairGen Booster) on the home card as 4:3 card headers.

@@ -79,6 +79,25 @@ import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
+
+/** Section art from the Sep 2026 campaign set. S1 the single vial beside the
+ *  formula, S5 the scalp-and-hair payoff beside the copper table, S2 the
+ *  parting over the how-to, S3 the manual stamp and S4 the HairGen Booster
+ *  on the two technique cards. */
+const ART = '/images/hair_sol_v'
+const FORMULA_IMAGE = `${ART}/S1.jpeg`
+const PAYOFF_IMAGE = `${ART}/S5.jpeg`
+const PARTING_IMAGE = `${ART}/S2.jpeg`
+const STAMP_IMAGE = `${ART}/S3.jpeg`
+const BOOSTER_IMAGE = `${ART}/S4.jpeg`
+
+function SectionArt({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <div className={`relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white ${className}`}>
+      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+    </div>
+  )
+}
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
   CeraAccordion,
@@ -491,35 +510,44 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
       {/* ────────────────────── The vehicle / formula ───────────────────── */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-          <CeraSectionHeader
-            eyebrow={copy.vehicle.eyebrow}
-            title={copy.vehicle.title}
-            intro={copy.vehicle.intro}
-          />
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-5">
-            {copy.vehicle.items.map((item, i) => (
-              <CeraReveal
-                key={item.name}
-                delay={i * 60}
-                as="article"
-                className="cera-card cera-card-hover flex flex-col p-5 md:p-6"
-              >
-                <p dir="ltr" className="cera-serif text-[18px] leading-tight text-[var(--cera-ink)]">
-                  {item.name}
-                </p>
-                <p dir="ltr" className="cera-serif cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
-                  {item.dose}
-                </p>
-                <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
-              </CeraReveal>
-            ))}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+            <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+              <SectionArt src={FORMULA_IMAGE} alt={copy.vehicle.title} />
+            </CeraReveal>
+            <div>
+              <CeraSectionHeader
+                eyebrow={copy.vehicle.eyebrow}
+                title={copy.vehicle.title}
+                intro={copy.vehicle.intro}
+              />
+              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
+                {copy.vehicle.items.map((item, i) => (
+                  <CeraReveal
+                    key={item.name}
+                    delay={i * 60}
+                    as="article"
+                    className="cera-card cera-card-hover flex flex-col p-5 md:p-6"
+                  >
+                    <p dir="ltr" className="cera-serif text-[18px] leading-tight text-[var(--cera-ink)]">
+                      {item.name}
+                    </p>
+                    <p dir="ltr" className="cera-serif cera-numeral hr3-figure mt-2 text-[23px] leading-none text-[var(--cera-rose)]">
+                      {item.dose}
+                    </p>
+                    <p className="mt-3 text-[14px] leading-relaxed text-[var(--cera-body)]">{item.body}</p>
+                  </CeraReveal>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ──────────────── Where the copper peptide actually is ──────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[1000px] px-4 sm:px-6">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
+          <div>
           <CeraSectionHeader eyebrow={copy.copper.eyebrow} title={copy.copper.title} intro={copy.copper.intro} />
 
           <CeraReveal className="cera-card mt-9 overflow-hidden">
@@ -553,26 +581,40 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
           <CeraReveal>
             <p className="mt-7 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.copper.body}</p>
           </CeraReveal>
+          </div>
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <SectionArt src={PAYOFF_IMAGE} alt={copy.copper.title} />
+          </CeraReveal>
+          </div>
         </div>
       </section>
 
       {/* ───────────────── How to use: two techniques ───────────────────── */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-          <CeraReveal>
-            <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
-            <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.howTo.title}</h2>
-            <p className="mt-3 inline-flex rounded-full bg-[var(--cera-blush)] px-4 py-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
-              {copy.howTo.frequency}
-            </p>
-          </CeraReveal>
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] lg:gap-14">
+            <CeraReveal>
+              <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
+              <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.howTo.title}</h2>
+              <p className="mt-3 inline-flex rounded-full bg-[var(--cera-blush)] px-4 py-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
+                {copy.howTo.frequency}
+              </p>
+            </CeraReveal>
+            <CeraReveal>
+              <SectionArt src={PARTING_IMAGE} alt={copy.howTo.title} />
+            </CeraReveal>
+          </div>
 
           <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-7">
             {[
-              { title: copy.howTo.proTitle, steps: copy.howTo.proSteps },
-              { title: copy.howTo.homeTitle, steps: copy.howTo.homeSteps },
+              { title: copy.howTo.proTitle, steps: copy.howTo.proSteps, image: STAMP_IMAGE },
+              { title: copy.howTo.homeTitle, steps: copy.howTo.homeSteps, image: BOOSTER_IMAGE },
             ].map((col, ci) => (
-              <CeraReveal key={col.title} delay={ci * 90} as="article" className="cera-card p-6 md:p-8">
+              <CeraReveal key={col.title} delay={ci * 90} as="article" className="cera-card overflow-hidden">
+                <div className="relative aspect-[4/3] border-b border-[var(--cera-line)] bg-white">
+                  <Image src={col.image} alt={col.title} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+                </div>
+                <div className="p-6 md:p-8">
                 <h3 className="cera-serif text-[22px] leading-tight text-[var(--cera-ink)] sm:text-[26px]">
                   {col.title}
                 </h3>
@@ -586,6 +628,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
                     </li>
                   ))}
                 </ol>
+                </div>
               </CeraReveal>
             ))}
           </div>

@@ -81,12 +81,12 @@ import ProductReviews from '@/components/product/ProductReviews'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 
 /** Section art from the Sep 2026 campaign set. S1 the single vial beside the
- *  formula, S5 the scalp-and-hair payoff beside the copper table, S2 the
+ *  formula, S7 the copper tripeptide beside the copper table, S2 the
  *  parting over the how-to, S3 the manual stamp and S4 the HairGen Booster
  *  on the two technique cards. */
 const ART = '/images/hair_sol_v'
 const FORMULA_IMAGE = `${ART}/S1.jpeg`
-const PAYOFF_IMAGE = `${ART}/S5.jpeg`
+const PAYOFF_IMAGE = `${ART}/S7.jpeg`
 const PARTING_IMAGE = `${ART}/S2.jpeg`
 const STAMP_IMAGE = `${ART}/S3.jpeg`
 const BOOSTER_IMAGE = `${ART}/S4.jpeg`

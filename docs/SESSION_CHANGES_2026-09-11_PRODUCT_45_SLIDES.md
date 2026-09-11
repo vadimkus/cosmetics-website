@@ -32,3 +32,5 @@ S6 "A LIGHT GEL. MADE TO STAY PUT." (gel in a glass dish). Appended to the galle
 Reverted formula-section art to S1 at Vadim's request; S6 stays in the gallery only.
 
 ## Update 23:30 — S6 replaced by S6a (vial on side with cap, warm shadow). S6.jpeg removed. Cache key v78.
+
+## Update 23:45 — S7 added (COPPER TRIPEPTIDE-1). Seventh gallery slide; also the art beside the copper peptide table in place of S5 (S5 stays in the gallery). Cache key v79.

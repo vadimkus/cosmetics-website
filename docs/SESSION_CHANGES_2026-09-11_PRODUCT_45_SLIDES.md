@@ -25,3 +25,7 @@ No numeric claims on the slides; nothing to verify against the dossier.
 - Formula section: two columns, S1 (single vial) sticky beside the four carrier cards.
 - Copper table: S5 (scalp and hair) sticky beside the table.
 - How to use: S2 (the parting) beside the header; S3 (manual stamp) on the clinic card, S4 (HairGen Booster) on the home card as 4:3 card headers.
+
+## Update 20:45 — S6 added
+
+S6 "A LIGHT GEL. MADE TO STAY PUT." (gel in a glass dish). Appended to the gallery and used as the formula-section art in place of S1, since that section is about the carrier gel. Cache key v77.

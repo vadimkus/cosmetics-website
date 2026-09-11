@@ -13,7 +13,7 @@ Sheet: **Sold products for July-August. 05.09.2026**. Clinic list. 15 SKUs ×1.
 | State | **Not paid** |
 | PDF | `~/Desktop/orders/GENOSYS_Refresh_Clinic_Consignment_Sales_01461.pdf` |
 
-Matching demand **06820** / **2,036 AED** posted 2026-09-06 (EGF skipped). Report still unpaid.
+Matching demand **06820** / **2,036 AED** posted 2026-09-06 (EGF skipped). Report **Paid** 2026-09-06 (paymentin **06205**).
 
 Deleted an earlier same-day **01461** stock dump (38 lines / 120 pcs / 15,908 AED, empty description). MoySklad reused number **01461** for the sold report.
 

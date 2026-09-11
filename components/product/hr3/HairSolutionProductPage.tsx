@@ -612,7 +612,7 @@ export default function HairSolutionProductPage({ product, unitsSold = 0, routin
             ].map((col, ci) => (
               <CeraReveal key={col.title} delay={ci * 90} as="article" className="cera-card overflow-hidden">
                 <div className="relative aspect-[4/3] border-b border-[var(--cera-line)] bg-white">
-                  <Image src={col.image} alt={col.title} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+                  <Image src={col.image} alt={col.title} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-contain" />
                 </div>
                 <div className="p-6 md:p-8">
                 <h3 className="cera-serif text-[22px] leading-tight text-[var(--cera-ink)] sm:text-[26px]">

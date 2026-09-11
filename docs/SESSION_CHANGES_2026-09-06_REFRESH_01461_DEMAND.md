@@ -6,7 +6,7 @@ Replenishment into agreement **24** for Jul–Aug consignment sales **01461**.
 
 | | |
 |---|---|
-| Report | **01461** / **2,181 AED** unpaid (EGF stays on the report) |
+| Report | **01461** / **2,181 AED** **Paid** (paymentin **06205**) |
 | Demand | **06820** / **2,036 AED** |
 | Agreement | **24** |
 | State | Shipped |

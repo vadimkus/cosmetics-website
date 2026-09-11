@@ -9,7 +9,7 @@
 
 | Type | Number | Sum | Units | Lines | Status |
 |------|--------|----:|------:|------:|--------|
-| Отчет комиссионера | **01449** | **2,951.00 AED** | 43 | 13 | Not paid |
+| Отчет комиссионера | **01449** | **2,951.00 AED** | 43 | 13 | **Paid** (06207, 2026-09-07) |
 
 PDF: `~/Desktop/orders/GENOSYS_Eclatant_Consignment_Sales_01449.pdf` (not printed)
 
@@ -60,6 +60,6 @@ Script: `scripts/moysklad-create-eclatant-replenish-demand-20260901.js --commit`
 
 Agreement-only. No SO / invoice / payment. Qtys are the restock list, not 1:1 with report **01449**.
 
-## Not done
+## Payment (7 Sep 2026)
 
-- Payment on report **01449**
+Mashreq **033IPP404210231** / **2,951 AED**. Paymentin **06207**. Report **Paid**. Demand **06776** unpaid.

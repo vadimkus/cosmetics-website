@@ -9,9 +9,9 @@
 
 | Type | Number | Sum | Units | Lines | Status |
 |------|--------|----:|------:|------:|--------|
-| Отчет комиссионера | **01448** | **1,237.00 AED** | 18 | 7 | Not paid |
+| Отчет комиссионера | **01448** | **1,237.00 AED** | 18 | 7 | **Paid** (06211, 2026-09-08) |
 
-PDF: `~/Desktop/orders/GENOSYS_Cosmiden_Lilyne_Consignment_Sales_01448.pdf` (not printed)
+PDF: `~/Desktop/orders/GENOSYS_Cosmiden_Lilyne_Consignment_Sales_01448.pdf` (Stamp.png on seal box, 8 Sep; not printed)
 
 Report: https://online.moysklad.ru/app/#commissionreport/edit?id=debcdbe2-a539-11f1-0a80-091700d459f5
 
@@ -55,4 +55,7 @@ Script: `scripts/moysklad-create-cosmiden-matching-demand-01448-20260831.js --co
 ## Not done
 
 - Ivory / collagen / sea algae restock (they still have stock)
-- Payment on report **01448**
+
+## Payment (8 Sep 2026)
+
+Paymentin **06211** / **1,237 AED**. Report **Paid**. Demand **06770** unpaid.

@@ -8,7 +8,7 @@
 
 | Type | Number | Sum | Units | Lines | Status |
 |------|--------|----:|------:|------:|--------|
-| Отчет комиссионера | **01447** | **867.00 AED** | 9 | 6 | Not paid |
+| Отчет комиссионера | **01447** | **867.00 AED** | 9 | 6 | **Paid** (06210, 2026-09-07) |
 
 PDF: `~/Desktop/orders/GENOSYS_Love_My_Body_Consignment_Sales_01447.pdf` (not printed)
 

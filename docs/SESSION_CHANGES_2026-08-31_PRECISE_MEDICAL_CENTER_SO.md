@@ -64,3 +64,9 @@ Script: `scripts/moysklad-create-precise-medical-paymentin-05000-20260901.js --c
 
 - Delivery line
 - Print
+
+## 2026-09-07 — Regi WhatsApp (+971 50 277 5518)
+
+Asked for salmon DNA PDRN injectable, then if suitable for Dermapen. Product 60 is BIO-MESO PDRN Expert 60000: professional **spicule** ampoule, not injectable. Do not combine with Dermapen / roller (protocol: spicules = 1.0 mm equivalent; recent microneedling is a contraindication). For Dermapen: Power Solution vials.
+
+**Later same day:** “Which product is ideal for Salmon DNA PDRN service?” Ideal chair product is **60**. Power Solution has no PDRN. Aftercare: mask **52**. Homecare: **65**.

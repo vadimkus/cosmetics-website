@@ -9,6 +9,7 @@ import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
+import { beautyBoxImagesJson } from '@/lib/beautyBoxGallery'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -282,6 +283,10 @@ export async function GET(request: NextRequest) {
     const productsById = new Map<string, DbProduct>(
       typedProducts.map((product) => [String(product.id), product])
     )
+    // Beauty boxes: gallery = the packshot of every product inside the box.
+    const mainImageByNumber = new Map<string, string | null>(
+      typedProducts.map((product) => [String(product.productNumber || product.id), product.image])
+    )
     const translationById = new Map<string, {
       nameRu: string | null
       nameAr: string | null
@@ -353,7 +358,10 @@ export async function GET(request: NextRequest) {
         // Studio slides carry their claims as printed text, so a translated set is served
         // where one exists. Same mapping the website uses.
         image: localizeProductImage(p.image, locale),
-        images: localizeProductImagesJson(p.images, locale),
+        images: localizeProductImagesJson(
+          beautyBoxImagesJson(dbRow?.productNumber ?? null, p.images, mainImageByNumber),
+          locale
+        ),
         // Localize rich content fields using the same translation maps as the website.
         productDetails: fileTranslations?.productDetails ?? p.productDetails,
         keyFeatures: fileTranslations?.keyFeatures ?? p.keyFeatures,

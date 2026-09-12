@@ -11,6 +11,7 @@ import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
+import { beautyBoxImagesJson, beautyBoxMemberNumbers, isBeautyBoxNumber } from '@/lib/beautyBoxGallery'
 import { getBespokeContent } from '@/lib/bespokeContent'
 
 /**
@@ -288,6 +289,16 @@ export async function GET(
     // Generate enhanced product data with complete calculations
     const enhancementStartTime = Date.now()
     const enhancedProduct = generateEnhancedProductData(product, user)
+
+    // Beauty boxes: gallery = the packshot of every product inside the box.
+    const mainImageByNumber = new Map<string, string | null>()
+    if (isBeautyBoxNumber(typedProduct.productNumber)) {
+      const members = await prisma.product.findMany({
+        where: { productNumber: { in: beautyBoxMemberNumbers(String(typedProduct.productNumber)) } },
+        select: { productNumber: true, image: true },
+      })
+      for (const m of members) if (m.productNumber) mainImageByNumber.set(m.productNumber, m.image)
+    }
     // Attach locale-specific display fields WITHOUT changing the canonical `name`.
     const wantAr = locale.startsWith('ar')
     const wantRu = locale.startsWith('ru')
@@ -314,7 +325,10 @@ export async function GET(
       // Studio slides carry their claims as printed text, so a translated set is served
       // where one exists. Same mapping the website uses; see lib/localizedProductImages.
       image: localizeProductImage(enhancedProduct.image, locale),
-      images: localizeProductImagesJson(enhancedProduct.images, locale),
+      images: localizeProductImagesJson(
+        beautyBoxImagesJson(typedProduct.productNumber, enhancedProduct.images, mainImageByNumber),
+        locale
+      ),
       // Localize rich content fields using the same translation maps as the website.
       productDetails: fileTranslations?.productDetails ?? enhancedProduct.productDetails,
       keyFeatures: fileTranslations?.keyFeatures ?? enhancedProduct.keyFeatures,

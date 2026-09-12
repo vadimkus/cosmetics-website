@@ -15,3 +15,7 @@ The lexical "Did you mean …?" check flagged *real* providers within 2 edits of
 ## Not changed
 - Mobile app (`genosys-mobile-app/utils/emailAddressValidation.js`, `app/auth/login.js`) has its own copy of the list and still hard-blocks on an unconfirmed suggestion. Needs the same two changes in the next app release.
 - "User with this email already exists" (400) is the other likely "cannot register" case: customers who signed in with Google/Apple before. Message could point them to Log in / Forgot password.
+
+## Update 15:05 — both follow-ups done
+- `lib/registrationMessages.ts`: localized EN/RU/AR "You already have an account with this email. Please log in, or use Forgot password if you signed up with Google or Apple." Returned with `code: 'ACCOUNT_EXISTS'` from `/api/auth/register` (both the pre-check and the P2002 race branch) and `/api/mobile/auth/register`. Clients already toast `data.error`, so no client change.
+- Mobile repo updated in the same way (list + non-blocking hint), committed to genosys-mobile-app main; ships with the next app release.

@@ -14,6 +14,7 @@ import { resolveDeviceInfo } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
 import { generateMemberNumber } from '@/lib/membership'
 import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
+import { ACCOUNT_EXISTS_CODE, accountExistsMessage } from '@/lib/registrationMessages'
 
 // Rate limiting for mobile registration
 const mobileRegisterLimiter = rateLimitSimple({
@@ -216,9 +217,10 @@ export async function POST(request: NextRequest) {
     const existingUser = await findUserByEmail(normalizedEmail)
     if (existingUser) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: 'User with this email already exists' 
+        {
+          success: false,
+          error: accountExistsMessage(locale),
+          code: ACCOUNT_EXISTS_CODE,
         },
         { status: 400 }
       )

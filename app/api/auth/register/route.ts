@@ -15,6 +15,7 @@ import { getGeolocationData } from '@/lib/geolocation'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
+import { ACCOUNT_EXISTS_CODE, accountExistsMessage } from '@/lib/registrationMessages'
 import { isMemberNumberCollision, newMemberFields } from '@/lib/membership'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
@@ -167,7 +168,7 @@ export async function POST(request: NextRequest) {
     const existingUser = await findUserByEmail(normalizedEmail)
     if (existingUser) {
       return NextResponse.json(
-        { error: 'User with this email already exists' },
+        { error: accountExistsMessage(locale), code: ACCOUNT_EXISTS_CODE },
         { status: 400 }
       )
     }
@@ -263,7 +264,7 @@ export async function POST(request: NextRequest) {
           ? String((error as { code?: unknown }).code || '')
           : ''
       if (code === 'P2002') {
-        return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })
+        return NextResponse.json({ error: accountExistsMessage(locale), code: ACCOUNT_EXISTS_CODE }, { status: 400 })
       }
       throw error
     }

@@ -13,7 +13,6 @@ import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
 import {
   isEmailAddressSyntaxValid,
   normalizeEmailAddress,
-  suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
 import { getLocalTodayYmd } from '@/lib/validation'
 
@@ -188,10 +187,6 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         setError(t('login.emailInvalid'))
         return
       }
-      if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
-        setError(t('login.emailSuggestionRequired'))
-        return
-      }
       if (!formData.password.trim()) {
         setError(t('login.passwordRequired'))
         return
@@ -226,7 +221,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         formData.emirate,
         formData.birthday,
         normalizedPromo || '',
-        confirmedEmail === normalizedEmail
+        true // the inline did-you-mean hint is the prompt; submitting keeps the address
       )
       if (success) {
         onClose()

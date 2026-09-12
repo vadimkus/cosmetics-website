@@ -55,7 +55,6 @@ import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
 import {
   isEmailAddressSyntaxValid,
   normalizeEmailAddress,
-  suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
 import { getLocalTodayYmd } from '@/lib/validation'
 
@@ -221,10 +220,6 @@ export default function LoginClient() {
       if (!formData.email.trim()) { setError(t('login.emailRequired')); return }
       const normalizedEmail = normalizeEmailAddress(formData.email)
       if (!isEmailAddressSyntaxValid(normalizedEmail)) { setError(t('login.emailInvalid')); return }
-      if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
-        setError(t('login.emailSuggestionRequired'))
-        return
-      }
       if (!formData.password.trim()) { setError(t('login.passwordRequired')); return }
       if (formData.password.length < 8) { setError(t('login.passwordMinLength')); return }
       if (!formData.phone.trim()) { setError(t('login.phoneRequired')); return }
@@ -241,7 +236,7 @@ export default function LoginClient() {
         formData.emirate,
         formData.birthday,
         normalizedPromo || '',
-        confirmedEmail === normalizedEmail
+        true // the inline did-you-mean hint is the prompt; submitting keeps the address
       )
       if (success) {
         setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })

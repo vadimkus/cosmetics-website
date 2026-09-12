@@ -15,7 +15,6 @@ import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
 import {
   isEmailAddressSyntaxValid,
   normalizeEmailAddress,
-  suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
@@ -120,10 +119,6 @@ export default function PWALoginPage() {
           setError(t('login.emailInvalid'))
           return
         }
-        if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
-          setError(t('login.emailSuggestionRequired'))
-          return
-        }
         const success = await register(
           name,
           normalizedEmail,
@@ -133,7 +128,7 @@ export default function PWALoginPage() {
           emirate,
           '',
           '',
-          confirmedEmail === normalizedEmail
+          true // the inline did-you-mean hint is the prompt; submitting keeps the address
         )
         if (success) {
           router.replace(getLocalizedPath('/products', locale))

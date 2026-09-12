@@ -117,6 +117,11 @@ PARTS = {
         (0.170, 0.180, 0.960, 0.640, "vision"),
         (0.370, 0.540, 0.560, 0.930, "vision"),
     ],
+    # Same kit layout as 59: box and black serum re-traced on their own crops.
+    "55": [
+        (0.170, 0.190, 0.960, 0.640, "vision"),
+        (0.370, 0.560, 0.560, 0.930, "vision"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.
@@ -165,6 +170,8 @@ REVISION = {
     "59": 2,
     # Studio pair replacing the render; generator mark painted out first.
     "15": 2,
+    # New studio kit shot replacing the flat render.
+    "55": 2,
 }
 
 

@@ -359,7 +359,7 @@ export async function GET(request: NextRequest) {
         // where one exists. Same mapping the website uses.
         image: localizeProductImage(p.image, locale),
         images: localizeProductImagesJson(
-          beautyBoxImagesJson(dbRow?.productNumber ?? null, p.images, mainImageByNumber),
+          beautyBoxImagesJson(dbRow?.productNumber ?? null, p.image, p.images, mainImageByNumber),
           locale
         ),
         // Localize rich content fields using the same translation maps as the website.

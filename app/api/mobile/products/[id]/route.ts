@@ -326,7 +326,7 @@ export async function GET(
       // where one exists. Same mapping the website uses; see lib/localizedProductImages.
       image: localizeProductImage(enhancedProduct.image, locale),
       images: localizeProductImagesJson(
-        beautyBoxImagesJson(typedProduct.productNumber, enhancedProduct.images, mainImageByNumber),
+        beautyBoxImagesJson(typedProduct.productNumber, enhancedProduct.image, enhancedProduct.images, mainImageByNumber),
         locale
       ),
       // Localize rich content fields using the same translation maps as the website.

@@ -28,12 +28,13 @@ const parseImages = (images: string | null | undefined): string[] => {
 }
 
 /**
- * Returns the JSON `images` string for a box, or the DB value untouched when
- * the product is not a box. `mainImageByNumber` maps member productNumber to
+ * Returns the JSON `images` string for a box (kit shot first, then members),
+ * or the value untouched when the product is not a box. `mainImageByNumber` maps member productNumber to
  * its current main image.
  */
 export const beautyBoxImagesJson = (
   productNumber: string | null | undefined,
+  mainImage: string | null | undefined,
   images: string | null | undefined,
   mainImageByNumber: ReadonlyMap<string, string | null | undefined>
 ): string | null => {
@@ -41,6 +42,8 @@ export const beautyBoxImagesJson = (
   const members = beautyBoxMemberNumbers(productNumber)
     .map((n) => mainImageByNumber.get(n))
     .filter((src): src is string => Boolean(src))
-  const list = Array.from(new Set([...members, ...parseImages(images)]))
+  // The kit shot leads, as on the web page; the app renders `images` as the
+  // whole gallery and does not add `image` itself.
+  const list = Array.from(new Set([mainImage, ...members, ...parseImages(images)].filter((v): v is string => Boolean(v))))
   return list.length ? JSON.stringify(list) : images ?? null
 }

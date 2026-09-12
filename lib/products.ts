@@ -236,7 +236,7 @@ export const products: Product[] = [
     name: 'INTENSIVE PROBLEM CONTROL TONER',
     price: 260,
     description: '200ml / 500ml. Oil-control toner for blemish-prone skin. Apply or spray morning and evening. Takes excess oil and sebum, then puts water back. Zinc PCA 0.5% is the named active. The 200 ml bottle turns upside down for the back. Salicylic acid is 0.001%. Copper peptide is not in the formula. Dermatologically tested.',
-    image: '/images/problem/Main.jpg',
+    image: '/images/problem/Main-v2.jpg',
     images: JSON.stringify([
       '/images/problem/S1.jpg',
       '/images/problem/S2.jpg',

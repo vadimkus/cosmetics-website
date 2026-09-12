@@ -163,6 +163,8 @@ REVISION = {
     "45": 2,
     # New studio shot of the full kit with its title, replacing the 1024 px render.
     "59": 2,
+    # Studio pair replacing the render; generator mark painted out first.
+    "15": 2,
 }
 
 

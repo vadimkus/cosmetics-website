@@ -17,7 +17,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '11': '/images/defender_0/Main.jpeg',
   '12': '/images/epi/main.jpeg',
   '14': '/images/mist_0/Main.jpeg',
-  '15': '/images/problem/Main.jpg',
+  '15': '/images/problem/Main-v2.jpg',
   '16': '/images/Second/main_booster.jpg',
   '17': '/images/eye_serum/main.jpeg',
   '18': '/images/hyaluron_serum/main.jpeg',

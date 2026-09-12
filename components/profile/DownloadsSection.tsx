@@ -450,7 +450,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/15">
                   <Image
-                    src="/images/problem/Main.jpg"
+                    src="/images/problem/Main-v2.jpg"
                     alt="INTENSIVE PROBLEM CONTROL TONER"
                     width={500}
                     height={300} 

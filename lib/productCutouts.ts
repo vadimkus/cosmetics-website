@@ -129,7 +129,7 @@ const CUTOUTS: Record<string, string> = {
   // 54 Holiday Kit
   '/images/Hol_kit_v2.jpg': '/images/cutout/54.webp',
   // 55 PROBLEM SKIN CARE BEAUTY BOX
-  '/images/bb_problem/Main.jpeg': '/images/cutout/55-v2.webp',
+  '/images/bb_problem/Main-v2.jpeg': '/images/cutout/55-v3.webp',
   // 56 SKIN BRIGHTENING BEAUTY BOX
   '/images/bbbox_brightening/main3.jpeg': '/images/cutout/56.webp',
   // 57 CHARMING LOOK BEAUTY BOX

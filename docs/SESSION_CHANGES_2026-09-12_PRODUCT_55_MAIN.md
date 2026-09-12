@@ -5,3 +5,9 @@
 Contents on the shot match the five items on the page: Snow O2, Problem Control Toner, Problem Control Serum, Problem Control Cream, Soothing Bomb masks.
 
 Cutout: same layout as product 59, `PARTS["55"]` re-traces the box and black serum. Shipped as `cutout/55-v2.webp`, `lib/productCutouts.ts` remapped, cache key v83. DB via `scripts/set-product-55-main-20260912.ts --apply` after deploy.
+
+## Update, 11:55 — Main-v2 + badge moved off the artwork
+
+`Main_nn.jpg` (shorter title, floor reflections) -> `bb_problem/Main-v2.jpeg` (new filename, `Main.jpeg` removed). Cutout `55-v3.webp`, cache key v84.
+
+"In stock" badge in `components/product/cerabarrier/CeraGallery.tsx` (shared by all 52 bespoke pages) no longer overlays the stage. It renders in its own row above the image, end-aligned (start-aligned in RTL), outlined white pill. Reason: the new packshots carry a headline across the top and slides have their own titles, so any overlay collided with type.

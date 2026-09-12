@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma'
 
 // Product 55, PROBLEM SKIN CARE BEAUTY BOX: new studio kit shot as main.
 // Gallery unchanged. Run after the deploy carrying the file is live.
-const MAIN = '/images/bb_problem/Main.jpeg'
+const MAIN = '/images/bb_problem/Main-v2.jpeg'
 const apply = process.argv.includes('--apply')
 
 async function main() {

@@ -112,20 +112,19 @@ export default function CeraGallery({
         {/* The stage stays square even where a product's slides are not, because
             a stage that resized per slide would make the whole page jump as you
             click through the thumbnails. */}
-        <div className="cera-stage relative aspect-square w-full overflow-hidden rounded-[28px] sm:rounded-[34px]">
-          {/* Only over the main packshot: the other slides are infographics with
-              their own headline in the top-left corner. */}
-          {badge && active === 0 ? (
-            <span
-              className={`absolute top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)] shadow-sm backdrop-blur ${
-                isRtl ? 'right-4' : 'left-4'
-              }`}
-            >
+        {/* The badge sits in its own row above the stage, never on the artwork:
+            the packshots now carry a headline across the top, and the slides
+            have their own titles, so any overlay was colliding with type. */}
+        {badge ? (
+          <div className={`mb-3 flex ${isRtl ? 'justify-start' : 'justify-end'}`}>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cera-line)] bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)]">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               {badge}
             </span>
-          ) : null}
+          </div>
+        ) : null}
 
+        <div className="cera-stage relative aspect-square w-full overflow-hidden rounded-[28px] sm:rounded-[34px]">
           <button
             type="button"
             onClick={() => setLightbox(active)}

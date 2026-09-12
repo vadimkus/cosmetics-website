@@ -171,7 +171,7 @@ REVISION = {
     # Studio pair replacing the render; generator mark painted out first.
     "15": 2,
     # New studio kit shot replacing the flat render.
-    "55": 2,
+    "55": 3,
 }
 
 

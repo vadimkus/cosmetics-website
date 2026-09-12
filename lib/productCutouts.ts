@@ -143,7 +143,7 @@ const CUTOUTS: Record<string, string> = {
   // 61 HR³ MATRIX SCALP BRUSH
   '/images/brush_o/Main2.jpeg': '/images/cutout/61.webp',
   // 62 SENSITIVE SKIN BEAUTY BOX
-  '/images/bb_box_sensitive/main.jpeg': '/images/cutout/62.webp',
+  '/images/bb_box_sensitive/Main-v2.jpeg': '/images/cutout/62-v2.webp',
   // 63 REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]
   '/images/revita_o/main.jpg': '/images/cutout/63.webp',
   // 64 Hair Stamp For HAIRGEN BOOSTER

@@ -582,11 +582,11 @@
   {
     "product": "62",
     "status": "ok",
-    "source": "/images/bb_box_sensitive/main.jpeg",
-    "file": "/images/cutout/62.webp",
+    "source": "/images/bb_box_sensitive/Main-v2.jpeg",
+    "file": "/images/cutout/62-v2.webp",
     "name": "SENSITIVE SKIN BEAUTY BOX",
-    "coverage": 0.305,
-    "bytes": 57780,
+    "coverage": 0.506,
+    "bytes": 95432,
     "review": false
   },
   {

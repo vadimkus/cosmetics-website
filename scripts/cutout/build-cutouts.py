@@ -122,6 +122,11 @@ PARTS = {
         (0.170, 0.190, 0.960, 0.640, "vision"),
         (0.370, 0.560, 0.560, 0.930, "vision"),
     ],
+    # Same kit layout: box and black serum re-traced on their own crops.
+    "62": [
+        (0.150, 0.170, 0.860, 0.640, "keypaper"),
+        (0.470, 0.600, 0.650, 0.930, "vision"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.
@@ -172,6 +177,8 @@ REVISION = {
     "15": 2,
     # New studio kit shot replacing the flat render.
     "55": 3,
+    # New studio kit shot replacing the flat render.
+    "62": 2,
 }
 
 
@@ -242,6 +249,14 @@ def add_parts(im, source_path, parts):
                 part = Image.open(out_tmp.name).convert("RGBA")
             os.unlink(src_tmp.name)
             os.unlink(out_tmp.name)
+        elif mode == "keypaper":
+            # For a white box photographed on a whiter sweep: the box reads
+            # ~230 grey against a ~253 background, too close for Vision and
+            # too light for keywhite, so key on that narrow gap instead.
+            grey = crop.convert("L")
+            alpha = grey.point(lambda v: 255 if v < 244 else max(0, int(255 * (250 - v) / 6)))
+            part = crop.convert("RGBA")
+            part.putalpha(alpha)
         elif mode == "keywhite":
             grey = crop.convert("L")
             # Full opacity below 200, fading to none at the paper tone, so

@@ -36,5 +36,3 @@ Reverted formula-section art to S1 at Vadim's request; S6 stays in the gallery o
 ## Update 23:45 — S7 added (COPPER TRIPEPTIDE-1). Seventh gallery slide; also the art beside the copper peptide table in place of S5 (S5 stays in the gallery). Cache key v79.
 
 ## Update 12 Sep 08:00 — Closing slide added (4 ML × 8, vials). Eighth and last gallery slide. Cache key v80.
-
-## Update 12 Sep 09:55 — Closing content scaled to 90% on the same canvas, edges feathered into the white (right edge kept hard, the vials bleed there). Shipped as Closing-v2.jpeg; Closing.jpeg removed. Cache key v81.

@@ -542,11 +542,11 @@
   {
     "product": "59",
     "status": "ok",
-    "source": "/images/bb_box_deep/main.jpeg",
-    "file": "/images/cutout/59.webp",
+    "source": "/images/bb_box_deep/Main.jpeg",
+    "file": "/images/cutout/59-v2.webp",
     "name": "DEEP MOISTURIZING BEAUTY BOX",
-    "coverage": 0.339,
-    "bytes": 57780,
+    "coverage": 0.461,
+    "bytes": 84430,
     "review": false
   },
   {

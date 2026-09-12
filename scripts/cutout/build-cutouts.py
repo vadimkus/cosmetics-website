@@ -110,6 +110,13 @@ PARTS = {
         (0.740, 0.280, 0.970, 0.790, "vision"),
         (0.735, 0.800, 0.925, 0.900, "keywhite"),
     ],
+    # Kit shot: Vision keeps the white bottles and the masks but drops the
+    # black serum bottle and the white box behind them. Both re-traced on
+    # their own crops.
+    "59": [
+        (0.170, 0.180, 0.960, 0.640, "vision"),
+        (0.370, 0.540, 0.560, 0.930, "vision"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.
@@ -154,6 +161,8 @@ REVISION = {
     # New campaign packshot: box and ten vials square on white, replacing the
     # small legacy HHR.jpg render.
     "45": 2,
+    # New studio shot of the full kit with its title, replacing the 1024 px render.
+    "59": 2,
 }
 
 

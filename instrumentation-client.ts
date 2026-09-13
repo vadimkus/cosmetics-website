@@ -288,7 +288,9 @@ function isBlobOnlyBoundingClientRectProbe(event: Sentry.ErrorEvent): boolean {
   if (!exc) return false
   if (!/getBoundingClientRect is not a function/i.test(exc.value || '')) return false
   if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
-  if (!isIOSWebKitBrowser(event)) return false
+  // Not gated on iOS any more: the same blob:app:/// probe shows up from
+  // Android in-app WebViews (Chrome Mobile, device "K"). A stack with no
+  // frame from our bundle is injected code whatever the OS.
 
   const frames = exc.stacktrace?.frames || []
   if (frames.length === 0) return false

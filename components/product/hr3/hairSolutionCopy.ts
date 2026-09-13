@@ -313,9 +313,9 @@ const EN: HairSolutionCopy = {
   inci: {
     eyebrow: 'The formula',
     title: 'Everything in the vial',
-    intro: 'The named ingredients with their concentrations, then the complete list.',
+    intro: 'What each active is dosed at and what it is there to do, followed by the full list.',
     fullInci: 'Full ingredient list (INCI)',
-    fullInciNote: 'Every ingredient, in the same order as the carton in your hand.',
+    fullInciNote: 'The complete list, as printed on the carton.',
   },
 
   safety: {
@@ -378,7 +378,7 @@ const EN: HairSolutionCopy = {
       },
       {
         q: 'Can I use it while pregnant?',
-        a: 'No. The carton says to avoid this product during pregnancy and lactation, and the safety assessor attributes that to the menthol rather than to anything exotic. It is a conservative call by the assessor rather than evidence of harm, but it is printed on the box and we are not going to talk you past it.',
+        a: 'No. The carton says to avoid this product during pregnancy and lactation, and the safety assessor attributes that to the menthol rather than to anything exotic. It is a precaution rather than a finding of harm, and it is one we follow: wait until after breastfeeding, and use the Hair Tonic in the meantime if your doctor is happy with it.',
       },
       {
         q: 'How does it differ from the Hair Tonic?',
@@ -386,7 +386,7 @@ const EN: HairSolutionCopy = {
       },
       {
         q: 'Is 4 ml or 5 ml in a vial?',
-        a: 'Four. Both registered cartons say 4 ml × 8 vials, in English and in Russian. The manufacturer\u2019s sales deck says 5 ml, which we believe is out of date, and where a deck and a registered carton disagree the carton wins. Eight vials at one or two applications a week is roughly a month to two months of use.',
+        a: 'Four. Each box holds eight single-use 4 ml vials, exactly as printed on the carton. If you have seen 5 ml quoted elsewhere, that is an older figure; 4 ml is the current fill. At one or two applications a week, one box lasts roughly one to two months.',
       },
     ],
   },

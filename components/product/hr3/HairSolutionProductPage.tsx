@@ -84,12 +84,12 @@ import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
  *  formula, S7 the copper tripeptide beside the copper table, S2 the
  *  parting over the how-to, S3 the manual stamp and S4 the HairGen Booster
  *  on the two technique cards. */
-const ART = '/images/hair_sol_v'
-const FORMULA_IMAGE = `${ART}/S1.jpeg`
-const PAYOFF_IMAGE = `${ART}/S7.jpeg`
-const PARTING_IMAGE = `${ART}/S2.jpeg`
-const STAMP_IMAGE = `${ART}/S3.jpeg`
-const BOOSTER_IMAGE = `${ART}/S4.jpeg`
+const ART = '/images/hair_sol_o'
+const FORMULA_IMAGE = `${ART}/S7.jpeg` // four growth factors, 1.2 ppm total
+const PAYOFF_IMAGE = `${ART}/S6.jpeg` // 5 ppm copper tripeptide-1
+const PARTING_IMAGE = `${ART}/S5.jpeg` // needles do the opening, 0.25-0.5 mm
+const STAMP_IMAGE = `${ART}/S10.jpeg` // GENOSYS stamp, professional
+const BOOSTER_IMAGE = `${ART}/S11.jpeg` // home use delivery enhancer
 
 function SectionArt({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   return (

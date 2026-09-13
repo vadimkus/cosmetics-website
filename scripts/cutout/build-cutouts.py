@@ -172,7 +172,7 @@ REVISION = {
     "21": 2,
     # New campaign packshot: box and ten vials square on white, replacing the
     # small legacy HHR.jpg render.
-    "45": 2,
+    "45": 3,
     # New studio shot of the full kit with its title, replacing the 1024 px render.
     "59": 2,
     # Studio pair replacing the render; generator mark painted out first.

@@ -125,6 +125,8 @@ PARTS = {
     # Same kit layout: box and black serum re-traced on their own crops.
     "62": [
         (0.150, 0.170, 0.860, 0.640, "keypaper"),
+        # Skin Barrier cream: Vision kept only the half inside the box crop.
+        (0.340, 0.420, 0.560, 0.900, "vision"),
         (0.470, 0.600, 0.650, 0.930, "vision"),
     ],
 }
@@ -178,7 +180,7 @@ REVISION = {
     # New studio kit shot replacing the flat render.
     "55": 3,
     # New studio kit shot replacing the flat render.
-    "62": 2,
+    "62": 3,
 }
 
 

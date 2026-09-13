@@ -5,3 +5,7 @@
 Six items on the shot match the page: Snow O2, Snow Booster, All For Sensitive Serum, Skin Barrier Protecting Cream, Skin Rescue Overnight Cream Mask, Soothing Bomb masks.
 
 Cutout: Vision dropped the white box on every crop (box ~230 grey on a ~253 sweep). Added a `keypaper` part mode to `build-cutouts.py` that keys on that narrow tonal gap; serum re-traced with `vision`. Shipped `cutout/62-v2.webp`, cutout map remapped, cache key v85. DB via `scripts/set-product-62-main-20260912.ts --apply` after deploy.
+
+## Follow-up (Sep 13)
+
+Cutout `62-v2` dropped the lower half of the Skin Barrier cream tube (Vision only kept the part inside the keypaper box crop). Added a dedicated Vision part for the tube in `build-cutouts.py`, rebuilt as `/images/cutout/62-v3.webp`, repointed `lib/productCutouts.ts`, cache key v86.

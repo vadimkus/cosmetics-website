@@ -61,8 +61,12 @@ export function googleLoyaltyClass() {
       'مكافآت GENOSYS',
     ),
     programLogo: {
-      sourceUri: { uri: `${walletSiteOrigin()}/icon-512x512.png` },
+      sourceUri: { uri: `${walletSiteOrigin()}/images/wallet/google-logo-1024.png` },
       contentDescription: localized('GENOSYS logo', 'Логотип GENOSYS', 'شعار GENOSYS'),
+    },
+    wideProgramLogo: {
+      sourceUri: { uri: `${walletSiteOrigin()}/images/wallet/google-wide-logo-1280x400.png` },
+      contentDescription: localized('GENOSYS wordmark', 'Логотип GENOSYS', 'شعار GENOSYS'),
     },
     hexBackgroundColor: '#F8F5F1',
     accountNameLabel: 'Member',

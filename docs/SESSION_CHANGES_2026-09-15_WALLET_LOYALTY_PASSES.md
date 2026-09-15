@@ -150,6 +150,14 @@ no customer controls render until those external prerequisites are completed.
   moves Member Number/Earn Rate to the back, and adds `GENOSYS MIDDLE EAST`
   beneath the wordmark. Apple fixes native barcodes to the bottom of Store
   Cards, so no artificial QR image or non-native positioning is used.
+- Enabled the master production switch with Apple enabled and Google still
+  disabled, then redeployed the Git-backed production deployment (not the
+  dirty local worktree).
+- Live end-to-end issuance passed for retail member `GNS-00001-AE`: authenticated
+  mobile issuance 200, signed install download 200,
+  `application/vnd.apple.pkpass`, 96 KB valid archive, and no email/database
+  user ID in the install URL. Saved the result as
+  `~/Desktop/GENOSYS-Rewards-Live.pkpass`.
 
 ## Migration note
 

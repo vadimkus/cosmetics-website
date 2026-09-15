@@ -44,7 +44,9 @@ export async function POST(request: NextRequest) {
       provider,
       locale: normalizeWalletLocale(body?.locale),
     })
-    return NextResponse.json({ success: true, ...result }, {
+    const installUrl = new URL(result.installUrl)
+    installUrl.searchParams.set('source', 'native')
+    return NextResponse.json({ success: true, ...result, installUrl: installUrl.toString() }, {
       headers: { 'Cache-Control': 'private, no-store' },
     })
   } catch (error) {

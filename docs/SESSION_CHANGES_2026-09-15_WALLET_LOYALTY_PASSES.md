@@ -156,6 +156,11 @@ Google remains hidden from customers while publishing access is incomplete.
   `application/vnd.apple.pkpass`, 96 KB valid archive, and no email/database
   user ID in the install URL. Saved the result as
   `~/Desktop/GENOSYS-Rewards-Live.pkpass`.
+- Replaced the direct blank `.pkpass` browser destination with a branded,
+  localized install landing page. It launches the pass through a hidden
+  same-origin frame, polls the existing Apple device registration, confirms
+  `Added to Apple Wallet`, and returns native-app customers through
+  `genosys://wallet-complete`. A visible return button remains as fallback.
 
 ## Google provider setup (15 September 2026)
 
@@ -181,10 +186,14 @@ Google remains hidden from customers while publishing access is incomplete.
   support contacts, phone, and MCC 7298. Existing Google payments profile
   `6368-1116-8429` is an Organization profile whose GENOSYS name and address
   were already verified in February 2026.
-- Remaining external gate: Pay & Wallet Console currently returns
-  “Couldn't pull up your info” while loading that verified payments profile.
-  Link the profile manually, then submit publishing access. Keep
-  `GOOGLE_WALLET_ENABLED=false` until Google removes the TEST ONLY restriction.
+- Linked payments profile `6368-1116-8429`; the Wallet onboarding checklist
+  accepted the completed business profile.
+- Submitted the Google Wallet publishing-access request. The console confirms
+  all three onboarding steps complete and states that review normally takes
+  two to three business days.
+- Remaining external gate: Google must approve publishing access and remove
+  the TEST ONLY restriction. Keep `GOOGLE_WALLET_ENABLED=false` until approval
+  is confirmed and the production pass is physically verified.
 
 ## Migration note
 

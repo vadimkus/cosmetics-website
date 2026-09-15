@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Award, Building, ChevronDown, Gift, TrendingUp } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { MembershipTier, useMembershipData } from '@/hooks/useMembershipData'
+import WalletButtons from '@/components/profile/WalletButtons'
 
 const TIER_STYLES: Record<MembershipTier, { badge: string; bar: string }> = {
   MEMBER: { badge: 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)]', bar: 'bg-[var(--cera-blush-deep)]' },
@@ -150,6 +151,8 @@ export default function MembershipCard() {
           </p>
         )}
       </button>
+
+      <WalletButtons wallet={data.wallet} track={data.track} />
 
       {/* Expanded: how it works + tier table */}
       {expanded && (

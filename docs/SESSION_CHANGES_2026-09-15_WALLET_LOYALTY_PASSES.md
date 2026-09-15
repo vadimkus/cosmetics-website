@@ -67,6 +67,15 @@ service-account credential is configured. Demo-account physical testing,
 review screenshots, and publishing-access submission require those external
 Google Wallet Console prerequisites.
 
+- Chunk 4: provider capabilities added to both membership APIs; official
+  Apple/Google badge artwork; retail-only desktop/mobile web/PWA controls with
+  CSRF-protected issuance, platform selection, loading/error states and
+  EN/RU/AR copy; native app uses the same contract through `expo-web-browser`.
+  All controls remain absent while providers are dormant.
+
+Google pass details were consolidated to two text modules to follow the
+current Wallet layout guidance.
+
 ## Migration note
 
 Production contains a rolled-back, zero-step historical migration named

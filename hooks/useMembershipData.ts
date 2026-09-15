@@ -19,6 +19,7 @@ export interface MembershipData {
   }
   stats?: { totalOrders: number; totalSpent: number }
   partner?: { discountType: string | null; discountPercentage: number | null }
+  wallet?: { apple: boolean; google: boolean }
 }
 
 let membershipCache: MembershipData | null = null

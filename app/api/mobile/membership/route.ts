@@ -4,6 +4,7 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { debugLog, errorLog } from '@/lib/logger'
 import { computeTier, nextTierInfo, type MemberTier } from '@/lib/membership'
 import { loyaltyTrackForUser, getLedgerBalance, TIER_MULTIPLIERS, POINT_VALUE_AED } from '@/lib/loyalty'
+import { getWalletCapabilities } from '@/lib/wallet/config'
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now()
@@ -44,6 +45,7 @@ export async function GET(request: NextRequest) {
     }
 
     const track = loyaltyTrackForUser(user)
+    const walletCapabilities = getWalletCapabilities()
 
     if (track === 'PARTNER') {
       return NextResponse.json({
@@ -114,6 +116,10 @@ export async function GET(request: NextRequest) {
         totalOrders,
         totalSpent: Math.round(totalSpent * 100) / 100,
         loyaltyPoints,
+      },
+      wallet: {
+        apple: walletCapabilities.apple,
+        google: walletCapabilities.google,
       },
       user: {
         name: user.name,

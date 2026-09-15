@@ -14,6 +14,7 @@ import {
   REDEEM_MAX_ORDER_FRACTION,
   canRedeemPoints,
 } from '@/lib/loyalty'
+import { getWalletCapabilities } from '@/lib/wallet/config'
 
 /**
  * GET /api/user/membership - GENOSYS Rewards status for the website profile.
@@ -53,6 +54,7 @@ export async function GET() {
     }
 
     const track = loyaltyTrackForUser(user)
+    const walletCapabilities = getWalletCapabilities()
     const redemptionRules = {
       blockPoints: REDEEM_BLOCK_POINTS,
       blockAed: REDEEM_BLOCK_AED,
@@ -128,6 +130,10 @@ export async function GET() {
       stats: {
         totalOrders,
         totalSpent: Math.round(totalSpent * 100) / 100,
+      },
+      wallet: {
+        apple: walletCapabilities.apple,
+        google: walletCapabilities.google,
       },
     })
   } catch (error) {

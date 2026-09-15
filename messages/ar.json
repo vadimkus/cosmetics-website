@@ -754,6 +754,12 @@
     "decreaseRedemption": "استخدام نقاط أقل",
     "increaseRedemption": "استخدام نقاط أكثر",
     "useMaximum": "استخدام الحد الأقصى",
+    "walletPasses": "بطاقات المحفظة",
+    "keepCardInWallet": "احتفظ ببطاقة مكافآت GENOSYS المحدثة في محفظة هاتفك.",
+    "addToAppleWallet": "إضافة إلى Apple Wallet",
+    "addToGoogleWallet": "إضافة إلى محفظة Google",
+    "walletOpening": "جارٍ فتح المحفظة…",
+    "walletError": "تعذّر فتح بطاقة المحفظة. يُرجى المحاولة مرة أخرى.",
     "tier": {
       "member": "عضو",
       "silver": "فضي",

@@ -713,6 +713,12 @@
     "decreaseRedemption": "Redeem fewer points",
     "increaseRedemption": "Redeem more points",
     "useMaximum": "Use maximum",
+    "walletPasses": "Wallet passes",
+    "keepCardInWallet": "Keep your live GENOSYS Rewards card in your phone wallet.",
+    "addToAppleWallet": "Add to Apple Wallet",
+    "addToGoogleWallet": "Add to Google Wallet",
+    "walletOpening": "Opening wallet…",
+    "walletError": "We couldn't open your wallet card. Please try again.",
     "tier": {
       "member": "Member",
       "silver": "Silver",

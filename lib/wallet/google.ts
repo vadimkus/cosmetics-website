@@ -97,28 +97,10 @@ export function googleLoyaltyObject(data: CanonicalWalletData) {
     },
     textModulesData: [
       {
-        id: 'tier',
-        header: 'Tier',
-        localizedHeader: localized('Tier', 'Уровень', 'المستوى'),
-        body: data.tier,
-      },
-      {
-        id: 'value',
-        header: 'Rewards value',
-        localizedHeader: localized('Rewards value', 'Ценность бонусов', 'قيمة المكافآت'),
-        body: `AED ${data.valueAed.toLocaleString('en-AE', { maximumFractionDigits: 2 })}`,
-      },
-      {
-        id: 'earn-rate',
-        header: 'Earn rate',
-        localizedHeader: localized('Earn rate', 'Скорость начисления', 'معدل الكسب'),
-        body: `${data.multiplier}x`,
-      },
-      {
-        id: 'member-since',
-        header: 'Member since',
-        localizedHeader: localized('Member since', 'Участник с', 'عضو منذ'),
-        body: data.memberSince.toISOString().slice(0, 10),
+        id: 'membership',
+        header: 'Membership details',
+        localizedHeader: localized('Membership details', 'Данные участника', 'بيانات العضوية'),
+        body: `${data.tier} · AED ${data.valueAed.toLocaleString('en-AE', { maximumFractionDigits: 2 })} · ${data.multiplier}x · ${data.memberSince.toISOString().slice(0, 10)}`,
       },
       {
         id: 'redemption',

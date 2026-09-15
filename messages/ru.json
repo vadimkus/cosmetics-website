@@ -713,6 +713,12 @@
     "decreaseRedemption": "Использовать меньше баллов",
     "increaseRedemption": "Использовать больше баллов",
     "useMaximum": "Использовать максимум",
+    "walletPasses": "Карты Wallet",
+    "keepCardInWallet": "Сохраните актуальную карту GENOSYS Rewards в кошельке телефона.",
+    "addToAppleWallet": "Добавить в Apple Wallet",
+    "addToGoogleWallet": "Добавить в Google Wallet",
+    "walletOpening": "Открываем Wallet…",
+    "walletError": "Не удалось открыть карту Wallet. Попробуйте ещё раз.",
     "tier": {
       "member": "Участник",
       "silver": "Серебро",

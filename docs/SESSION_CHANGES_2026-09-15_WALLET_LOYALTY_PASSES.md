@@ -120,6 +120,9 @@ current Wallet layout guidance.
 - Wallet-specific production dependency audit is clear after overriding
   `passkit-generator`'s vulnerable Joi pin to 17.13.6. The repository still
   reports unrelated pre-existing framework/development advisories.
+- Live deployment verified: admin health rejects unauthenticated access (401),
+  the retired placeholder returns 410, an unsigned install request returns
+  401, and all Apple/Google badge assets return 200.
 
 Physical provider tests are intentionally blocked by the absent Apple
 certificate and Google Wallet issuer credentials. Readiness remains false and

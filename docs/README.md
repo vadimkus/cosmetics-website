@@ -396,7 +396,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🟢 **SEO/Content** | [SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md](./SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md) | **Six high-intent UAE evergreen guides.** Three new topics (microneedling aftercare, PDRN benefits, ceramide/barrier care) + three major rewrites (Korean skincare Dubai, clinic dermacosmetics, Dubai sunscreen), fully localized EN/RU/AR. Adds evidence sources, relevant product-image cards, localized structured data, x-default hreflang, and guide images in the sitemap. |
 | 🟢 **Content/Commerce** | [SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md](./SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md) | **Overnight Mask feature article + barrier-first product pairing.** EN/RU/AR blog uses the new main + S1–S5 images and product video, with a CERABARRIER two-step night ritual. Reciprocal 34↔66 Perfect Combination added across web, APIs, and native app with localized benefit copy. |
 
@@ -404,7 +403,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-16_ARFI_NAILS_CONSIGNMENT_PAYMENTINS.md](./SESSION_CHANGES_2026-07-16_ARFI_NAILS_CONSIGNMENT_PAYMENTINS.md) | **ARFI Nails** — paymentin **05946** (Barsha report **01397** / **3,821 AED**) + **05947** (Jumeirah **01398** / **1,476 AED**); both reports **Paid**. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-16_SHINE_MEDICAL_CENTER_ORDER.md](./SESSION_CHANGES_2026-07-16_SHINE_MEDICAL_CENTER_ORDER.md) | **Shine Medical Center (Dibba)** — SO **GENCardM2607165371** / inv **04826** / ship **06549** / **1,195 AED**; SWS skipped (OOS). |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-16_IRYNA_SOLODKA_CLINIC_ORDER.md](./SESSION_CHANGES_2026-07-16_IRYNA_SOLODKA_CLINIC_ORDER.md) | **Iryna Solodka** — clinic SO **GENCardM2607165770** / inv **04827** / ship **06550** / pay **05948** / **855 AED** (paid, delivered). |
@@ -422,7 +420,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🔴 **Critical** | [SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md](./SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md) | **Permanent order-email thumbnail fix** — all order channels now persist canonical server product images; repaired 75 dead historical rows, post-audit zero unresolved. |
 | 🔴 **Critical** | [SESSION_CHANGES_2026-07-16_PARTNER_CREDIT_TERMS_AND_PRO_SEGREGATION.md](./SESSION_CHANGES_2026-07-16_PARTNER_CREDIT_TERMS_AND_PRO_SEGREGATION.md) | **Partner credit terms + pro/retail segregation** — 30/45/60/90-day credit option at partner checkout, consignment restricted to retail products (`lib/partnerCatalog.ts`), admin payment tracking with mark-paid + overdue, Partner Access on `/login`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-16_GENESIS_CONSIGNMENT_ADMIN_FIX.md](./SESSION_CHANGES_2026-07-16_GENESIS_CONSIGNMENT_ADMIN_FIX.md) | **Genesis Healthcare Center** consignment activated; fixed admin profile toggle not persisting (`consignmentActive` missing from admin user GETs). |
@@ -445,7 +442,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_NO_ROLLER_WITH_SPICULES.md](./SESSION_CHANGES_2026-07-14_NO_ROLLER_WITH_SPICULES.md) | **Never roller + spicules** — #65 Bio-Meso routine drops roller; #1 roller pairs with hyaluron serum instead of Homecare 5000. |
 | 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_BIO_MESO_60000_ROUTINE.md](./SESSION_CHANGES_2026-07-14_BIO_MESO_60000_ROUTINE.md) | **Bio Meso #60** Recommended Routine added (cleanse → Expert 60000 → PDRN mask → postcream); EN/AR/RU. |
 | 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_REVITA_GLOW_MOBILE_ROUTINE.md](./SESSION_CHANGES_2026-07-14_REVITA_GLOW_MOBILE_ROUTINE.md) | **Revita Glow #63** Recommended Routine was desktop-only; folded into `ProductRoutineCard` so mobile web shows it after Product Details. |
@@ -456,7 +452,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-13_BRAU_LADIES_SPLIT_PEPTIDE_ORDERS.md](./SESSION_CHANGES_2026-07-13_BRAU_LADIES_SPLIT_PEPTIDE_ORDERS.md) | **Brau Ladies** — 2 identical chains (ADU + JBR): peptide `00012` ×20 @ 38 + free delivery; inv **04811**/04812, ship **06531**/06532 / **760 AED** each (**1,520** total); PDFs in `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-13_SALES_BONUS_500_PAYMENTOUT.md](./SESSION_CHANGES_2026-07-13_SALES_BONUS_500_PAYMENTOUT.md) | **Sales bonus** — paymentout **00651** / **500 AED** → Vadim Sagatdinov (expense Sales Bonus). |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-13_MISS_OSHBA_AL_FALASI_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-13_MISS_OSHBA_AL_FALASI_RETAIL_ORDER.md) | **Miss Oshba Al Falasi** — SO **GENCardM2607130007** / inv **04813** / ship **06533** / pay **05930** / **705 AED** (radiance + hyaluron serums + delivery 45); **Доставлен**; PDF in `~/Desktop/orders/`. |
@@ -465,7 +460,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🔴 **Security** | [SESSION_CHANGES_2026-07-06_TWENTY_ELEMENT_AUDIT_SECURITY_COMMERCE_DB.md](./SESSION_CHANGES_2026-07-06_TWENTY_ELEMENT_AUDIT_SECURITY_COMMERCE_DB.md) | **20-element audit (security, commerce, DB, SEO, app).** CRITICAL closed: 5 unauthenticated PII/abuse endpoints gated (auth/refresh enumeration, order-success PII, blog-comment impersonation, certificate + invoice email spam). Commerce: free-gift spend threshold + out-of-stock now enforced server-side on all 5 order paths; Stripe endpoints rate-limited. Observability: error.tsx prod leak, Sentry server PII scrub + checkout capture, logger EROFS no-op, admin error-detail leaks. DB: order_items(productId) + orders(status,createdAt) indexes created CONCURRENTLY on prod; admin revenue metric no longer zeroes paid-undelivered orders. SEO: /terms in sitemap, stable lastmod. New GDPR analytics-retention cron (CRON_SECRET). nodemailer→9.0.3 (0 web vulns). Mobile: /orders/<id> deep link + faster cold-start auth (OTA). Documented decisions: /training public gate (SEO vs professional-only), email DMARC→quarantine + domain sender (DNS), logout tokenVersion tradeoff. |
 | 🟢 **UI/Dev** | [SESSION_CHANGES_2026-07-06_SIX_AREA_AUDIT_CONSENT_ANALYTICS_PERF_A11Y_I18N.md](./SESSION_CHANGES_2026-07-06_SIX_AREA_AUDIT_CONSENT_ANALYTICS_PERF_A11Y_I18N.md) | **Six-area audit (consent, analytics, perf, a11y, i18n, app resilience).** CRITICAL closed: cookie-consent banner + Google Consent Mode v2 (GA ran unconsented; privacy policy misstated cookies — corrected EN/AR/RU); GA4 `purchase` now fires for COD/card (was Stripe-only → revenue under-reported) + `view_item`/`add_to_cart`/`begin_checkout` wired; `/ar`+`/ru` forgot-password / reset-password / terms were 404 (password recovery broken for AR/RU) → created. Perf: hero video 12MB deferred to idle, prod console stripping, image `sizes`. A11y: aria-live toasts, listbox language switcher, nav focus rings, label association, contrast. RTL: checkout summary, product info, cart, footer. App: see mobile repo doc (timeouts, 37 `Linking.openURL` guards, error boundaries, Sentry capture) — shipped via OTA. |
 | 🟢 **UI/Dev** | [SESSION_CHANGES_2026-07-06_FIVE_ELEMENT_AUDIT_2.md](./SESSION_CHANGES_2026-07-06_FIVE_ELEMENT_AUDIT_2.md) | **Audit #2 (contact, SEO, blog, delivery, security).** CRITICAL: Product JSON-LD price leak removed. HIGH: unknown emirate granted free shipping (now fails closed); `/api/analytics` was public (revenue+PII) → admin-gated. Rate-limited cod-confirmation/skin-analysis/pdf-download; HSTS added. Blog: Arabic mobile list localized, view-count double-increment fixed, JSON-LD `</script>` escaping, HTML-stripped descriptions, comment cap+sanitize. SEO: noindex EN account pages, x-default hreflang, logo 404 fix. Contact form is intentionally WhatsApp/email links (no dead form). |
@@ -494,7 +488,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-07_KOREA_REORDER_DOUBLECHECK.md](./SESSION_CHANGES_2026-07-07_KOREA_REORDER_DOUBLECHECK.md) | **Korea reorder recheck** — live MoySklad 2026-07-07; **~1,435 u** proposed (add algae/cushion/SPF40; drop PDRN home/Cerabarrier); 260616 + Jun3 PO fully received. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_MELIS_SARIOGLU_CUSHION_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-06_MELIS_SARIOGLU_CUSHION_RETAIL_ORDER.md) | **Melis Sarioglu** (Paloma Tower 1204) — SO **GENCardM2607066552** + inv **04776** + ship **06488** + pay **05899** / **300 AED** (Beige cushion + free delivery); PDF → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_TATIANA_ANISKINA_CONSIGNMENT_SALES.md](./SESSION_CHANGES_2026-07-06_TATIANA_ANISKINA_CONSIGNMENT_SALES.md) | **Tatiana Aniskina Nail Master** — consignment sales **01401** / **520 AED** + paymentin **05895** + replenishment demand **06485** / **1,050 AED**; PDFs → `~/Desktop/orders/`. |
@@ -508,7 +501,6 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🟢 **Feature** | [GENOSYS Rewards wallet passes](./SESSION_CHANGES_2026-09-15_WALLET_LOYALTY_PASSES.md) | Dormant, fail-closed Apple Wallet + Google Wallet loyalty passes for retail Rewards members across web, PWA and native app; signed links, live updates, lifecycle sync and provider setup/runbook. |
 | 🔴 **CRITICAL** | [PROJECT_GUIDE.md](./PROJECT_GUIDE.md) | **Start here!** Tech stack, project structure, patterns |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-05_VALERIIA_REUTA_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-05_VALERIIA_REUTA_RETAIL_ORDER.md) | **Miss Valeriia Reuta** — SO **GENCardM2607058965** + invoice **04770** + shipment **06481** + paymentin **05891** / **1,377 AED** (10% off + delivery 45); card renamed; **Доставлен**; PDF → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-05_LOVE_MY_BODY_SPF40_FIX.md](./SESSION_CHANGES_2026-07-05_LOVE_MY_BODY_SPF40_FIX.md) | **Love My Body** — report **01400** SPF50 sold (2,660); demand **06474** SPF40 shipped (2,640); stock note PDF re-exported + printed landscape. |

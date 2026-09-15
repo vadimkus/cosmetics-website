@@ -54,18 +54,16 @@ private key, service-account JSON, or generated pass is committed.
   authentication, QR membership identifier, short-lived public `.pkpass`
   delivery, no-store headers, and renderer/model tests.
 
-Apple remains dormant because no Pass Type certificate, private key, or WWDR
-certificate is configured locally or in the inspected environment. Physical
-iPhone installation is a release gate, not bypassed by test certificates.
+Apple signing material is configured in production and live issuance has been
+verified on a physical iPhone.
 
 - Chunk 3: Google LoyaltyClass/LoyaltyObject builders, dedicated service
   account authentication, idempotent REST creation/PATCH, localized pass
   fields, opaque-object signed save JWT, and install redirect.
 
-Google remains dormant because no Wallet Issuer ID, class, or dedicated
-service-account credential is configured. Demo-account physical testing,
-review screenshots, and publishing-access submission require those external
-Google Wallet Console prerequisites.
+Google implementation is configured and verified in demo mode. Public
+activation remains off until the issuer's verified payments profile is linked
+and Google grants publishing access.
 
 - Chunk 4: provider capabilities added to both membership APIs; official
   Apple/Google badge artwork; retail-only desktop/mobile web/PWA controls with
@@ -124,9 +122,9 @@ current Wallet layout guidance.
   the retired placeholder returns 410, an unsigned install request returns
   401, and all Apple/Google badge assets return 200.
 
-Physical provider tests are intentionally blocked by the absent Apple
-certificate and Google Wallet issuer credentials. Readiness remains false and
-no customer controls render until those external prerequisites are completed.
+Apple physical testing passed. Google REST authentication, class lookup,
+object creation, signed Save URL, and card saving passed in demo mode.
+Google remains hidden from customers while publishing access is incomplete.
 
 ## Apple provider setup (15 September 2026)
 
@@ -158,6 +156,35 @@ no customer controls render until those external prerequisites are completed.
   `application/vnd.apple.pkpass`, 96 KB valid archive, and no email/database
   user ID in the install URL. Saved the result as
   `~/Desktop/GENOSYS-Rewards-Live.pkpass`.
+
+## Google provider setup (15 September 2026)
+
+- Google Wallet Issuer ID: `3388000000023204165`.
+- Created and approved the demo LoyaltyClass. The console automatically
+  prefixed the entered value, so its canonical API ID is
+  `3388000000023204165.3388000000023204165.genosys_rewards`.
+- Created dedicated Google Cloud project `genosys-wallet`, enabled
+  `walletobjects.googleapis.com`, and created service account
+  `genosys-wallet-issuer@genosys-wallet.iam.gserviceaccount.com`.
+- Added that service account to the Pay & Wallet Console with Developer access.
+  Its JSON key is stored outside Git under
+  `~/Desktop/Drive/Genosys/Google/` with mode 600 and as a sensitive Vercel
+  production secret.
+- Added `GOOGLE_WALLET_ISSUER_ID`, `GOOGLE_WALLET_CLASS_ID`, and
+  `GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64` to production.
+- Added production-compliant 1024 px square and 1280 x 400 wide logo assets.
+  Google REST GET for the class returned 200; a test LoyaltyObject was created,
+  its signed Save URL opened, and the pass was saved to Vadim's Google Wallet.
+  The rendered card shows 100 points, member ID, QR, membership details, reward
+  instructions, and the account link.
+- Completed the public business-information section with GENOSYS website,
+  support contacts, phone, and MCC 7298. Existing Google payments profile
+  `6368-1116-8429` is an Organization profile whose GENOSYS name and address
+  were already verified in February 2026.
+- Remaining external gate: Pay & Wallet Console currently returns
+  “Couldn't pull up your info” while loading that verified payments profile.
+  Link the profile manually, then submit publishing access. Keep
+  `GOOGLE_WALLET_ENABLED=false` until Google removes the TEST ONLY restriction.
 
 ## Migration note
 

@@ -1,0 +1,47 @@
+# GENOSYS Rewards Wallet Passes
+
+**Date:** 15 September 2026  
+**Scope:** Apple Wallet and Google Wallet loyalty cards for retail Rewards
+members across desktop web, mobile web/PWA, and the native Expo app.
+
+## Locked launch scope
+
+- Retail `REWARDS` accounts only. Professional Partner accounts remain on
+  their existing contractual-pricing card and are rejected by wallet APIs.
+- Native apps use short-lived signed HTTPS installation URLs. No PassKit or
+  Google Wallet native SDK is required for the first release.
+- The server loyalty ledger remains authoritative for points, tier, and AED
+  value.
+- QR values are opaque identifiers. They contain no email, database user ID,
+  points balance, or redemption authority.
+
+## Provider setup required before activation
+
+### Apple
+
+1. Create Pass Type ID `pass.ae.genosys.rewards`.
+2. Create and export its signing certificate and private key.
+3. Download the Apple WWDR G4 intermediate certificate.
+4. Store all PEM material as base64 Vercel environment secrets.
+5. Record the Apple Team ID. Apple Sign-In keys are not Wallet signing keys.
+
+### Google
+
+1. Create a Google Wallet Issuer account and complete the business profile.
+2. Enable Google Wallet API in a dedicated Google Cloud project.
+3. Create a dedicated service account and authorize it in the issuer account.
+4. Create the GENOSYS Rewards LoyaltyClass in demo mode.
+5. Add test accounts, complete physical Android testing, and request publishing
+   access.
+
+## Safety
+
+`WALLET_PASSES_ENABLED`, `APPLE_WALLET_ENABLED`, and
+`GOOGLE_WALLET_ENABLED` default to false. A provider reports ready only when
+its individual switch and every required secret are present. No certificate,
+private key, service-account JSON, or generated pass is committed.
+
+## Delivery log
+
+- Chunk 0: dormant capability configuration, environment documentation, and
+  fail-closed tests.

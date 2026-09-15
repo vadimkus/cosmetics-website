@@ -45,6 +45,21 @@ interface EnvConfig {
   OPENAI_API_KEY?: string
   // Admin auth
   ADMIN_SESSION_SECRET?: string
+  // GENOSYS Rewards wallet passes
+  WALLET_PASSES_ENABLED?: string
+  APPLE_WALLET_ENABLED?: string
+  GOOGLE_WALLET_ENABLED?: string
+  WALLET_INSTALL_SECRET?: string
+  WALLET_QR_SECRET?: string
+  APPLE_PASS_TYPE_ID?: string
+  APPLE_PASS_CERT_PEM_B64?: string
+  APPLE_PASS_KEY_PEM_B64?: string
+  APPLE_PASS_KEY_PASSPHRASE?: string
+  APPLE_WWDR_PEM_B64?: string
+  APPLE_WALLET_AUTH_SECRET?: string
+  GOOGLE_WALLET_ISSUER_ID?: string
+  GOOGLE_WALLET_CLASS_ID?: string
+  GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64?: string
 }
 
 // Module-level dedup flag. `validateEnvironment()` is called once when this
@@ -107,6 +122,21 @@ function validateEnvironment(): EnvConfig {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     // Admin auth
     ADMIN_SESSION_SECRET: process.env.ADMIN_SESSION_SECRET,
+    // GENOSYS Rewards wallet passes
+    WALLET_PASSES_ENABLED: process.env.WALLET_PASSES_ENABLED,
+    APPLE_WALLET_ENABLED: process.env.APPLE_WALLET_ENABLED,
+    GOOGLE_WALLET_ENABLED: process.env.GOOGLE_WALLET_ENABLED,
+    WALLET_INSTALL_SECRET: process.env.WALLET_INSTALL_SECRET,
+    WALLET_QR_SECRET: process.env.WALLET_QR_SECRET,
+    APPLE_PASS_TYPE_ID: process.env.APPLE_PASS_TYPE_ID,
+    APPLE_PASS_CERT_PEM_B64: process.env.APPLE_PASS_CERT_PEM_B64,
+    APPLE_PASS_KEY_PEM_B64: process.env.APPLE_PASS_KEY_PEM_B64,
+    APPLE_PASS_KEY_PASSPHRASE: process.env.APPLE_PASS_KEY_PASSPHRASE,
+    APPLE_WWDR_PEM_B64: process.env.APPLE_WWDR_PEM_B64,
+    APPLE_WALLET_AUTH_SECRET: process.env.APPLE_WALLET_AUTH_SECRET,
+    GOOGLE_WALLET_ISSUER_ID: process.env.GOOGLE_WALLET_ISSUER_ID,
+    GOOGLE_WALLET_CLASS_ID: process.env.GOOGLE_WALLET_CLASS_ID,
+    GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64: process.env.GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64,
   }
 
   // Only validate server-only required vars on the server.
@@ -225,6 +255,37 @@ function validateEnvironment(): EnvConfig {
       )
     }
 
+    if (optionalVars.WALLET_PASSES_ENABLED === 'true') {
+      const appleReady =
+        optionalVars.APPLE_WALLET_ENABLED !== 'true' ||
+        Boolean(
+          optionalVars.APPLE_PASS_TYPE_ID &&
+          optionalVars.APPLE_TEAM_ID &&
+          optionalVars.APPLE_PASS_CERT_PEM_B64 &&
+          optionalVars.APPLE_PASS_KEY_PEM_B64 &&
+          optionalVars.APPLE_WWDR_PEM_B64 &&
+          optionalVars.APPLE_WALLET_AUTH_SECRET
+        )
+      const googleReady =
+        optionalVars.GOOGLE_WALLET_ENABLED !== 'true' ||
+        Boolean(
+          optionalVars.GOOGLE_WALLET_ISSUER_ID &&
+          optionalVars.GOOGLE_WALLET_CLASS_ID &&
+          optionalVars.GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64
+        )
+      if (
+        !optionalVars.WALLET_INSTALL_SECRET ||
+        !optionalVars.WALLET_QR_SECRET ||
+        !appleReady ||
+        !googleReady
+      ) {
+        warnLog(
+          'WARNING: WALLET_PASSES_ENABLED is true but wallet provider configuration is incomplete. ' +
+          'Wallet capabilities will fail closed.'
+        )
+      }
+    }
+
     // NEXT_PUBLIC_SITE_URL warning removed: the fallback to 'https://genosys.ae'
     // is stable and correct (set in lib/urls or wherever the read happens), so
     // the missing-var warning was pure log noise with no real risk to flag.
@@ -277,6 +338,21 @@ export const {
   OPENAI_API_KEY,
   // Admin auth
   ADMIN_SESSION_SECRET,
+  // GENOSYS Rewards wallet passes
+  WALLET_PASSES_ENABLED,
+  APPLE_WALLET_ENABLED,
+  GOOGLE_WALLET_ENABLED,
+  WALLET_INSTALL_SECRET,
+  WALLET_QR_SECRET,
+  APPLE_PASS_TYPE_ID,
+  APPLE_PASS_CERT_PEM_B64,
+  APPLE_PASS_KEY_PEM_B64,
+  APPLE_PASS_KEY_PASSPHRASE,
+  APPLE_WWDR_PEM_B64,
+  APPLE_WALLET_AUTH_SECRET,
+  GOOGLE_WALLET_ISSUER_ID,
+  GOOGLE_WALLET_CLASS_ID,
+  GOOGLE_WALLET_SERVICE_ACCOUNT_JSON_B64,
 } = env
 
 // Helper to check if OAuth providers are configured

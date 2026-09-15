@@ -128,6 +128,22 @@ Physical provider tests are intentionally blocked by the absent Apple
 certificate and Google Wallet issuer credentials. Readiness remains false and
 no customer controls render until those external prerequisites are completed.
 
+## Apple provider setup (15 September 2026)
+
+- Registered Pass Type ID `pass.ae.genosys.rewards` for Genosys Middle East
+  FZ-LLC.
+- Generated a local RSA private key and CSR under the mode-700
+  `~/.genosys-wallet/` directory; private material is outside Git.
+- Issued certificate `GENOSYS Rewards Wallet`, valid from 15 September 2026
+  through 15 October 2027.
+- Downloaded the official Apple WWDR G4 intermediate, verified the leaf chain,
+  and confirmed the certificate public key matches the generated private key.
+- Generated `~/Desktop/GENOSYS-Rewards-Test.pkpass`; ZIP contents and detached
+  PKCS7 signature verified successfully.
+- Added Apple production secrets to Vercel with the master
+  `WALLET_PASSES_ENABLED` switch still false. A redeploy/activation waits for
+  visual acceptance on a physical Apple device.
+
 ## Migration note
 
 Production contains a rolled-back, zero-step historical migration named

@@ -76,16 +76,21 @@ export function verifyApplePassAuthenticationToken(externalId: string, candidate
 export function applePassFieldModel(data: CanonicalWalletData) {
   const value = `AED ${data.valueAed.toLocaleString('en-AE', { maximumFractionDigits: 2 })}`
   return {
-    primary: { key: 'points', label: 'POINTS', value: data.points, changeMessage: COPY.en.balanceChanged },
+    header: {
+      key: 'points',
+      label: 'POINTS',
+      value: data.points,
+      changeMessage: COPY.en.balanceChanged,
+      textAlignment: 'PKTextAlignmentRight' as const,
+    },
     secondary: [
-      { key: 'value', label: 'REWARDS VALUE', value },
       { key: 'tier', label: 'TIER', value: data.tier },
+      { key: 'value', label: 'REWARDS VALUE', value, textAlignment: 'PKTextAlignmentRight' as const },
     ],
-    auxiliary: [
+    auxiliary: [],
+    back: [
       { key: 'member', label: 'MEMBER NUMBER', value: data.memberNumber },
       { key: 'rate', label: 'EARN RATE', value: `${data.multiplier}x` },
-    ],
-    back: [
       { key: 'since', label: 'MEMBER SINCE', value: data.memberSince.toISOString().slice(0, 10) },
       { key: 'program', label: 'HOW IT WORKS', value: COPY.en.programBody },
       { key: 'terms', label: 'REDEMPTION', value: COPY.en.termsBody },
@@ -124,7 +129,6 @@ export async function renderApplePass(data: CanonicalWalletData): Promise<Buffer
       teamIdentifier,
       organizationName: 'GENOSYS Middle East FZ-LLC',
       description: 'GENOSYS Rewards membership card',
-      logoText: 'REWARDS',
       foregroundColor: 'rgb(23, 20, 15)',
       backgroundColor: 'rgb(248, 245, 241)',
       labelColor: 'rgb(139, 54, 63)',
@@ -136,7 +140,7 @@ export async function renderApplePass(data: CanonicalWalletData): Promise<Buffer
   )
   pass.type = 'storeCard'
   const fields = applePassFieldModel(data)
-  pass.primaryFields.push(fields.primary)
+  pass.headerFields.push(fields.header)
   pass.secondaryFields.push(...fields.secondary)
   pass.auxiliaryFields.push(...fields.auxiliary)
   pass.backFields.push(...fields.back)

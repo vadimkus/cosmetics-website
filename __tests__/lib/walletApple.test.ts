@@ -42,13 +42,14 @@ describe('Apple Wallet pass model', () => {
 
   it('shows the authoritative points, value, tier and member number', () => {
     const fields = applePassFieldModel(data)
-    expect(fields.primary.value).toBe(1250)
-    expect(fields.primary.changeMessage).toContain('%@')
+    expect(fields.header.value).toBe(1250)
+    expect(fields.header.changeMessage).toContain('%@')
     expect(fields.secondary).toEqual(expect.arrayContaining([
       expect.objectContaining({ key: 'value', value: 'AED 62.5' }),
       expect.objectContaining({ key: 'tier', value: 'GOLD' }),
     ]))
-    expect(fields.auxiliary).toEqual(expect.arrayContaining([
+    expect(fields.auxiliary).toEqual([])
+    expect(fields.back).toEqual(expect.arrayContaining([
       expect.objectContaining({ key: 'member', value: 'GNS-00123-AE' }),
       expect.objectContaining({ key: 'rate', value: '1.5x' }),
     ]))

@@ -143,6 +143,13 @@ no customer controls render until those external prerequisites are completed.
 - Added Apple production secrets to Vercel with the master
   `WALLET_PASSES_ENABLED` switch still false. A redeploy/activation waits for
   visual acceptance on a physical Apple device.
+- Design validation: the original four supporting fields overlapped the
+  native QR; a large primary Points field also forced Tier/Value into the
+  barcode band. Final Apple-native layout keeps Points in the top-right
+  header, Tier and Rewards Value as the only two front supporting fields,
+  moves Member Number/Earn Rate to the back, and adds `GENOSYS MIDDLE EAST`
+  beneath the wordmark. Apple fixes native barcodes to the bottom of Store
+  Cards, so no artificial QR image or non-native positioning is used.
 
 ## Migration note
 

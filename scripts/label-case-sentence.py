@@ -45,7 +45,7 @@ NOT_CHROME = [
 
 # Matched before single words, so the later words of a name are not lowercased.
 PROTECTED_PHRASES = [
-    "Apple Pay", "Google Pay", "Samsung Pay", "Black Friday", "Cyber Monday",
+    "Apple Pay", "Google Pay", "Apple Wallet", "Google Wallet", "Samsung Pay", "Black Friday", "Cyber Monday",
     "United Arab Emirates", "Abu Dhabi", "Ras Al Khaimah", "Umm Al Quwain",
     "Eid Al Etihad", "Middle East", "Beauty Genie",
     # Only genuine names live here. Feature and category labels such as "Gift

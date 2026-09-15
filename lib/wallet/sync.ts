@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import * as Sentry from '@sentry/nextjs'
 import { prisma } from '@/lib/prisma'
 import { loadCanonicalWalletData, type CanonicalWalletData } from '@/lib/wallet/domain'
 import { isWalletProviderReady } from '@/lib/wallet/config'
@@ -141,6 +142,17 @@ export async function processPendingWalletPasses(limit = 25) {
       processed += 1
     } catch (error) {
       failed += 1
+      Sentry.captureException(new Error('Wallet provider synchronization failed'), {
+        tags: {
+          area: 'wallet',
+          provider: pass.provider.toLowerCase(),
+          status: pass.status.toLowerCase(),
+        },
+        extra: {
+          retryCount: pass.retryCount,
+          errorName: error instanceof Error ? error.name : 'unknown',
+        },
+      })
       await recordFailure(pass.id, pass.retryCount, error)
     }
   }

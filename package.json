@@ -112,6 +112,7 @@
   "overrides": {
     "tar": "^7.5.16",
     "@hono/node-server": "1.19.13",
+    "joi": "17.13.6",
     "postcss": "$postcss"
   }
 }

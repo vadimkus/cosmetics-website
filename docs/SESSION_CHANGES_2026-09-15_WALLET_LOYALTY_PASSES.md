@@ -81,9 +81,49 @@ current Wallet layout guidance.
   PATCH/deactivation; coalesced revision queue with retry backoff; provider
   sync and nightly fingerprint reconciliation crons; order earn, review,
   redemption, reversal, tier/name change and anonymization hooks.
-- The obsolete Apple-only `membership/wallet-pass` placeholder route was
-  removed after the new authenticated provider route became the canonical
+- The obsolete Apple-only `membership/wallet-pass` placeholder now returns
+  `410 ENDPOINT_RETIRED`; the explicit-provider route is the canonical
   contract.
+
+## Operations
+
+- Admin health: authenticated `GET /api/admin/wallet/health` reports readiness,
+  pass counts, pending/failed synchronization, oldest pending timestamp, and
+  Apple certificate expiry without exposing credentials.
+- Apple certificate renewal: create a replacement certificate for the same
+  Pass Type ID, replace the three base64 secrets, verify a test pass and push,
+  then redeploy. Existing serial numbers and authentication tokens stay stable.
+- Google rotation: authorize the replacement service account in the same
+  Wallet Issuer, replace its base64 JSON secret, verify GET/PATCH, then revoke
+  the old key.
+- Recovery: correct the provider configuration or outage, clear/advance
+  `nextSyncAt` for affected rows if necessary, and run the protected wallet
+  sync cron. Retries use bounded exponential backoff and retain a sanitized
+  last error.
+- Rollback: turn off the individual provider flag or the master flag. Existing
+  wallet cards remain installed; no new links or provider calls are produced.
+- Account deletion: passes are queued inactive before PII anonymization.
+  Apple receives a voided pass and Google receives `INACTIVE`.
+- No Wallet URL, QR value, provider log, admin health response, or Sentry event
+  contains customer email or database user ID.
+
+## Verification
+
+- Prisma schema validated and both additive production migrations deployed.
+- Wallet unit/component/security tests pass, including token tampering/expiry,
+  partner rejection, opaque URLs/QRs, Apple web-service auth, dirty-state
+  failure isolation, fingerprint changes and provider badge visibility.
+- Full website suite: 135 suites passed, 1,494 tests passed, 3 skipped.
+- Production Next.js build passed.
+- Native wallet smoke, full ESLint and no-dash guard passed.
+- Expo production export passed for iOS and Android on runtime 1.12.0.
+- Wallet-specific production dependency audit is clear after overriding
+  `passkit-generator`'s vulnerable Joi pin to 17.13.6. The repository still
+  reports unrelated pre-existing framework/development advisories.
+
+Physical provider tests are intentionally blocked by the absent Apple
+certificate and Google Wallet issuer credentials. Readiness remains false and
+no customer controls render until those external prerequisites are completed.
 
 ## Migration note
 

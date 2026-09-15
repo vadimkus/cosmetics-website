@@ -27,7 +27,7 @@ const NOT_CHROME = [
 ]
 
 const PROTECTED_PHRASES = [
-  'Apple Pay', 'Google Pay', 'Samsung Pay', 'Black Friday', 'Cyber Monday',
+  'Apple Pay', 'Google Pay', 'Apple Wallet', 'Google Wallet', 'Samsung Pay', 'Black Friday', 'Cyber Monday',
   'United Arab Emirates', 'Abu Dhabi', 'Ras Al Khaimah', 'Umm Al Quwain',
   'Eid Al Etihad', 'Middle East', 'Beauty Genie', 'Glass Skin',
   'Gene Re-Birth System', 'Gene Re-Birth', 'Google Play', 'App Store',

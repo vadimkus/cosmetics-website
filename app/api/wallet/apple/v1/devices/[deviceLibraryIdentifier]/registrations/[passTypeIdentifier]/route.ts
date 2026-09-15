@@ -18,7 +18,7 @@ export async function GET(
   }
   const rawTag = request.nextUrl.searchParams.get('passesUpdatedSince')
   const tag = rawTag && /^\d+$/.test(rawTag) ? Number(rawTag) : 0
-  const changedAfter = new Date(Number.isFinite(tag) ? tag : 0)
+  const changedAfter = new Date(Number.isFinite(tag) && tag >= 0 && tag <= Date.now() ? tag : 0)
   const registrations = await prisma.appleWalletRegistration.findMany({
     where: {
       deviceLibraryIdentifier,

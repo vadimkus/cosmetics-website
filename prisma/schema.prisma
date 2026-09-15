@@ -65,6 +65,7 @@ model User {
   addresses               Address[] // Multiple addresses support
   passkeys                Passkey[] // WebAuthn passkeys for passwordless auth
   loyaltyTransactions     LoyaltyTransaction[]
+  walletPasses            WalletPass[]
   homecareScripts         HomecareScript[]         @relation("ClinicHomecareScripts")
   clinicPointTransactions ClinicPointTransaction[] @relation("ClinicPointTransactions")
 
@@ -86,6 +87,57 @@ model LoyaltyTransaction {
   @@unique([orderId, type])
   @@index([userId, createdAt])
   @@map("loyalty_transactions")
+}
+
+enum WalletProvider {
+  APPLE
+  GOOGLE
+}
+
+enum WalletPassStatus {
+  ACTIVE
+  INACTIVE
+  REVOKED
+}
+
+model WalletPass {
+  id                String           @id @default(cuid())
+  userId            String
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider          WalletProvider
+  externalId        String           @unique
+  status            WalletPassStatus @default(ACTIVE)
+  locale            String           @default("en")
+  contentRevision   Int              @default(1)
+  publishedRevision Int              @default(0)
+  contentUpdatedAt  DateTime         @default(now())
+  lastSyncedAt      DateTime?
+  nextSyncAt        DateTime?
+  retryCount        Int              @default(0)
+  lastError         String?          @db.Text
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  appleRegistrations AppleWalletRegistration[]
+
+  @@unique([userId, provider])
+  @@index([provider, status])
+  @@index([status, nextSyncAt])
+  @@map("wallet_passes")
+}
+
+model AppleWalletRegistration {
+  id                      String     @id @default(cuid())
+  walletPassId            String
+  walletPass              WalletPass @relation(fields: [walletPassId], references: [id], onDelete: Cascade)
+  deviceLibraryIdentifier String
+  pushToken               String     @db.Text
+  createdAt               DateTime   @default(now())
+  updatedAt               DateTime   @updatedAt
+
+  @@unique([walletPassId, deviceLibraryIdentifier])
+  @@index([deviceLibraryIdentifier])
+  @@map("apple_wallet_registrations")
 }
 
 // WebAuthn Passkeys - enables Face ID/Touch ID authentication

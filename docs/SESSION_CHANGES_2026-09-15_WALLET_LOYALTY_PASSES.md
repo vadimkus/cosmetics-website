@@ -45,3 +45,15 @@ private key, service-account JSON, or generated pass is committed.
 
 - Chunk 0: dormant capability configuration, environment documentation, and
   fail-closed tests.
+- Chunk 1: additive `wallet_passes` and `apple_wallet_registrations` schema,
+  opaque provider IDs, five-minute HMAC install tokens, signed QR identifiers,
+  canonical ledger-backed pass data, and separate session/CSRF and mobile
+  bearer issuance endpoints.
+
+## Migration note
+
+Production contains a rolled-back, zero-step historical migration named
+`20260709030000_add_order_review_request_sent`. The successful replacement
+`20260709030000_add_order_review_request_fields` is present both in production
+and the repository. The rolled-back record explains the `migrate status`
+history warning and must not be recreated or marked applied.

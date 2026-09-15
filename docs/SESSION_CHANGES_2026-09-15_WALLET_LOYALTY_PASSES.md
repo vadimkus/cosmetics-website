@@ -156,11 +156,12 @@ Google remains hidden from customers while publishing access is incomplete.
   `application/vnd.apple.pkpass`, 96 KB valid archive, and no email/database
   user ID in the install URL. Saved the result as
   `~/Desktop/GENOSYS-Rewards-Live.pkpass`.
-- Replaced the direct blank `.pkpass` browser destination with a branded,
-  localized install landing page. It launches the pass through a hidden
-  same-origin frame, polls the existing Apple device registration, confirms
-  `Added to Apple Wallet`, and returns native-app customers through
-  `genosys://wallet-complete`. A visible return button remains as fallback.
+- Rejected a branded hidden-frame landing-page experiment after physical iOS
+  testing: `SFSafariViewController` did not open `.pkpass` content from the
+  frame and its custom-scheme buttons did not return reliably. Restored the
+  direct `.pkpass` response, which remains the working one-tap web handoff.
+- A reliable automatic success callback requires native PassKit
+  `PKAddPassesViewController` and therefore a new App Store binary, not an OTA.
 
 ## Google provider setup (15 September 2026)
 

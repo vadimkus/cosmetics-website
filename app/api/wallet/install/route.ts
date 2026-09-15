@@ -6,6 +6,7 @@ import {
 import { loadCanonicalWalletData, WalletRequestError } from '@/lib/wallet/domain'
 import { renderApplePass } from '@/lib/wallet/apple'
 import { isWalletProviderReady } from '@/lib/wallet/config'
+import { createGoogleSaveUrl, upsertGoogleLoyaltyObject } from '@/lib/wallet/google'
 import { verifyInstallToken } from '@/lib/wallet/tokens'
 
 export const runtime = 'nodejs'
@@ -47,7 +48,14 @@ export async function GET(request: NextRequest) {
         },
       })
     }
-    return NextResponse.json({ success: false, error: 'PROVIDER_NOT_IMPLEMENTED' }, { status: 503 })
+    await upsertGoogleLoyaltyObject(data)
+    return NextResponse.redirect(createGoogleSaveUrl(data.externalId), {
+      status: 302,
+      headers: {
+        'Cache-Control': 'private, no-store, max-age=0',
+        'Referrer-Policy': 'no-referrer',
+      },
+    })
   } catch (error) {
     if (error instanceof WalletRequestError) {
       return NextResponse.json({ success: false, error: error.code }, { status: error.status })

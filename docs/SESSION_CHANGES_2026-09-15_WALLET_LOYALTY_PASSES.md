@@ -58,6 +58,15 @@ Apple remains dormant because no Pass Type certificate, private key, or WWDR
 certificate is configured locally or in the inspected environment. Physical
 iPhone installation is a release gate, not bypassed by test certificates.
 
+- Chunk 3: Google LoyaltyClass/LoyaltyObject builders, dedicated service
+  account authentication, idempotent REST creation/PATCH, localized pass
+  fields, opaque-object signed save JWT, and install redirect.
+
+Google remains dormant because no Wallet Issuer ID, class, or dedicated
+service-account credential is configured. Demo-account physical testing,
+review screenshots, and publishing-access submission require those external
+Google Wallet Console prerequisites.
+
 ## Migration note
 
 Production contains a rolled-back, zero-step historical migration named

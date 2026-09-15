@@ -1169,7 +1169,7 @@
     "recommendedRenewalRoutine": "Recommended skin renewal routine",
     "recommendedEyeCareRoutine": "Recommended eye care routine",
     "recommendedHairCareRoutine": "Recommended hair & scalp routine",
-    "recommendedMicroneedlingRoutine": "Recommended home microneedling routine",
+    "recommendedMicroneedlingRoutine": "Recommended microneedling protocol",
     "recommendedBioMesoRoutine": "Recommended bio-meso treatment routine",
     "routineBioMesoExpertTitle": "Bio Meso PDRN Ampoule 60000",
     "routineBioMesoExpertDesc": "For professional clinic use. A trained practitioner applies the ampoule, presses it in and rolls, then finishes with the soothing cream.",
@@ -1204,7 +1204,7 @@
     "routinePDRNAmpouleDesc": "Once a week in the evening, spread a thin layer over clean skin, press it in and roll for about 30 seconds, then follow with the PDRN mask. Never combine it with a microneedle roller.",
     "routineHyaluronSerumDescMicroneedling": "Apply the hyaluron serum during and right after rolling. Use only non-spicule serums with the roller.",
     "routineMicroneedleRollerTitle": "Microneedle Roller",
-    "routineMicroneedleRollerDesc": "1-2 times a week in the evening, roll gently in each direction over clean skin. The micro-channels open the way for the serum that follows.",
+    "routineMicroneedleRollerDesc": "Roll slowly with controlled pressure in horizontal, vertical and diagonal passes. Needle length and interval are set by the practitioner. Single use: discard after the session.",
     "routineScalpShampooTitle": "HR³ Matrix Medi Scalp Shampoo α",
     "routineScalpShampooDesc": "Wash daily: work 3-5 ml into a wet scalp, massage, then leave it 3 minutes before rinsing. Korea licenses it to help relieve the symptoms of hair loss.",
     "routineScalpPeelingTitle": "HR³ Matrix Scalp Peeling α",
@@ -1566,7 +1566,12 @@
     "pc9Benefit4Title": "Then a moisturiser:",
     "pc9Benefit4Text": "Or whatever your practitioner has set. An opened vial does not reseal.",
     "addedToCart": "Added to bag",
-    "pricePerUnit": "{count} × {price}"
+    "pricePerUnit": "{count} × {price}",
+    "routineSnowBoosterDescMicroneedling": "After cleansing, apply or spray Snow Booster to put moisture back before the ampoule.",
+    "routinePowerSolutionTitle": "Power Solution ampoule",
+    "routinePowerSolutionDescMicroneedling": "Open one 2 ml vial and spread it over the face. Pick the ampoule for the concern: SWS, CTS, AWS, PCS, HES or CVS. Never a spicule product with the roller.",
+    "routineTreatmentMaskTitle": "Peptide Gel Mask or Bio-Ferment mask",
+    "routineTreatmentMaskDescMicroneedling": "Straight after rolling: Peptide Gel Mask for 20-40 minutes, or the Bio-Ferment Age Defying Powder Mask for 15-20 minutes. Take it off and pat the leftover essence in."
   },
   "trustBadges": {
     "freeShipping": "Free shipping",

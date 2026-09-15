@@ -13,6 +13,7 @@ import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> = {
   '1': '/images/genosys-microneedling-devices.jpg',
   '3': '/images/Booster.jpg',
+  '6': '/images/CTS.jpg',
   '10': '/images/cleanser_o/Main.jpeg',
   '11': '/images/defender_0/Main.jpeg',
   '12': '/images/epi/main.jpeg',
@@ -55,7 +56,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '61': '/images/brush_o/Main2.jpeg',
   '63': '/images/revita/main.jpg',
   '64': '/images/needles/main.jpeg',
-  '65': '/images/pdrn_5000_new/Main.jpeg',
+  '65': '/images/pdrn_5000_new/main2c.jpg',
   '66': '/images/cera/main3.jpeg',
 }
 

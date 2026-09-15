@@ -419,12 +419,17 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
 
   // ── Microneedling / Bio-Meso ──────────────────────────────────────────
   // NEVER pair microneedle roller with Bio-Meso spicule ampoules (60/65).
+  // Professional chair sequence for the roller (Vadim, 15 Sep 2026):
+  // cleanse → booster → Power Solution ampoule → roll → peptide or
+  // bio-ferment mask → postcream. Never a spicule product with the roller.
   '1': {
     headingKey: 'recommendedMicroneedlingRoutine',
     steps: [
       CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescMicroneedling'),
+      step('routinePowerSolutionTitle', 'routinePowerSolutionDescMicroneedling'),
       step('routineMicroneedleRollerTitle', 'routineMicroneedleRollerDesc'),
-      step('routineHyaluronSerumTitle', 'routineHyaluronSerumDescMicroneedling'),
+      step('routineTreatmentMaskTitle', 'routineTreatmentMaskDescMicroneedling'),
       step('routinePostcreamTitle', 'routinePostcreamDesc'),
     ],
   },

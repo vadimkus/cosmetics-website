@@ -1215,7 +1215,7 @@
     "recommendedRenewalRoutine": "روتين تجديد البشرة الموصى به",
     "recommendedEyeCareRoutine": "روتين العناية بالعيون الموصى به",
     "recommendedHairCareRoutine": "روتين العناية بالشعر وفروة الرأس الموصى به",
-    "recommendedMicroneedlingRoutine": "روتين الوخز الدقيق المنزلي الموصى به",
+    "recommendedMicroneedlingRoutine": "بروتوكول الوخز الدقيق الموصى به",
     "recommendedBioMesoRoutine": "بروتوكول Bio-Meso",
     "routineBioMesoExpertTitle": "أمبولة بايو ميزو PDRN 60000",
     "routineBioMesoExpertDesc": "للاستخدام المهني في العيادة. يضع المختص المدرّب الأمبولة ويضغطها بلطف ثم يمرّرها، ويختتم بالكريم المهدّئ.",
@@ -1252,7 +1252,7 @@
     "routinePDRNAmpouleDesc": "مرة أسبوعياً مساءً، وزّعي طبقة رقيقة على بشرة نظيفة، واضغطيها بلطف ومرّري نحو 30 ثانية، ثم أتبعيها بقناع PDRN. لا تجمعيها أبداً مع رولر الوخز.",
     "routineHyaluronSerumDescMicroneedling": "ضعي السيروم أثناء استخدام الرولر وبعده مباشرة. لا تستخدمي مع الرولر إلا سيرومات خالية من الشوكيات.",
     "routineMicroneedleRollerTitle": "رولر الوخز الدقيق",
-    "routineMicroneedleRollerDesc": "1-2 مرات أسبوعياً مساءً، مرّري الرولر بلطف في كل اتجاه على بشرة نظيفة. تفتح القنوات الدقيقة الطريق أمام السيروم التالي.",
+    "routineMicroneedleRollerDesc": "مرّري الرولر ببطء وبضغط مضبوط في اتجاهات أفقية وعمودية وقطرية. يحدد المختص طول الإبر والفاصل بين الجلسات. للاستخدام مرة واحدة: يُتخلص منه بعد الجلسة.",
     "routineScalpShampooTitle": "شامبو HR³ ماتريكس الطبي لفروة الرأس",
     "routineScalpShampooDesc": "اغسلي يومياً: وزّعي 3-5 مل على فروة رأس مبللة، ودلّكي، واتركيه 3 دقائق قبل الشطف. مرخّص في كوريا للمساعدة على تخفيف أعراض تساقط الشعر.",
     "routineScalpPeelingTitle": "محلول تنظيف الفروة HR³ Matrix Scalp Peeling α",
@@ -1625,7 +1625,12 @@
     "pc9Benefit4Title": "استكمال العناية",
     "pc9Benefit4Text": "بعد الامتصاص، يُستخدم مرطب مناسب. لا يُحتفظ بالمحلول المتبقي في القارورة بعد فتحها.",
     "addedToCart": "تمت الإضافة إلى السلة",
-    "pricePerUnit": "{count} × {price}"
+    "pricePerUnit": "{count} × {price}",
+    "routineSnowBoosterDescMicroneedling": "بعد التنظيف، ضعي أو رشّي Snow Booster لإعادة الرطوبة إلى البشرة قبل الأمبولة.",
+    "routinePowerSolutionTitle": "أمبولة Power Solution",
+    "routinePowerSolutionDescMicroneedling": "افتحي قارورة واحدة سعة 2 مل ووزّعيها على الوجه. تُختار الأمبولة حسب الحاجة: SWS أو CTS أو AWS أو PCS أو HES أو CVS. لا تستخدمي أبداً منتجاً بالشويكات مع الرولر.",
+    "routineTreatmentMaskTitle": "Peptide Gel Mask أو قناع Bio-Ferment",
+    "routineTreatmentMaskDescMicroneedling": "مباشرة بعد التمرير: Peptide Gel Mask لمدة 20-40 دقيقة، أو قناع Bio-Ferment Age Defying البودرة لمدة 15-20 دقيقة. ارفعيه وربّتي الخلاصة المتبقية."
   },
   "trustBadges": {
     "freeShipping": "شحن مجاني",

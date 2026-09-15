@@ -39,6 +39,15 @@ const t = (
 
 /** Catalog keyed by productNumber or legacy product id. */
 export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> = {
+  // Source: Overview of Microneedling deck (public/documents/PPT), Intertek/Rollers CE + ISO 13485.
+  '1': [
+    t('Disk needle system', 'Needles are formed on metal disks, evenly spaced, with no glue joints to shed a needle mid-pass.', 'Дисковая система игл', 'Иглы сформированы на металлических дисках, расположены равномерно, без клеевых соединений.', 'نظام الإبر القرصية', 'إبر مشكّلة على أقراص معدنية بتوزيع متساوٍ من دون مواد لاصقة قد تُسقط إبرة أثناء التمرير.'),
+    t('0.2 mm needles', 'SUS 304(H) stainless steel, thinner than the 0.25-0.3 mm standard, for a more comfortable pass.', 'Иглы 0,2 мм', 'Нержавеющая сталь SUS 304(H), тоньше стандартных 0,25-0,3 мм, для более комфортной процедуры.', 'إبر 0.2 مم', 'فولاذ مقاوم للصدأ SUS 304(H)، أدق من الإبر القياسية 0.25-0.3 مم، لتمرير أكثر راحة.'),
+    t('540 or 450 needles', '540 needles on the 0.25 mm head, 450 on the 0.5 mm head.', '540 или 450 игл', '540 игл на головке 0,25 мм, 450 на головке 0,5 мм.', '540 أو 450 إبرة', '540 إبرة في رأس 0.25 مم، و450 في رأس 0.5 مم.'),
+    t('Sterile, single use', 'Gamma-sterilised in a sealed pouch with a colour indicator. Discard after the session, never re-use.', 'Стерильный, одноразовый', 'Гамма-стерилизация в герметичной упаковке с индикатором. Утилизируйте после процедуры, не используйте повторно.', 'معقّم، للاستخدام مرة واحدة', 'معقّم بأشعة غاما في عبوة محكمة مع مؤشر لوني. يُتخلص منه بعد الجلسة ولا يُعاد استخدامه.'),
+    t('CE and ISO 13485', 'CE-marked device from a manufacturer certified to ISO 13485.', 'CE и ISO 13485', 'Изделие с CE-маркировкой от производителя, сертифицированного по ISO 13485.', 'CE وISO 13485', 'جهاز يحمل علامة CE من مصنّع معتمد وفق ISO 13485.'),
+    t('Professional use', 'Needle length, pressure and interval are set by the practitioner. Not for damaged, inflamed or infected skin.', 'Профессиональное применение', 'Длину игл, давление и интервал определяет специалист. Не применять на повреждённой, воспалённой или инфицированной коже.', 'استخدام احترافي', 'يحدد المختص طول الإبر والضغط والفاصل بين الجلسات. لا يُستخدم على بشرة متضررة أو ملتهبة أو مصابة.'),
+  ],
   '10': [
     t('Dry-face wash', 'Apply on a dry face, away from the eyes. Water is the rinse, not the start.', 'Умывание на сухом лице', 'Наносят на сухое лицо, в стороне от глаз. Вода - смыв, не начало.', 'غسول على وجه جاف', 'يُوضع على وجه جاف، بعيداً عن العينين. الماء هو الشطف، لا البداية.'),
     t('Oxygen bubbles', 'Naturally generated oxygen bubbles lift make-up dirt and skin impurities.', 'Кислородные пузырьки', 'Естественно образующиеся кислородные пузырьки поднимают макияж и загрязнения.', 'فقاعات أكسجين', 'فقاعات أكسجين تتولّد طبيعياً ترفع أوساخ المكياج وشوائب البشرة.'),

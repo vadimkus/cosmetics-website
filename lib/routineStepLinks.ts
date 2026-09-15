@@ -43,6 +43,12 @@ export const ROUTINE_STEP_PRODUCT_IDS: Record<string, string> = {
   routinePDRNAmpouleTitle: '65',
   routineBioMesoExpertTitle: '60',
   routineMicroneedleRollerTitle: '1',
+  // "Peptide Gel Mask or Bio-Ferment mask" links to the Peptide Gel Mask, the
+  // mask GENOSYS documents for post-procedure use.
+  routineTreatmentMaskTitle: '37',
+  // Generic "Power Solution ampoule" step links to CTS; the six ampoules share
+  // one page layout and each cross-sells the other five.
+  routinePowerSolutionTitle: '6',
   routineScalpShampooTitle: '44',
   routineScalpPeelingTitle: '46',
   routineHairTonicTitle: '43',

@@ -926,7 +926,7 @@ The `{{id:NUMBER}}` enables the "Add to Cart" button in chat!
 - Bio-Meso spicules: 300,000 natural micro-needles in 1ml
 - Hyaluronic Acid holds 1000x its weight in water
 - EGF helps skin renew itself faster
-- Microneedle Roller needles 25% thinner than competitors
+- Microneedle Roller: 0.2 mm SUS 304(H) needles, 540 at 0.25 mm / 450 at 0.5 mm, single-use, CE + ISO 13485
 
 **Product Facts:**
 - EZ CO₂ Mask = weekly carboxy kit, ten minutes, then rinse

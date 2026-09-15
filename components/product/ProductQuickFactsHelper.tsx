@@ -41,6 +41,7 @@ const copy = {
     shadeTitle: 'Selected shade',
     source: 'Official GENOSYS product formula.',
     boxSource: 'Verified GENOSYS box contents and pricing.',
+    deviceSource: 'Verified GENOSYS device specification.',
     close: 'Close quick product facts',
   },
   ru: {
@@ -52,6 +53,7 @@ const copy = {
     shadeTitle: 'Выбранный оттенок',
     source: 'Официальная формула продукта GENOSYS.',
     boxSource: 'Проверенные состав и цена набора GENOSYS.',
+    deviceSource: 'Проверенная спецификация устройства GENOSYS.',
     close: 'Закрыть краткую информацию',
   },
   ar: {
@@ -63,6 +65,7 @@ const copy = {
     shadeTitle: 'الدرجة المختارة',
     source: 'تركيبة منتج GENOSYS الرسمية.',
     boxSource: 'محتويات وأسعار مجموعة GENOSYS موثقة.',
+    deviceSource: 'مواصفات جهاز GENOSYS الموثقة.',
     close: 'إغلاق الحقائق السريعة',
   },
 } as const
@@ -167,6 +170,8 @@ export default function ProductQuickFactsHelper({
   const isRtl = dir === 'rtl'
   const productKey = product.productNumber || product.id
   const isBeautyBox = isBeautyBoxProduct(product)
+  // Rollers, stamps, helmets and lamps have a specification, not a formula.
+  const isDevice = !product.ingredients && /microneedl|device|roller|stamp|led|helmet/i.test(product.category || '')
 
   const content = useMemo(() => {
     const translations =
@@ -213,6 +218,8 @@ export default function ProductQuickFactsHelper({
     return {
       productName,
       facts: uniqueFacts(facts).slice(0, 6),
+      // Variant-only facts (Format / shade) are not worth a widget of their own.
+      hasSubstance: facts.some(f => f.title !== text.sizeTitle && f.title !== text.shadeTitle),
     }
   }, [
     language,
@@ -224,6 +231,8 @@ export default function ProductQuickFactsHelper({
     selectedSize,
     text,
   ])
+
+  if (!content.hasSubstance) return null
 
   return (
     <section
@@ -312,7 +321,7 @@ export default function ProductQuickFactsHelper({
 
             <div className={`mt-3 flex items-center gap-2 rounded-xl bg-[var(--color-bg-secondary)]/80 px-3 py-2 text-xs text-[var(--color-text-tertiary)] ${isRtl ? 'flex-row-reverse' : ''}`}>
               <ShieldCheck className="h-4 w-4 shrink-0 text-[var(--cera-ok)]" aria-hidden="true" />
-              <p>{isBeautyBox ? text.boxSource : text.source}</p>
+              <p>{isBeautyBox ? text.boxSource : isDevice ? text.deviceSource : text.source}</p>
             </div>
           </div>
         </div>

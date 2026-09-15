@@ -1215,7 +1215,7 @@
     "recommendedRenewalRoutine": "Рекомендуемый уход для обновления кожи",
     "recommendedEyeCareRoutine": "Рекомендуемый уход за кожей вокруг глаз",
     "recommendedHairCareRoutine": "Рекомендуемый уход за волосами и кожей головы",
-    "recommendedMicroneedlingRoutine": "Рекомендуемый домашний уход с микронидлингом",
+    "recommendedMicroneedlingRoutine": "Рекомендуемый протокол микронидлинга",
     "recommendedBioMesoRoutine": "Протокол Bio-Meso",
     "routineBioMesoExpertTitle": "Ампула Bio Meso PDRN 60000",
     "routineBioMesoExpertDesc": "Только для профессионального применения. Обученный специалист наносит ампулу, мягко прижимает, выполняет роллинг и завершает успокаивающим кремом.",
@@ -1252,7 +1252,7 @@
     "routinePDRNAmpouleDesc": "Раз в неделю вечером распределите тонкий слой по чистой коже, мягко прижмите, выполните роллинг около 30 секунд, затем наложите маску PDRN. Не сочетайте с микроигольчатым роллером.",
     "routineHyaluronSerumDescMicroneedling": "Наносите сыворотку во время роллинга и сразу после него. С роллером используйте только средства без спикул.",
     "routineMicroneedleRollerTitle": "Микроигольчатый роллер",
-    "routineMicroneedleRollerDesc": "1-2 раза в неделю вечером мягко прокатайте роллер в каждом направлении по чистой коже. Микроканалы открывают путь для следующей сыворотки.",
+    "routineMicroneedleRollerDesc": "Прокатывайте медленно, с контролируемым давлением, в горизонтальном, вертикальном и диагональном направлениях. Длину игл и интервал определяет специалист. Одноразовый: утилизируйте после процедуры.",
     "routineScalpShampooTitle": "Шампунь HR³ Matrix Medi Scalp α",
     "routineScalpShampooDesc": "Мойте голову ежедневно: нанесите 3-5 мл на влажную кожу головы, помассируйте и оставьте на 3 минуты, затем смойте. В Корее разрешён как средство против выпадения волос.",
     "routineScalpPeelingTitle": "Очищающий раствор HR³ Matrix Scalp Peeling α",
@@ -1625,7 +1625,12 @@
     "pc9Benefit4Title": "Завершите уход",
     "pc9Benefit4Text": "После впитывания нанесите подходящий увлажняющий крем. Не храните остаток раствора во вскрытом флаконе.",
     "addedToCart": "Добавлено в корзину",
-    "pricePerUnit": "{count} × {price}"
+    "pricePerUnit": "{count} × {price}",
+    "routineSnowBoosterDescMicroneedling": "После очищения нанесите или распылите Snow Booster, чтобы вернуть коже влагу перед ампулой.",
+    "routinePowerSolutionTitle": "Ампула Power Solution",
+    "routinePowerSolutionDescMicroneedling": "Откройте одну ампулу 2 мл и распределите по лицу. Ампулу подбирают под задачу: SWS, CTS, AWS, PCS, HES или CVS. Никогда не сочетайте роллер со спикулами.",
+    "routineTreatmentMaskTitle": "Peptide Gel Mask или маска Bio-Ferment",
+    "routineTreatmentMaskDescMicroneedling": "Сразу после прокатывания: Peptide Gel Mask на 20-40 минут или пудровая маска Bio-Ferment Age Defying на 15-20 минут. Снимите и вбейте остатки эссенции."
   },
   "trustBadges": {
     "freeShipping": "Бесплатная доставка",

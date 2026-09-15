@@ -49,6 +49,14 @@ private key, service-account JSON, or generated pass is committed.
   opaque provider IDs, five-minute HMAC install tokens, signed QR identifiers,
   canonical ledger-backed pass data, and separate session/CSRF and mobile
   bearer issuance endpoints.
+- Chunk 2: Apple `storeCard` renderer with required icon/logo scales,
+  EN/RU/AR localization, server-secret certificate decoding, stable update
+  authentication, QR membership identifier, short-lived public `.pkpass`
+  delivery, no-store headers, and renderer/model tests.
+
+Apple remains dormant because no Pass Type certificate, private key, or WWDR
+certificate is configured locally or in the inspected environment. Physical
+iPhone installation is a release gate, not bypassed by test certificates.
 
 ## Migration note
 

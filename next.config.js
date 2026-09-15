@@ -98,6 +98,9 @@ const nextConfig = {
   // Performance optimizations
   poweredByHeader: false,
   compress: true,
+  outputFileTracingIncludes: {
+    '/api/wallet/**': ['./assets/wallet/apple/**/*'],
+  },
   
   // Cache headers for static assets (improves Core Web Vitals on repeat visits)
   async headers() {

@@ -10,6 +10,7 @@ const data: CanonicalWalletData = {
   externalId: 'g_opaque',
   provider: 'GOOGLE',
   locale: 'ar',
+  status: 'ACTIVE',
   revision: 2,
   name: 'Test Customer',
   memberNumber: 'GNS-00456-AE',

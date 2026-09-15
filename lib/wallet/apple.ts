@@ -131,6 +131,7 @@ export async function renderApplePass(data: CanonicalWalletData): Promise<Buffer
       webServiceURL: `${walletSiteOrigin()}/api/wallet/apple/v1`,
       authenticationToken: applePassAuthenticationToken(data.externalId),
       sharingProhibited: true,
+      voided: data.status !== 'ACTIVE',
     },
   )
   pass.type = 'storeCard'

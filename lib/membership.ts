@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/database'
+import { markWalletPassesDirty } from '@/lib/wallet/dirty'
 
 export const TIER_THRESHOLDS = {
   PLATINUM: { spent: 15000, orders: 25 },
@@ -115,6 +116,7 @@ export async function recalcUserStats(userId: string) {
     where: { id: userId },
     data: { totalSpent, totalOrders, memberTier: tier, loyaltyPoints },
   })
+  await markWalletPassesDirty(userId, 'membership-stats-recalculated')
 
   return { totalSpent, totalOrders, tier, loyaltyPoints }
 }

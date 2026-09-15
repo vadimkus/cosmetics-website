@@ -88,6 +88,7 @@ export type CanonicalWalletData = {
   externalId: string
   provider: WalletProvider
   locale: WalletLocale
+  status: 'ACTIVE' | 'INACTIVE' | 'REVOKED'
   revision: number
   name: string
   memberNumber: string
@@ -104,6 +105,7 @@ export type CanonicalWalletData = {
 export async function loadCanonicalWalletData(
   externalId: string,
   expectedProvider?: WalletProvider,
+  options: { allowInactive?: boolean; allowIneligible?: boolean } = {},
 ): Promise<CanonicalWalletData> {
   const walletPass = await prisma.walletPass.findUnique({
     where: { externalId },
@@ -124,7 +126,7 @@ export async function loadCanonicalWalletData(
   })
   if (
     !walletPass ||
-    walletPass.status !== 'ACTIVE' ||
+    (!options.allowInactive && walletPass.status !== 'ACTIVE') ||
     (expectedProvider && walletPass.provider !== expectedProvider)
   ) {
     throw new WalletRequestError('PASS_NOT_FOUND', 404)
@@ -132,7 +134,7 @@ export async function loadCanonicalWalletData(
   if (!walletPass.user.memberNumber) {
     throw new WalletRequestError('MEMBERSHIP_NOT_FOUND', 404)
   }
-  if (loyaltyTrackForUser(walletPass.user) !== 'REWARDS') {
+  if (!options.allowIneligible && loyaltyTrackForUser(walletPass.user) !== 'REWARDS') {
     throw new WalletRequestError('INELIGIBLE_ACCOUNT', 403)
   }
 
@@ -152,6 +154,7 @@ export async function loadCanonicalWalletData(
     externalId: walletPass.externalId,
     provider: walletPass.provider,
     locale: normalizeWalletLocale(walletPass.locale),
+    status: walletPass.status,
     revision: walletPass.contentRevision,
     name: walletPass.user.name,
     memberNumber: walletPass.user.memberNumber,

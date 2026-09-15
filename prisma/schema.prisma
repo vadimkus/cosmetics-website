@@ -110,6 +110,7 @@ model WalletPass {
   locale            String           @default("en")
   contentRevision   Int              @default(1)
   publishedRevision Int              @default(0)
+  contentFingerprint String?
   contentUpdatedAt  DateTime         @default(now())
   lastSyncedAt      DateTime?
   nextSyncAt        DateTime?

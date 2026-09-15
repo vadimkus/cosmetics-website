@@ -2,6 +2,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
 import { User, Prisma } from '@prisma/client'
 import { isMemberNumberCollision, newMemberFields } from '@/lib/membership'
+import { deactivateWalletPasses, markWalletPassesDirty } from '@/lib/wallet/dirty'
 
 export interface UserData {
   id?: string
@@ -361,6 +362,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
       where: { id: userId },
       data: updateData
     })
+    if (updates.name !== undefined && updates.name !== user.name) {
+      await markWalletPassesDirty(userId, 'member-name-updated')
+    }
     
     // If address is being updated, also update all existing orders for this user
     if (updates.address !== undefined && updates.address !== user.address) {
@@ -419,6 +423,7 @@ export const deleteUser = async (userId: string): Promise<boolean> => {
 // Anonymize user (account deletion that preserves orders and referential integrity)
 export const anonymizeUser = async (userId: string): Promise<boolean> => {
   try {
+    await deactivateWalletPasses(userId, 'account-anonymized')
     const deletedEmail = `deleted+${userId}@genosys.local`
     await prisma.user.update({
       where: { id: userId },

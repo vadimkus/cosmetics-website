@@ -15,6 +15,7 @@
 import { prisma } from '@/lib/prisma'
 import { computeTier, recalcUserStats, type MemberTier } from '@/lib/membership'
 import { debugLog, errorLog } from '@/lib/logger'
+import { deactivateWalletPasses, markWalletPassesDirty } from '@/lib/wallet/dirty'
 
 export const PARTNER_DISCOUNT_THRESHOLD = 20
 export const POINTS_PER_AED = 1
@@ -168,6 +169,7 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
       where: { id: user.id },
       data: { totalSpent, totalOrders, memberTier: tier },
     })
+    await deactivateWalletPasses(user.id, 'account-moved-to-partner-track')
     return {
       awarded: false,
       points: 0,
@@ -216,6 +218,7 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
     where: { id: user.id },
     data: { totalSpent, totalOrders, memberTier: tier, loyaltyPoints: balance },
   })
+  await markWalletPassesDirty(user.id, 'order-points-awarded')
 
   const tierOrder: MemberTier[] = ['MEMBER', 'SILVER', 'GOLD', 'PLATINUM']
   const tierUpgraded = tierOrder.indexOf(tier) > tierOrder.indexOf(previousTier)
@@ -259,6 +262,7 @@ export async function awardReviewBonus(params: {
 
   const balance = await getLedgerBalance(userId)
   await prisma.user.update({ where: { id: userId }, data: { loyaltyPoints: balance } })
+  await markWalletPassesDirty(userId, 'review-bonus-awarded')
   return REVIEW_BONUS_POINTS
 }
 
@@ -351,6 +355,7 @@ export async function recordRedemption(params: {
   }
   const balance = await getLedgerBalance(userId)
   await prisma.user.update({ where: { id: userId }, data: { loyaltyPoints: balance } })
+  await markWalletPassesDirty(userId, 'points-redeemed')
   return recorded
 }
 
@@ -418,5 +423,6 @@ export async function reverseRedemptionForOrder(orderId: string): Promise<boolea
   }
   const balance = await getLedgerBalance(redeemTx.userId)
   await prisma.user.update({ where: { id: redeemTx.userId }, data: { loyaltyPoints: balance } })
+  await markWalletPassesDirty(redeemTx.userId, 'redemption-reversed')
   return reversed
 }

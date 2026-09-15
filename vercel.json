@@ -16,6 +16,12 @@
     },
     "app/api/cron/clinic-points/route.ts": {
       "maxDuration": 60
+    },
+    "app/api/cron/wallet-sync/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/cron/wallet-reconcile/route.ts": {
+      "maxDuration": 60
     }
   },
   "crons": [
@@ -30,6 +36,14 @@
     {
       "path": "/api/cron/clinic-points",
       "schedule": "15 5 * * *"
+    },
+    {
+      "path": "/api/cron/wallet-sync",
+      "schedule": "*/10 * * * *"
+    },
+    {
+      "path": "/api/cron/wallet-reconcile",
+      "schedule": "10 2 * * *"
     }
   ]
 }

@@ -76,6 +76,15 @@ Google Wallet Console prerequisites.
 Google pass details were consolidated to two text modules to follow the
 current Wallet layout guidance.
 
+- Chunk 5: Apple registration/unregistration, changed-serial and fresh-pass
+  web-service endpoints; certificate-authenticated APNs pass pushes; Google
+  PATCH/deactivation; coalesced revision queue with retry backoff; provider
+  sync and nightly fingerprint reconciliation crons; order earn, review,
+  redemption, reversal, tier/name change and anonymization hooks.
+- The obsolete Apple-only `membership/wallet-pass` placeholder route was
+  removed after the new authenticated provider route became the canonical
+  contract.
+
 ## Migration note
 
 Production contains a rolled-back, zero-step historical migration named

@@ -7,6 +7,7 @@ import { loadCanonicalWalletData, WalletRequestError } from '@/lib/wallet/domain
 import { renderApplePass } from '@/lib/wallet/apple'
 import { isWalletProviderReady } from '@/lib/wallet/config'
 import { createGoogleSaveUrl, upsertGoogleLoyaltyObject } from '@/lib/wallet/google'
+import { markWalletPassPublished, walletContentFingerprint } from '@/lib/wallet/sync'
 import { verifyInstallToken } from '@/lib/wallet/tokens'
 
 export const runtime = 'nodejs'
@@ -38,6 +39,7 @@ export async function GET(request: NextRequest) {
     const data = await loadCanonicalWalletData(payload.pass, payload.provider)
     if (payload.provider === 'APPLE') {
       const pass = await renderApplePass(data)
+      await markWalletPassPublished(data.externalId, data.revision, walletContentFingerprint(data))
       return new NextResponse(new Uint8Array(pass), {
         headers: {
           'Content-Type': 'application/vnd.apple.pkpass',
@@ -49,6 +51,7 @@ export async function GET(request: NextRequest) {
       })
     }
     await upsertGoogleLoyaltyObject(data)
+    await markWalletPassPublished(data.externalId, data.revision, walletContentFingerprint(data))
     return NextResponse.redirect(createGoogleSaveUrl(data.externalId), {
       status: 302,
       headers: {

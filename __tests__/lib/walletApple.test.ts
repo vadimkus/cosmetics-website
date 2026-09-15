@@ -9,6 +9,7 @@ const data: CanonicalWalletData = {
   externalId: 'a_opaque',
   provider: 'APPLE',
   locale: 'en',
+  status: 'ACTIVE',
   revision: 3,
   name: 'Test Customer',
   memberNumber: 'GNS-00123-AE',

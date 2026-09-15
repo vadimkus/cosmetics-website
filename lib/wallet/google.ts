@@ -176,11 +176,15 @@ export async function upsertGoogleLoyaltyObject(data: CanonicalWalletData): Prom
 export async function deactivateGoogleLoyaltyObject(externalId: string): Promise<void> {
   const client = await googleClient()
   const id = googleObjectId(externalId)
-  await client.request({
-    url: `${API}/loyaltyObject/${encodeURIComponent(id)}`,
-    method: 'PATCH',
-    data: { state: 'INACTIVE' },
-  })
+  try {
+    await client.request({
+      url: `${API}/loyaltyObject/${encodeURIComponent(id)}`,
+      method: 'PATCH',
+      data: { state: 'INACTIVE' },
+    })
+  } catch (error) {
+    if (!isNotFound(error)) throw error
+  }
 }
 
 export function createGoogleSaveUrl(externalId: string): string {

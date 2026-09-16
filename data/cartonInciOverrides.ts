@@ -62,7 +62,7 @@ export function applyCartonInciOverrides<T extends Record<string, Translation>>(
     const values = CARTON_INCI_OVERRIDES[productNumber]
     if (!values) continue
     const fullCards = productNumber === '47'
-      ? [{ name: 'Full INCI — Scalp Peeling α', description: values[0] }, { name: 'Full INCI — Hair Solution α', description: values[1] }]
+      ? [{ name: 'Full INCI - Scalp Peeling α', description: values[0] }, { name: 'Full INCI - Hair Solution α', description: values[1] }]
       : [{ name: inciCards[0]?.name || 'Full INCI', description: values[0] }]
     next[productNumber] = { ...translation, ingredients: JSON.stringify([...withoutInci, ...fullCards]) }
   }

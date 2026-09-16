@@ -37,8 +37,8 @@ describe("carton INCI overrides", () => {
     const cards = JSON.parse(result["47"].ingredients || "[]");
 
     expect(cards.map((card: { name: string }) => card.name)).toEqual([
-      "Full INCI — Scalp Peeling α",
-      "Full INCI — Hair Solution α",
+      "Full INCI - Scalp Peeling α",
+      "Full INCI - Hair Solution α",
     ]);
   });
 

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { locales, defaultLocale } from './i18n'
 import { SEO_LANDING_PAGES } from './lib/seoLandingPages'
+import { isLinkPreviewBot } from './lib/linkPreviewBot'
 
 // Guide slugs are a small build-time list shared by EN/AR/RU routes.
 const GUIDE_SLUGS = new Set(SEO_LANDING_PAGES.map(page => page.slug))
@@ -203,6 +204,17 @@ export function proxy(request: NextRequest) {
         NextResponse.redirect(new URL(newPath, request.url), 301),
         requestId
       )
+    }
+
+    // Link-preview crawlers (WhatsApp, Messenger, Telegram, X, Slack, iMessage)
+    // get a meta-only shell. The full product page renders dynamically and
+    // takes 1-4 s at ~460 KB, which is past WhatsApp's preview timeout, so the
+    // chat shows a bare "genosys.ae" card. Search engines are not matched.
+    if (isLinkPreviewBot(request.headers.get('user-agent'))) {
+      const locale = legacyProductMatch[1]?.replace('/', '') || 'en'
+      const target = new URL(`/link-preview/products/${legacyProductMatch[2]}`, request.url)
+      target.searchParams.set('locale', locale)
+      return withSecurityHeaders(NextResponse.rewrite(target), requestId)
     }
   }
 

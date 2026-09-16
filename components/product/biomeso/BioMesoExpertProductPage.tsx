@@ -27,12 +27,11 @@ import type { Product } from '@/types'
 const EXPERT_CONFIG: BioMesoPageConfig = {
   productNumber: '60',
   getCopy: getBioMesoExpertCopy,
-  mechanismImage: '/images/6000/S4.jpeg',
-  ritualImage: '/images/6000/S3.jpeg',
-  // This product's slides are 1200x896, unlike every other bespoke product's
-  // square exports. A square frame cropped a quarter of the width, taking the
-  // headline printed inside the artwork with it.
-  figureAspect: 'aspect-[4/3]',
+  mechanismImage: '/images/6000/S4-v2.jpeg',
+  ritualImage: '/images/6000/S3-v2.jpeg',
+  // Sep 2026 slides are 1600x1600 on the main-image canvas, like every other
+  // bespoke product's square exports (scripts/render-bio-meso-slides-20260916.py).
+  figureAspect: 'aspect-square',
   brochureUrl: '/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf',
   logLabel: 'BioMesoExpert',
 }

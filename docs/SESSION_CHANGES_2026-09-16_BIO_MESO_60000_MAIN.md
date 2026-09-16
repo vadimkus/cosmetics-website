@@ -17,3 +17,17 @@ floor.
 - Old `main.jpg` left in place for historical order items.
 - Flagged to Vadim: the render's syringe labels read "PDRN EXTERT AMPOULE
   006080" (real product: "EXPERT ... 60000"). Illegible at page size.
+
+## Gallery re-rendered on the main canvas
+
+The six slides were 1200x896 with skin-tone, beige and clinic backgrounds and
+baked-in type; against the flat-white 1600 px main they read as a different
+product. Re-rendered as `6000/S1-v2.jpeg` to `S6-v2.jpeg` (1600x1600, white
+251 field, Didot headlines echoing the carton serif, Avenir Next body,
+GENOSYS logo, `cutout/60-v2` as the product, old photography kept as rounded
+insets) by `scripts/render-bio-meso-slides-20260916.py`. Copy carried over
+verbatim; em dashes replaced per house style. Order unchanged: hero, product,
+in-clinic application, how it works, clinical numbers, next step.
+
+DB `images` repointed with `scripts/set-product-60-slides-20260916.ts --apply`
+after the deploy. Old `S1-S6.jpeg` stay on disk.

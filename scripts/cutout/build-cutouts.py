@@ -129,6 +129,11 @@ PARTS = {
         (0.340, 0.420, 0.560, 0.900, "vision"),
         (0.470, 0.600, 0.650, 0.930, "vision"),
     ],
+    # Kit shot (main-v2): Vision keeps all five products but drops the white
+    # Beauty Box behind them. Box keyed back from its own crop.
+    "58": [
+        (0.300, 0.210, 0.775, 0.805, "keypaper"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.
@@ -162,6 +167,9 @@ REVISION = {
     # New campaign packshot: both bottles square on white, replacing the
     # August main_clean render.
     "10": 2,
+    # New kit shot (main-v2.jpg, 16 Sep 2026): five products in front of the
+    # Beauty Box, replacing the August arrangement the first cut-out traced.
+    "58": 2,
     # New campaign packshot: closed box and vial on white, replacing the
     # squared studio-sweep shot.
     "7": 2,

@@ -18,3 +18,12 @@ Product 58 main image replaced with the new studio kit shot Vadim dropped into
   after the asset deploy went Ready. `images` stayed `null`.
 - Old `main.jpg` left in place: historical order items reference it.
 - `main2.png` staging file stays untracked on disk.
+
+## Follow-up: cut-out rebuilt
+
+The purchase strip and other tinted-panel surfaces use the transparent
+cut-out, and the first mapping pointed the new main at the old
+`cutout/58.webp` (previous arrangement). Rebuilt as `cutout/58-v2.webp`
+from `main-v2.jpg` (REVISION 58 -> 2). Vision dropped the white Beauty Box
+behind the products, so a `keypaper` PARTS crop (x 0.30-0.775, y 0.21-0.805)
+keys it back in. Manifest regenerated.

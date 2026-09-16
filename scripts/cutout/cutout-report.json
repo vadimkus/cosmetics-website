@@ -392,11 +392,11 @@
   {
     "product": "45",
     "status": "ok",
-    "source": "/images/hair_sol_v/Main.jpeg",
-    "file": "/images/cutout/45-v2.webp",
+    "source": "/images/hair_sol_o/Main.jpeg",
+    "file": "/images/cutout/45-v3.webp",
     "name": "HR\u00b3 MATRIX HAIR SOLUTION \u03b1",
-    "coverage": 0.675,
-    "bytes": 121612,
+    "coverage": 0.471,
+    "bytes": 119598,
     "review": false
   },
   {
@@ -532,11 +532,11 @@
   {
     "product": "58",
     "status": "ok",
-    "source": "/images/bbox_age/main.jpg",
-    "file": "/images/cutout/58.webp",
+    "source": "/images/bbox_age/main-v2.jpg",
+    "file": "/images/cutout/58-v2.webp",
     "name": "ANTI-AGING BEAUTY BOX",
-    "coverage": 0.367,
-    "bytes": 66144,
+    "coverage": 0.398,
+    "bytes": 123096,
     "review": false
   },
   {
@@ -583,10 +583,10 @@
     "product": "62",
     "status": "ok",
     "source": "/images/bb_box_sensitive/Main-v2.jpeg",
-    "file": "/images/cutout/62-v2.webp",
+    "file": "/images/cutout/62-v3.webp",
     "name": "SENSITIVE SKIN BEAUTY BOX",
-    "coverage": 0.506,
-    "bytes": 95432,
+    "coverage": 0.521,
+    "bytes": 91046,
     "review": false
   },
   {

@@ -24,16 +24,19 @@ npx tsx --env-file=.env.local scripts/sync-carton-inci-audit-20260916.ts
 - 20 approved-artwork mismatches corrected: 10, 11, 12, 15, 16, 17, 18,
   19, 22, 23, 24, 25, 31, 32, 33, 37, 41, 45, 47, 52.
 - 23 existing lists already matched approved artwork and were retained.
-- 4 uncertain lists were removed instead of guessed: 27, 28, 44, 46.
+- 4 previously withheld lists were published from owner-supplied Desktop
+  packaging PDFs: 27, 28, 44, 46.
 - Product 66 uses the approved 600 ml artwork after owner confirmation that
   the 200 ml and 600 ml bottles contain the same product and formula.
-- Current state: 46 evidence-matched records, comprising 45 public product
-  pages and hidden/discontinued product 26; 4 public lists withheld.
+- Current state: all 50 evidence-matched records, comprising 49 public product
+  pages and hidden/discontinued product 26; none withheld.
 
 ## Source matrix
 
 Paths below are relative to
 `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/`.
+Rows prefixed `Desktop` use the owner-supplied packaging PDFs placed directly
+in `/Users/vadimkus/Desktop/` on 16 September 2026.
 
 | Product | Evidence used | Final state |
 |---|---|---|
@@ -59,8 +62,8 @@ Paths below are relative to
 | 23 ND CELL CREAM | `Registration DOC/Artwork/[GENOSYS]NDCELL ANTI-WRINKLE CREAM.pdf` | Corrected to artwork |
 | 24 EYE CONTOUR CREAM | `Registration DOC/Artwork/[GENOSYS]EYECELL EYE CREAM.pdf` | Corrected to artwork |
 | 25 SOOTHING REPAIR POSTCREAM | `Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf` | Corrected to artwork |
-| 27 SKIN BARRIER CREAM | two approved artworks disagree; no current pack photo | Full INCI withheld |
-| 28 HYDRO SOOTHING CREAM | no current physical pack or approved artwork | Full INCI withheld |
+| 27 SKIN BARRIER CREAM | Desktop `SKIN BARRIER PROTECTING CREAM 100g.pdf` | Current packaging match; published |
+| 28 HYDRO SOOTHING CREAM | Desktop `INTENSIVE HYDRO SOOTHING CREAM 250g.pdf` | Current packaging match; published |
 | 29 HYALURON CREAM | `...HYALURON CREAM/Artwork_updated_22062024.pdf` | Artwork match |
 | 30 PROBLEM CONTROL CREAM | `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL CREAM.pdf` | Artwork match |
 | 31 MULTI VITA RADIANCE CREAM | `Registration DOC/Artwork/[GENOSYS]MULTI VITA RADIANCE CREAM(50g).pdf` | Corrected to artwork |
@@ -76,9 +79,9 @@ Paths below are relative to
 | 41 BB CUSHION | Camel carton artwork; shade formulas checked separately | Corrected to artwork |
 | 42 BLEMISH BALM CREAM | `Registration DOC/Artwork/[GENOSYS]INTENSIVE BLEMISH BALM CREAM.pdf` | Artwork match |
 | 43 HAIR TONIC | `Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR TONIC α.pdf` | Artwork match |
-| 44 MEDI SCALP SHAMPOO | no readable current pack or approved artwork list | Full INCI withheld |
+| 44 MEDI SCALP SHAMPOO | Desktop `HR3 MATRIX SCALP SHAMPOO α 300ml.pdf` | Corrected to current packaging; published |
 | 45 HAIR SOLUTION | `Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR SOLUTION α_Professional.pdf` | Corrected to artwork |
-| 46 SCALP PEELING | approved artwork text unreadable; no physical back panel | Full INCI withheld |
+| 46 SCALP PEELING | Desktop `HR3 MATRIX SCALP PEELING α.pdf` | Current packaging match; published |
 | 47 MESOPECIA KIT | `Registration DOC/Artwork/[GENOSYS]HAIR MATRIX MESOPECIA KIT.pdf` | Corrected, two lists |
 | 51 BIO-FERMENT POWDER MASK | `BIOFERMENT_MASK/Back.jpeg` | Corrected to current physical jar |
 | 52 SKIN REBOOT PDRN MASK | `SKIN REBOOT.../Artwork-GENOSYS SKIN REBOOT PDRN MASK PACK.pdf` | Corrected to artwork |
@@ -104,15 +107,17 @@ Paths below are relative to
 - Products 4–9 already had correct English carton lists, but RU/AR runtime
   payloads omitted their Full INCI cards. Canonical artwork overrides now keep
   all three languages identical in ingredient content and order.
+- Products 27, 28, 44 and 46 now publish the lists transcribed from the four
+  owner-supplied Desktop packaging PDFs. Product 44 was not merely restored:
+  its old stored list was a different shampoo formula and was replaced with
+  the current 300 ml carton sequence.
 
 ## Runtime parity verification
 
 `scripts/audit-runtime-inci-parity-20260916.ts` compares every public English
-database INCI with the RU and AR runtime payloads, and checks that withheld
-products expose no Full INCI card. Current result: 45 public lists, 4 withheld,
-zero parity failures.
+database INCI with the RU and AR runtime payloads. Current result: 49 public
+lists, none withheld, zero parity failures.
 
 ## Evidence still required
 
-Obtain readable current back panels for products 27, 28, 44, and 46. Their Full
-INCI sections remain hidden until then.
+None for the 50 audited cosmetic records.

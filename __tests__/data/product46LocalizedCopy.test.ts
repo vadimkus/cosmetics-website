@@ -42,8 +42,8 @@ const standaloneCopy = {
 
 describe('product 46 RU/AR localized copy', () => {
   it('serves one canonical RU/AR payload from both translation maps', () => {
-    expect(getProductTranslationsRu('46')).toBe(PRODUCT_46_RU_TRANSLATION)
-    expect(getProductTranslations('46')).toBe(PRODUCT_46_AR_TRANSLATION)
+    expect(getProductTranslationsRu('46')).toEqual(PRODUCT_46_RU_TRANSLATION)
+    expect(getProductTranslations('46')).toEqual(PRODUCT_46_AR_TRANSLATION)
   })
 
   it.each(['ru', 'ar'] as const)('keeps product 46 %s structured fields valid JSON', locale => {

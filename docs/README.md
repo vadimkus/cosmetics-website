@@ -10,7 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
-| 🔴 **Source audit** | [50-product carton INCI audit](./FULL_INCI_COVERAGE_LIST.md) | All 50 cosmetic INCI records checked against physical packaging or approved outer-carton artwork. **45 public lists**, one hidden/discontinued record and **4 uncertain lists withheld**; EN/RU/AR runtime parity is clean. |
+| 🔴 **Source audit** | [50-product carton INCI audit](./FULL_INCI_COVERAGE_LIST.md) | All 50 cosmetic records now have packaging-grounded INCI: **49 public lists** plus one hidden/discontinued record, none withheld, with clean EN/RU/AR runtime parity. |
 | 🟢 **Mobile auth** | [Google profile photo refresh](./SESSION_CHANGES_2026-09-16_GOOGLE_PROFILE_PHOTO_REFRESH.md) | Mobile Google login refreshes changed Google-hosted avatars while preserving customer-uploaded GENOSYS photos. |
 | 🟢 **Pricing** | [Hair-GENTRON retail 6,600 / Partner 3,300](./SESSION_CHANGES_2026-09-16_HAIR_GENTRON_RETAIL_6600.md) | Product **48** public price and default variant set to **6,600 AED**; fixed Professional Partner price **3,300 AED**. Static config, PDP ownership copy, chatbot and protocol totals aligned. |
 | 🟡 **Important** | [DEWA September 00706](./SESSION_CHANGES_2026-09-16_DEWA_SEPTEMBER_PAYMENTOUT.md) | Paymentout **00706** / **2,187.17 AED** → DEWA (acct **20492098866**, txn NPIB…115484600, Apple Pay 15 Sep). |

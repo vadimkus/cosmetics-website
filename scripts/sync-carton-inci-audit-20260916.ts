@@ -61,10 +61,15 @@ const MANUAL_PHYSICAL: Record<string, string> = {
   // Current photographed 300 g jar, which supersedes the older flat artwork:
   // BIOFERMENT_MASK/Back.jpeg
   "51": "Diatomaceous Earth, Glucose, Algin, Calcium Sulfate, Aqua (Water), Sodium Benzoate, Sodium Dehydroacetate, Hydrolyzed Corn Starch, Lactobacillus/Punica Granatum Fruit Ferment Extract, Bacillus/Soybean Ferment Extract, Galactomyces Ferment Filtrate, Bifida Ferment Lysate, Chamaecyparis Obtusa Water, Aloe Barbadensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Oryza Sativa (Rice) Bran Extract, Gardenia Florida Fruit Extract, sh-Oligopeptide-1, sh-Oligopeptide-2, sh-Polypeptide-1, sh-Polypeptide-11, sh-Polypeptide-9, sh-Polypeptide-22, Glycerin, Ethylhexylglycerin, Menthol, 1,2-Hexanediol, Butylene Glycol, Tetrasodium Pyrophosphate, Dextrin.",
+  // Desktop packaging PDFs supplied by the owner on 16 September 2026.
+  "27": "Aqua (Water), Glycerin, Hydrogenated Polydecene, Caprylic/Capric/Myristic/Stearic Triglyceride, Propanediol, Butyrospermum Parkii (Shea) Butter, 1,2-Hexanediol, Hydrogenated Lecithin, Polysorbate 60, Stearyl Alcohol, Dimethicone, Ceramide NP, Glycine, Serine, Glutamic Acid, Aspartic Acid, Leucine, Alanine, Arginine, Lysine, Cetyl Alcohol, Tyrosine, Phenylalanine, Valine, Threonine, Proline, Isoleucine, Histidine, Methionine, Cysteine, Centella Asiatica Extract, Polygonum Cuspidatum Root Extract, Scutellaria Baicalensis Root Extract, Camellia Sinensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Macadamia Ternifolia Seed Oil, Limnanthes Alba (Meadowfoam) Seed Oil, Palmitic Acid, Glyceryl Stearate, PEG-100 Stearate, Stearic Acid, Sodium Polyacrylate, Sorbitan Stearate, Trideceth-6, Disodium EDTA, Myristic Acid, Parfum (Fragrance), Butylene Glycol, Myristyl Alcohol, Lauryl Alcohol, Coumarin, Linalool.",
+  "28": "Aqua (Water), Butylene Glycol, Glycerin, Betaine, 1,2-Hexanediol, Aloe Barbadensis Leaf Extract, Snail Secretion Filtrate, Lactobacillus/Pumpkin Ferment Extract, Sodium Hyaluronate, Carbomer, Potassium Hydroxide, Phaseolus Radiatus Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract, Beta-Glucan, Nelumbo Nucifera Flower Extract, Pentylene Glycol, Caprylyl Glycol, Prunus Mume Fruit Extract, Lactic Acid, Citric Acid, Xanthan Gum, Disodium EDTA.",
+  "44": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Decyl Glucoside, Sodium Chloride, Biotin, Panthenol, Viscum Album (Mistletoe) Extract, Saccharomyces Cerevisiae Extract, Malt Extract, Acorus Calamus Root Extract, Panax Ginseng Root Extract, Glycine Soja (Soybean) Seed Extract, Oryza Sativa (Rice) Bran Extract, Sesamum Indicum (Sesame) Seed Extract, Piroctone Olamine, Niacinamide, Salicylic Acid, Citric Acid, Diospyros Kaki Fruit Extract, Camellia Japonica Leaf Extract, Ceratonia Siliqua (Carob) Fruit Extract, Menthol, Ethylhexylglycerin, Hydroxyethyl Urea, Benzyl Glycol, Polyquaternium-67, Dipotassium Glycyrrhizate, Caprylyl Glycol, Tetrasodium Glutamate Diacetate, Glycolipids, Polyglyceryl-10 Laurate, Lauryl Hydroxysultaine, Zinc Ricinoleate, Propanediol, Butylene Glycol, Sodium Acetate, Disodium EDTA, 1,2-Hexanediol, Parfum (Fragrance).",
+  "46": "Aqua (Water), Alcohol Denat., Propylene Glycol, PEG-60 Hydrogenated Castor Oil, Copper Tripeptide-1, Serenoa Serrulata Fruit Extract, Camellia Sinensis Leaf Extract, Cnidium Officinale Root Extract, Menthol, Salicylic Acid, Glycine Max (Soybean) Seed Extract, Oryza Sativa (Rice) Extract, Angelica Gigas Extract, Rheum Palmatum Root Extract, Ribes Nigrum (Black Currant) Fruit Extract, Perilla Frutescens Extract, Rubus Fruticosus (Blackberry) Fruit Extract, Nigella Sativa Seed Extract, Hordeum Vulgare Extract, Lepidium Meyenii Root Extract, Allium Sativum (Garlic) Bulb Extract, Cucurbita Pepo (Pumpkin) Fruit Extract, Sesamum Indicum (Sesame) Seed Extract, Butylene Glycol, 1,2-Hexanediol, Menthyl Lactate, Phenoxyethanol, Chlorphenesin, Betaine, Disodium EDTA, t-Butyl Alcohol, Dipropylene Glycol, Denatonium Benzoate.",
 };
 
 // A list is removed, rather than guessed, when current pack evidence is absent or conflicts.
-const SUPPRESS = new Set(["27", "28", "44", "46"]);
+const SUPPRESS = new Set<string>();
 
 const SOURCE_CONSTANTS: Record<string, { file: string; name: string }> = {
   "10": {
@@ -112,6 +117,14 @@ const SOURCE_CONSTANTS: Record<string, { file: string; name: string }> = {
   "45": {
     file: "data/product45LocalizedCopy.ts",
     name: "PRODUCT_45_FULL_INCI",
+  },
+  "44": {
+    file: "data/product44LocalizedCopy.ts",
+    name: "PRODUCT_44_FULL_INCI",
+  },
+  "46": {
+    file: "data/product46LocalizedCopy.ts",
+    name: "PRODUCT_46_FULL_INCI",
   },
   "51": {
     file: "components/product/bioferment/bioFermentCopy.ts",
@@ -298,7 +311,7 @@ function writeRuntimeOverrides(targets: Map<string, string[]>): void {
   lines.push(
     "}",
     "",
-    `export const SUPPRESSED_CARTON_INCI = new Set(${JSON.stringify([...SUPPRESS].sort((a, b) => Number(a) - Number(b)))})`,
+    `export const SUPPRESSED_CARTON_INCI = new Set<string>(${JSON.stringify([...SUPPRESS].sort((a, b) => Number(a) - Number(b)))})`,
     "",
     "type Translation = { ingredients?: string | null }",
     "type Card = { name?: string; description?: string; subList?: string[] }",

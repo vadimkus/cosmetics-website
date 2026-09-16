@@ -42,9 +42,8 @@ describe("carton INCI overrides", () => {
     ]);
   });
 
-  it.each([...SUPPRESSED_CARTON_INCI])(
-    "removes unverified Full INCI for product %s",
-    (productNumber) => {
+  it("removes Full INCI from every product configured as withheld", () => {
+    for (const productNumber of SUPPRESSED_CARTON_INCI) {
       const result = applyCartonInciOverrides({
         [productNumber]: {
           ingredients: JSON.stringify([
@@ -56,8 +55,8 @@ describe("carton INCI overrides", () => {
       expect(JSON.parse(result[productNumber]!.ingredients || "[]")).toEqual([
         { name: "Key active", description: "Keep me" },
       ]);
-    },
-  );
+    }
+  });
 
   it("uses the current photographed powder-mask jar", () => {
     const list = CARTON_INCI_OVERRIDES["51"]![0]!;
@@ -89,5 +88,15 @@ describe("carton INCI overrides", () => {
     expect(list).toContain("sh-Polypeptide-7");
     expect(list).toContain("Acrylates/C10-30 Alkyl Acrylate Crosspolymer");
     expect(list.endsWith("Linalool.")).toBe(true);
+  });
+
+  it("publishes all four owner-supplied Desktop packaging lists", () => {
+    expect([...SUPPRESSED_CARTON_INCI]).toEqual([]);
+    for (const productNumber of ["27", "28", "44", "46"]) {
+      expect(CARTON_INCI_OVERRIDES[productNumber]?.[0]).toMatch(/^Aqua \(Water\),/);
+    }
+    expect(CARTON_INCI_OVERRIDES["44"]![0]).toContain("Cocamidopropyl Betaine");
+    expect(CARTON_INCI_OVERRIDES["44"]![0]).not.toContain("Coco-Betaine");
+    expect(CARTON_INCI_OVERRIDES["46"]![0]).toContain("Denatonium Benzoate");
   });
 });

@@ -20,6 +20,12 @@ type Card = { name?: string; description?: string; subList?: string[] };
 const INTERTEK = "/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek";
 
 const ARTWORK: Record<string, string> = {
+  "4": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION HES.pdf",
+  "5": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CVS.pdf",
+  "6": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CTS.pdf",
+  "7": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION PCS.pdf",
+  "8": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION SWS.pdf",
+  "9": "Registration DOC/Artwork/[GENOSYS]POWER SOLUTION AWS.pdf",
   "10": "Registration DOC/Artwork/[GENOSYS]SNOW O2(180ml).pdf",
   "11": "GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER/Artwork-GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf",
   "12": "Registration DOC/Artwork/[GENOSYS]EPI TURNOVER BOOSTING PEELING GEL.pdf",
@@ -31,6 +37,7 @@ const ARTWORK: Record<string, string> = {
   "22": "Registration DOC/Artwork/artwork-[GENOSYS]MULTI FUNCTIONAL ANTI-WIRINKLE SERUM.pdf",
   "23": "Registration DOC/Artwork/[GENOSYS]NDCELL ANTI-WRINKLE CREAM.pdf",
   "24": "Registration DOC/Artwork/[GENOSYS]EYECELL EYE CREAM.pdf",
+  "25": "Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf",
   "31": "Registration DOC/Artwork/[GENOSYS]MULTI VITA RADIANCE CREAM(50g).pdf",
   "32": "Registration DOC/Artwork/Artwork-GENOSYS MULTI FUNCTIONAL ANTI WRINCLE CREAM(50g).pdf",
   "33": "Registration DOC/Artwork/[GENOSYS]EYECELL EYE PEPTIDE GEL PATCH.pdf",

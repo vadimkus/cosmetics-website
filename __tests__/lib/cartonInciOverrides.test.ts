@@ -76,4 +76,18 @@ describe("carton INCI overrides", () => {
     expect(list).toContain("Polyquaternium-67");
     expect(list).toContain("Parfum (Fragrance)");
   });
+
+  it.each(["4", "5", "6", "7", "8", "9"])(
+    "keeps Power Solution %s INCI available to localized payloads",
+    (productNumber) => {
+      expect(CARTON_INCI_OVERRIDES[productNumber]?.[0]).toMatch(/^Aqua \(Water\),/);
+    },
+  );
+
+  it("pins Postcream to the 20 g carton order", () => {
+    const list = CARTON_INCI_OVERRIDES["25"]![0]!;
+    expect(list).toContain("sh-Polypeptide-7");
+    expect(list).toContain("Acrylates/C10-30 Alkyl Acrylate Crosspolymer");
+    expect(list.endsWith("Linalool.")).toBe(true);
+  });
 });

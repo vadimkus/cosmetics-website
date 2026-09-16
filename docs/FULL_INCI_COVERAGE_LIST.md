@@ -21,13 +21,14 @@ npx tsx --env-file=.env.local scripts/sync-carton-inci-audit-20260916.ts
 
 - 50 cosmetic products audited.
 - 3 physical-package mismatches corrected: 14, 36, 51.
-- 19 approved-artwork mismatches corrected: 10, 11, 12, 15, 16, 17, 18,
-  19, 22, 23, 24, 31, 32, 33, 37, 41, 45, 47, 52.
+- 20 approved-artwork mismatches corrected: 10, 11, 12, 15, 16, 17, 18,
+  19, 22, 23, 24, 25, 31, 32, 33, 37, 41, 45, 47, 52.
 - 23 existing lists already matched approved artwork and were retained.
 - 4 uncertain lists were removed instead of guessed: 27, 28, 44, 46.
 - Product 66 uses the approved 600 ml artwork after owner confirmation that
   the 200 ml and 600 ml bottles contain the same product and formula.
-- Current customer-facing state: 46 evidence-matched lists visible, 4 withheld.
+- Current state: 46 evidence-matched records, comprising 45 public product
+  pages and hidden/discontinued product 26; 4 public lists withheld.
 
 ## Source matrix
 
@@ -57,7 +58,7 @@ Paths below are relative to
 | 22 ANTI-WRINKLE SERUM | `Registration DOC/Artwork/artwork-[GENOSYS]MULTI FUNCTIONAL ANTI-WIRINKLE SERUM.pdf` | Corrected to artwork |
 | 23 ND CELL CREAM | `Registration DOC/Artwork/[GENOSYS]NDCELL ANTI-WRINKLE CREAM.pdf` | Corrected to artwork |
 | 24 EYE CONTOUR CREAM | `Registration DOC/Artwork/[GENOSYS]EYECELL EYE CREAM.pdf` | Corrected to artwork |
-| 25 SOOTHING REPAIR POSTCREAM | `Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf` | Artwork match |
+| 25 SOOTHING REPAIR POSTCREAM | `Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf` | Corrected to artwork |
 | 27 SKIN BARRIER CREAM | two approved artworks disagree; no current pack photo | Full INCI withheld |
 | 28 HYDRO SOOTHING CREAM | no current physical pack or approved artwork | Full INCI withheld |
 | 29 HYALURON CREAM | `...HYALURON CREAM/Artwork_updated_22062024.pdf` | Artwork match |
@@ -99,6 +100,17 @@ Paths below are relative to
   artworks differ in pigment, mica, titanium dioxide, and aluminum hydroxide levels.
 - Product 66 now publishes the 600 ml artwork INCI for both bottle sizes after owner
   confirmation that only the bottle volume differs.
+- Product 25 English database order was corrected to the 20 g carton artwork.
+- Products 4–9 already had correct English carton lists, but RU/AR runtime
+  payloads omitted their Full INCI cards. Canonical artwork overrides now keep
+  all three languages identical in ingredient content and order.
+
+## Runtime parity verification
+
+`scripts/audit-runtime-inci-parity-20260916.ts` compares every public English
+database INCI with the RU and AR runtime payloads, and checks that withheld
+products expose no Full INCI card. Current result: 45 public lists, 4 withheld,
+zero parity failures.
 
 ## Evidence still required
 

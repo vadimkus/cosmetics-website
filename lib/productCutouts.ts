@@ -136,6 +136,7 @@ const CUTOUTS: Record<string, string> = {
   '/images/bbbox_charming/main.jpeg': '/images/cutout/57.webp',
   // 58 ANTI-AGING BEAUTY BOX
   '/images/bbox_age/main.jpg': '/images/cutout/58.webp',
+  '/images/bbox_age/main-v2.jpg': '/images/cutout/58.webp',
   // 59 DEEP MOISTURIZING BEAUTY BOX
   '/images/bb_box_deep/Main.jpeg': '/images/cutout/59-v2.webp',
   // 60 Bio Meso PDRN Ampoule 60000

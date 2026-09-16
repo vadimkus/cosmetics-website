@@ -52,7 +52,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '51': '/images/bio_ferment2/main.jpeg',
   '52': '/images/pdrn_mask/main.jpeg',
   '53': '/images/collagen_mask/Main.jpeg',
-  '60': '/images/6000/main.jpg',
+  '60': '/images/6000/main-v2.jpg',
   '61': '/images/brush_o/Main2.jpeg',
   '63': '/images/revita/main.jpg',
   '64': '/images/needles/main.jpeg',

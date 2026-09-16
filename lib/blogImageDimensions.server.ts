@@ -27,6 +27,7 @@ const BLOG_IMAGE_DIMENSIONS: Readonly<Record<string, BlogImageDimensions>> = {
   '/images/cera/cera.jpeg': { width: 1220, height: 1252 },
   '/images/6000/S1.jpeg': { width: 1200, height: 896 },
   '/images/6000/main.jpg': { width: 1024, height: 1024 },
+  '/images/6000/main-v2.jpg': { width: 1600, height: 1600 },
   '/blog/summer-splash.jpg': { width: 1800, height: 1200 },
   '/blog/post_android/google-play-listing.png': { width: 1328, height: 1783 },
   '/blog/bb.jpeg': { width: 768, height: 1376 },

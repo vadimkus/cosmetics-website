@@ -159,7 +159,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'نظام الوخز الدقيق GENOSYS', href: '/ar/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'نظام GENOSYS الاحترافي للوخز الدقيق', description: 'معدات احترافية ينبغي أن تعمل ضمن ممارسة مدرّبة وبروتوكول واضح.' },
-      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'أمبولة سبكيولية احترافية تحتوي على Hydrolyzed Sponge بنسبة 5.72022% وSodium DNA بتركيز 1,120 جزءاً في المليون، وتستخدم وفق بروتوكول مختص مدرّب.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main-v2.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'أمبولة سبكيولية احترافية تحتوي على Hydrolyzed Sponge بنسبة 5.72022% وSodium DNA بتركيز 1,120 جزءاً في المليون، وتستخدم وفق بروتوكول مختص مدرّب.' },
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'كريم GENOSYS Soothing Repair Postcream', description: 'دعم لما بعد العلاج بأحجام احترافية ومنزلية.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'أقنعة GENOSYS Skin Reboot PDRN', description: '30 قناع ليوسيل فائق الرقة مع نياسيناميد 2% وSodium DNA بتركيز 1,000 جزء في المليون.' },
     ],
@@ -310,7 +310,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الإجراءات بالسبكيول أو الوخز أو الحقن تتطلب تقييماً وتدريباً ونظافة وعناية لاحقة.',
     ],
     featuredProducts: [
-      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'تركيبة احترافية مع Hydrolyzed Sponge بنسبة 5.72022%؛ يشير 60000 إلى المركب كاملاً، بينما يبلغ Sodium DNA ‏1,120 جزءاً في المليون.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main-v2.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'تركيبة احترافية مع Hydrolyzed Sponge بنسبة 5.72022%؛ يشير 60000 إلى المركب كاملاً، بينما يبلغ Sodium DNA ‏1,120 جزءاً في المليون.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ar/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'أمبولة منزلية بحجم 50 ml: مركب BIO-MESO™ PDRN الكامل 5,000 جزء في المليون، وSodium DNA بتركيز 1,010 أجزاء في المليون، وHydrolyzed Sponge بنسبة 0.476685%؛ تستخدم مرة أسبوعياً مساءً وفق دليل التدريب.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'عبوة من 30 قناع ليوسيل مرطب مع ملقط مدمج؛ يترك كل قناع لمدة 10-20 دقيقة.' },
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم تعافٍ مكمل وليس علاج PDRN.' },

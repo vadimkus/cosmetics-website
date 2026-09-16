@@ -190,7 +190,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'GENOSYS Microneedling System', href: '/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'GENOSYS professional microneedling system', description: 'Professional equipment that belongs in trained, protocol-led practice.' },
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
+      { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main-v2.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
       { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'A professional sheet-mask format pairing PDRN positioning with hydration-focused care.' },
     ],
@@ -352,7 +352,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       'Professional spicule, microneedling, or injectable procedures require appropriate assessment, training, hygiene, and aftercare.',
     ],
     featuredProducts: [
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
+      { name: 'Bio Meso PDRN Ampoule 60000', href: '/products/60', image: '/images/6000/main-v2.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'An intensive professional-only Bio Meso spicule product.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'A lower-intensity home-care Bio Meso format for structured maintenance.' },
       { name: 'Skin Reboot PDRN Mask Pack', href: '/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'A professional sheet-mask format pairing PDRN positioning with hydration-focused care.' },
       { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },

@@ -866,7 +866,7 @@ It features a 2-way system for customizable care:
 • Home-Use (Homecare Ampoule 5000): Lower concentration for ongoing maintenance.
 
 The ampoule functions as a spicule peeling or bio-meso peeling treatment, inducing a peel-off effect on the skin. It contains a significantly higher concentration of spicules compared to other products, delivering intensive results.`,
-    image: '/images/6000/main.jpg',
+    image: '/images/6000/main-v2.jpg',
     images: null,
     category: 'Bio Meso',
     inStock: true,

@@ -8,6 +8,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import { generateMemberNumber } from '@/lib/membership'
+import { shouldRefreshGoogleProfilePicture } from '@/lib/googleProfilePicture'
 
 export const maxDuration = 30
 
@@ -229,12 +230,15 @@ export async function POST(request: NextRequest) {
         }
       }
     } else {
-      // Existing user - update profile picture if available and not set
-      if (googleUser.picture && !user.profilePicture) {
-        debugLog('[MOBILE_AUTH] Updating profile picture for existing user...')
+      // Google owns its avatar URL and can replace it after the first login.
+      // Refresh a missing or Google-hosted value, but preserve a photo uploaded
+      // manually through GENOSYS.
+      if (shouldRefreshGoogleProfilePicture(user.profilePicture, googleUser.picture)) {
+        debugLog('[MOBILE_AUTH] Refreshing Google profile picture for existing user...')
         try {
-          await updateUser(user.id, { profilePicture: googleUser.picture })
-          user.profilePicture = googleUser.picture
+          const googlePicture = String(googleUser.picture).trim()
+          await updateUser(user.id, { profilePicture: googlePicture })
+          user.profilePicture = googlePicture
         } catch (error) {
           errorLog('[MOBILE_AUTH] Error updating profile picture:', error)
           // Don't fail login if profile picture update fails

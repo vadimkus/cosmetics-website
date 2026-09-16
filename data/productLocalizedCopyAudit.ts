@@ -1,4 +1,5 @@
 import { product22Ar, product22Ru } from './product22LocalizedCopy'
+import { applyCartonInciOverrides } from './cartonInciOverrides'
 import { product23Ar, product23Ru } from './product23LocalizedCopy'
 import { product24Ar, product24Ru } from './product24LocalizedCopy'
 import { product25Ar, product25Ru } from './product25LocalizedCopy'
@@ -3824,7 +3825,7 @@ export const product29Ar = {
     'مختبر جلدياً. للبشرة الجافة والمفتقرة إلى الماء. يحتوي على زيت زهرة إبرة الراعي والسيترونيلول والجيرانيول. للاستعمال الخارجي فقط. يجب تجنب محيط العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. عند ظهور احمرار أو تورم أو تهيج، يوقف الاستخدام وتطلب المشورة الطبية. يحفظ في مكان بارد وجاف، وليس في الثلاجة، وبعيداً عن متناول الأطفال. مدة الصلاحية ثلاث سنوات قبل الفتح، وتاريخ الانتهاء مدون على العبوة.',
 } as const
 
-export const AUDITED_PRODUCT_LOCALIZED_COPY = {
+const RAW_AUDITED_PRODUCT_LOCALIZED_COPY = {
   ru: {
     '1': {
       ...PRODUCT_1_RU_TRANSLATION,
@@ -4207,4 +4208,9 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       ...PRODUCT_54_AR_TRANSLATION,
     },
   },
+} as const
+
+export const AUDITED_PRODUCT_LOCALIZED_COPY = {
+  ru: applyCartonInciOverrides(RAW_AUDITED_PRODUCT_LOCALIZED_COPY.ru),
+  ar: applyCartonInciOverrides(RAW_AUDITED_PRODUCT_LOCALIZED_COPY.ar),
 } as const

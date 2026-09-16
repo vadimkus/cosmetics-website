@@ -207,18 +207,7 @@ export interface SnowO2Copy {
  *  rose and melissa. The page prints the registered order and does not
  *  claim it matches the carton. */
 export const SNOW_O2_FULL_INCI =
-  'Aqua (Water), Methyl Perfluoroisobutyl Ether, Cocamide DEA, Butylene Glycol, ' +
-  'Glycerin, Isopropyl Myristate, Sodium Laureth Sulfate, Propanediol, ' +
-  'Acrylates Copolymer, Cocamidopropyl Betaine, Decyl Glucoside, ' +
-  'Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Tromethamine, Sodium Chloride, ' +
-  'Xanthan Gum, Parfum (Fragrance), Chamaecyparis Obtusa Water, Limonene, ' +
-  'Isopropyl Palmitate, Rosa Rugosa Leaf Extract, Melissa Officinalis Leaf Extract, ' +
-  'Disodium EDTA, Decyl Alcohol, Phaseolus Radiatus Extract, Glucose, Cocamide MEA, ' +
-  'Soy Isoflavones, Pueraria Lobata Root Extract, Pueraria Mirifica Root Extract, ' +
-  'Polygonum Cuspidatum Root Extract, Cimicifuga Racemosa Root Extract, ' +
-  'Trifolium Pratense (Clover) Flower Extract, Punica Granatum Fruit Extract, ' +
-  'Angelica Polymorpha Sinensis Root Extract, Betula Platyphylla Japonica Bark Extract, ' +
-  'Rumex Crispus Root Extract.'
+  "Aqua (Water), Methyl Perfluoroisobutyl Ether, Cocamide DEA, Butylene Glycol, Glycerin, Isopropyl Myristate, Sodium Laureth Sulfate, Propanediol, Acrylates Copolymer, Cocamidopropyl Betaine, Chamaecyparis Obtusa Water, Isopropyl Palmitate, Rosa Rugosa Leaf Extract, Melissa Officinalis Leaf Extract, Phaseolus Radiatus Extract, Pueraria Lobata Root Extract, Pueraria Mirifica Root Extract, Polygonum Cuspidatum Root Extract, Cimicifuga Racemosa Root Extract, Trifolium Pratense (Clover) Flower Extract, Punica Granatum Fruit Extract, Angelica Polymorpha Sinensis Root Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract, Soy Isoflavones, Glucose, Decyl Glucoside, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Tromethamine, Sodium Chloride, Xanthan Gum, Disodium EDTA, Decyl Alcohol, Cocamide MEA, Parfum (Fragrance), Limonene."
 
 const EN: SnowO2Copy = {
   eyebrow: 'Facial cleanser · Oxygen bubbles',

@@ -201,24 +201,7 @@ export interface EyePatchCopy {
  *  lifts Acetyl Hexapeptide-8 after Chondrus and prints 46.5ppb. The page
  *  does not claim this matches every language panel. */
 export const FULL_INCI =
-  'Aqua (Water), Glycerin, Niacinamide, Chondrus Crispus Extract, ' +
-  'Ceratonia Siliqua (Carob) Gum, Cellulose Gum, 1,2-Hexanediol, Sucrose, ' +
-  'Potassium Chloride, Hydroxyacetophenone, Panthenol, Allantoin, Xanthan ' +
-  'Gum, Ethylhexylglycerin, Butylene Glycol, Adenosine, Trisodium ' +
-  'Ethylenediamine Disuccinate, Calcium Lactate, Caprylyl Glycol, ' +
-  'Polyglyceryl-6 Caprylate, Polyglyceryl-4 Caprate, Ammonium ' +
-  'Acryloyldimethyltaurate/VP Copolymer, Dipotassium Glycyrrhizate, ' +
-  'Centella Asiatica Extract, Ricinus Communis (Castor) Seed Oil, ' +
-  'Scutellaria Baicalensis Root Extract, Camellia Sinensis Leaf Extract, ' +
-  'Fragrance (Parfum), Hydrolyzed Collagen, Lactobacillus Ferment, ' +
-  'Artemisia Princeps Leaf Extract, Houttuynia Cordata Extract, Citrus ' +
-  'Junos Fruit Extract, Polygonum Cuspidatum Root Extract, Glycyrrhiza ' +
-  'Glabra (Licorice) Root Extract, Sodium Polyacrylate, Rosmarinus ' +
-  'Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) ' +
-  'Flower Extract, Pentylene Glycol, Madecassoside, Aloe Barbadensis Leaf ' +
-  'Powder, Lilium Candidum Flower Extract, Paeonia Lactiflora Root ' +
-  'Extract, Prunus Lannesiana Flower Extract, Tocopherol, Acetyl ' +
-  'Hexapeptide-8.'
+  "Aqua (Water), Glycerin, Niacinamide, Chondrus Crispus Extract, Acetyl Hexapeptide-8 (46.5 ppb), Hydrolyzed Collagen, Calcium Lactate, Madecassoside, Panthenol, Aloe Barbadensis Leaf Powder, Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Camellia Sinensis Leaf Extract, Lactobacillus Ferment, Artemisia Princeps Leaf Extract, Houttuynia Cordata Extract, Citrus Junos Fruit Extract, Polygonum Cuspidatum Root Extract, Ceratonia Siliqua (Carob) Gum, Cellulose Gum, 1,2-Hexanediol, Sucrose, Potassium Chloride, Hydroxyacetophenone, Allantoin, Xanthan Gum, Glycyrrhiza Glabra (Licorice) Root Extract, Sodium Polyacrylate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Ethylhexylglycerin, Butylene Glycol, Adenosine, Trisodium Ethylenediamine Disuccinate, Caprylyl Glycol, Polyglyceryl-6 Caprylate, Polyglyceryl-4 Caprate, Ammonium Acryloyldimethyltaurate/VP Copolymer, Dipotassium Glycyrrhizate, Ricinus Communis (Castor) Seed Oil, Fragrance (Parfum), Pentylene Glycol, Lilium Candidum Flower Extract, Paeonia Lactiflora Root Extract, Prunus Lannesiana Flower Extract, Tocopherol."
 
 const EN: EyePatchCopy = {
   eyebrow: 'EyeCell · Take-off eye mask',

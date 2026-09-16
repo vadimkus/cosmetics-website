@@ -213,19 +213,7 @@ export interface MistCopy {
 /** Registered Formula INCI in the signed DTS MG order. The carton prints
  *  the same names and adds ppm on the ferment, inulin and the oligosaccharide. */
 export const MIST_FULL_INCI =
-  'Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, ' +
-  'Butyrospermum Parkii (Shea) Butter, Lactobacillus Ferment, Sodium Hyaluronate, ' +
-  'Hyaluronic Acid, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, ' +
-  'Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Hyaluronic Acid, ' +
-  'Sodium Acetylated Hyaluronate, Acetyl Heptapeptide-4, ' +
-  'Alpha-Glucan Oligosaccharide, Inulin, Centella Asiatica Extract, ' +
-  'Bambusa Vulgaris Leaf Extract, Olea Europaea (Olive) Fruit Oil, ' +
-  'Vitis Vinifera (Grape) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, ' +
-  'Macadamia Integrifolia Seed Oil, Tocopherol, Hydrogenated Lecithin, ' +
-  'Sucrose Palmitate, Ethylhexylglycerin, Polyglycerin-3, Polyglyceryl-10 Laurate, ' +
-  'Caprylyl Glycol, Citric Acid, Sodium Citrate, Disodium EDTA, ' +
-  'Polyglyceryl-10 Oleate, Inulin Lauryl Carbamate, ' +
-  'Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Limonene, Linalool.'
+  "Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, Butyrospermum Parkii (Shea) Butter, Lactobacillus Ferment (879.5 ppm), Sodium Hyaluronate, Hyaluronic Acid, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Hyaluronic Acid, Sodium Acetylated Hyaluronate, Acetyl Heptapeptide-4, Inulin (800 ppm), Alpha-Glucan Oligosaccharide (200 ppm), Centella Asiatica Extract, Bambusa Vulgaris Leaf Extract, Olea Europaea (Olive) Fruit Oil, Vitis Vinifera (Grape) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Macadamia Integrifolia Seed Oil, Trametes Versicolor Extract, Sucrose Palmitate, Ethylhexylglycerin, Polyglycerin-3, Polyglyceryl-10 Laurate, Caprylyl Glycol, Citric Acid, Sodium Citrate, Disodium EDTA, Polyglyceryl-10 Oleate, Inulin Lauryl Carbamate, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Limonene, Linalool."
 
 const EN: MistCopy = {
   eyebrow: 'Facial mist · Moisturizing, nourishing',

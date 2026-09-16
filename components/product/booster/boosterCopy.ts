@@ -207,13 +207,7 @@ export interface BoosterCopy {
 
 /** Registered Formula_up INCI in descending concentration. */
 export const BOOSTER_FULL_INCI =
-  'Aqua (Water), Glycerin, Butylene Glycol, Dipropylene Glycol, Betaine, ' +
-  'Propylene Glycol, Sodium Lactate, Dimethicone, Lactobacillus/Pumpkin Ferment Extract, ' +
-  'Nelumbo Nucifera Flower Extract, Hydrogenated Lecithin, Prunus Mume Fruit Extract, ' +
-  'Disodium EDTA, Phaseolus Radiatus Extract, 1,2-Hexanediol, Tripropylene Glycol, ' +
-  'Potassium Hydroxide, Citrus Grandis (Grapefruit) Seed Extract, Citric Acid, ' +
-  'Lactic Acid, Beta-Glucan, Betula Platyphylla Japonica Bark Extract, ' +
-  'Rumex Crispus Root Extract.'
+  "Aqua (Water), Glycerin, Butylene Glycol, Dipropylene Glycol, Betaine, Lactobacillus/Pumpkin Ferment Extract, Citrus Grandis (Grapefruit) Seed Extract, Propylene Glycol, Sodium Lactate, Dimethicone, Hydrogenated Lecithin, Phaseolus Radiatus Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract, Beta-Glucan, Nelumbo Nucifera Flower Extract, Prunus Mume Fruit Extract, Citric Acid, Lactic Acid, Disodium EDTA, Potassium Hydroxide, 1,2-Hexanediol, Tripropylene Glycol."
 
 const EN: BoosterCopy = {
   eyebrow: 'Daily toner · All skin types',

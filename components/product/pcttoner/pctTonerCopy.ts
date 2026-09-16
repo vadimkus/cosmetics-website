@@ -209,15 +209,7 @@ export interface PctTonerCopy {
 
 /** Registered Formula INCI in descending concentration. */
 export const PCT_TONER_FULL_INCI =
-  'Aqua (Water), Butylene Glycol, Glycerin, Dipropylene Glycol, 1,2-Hexanediol, ' +
-  'Pentylene Glycol, Zinc PCA, Octyldodeceth-16, Trehalose, Panthenol, Allantoin, ' +
-  'Methyl Diisopropyl Propionamide, Ethylhexylglycerin, Sodium Citrate, Disodium EDTA, ' +
-  'Melaleuca Alternifolia (Tea Tree) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Extract, ' +
-  'Diospyros Kaki Leaf Extract, Ulmus Davidiana Root Extract, Pueraria Lobata Root Extract, ' +
-  'Oenothera Biennis (Evening Primrose) Flower Extract, Pinus Palustris Leaf Extract, ' +
-  'Salicylic Acid, Sodium Hyaluronate, Mentha Piperita (Peppermint) Leaf Extract, ' +
-  'Rosmarinus Officinalis (Rosemary) Leaf Extract, Caprylic/Capric Triglyceride, ' +
-  'Tocopherol, Tannic Acid, Menthyl Lactate, Ethyl Menthane Carboxamide.'
+  "Aqua (Water), Butylene Glycol, Glycerin, Dipropylene Glycol, 1,2-Hexanediol, Melaleuca Alternifolia (Tea Tree) Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Trehalose, Sodium Hyaluronate, Zinc PCA, Panthenol, Ulmus Davidiana Root Extract, Pueraria Lobata Root Extract, Oenothera Biennis (Evening Primrose) Flower Extract, Pinus Palustris Leaf Extract, Diospyros Kaki Leaf Extract, Mentha Piperita (Peppermint) Leaf Extract, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Tocopherol, Allantoin, Tannic Acid, Salicylic Acid, Ethylhexylglycerin, Caprylic/Capric Triglyceride, Pentylene Glycol, Sodium Citrate, Disodium EDTA, Menthyl Lactate, Ethyl Menthane Carboxamide, Methyl Diisopropyl Propionamide, Octyldodeceth-16."
 
 const EN: PctTonerCopy = {
   eyebrow: 'Oil-control toner · Blemish-prone skin',

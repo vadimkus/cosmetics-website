@@ -7,6 +7,7 @@
 
 import { PRODUCT_29_RU_TRANSLATION } from './product29RussianCopy'
 import { AUDITED_PRODUCT_LOCALIZED_COPY } from './productLocalizedCopyAudit'
+import { applyCartonInciOverrides } from './cartonInciOverrides'
 import { PRODUCT_1_RU_TRANSLATION } from './product1LocalizedCopy'
 import { PRODUCT_39_RU_TRANSLATION } from './product39LocalizedCopy'
 import { PRODUCT_42_RU_TRANSLATION } from './product42LocalizedCopy'
@@ -496,7 +497,7 @@ const legacyProductTranslationsRu: Record<string, ProductTranslation> = {
   }
 }
 
-export const productTranslationsRu: Record<string, ProductTranslation> = {
+const rawProductTranslationsRu: Record<string, ProductTranslation> = {
   ...legacyProductTranslationsRu,
   "1": PRODUCT_1_RU_TRANSLATION,
   "2": AUDITED_PRODUCT_LOCALIZED_COPY.ru["2"],
@@ -559,6 +560,8 @@ export const productTranslationsRu: Record<string, ProductTranslation> = {
   "65": PRODUCT_65_RU_TRANSLATION,
   "66": PRODUCT_66_RU_TRANSLATION,
 }
+
+export const productTranslationsRu = applyCartonInciOverrides(rawProductTranslationsRu)
 
 productTranslationsRu['cmgj9ifoi00008o07p4eqmfb7'] = productTranslationsRu['53']!
 productTranslationsRu['cmhf1a6p400000xfa0iu3bw42'] = productTranslationsRu['54']!

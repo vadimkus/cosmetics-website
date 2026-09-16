@@ -59,7 +59,7 @@ const expected = {
     { name: 'Diatomaceous Earth · 41.79%', description: 'The largest component in the mineral modeling-powder base.' },
     { name: 'Glucose · 35%', description: 'The second-largest component, identified as a humectant in the quantitative formula.' },
     { name: 'Algin 15% + Calcium Sulfate 6%', description: 'The pair that turns the water mix into a peelable sheet.' },
-    { name: 'Hydrolyzed Collagen 0.2% + Allantoin 0.1%', description: 'Two skin-conditioning ingredients in the finished formula.' },
+    { name: 'Hydrolyzed Corn Starch', description: 'Printed on the current jar as part of the powder base.' },
     {
       name: 'Menthol 0.02% + Cypress Water 0.093%',
       description: 'Both appear in the quantitative formula. The available INCI lists do not name Parfum or separate fragrance allergens.',

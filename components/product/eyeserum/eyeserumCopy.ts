@@ -190,16 +190,7 @@ export interface EyeSerumCopy {
  *  lifts some peptide names earlier. The page does not claim this matches
  *  every language panel. */
 export const FULL_INCI =
-  'Aqua (Water), Glycerin, Butylene Glycol, Arbutin, Phenoxyethanol, ' +
-  'Ammonium Acryloyldimethyltaurate/VP Copolymer, PEG-60 Hydrogenated ' +
-  'Castor Oil, Caprylyl Glycol, Sodium Hyaluronate, Panthenol, Allantoin, ' +
-  '1,2-Hexanediol, Caprylhydroxamic Acid, Adenosine, t-Butyl Alcohol, ' +
-  'PEG-40 Hydrogenated Castor Oil, Steareth-20, PPG-26-Buteth-26, Vitis ' +
-  'Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture ' +
-  'Extract, Acetyl Hexapeptide-8, Copper Tripeptide-1, Potassium Sorbate, ' +
-  'Palmitoyl Hexapeptide-12, N-Hydroxysuccinimide, Palmitoyl Tripeptide-1, ' +
-  'Chlorhexidine Digluconate, Ethylhexylglycerin, Chrysin, Palmitoyl ' +
-  'Tetrapeptide-7.'
+  "Aqua (Water), Glycerin, Butylene Glycol, Arbutin, Acetyl Hexapeptide-8, Copper Tripeptide-1, Palmitoyl Hexapeptide-12, N-Hydroxysuccinimide, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Sodium Hyaluronate, Panthenol, Allantoin, 1,2-Hexanediol, Caprylhydroxamic Acid, Adenosine, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Ethylhexylglycerin, Chrysin, Phenoxyethanol, Ammonium Acryloyldimethyltaurate/VP Copolymer, PEG-60 Hydrogenated Castor Oil, Caprylyl Glycol, t-Butyl Alcohol, PEG-40 Hydrogenated Castor Oil, Steareth-20, PPG-26-Buteth-26, Potassium Sorbate, Chlorhexidine Digluconate."
 
 const EN: EyeSerumCopy = {
   eyebrow: 'EyeCell · Daily eye serum',

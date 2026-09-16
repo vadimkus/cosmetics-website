@@ -197,25 +197,7 @@ export interface EyeCreamCopy {
  *  lifts some peptide names earlier. The page does not claim this matches
  *  every language panel. */
 export const FULL_INCI =
-  'Aqua (Water), Butylene Glycol, Glycerin, Hydrogenated Polyisobutene, ' +
-  'Squalane, Simmondsia Chinensis (Jojoba) Seed Oil, Dimethicone, Arbutin, ' +
-  'C14-22 Alcohols, Phenyl Trimethicone, Cetearyl Olivate, Arachidyl Alcohol, ' +
-  'Polyacrylate-13, Phenoxyethanol, Sorbitan Olivate, 1,2-Hexanediol, ' +
-  'Methyl Glucose Sesquistearate, Behenyl Alcohol, Hydrogenated Lecithin, ' +
-  'C12-20 Alkyl Glucoside, Polyisobutene, Glycine Soja (Soybean) Sterols, ' +
-  'Tocopheryl Acetate, Caprylyl Glycol, Arachidyl Glucoside, Rosa Canina ' +
-  'Fruit Oil, Xanthan Gum, Allantoin, Vitis Vinifera (Grape) Seed Oil, ' +
-  'Retinyl Palmitate, Arachis Hypogaea (Peanut) Oil, Polysorbate 20, ' +
-  'Caprylhydroxamic Acid, Scutellaria Baicalensis Root Extract, Panthenol, ' +
-  'Hydrolyzed Collagen, Glyceryl Polyacrylate, Sorbitan Isostearate, ' +
-  'Adenosine, Glucose, Carthamus Tinctorius (Safflower) Flower Extract, ' +
-  'Limonene, Sodium Hyaluronate, Olus (Vegetable) Oil, PEG-40 Hydrogenated ' +
-  'Castor Oil, PPG-26-Buteth-26, Vitis Vinifera (Grape) Callus Culture ' +
-  'Extract, Rosa Damascena Callus Culture Extract, Acetyl Hexapeptide-8, ' +
-  'Steareth-20, Tocopherol, Citrus Aurantium Dulcis (Orange) Peel Oil, ' +
-  'Copper Tripeptide-1, Potassium Sorbate, Palmitoyl Hexapeptide-12, ' +
-  'Palmitoyl Tripeptide-1, N-Hydroxysuccinimide, Chlorhexidine Digluconate, ' +
-  'Ethylhexylglycerin, Chrysin, Palmitoyl Tetrapeptide-7.'
+  "Aqua (Water), Butylene Glycol, Glycerin, Hydrogenated Polyisobutene, Squalane, Simmondsia Chinensis (Jojoba) Seed Oil, Dimethicone, Arbutin, C14-22 Alcohols, Phenyl Trimethicone, Copper Tripeptide-1, Acetyl Hexapeptide-8, Palmitoyl Hexapeptide-12, N-Hydroxysuccinimide, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Glycine Soja (Soybean) Sterols, Caprylyl Glycol, Arachidyl Glucoside, Rosa Canina Fruit Oil, Xanthan Gum, Allantoin, Vitis Vinifera (Grape) Seed Oil, Retinyl Palmitate, Arachis Hypogaea (Peanut) Oil, Polysorbate 20, Caprylhydroxamic Acid, Scutellaria Baicalensis Root Extract, Panthenol, Hydrolyzed Collagen, Glyceryl Polyacrylate, Sorbitan Isostearate, Adenosine, Carthamus Tinctorius (Safflower) Flower Extract, Sodium Hyaluronate, Olus Oil, PEG-40 Hydrogenated Castor Oil, PPG-26-Buteth-26, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Steareth-20, Tocopherol, Citrus Aurantium Dulcis (Orange) Peel Oil, Ethylhexylglycerin, Chrysin, Cetearyl Olivate, Arachidyl Alcohol, Polyacrylate-13, Phenoxyethanol, Sorbitan Olivate, 1,2-Hexanediol, Methyl Glucose Sesquistearate, Behenyl Alcohol, Hydrogenated Lecithin, C12-20 Alkyl Glucoside, Polyisobutene, Tocopheryl Acetate, Glucose, Potassium Sorbate, Chlorhexidine Digluconate, Limonene."
 
 const EN: EyeCreamCopy = {
   eyebrow: 'EyeCell · Daily eye cream',

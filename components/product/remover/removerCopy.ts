@@ -212,22 +212,7 @@ export interface RemoverCopy {
  *  percentages. The page prints the registered order and does not
  *  claim it matches the carton. */
 export const REMOVER_FULL_INCI =
-  'Aqua (Water), Cetyl Ethylhexanoate, Disiloxane, Isohexadecane, ' +
-  'Lactobacillus Ferment, Sodium Chloride, Hippophae Rhamnoides Oil, ' +
-  'Benzalkonium Chloride, Rubus Suavissimus (Raspberry) Leaf Extract, ' +
-  'Disodium EDTA, Magnesium Sulfate, Rosa Damascena Flower Water, ' +
-  'Musa Sapientum (Banana) Flower Extract, Vanilla Planifolia Fruit ' +
-  'Extract, Crataegus Cuneata Fruit Extract, Isopropyl Alcohol, Canola ' +
-  'Oil, Ribes Nigrum (Black Currant) Leaf Extract, 1,2-Hexanediol, ' +
-  'Butylene Glycol, Glycerin, Daucus Carota Sativa (Carrot) Seed Oil, ' +
-  'Daucus Carota Sativa (Carrot) Root Extract, Beta-Carotene, ' +
-  'Tocopheryl Acetate, Helianthus Annuus (Sunflower) Seed Oil, ' +
-  'Saccharide Hydrolysate, Maltodextrin, Hydrogenated Lecithin, ' +
-  'Polyglyceryl-10 Stearate, Brassica Oleracea Italica (Broccoli) ' +
-  'Extract, Panthenol, Sodium Ascorbyl Phosphate, Niacinamide, ' +
-  'Palmitoyl Tripeptide-5, Acetyl Tetrapeptide-5, Biotin, Folic Acid, ' +
-  'Pyridoxine, Tocopherol, Cyanocobalamin, Inositol, Linoleic Acid, ' +
-  'Thiamine HCl.'
+  "Aqua (Water), Cetyl Ethylhexanoate, Disiloxane, Isohexadecane, Brassica Oleracea Italica (Broccoli) Extract, Daucus Carota Sativa (Carrot) Root Extract, Rosa Damascena Flower Water, Lactobacillus Ferment, Palmitoyl Tripeptide-5, Acetyl Tetrapeptide-5, Saccharide Hydrolysate, Panthenol, Beta-Carotene, Tocopherol, Tocopheryl Acetate, Niacinamide, Biotin, Folic Acid, Pyridoxine, Cyanocobalamin, Sodium Ascorbyl Phosphate, Inositol, Linoleic Acid, Thiamine HCl, Musa Sapientum (Banana) Flower Extract, Vanilla Planifolia Fruit Extract, Crataegus Cuneata Fruit Extract, Rubus Suavissimus (Raspberry) Leaf Extract, Ribes Nigrum (Black Currant) Leaf Extract, Glycerin, Hippophae Rhamnoides Oil, Daucus Carota Sativa (Carrot) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Canola Oil, Hydrogenated Lecithin, Sodium Chloride, Disodium EDTA, Magnesium Sulfate, Isopropyl Alcohol, Butylene Glycol, 1,2-Hexanediol, Maltodextrin, Polyglyceryl-10 Stearate, Benzalkonium Chloride."
 
 const EN: RemoverCopy = {
   eyebrow: 'Lip & eye · Biphasic remover',

@@ -1,82 +1,102 @@
-# Full INCI coverage list — 2026-08-12
+# Customer-facing INCI evidence audit — 2026-09-16
 
-Source of truth: Intertek formula / artwork / ingredient certificates only.  
-Rule: copy INCI text from documents. Do not invent. Append `Full INCI` card;  
-keep existing key-ingredient cards.
+## Rule
 
-Script: `scripts/add-full-inci-from-intertek.ts`  
-(`npx tsx --env-file=.env.local scripts/add-full-inci-from-intertek.ts <id> [--apply]`)
+The customer-facing Full INCI is copied in printed order from:
 
-## Skip (no cosmetic formula)
+1. a photographed current carton, bottle, jar, or pouch; or
+2. approved outer-carton artwork when a readable current physical pack is unavailable.
 
-Devices / kits / boxes: 1, 3, 47, 48, 49, 50, 54–59, 62  
-Tools: 61 Scalp Brush, 64 Hair Stamp
+Formula, quali-quanti, safety-assessment, COA, and registration ingredient sheets may
+support concentration or safety work, but they no longer determine the published INCI
+order. A list is hidden when current packaging evidence is absent or conflicting.
 
-## Done — Full INCI live (formula products)
+Reconciliation script:
 
-| ID | Product | INCI cards | Source type |
-|---|---|---|---|
-| 4 | POWER SOLUTION HES | 1 | Formula PDF |
-| 5 | POWER SOLUTION CVS | 1 | Formula_up PDF |
-| 6 | POWER SOLUTION CTS | 1 | Formula_up PDF |
-| 7 | POWER SOLUTION PCS | 1 | Formula_up PDF |
-| 8 | POWER SOLUTION SWS | 1 | Formula_up PDF |
-| 9 | POWER SOLUTION AWS | 1 | Formula_up PDF |
-| 10 | SNOW O₂ CLEANSER | 1 | Formula_up PDF |
-| 11 | SKIN DEFENDER LIP & EYE MAKEUP REMOVER | 1 | Product-folder Formula PDF |
-| 12 | EPI TURNOVER BOOSTING PEELING GEL | 1 | Formula_up PDF |
-| 13 | SKIN RENEWAL PEELING SYSTEM (SRS) | 1 | Artwork Ingredients block |
-| 14 | MICROBIOME ENERGY INFUSING MIST | 1 | Formula xlsx |
-| 15 | INTENSIVE PROBLEM CONTROL TONER | 1 | Product-folder Formula PDF |
-| 16 | SNOW BOOSTER | 1 | Formula_up PDF |
-| 17 | EyeCell EYE CONTOUR SERUM | 1 | Formula_up PDF |
-| 18 | MOISTURE REPLENISHING HYALURON SERUM | 1 | Formula_updated PDF |
-| 19 | ALL FOR SENSITIVE SERUM | 1 | Formula_up PDF |
-| 20 | PROBLEM CONTROL SERUM | 1 | Formula_up PDF |
-| 21 | MULTI VITA RADIANCE SERUM | 1 | Product-folder Formula PDF |
-| 22 | MULTI FUNCTIONAL ANTI-WRINKLE SERUM | 1 | Formula_up PDF |
-| 23 | ND Cell ANTI-WRINKLE CREAM | 1 | Formula_up PDF |
-| 24 | EyeCell EYE CONTOUR CREAM | 1 | Formula_up PDF |
-| 25 | SOOTHING REPAIR POSTCREAM | 1 | Formula_up PDF |
-| 27 | SKIN BARRIER PROTECTING CREAM | 1 | Formula_up PDF |
-| 28 | INTENSIVE HYDRO SOOTHING CREAM | 1 | Formula_up PDF |
-| 29 | MOISTURE REPLENISHING HYALURON CREAM | 1 | Formula_updated PDF |
-| 30 | INTENSIVE PROBLEM CONTROL CREAM | 1 | Formula_up PDF |
-| 31 | MULTI VITA RADIANCE CREAM | 1 | Formula_up PDF |
-| 32 | MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 1 | Formula_up PDF |
-| 33 | EyeCell EYE PEPTIDE GEL PATCH | 1 | Formula_up PDF |
-| 34 | SKIN RESCUE OVERNIGHT CREAM MASK | 1 | Ingredients PDF |
-| 35 | HYDRO COOL MODELING MASK | 1 | Formula_up (powder; Diatomaceous first) |
-| 36 | SOOTHING BOMB SEA ALGAE MASK | 1 | Formula_up PDF |
-| 37 | PEPTIDE GEL MASK | 1 | Formula_up PDF |
-| 38 | EZ CO₂ MASK KIT | 2 | Gel + Mask Formula_up PDFs |
-| 39 | ULTRA SHIELD SUN CREAM | 1 | Product-folder Formula PDF |
-| 40 | MULTI SUN CREAM | 1 | Formula_up PDF |
-| 41 | SKIN CARING BB CUSHION | 1 | Camel #03 Formula (base shared across shades) |
-| 42 | INTENSIVE BLEMISH BALM CREAM | 1 | Formula_up PDF |
-| 43 | HR³ MATRIX HAIR TONIC α | 1 | Ingredient certificate PDF |
-| 44 | HR³ MATRIX MEDI SCALP SHAMPOO α | 1 | Done earlier (MEDI + Full INCI) |
-| 45 | HR³ MATRIX HAIR SOLUTION α | 1 | Formula_up PDF |
-| 46 | HR³ MATRIX SCALP PEELING α | 1 | Product-folder Formula PDF |
-| 51 | BIO-FERMENT AGE DEFYING POWDER MASK | 1 | Powder formula (Diatomaceous first) |
-| 52 | SKIN REBOOT PDRN MASK PACK | 1 | Product-folder Formula PDF |
-| 53 | INTENSIVE REPAIR COLLAGEN MASK | 1 | Formula_up PDF |
-| 60 | Bio Meso PDRN Ampoule 60000 | 1 | Expert Ampoule 60000 Formula PDF |
-| 63 | REVITA GLOW BB CREAM | 1 | Bright #01 Formula (identical to #02) |
-| 65 | Bio-Meso PDRN Homecare Ampoule 5000 | 1 | Done earlier |
-| 66 | CERABARRIER BIOME GEL CLEANSER | 1 | Cerabarrier Formula PDF |
+```bash
+npx tsx --env-file=.env.local scripts/sync-carton-inci-audit-20260916.ts
+```
 
-## Notes
+## Result
 
-- Product **38**: two cards — `Full INCI (Gel)` and `Full INCI (Mask)`.
-- Products **41** / **63**: multi-shade; base INCI shared; pigments may vary slightly by shade.
-- Powder masks **35** / **51**: correctly start with Diatomaceous Earth (not Aqua).
-- Existing key-ingredient cards were preserved on every update.
+- 50 cosmetic products audited.
+- 3 physical-package mismatches corrected: 14, 36, 51.
+- 19 approved-artwork mismatches corrected: 10, 11, 12, 15, 16, 17, 18,
+  19, 22, 23, 24, 31, 32, 33, 37, 41, 45, 47, 52.
+- 23 existing lists already matched approved artwork and were retained.
+- 5 uncertain lists were removed instead of guessed: 27, 28, 44, 46, 66.
+- Current customer-facing state: 45 evidence-matched lists visible, 5 withheld.
 
-## Progress log
+## Source matrix
 
-| Date | Result |
-|---|---|
-| 2026-08-12 | List created; batch A applied (5–10, 12, 16) |
-| 2026-08-12 | Batch 2: 11, 13–15, 17, 19–20, 23–24, 27–28, 30–31, 35–37, 40, 42–43, 45–46, 53, 66 |
-| 2026-08-12 | Final batch: 4, 18, 21–22, 25, 29, 32–34, 38–39, 41, 51–52, 60, 63 — all formula SKUs covered |
+Paths below are relative to
+`/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/`.
+
+| Product | Evidence used | Final state |
+|---|---|---|
+| 4 POWER SOLUTION HES | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION HES.pdf` | Artwork match |
+| 5 POWER SOLUTION CVS | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CVS.pdf` | Artwork match |
+| 6 POWER SOLUTION CTS | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CTS.pdf` | Artwork match |
+| 7 POWER SOLUTION PCS | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION PCS.pdf` | Artwork match |
+| 8 POWER SOLUTION SWS | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION SWS.pdf` | Artwork match |
+| 9 POWER SOLUTION AWS | `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION AWS.pdf` | Artwork match |
+| 10 SNOW O₂ CLEANSER | `Registration DOC/Artwork/[GENOSYS]SNOW O2(180ml).pdf` | Corrected to artwork |
+| 11 SKIN DEFENDER REMOVER | `GENOSYS SKIN DEFENDER.../Artwork-GENOSYS SKIN DEFENDER....pdf` | Corrected to artwork |
+| 12 EPI PEELING GEL | `Registration DOC/Artwork/[GENOSYS]EPI TURNOVER BOOSTING PEELING GEL.pdf` | Corrected to artwork |
+| 13 SRS | `Registration DOC/Artwork/[GENOSYS]SKIN RENEWAL PEELIGN SYSTEM(SRS).pdf` | Artwork match |
+| 14 MICROBIOME MIST | `Genosys Microbiome.../Pics/image3.jpeg` | Corrected to physical carton |
+| 15 PROBLEM CONTROL TONER | `Genosys Intensive.../Artwork-GENOSYS...TONER(200ml).pdf` | Corrected to artwork |
+| 16 SNOW BOOSTER | `Registration DOC/Artwork/[GENOSYS]SNOW BOOSTER(200ml).pdf` | Corrected to artwork |
+| 17 EYE CONTOUR SERUM | `Registration DOC/Artwork/[GENOSYS]EYECELL EYE SERUM.pdf` | Corrected to artwork |
+| 18 HYALURON SERUM | `...HYALURON SERUM/Artwork_updated22062024.pdf` | Corrected to artwork |
+| 19 ALL FOR SENSITIVE SERUM | `Registration DOC/Artwork/[GENOSYS]ALL FOR SENSITIVE SERUM.pdf` | Corrected to artwork |
+| 20 PROBLEM CONTROL SERUM | `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL SERUM.pdf` | Artwork match |
+| 21 MULTI VITA RADIANCE SERUM | product-folder approved artwork | Artwork match |
+| 22 ANTI-WRINKLE SERUM | `Registration DOC/Artwork/artwork-[GENOSYS]MULTI FUNCTIONAL ANTI-WIRINKLE SERUM.pdf` | Corrected to artwork |
+| 23 ND CELL CREAM | `Registration DOC/Artwork/[GENOSYS]NDCELL ANTI-WRINKLE CREAM.pdf` | Corrected to artwork |
+| 24 EYE CONTOUR CREAM | `Registration DOC/Artwork/[GENOSYS]EYECELL EYE CREAM.pdf` | Corrected to artwork |
+| 25 SOOTHING REPAIR POSTCREAM | `Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf` | Artwork match |
+| 27 SKIN BARRIER CREAM | two approved artworks disagree; no current pack photo | Full INCI withheld |
+| 28 HYDRO SOOTHING CREAM | no current physical pack or approved artwork | Full INCI withheld |
+| 29 HYALURON CREAM | `...HYALURON CREAM/Artwork_updated_22062024.pdf` | Artwork match |
+| 30 PROBLEM CONTROL CREAM | `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL CREAM.pdf` | Artwork match |
+| 31 MULTI VITA RADIANCE CREAM | `Registration DOC/Artwork/[GENOSYS]MULTI VITA RADIANCE CREAM(50g).pdf` | Corrected to artwork |
+| 32 ANTI-WRINKLE CREAM | `Registration DOC/Artwork/Artwork-GENOSYS MULTI FUNCTIONAL ANTI WRINCLE CREAM(50g).pdf` | Corrected to artwork |
+| 33 EYE PEPTIDE GEL PATCH | `Registration DOC/Artwork/[GENOSYS]EYECELL EYE PEPTIDE GEL PATCH.pdf` | Corrected to artwork |
+| 34 OVERNIGHT CREAM MASK | approved outer-carton artwork | Artwork match |
+| 35 HYDRO COOL MODELING MASK | `Registration DOC/Artwork/[GENOSYS]HYDRO COOL MODELING MASK.pdf` | Artwork match |
+| 36 SEA ALGAE MASK | `Soothing Bomb Sea Mask/Back.jpg` | Corrected to physical pouch |
+| 37 PEPTIDE GEL MASK | `Registration DOC/Artwork/[GENOSYS]PEPTIDE GEL MASK.pdf` | Corrected to artwork |
+| 38 EZ CO₂ MASK KIT | approved gel and mask artwork | Artwork match, two lists |
+| 39 ULTRA SHIELD SUN CREAM | product-folder approved artwork | Artwork match |
+| 40 MULTI SUN CREAM | `Registration DOC/Artwork/[GENOSYS]MULTI SUN CREAM.pdf` | Artwork match |
+| 41 BB CUSHION | Camel carton artwork; shade formulas checked separately | Corrected to artwork |
+| 42 BLEMISH BALM CREAM | `Registration DOC/Artwork/[GENOSYS]INTENSIVE BLEMISH BALM CREAM.pdf` | Artwork match |
+| 43 HAIR TONIC | `Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR TONIC α.pdf` | Artwork match |
+| 44 MEDI SCALP SHAMPOO | no readable current pack or approved artwork list | Full INCI withheld |
+| 45 HAIR SOLUTION | `Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR SOLUTION α_Professional.pdf` | Corrected to artwork |
+| 46 SCALP PEELING | approved artwork text unreadable; no physical back panel | Full INCI withheld |
+| 47 MESOPECIA KIT | `Registration DOC/Artwork/[GENOSYS]HAIR MATRIX MESOPECIA KIT.pdf` | Corrected, two lists |
+| 51 BIO-FERMENT POWDER MASK | `BIOFERMENT_MASK/Back.jpeg` | Corrected to current physical jar |
+| 52 SKIN REBOOT PDRN MASK | `SKIN REBOOT.../Artwork-GENOSYS SKIN REBOOT PDRN MASK PACK.pdf` | Corrected to artwork |
+| 53 COLLAGEN MASK | approved outer-carton artwork | Artwork match |
+| 60 BIO-MESO PDRN 60000 | product-folder approved carton artwork | Artwork match |
+| 63 REVITA GLOW BB CREAM | Bright and Natural approved artworks | Artwork match; shade claim corrected |
+| 65 BIO-MESO PDRN 5000 | approved outer-carton artwork | Artwork match |
+| 66 CERABARRIER CLEANSER | 600 ml artwork matches, but sold 200 ml pack is unverified | Full INCI withheld |
+
+## Important corrections
+
+- Product 14 now includes the three printed ppm declarations and the current carton
+  order, including Trametes Versicolor Extract.
+- Product 36 now includes printed `1,2-Hexanediol` and follows the physical pouch order.
+- Product 51 now follows the photographed current jar: Hydrolyzed Corn Starch and
+  `sh-Polypeptide-11`; Hydrolyzed Collagen, Allantoin, and `sh-Polypeptide-3` were
+  removed from customer-facing claims.
+- Product 63 no longer says both shades have an identical formula. The verified shade
+  artworks differ in pigment, mica, titanium dioxide, and aluminum hydroxide levels.
+
+## Evidence still required
+
+Obtain readable current back panels for products 27, 28, 44, 46, and the 200 ml
+version of product 66. Their Full INCI sections remain hidden until then.

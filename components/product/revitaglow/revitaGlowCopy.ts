@@ -201,8 +201,9 @@ export interface RevitaGlowCopy {
   backToProducts: string
 }
 
-/** The complete declaration from the Intertek artwork, identical for both
- *  shades. Kept in one place so all three locales stay in sync. */
+/** The ingredient names and order from the approved #01 Bright carton artwork.
+ *  #02 Natural uses the same submitted names, but its titanium dioxide, mica,
+ *  aluminum hydroxide and iron oxide amounts differ. */
 const FULL_INCI =
   'Aqua (Water), Butylene Glycol, Ethylhexyl Methoxycinnamate, Titanium Dioxide, ' +
   'Ethylhexyl Salicylate, Phenyl Trimethicone, Coco-Caprylate/Caprate, ' +
@@ -233,12 +234,12 @@ const EN: RevitaGlowCopy = {
   heroBullets: [
     'SPF 38 PA+++ from four filters - two organic, two mineral',
     'Niacinamide at 2% and adenosine at 0.04%, both registered functional actives',
-    'Two shades, one identical formula - only the pigment load differs',
+    'Two shades with the same functional actives and different mineral and pigment levels',
     'Dermatologically tested · 50 g · 12 months after opening',
   ],
   badges: ['Made in Korea', '50 g · 12M PAO', 'Korean triple-functional cosmetic', 'Official UAE distributor'],
   shadeLabel: 'Choose your shade',
-  shadeHelp: 'Same formula in both. Only the pigment differs.',
+  shadeHelp: 'Same functional actives and SPF claim. Mineral and pigment levels differ by shade.',
   shadeSelected: 'Selected',
   shadeRequired: 'Pick a shade before adding to the bag.',
   shades: [
@@ -335,7 +336,7 @@ const EN: RevitaGlowCopy = {
       { name: 'Zinc Oxide', amount: '1.96%', role: 'Mineral broad-spectrum filter' },
     ],
     note:
-      'Titanium dioxide is the one ingredient that differs between the shades - 7.13% in #01 Bright against 6.18% in #02 Natural - because it doubles as the white pigment. Everything else in the two formulas is identical, filters included.',
+      'The three shared filters keep the same amounts. Titanium dioxide is 7.13% in #01 Bright and 6.18% in #02 Natural; mica, related aluminum hydroxide and the iron oxides also differ.',
   },
   shadeSection: {
     eyebrow: 'Two shades',
@@ -343,7 +344,7 @@ const EN: RevitaGlowCopy = {
     intro:
       'Both are warm-toned and both are buildable. The choice is about depth, not undertone.',
     sameFormula:
-      'Identical actives, identical SPF, identical botanicals. The only difference between #01 and #02 is the iron oxide, mica and titanium dioxide load.',
+      'The functional actives and botanical extracts are the same. The shades differ in iron oxides, mica, titanium dioxide and related aluminum hydroxide.',
     figureAlt:
       'GENOSYS REVITA GLOW BB CREAM - shade comparison between #01 Bright and #02 Natural',
   },
@@ -385,7 +386,7 @@ const EN: RevitaGlowCopy = {
       'Every active in the formula, and what each one is doing while you wear it.',
     fullInci: 'Full ingredient list (INCI)',
     fullInciNote:
-      'Every ingredient, in the same order as the box in your hand. Identical for #01 Bright and #02 Natural apart from the pigments.',
+      'The ingredient names and order follow the approved #01 Bright carton artwork. #02 Natural uses the same submitted names, while titanium dioxide, mica, aluminum hydroxide and iron oxide amounts differ.',
     fragranceNote:
       'Lightly fragranced. Parfum is on the list along with lemon and bitter orange peel oils, and the allergens linalool, linalyl acetate, limonene, citronellol and hydroxycitronellal. Worth a look first if your skin reacts to fragrance.',
   },
@@ -448,7 +449,7 @@ const EN: RevitaGlowCopy = {
       },
       {
         q: 'How do the two shades differ in the formula?',
-        a: 'Only in the colourants. The iron oxides, mica and titanium dioxide are dosed differently. The UV filters, niacinamide, adenosine, vitamins and the eight botanical extracts are identical in both.',
+        a: 'The iron oxides, mica, titanium dioxide and related aluminum hydroxide are dosed differently. The other three UV filters, niacinamide, adenosine, vitamins and eight botanical extracts are the same.',
       },
       {
         q: 'Does it need to be removed properly?',
@@ -482,12 +483,12 @@ const AR: RevitaGlowCopy = {
   heroBullets: [
     'SPF 38 PA+++ من أربعة فلاتر - اثنان عضويان واثنان معدنيان',
     'نياسيناميد ٢٪ وأدينوزين ٠٫٠٤٪، وكلاهما مادة فعّالة وظيفية مسجّلة',
-    'درجتان لونيتان بتركيبة واحدة متطابقة - الاختلاف في الصبغة فقط',
+    'درجتان بالمواد الفعالة الوظيفية نفسها ومستويات مختلفة من المعادن والصبغات',
     'مختبر جلدياً · ٥٠ غ · ١٢ شهراً بعد الفتح',
   ],
   badges: ['صنع في كوريا', '٥٠ غ · ١٢ شهراً بعد الفتح', 'مستحضر كوري ثلاثي الوظيفة', 'الموزّع الرسمي في الإمارات'],
   shadeLabel: 'اختاري درجتك',
-  shadeHelp: 'التركيبة نفسها في الاثنتين. الاختلاف في الصبغة فقط.',
+  shadeHelp: 'المواد الفعالة وادعاء SPF متطابقان، بينما تختلف مستويات المعادن والصبغات.',
   shadeSelected: 'المحددة',
   shadeRequired: 'اختاري درجة قبل الإضافة إلى السلة.',
   shades: [
@@ -584,14 +585,14 @@ const AR: RevitaGlowCopy = {
       { name: 'Zinc Oxide', amount: '١٫٩٦٪', role: 'فلتر معدني واسع الطيف' },
     ],
     note:
-      'ثاني أكسيد التيتانيوم هو المكوّن الوحيد الذي يختلف بين الدرجتين - ٧٫١٣٪ في ٠١ Bright مقابل ٦٫١٨٪ في ٠٢ Natural - لأنه يعمل أيضاً كصبغة بيضاء. وكل ما عدا ذلك في التركيبتين متطابق، بما في ذلك الفلاتر.',
+      'تبقى نسب الفلاتر الثلاثة الأخرى متطابقة. ثاني أكسيد التيتانيوم ٧٫١٣٪ في ٠١ Bright و٦٫١٨٪ في ٠٢ Natural، كما تختلف الميكا وهيدروكسيد الألومنيوم وأكاسيد الحديد.',
   },
   shadeSection: {
     eyebrow: 'درجتان',
     title: 'Bright أم Natural',
     intro: 'كلتاهما بدرجة دافئة وكلتاهما قابلة للبناء. الاختيار يتعلق بالعمق لا بالتدرّج اللوني.',
     sameFormula:
-      'مواد فعّالة متطابقة، وحماية شمسية متطابقة، ومستخلصات نباتية متطابقة. الفرق الوحيد بين ٠١ و٠٢ هو نسبة أكاسيد الحديد والميكا وثاني أكسيد التيتانيوم.',
+      'المواد الفعالة الوظيفية والمستخلصات النباتية متطابقة. تختلف أكاسيد الحديد والميكا وثاني أكسيد التيتانيوم وهيدروكسيد الألومنيوم المرتبط به.',
     figureAlt: 'جينوسيس ريفيتا جلو بي بي كريم - مقارنة بين الدرجة ٠١ Bright والدرجة ٠٢ Natural',
   },
   howTo: {
@@ -729,12 +730,12 @@ const RU: RevitaGlowCopy = {
   heroBullets: [
     'SPF 38 PA+++ на четырёх фильтрах - два органических, два минеральных',
     'Ниацинамид 2% и аденозин 0,04% - оба зарегистрированные функциональные активы',
-    'Два оттенка, одна и та же формула - различается только пигмент',
+    'Два оттенка с одинаковыми функциональными активами и разными уровнями минералов и пигментов',
     'Дерматологически протестировано · 50 г · 12 месяцев после вскрытия',
   ],
   badges: ['Сделано в Корее', '50 г · 12 мес. после вскрытия', 'Тройное функциональное средство', 'Официальный дистрибьютор в ОАЭ'],
   shadeLabel: 'Выберите оттенок',
-  shadeHelp: 'Формула одинаковая. Различается только пигмент.',
+  shadeHelp: 'Функциональные активы и заявленный SPF совпадают, уровни минералов и пигментов различаются.',
   shadeSelected: 'Выбрано',
   shadeRequired: 'Выберите оттенок, прежде чем добавлять в корзину.',
   shades: [
@@ -831,14 +832,14 @@ const RU: RevitaGlowCopy = {
       { name: 'Zinc Oxide', amount: '1,96%', role: 'Минеральный фильтр широкого спектра' },
     ],
     note:
-      'Диоксид титана - единственный компонент, который отличается у двух оттенков: 7,13% в #01 Bright против 6,18% в #02 Natural, потому что он одновременно служит белым пигментом. Всё остальное в обеих формулах идентично, включая фильтры.',
+      'Три остальных фильтра имеют одинаковые концентрации. Диоксид титана составляет 7,13% в #01 Bright и 6,18% в #02 Natural; также различаются слюда, связанный гидроксид алюминия и оксиды железа.',
   },
   shadeSection: {
     eyebrow: 'Два оттенка',
     title: 'Bright или Natural',
     intro: 'Оба тёплые и оба наращиваемые. Выбор идёт по глубине, а не по подтону.',
     sameFormula:
-      'Идентичные активы, идентичный SPF, идентичные растительные экстракты. Единственное различие между #01 и #02 - доля оксидов железа, слюды и диоксида титана.',
+      'Функциональные активы и растительные экстракты совпадают. Различаются оксиды железа, слюда, диоксид титана и связанный гидроксид алюминия.',
     figureAlt: 'GENOSYS REVITA GLOW BB CREAM - сравнение оттенков #01 Bright и #02 Natural',
   },
   howTo: {

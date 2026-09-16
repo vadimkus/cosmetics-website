@@ -207,17 +207,7 @@ export interface EpiCopy {
  *  finished percentages. The page prints the registered order and does
  *  not claim it matches the carton. */
 export const FULL_INCI =
-  'Aqua (Water), PEG-8, Alcohol Denat., Propylene Glycol, Quaternium-60, ' +
-  'Cellulose, Carbomer, 1,2-Hexanediol, Caprylyl Glycol, Parfum (Fragrance), ' +
-  'Allantoin, Disodium EDTA, Ficus Carica (Fig) Fruit Extract, Phoenix ' +
-  'Dactylifera (Date) Fruit Extract, Butylene Glycol, Camellia Sinensis Leaf ' +
-  'Extract, Houttuynia Cordata Extract, Nelumbo Nucifera Flower Extract, ' +
-  'Oryza Sativa (Rice) Extract, Prunus Mume Fruit Extract, Vaccinium ' +
-  'Angustifolium (Blueberry) Fruit Extract, Sodium Hyaluronate, Simmondsia ' +
-  'Chinensis (Jojoba) Seed Oil, Opuntia Coccinellifera Fruit Extract, ' +
-  'Opuntia Ficus-Indica Stem Extract, Adansonia Digitata Seed Extract, ' +
-  'Carica Papaya (Papaya) Fruit Extract, Hexyl Cinnamal, Moringa Oleifera ' +
-  'Seed Extract.'
+  "Aqua (Water), PEG-8, Alcohol Denat., Propylene Glycol, Quaternium-60, Cellulose, Carbomer, 1,2-Hexanediol, Sodium Hyaluronate, Carica Papaya (Papaya) Fruit Extract, Moringa Oleifera Seed Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Caprylyl Glycol, Allantoin, Ficus Carica (Fig) Fruit Extract, Phoenix Dactylifera (Date) Fruit Extract, Camellia Sinensis Leaf Extract, Houttuynia Cordata Extract, Nelumbo Nucifera Flower Extract, Oryza Sativa (Rice) Extract, Prunus Mume Fruit Extract, Vaccinium Angustifolium (Blueberry) Fruit Extract, Opuntia Coccinellifera Fruit Extract, Opuntia Ficus-Indica Stem Extract, Adansonia Digitata Seed Extract, Disodium EDTA, Butylene Glycol, Parfum (Fragrance), Hexyl Cinnamal."
 
 const EN: EpiCopy = {
   eyebrow: 'Peeling gel · Enzyme + cellulose',

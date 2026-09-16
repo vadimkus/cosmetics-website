@@ -36,7 +36,10 @@ No product-specific safety assessment or underlying clinical study report was fo
 - Bifida Ferment Lysate `0.001%`
 - Lactobacillus/Punica Granatum Fruit Ferment Extract `0.00001%`
 
-The available registered formula INCI is retained in full. The artwork list differs by naming Hydrolyzed Corn Starch and `sh-Polypeptide-11` where the registered formula names Hydrolyzed Collagen, Allantoin and `sh-Polypeptide-3`; the site does not claim that its formula list is a transcription of the carton.
+Superseded 16 September 2026: the customer-facing INCI now follows the
+photographed current jar, with Hydrolyzed Corn Starch and `sh-Polypeptide-11`.
+Hydrolyzed Collagen, Allantoin and `sh-Polypeptide-3` were removed from the
+published list and customer-facing claims. See `FULL_INCI_COVERAGE_LIST.md`.
 
 Neither available INCI list names `Parfum` or separately declared fragrance allergens. Cypress water is therefore disclosed as an ingredient, not converted into a retail claim that the product contains added fragrance or that it is fragrance-free.
 

@@ -214,19 +214,9 @@ export interface BioFermentCopy {
   backToProducts: string
 }
 
-/** Registered formula INCI. The pack list differs (Hydrolyzed Corn Starch
- *  and sh-Polypeptide-11 in place of Hydrolyzed Collagen, Allantoin and
- *  sh-Polypeptide-3). The page prints the registered list and does not
- *  claim it matches the carton. */
+/** Customer-facing INCI copied from the photographed current 300 g jar. */
 export const FULL_INCI =
-  'Diatomaceous Earth, Glucose, Algin, Calcium Sulfate, Aqua (Water), Sodium Benzoate, ' +
-  'Sodium Dehydroacetate, Hydrolyzed Collagen, Allantoin, Lactobacillus/Punica Granatum ' +
-  'Fruit Ferment Extract, Bacillus/Soybean Ferment Extract, Galactomyces Ferment Filtrate, ' +
-  'Bifida Ferment Lysate, Chamaecyparis Obtusa Water, Aloe Barbadensis Leaf Extract, ' +
-  'Glycyrrhiza Glabra (Licorice) Root Extract, Oryza Sativa (Rice) Bran Extract, ' +
-  'Gardenia Florida Fruit Extract, sh-Oligopeptide-1, sh-Oligopeptide-2, sh-Polypeptide-1, ' +
-  'sh-Polypeptide-3, sh-Polypeptide-9, sh-Polypeptide-22, Glycerin, Ethylhexylglycerin, ' +
-  'Menthol, 1,2-Hexanediol, Butylene Glycol, Tetrasodium Pyrophosphate, Dextrin.'
+  "Diatomaceous Earth, Glucose, Algin, Calcium Sulfate, Aqua (Water), Sodium Benzoate, Sodium Dehydroacetate, Hydrolyzed Corn Starch, Lactobacillus/Punica Granatum Fruit Ferment Extract, Bacillus/Soybean Ferment Extract, Galactomyces Ferment Filtrate, Bifida Ferment Lysate, Chamaecyparis Obtusa Water, Aloe Barbadensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Oryza Sativa (Rice) Bran Extract, Gardenia Florida Fruit Extract, sh-Oligopeptide-1, sh-Oligopeptide-2, sh-Polypeptide-1, sh-Polypeptide-11, sh-Polypeptide-9, sh-Polypeptide-22, Glycerin, Ethylhexylglycerin, Menthol, 1,2-Hexanediol, Butylene Glycol, Tetrasodium Pyrophosphate, Dextrin."
 
 const EN: BioFermentCopy = {
   eyebrow: 'Modeling mask · Powder',
@@ -281,7 +271,7 @@ const EN: BioFermentCopy = {
     eyebrow: 'The mask',
     title: 'The earth, the algin, and the set.',
     body:
-      'Most of the jar is a modeling-mask base: diatomaceous earth, glucose, algin and calcium sulfate. Mix them with water and they become a cream that sets on the face and peels away without drying the skin out. That is the product. Hydrolyzed collagen and allantoin ride in the set. The four ferments sit with them.',
+      'Most of the jar is a modeling-mask base: diatomaceous earth, glucose, algin and calcium sulfate. Mix them with water and they become a cream that sets on the face and peels away without drying the skin out. Hydrolyzed corn starch and four fermented ingredients are also printed on the current jar.',
     points: [
       {
         title: 'Diatomaceous earth · 41.79%',
@@ -296,8 +286,8 @@ const EN: BioFermentCopy = {
         body: 'The humectant in the powder. It pulls water into the mix so the cream stays workable, then sits on the skin as moisture rather than as a film.',
       },
       {
-        title: 'Hydrolyzed collagen 0.2% + allantoin 0.1%',
-        body: 'The two skin-conditioning actives at a level that belongs on a card. Collagen for the feel of a smoother surface; allantoin for comfort while the mask sits.',
+        title: 'Hydrolyzed corn starch',
+        body: 'Printed on the current jar as part of the powder base. The jar does not print hydrolyzed collagen or allantoin.',
       },
     ],
     figureAlt: 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK jar, powder bag and measuring scoop',
@@ -403,7 +393,7 @@ const EN: BioFermentCopy = {
       },
       {
         q: 'What are the six peptides on the front?',
-        a: 'Six sh-peptides named in the formula: sh-Oligopeptide-1 and -2, and sh-Polypeptide-1, -3, -9 and -22. They sit at laboratory level. The mask you feel is the earth-and-algin set that locks moisture and peels away in one piece.',
+        a: 'The current jar prints six sh-peptides: sh-Oligopeptide-1 and -2, and sh-Polypeptide-1, -11, -9 and -22. The mask you feel is the earth-and-algin set that locks moisture and peels away in one piece.',
       },
       {
         q: 'How is this different from Hydro Cool?',
@@ -513,8 +503,8 @@ const AR: BioFermentCopy = {
         body: 'المكون الثاني في الصيغة الكمية، ومصنف فيها كمرطب.',
       },
       {
-        title: 'كولاجين متحلل ٠.٢٪ + ألانتوين ٠.١٪',
-        body: 'مكونان ملطفان للبشرة ضمن التركيبة النهائية.',
+        title: 'نشا الذرة المتحلل',
+        body: 'مطبوع على العبوة الحالية ضمن قاعدة البودرة، ولا تطبع العبوة كولاجيناً متحللاً أو ألانتوين.',
       },
     ],
     figureAlt: 'عبوة GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK وكيس البودرة والمغرفة',
@@ -620,7 +610,7 @@ const AR: BioFermentCopy = {
       },
       {
         q: 'ما الببتيدات الستة على الواجهة؟',
-        a: 'تسمي الصيغة ستة ببتيدات sh: ‏sh-Oligopeptide-1 و-2، وsh-Polypeptide-1 و-3 و-9 و-22، بتركيز 0.00000010% لكل منها. قاعدة النمذجة الأساسية هي تراب الدياتوم والغلوكوز والألجين وكبريتات الكالسيوم.',
+        a: 'تطبع العبوة الحالية ستة ببتيدات sh: ‏sh-Oligopeptide-1 و-2، وsh-Polypeptide-1 و-11 و-9 و-22. قاعدة النمذجة الأساسية هي تراب الدياتوم والغلوكوز والألجين وكبريتات الكالسيوم.',
       },
       {
         q: 'ما الفرق عن Hydro Cool؟',
@@ -730,8 +720,8 @@ const RU: BioFermentCopy = {
         body: 'Второй компонент количественной формулы; в ней указан как увлажнитель.',
       },
       {
-        title: 'Гидролизованный коллаген 0,2% + аллантоин 0,1%',
-        body: 'Два компонента для кондиционирования кожи в готовой формуле.',
+        title: 'Гидролизованный кукурузный крахмал',
+        body: 'Указан на актуальной банке как часть пудровой основы. Гидролизованного коллагена и аллантоина на банке нет.',
       },
     ],
     figureAlt: 'Банка GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK, пакет с пудрой и мерная ложка',
@@ -837,7 +827,7 @@ const RU: BioFermentCopy = {
       },
       {
         q: 'Что за шесть пептидов на лицевой стороне?',
-        a: 'В формуле названы шесть sh-пептидов: sh-Oligopeptide-1 и -2, sh-Polypeptide-1, -3, -9 и -22 - по 0,00000010% каждый. Основу моделирующей маски составляют диатомовая земля, глюкоза, альгин и сульфат кальция.',
+        a: 'На актуальной банке указаны шесть sh-пептидов: sh-Oligopeptide-1 и -2, sh-Polypeptide-1, -11, -9 и -22. Основу моделирующей маски составляют диатомовая земля, глюкоза, альгин и сульфат кальция.',
       },
       {
         q: 'Чем это отличается от Hydro Cool?',

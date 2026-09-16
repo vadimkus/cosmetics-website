@@ -19,7 +19,10 @@ This is a **professional alginate modeling mask**. Diatomaceous earth 41.79% + g
 The four ferments sit at 0.001% (pomegranate ferment at 0.00001%). The six sh-peptides sit at **1 ppb each**. They are in the formula. They are not the engine.
 
 ## Pack vs formula INCI
-The back label prints Hydrolyzed Corn Starch and sh-Polypeptide-11, and omits Hydrolyzed Collagen, Allantoin and sh-Polypeptide-3. The registered formula has collagen 0.2%, allantoin 0.1% and sh-Polypeptide-3. The page prints the registered list and does not claim it matches the carton.
+The photographed current jar prints Hydrolyzed Corn Starch and sh-Polypeptide-11,
+and omits Hydrolyzed Collagen, Allantoin and sh-Polypeptide-3. On 16 September
+2026 the customer-facing list was corrected to the physical jar and the conflicting
+collagen/allantoin claims were removed. See `FULL_INCI_COVERAGE_LIST.md`.
 
 ## Cut from live copy
 - Fermented rice / soy / ginseng / green tea as lead actives (AR/RU still had all four; EN dump still had green tea + HA)

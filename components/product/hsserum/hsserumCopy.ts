@@ -209,22 +209,7 @@ export interface HsserumCopy {
 }
 
 export const HSSERUM_FULL_INCI =
-  'Aqua (Water), Butylene Glycol, Glycerin, Glycereth-26, 1,2-Hexanediol, ' +
-  'Isopentyldiol, Dipropylene Glycol, Cocos Nucifera (Coconut) Water, ' +
-  'Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Hyaluronate Crosspolymer, ' +
-  'Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium Hyaluronate, ' +
-  'Hyaluronic Acid, Sodium Acetylated Hyaluronate, Saccharide Isomerate, ' +
-  'Glyceryl Glucoside, Tremella Fuciformis Polysaccharide, Saccharomyces Ferment Filtrate, ' +
-  'Trametes Versicolor Extract, Sparassis Crispa Extract, ' +
-  'Ganoderma Lucidum (Mushroom) Extract, Phellinus Linteus Extract, ' +
-  'Tremella Fuciformis (Mushroom) Extract, Solanum Melongena (Eggplant) Fruit Extract, ' +
-  'Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, ' +
-  'Corallina Officinalis Extract, Annona Cherimolia Fruit Extract, ' +
-  'Coccinia Indica Fruit Extract, Melia Azadirachta Leaf Extract, ' +
-  'Melia Azadirachta Flower Extract, Panthenol, Ethylhexylglycerin, Carbomer, ' +
-  'Xanthan Gum, Pelargonium Graveolens Flower Oil, Citric Acid, Sodium Citrate, ' +
-  'Polyglutamic Acid, Disodium EDTA, Polyglyceryl-10 Laurate, Tromethamine, ' +
-  'Sodium Dehydroacetate, Phenylpropanol, Pentylene Glycol, Citronellol.'
+  "Aqua (Water), Butylene Glycol, Glycerin, Glycereth-26, 1,2-Hexanediol, Dipropylene Glycol, Isopentyldiol, Cocos Nucifera (Coconut) Water, Hydrolyzed Hyaluronic Acid (2,000 ppm), Sodium Hyaluronate (0.9 ppm), Sodium Hyaluronate Crosspolymer (0.03 ppm), Potassium Hyaluronate (0.03 ppm), Hydroxypropyltrimonium Hyaluronate (0.03 ppm), Hydrolyzed Sodium Hyaluronate (0.03 ppm), Hyaluronic Acid (0.03 ppm), Sodium Acetylated Hyaluronate (0.001 ppm), Saccharide Isomerate, Glyceryl Glucoside, Tremella Fuciformis Polysaccharide, Saccharomyces Ferment Filtrate, Trametes Versicolor Extract, Sparassis Crispa Extract, Ganoderma Lucidum (Mushroom) Extract, Phellinus Linteus Extract, Tremella Fuciformis (Mushroom) Extract, Solanum Melongena (Eggplant) Fruit Extract, Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Annona Cherimolia Fruit Extract, Coccinia Indica Fruit Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Panthenol, Ethylhexylglycerin, Carbomer, Xanthan Gum, Pelargonium Graveolens Flower Oil, Citric Acid, Sodium Citrate, Polyglutamic Acid, Disodium EDTA, Polyglyceryl-10 Laurate, Tromethamine, Sodium Dehydroacetate, Phenylpropanol, Pentylene Glycol, Citronellol."
 
 const EN: HsserumCopy = {
   eyebrow: 'Serum · Moisturizing',

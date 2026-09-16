@@ -13,6 +13,7 @@
  */
 
 import { AUDITED_PRODUCT_LOCALIZED_COPY } from './productLocalizedCopyAudit'
+import { applyCartonInciOverrides } from './cartonInciOverrides'
 import { PRODUCT_1_AR_TRANSLATION } from './product1LocalizedCopy'
 import { PRODUCT_39_AR_TRANSLATION } from './product39LocalizedCopy'
 import { PRODUCT_42_AR_TRANSLATION } from './product42LocalizedCopy'
@@ -764,7 +765,7 @@ const legacyProductTranslations: Record<string, ProductTranslation> = {
   },
 }
 
-export const productTranslations: Record<string, ProductTranslation> = {
+const rawProductTranslations: Record<string, ProductTranslation> = {
   ...legacyProductTranslations,
   '1': PRODUCT_1_AR_TRANSLATION,
   '2': AUDITED_PRODUCT_LOCALIZED_COPY.ar['2'],
@@ -827,6 +828,8 @@ export const productTranslations: Record<string, ProductTranslation> = {
   '65': PRODUCT_65_AR_TRANSLATION,
   '66': PRODUCT_66_AR_TRANSLATION,
 }
+
+export const productTranslations = applyCartonInciOverrides(rawProductTranslations)
 
 /**
  * Product 53 is reached by product number from the web pages and by database id

@@ -57,6 +57,7 @@ next-env.d.ts
 !/data/productTranslationsRu.ts
 !/data/productConfig.ts
 !/data/productBarcodes.ts
+!/data/cartonInciOverrides.ts
 !/data/product1LocalizedCopy.ts
 !/data/product22LocalizedCopy.ts
 !/data/product23LocalizedCopy.ts

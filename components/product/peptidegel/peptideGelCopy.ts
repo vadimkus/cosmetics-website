@@ -216,16 +216,7 @@ export interface PeptideGelCopy {
  *  lifts Acetyl Hexapeptide-8 after Chondrus and prints 0.05ppm. The
  *  page does not claim this matches every language panel. */
 export const FULL_INCI =
-  'Aqua (Water), Glycerin, Ceratonia Siliqua Gum, Chondrus Crispus ' +
-  'Extract, Phenoxyethanol, Dipotassium Glycyrrhizate, Ethylhexylglycerin, ' +
-  'Butylene Glycol, Caprylyl Glycol, 1,2-Hexanediol, Disodium EDTA, ' +
-  'Ricinus Communis (Castor) Seed Oil, Potassium Hydroxide, Scutellaria ' +
-  'Baicalensis Root Extract, Camellia Sinensis Leaf Extract, Artemisia ' +
-  'Princeps Leaf Extract, Houttuynia Cordata Extract, Lactobacillus ' +
-  'Ferment, Citrus Junos Fruit Extract, Hydrolyzed Collagen, Portulaca ' +
-  'Oleracea Extract, Sodium Hyaluronate, Arnica Montana Flower Extract, ' +
-  'Chamomilla Recutita (Matricaria) Flower Extract, Tocopherol, Acetyl ' +
-  'Hexapeptide-8.'
+  "Aqua (Water), Glycerin, Ceratonia Siliqua (Carob) Gum, Chondrus Crispus Extract, Acetyl Hexapeptide-8, Dipotassium Glycyrrhizate, Portulaca Oleracea Extract, Arnica Montana Flower Extract, Chamomilla Recutita (Matricaria) Flower Extract, Hydrolyzed Collagen, Sodium Hyaluronate, Scutellaria Baicalensis Root Extract, Ethylhexylglycerin, Butylene Glycol, Caprylyl Glycol, 1,2-Hexanediol, Camellia Sinensis Leaf Extract, Artemisia Princeps Leaf Extract, Houttuynia Cordata Extract, Disodium EDTA, Lactobacillus Ferment, Citrus Junos Fruit Extract, Ricinus Communis (Castor) Seed Oil, Potassium Hydroxide, Tocopherol, Phenoxyethanol."
 
 const EN: PeptideGelCopy = {
   eyebrow: 'Face hydrogel · After a procedure',

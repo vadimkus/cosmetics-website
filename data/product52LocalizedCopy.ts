@@ -2,14 +2,7 @@ export const PRODUCT_52_RU_NAME = 'Тканевые маски SKIN REBOOT PDRN 
 export const PRODUCT_52_AR_NAME = 'أقنعة SKIN REBOOT PDRN MASK PACK الورقية'
 
 export const PRODUCT_52_FULL_INCI =
-  'Aqua (Water), Glycerin, Dipropylene Glycol, Propanediol, Butylene Glycol, Niacinamide, ' +
-  '1,2-Hexanediol, Glycereth-26, Panthenol, Xylitol, Sodium DNA (1000ppm), Ceramide NP, ' +
-  'Phytosphingosine, Hydrolyzed Collagen, Hydrolyzed Elastin, Adenosine, Butyrospermum Parkii ' +
-  '(Shea) Butter, Mentha Rotundifolia Leaf Extract, Camellia Sinensis Leaf Extract, Thymus ' +
-  'Vulgaris (Thyme) Leaf Extract, Allantoin, Hydroxyethylcellulose, Arginine, Lavandula ' +
-  'Angustifolia (Lavender) Oil, Ethylhexylglycerin, Pullulan, Xanthan Gum, Carbomer, Disodium ' +
-  'EDTA, Methyl Diisopropyl Propionamide, PVM/MA Copolymer, Glyceryl Acrylate/Acrylic Acid ' +
-  'Copolymer, Polyglyceryl-10 Laurate.'
+  "Aqua (Water), Glycerin, Dipropylene Glycol, Propanediol, Butylene Glycol, Niacinamide, 1,2-Hexanediol, Glycereth-26, Panthenol, Xylitol, Sodium DNA (1000 ppm), Ceramide NP, Phytosphingosine, Hydrolyzed Elastin, Hydrolyzed Collagen, Adenosine, Butyrospermum Parkii (Shea) Butter, Mentha Rotundifolia Leaf Extract, Camellia Sinensis Leaf Extract, Thymus Vulgaris (Thyme) Leaf Extract, Allantoin, Hydroxyethylcellulose, Arginine, Lavandula Angustifolia (Lavender) Oil, Ethylhexylglycerin, Pullulan, Xanthan Gum, Carbomer, Disodium EDTA, Methyl Diisopropyl Propionamide, Glyceryl Acrylate/Acrylic Acid Copolymer, PVM/MA Copolymer, Polyglyceryl-10 Laurate."
 
 const RU_DETAILS = {
   form: 'Лиоцелловая тканевая маска в банке со встроенным пинцетом',

@@ -36,10 +36,10 @@ const forbidden = [
 
 describe('product 66 source-grounded RU/AR copy', () => {
   it('serves one canonical payload by product number and production CUID', () => {
-    expect(getProductTranslationsRu('66')).toBe(PRODUCT_66_RU_TRANSLATION)
-    expect(getProductTranslations('66')).toBe(PRODUCT_66_AR_TRANSLATION)
-    expect(getProductTranslationsRu(productId)).toBe(PRODUCT_66_RU_TRANSLATION)
-    expect(getProductTranslations(productId)).toBe(PRODUCT_66_AR_TRANSLATION)
+    expect(getProductTranslationsRu('66')).toEqual(PRODUCT_66_RU_TRANSLATION)
+    expect(getProductTranslations('66')).toEqual(PRODUCT_66_AR_TRANSLATION)
+    expect(getProductTranslationsRu(productId)).toEqual(PRODUCT_66_RU_TRANSLATION)
+    expect(getProductTranslations(productId)).toEqual(PRODUCT_66_AR_TRANSLATION)
     expect(PRODUCT_66_RU_TRANSLATION.name).toBe(PRODUCT_66_RU_NAME)
     expect(PRODUCT_66_AR_TRANSLATION.name).toBe(PRODUCT_66_AR_NAME)
   })

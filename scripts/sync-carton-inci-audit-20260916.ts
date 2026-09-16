@@ -39,6 +39,9 @@ const ARTWORK: Record<string, string> = {
   "45": "Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR SOLUTION α_Professional.pdf",
   "47": "Registration DOC/Artwork/[GENOSYS]HAIR MATRIX MESOPECIA KIT.pdf",
   "52": "SKIN REBOOT PDRN MASK PACK /Artwork-GENOSYS SKIN REBOOT PDRN MASK PACK.pdf",
+  // Owner confirmed the 200 ml and 600 ml bottles are the same product and
+  // formula; only the bottle size differs.
+  "66": "Cerrabar/600ml/Artwork-GENOSYS CERABARRIER BIOME GEL CLEANSER_600ml.pdf",
 };
 
 const MANUAL_PHYSICAL: Record<string, string> = {
@@ -54,7 +57,7 @@ const MANUAL_PHYSICAL: Record<string, string> = {
 };
 
 // A list is removed, rather than guessed, when current pack evidence is absent or conflicts.
-const SUPPRESS = new Set(["27", "28", "44", "46", "66"]);
+const SUPPRESS = new Set(["27", "28", "44", "46"]);
 
 const SOURCE_CONSTANTS: Record<string, { file: string; name: string }> = {
   "10": {
@@ -111,12 +114,22 @@ const SOURCE_CONSTANTS: Record<string, { file: string; name: string }> = {
     file: "components/product/pdrnmask/pdrnMaskCopy.ts",
     name: "FULL_INCI",
   },
+  "66": {
+    file: "data/product66LocalizedCopy.ts",
+    name: "PRODUCT_66_FULL_INCI",
+  },
 };
 
 const CANONICAL_OVERRIDES = new Map([
   [baseKey("OlusOil"), "Olus Oil"],
   [baseKey("Water"), "Water"],
   [baseKey("1,2-Hexanediol"), "1,2-Hexanediol"],
+  [baseKey("Sodium Cocoyl Glutamate"), "Sodium Cocoyl Glutamate"],
+  [baseKey("Cichorium Intybus (Chicory) Root Extract"), "Cichorium Intybus (Chicory) Root Extract"],
+  [baseKey("Taraxacum Officinale (Dandelion) Rhizome/Root Extract"), "Taraxacum Officinale (Dandelion) Rhizome/Root Extract"],
+  [baseKey("Fructan"), "Fructan"],
+  [baseKey("Anastatica Hierochuntica Extract"), "Anastatica Hierochuntica Extract"],
+  [baseKey("Polyquaternium-67"), "Polyquaternium-67"],
 ]);
 
 function parseCards(raw: string | null): Card[] {
@@ -295,6 +308,7 @@ function writeRuntimeOverrides(targets: Map<string, string[]>): void {
     "    } catch {",
     "      continue",
     "    }",
+    "    const inciCards = cards.filter((card) => String(card?.name || '').toLowerCase().includes('inci'))",
     "    const withoutInci = cards.filter((card) => !String(card?.name || '').toLowerCase().includes('inci'))",
     "    if (SUPPRESSED_CARTON_INCI.has(productNumber)) {",
     "      next[productNumber] = { ...translation, ingredients: JSON.stringify(withoutInci) }",
@@ -304,12 +318,11 @@ function writeRuntimeOverrides(targets: Map<string, string[]>): void {
     "    if (!values) continue",
     "    const fullCards = productNumber === '47'",
     "      ? [{ name: 'Full INCI — Scalp Peeling α', description: values[0] }, { name: 'Full INCI — Hair Solution α', description: values[1] }]",
-    "      : [{ name: 'Full INCI', description: values[0] }]",
+    "      : [{ name: inciCards[0]?.name || 'Full INCI', description: values[0] }]",
     "    next[productNumber] = { ...translation, ingredients: JSON.stringify([...withoutInci, ...fullCards]) }",
     "  }",
     "  return next as T",
     "}",
-    "",
   );
   writeFileSync(
     join(process.cwd(), "data/cartonInciOverrides.ts"),

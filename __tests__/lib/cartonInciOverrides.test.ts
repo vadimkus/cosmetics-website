@@ -19,7 +19,7 @@ describe("carton INCI overrides", () => {
     expect(cards).toHaveLength(2);
     expect(cards[0]).toEqual({ name: "Key active", description: "Keep me" });
     expect(cards[1]).toEqual({
-      name: "Full INCI",
+      name: "Полный состав (INCI)",
       description: CARTON_INCI_OVERRIDES["14"]![0]!,
     });
     expect(cards[1].description).toContain("Lactobacillus Ferment (879.5 ppm)");
@@ -66,5 +66,14 @@ describe("carton INCI overrides", () => {
     expect(list).not.toContain("Hydrolyzed Collagen");
     expect(list).not.toContain("Allantoin");
     expect(list).not.toContain("sh-Polypeptide-3");
+  });
+
+  it("publishes the owner-confirmed shared Cerabarrier formula", () => {
+    expect([...SUPPRESSED_CARTON_INCI]).not.toContain("66");
+    const list = CARTON_INCI_OVERRIDES["66"]![0]!;
+    expect(list).toContain("Sodium Cocoyl Glutamate");
+    expect(list).toContain("Ceramide EOP");
+    expect(list).toContain("Polyquaternium-67");
+    expect(list).toContain("Parfum (Fragrance)");
   });
 });

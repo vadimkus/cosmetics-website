@@ -24,8 +24,10 @@ npx tsx --env-file=.env.local scripts/sync-carton-inci-audit-20260916.ts
 - 19 approved-artwork mismatches corrected: 10, 11, 12, 15, 16, 17, 18,
   19, 22, 23, 24, 31, 32, 33, 37, 41, 45, 47, 52.
 - 23 existing lists already matched approved artwork and were retained.
-- 5 uncertain lists were removed instead of guessed: 27, 28, 44, 46, 66.
-- Current customer-facing state: 45 evidence-matched lists visible, 5 withheld.
+- 4 uncertain lists were removed instead of guessed: 27, 28, 44, 46.
+- Product 66 uses the approved 600 ml artwork after owner confirmation that
+  the 200 ml and 600 ml bottles contain the same product and formula.
+- Current customer-facing state: 46 evidence-matched lists visible, 4 withheld.
 
 ## Source matrix
 
@@ -83,7 +85,7 @@ Paths below are relative to
 | 60 BIO-MESO PDRN 60000 | product-folder approved carton artwork | Artwork match |
 | 63 REVITA GLOW BB CREAM | Bright and Natural approved artworks | Artwork match; shade claim corrected |
 | 65 BIO-MESO PDRN 5000 | approved outer-carton artwork | Artwork match |
-| 66 CERABARRIER CLEANSER | 600 ml artwork matches, but sold 200 ml pack is unverified | Full INCI withheld |
+| 66 CERABARRIER CLEANSER | `Cerrabar/600ml/Artwork-GENOSYS CERABARRIER BIOME GEL CLEANSER_600ml.pdf`; owner confirmed 200 ml is the same formula | Artwork match; published for both sizes |
 
 ## Important corrections
 
@@ -95,8 +97,10 @@ Paths below are relative to
   removed from customer-facing claims.
 - Product 63 no longer says both shades have an identical formula. The verified shade
   artworks differ in pigment, mica, titanium dioxide, and aluminum hydroxide levels.
+- Product 66 now publishes the 600 ml artwork INCI for both bottle sizes after owner
+  confirmation that only the bottle volume differs.
 
 ## Evidence still required
 
-Obtain readable current back panels for products 27, 28, 44, 46, and the 200 ml
-version of product 66. Their Full INCI sections remain hidden until then.
+Obtain readable current back panels for products 27, 28, 44, and 46. Their Full
+INCI sections remain hidden until then.

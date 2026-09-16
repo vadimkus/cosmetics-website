@@ -22,9 +22,10 @@ export const CARTON_INCI_OVERRIDES: Record<string, readonly string[]> = {
   "47": ["Aqua (Water), Alcohol Denat., Propylene Glycol, PEG-60 Hydrogenated Castor Oil, Copper Tripeptide-1, Serenoa Serrulata Fruit Extract, Camellia Sinensis Leaf Extract, Cnidium Officinale Root Extract, Menthol, Salicylic Acid, Glycine Max (Soybean) Seed Extract, Oryza Sativa (Rice) Extract, Angelica Gigas Extract, Rheum Palmatum Root Extract, Ribes Nigrum (Black Currant) Fruit Extract, Perilla Frutescens Extract, Rubus Fruticosus (Blackberry) Fruit Extract, Nigella Sativa Seed Extract, Hordeum Vulgare Extract, Lepidium Meyenii Root Extract, Allium Sativum (Garlic) Bulb Extract, Cucurbita Pepo (Pumpkin) Fruit Extract, Sesamum Indicum (Sesame) Seed Extract, Butylene Glycol, 1,2-Hexanediol, Menthyl Lactate, Phenoxyethanol, Chlorphenesin, Betaine, Disodium EDTA.","Water, Propylene Glycol, 1,2-Hexanediol, PEG-40 Hydrogenated Castor Oil, Copper Tripeptide-1, Brassica Oleracea Italica (Broccoli) Extract, Serenoa Serrulata Fruit Extract, sh-Polypeptide-7, sh-Oligopeptide-1, sh-Polypeptide-71, sh-Polypeptide-9, Panthenol, Biosaccharide Gum-4, Glycerin, Lecithin, Houttuynia Cordata Extract, Sesamum Indicum (Sesame) Seed Extract, Rubus Fruticosus (Blackberry) Fruit Extract, Ribes Nigrum (Black Currant) Fruit Extract, Oryza Sativa (Rice) Extract, Nigella Sativa Seed Extract, Lepidium Meyenii Root Extract, Hordeum Vulgare Extract, Glycine Soja (Soybean) Seed Extract, Glycine Max (Soybean) Seed Extract, Allium Sativum (Garlic) Bulb Extract, Niacinamide, Menthol, Carbomer, Butylene Glycol, Triethanolamine, Citric Acid, Polysorbate 60, Phenoxyethanol, Sodium Citrate, Dipropylene Glycol."],
   "51": ["Diatomaceous Earth, Glucose, Algin, Calcium Sulfate, Aqua (Water), Sodium Benzoate, Sodium Dehydroacetate, Hydrolyzed Corn Starch, Lactobacillus/Punica Granatum Fruit Ferment Extract, Bacillus/Soybean Ferment Extract, Galactomyces Ferment Filtrate, Bifida Ferment Lysate, Chamaecyparis Obtusa Water, Aloe Barbadensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Oryza Sativa (Rice) Bran Extract, Gardenia Florida Fruit Extract, sh-Oligopeptide-1, sh-Oligopeptide-2, sh-Polypeptide-1, sh-Polypeptide-11, sh-Polypeptide-9, sh-Polypeptide-22, Glycerin, Ethylhexylglycerin, Menthol, 1,2-Hexanediol, Butylene Glycol, Tetrasodium Pyrophosphate, Dextrin."],
   "52": ["Aqua (Water), Glycerin, Dipropylene Glycol, Propanediol, Butylene Glycol, Niacinamide, 1,2-Hexanediol, Glycereth-26, Panthenol, Xylitol, Sodium DNA (1000 ppm), Ceramide NP, Phytosphingosine, Hydrolyzed Elastin, Hydrolyzed Collagen, Adenosine, Butyrospermum Parkii (Shea) Butter, Mentha Rotundifolia Leaf Extract, Camellia Sinensis Leaf Extract, Thymus Vulgaris (Thyme) Leaf Extract, Allantoin, Hydroxyethylcellulose, Arginine, Lavandula Angustifolia (Lavender) Oil, Ethylhexylglycerin, Pullulan, Xanthan Gum, Carbomer, Disodium EDTA, Methyl Diisopropyl Propionamide, Glyceryl Acrylate/Acrylic Acid Copolymer, PVM/MA Copolymer, Polyglyceryl-10 Laurate."],
+  "66": ["Aqua (Water), Sodium Cocoyl Glutamate, Cocamidopropyl Betaine, Glycerin, Butylene Glycol, Decyl Glucoside, Sodium Chloride, Lactobacillus Ferment Lysate, Epilobium Angustifolium Flower/Leaf/Stem Extract, Bifida Ferment Lysate, Cichorium Intybus (Chicory) Root Extract, Taraxacum Officinale (Dandelion) Rhizome/Root Extract, Ceramide NP, Ceramide AS, Ceramide AP, Ceramide NS, Ceramide EOP, Fructan, Anastatica Hierochuntica Extract, Phytosphingosine, Butyrospermum Parkii (Shea) Butter, Hydrogenated Lecithin, Glyceryl Stearate, Cholesterol, Ethylhexylglycerin, Dipropylene Glycol, Betaine, Arginine, Citric Acid, Hydroxyacetophenone, 1,2-Hexanediol, Disodium EDTA, Polyquaternium-67, Parfum (Fragrance)."],
 }
 
-export const SUPPRESSED_CARTON_INCI = new Set(["27","28","44","46","66"])
+export const SUPPRESSED_CARTON_INCI = new Set(["27","28","44","46"])
 
 type Translation = { ingredients?: string | null }
 type Card = { name?: string; description?: string; subList?: string[] }
@@ -41,6 +42,7 @@ export function applyCartonInciOverrides<T extends Record<string, Translation>>(
     } catch {
       continue
     }
+    const inciCards = cards.filter((card) => String(card?.name || '').toLowerCase().includes('inci'))
     const withoutInci = cards.filter((card) => !String(card?.name || '').toLowerCase().includes('inci'))
     if (SUPPRESSED_CARTON_INCI.has(productNumber)) {
       next[productNumber] = { ...translation, ingredients: JSON.stringify(withoutInci) }
@@ -50,7 +52,7 @@ export function applyCartonInciOverrides<T extends Record<string, Translation>>(
     if (!values) continue
     const fullCards = productNumber === '47'
       ? [{ name: 'Full INCI — Scalp Peeling α', description: values[0] }, { name: 'Full INCI — Hair Solution α', description: values[1] }]
-      : [{ name: 'Full INCI', description: values[0] }]
+      : [{ name: inciCards[0]?.name || 'Full INCI', description: values[0] }]
     next[productNumber] = { ...translation, ingredients: JSON.stringify([...withoutInci, ...fullCards]) }
   }
   return next as T

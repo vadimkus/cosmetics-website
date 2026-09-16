@@ -2,14 +2,7 @@ export const PRODUCT_66_RU_NAME = 'Гель для умывания CERABARRIER 
 export const PRODUCT_66_AR_NAME = 'جل تنظيف الوجه CERABARRIER BIOME'
 
 export const PRODUCT_66_FULL_INCI =
-  'Aqua (Water), Sodium Cocoyl Glutamate, Cocamidopropyl Betaine, Glycerin, Butylene Glycol, ' +
-  'Decyl Glucoside, Sodium Chloride, Lactobacillus Ferment Lysate, Epilobium Angustifolium ' +
-  'Flower/Leaf/Stem Extract, Bifida Ferment Lysate, Cichorium Intybus (Chicory) Root Extract, ' +
-  'Taraxacum Officinale (Dandelion) Rhizome/Root Extract, Ceramide NP, Ceramide AS, Ceramide AP, ' +
-  'Ceramide NS, Ceramide EOP, Fructan, Anastatica Hierochuntica Extract, Phytosphingosine, ' +
-  'Butyrospermum Parkii (Shea) Butter, Hydrogenated Lecithin, Glyceryl Stearate, Cholesterol, ' +
-  'Ethylhexylglycerin, Dipropylene Glycol, Betaine, Arginine, Citric Acid, Hydroxyacetophenone, ' +
-  '1,2-Hexanediol, Disodium EDTA, Polyquaternium-67, Parfum (Fragrance).'
+  "Aqua (Water), Sodium Cocoyl Glutamate, Cocamidopropyl Betaine, Glycerin, Butylene Glycol, Decyl Glucoside, Sodium Chloride, Lactobacillus Ferment Lysate, Epilobium Angustifolium Flower/Leaf/Stem Extract, Bifida Ferment Lysate, Cichorium Intybus (Chicory) Root Extract, Taraxacum Officinale (Dandelion) Rhizome/Root Extract, Ceramide NP, Ceramide AS, Ceramide AP, Ceramide NS, Ceramide EOP, Fructan, Anastatica Hierochuntica Extract, Phytosphingosine, Butyrospermum Parkii (Shea) Butter, Hydrogenated Lecithin, Glyceryl Stearate, Cholesterol, Ethylhexylglycerin, Dipropylene Glycol, Betaine, Arginine, Citric Acid, Hydroxyacetophenone, 1,2-Hexanediol, Disodium EDTA, Polyquaternium-67, Parfum (Fragrance)."
 
 export const PRODUCT_66_RU_TRANSLATION = {
   name: PRODUCT_66_RU_NAME,

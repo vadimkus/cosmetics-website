@@ -59,3 +59,18 @@ curl -s https://genosys.ae/products/60 | grep -o '<meta property="og:image"[^>]*
 ```
 
 Then re-share a product link in WhatsApp/Telegram (or use their link-preview debuggers) — previews now show the branded card. Social platforms cache OG images; previews of previously-shared URLs refresh on their own schedule.
+
+## 16 September 2026 — remove the empty white half
+
+Physical Threads preview showed that the original two-column card left most of
+the white information column unused below the price and stock line. The product
+photo was also smaller than the space reserved for it.
+
+The 1200×630 and 1200×600 renderers now share a cream outer canvas, a larger
+white packshot panel and a full-height graphite information panel. Category,
+shipping, name, price, availability and `genosys.ae` branding all sit inside
+that dark panel, so unused space reads as deliberate composition rather than a
+missing half-page.
+
+Product 45 was rendered locally from the production record and visually
+inspected before release.

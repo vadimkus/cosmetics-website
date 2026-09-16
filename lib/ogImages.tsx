@@ -85,7 +85,7 @@ export function renderFallbackOgImage(size: { width: number; height: number }) {
   )
 }
 
-/** Product share card: image left, name/price/availability right. */
+/** Product share card: product packshot beside a deliberate dark information panel. */
 export function renderProductOgImage(
   product: OgProduct,
   opts: { size: { width: number; height: number }; locale?: OgLocale } = { size: OG_SIZE }
@@ -103,20 +103,22 @@ export function renderProductOgImage(
           display: 'flex',
           width: '100%',
           height: '100%',
-          backgroundColor: '#ffffff',
-          position: 'relative',
+          backgroundColor: '#faf7f5',
+          padding: 30,
+          gap: 26,
         }}
       >
-        {/* Product image */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '45%',
+            width: 500,
             height: '100%',
-            backgroundColor: '#f8f9fa',
-            padding: '40px',
+            backgroundColor: '#ffffff',
+            border: '1px solid #e8e0db',
+            borderRadius: 28,
+            padding: 30,
           }}
         >
           {productImageUrl ? (
@@ -124,8 +126,8 @@ export function renderProductOgImage(
             <img
               src={productImageUrl}
               alt={product.name}
-              width={400}
-              height={400}
+              width={440}
+              height={440}
               style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }}
             />
           ) : (
@@ -134,11 +136,11 @@ export function renderProductOgImage(
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 300,
-                height: 300,
-                backgroundColor: '#e9ecef',
+                width: 360,
+                height: 360,
+                backgroundColor: '#f3ece8',
                 borderRadius: 16,
-                color: '#868e96',
+                color: '#665e59',
                 fontSize: 24,
               }}
             >
@@ -147,50 +149,71 @@ export function renderProductOgImage(
           )}
         </div>
 
-        {/* Product info */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            width: '55%',
+            flex: 1,
             height: '100%',
-            padding: '48px',
-            gap: '16px',
+            padding: 42,
+            backgroundColor: '#191716',
+            borderRadius: 28,
+            color: '#ffffff',
           }}
         >
-          {category && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
+          >
             <div
               style={{
                 display: 'flex',
                 fontSize: 16,
                 fontWeight: 600,
-                color: '#6b7280',
+                color: '#d9cec7',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
               }}
             >
-              {category}
+              {category || 'GENOSYS'}
             </div>
-          )}
+            <div
+              style={{
+                display: 'flex',
+                backgroundColor: '#f7ecec',
+                color: '#743f3f',
+                padding: '8px 15px',
+                borderRadius: 20,
+                fontSize: 14,
+                fontWeight: 700,
+              }}
+            >
+              {FREE_SHIPPING_LABEL[locale]}
+            </div>
+          </div>
 
           <div
             style={{
               display: 'flex',
-              fontSize: product.name.length > 60 ? 28 : 36,
+              fontSize: product.name.length > 60 ? 32 : 42,
               fontWeight: 700,
-              color: '#111827',
-              lineHeight: 1.2,
-              maxHeight: '180px',
+              color: '#ffffff',
+              lineHeight: 1.15,
+              maxHeight: 190,
               overflow: 'hidden',
+              marginTop: 34,
             }}
           >
             {product.name}
           </div>
 
           {price && (
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '8px' }}>
-              <span style={{ fontSize: 40, fontWeight: 800, color: '#1a1a2e' }}>{price}</span>
+            <div style={{ display: 'flex', alignItems: 'baseline', marginTop: 24 }}>
+              <span style={{ fontSize: 48, fontWeight: 800, color: '#ffffff' }}>{price}</span>
             </div>
           )}
 
@@ -199,7 +222,7 @@ export function renderProductOgImage(
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              marginTop: '4px',
+              marginTop: 18,
             }}
           >
             <div
@@ -208,10 +231,10 @@ export function renderProductOgImage(
                 width: 12,
                 height: 12,
                 borderRadius: '50%',
-                backgroundColor: inStock ? '#22c55e' : '#ef4444',
+                backgroundColor: inStock ? '#30d158' : '#ff453a',
               }}
             />
-            <span style={{ fontSize: 18, color: inStock ? '#16a34a' : '#dc2626', fontWeight: 500 }}>
+            <span style={{ fontSize: 18, color: inStock ? '#a8edbd' : '#ffb4ae', fontWeight: 600 }}>
               {inStock ? IN_STOCK_LABEL[locale] : OUT_OF_STOCK_LABEL[locale]}
             </span>
           </div>
@@ -222,32 +245,17 @@ export function renderProductOgImage(
               alignItems: 'center',
               gap: '12px',
               marginTop: 'auto',
-              paddingTop: '16px',
-              borderTop: '1px solid #e5e7eb',
+              paddingTop: 20,
+              borderTop: '1px solid #48413d',
             }}
           >
-            <span style={{ fontSize: 16, fontWeight: 600, color: '#6b7280' }}>
-              {FOOTER_LABEL[locale]}
+            <span style={{ fontSize: 22, fontWeight: 700, color: '#ffffff' }}>
+              genosys.ae
+            </span>
+            <span style={{ fontSize: 14, fontWeight: 500, color: '#b8ada6' }}>
+              {FOOTER_LABEL[locale].replace('GENOSYS Middle East | ', '')}
             </span>
           </div>
-        </div>
-
-        {/* Free shipping badge */}
-        <div
-          style={{
-            display: 'flex',
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            backgroundColor: '#1a1a2e',
-            color: 'white',
-            padding: '8px 16px',
-            borderRadius: 20,
-            fontSize: 14,
-            fontWeight: 600,
-          }}
-        >
-          {FREE_SHIPPING_LABEL[locale]}
         </div>
       </div>
     ),

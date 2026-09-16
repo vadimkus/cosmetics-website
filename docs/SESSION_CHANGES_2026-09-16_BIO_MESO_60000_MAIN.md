@@ -31,3 +31,10 @@ in-clinic application, how it works, clinical numbers, next step.
 
 DB `images` repointed with `scripts/set-product-60-slides-20260916.ts --apply`
 after the deploy. Old `S1-S6.jpeg` stay on disk.
+
+### Rolled back (21:33)
+
+Vadim asked for the original S1-S6 back. DB `images` restored to
+`6000/S1.jpeg`..`S6.jpeg`; `BioMesoExpertProductPage` inline figures and the
+4:3 frame reverted (`5a600fc1c`). The `S*-v2.jpeg` renders and the renderer
+script stay in the repo, unused. Main stays `main-v2.jpg`.

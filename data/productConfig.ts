@@ -649,7 +649,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '48': {
     id: '48',
     pricing: {
-      basePrice: 3300
+      basePrice: 6600
     },
     videoUrl: '/videos/gentron.mp4',
     documentation: [

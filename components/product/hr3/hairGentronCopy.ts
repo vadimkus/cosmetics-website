@@ -124,14 +124,14 @@ const EN: HairGenBoosterCopy = {
     eyebrow: 'What it costs to own',
     title: 'The helmet has no consumable. The handpiece does.',
     intro:
-      'Hair-GENTRON is AED 3,300 once. Nothing is replaced between sessions. HairGen BOOSTER is cheaper to buy and then costs a fresh ampoule and a fresh stamp every time you switch it on.',
+      'Hair-GENTRON is AED 6,600 once. Nothing is replaced between sessions. HairGen BOOSTER is cheaper to buy and then costs a fresh ampoule and a fresh stamp every time you switch it on.',
     rows: [
-      { label: 'Hair-GENTRON', value: 'AED 3,300', note: 'once · no consumable', here: true },
+      { label: 'Hair-GENTRON', value: 'AED 6,600', note: 'once · no consumable', here: true },
       { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'then AED 150 a session' },
       { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'roller + peeling + six vials' },
     ],
     body:
-      'After about nine HairGen sessions the consumables have already covered the gap between the two devices. Buy the helmet if you want a timed session with nothing to throw away. Buy the booster if you want the ampoule delivered through needles. The Mesopecia Kit is the manual version of that second idea.',
+      'After 32 HairGen sessions the consumables have covered the AED 4,800 gap between the two devices. Buy the helmet if you want a timed session with nothing to throw away. Buy the booster if you want the ampoule delivered through needles. The Mesopecia Kit is the manual version of that second idea.',
   },
 
   howTo: {
@@ -342,7 +342,7 @@ const AR: HairGenBoosterCopy = {
     intro:
       'Hair-GENTRON جهاز قابل لإعادة الاستخدام ولا يحتاج إلى أمبولة أو رأس جديد لكل جلسة. اختاريه إذا كنت تفضلين صيغة الخوذة الموقوتة ووظائف المساج والدفء.',
     rows: [
-      { label: 'Hair-GENTRON', value: '3,300 درهم', note: 'مرة · بلا مستهلك', here: true },
+      { label: 'Hair-GENTRON', value: '6,600 درهم', note: 'مرة · بلا مستهلك', here: true },
       { label: 'HairGen BOOSTER', value: '1,800 درهم', note: 'ثم 150 درهماً للجلسة' },
       { label: 'Mesopecia Kit', value: '1,100 درهم', note: 'رولر + تقشير + ست قارورات' },
     ],
@@ -557,7 +557,7 @@ const RU: HairGenBoosterCopy = {
     intro:
       'Hair-GENTRON рассчитан на многократное использование и не требует новой ампулы или насадки для каждого сеанса. Выбирайте его, если вам подходит формат шлема с таймером, массажем и нагревом.',
     rows: [
-      { label: 'Hair-GENTRON', value: 'AED 3,300', note: 'один раз · без расходника', here: true },
+      { label: 'Hair-GENTRON', value: 'AED 6,600', note: 'один раз · без расходника', here: true },
       { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'затем AED 150 за сеанс' },
       { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'роллер + пилинг + шесть флаконов' },
     ],

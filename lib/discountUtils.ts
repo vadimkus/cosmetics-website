@@ -25,6 +25,12 @@ const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
   '62': 1746,    // SENSITIVE SKIN BEAUTY BOX
 }
 
+// Hair-GENTRON has a public retail price and a fixed contractual Partner price.
+// Keep this narrow: other devices remain excluded from all account discounts.
+const HAIR_GENTRON_PRODUCT_NUMBER = '48'
+const HAIR_GENTRON_PARTNER_PRICE = 3300
+const PARTNER_DISCOUNT_THRESHOLD = 20
+
 /**
  * Calculates discounted price for a product based on multiple discount sources.
  * 
@@ -74,6 +80,26 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
         isBlackFriday: false,
         isBeautyBox: true
       }
+    }
+  }
+
+  const isPartnerAccount =
+    Boolean(user?.discountType) &&
+    (user?.discountPercentage ?? 0) >= PARTNER_DISCOUNT_THRESHOLD
+  if (product.productNumber === HAIR_GENTRON_PRODUCT_NUMBER && isPartnerAccount) {
+    const partnerPrice = Math.min(originalPrice, HAIR_GENTRON_PARTNER_PRICE)
+    const discountAmount = Math.round((originalPrice - partnerPrice) * 100) / 100
+    const discountPercentage = originalPrice > 0
+      ? Math.round((discountAmount / originalPrice) * 100)
+      : 0
+    return {
+      originalPrice,
+      discountedPrice: partnerPrice,
+      discountAmount,
+      discountPercentage,
+      hasDiscount: discountAmount > 0,
+      isBlackFriday: false,
+      isBeautyBox: false,
     }
   }
   

@@ -192,6 +192,62 @@ describe('discountUtils', () => {
       })
     })
 
+    describe('Hair-GENTRON partner pricing', () => {
+      const hairGentron = createMockProduct({
+        productNumber: '48',
+        name: 'Hair-GENTRON',
+        category: 'Device',
+        price: 6600,
+        noDiscount: true,
+      })
+
+      it('keeps the AED 6,600 retail price for regular customers', () => {
+        const regular = createMockUser({
+          discountType: 'percentage',
+          discountPercentage: 15,
+        })
+
+        const result = calculateDiscountedPrice(hairGentron, regular)
+
+        expect(result.discountedPrice).toBe(6600)
+        expect(result.hasDiscount).toBe(false)
+      })
+
+      it('uses the fixed AED 3,300 contractual price for Partner accounts', () => {
+        const partner = createMockUser({
+          discountType: 'CLINIC',
+          discountPercentage: 20,
+        })
+
+        const result = calculateDiscountedPrice(hairGentron, partner)
+
+        expect(result.originalPrice).toBe(6600)
+        expect(result.discountedPrice).toBe(3300)
+        expect(result.discountAmount).toBe(3300)
+        expect(result.discountPercentage).toBe(50)
+        expect(result.hasDiscount).toBe(true)
+      })
+
+      it('does not change the no-discount rule for other devices', () => {
+        const otherDevice = createMockProduct({
+          productNumber: '49',
+          name: 'GENO-LED IR II',
+          category: 'Device',
+          price: 5500,
+          noDiscount: true,
+        })
+        const partner = createMockUser({
+          discountType: 'CLINIC',
+          discountPercentage: 50,
+        })
+
+        const result = calculateDiscountedPrice(otherDevice, partner)
+
+        expect(result.discountedPrice).toBe(5500)
+        expect(result.hasDiscount).toBe(false)
+      })
+    })
+
     describe('excluded products', () => {
       it('does not apply any discount when noDiscount flag is true', () => {
         const product = createMockProduct({

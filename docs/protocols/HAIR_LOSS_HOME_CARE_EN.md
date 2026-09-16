@@ -180,8 +180,8 @@ Contains concentrated actives and application tools. Use as directed by your GEN
 | HR³ MATRIX MESOPECIA KIT | 1,100 AED |
 | HR³ MATRIX SCALP BRUSH | 50 AED |
 | HairGen BOOSTER | 1,800 AED |
-| Hair-GENTRON | 3,300 AED |
-| **Set Total** | **7,910 AED** |
+| Hair-GENTRON | 6,600 AED |
+| **Set Total** | **11,210 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

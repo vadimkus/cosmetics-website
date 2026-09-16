@@ -157,7 +157,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 | 1 | Microneedle Roller | 230 |
 | 2 | Needle Pen-K | 1,450 |
 | 3 | HairGen BOOSTER | 1,800 |
-| 48 | Hair-GENTRON | 3,300 |
+| 48 | Hair-GENTRON | 6,600 |
 | 49 | GENO-LED IR II | 5,500 |
 
 #### PRO Solutions (6 products)

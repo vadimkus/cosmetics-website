@@ -728,7 +728,7 @@ export const products: Product[] = [
   {
     id: '48',
     name: 'Hair-GENTRON',
-    price: 3300,
+    price: 6600,
     description: 'An LED helmet for the scalp with air-pressure massage and a heating function, on a separate controller. Four light modes - red with infrared, blue, off, or all three together - and a timer set to ten, twenty or thirty minutes; the helmet switches itself off at the end. It weighs 1.0 kg and runs from the USB-C adaptor in the box or from four AA batteries, which are not included. Korea and the EU certify it as a household massage appliance under IEC/EN 60335-2-32; it is not a medical or phototherapy device, and it is not registered to treat hair loss. No efficacy study for this device is held, and the sales brochure\'s claims about the hair cycle are not carried. Model HGHY01, DTS MG Co., Ltd., made in Korea.',
     image: '/images/gen.jpg',
     images: null,

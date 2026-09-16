@@ -134,6 +134,11 @@ PARTS = {
     "58": [
         (0.300, 0.210, 0.775, 0.805, "keypaper"),
     ],
+    # Box and four syringes (main-v2): Vision keeps the box and drops the
+    # white syringes. Re-traced on their own crop.
+    "60": [
+        (0.465, 0.270, 0.905, 0.885, "vision"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.
@@ -170,6 +175,9 @@ REVISION = {
     # New kit shot (main-v2.jpg, 16 Sep 2026): five products in front of the
     # Beauty Box, replacing the August arrangement the first cut-out traced.
     "58": 2,
+    # New render (main-v2.jpg, 16 Sep 2026): same box-and-four-syringes layout
+    # on a flat white field, replacing the July glossy-floor shot.
+    "60": 2,
     # New campaign packshot: closed box and vial on white, replacing the
     # squared studio-sweep shot.
     "7": 2,

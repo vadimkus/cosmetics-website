@@ -562,11 +562,11 @@
   {
     "product": "60",
     "status": "ok",
-    "source": "/images/6000/main.jpg",
-    "file": "/images/cutout/60.webp",
+    "source": "/images/6000/main-v2.jpg",
+    "file": "/images/cutout/60-v2.webp",
     "name": "Bio Meso PDRN Ampoule 60000",
-    "coverage": 0.237,
-    "bytes": 19288,
+    "coverage": 0.411,
+    "bytes": 70256,
     "review": false
   },
   {

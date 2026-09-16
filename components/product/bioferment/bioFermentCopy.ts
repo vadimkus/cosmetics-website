@@ -336,9 +336,9 @@ const EN: BioFermentCopy = {
     eyebrow: 'What is in it',
     title: 'The formula, with the figures.',
     intro:
-      'The cards below are the parts of the jar that do the work. The complete registered INCI is under the list.',
+      'The cards below are the parts of the jar that do the work. The complete current-jar INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'Every ingredient, straight from the registered formula.',
+    inciNote: 'Every ingredient, in the order printed on the current jar.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -553,9 +553,9 @@ const AR: BioFermentCopy = {
     eyebrow: 'ماذا فيه',
     title: 'التركيبة، بالأرقام.',
     intro:
-      'البطاقات أدناه هي أجزاء العبوة التي تعمل. قائمة INCI المسجّلة كاملة تحتها.',
+      'البطاقات أدناه هي أجزاء العبوة التي تعمل. قائمة INCI المطبوعة على العبوة الحالية كاملة تحتها.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-    inciNote: 'كل مكوّن، كما هو في التركيبة المسجّلة.',
+    inciNote: 'كل مكوّن، بالترتيب المطبوع على العبوة الحالية.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -770,9 +770,9 @@ const RU: BioFermentCopy = {
     eyebrow: 'Что внутри',
     title: 'Формула, с цифрами.',
     intro:
-      'Карточки ниже - те части банки, которые работают. Полный зарегистрированный INCI - под списком.',
+      'Карточки ниже - те части банки, которые работают. Полный INCI с актуальной банки - под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
-    inciNote: 'Каждый ингредиент, прямо из зарегистрированной формулы.',
+    inciNote: 'Каждый ингредиент в порядке, напечатанном на актуальной банке.',
   },
   suited: {
     eyebrow: 'Тебе подойдёт',

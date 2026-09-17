@@ -11,7 +11,19 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🔴 **Source audit** | [50-product carton INCI audit](./FULL_INCI_COVERAGE_LIST.md) | All 50 cosmetic records now have packaging-grounded INCI: **49 public lists** plus one hidden/discontinued record, none withheld, with clean EN/RU/AR runtime parity. |
+| 🟡 **Important** | [RAKEZ Restated MOA pack](./SESSION_CHANGES_2026-09-17_RAKEZ_RESTATED_MOA.md) | Ticket **#1660275**. Board resolution + filled licensing form in `~/Desktop/MOA`. Sign/stamp, then reply for AED 1,500 payment link. |
 | 🟢 **Mobile auth** | [Google profile photo refresh](./SESSION_CHANGES_2026-09-16_GOOGLE_PROFILE_PHOTO_REFRESH.md) | Mobile Google login refreshes changed Google-hosted avatars while preserving customer-uploaded GENOSYS photos. |
+| 🟢 **App / web** | [Account photo and rewards bar](./SESSION_CHANGES_2026-09-16_ACCOUNT_PHOTO_AND_REWARDS_BAR.md) | Silver-by-orders no longer hides the Gold spend bar. App photo restore is in the mobile repo. |
+| ⚪ Desktop | [Hair Tonic doctor protocol](./SESSION_CHANGES_2026-09-16_HAIR_TONIC_DOCTOR_PROTOCOL.md) | Product **43**. Doctor WhatsApp in chat. PDF `~/Desktop/orders/GENOSYS_Hair_Tonic_Use_Protocol.pdf`. Leave-on scalp toner. Not a hair-loss medicine. Not printed. |
+| 🟡 **Important** | [Persona Marina demand 06881](./SESSION_CHANGES_2026-09-16_PERSONA_MARINA_DEMAND_06881.md) | Demand **06881** / **1,285 AED** agr. **00024**. Snow 180 ×2, PDRN pack ×3, Hydro 50g ×1, Radiance 230g ×1. Stock note `~/Desktop/orders/`. |
+| 🟡 **Important** | [Stripe link 2010 Borsheva](./SESSION_CHANGES_2026-09-16_STRIPE_PAYMENT_LINK_2010_BORSHEVA.md) | Stripe 2,010 AED for **05081**. MoySklad PAY **06254** posted 16 Sep. |
+| 🟡 **Important** | [Dr Borsheva 05081 paid](./SESSION_CHANGES_2026-09-16_BORSHEVA_05081.md) | INV **05081** / SHIP **06879** / PAY **06254** / **2,010 AED**. SO **GENCardM260916BORS** **Доставлен**. |
+| 🟡 **Important** | [Miss Aigul 05080 paid](./SESSION_CHANGES_2026-09-16_MISS_AIGUL_05080.md) | INV **05080** / SHIP **06878** / PAY **06251** / **315 AED**. SO **GENCardM260916AIGUL** **Доставлен**. |
+| 🟡 **Important** | [Stripe link 315 Aigul](./SESSION_CHANGES_2026-09-16_STRIPE_PAYMENT_LINK_315_AIGUL.md) | Stripe 315 AED for **05080**. MoySklad PAY **06251** posted 16 Sep. |
+| 🟡 **Important** | [Salary September 36,000 Sagatdinov](./SESSION_CHANGES_2026-09-16_SALARY_SEP_36000.md) | Paymentout **00707** / **36,000 AED** → Vadim Sagatdinov (expense Salary). |
+| 🟡 **Important** | [Stripe link 445 Berkana](./SESSION_CHANGES_2026-09-16_STRIPE_PAYMENT_LINK_445_BERKANA.md) | Stripe 445 AED for **05079**. MoySklad PAY **06253** posted 16 Sep. |
+| 🟡 **Important** | [Berkana 05079 paid](./SESSION_CHANGES_2026-09-16_BERKANA_05079.md) | INV **05079** / SHIP **06877** / PAY **06253** / **445 AED**. SO **GENCardM260916BRKN** **Доставлен**. |
+| 🟡 **Important** | [BELLECHIK 05078 paid](./SESSION_CHANGES_2026-09-16_BELLECHIK_HAIR_TONIC_05078.md) | INV **05078** / SHIP **06876** / PAY **06255** / **1,450 AED**. SO **GENCardM260916BLCHT** **Доставлен**. Bank **MLEC16092621366833**. |
 | 🟢 **Pricing** | [Hair-GENTRON retail 6,600 / Partner 3,300](./SESSION_CHANGES_2026-09-16_HAIR_GENTRON_RETAIL_6600.md) | Product **48** public price and default variant set to **6,600 AED**; fixed Professional Partner price **3,300 AED**. Static config, PDP ownership copy, chatbot and protocol totals aligned. |
 | 🟡 **Important** | [DEWA September 00706](./SESSION_CHANGES_2026-09-16_DEWA_SEPTEMBER_PAYMENTOUT.md) | Paymentout **00706** / **2,187.17 AED** → DEWA (acct **20492098866**, txn NPIB…115484600, Apple Pay 15 Sep). |
 | 🟡 **Important** | [XCON demand 06875](./SESSION_CHANGES_2026-09-15_XCON_DEMAND_06875.md) | Demand **06875** / **1,345 AED** agr. **00036**. Snow 180 ×2, booster 200 ×2, overnight ×2, radiance serum ×1, EPI ×2. Stock note printed landscape (`lp` 4225). |
@@ -22,7 +34,8 @@
 | 🟡 **Important** | [Stripe link 995 Serene](./SESSION_CHANGES_2026-09-15_STRIPE_PAYMENT_LINK_995_SERENE.md) | Stripe 995 AED for **01467**. MoySklad PAY **06249** posted 16 Sep. |
 | ⚪ Desktop | [Abdullah SWS protocol](./SESSION_CHANGES_2026-09-15_ABDULLAH_SWS_PROTOCOL.md) | INV **05067** SWS 2 ml × 10. Full EN reply in chat. PDF `~/Desktop/orders/GENOSYS_SWS_Use_Protocol.pdf`. Leave-on, not injectable, not a dermapen. Not printed. |
 | 🟡 **Important** | [Eclatant Leo AFS+MF return 00311](./SESSION_CHANGES_2026-09-15_ECLATANT_AFS_MF_RETURN.md) | Return **00311** / **990 AED** agr. **18**. AFS `00030` ×4 + MF serum `00191` ×2 expired. Loss **00008-00515** / **229.14** buy. PDF `~/Desktop/orders/`. |
-| ⚪ Desktop | [Tatyana insta + video Ai removed](./SESSION_CHANGES_2026-09-16_TATYANA_INSTA_AI.md) | Stills `1–4.png` + `video.mp4` 15s 1440² H.264. Orig `video_orig.mp4` / `_ai_backup/`. |
+| ⚪ Desktop | [Quote poster Лучший способ](./SESSION_CHANGES_2026-09-16_LUCHSHIY_SPOSOB_PROZHIT.md) | `~/Desktop/luchshiy_sposob_prozhit.jpg` — header flipped to ЛУЧШИЙ СПОСОБ / ПРОЖИТЬ. Orig kept. |
+| ⚪ Desktop | [Tatyana insta + video Ai removed](./SESSION_CHANGES_2026-09-16_TATYANA_INSTA_AI.md) | Stills `1–9.png` (2560² on 5–9) + `video.mp4` 15s 1440² H.264. Orig `video_orig.mp4` / `_ai_backup/`. |
 | ⚪ Desktop | [Ballet reel Ai removed](./SESSION_CHANGES_2026-09-15_BALLEY_REEL_AI_MARK.md) | `~/Desktop/create_balley_style_ad_for_insta_reels.mp4` clean 20s 960². Orig kept as `_orig`. |
 | 🟡 **Important** | [Admin Shakirovna mix 05077](./SESSION_CHANGES_2026-09-15_ADMIN_SHAKIROVNA_05077.md) | INV **05077** / SHIP **06873** / SO **GENCardM260915SHKMIX** / **690 AED** unpaid. Ivory + Camel + Beige + mist + radiance 50g + delivery 15. PDF `~/Desktop/orders/`. |
 | 🟡 **Important** | [Admin Shakirovna beige 05076](./SESSION_CHANGES_2026-09-15_ADMIN_SHAKIROVNA_05076.md) | INV **05076** / SHIP **06872** / PAY **06247** / **165 AED**. Beige `00144` ×1 @ 150 + delivery 15. SO **Доставлен**. PDF `~/Desktop/orders/`. |

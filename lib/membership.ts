@@ -28,11 +28,17 @@ export function nextTierInfo(tier: MemberTier, totalSpent: number) {
   const threshold = TIER_THRESHOLDS[next].spent
   const currentThreshold = TIER_THRESHOLDS[tier].spent
   const range = threshold - currentThreshold
-  const progress = Math.min(totalSpent - currentThreshold, range)
+  // Order-count promotions can sit below the current tier's spend floor.
+  // Measure those against the next threshold so AED 432 / AED 5,000 is 9%,
+  // not a negative percent that the client clamps to an invisible bar.
+  const fromZero = totalSpent < currentThreshold
+  const raw = fromZero
+    ? (threshold > 0 ? totalSpent / threshold : 0)
+    : (range > 0 ? (totalSpent - currentThreshold) / range : 0)
   return {
     nextTier: next,
     nextTierAt: threshold,
-    progressPercent: range > 0 ? Math.round((progress / range) * 100) : 0,
+    progressPercent: Math.max(0, Math.min(100, Math.round(raw * 100))),
   }
 }
 

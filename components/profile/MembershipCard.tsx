@@ -137,10 +137,22 @@ export default function MembershipCard() {
                 {progress.nextTierAt.toLocaleString()}
               </span>
             </div>
-            <div className="w-full h-2 bg-[var(--cera-cream-deep)] rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-[var(--cera-line)] rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${style.bar} transition-all`}
-                style={{ width: `${Math.min(progress.progressPercent, 100)}%` }}
+                style={{
+                  width: `${Math.max(
+                    progress.currentSpent > 0 ? 8 : 0,
+                    Math.min(
+                      100,
+                      progress.progressPercent > 0
+                        ? progress.progressPercent
+                        : progress.nextTierAt > 0
+                          ? (progress.currentSpent / progress.nextTierAt) * 100
+                          : 0,
+                    ),
+                  )}%`,
+                }}
               />
             </div>
           </div>

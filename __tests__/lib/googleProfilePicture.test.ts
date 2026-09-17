@@ -36,3 +36,31 @@ describe('Google profile picture refresh', () => {
     expect(shouldRefreshGoogleProfilePicture(current, current)).toBe(false)
   })
 })
+
+import { isGoogleDefaultAvatar, isGoogleDefaultAvatarSize } from '@/lib/googleProfilePicture'
+
+describe('isGoogleDefaultAvatar', () => {
+  const fake = (bytes: number, ok = true) =>
+    (async () =>
+      ({
+        ok,
+        headers: new Headers({ 'content-length': String(bytes) }),
+        arrayBuffer: async () => new ArrayBuffer(bytes),
+      }) as unknown as Response) as unknown as typeof fetch
+
+  it('flags the 567-byte blue silhouette Google serves for photo-less accounts', async () => {
+    expect(isGoogleDefaultAvatarSize(567)).toBe(true)
+    expect(await isGoogleDefaultAvatar('https://lh3.googleusercontent.com/a-/x=s96-c', fake(567))).toBe(true)
+  })
+
+  it('accepts a real portrait', async () => {
+    expect(isGoogleDefaultAvatarSize(7974)).toBe(false)
+    expect(await isGoogleDefaultAvatar('https://lh3.googleusercontent.com/a/y=s96-c', fake(7974))).toBe(false)
+  })
+
+  it('never blocks a refresh on a fetch failure', async () => {
+    const failing = (async () => { throw new Error('offline') }) as unknown as typeof fetch
+    expect(await isGoogleDefaultAvatar('https://lh3.googleusercontent.com/a/z', failing)).toBe(false)
+    expect(await isGoogleDefaultAvatar('https://lh3.googleusercontent.com/a/z', fake(0, false))).toBe(false)
+  })
+})

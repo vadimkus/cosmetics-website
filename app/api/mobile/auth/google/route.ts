@@ -8,7 +8,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import { generateMemberNumber } from '@/lib/membership'
-import { shouldRefreshGoogleProfilePicture } from '@/lib/googleProfilePicture'
+import { isGoogleDefaultAvatar, shouldRefreshGoogleProfilePicture } from '@/lib/googleProfilePicture'
 
 export const maxDuration = 30
 
@@ -237,8 +237,15 @@ export async function POST(request: NextRequest) {
         debugLog('[MOBILE_AUTH] Refreshing Google profile picture for existing user...')
         try {
           const googlePicture = String(googleUser.picture).trim()
-          await updateUser(user.id, { profilePicture: googlePicture })
-          user.profilePicture = googlePicture
+          // Never replace a real stored photo with Google's blue placeholder
+          // (account without a photo, or photo visibility restricted).
+          const hadPhoto = typeof user.profilePicture === 'string' && user.profilePicture.trim()
+          if (hadPhoto && (await isGoogleDefaultAvatar(googlePicture))) {
+            debugLog('[MOBILE_AUTH] Google returned a default avatar; keeping the stored photo')
+          } else {
+            await updateUser(user.id, { profilePicture: googlePicture })
+            user.profilePicture = googlePicture
+          }
         } catch (error) {
           errorLog('[MOBILE_AUTH] Error updating profile picture:', error)
           // Don't fail login if profile picture update fails

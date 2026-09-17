@@ -101,17 +101,24 @@ export function explodeBeautyBoxItem(item: {
   quantity: number
   color?: string | null
   discountPercent?: number
+  /** Website paid unit price for the box. Wins over a flat 15% when the kit value drifted. */
+  soldUnitPrice?: number
 }): ExplodedMoySkladLine[] {
   const key = resolveBeautyBoxKey(item.productName)
   if (!key) return []
 
   const boxQty = item.quantity || 1
-  const discountPercent = item.discountPercent && item.discountPercent > 0
-    ? item.discountPercent
-    : BEAUTY_BOX_DISCOUNT_PERCENT
-
   const components = BEAUTY_BOX_COMPONENTS[key]
   if (!components) return []
+
+  const componentSum = components.reduce((sum, spec) => sum + spec.qty * spec.retailPriceAed, 0)
+  const sold = item.soldUnitPrice
+  const discountPercent =
+    sold != null && sold > 0 && componentSum > 0
+      ? 100 * (1 - sold / componentSum)
+      : item.discountPercent && item.discountPercent > 0
+        ? item.discountPercent
+        : BEAUTY_BOX_DISCOUNT_PERCENT
 
   return components.map((spec) => {
     const line: ExplodedMoySkladLine = {

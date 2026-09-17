@@ -761,6 +761,7 @@ export async function createMoySkladOrder(
           quantity: item.quantity,
           ...(item.color != null ? { color: item.color } : {}),
           ...(discountPercent != null ? { discountPercent } : {}),
+          ...(item.price > 0 ? { soldUnitPrice: item.price } : {}),
         })) {
           const mapped: LineToMap = {
             productName: exploded.productName,

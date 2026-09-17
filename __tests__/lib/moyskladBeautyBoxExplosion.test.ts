@@ -19,6 +19,16 @@ describe('moyskladBeautyBoxExplosion', () => {
     expect(sumExplodedLinesAed(lines)).toBeCloseTo(1120.3, 1)
   })
 
+  it('scales Sensitive Skin box to the live 1442 AED website price', () => {
+    const lines = explodeBeautyBoxItem({
+      productName: 'SENSITIVE SKIN BEAUTY BOX',
+      quantity: 1,
+      soldUnitPrice: 1442,
+    })
+    expect(sumExplodedLinesAed(lines)).toBeCloseTo(1442, 2)
+    expect(sumExplodedLinesAed(lines)).not.toBeCloseTo(1484.1, 1)
+  })
+
   it('matches Liudmila Stepanova GENCardM2606211312 cart total', () => {
     const boxLines = explodeBeautyBoxItem({
       productName: 'DEEP MOISTURIZING BEAUTY BOX',

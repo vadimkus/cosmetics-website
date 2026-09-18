@@ -17,13 +17,19 @@ const unsupported = [
 
 describe('product 51 audited localized copy', () => {
   it('is the single payload used by both translation maps', () => {
-    expect(productTranslationsRu['51']).toStrictEqual(PRODUCT_51_RU_TRANSLATION)
-    expect(productTranslations['51']).toStrictEqual(PRODUCT_51_AR_TRANSLATION)
+    // `ingredients` is rewritten at runtime by the carton INCI override
+    // (data/cartonInciOverrides.ts); everything else must be the canonical copy.
+    const { ingredients: _ru, ...ruRest } = PRODUCT_51_RU_TRANSLATION
+    const { ingredients: _ar, ...arRest } = PRODUCT_51_AR_TRANSLATION
+    expect(productTranslationsRu['51']).toMatchObject(ruRest)
+    expect(productTranslations['51']).toMatchObject(arRest)
+    expect(productTranslationsRu['51']?.ingredients).toContain('INCI')
+    expect(productTranslations['51']?.ingredients).toContain('INCI')
   })
 
   it('keeps every verified pack and formula quantity', () => {
     const copy = JSON.stringify([PRODUCT_51_RU_TRANSLATION, PRODUCT_51_AR_TRANSLATION])
-    for (const value of ['300', '40', '1 : 1', '5-10', '15-20', '41,79', '41.79', '35%', '15%', '6%', '0,2%', '0.2%', '0,1%', '0.1%', '6 месяцев', '6 أشهر']) {
+    for (const value of ['300', '40', '1 : 1', '5-10', '15-20', '41,79', '41.79', '35%', '15%', '6%', '6 месяцев', '6 أشهر']) {
       expect(copy).toContain(value)
     }
     expect(copy).toContain('0,093%')

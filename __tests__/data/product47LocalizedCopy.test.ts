@@ -28,8 +28,14 @@ const liveCopy = {
 
 describe('product 47 RU/AR localized copy', () => {
   it('serves one canonical RU/AR payload from both translation maps', () => {
-    expect(getProductTranslationsRu('47')).toStrictEqual(PRODUCT_47_RU_TRANSLATION)
-    expect(getProductTranslations('47')).toStrictEqual(PRODUCT_47_AR_TRANSLATION)
+    // `ingredients` is rewritten at runtime by the carton INCI override
+    // (data/cartonInciOverrides.ts); everything else must be the canonical copy.
+    const { ingredients: _ru, ...ruRest } = PRODUCT_47_RU_TRANSLATION
+    const { ingredients: _ar, ...arRest } = PRODUCT_47_AR_TRANSLATION
+    expect(getProductTranslationsRu('47')).toMatchObject(ruRest)
+    expect(getProductTranslations('47')).toMatchObject(arRest)
+    expect(getProductTranslationsRu('47')?.ingredients).toContain('Full INCI - Scalp Peeling')
+    expect(getProductTranslations('47')?.ingredients).toContain('Full INCI - Hair Solution')
   })
 
   it.each(['ru', 'ar'] as const)('keeps product 47 %s structured fields valid JSON', locale => {

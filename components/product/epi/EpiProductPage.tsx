@@ -94,11 +94,11 @@ interface ActiveIngredient {
 }
 
 /** Section art, each slide paired with the section it illustrates. From the
- *  Sep 2026 set (epi_peel_o): S3 "3% cellulose, zero attachment issues" is
- *  the what-it-does slide, S8 "One minute. No closure needed." is the ritual.
+ *  Sep 2026 set (epi_peel_o): s3 "3% cellulose, zero attachment issues" is
+ *  the what-it-does slide, s8 "One minute. No closure needed." is the ritual.
  *  The engine figure stays on the tube packshot. */
-const EFFECTS_IMAGE = '/images/epi_peel_o/S3.jpeg'
-const HOWTO_IMAGE = '/images/epi_peel_o/S8.jpeg'
+const EFFECTS_IMAGE = '/images/epi_peel_o/s3.jpg'
+const HOWTO_IMAGE = '/images/epi_peel_o/s8.jpg'
 const ENGINE_IMAGE = '/images/epi_peel_o/Main.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {

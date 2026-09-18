@@ -55,3 +55,12 @@ The render printed **50 g**; the product is **100 g** (DB size, description, Int
 `EPI TURNOVER BOOSTING PEELING GEL 100g_container.png`), so the figure was retouched
 to 100 g before export (`Closing_100g.png`, untracked). Everything else on the card
 matches the carton: EPG line, dermatologically tested, South Korea.
+
+## Full 12-slide set (13:36)
+
+Vadim delivered the complete set as `s1.jpg`-`s12.jpg` (1254/1170 square, 113-224 KB,
+used as-is) and removed the interim `S1`-`S9.jpeg`. Sequence matches the locked list
+01-12; `s12` is the Good riddance closing card and already reads 100 G. `Main.jpeg` kept.
+DB `images` -> s1-s12; `lib/products.ts` fallback and `EpiProductPage` inline figures
+(s3 effects, s8 ritual) repointed. Lowercase `.jpg` names differ from the earlier
+`S*.jpeg`, so the one-year immutable cache is not an issue.

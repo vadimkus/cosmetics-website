@@ -17,8 +17,8 @@ const unsupported = [
 
 describe('product 51 audited localized copy', () => {
   it('is the single payload used by both translation maps', () => {
-    expect(productTranslationsRu['51']).toBe(PRODUCT_51_RU_TRANSLATION)
-    expect(productTranslations['51']).toBe(PRODUCT_51_AR_TRANSLATION)
+    expect(productTranslationsRu['51']).toStrictEqual(PRODUCT_51_RU_TRANSLATION)
+    expect(productTranslations['51']).toStrictEqual(PRODUCT_51_AR_TRANSLATION)
   })
 
   it('keeps every verified pack and formula quantity', () => {

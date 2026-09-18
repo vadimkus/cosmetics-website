@@ -28,8 +28,8 @@ const liveCopy = {
 
 describe('product 47 RU/AR localized copy', () => {
   it('serves one canonical RU/AR payload from both translation maps', () => {
-    expect(getProductTranslationsRu('47')).toBe(PRODUCT_47_RU_TRANSLATION)
-    expect(getProductTranslations('47')).toBe(PRODUCT_47_AR_TRANSLATION)
+    expect(getProductTranslationsRu('47')).toStrictEqual(PRODUCT_47_RU_TRANSLATION)
+    expect(getProductTranslations('47')).toStrictEqual(PRODUCT_47_AR_TRANSLATION)
   })
 
   it.each(['ru', 'ar'] as const)('keeps product 47 %s structured fields valid JSON', locale => {

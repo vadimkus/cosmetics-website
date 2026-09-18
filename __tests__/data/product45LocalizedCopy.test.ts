@@ -16,8 +16,8 @@ const combined = JSON.stringify({
 
 describe('product 45 RU/AR localized copy', () => {
   it('is wired into both translation maps', () => {
-    expect(productTranslations['45']).toBe(PRODUCT_45_AR_TRANSLATION)
-    expect(productTranslationsRu['45']).toBe(PRODUCT_45_RU_TRANSLATION)
+    expect(productTranslations['45']).toStrictEqual(PRODUCT_45_AR_TRANSLATION)
+    expect(productTranslationsRu['45']).toStrictEqual(PRODUCT_45_RU_TRANSLATION)
   })
 
   it('uses the registered 4 ml × 8 format and immediate-use rule', () => {

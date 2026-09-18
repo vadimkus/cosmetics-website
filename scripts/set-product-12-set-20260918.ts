@@ -2,9 +2,9 @@ import { prisma } from '@/lib/prisma'
 
 // Product 12, EPI TURNOVER BOOSTING PEELING GEL: Sep 2026 campaign set.
 // Main = padded tube packshot; S1-S8 in Vadim's locked sequence (01-08 of 12,
-// slides 09-12 not yet delivered). Run after the deploy carrying the files.
+// slides 09-12 not yet delivered); S9 = closing card, added 18 Sep 12:00. Run after the deploy carrying the files.
 const MAIN = '/images/epi_peel_o/Main.jpeg'
-const SLIDES = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `/images/epi_peel_o/S${n}.jpeg`)
+const SLIDES = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `/images/epi_peel_o/S${n}.jpeg`)
 const apply = process.argv.includes('--apply')
 
 async function main() {

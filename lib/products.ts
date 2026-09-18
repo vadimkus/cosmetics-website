@@ -188,6 +188,7 @@ export const products: Product[] = [
       '/images/epi_peel_o/S6.jpeg',
       '/images/epi_peel_o/S7.jpeg',
       '/images/epi_peel_o/S8.jpeg',
+      '/images/epi_peel_o/S9.jpeg',
     ]),
     category: 'Peeling',
     inStock: true,

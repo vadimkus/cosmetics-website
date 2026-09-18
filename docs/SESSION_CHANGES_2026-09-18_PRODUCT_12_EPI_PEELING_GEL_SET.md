@@ -47,3 +47,11 @@ TURNOVER BOOSTING PEELING GEL.pdf`
 - `EpiProductPage`: EFFECTS = S3 (cellulose), HOWTO = S8 (ritual), ENGINE = Main.
 - Cut-out `cutout/12-v2.webp` (REVISION 12 -> 2), clean single-pass trace.
 - Old `epi/` files stay on disk for historical order items.
+
+## Closing card (12:04)
+
+`Closing.png` (2560 square) added as `S9.jpeg` (1600, q88) at the end of the gallery.
+The render printed **50 g**; the product is **100 g** (DB size, description, Intertek
+`EPI TURNOVER BOOSTING PEELING GEL 100g_container.png`), so the figure was retouched
+to 100 g before export (`Closing_100g.png`, untracked). Everything else on the card
+matches the carton: EPG line, dermatologically tested, South Korea.

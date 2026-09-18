@@ -93,14 +93,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s5 is the
- *  smooth-not-stripped results slide, s4 the once-or-twice-weekly how-to.
- *  s1 still carries the old "without irritation" line and is queued for
- *  re-export; the editorial copy does not repeat it. The engine figure
- *  stays on the tube packshot. */
-const EFFECTS_IMAGE = '/images/epi/s5.jpeg'
-const HOWTO_IMAGE = '/images/epi/s4.jpeg'
-const ENGINE_IMAGE = '/images/epi/main.jpeg'
+/** Section art, each slide paired with the section it illustrates. From the
+ *  Sep 2026 set (epi_peel_o): S3 "3% cellulose, zero attachment issues" is
+ *  the what-it-does slide, S8 "One minute. No closure needed." is the ritual.
+ *  The engine figure stays on the tube packshot. */
+const EFFECTS_IMAGE = '/images/epi_peel_o/S3.jpeg'
+const HOWTO_IMAGE = '/images/epi_peel_o/S8.jpeg'
+const ENGINE_IMAGE = '/images/epi_peel_o/Main.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

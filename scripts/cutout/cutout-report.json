@@ -32,11 +32,11 @@
   {
     "product": "12",
     "status": "ok",
-    "source": "/images/epi/main.jpeg",
-    "file": "/images/cutout/12.webp",
+    "source": "/images/epi_peel_o/Main.jpeg",
+    "file": "/images/cutout/12-v2.webp",
     "name": "EPI TURNOVER BOOSTING PEELING GEL",
-    "coverage": 0.227,
-    "bytes": 21468,
+    "coverage": 0.231,
+    "bytes": 39788,
     "review": false
   },
   {

@@ -178,6 +178,9 @@ REVISION = {
     # New render (main-v2.jpg, 16 Sep 2026): same box-and-four-syringes layout
     # on a flat white field, replacing the July glossy-floor shot.
     "60": 2,
+    # New packshot (epi_peel_o/Main.jpeg, 18 Sep 2026): tube padded square on
+    # white, replacing the epi/main.jpeg render.
+    "12": 2,
     # New campaign packshot: closed box and vial on white, replacing the
     # squared studio-sweep shot.
     "7": 2,

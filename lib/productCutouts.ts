@@ -43,7 +43,7 @@ const CUTOUTS: Record<string, string> = {
   // 11 SKIN DEFENDER LIP & EYE MAKEUP REMOVER
   '/images/defender_0/Main.jpeg': '/images/cutout/11.webp',
   // 12 EPI TURNOVER BOOSTING PEELING GEL
-  '/images/epi/main.jpeg': '/images/cutout/12.webp',
+  '/images/epi_peel_o/Main.jpeg': '/images/cutout/12-v2.webp',
   // 13 SKIN RENEWAL PEELING SYSTEM (SRS)
   '/images/srs_2_new/main.jpeg': '/images/cutout/13.webp',
   // 14 MICROBIOME ENERGY INFUSING MIST

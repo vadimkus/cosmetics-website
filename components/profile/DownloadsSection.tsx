@@ -280,7 +280,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/12">
                   <Image
-                    src="/images/epi/main.jpeg"
+                    src="/images/epi_peel_o/Main.jpeg"
                     alt="EPI TURNOVER BOOSTING PEELING GEL"
                     width={500}
                     height={300} 

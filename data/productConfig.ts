@@ -166,15 +166,10 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '12': {
     id: '12',
+    // Gallery migrated to DB-only 2026-09-18 (product.image /images/epi_peel_o/
+    // Main.jpeg + images S1-S8). Config wins over DB, so the old epi/s1-s6 list
+    // had to go for the new set to show.
     videoUrl: '/videos/epi.mp4',
-    images: [
-      '/images/epi/s1.jpeg',
-      '/images/epi/s2.jpeg',
-      '/images/epi/s3.jpeg',
-      '/images/epi/s4.jpeg',
-      '/images/epi/s5.jpeg',
-      '/images/epi/s6.jpeg',
-    ],
     pricing: {
       basePrice: 250
     },

@@ -1,4 +1,26 @@
 import type { SeoLandingPage } from './seoLandingPages'
+import { b2bLinksExcept } from './seoLandingPages'
+
+const CLINIC_ACCOUNT_WHATSAPP_RU =
+  'https://wa.me/971585487665?text=' +
+  encodeURIComponent('Здравствуйте, GENOSYS. У меня клиника/салон в ОАЭ, хочу открыть профессиональный аккаунт и получить оптовый прайс-лист.')
+
+const B2B_CTA_RU: NonNullable<SeoLandingPage['cta']> = {
+  eyebrow: 'Клиникам, салонам и специалистам',
+  title: 'Откройте профессиональный аккаунт GENOSYS',
+  body: 'Оптовые цены, приоритетные заказы с доставкой по Дубаю в тот же день, обучение вашей команды протоколам и один поставщик в ОАЭ для профессиональных линий и домашнего ухода на продажу в клинике. Расскажите о своей практике, ответим в тот же рабочий день.',
+  primary: { label: 'Запросить оптовый доступ в WhatsApp', href: CLINIC_ACCOUNT_WHATSAPP_RU },
+  secondary: { label: 'Отправить запрос', href: '/ru/contact' },
+}
+
+const B2B_LINKS_RU: SeoLandingPage['links'] = [
+  { label: 'Продукты для клиник ОАЭ', href: '/ru/guides/dermacosmetics-for-clinics-uae', description: 'Регламент, протоколы, постуход и домашний уход как одна система.' },
+  { label: 'Аппараты для микронидлинга', href: '/ru/guides/microneedling-devices-uae', description: 'Выбор и эксплуатация профессиональных аппаратов в клинике ОАЭ.' },
+  { label: 'Профессиональное обучение', href: '/ru/guides/professional-skincare-training-dubai', description: 'Единый стандарт применения продуктов в команде.' },
+  { label: 'Официальный дистрибьютор в ОАЭ', href: '/ru/guides/genosys-distributor-uae', description: 'Прослеживаемость, счета, пополнение запасов и информация о продуктах.' },
+  { label: 'Клиники-партнёры', href: '/ru/partners', description: 'Где GENOSYS уже применяется профессионально в ОАЭ.' },
+  { label: 'Учебные материалы', href: '/ru/training', description: 'PDF протоколов и руководства по продуктам для команды.' },
+]
 
 /**
  * Russian translations of the SEO guide landing pages.
@@ -77,15 +99,12 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
         body: 'Специалисты в ОАЭ могут использовать обучение и документацию GENOSYS, чтобы стандартизировать ход процедуры, отбор клиентов, постуход и подбор продуктов.',
       },
     ],
-    links: [
-      { label: 'Категория «Микронидлинг»', href: '/ru/products/category/microneedling', description: 'Профессиональные аппараты и сопутствующие средства.' },
-      { label: 'Программы обучения', href: '/ru/training', description: 'Обучение и поддержка протоколов для специалистов.' },
-      { label: 'Программа против рубцов', href: '/ru/products/concern/scars-treatment', description: 'Микронидлинг и восстановление текстуры кожи и рубцов.' },
-    ],
+    links: b2bLinksExcept('microneedling-devices-uae', B2B_LINKS_RU),
     faq: [
       { question: 'Поставляет ли GENOSYS аппараты для микронидлинга в ОАЭ?', answer: 'Да. GENOSYS Middle East поставляет профессиональные продукты для микронидлинга и сопровождающие протоколы специалистам по уходу за кожей в ОАЭ.' },
       { question: 'Можно ли использовать аппараты для микронидлинга дома?', answer: 'Профессиональные аппараты должны использоваться обученными специалистами. Домашние средства могут поддерживать восстановление и результат между процедурами в клинике.' },
     ],
+    cta: B2B_CTA_RU,
     keywords: ['аппараты микронидлинг ОАЭ', 'микронидлинг Дубай', 'профессиональные аппараты для кожи ОАЭ'],
   },
   {
@@ -105,15 +124,12 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
         body: 'Владельцы клиник, косметологи, администраторы и команды продаж могут говорить о продуктах на одном языке - это повышает согласованность консультаций и последующего сопровождения.',
       },
     ],
-    links: [
-      { label: 'Страница обучения', href: '/ru/training', description: 'Актуальные обучающие материалы и протоколы GENOSYS.' },
-      { label: 'Профессиональные документы', href: '/documents', description: 'Материалы для скачивания и документация по продуктам.' },
-      { label: 'Партнёрская программа', href: '/ru/partners', description: 'Возможности для клиник и салонов.' },
-    ],
+    links: b2bLinksExcept('professional-skincare-training-dubai', B2B_LINKS_RU),
     faq: [
       { question: 'Для кого предназначено обучение GENOSYS?', answer: 'Обучение GENOSYS - для клиник, салонов, косметологов, дерматологических команд и бьюти-специалистов в ОАЭ, работающих с профессиональным уходом или протоколами микронидлинга.' },
       { question: 'Может ли клиника запросить обучение по продуктам в Дубае?', answer: 'Да. Клиники могут связаться с GENOSYS Middle East через сайт или WhatsApp, чтобы обсудить обучение и продуктовые сессии.' },
     ],
+    cta: B2B_CTA_RU,
     keywords: ['обучение косметологии Дубай', 'обучение микронидлингу ОАЭ', 'обучение GENOSYS'],
   },
   {
@@ -133,15 +149,12 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
         body: 'Продукция GENOSYS сертифицирована Муниципалитетом Дубая через систему Montaji. Заказы оформляются в дирхамах с учётом НДС и доставкой по ОАЭ.',
       },
     ],
-    links: [
-      { label: 'О GENOSYS Middle East', href: '/ru/about', description: 'Информация о компании и присутствии в ОАЭ.' },
-      { label: 'История бренда GENOSYS', href: '/ru/brand', description: 'История бренда и корейское происхождение.' },
-      { label: 'Связаться с GENOSYS ОАЭ', href: '/ru/contact', description: 'Контакты отдела продаж, WhatsApp и поддержки.' },
-    ],
+    links: b2bLinksExcept('genosys-distributor-uae', B2B_LINKS_RU),
     faq: [
       { question: 'Кто официальный дистрибьютор GENOSYS в ОАЭ?', answer: 'GENOSYS Middle East FZ-LLC - официальный дистрибьютор в ОАЭ, управляющий сайтом genosys.ae.' },
       { question: 'Оригинальна ли продукция на genosys.ae?', answer: 'Да. Сайт genosys.ae управляется официальным дистрибьютором в ОАЭ и поставляет оригинальную продукцию GENOSYS из Южной Кореи.' },
     ],
+    cta: B2B_CTA_RU,
     keywords: ['дистрибьютор GENOSYS ОАЭ', 'официальный GENOSYS ОАЭ', 'GENOSYS Middle East'],
   },
   {
@@ -181,11 +194,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
         body: 'Рабочий ассортимент требует стабильного запаса, прозрачных цен, контроля сроков, обучения и многоязычной поддержки консультаций. GENOSYS Middle East поставляет продукты клиникам ОАЭ и поддерживает обучение, партнёрские заказы и домашние программы, связанные с процедурами.',
       },
     ],
-    links: [
-      { label: 'Партнёрская программа', href: '/ru/partners', description: 'Варианты партнёрства для клиник и салонов.' },
-      { label: 'Все задачи кожи', href: '/ru/products', description: 'Каталог по категориям, проблемам кожи и типам продуктов.' },
-      { label: 'Профессиональное обучение', href: '/ru/training', description: 'Помогите команде стандартизировать применение продуктов.' },
-    ],
+    links: b2bLinksExcept('dermacosmetics-for-clinics-uae', B2B_LINKS_RU),
     faq: [
       { question: 'Поставляет ли GENOSYS продукцию клиникам в ОАЭ?', answer: 'Да. GENOSYS Middle East поставляет профессиональную дермакосметику и обучение по продуктам клиникам, салонам и специалистам в ОАЭ.' },
       { question: 'Можно ли продавать продукты GENOSYS как домашний уход от клиники?', answer: 'Многие продукты подходят для домашнего ухода, но профессиональные средства и аппараты должны оставаться ограниченными. Каждая рекомендация должна соответствовать клиенту и процедуре.' },
@@ -196,6 +205,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       { label: 'FDA США - польза, риски и безопасность устройств для микронидлинга', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
       { label: 'Американская академия дерматологии - микронидлинг и постуход', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
     ],
+    cta: B2B_CTA_RU,
     keywords: ['дермакосметика для клиник ОАЭ', 'косметика для клиник ОАЭ', 'профессиональная дермакосметика Дубай'],
   },
   {

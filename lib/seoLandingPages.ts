@@ -33,7 +33,47 @@ export interface SeoLandingPage {
     label: string
     href: string
   }>
+  /**
+   * Conversion block rendered right under the key points, above the fold on
+   * most screens. Used on the B2B guides where the reader is a clinic buyer
+   * and the action is "open an account", not "browse products".
+   */
+  cta?: {
+    eyebrow: string
+    title: string
+    body: string
+    primary: { label: string; href: string }
+    secondary?: { label: string; href: string }
+  }
   keywords: string[]
+}
+
+/** Prefilled WhatsApp thread to sales for clinic and salon account requests. */
+export const CLINIC_ACCOUNT_WHATSAPP =
+  'https://wa.me/971585487665?text=' +
+  encodeURIComponent('Hello GENOSYS, I run a clinic/salon in the UAE and would like to open a professional account and receive the wholesale price list.')
+
+const B2B_CTA_EN: NonNullable<SeoLandingPage['cta']> = {
+  eyebrow: 'For clinics, salons and practitioners',
+  title: 'Open a GENOSYS professional account',
+  body: 'Wholesale pricing, priority ordering with same-day Dubai delivery, protocol training for your team, and one UAE-based supplier for professional-only and retail home-care lines. Tell us about your practice and we reply the same working day.',
+  primary: { label: 'Request wholesale access on WhatsApp', href: CLINIC_ACCOUNT_WHATSAPP },
+  secondary: { label: 'Send an enquiry', href: '/contact' },
+}
+
+/** Cross-links shared by the four B2B guides so they read as one cluster. */
+const B2B_LINKS_EN: SeoLandingPage['links'] = [
+  { label: 'Products for UAE clinics', href: '/guides/dermacosmetics-for-clinics-uae', description: 'Governance, protocols, aftercare and retail home care as one system.' },
+  { label: 'Microneedling devices', href: '/guides/microneedling-devices-uae', description: 'Choosing and running professional devices in a UAE practice.' },
+  { label: 'Professional training', href: '/guides/professional-skincare-training-dubai', description: 'Standardize product use across your team.' },
+  { label: 'Official UAE distributor', href: '/guides/genosys-distributor-uae', description: 'Traceability, invoices, replenishment and product information.' },
+  { label: 'Partner clinics', href: '/partners', description: 'Where GENOSYS is already in professional use across the UAE.' },
+  { label: 'Training materials', href: '/training', description: 'Protocol PDFs and product manuals for your team.' },
+]
+
+/** Same cluster minus the page itself. */
+export function b2bLinksExcept(slug: string, links: SeoLandingPage['links'] = B2B_LINKS_EN): SeoLandingPage['links'] {
+  return links.filter(link => !link.href.endsWith(`/guides/${slug}`))
 }
 
 export const SEO_LANDING_PAGES: SeoLandingPage[] = [
@@ -108,15 +148,12 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
         body: 'UAE practitioners can use GENOSYS training and documents to standardize treatment flow, client selection, post-care, and product pairing.',
       },
     ],
-    links: [
-      { label: 'Microneedling category', href: '/products/category/microneedling', description: 'Professional devices and related treatment items.' },
-      { label: 'Training programs', href: '/training', description: 'Training and protocol support for practitioners.' },
-      { label: 'Scars treatment routine', href: '/products/concern/scars-treatment', description: 'Microneedling and repair support for texture and scars.' },
-    ],
+    links: b2bLinksExcept('microneedling-devices-uae'),
     faq: [
       { question: 'Does GENOSYS supply microneedling devices in the UAE?', answer: 'Yes. GENOSYS Middle East supplies professional microneedling products and supporting protocols for UAE skincare professionals.' },
       { question: 'Should microneedling devices be used at home?', answer: 'Professional microneedling devices should be used by trained practitioners. Home-care products can support recovery and maintenance between clinic treatments.' },
     ],
+    cta: B2B_CTA_EN,
     keywords: ['microneedling devices UAE', 'microneedling Dubai', 'professional skincare devices UAE'],
   },
   {
@@ -136,15 +173,12 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
         body: 'The same product language can be used by clinic owners, aestheticians, front-desk advisors, and sales teams, improving consistency across consultation and follow-up.',
       },
     ],
-    links: [
-      { label: 'Training page', href: '/training', description: 'Current GENOSYS training and protocol resources.' },
-      { label: 'Professional documents', href: '/documents', description: 'Downloadable materials and product documentation.' },
-      { label: 'Partner program', href: '/partners', description: 'Opportunities for clinics and salons.' },
-    ],
+    links: b2bLinksExcept('professional-skincare-training-dubai'),
     faq: [
       { question: 'Who is GENOSYS training for?', answer: 'GENOSYS training is for UAE clinics, salons, aestheticians, dermatology teams, and beauty professionals working with professional skincare or microneedling protocols.' },
       { question: 'Can clinics request product training in Dubai?', answer: 'Yes. Clinics can contact GENOSYS Middle East through the website or WhatsApp to discuss training and product knowledge sessions.' },
     ],
+    cta: B2B_CTA_EN,
     keywords: ['professional skincare training Dubai', 'microneedling training UAE', 'GENOSYS training'],
   },
   {
@@ -164,15 +198,12 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
         body: 'GENOSYS products are Dubai Municipality certified through Montaji. Orders are priced in AED with VAT-inclusive display and UAE delivery options.',
       },
     ],
-    links: [
-      { label: 'About GENOSYS Middle East', href: '/about', description: 'Company information and UAE presence.' },
-      { label: 'GENOSYS brand story', href: '/brand', description: 'Brand background and Korean origin.' },
-      { label: 'Contact GENOSYS UAE', href: '/contact', description: 'Sales, WhatsApp, and support contact details.' },
-    ],
+    links: b2bLinksExcept('genosys-distributor-uae'),
     faq: [
       { question: 'Who is the official GENOSYS distributor in the UAE?', answer: 'GENOSYS Middle East FZ-LLC is the official UAE distributor operating genosys.ae.' },
       { question: 'Are products on genosys.ae authentic?', answer: 'Yes. genosys.ae is operated by the official UAE distributor and supplies authentic GENOSYS products from South Korea.' },
     ],
+    cta: B2B_CTA_EN,
     keywords: ['GENOSYS distributor UAE', 'official GENOSYS UAE', 'GENOSYS Middle East'],
   },
   {
@@ -212,11 +243,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
         body: 'A commercially useful range needs reliable stock, transparent wholesale pricing, expiry control, staff education, and multilingual consultation support. GENOSYS Middle East supplies UAE clinics and supports product education, partner ordering, and treatment-linked home-care planning.',
       },
     ],
-    links: [
-      { label: 'Partner program', href: '/partners', description: 'Clinic and salon partnership options.' },
-      { label: 'All skin concerns', href: '/products', description: 'Browse by category, concern, and product type.' },
-      { label: 'Professional training', href: '/training', description: 'Help your team standardize product usage.' },
-    ],
+    links: b2bLinksExcept('dermacosmetics-for-clinics-uae'),
     faq: [
       { question: 'Does GENOSYS supply clinics in the UAE?', answer: 'Yes. GENOSYS Middle East supplies professional dermacosmetics and product education for UAE clinics, salons, and practitioners.' },
       { question: 'Can GENOSYS products be sold as clinic home care?', answer: 'Many products are suitable for structured home-care routines, but professional-only products and devices must remain restricted. The clinic should match every recommendation to the client and treatment.' },
@@ -227,6 +254,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { label: 'U.S. FDA - Microneedling devices: benefits, risks and safety', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
       { label: 'American Academy of Dermatology - Microneedling overview and aftercare', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
     ],
+    cta: B2B_CTA_EN,
     keywords: ['dermacosmetics for clinics UAE', 'clinic skincare UAE', 'professional dermacosmetics Dubai'],
   },
   {

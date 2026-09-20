@@ -17,6 +17,22 @@ export interface GuideArticleLabels {
   contact: string
 }
 
+/** External CTAs (WhatsApp, mail) open in a new tab; internal ones stay client-routed. */
+function CtaLink({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
+  if (/^https?:\/\//.test(href)) {
+    return (
+      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  )
+}
+
 interface GuideArticleProps {
   page: SeoLandingPage
   labels: GuideArticleLabels
@@ -89,6 +105,24 @@ export default function GuideArticle({
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {page.cta && (
+          <section className="mt-8 rounded-3xl bg-gray-950 p-6 text-white md:p-8" aria-labelledby="guide-cta-title">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200">{page.cta.eyebrow}</p>
+            <h2 id="guide-cta-title" className="mt-2 text-2xl font-bold md:text-3xl">{page.cta.title}</h2>
+            <p className="mt-3 max-w-3xl leading-7 text-gray-300">{page.cta.body}</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <CtaLink href={page.cta.primary.href} className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
+                {page.cta.primary.label}
+              </CtaLink>
+              {page.cta.secondary && (
+                <CtaLink href={page.cta.secondary.href} className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
+                  {page.cta.secondary.label}
+                </CtaLink>
+              )}
+            </div>
           </section>
         )}
 

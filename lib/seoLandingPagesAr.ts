@@ -1,4 +1,26 @@
 import type { SeoLandingPage } from './seoLandingPages'
+import { b2bLinksExcept } from './seoLandingPages'
+
+const CLINIC_ACCOUNT_WHATSAPP_AR =
+  'https://wa.me/971585487665?text=' +
+  encodeURIComponent('مرحباً GENOSYS، أدير عيادة/صالوناً في الإمارات وأرغب في فتح حساب مهني والحصول على قائمة أسعار الجملة.')
+
+const B2B_CTA_AR: NonNullable<SeoLandingPage['cta']> = {
+  eyebrow: 'للعيادات والصالونات والممارسين',
+  title: 'افتح حساباً مهنياً مع GENOSYS',
+  body: 'أسعار جملة، وأولوية في الطلبات مع توصيل في نفس اليوم داخل دبي، وتدريب فريقك على البروتوكولات، ومورّد واحد في الإمارات لخطوط الاستخدام المهني ومنتجات العناية المنزلية للبيع في العيادة. أخبرنا عن منشأتك ونرد عليك في نفس يوم العمل.',
+  primary: { label: 'اطلب أسعار الجملة عبر واتساب', href: CLINIC_ACCOUNT_WHATSAPP_AR },
+  secondary: { label: 'أرسل استفساراً', href: '/ar/contact' },
+}
+
+const B2B_LINKS_AR: SeoLandingPage['links'] = [
+  { label: 'منتجات لعيادات الإمارات', href: '/ar/guides/dermacosmetics-for-clinics-uae', description: 'الحوكمة والبروتوكولات والعناية اللاحقة والبيع المنزلي كنظام واحد.' },
+  { label: 'أجهزة الوخز الدقيق', href: '/ar/guides/microneedling-devices-uae', description: 'اختيار الأجهزة الاحترافية وتشغيلها في عيادة إماراتية.' },
+  { label: 'التدريب المهني', href: '/ar/guides/professional-skincare-training-dubai', description: 'توحيد استخدام المنتجات بين أفراد فريقك.' },
+  { label: 'الموزع الرسمي في الإمارات', href: '/ar/guides/genosys-distributor-uae', description: 'التتبع والفواتير وإعادة التوريد ومعلومات المنتجات.' },
+  { label: 'العيادات الشريكة', href: '/ar/partners', description: 'أين تُستخدم GENOSYS مهنياً في الإمارات اليوم.' },
+  { label: 'مواد التدريب', href: '/ar/training', description: 'ملفات البروتوكولات وأدلة المنتجات لفريقك.' },
+]
 
 /**
  * Arabic translations of the SEO guide landing pages.
@@ -77,15 +99,12 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
         body: 'يمكن للممارسين في الإمارات الاستفادة من تدريب GENOSYS ومستنداتها لتوحيد مسار العلاج واختيار العملاء والعناية اللاحقة وتنسيق المنتجات.',
       },
     ],
-    links: [
-      { label: 'فئة الوخز الدقيق بالإبر', href: '/ar/products/category/microneedling', description: 'الأجهزة الاحترافية ومستلزمات العلاج المرتبطة بها.' },
-      { label: 'برامج التدريب', href: '/ar/training', description: 'دعم التدريب والبروتوكولات للممارسين.' },
-      { label: 'روتين علاج الندبات', href: '/ar/products/concern/scars-treatment', description: 'دعم الوخز الدقيق والإصلاح لملمس البشرة والندبات.' },
-    ],
+    links: b2bLinksExcept('microneedling-devices-uae', B2B_LINKS_AR),
     faq: [
       { question: 'هل توفر GENOSYS أجهزة الوخز الدقيق بالإبر في الإمارات؟', answer: 'نعم. توفر GENOSYS الشرق الأوسط منتجات الوخز الدقيق بالإبر الاحترافية والبروتوكولات الداعمة لمتخصصي العناية بالبشرة في الإمارات.' },
       { question: 'هل يمكن استخدام أجهزة الوخز الدقيق بالإبر في المنزل؟', answer: 'يجب أن تُستخدم الأجهزة الاحترافية من قبل ممارسين مدرَّبين. أما منتجات العناية المنزلية فيمكن أن تدعم التعافي والمحافظة على النتائج بين جلسات العيادة.' },
     ],
+    cta: B2B_CTA_AR,
     keywords: ['أجهزة الوخز الدقيق بالإبر الإمارات', 'ميكرونيدلينغ دبي', 'أجهزة العناية الاحترافية بالبشرة الإمارات'],
   },
   {
@@ -105,15 +124,12 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
         body: 'يمكن لأصحاب العيادات وأخصائيي التجميل وموظفي الاستقبال وفرق المبيعات استخدام لغة المنتجات نفسها، ما يحسّن الاتساق في الاستشارة والمتابعة.',
       },
     ],
-    links: [
-      { label: 'صفحة التدريب', href: '/ar/training', description: 'موارد تدريب GENOSYS وبروتوكولاتها الحالية.' },
-      { label: 'مستندات احترافية', href: '/documents', description: 'مواد قابلة للتنزيل ووثائق المنتجات.' },
-      { label: 'برنامج الشركاء', href: '/ar/partners', description: 'فرص للعيادات والصالونات.' },
-    ],
+    links: b2bLinksExcept('professional-skincare-training-dubai', B2B_LINKS_AR),
     faq: [
       { question: 'لمن يتوجه تدريب GENOSYS؟', answer: 'تدريب GENOSYS موجّه للعيادات والصالونات وأخصائيي التجميل وفرق الجلدية ومحترفي التجميل في الإمارات الذين يعملون مع بروتوكولات العناية الاحترافية بالبشرة أو الوخز الدقيق بالإبر.' },
       { question: 'هل يمكن للعيادات طلب تدريب على المنتجات في دبي؟', answer: 'نعم. يمكن للعيادات التواصل مع GENOSYS الشرق الأوسط عبر الموقع أو واتساب لمناقشة جلسات التدريب والمعرفة بالمنتجات.' },
     ],
+    cta: B2B_CTA_AR,
     keywords: ['تدريب احترافي على العناية بالبشرة دبي', 'تدريب الوخز الدقيق بالإبر الإمارات', 'تدريب GENOSYS'],
   },
   {
@@ -133,15 +149,12 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
         body: 'منتجات GENOSYS معتمدة من بلدية دبي عبر نظام منتجي. الطلبات مسعّرة بالدرهم الإماراتي شاملة الضريبة مع خيارات توصيل داخل الإمارات.',
       },
     ],
-    links: [
-      { label: 'عن GENOSYS الشرق الأوسط', href: '/ar/about', description: 'معلومات الشركة وحضورها في الإمارات.' },
-      { label: 'قصة علامة GENOSYS', href: '/ar/brand', description: 'خلفية العلامة وأصلها الكوري.' },
-      { label: 'تواصل مع GENOSYS الإمارات', href: '/ar/contact', description: 'تفاصيل المبيعات وواتساب والدعم.' },
-    ],
+    links: b2bLinksExcept('genosys-distributor-uae', B2B_LINKS_AR),
     faq: [
       { question: 'من هو الموزع الرسمي لـ GENOSYS في الإمارات؟', answer: 'شركة GENOSYS الشرق الأوسط (FZ-LLC) هي الموزع الرسمي في الإمارات وتدير موقع genosys.ae.' },
       { question: 'هل المنتجات على genosys.ae أصلية؟', answer: 'نعم. يُدار genosys.ae من قبل الموزع الرسمي في الإمارات ويوفر منتجات GENOSYS أصلية من كوريا الجنوبية.' },
     ],
+    cta: B2B_CTA_AR,
     keywords: ['موزع GENOSYS الإمارات', 'GENOSYS الرسمي الإمارات', 'GENOSYS الشرق الأوسط'],
   },
   {
@@ -181,11 +194,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
         body: 'التشكيلة العملية تحتاج مخزوناً مستقراً وأسعاراً واضحة ومراقبة للصلاحية وتعليماً ودعماً متعدد اللغات. توفر GENOSYS الشرق الأوسط للعيادات في الإمارات المنتجات والتدريب وطلبات الشركاء والتخطيط للعناية المنزلية المرتبطة بالعلاج.',
       },
     ],
-    links: [
-      { label: 'برنامج الشركاء', href: '/ar/partners', description: 'خيارات شراكة للعيادات والصالونات.' },
-      { label: 'جميع مشاكل البشرة', href: '/ar/products', description: 'تصفّح حسب الفئة والمشكلة ونوع المنتج.' },
-      { label: 'التدريب الاحترافي', href: '/ar/training', description: 'ساعد فريقك على توحيد استخدام المنتجات.' },
-    ],
+    links: b2bLinksExcept('dermacosmetics-for-clinics-uae', B2B_LINKS_AR),
     faq: [
       { question: 'هل تورّد GENOSYS للعيادات في الإمارات؟', answer: 'نعم. توفر GENOSYS الشرق الأوسط مستحضرات تجميل علاجية احترافية وتثقيفاً بالمنتجات لعيادات وصالونات وممارسي الإمارات.' },
       { question: 'هل يمكن بيع GENOSYS كعناية منزلية؟', answer: 'كثير من المنتجات مناسب للمنزل، لكن المنتجات والأجهزة الاحترافية تبقى مقيدة. يجب ربط كل توصية بالعميل والإجراء.' },
@@ -196,6 +205,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { label: 'هيئة الغذاء والدواء الأمريكية - فوائد ومخاطر وسلامة الوخز الدقيق', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
       { label: 'الأكاديمية الأمريكية للأمراض الجلدية - الوخز الدقيق والعناية اللاحقة', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
     ],
+    cta: B2B_CTA_AR,
     keywords: ['مستحضرات تجميل علاجية للعيادات الإمارات', 'عناية بالبشرة للعيادات الإمارات', 'مستحضرات تجميل احترافية دبي'],
   },
   {

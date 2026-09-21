@@ -47,3 +47,12 @@ new pages.
 
 Re-run the same query on 19 Oct and 16 Nov and compare position and CTR for
 the five query/page pairs above.
+
+## Correction: the meta description reads the DB, not the TS files
+
+`lib/seo.ts` builds the /ar/ meta description from `Product.descriptionAr`;
+the TS translation files only feed the page body. The same five leads were
+therefore also prepended to `descriptionAr` in the database with
+`scripts/set-arabic-search-leads-20260921.ts --apply` (idempotent). This field
+also feeds the mobile API and site search, so the app shows the same wording.
+Sitemap resubmitted to Search Console after the deploy.

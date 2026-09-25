@@ -63,3 +63,19 @@ describe('buildMoySkladAddressFull', () => {
     })
   })
 })
+
+describe('buildMoySkladAddressFull delivery note', () => {
+  const uae = { meta: { href: 'x', type: 'country', mediaType: 'application/json' } }
+
+  it('prints the customer note as addInfo so a building typed into notes reaches the invoice', () => {
+    const full = buildMoySkladAddressFull('Dubai, Dubai, United Arab Emirates', 'Dubai', uae, 'Torino by oro 24, 2 block, 212')
+    expect(full.addInfo).toBe('Torino by oro 24, 2 block, 212')
+    expect(full.city).toBe('Dubai')
+  })
+
+  it('keeps addInfo empty without a note, and flattens and caps long notes', () => {
+    expect(buildMoySkladAddressFull('Villa 3, Jumeirah', 'Dubai', uae).addInfo).toBe('')
+    expect(buildMoySkladAddressFull('x', 'Dubai', uae, 'line one\nline two').addInfo).toBe('line one line two')
+    expect(buildMoySkladAddressFull('x', 'Dubai', uae, 'a'.repeat(400)).addInfo).toHaveLength(255)
+  })
+})

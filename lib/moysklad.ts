@@ -631,6 +631,8 @@ export interface MoySkladOrderData {
   paymentMethod: string // 'cod', 'stripe', 'apple_pay'
   paymentStatus?: string // 'pending', 'paid', etc.
   description?: string
+  /** Customer's checkout note; printed with the delivery address. */
+  orderNotes?: string
 }
 
 /**
@@ -945,6 +947,9 @@ export async function createMoySkladOrder(
     if (orderData.description) {
       descParts.push(orderData.description)
     }
+    if (orderData.orderNotes?.trim()) {
+      descParts.push(`Customer note: ${orderData.orderNotes.trim()}`)
+    }
 
     // Step 4: Create the customer order
     const isPaidOnlineOrder = isPaidOnlinePayment(orderData.paymentMethod)
@@ -978,6 +983,7 @@ export async function createMoySkladOrder(
         orderData.customerAddress,
         orderData.customerEmirate,
         entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
+        orderData.orderNotes,
       ),
       ...(positions.length > 0 ? { positions } : {}),
     }

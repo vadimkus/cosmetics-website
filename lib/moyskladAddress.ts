@@ -74,6 +74,7 @@ export function buildMoySkladAddressFull(
   customerAddress: string | undefined,
   customerEmirate: string | undefined,
   countryEntityMeta: { meta: { href: string; type: string; mediaType: string } },
+  deliveryNote?: string,
 ): {
   country: { meta: { href: string; type: string; mediaType: string } }
   city?: string
@@ -87,7 +88,9 @@ export function buildMoySkladAddressFull(
     ...(city ? { city } : {}),
     ...(street ? { street } : {}),
     // MoySklad merges *AddressFull on PUT. Omitting addInfo preserves a stale
-    // value, which its invoice template then appends after street.
-    addInfo: '',
+    // value, which its invoice template then appends after street. The
+    // customer's order note goes here: customers often type the building or
+    // flat into the note, and addInfo is printed on the invoice after street.
+    addInfo: String(deliveryNote || '').replace(/\s+/g, ' ').trim().slice(0, 255),
   }
 }

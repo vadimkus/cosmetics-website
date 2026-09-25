@@ -203,3 +203,11 @@ Production contains a rolled-back, zero-step historical migration named
 `20260709030000_add_order_review_request_fields` is present both in production
 and the repository. The rolled-back record explains the `migrate status`
 history warning and must not be recreated or marked applied.
+
+## 25 Sep 2026: Google publishing access confirmed
+
+Google approved publishing on 15 Sep 2026 17:59 UTC (email "Genosys Middle
+East FZ-LLC is approved to access Google Wallet API"). The console shows class
+`3388000000023204165.genosys_rewards` Active with no demo or test-only notice.
+`GOOGLE_WALLET_ENABLED=true` in production is correct; the "keep false" note
+above is superseded. Two Google passes exist (15 and 21 Sep), both ACTIVE.

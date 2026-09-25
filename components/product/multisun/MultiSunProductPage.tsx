@@ -500,28 +500,21 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
 
       {/* ───────────────────────── Octinoxate ───────────────────────────── */}
       <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-20">
-        <CeraReveal className="msc-note p-6 md:p-9">
-          <p className="cera-eyebrow flex items-center gap-2">
-            <AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" />
-            {copy.octinoxate.eyebrow}
-          </p>
+        <CeraReveal className="rounded-3xl border border-[var(--cera-line)] bg-white p-6 md:p-9">
+          <p className="cera-eyebrow">{copy.octinoxate.eyebrow}</p>
           <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.octinoxate.title}</h2>
           <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.octinoxate.body}</p>
 
           <ul className="mt-6 space-y-3">
-            {copy.octinoxate.points.map((point, i) => (
+            {copy.octinoxate.points.map(point => (
               <li key={point} className={`flex gap-3.5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
-                <span className="cera-numeral flex-none text-[13px] text-[var(--cera-rose)]" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                <Check className="mt-1 h-4 w-4 flex-none text-[var(--cera-rose)]" aria-hidden="true" />
                 <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
               </li>
             ))}
           </ul>
 
-          <p className="mt-6 rounded-2xl bg-[var(--cera-blush)] p-5 text-[15px] font-medium leading-relaxed text-[var(--cera-rose-ink)]">
-            {copy.octinoxate.verdict}
-          </p>
+          <p className="mt-6 text-[15px] leading-relaxed text-[var(--cera-muted)]">{copy.octinoxate.verdict}</p>
         </CeraReveal>
       </section>
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { googlePictureForNewUser, googlePictureUpdate } from '@/lib/googleProfilePicture'
 import { verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -79,7 +80,7 @@ export async function POST(request: NextRequest) {
           name: googleUser.name,
           email: googleUser.email,
           password: null, // No password for Google-authenticated users
-          profilePicture: googleUser.picture || null,
+          profilePicture: await googlePictureForNewUser(googleUser.picture),
           phone: null,
           address: null,
           isAdmin: false,
@@ -164,10 +165,11 @@ export async function POST(request: NextRequest) {
       }
     } else {
       // Existing user - update profile picture if available and not set
-      if (googleUser.picture && !user.profilePicture) {
+      const picture = await googlePictureUpdate(user.profilePicture, googleUser.picture)
+      if (picture !== undefined) {
         debugLog('[GOOGLE_VERIFY] Updating profile picture for existing user...')
-        await updateUser(user.id, { profilePicture: googleUser.picture })
-        user.profilePicture = googleUser.picture
+        await updateUser(user.id, { profilePicture: picture })
+        user.profilePicture = picture
       }
 
       // Update last login timestamp and source

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { googlePictureForNewUser, googlePictureUpdate } from '@/lib/googleProfilePicture'
 import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
 import { exchangeCodeForTokens, verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
@@ -152,7 +153,7 @@ export async function GET(request: NextRequest) {
           name: googleUser.name,
           email: normalizedEmail,
           password: null, // No password for Google-authenticated users
-          profilePicture: googleUser.picture || null,
+          profilePicture: await googlePictureForNewUser(googleUser.picture),
           phone: null,
           address: null,
           isAdmin: false,
@@ -247,7 +248,7 @@ export async function GET(request: NextRequest) {
         }
       }
     } else {
-      // Existing user - always update profile picture with Google picture if available
+      // Existing user - refresh a Google-hosted picture; never overwrite an uploaded photo or store Google's placeholder
       debugLog('[GOOGLE_CALLBACK] Existing user found:', {
         id: user.id,
         email: user.email,
@@ -256,9 +257,10 @@ export async function GET(request: NextRequest) {
         willUpdate: !!googleUser.picture
       })
       
-      if (googleUser.picture) {
+      const picture = await googlePictureUpdate(user.profilePicture, googleUser.picture)
+      if (picture !== undefined) {
         debugLog('[GOOGLE_CALLBACK] Updating profile picture for existing user...')
-        const updateResult = await updateUser(user.id, { profilePicture: googleUser.picture })
+        const updateResult = await updateUser(user.id, { profilePicture: picture })
         debugLog('[GOOGLE_CALLBACK] Profile picture update result:', updateResult)
         
         // Fetch updated user to verify picture was saved

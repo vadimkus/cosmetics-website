@@ -181,8 +181,8 @@ REVISION = {
     # New packshot (epi_peel_o/Main.jpeg, 18 Sep 2026): tube padded square on
     # white, replacing the epi/main.jpeg render.
     "12": 2,
-    # New packshot (ultra/main-v2.jpeg, 25 Sep 2026): single tube on white.
-    "39": 2,
+    # New packshot (ultra/main-v3.jpeg, 25 Sep 2026): single tube on white.
+    "39": 3,
     # New campaign packshot: closed box and vial on white, replacing the
     # squared studio-sweep shot.
     "7": 2,

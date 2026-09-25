@@ -17,3 +17,7 @@ First download was VP9 in MP4. QuickTime would not play it. Re-encoded both to H
 **5 Sep 2026:** https://www.instagram.com/reel/DaFJ3GhN6nO/ · `_games_of_love_` · `~/Desktop/DaFJ3GhN6nO.mp4` · 720×1280 · 59.0s · VP9 → H.264 + AAC LC.
 
 **11 Sep 2026:** https://www.instagram.com/reel/DdEmYUetGNa/ · `~/Desktop/DdEmYUetGNa.mp4` · 1080×1920 · 39.9s · VP9 → H.264 + AAC LC.
+
+**22 Sep 2026:** https://www.instagram.com/reel/DdRMf9oI-gg/ · `iam2.different` · share-token / audience-gated · `~/Desktop/DdRMf9oI-gg.mp4` · 1436×1080 · 23.7s · H.264 High + AAC LC stereo +faststart. DASH video + matching 23.68s AAC muxed. Capybara montage.
+
+**23 Sep 2026:** https://www.instagram.com/reel/DdmMcMPocY3/ · `kukota_m` · `~/Desktop/DdmMcMPocY3.mp4` · 720×1280 · 25.2s · VP9 + HE-AAC → H.264 High + AAC LC stereo +faststart. Highest DASH (1046k) plus the reel audio.

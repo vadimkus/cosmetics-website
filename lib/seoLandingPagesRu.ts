@@ -45,7 +45,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гель-в-пену с тремя очищающими компонентами, pH 6,37 и отдушкой 0,5%.' },
       { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/Main.jpeg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'Крем GENOSYS Skin Barrier Protecting Cream', description: 'Поддержка сухой и перегруженной кожи с церамидами и аминокислотами.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
     ],
     sections: [
       {
@@ -222,7 +222,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Тень, одежда, головной убор и очки остаются важны: санскрин - лишь один элемент защиты.',
     ],
     featuredProducts: [
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Крем с высокой степенью защиты для ежедневного использования.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Крем с высокой степенью защиты для ежедневного использования.' },
       { name: 'MULTI SUN SPF 40 PA++', href: '/ru/products/40', image: '/images/sun/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS MULTI SUN SPF 40 PA++', description: 'Лёгкий ежедневный санскрин с умеренной защитой от UVA.' },
       { name: 'BB-кушон Skin Caring SPF 50+ PA++++', href: '/ru/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'BB-кушон GENOSYS Skin Caring SPF 50+ PA++++', description: 'Регулируемое покрытие, пять УФ-фильтров и сменный блок 15 г в комплекте.' },
       { name: 'Тонирующий крем Intensive Blemish Balm SPF 30 PA++', href: '/ru/products/42', image: '/images/blemish_o/Main.jpeg', imageAlt: 'Тонирующий крем GENOSYS Intensive Blemish Balm SPF 30 PA++', description: 'Естественное покрытие, три УФ-фильтра, арбутин 2% и один оттенок; водостойкость не заявлена.' },
@@ -280,7 +280,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Поддержка увлажнения после процедуры в домашнем и профессиональном объёме.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/ru/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'Успокаивающий гель-крем для увлажнения, если он разрешён протоколом.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Более насыщенная поддержка барьера на позднем этапе восстановления.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Высокая UV-защита после разрешения специалиста возобновить санскрин.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Высокая UV-защита после разрешения специалиста возобновить санскрин.' },
     ],
     sections: [
       { heading: 'Сразу после процедуры', body: 'Возможны покраснение, стянутость, тепло, небольшой отёк или ощущение солнечного ожога. Не трогайте, не сдирайте и не трите кожу, не добавляйте неразрешённые продукты. FDA отмечает повышенную чувствительность после процедуры; уточните у специалиста сроки очищения, крема, макияжа и санскрина.' },

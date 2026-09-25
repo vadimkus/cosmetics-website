@@ -45,7 +45,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'جل يتحول إلى رغوة بثلاث مواد منظفة، وpH ‏6.37، وعطر 0.5%.' },
       { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/radiance_serum/Main.jpeg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
     ],
     sections: [
       {
@@ -222,7 +222,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الظل والملابس والقبعة والنظارات مهمة لأن الواقي جزء واحد فقط من الحماية.',
     ],
     featuredProducts: [
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
       { name: 'MULTI SUN SPF 40 PA++', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'كريم GENOSYS MULTI SUN الواقي من الشمس SPF 40 PA++', description: 'واقي يومي خفيف بحماية متوسطة من UVA.' },
       { name: 'كوشن Skin Caring BB بعامل SPF 50+ PA++++', href: '/ar/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'كوشن GENOSYS Skin Caring BB بعامل SPF 50+ PA++++', description: 'تغطية قابلة للبناء بخمسة مرشحات وعبوة إعادة تعبئة 15 غ ضمن العلبة.' },
       { name: 'كريم Intensive Blemish Balm الملون SPF 30 PA++', href: '/ar/products/42', image: '/images/blemish_o/Main.jpeg', imageAlt: 'كريم GENOSYS Intensive Blemish Balm الملون SPF 30 PA++', description: 'تغطية طبيعية مع ثلاثة مرشحات وأربوتين 2% بدرجة واحدة؛ من دون ادعاء مقاومة الماء.' },
@@ -281,7 +281,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v3.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
     ],
     sections: [
       { heading: 'بعد الإجراء مباشرة', body: 'قد يظهر احمرار أو شد أو دفء أو تورم خفيف أو إحساس يشبه حرق الشمس. لا تلمسي المنطقة بلا حاجة ولا تفركيها أو تضيفي منتجات غير معتمدة. تشير FDA إلى أن البشرة تصبح أكثر حساسية؛ اسألي المختص بدقة عن التنظيف والترطيب والمكياج والواقي.' },

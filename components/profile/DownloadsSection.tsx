@@ -518,7 +518,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/39">
                   <Image
-                    src="/images/ultra/main-v2.jpeg"
+                    src="/images/ultra/main-v3.jpeg"
                     alt="ULTRA SHIELD SUN CREAM"
                     width={500}
                     height={300} 

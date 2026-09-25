@@ -3,7 +3,7 @@
 **Customer:** SHINE MEDICAL CENTER LLC OPC `51c7851a-37da-11f1-0a80-148900411927`  
 **Script:** `scripts/moysklad-create-shine-dibba-sws-pcs-snow-20260822.js --commit`
 
-Clinic list. Unpaid 30 days net. Chain: SO → INV → SHIP (invoice-only). SO **Доставлен - Ждем оплату**.
+Clinic list. Chain: SO → INV → SHIP (invoice-only). **Paid 24 Sep 2026** — paymentin **06282** `c6a00400-b7e0-11f1-0a80-1a1e0014527d` / **1,495 AED** on shipment **06726**. SO **Доставлен**.
 
 SWS = **20 vials** (2 boxes). No delivery fee.
 
@@ -19,7 +19,8 @@ SWS = **20 vials** (2 boxes). No delivery fee.
 | Doc | Number | Sum | ID |
 |-----|--------|----:|----|
 | SO | **GENCardM260822SHND** | 1,495 | `f97c88a7-9e1c-11f1-0a80-0bad005d2e81` |
-| Invoice | **04964** | 1,495 unpaid | `f9f5a876-9e1c-11f1-0a80-08560060d098` |
+| Invoice | **04964** | 1,495 paid | `f9f5a876-9e1c-11f1-0a80-08560060d098` |
+| Payment in | **06282** | 1,495 | `c6a00400-b7e0-11f1-0a80-1a1e0014527d` |
 | Shipment | **06726** | 1,495 | `fae3b158-9e1c-11f1-0a80-0e38005f7dc0` |
 
 Ship: Al Rifaa, Aspin Commercial Tower, office 3801, near Dibba Hospital, Dibba Al Fujairah.

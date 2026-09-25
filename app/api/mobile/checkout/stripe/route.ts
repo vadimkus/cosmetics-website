@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { checkoutSelectionError, resolveCheckoutSelection } from '@/lib/checkoutSelection'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { STRIPE_SECRET_KEY, MOBILE_APP_KEY, NEXT_PUBLIC_BASE_URL } from '@/lib/envValidation'
@@ -413,8 +414,14 @@ export async function POST(request: NextRequest) {
 
     for (const { item, product } of productRecords) {
 
-      const selectedSize = String(item.size || item.selectedSize || '').trim()
-      const selectedColor = String(item.color || item.selectedColor || '').trim()
+      const selection = resolveCheckoutSelection(product, String(item.size || item.selectedSize || '').trim(), String(item.color || item.selectedColor || '').trim(), {
+        lenient: item.isPromotionItem === true || Number(item.price) === 0,
+      })
+      if (!selection.ok) {
+        return NextResponse.json(checkoutSelectionError(selection, product), { status: 400 })
+      }
+      const selectedSize = selection.selectedSize
+      const selectedColor = selection.selectedColor
       const isPromo =
         (item.isPromotionItem === true ||
           selectedSize === '__PROMO__' ||

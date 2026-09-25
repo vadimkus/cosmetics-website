@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse, after } from 'next/server'
+import { checkoutSelectionError, resolveCheckoutSelection } from '@/lib/checkoutSelection'
 import { cookies } from 'next/headers'
 import * as Sentry from '@sentry/nextjs'
 import { verifySessionToken } from '@/lib/jwt'
@@ -230,8 +231,14 @@ export async function POST(request: NextRequest) {
 
     for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
-      const selectedSize = String(item.size || '').trim()
-      const selectedColor = String(item.color || '').trim()
+      const selection = resolveCheckoutSelection(product, String(item.size || '').trim(), String(item.color || '').trim(), {
+        lenient: isSubmittedFreeGift(item),
+      })
+      if (!selection.ok) {
+        return NextResponse.json(checkoutSelectionError(selection, product), { status: 400 })
+      }
+      const selectedSize = selection.selectedSize
+      const selectedColor = selection.selectedColor
       const isFreeGift = isSubmittedFreeGift(item) && isAllowedFreeGiftProduct(product)
       const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscount, product, bundleLineCount)
 

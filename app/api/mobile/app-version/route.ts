@@ -45,8 +45,10 @@ const UPDATE_MESSAGE = {
  * version you know is live.
  */
 const PLATFORM_CONFIG = {
-  ios: { minimumVersion: '1.10.0', forceUpdate: true, fallbackLatest: '1.12.0' },
-  android: { minimumVersion: '1.9.0', forceUpdate: false, fallbackLatest: '1.12.0' },
+  // 1.13.0 on both since 25 Sep 2026: retires the 1.12 binaries, the runtime
+  // the 16 Sep OTA regression crashed, so no update can target them again.
+  ios: { minimumVersion: '1.13.0', forceUpdate: true, fallbackLatest: '1.13.0' },
+  android: { minimumVersion: '1.13.0', forceUpdate: true, fallbackLatest: '1.13.0' },
 }
 
 type Platform = keyof typeof PLATFORM_CONFIG
@@ -95,6 +97,16 @@ async function fetchStoreVersion(platform: Platform): Promise<string | null> {
   return null
 }
 
+function compareVersions(a: string, b: string): number {
+  const pa = a.split('.').map(Number)
+  const pb = b.split('.').map(Number)
+  for (let i = 0; i < 3; i++) {
+    const d = (pa[i] || 0) - (pb[i] || 0)
+    if (d) return d
+  }
+  return 0
+}
+
 export async function GET(request: NextRequest) {
   const requested = request.nextUrl.searchParams.get('platform')
   const platform: Platform = requested === 'android' ? 'android' : 'ios'
@@ -102,10 +114,13 @@ export async function GET(request: NextRequest) {
   const { minimumVersion, forceUpdate, fallbackLatest } = PLATFORM_CONFIG[platform]
   const live = await fetchStoreVersion(platform)
   const latestVersion = live ?? fallbackLatest
+  // Never gate above what the store serves: a hard gate with nothing newer to
+  // install locks users out of the app entirely.
+  const effectiveMinimum = compareVersions(minimumVersion, latestVersion) > 0 ? latestVersion : minimumVersion
 
   return NextResponse.json(
     {
-      minimumVersion,
+      minimumVersion: effectiveMinimum,
       forceUpdate,
       latestVersion,
       latestSource: live ? 'store' : 'fallback',

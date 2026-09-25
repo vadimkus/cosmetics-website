@@ -518,15 +518,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '39': {
     id: '39',
-    images: [
-      '/images/ultra/main.jpeg',
-      '/images/ultra/s1.jpeg',
-      '/images/ultra/s2.jpeg',
-      '/images/ultra/s3.jpeg',
-      '/images/ultra/s4.jpeg',
-      '/images/ultra/s5.jpeg',
-      '/images/ultra/s6.jpeg',
-    ],
+    // Gallery migrated to DB-only 2026-09-25 (product.image /images/ultra/
+    // main-v2.jpeg + images s1-s6). Config wins over DB and listed the main.
     videoUrl: '/videos/ultra.mp4',
     pricing: {
       basePrice: 250

@@ -322,11 +322,11 @@
   {
     "product": "39",
     "status": "ok",
-    "source": "/images/ultra/main.jpeg",
-    "file": "/images/cutout/39.webp",
+    "source": "/images/ultra/main-v2.jpeg",
+    "file": "/images/cutout/39-v2.webp",
     "name": "ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]",
     "coverage": 0.243,
-    "bytes": 20556,
+    "bytes": 30480,
     "review": false
   },
   {

@@ -94,7 +94,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A gel cleanser positioned for microbiome- and barrier-conscious cleansing.' },
       { name: 'Multi Vita Radiance Serum', href: '/products/21', image: '/images/radiance_serum/Main.jpeg', imageAlt: 'GENOSYS Multi Vita Radiance Serum', description: 'A targeted brightening step for uneven-looking tone and radiance.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
     ],
     sections: [
       {
@@ -271,7 +271,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       'Shade, clothing, hats, and sunglasses remain important because sunscreen is only one part of sun protection.',
     ],
     featuredProducts: [
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
       { name: 'Multi Sun Cream SPF 40', href: '/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'A mild daily sunscreen with a lightweight cream format.' },
       { name: 'Skin Caring BB Cushion SPF 50+', href: '/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Portable coverage for touch-ups and visible redness.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/products/42', image: '/images/blemish_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Blemish Balm Cream SPF 30', description: 'A coverage product that combines complexion correction with labelled SPF.' },
@@ -328,7 +328,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'A complementary recovery-support product rather than a PDRN treatment.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'A soothing gel-cream option for hydration when approved for the protocol.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main-v2.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
     ],
     sections: [
       {

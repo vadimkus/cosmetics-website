@@ -603,7 +603,7 @@ export const products: Product[] = [
     name: 'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]',
     price: 250,
     description: '50g. Non-greasy and silky sunscreen with powerful UV protection. It is a non-greasy silky sunscreen that strongly defends skin against UV rays with a 7-filter broad-spectrum UV system, and supports skin recovery with hydrolyzed hyaluronic acid and lactobacillus ferment lysate. Niacinamide 2% and Ceramide NP brighten and strengthen the barrier. Free from oxybenzone and octinoxate. Key ingredients: 7-Filter UV System, Niacinamide 2%, Ceramide NP, Hydrolyzed Sodium Hyaluronate, Lactobacillus Ferment Lysate, Tropical Fruit Extracts (Pineapple, Papaya, Litchi, Guava). Dermatologically tested.',
-    image: '/images/ultra/main.jpeg',
+    image: '/images/ultra/main-v2.jpeg',
     images: JSON.stringify([
       '/images/ultra/s1.jpeg',
       '/images/ultra/s2.jpeg',

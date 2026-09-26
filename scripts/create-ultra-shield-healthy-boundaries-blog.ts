@@ -64,9 +64,11 @@ const filters = (rows: [string, string, string][]) => `
       </div>`).join('\n      ')}
     </div>`
 
+// `.cera-page :where(h1, h2, h3)` sets heading ink after the utilities load, so
+// the title colour has to sit on an inner span rather than on the h3.
 const cta = (title: string, line: string, href: string, button: string) => `
   <div class="rounded-2xl bg-[#702C8E] p-8 text-center text-white">
-    <h3 class="text-2xl font-bold">${title}</h3>
+    <h3 class="text-2xl font-bold"><span class="text-white">${title}</span></h3>
     <p class="text-violet-100 mt-3 mb-6">${line}</p>
     <a href="${href}" class="inline-block rounded-full bg-[#FFC42E] px-8 py-3 font-semibold text-[#3A1150]">${button}</a>
   </div>`

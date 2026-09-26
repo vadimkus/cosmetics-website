@@ -494,13 +494,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 380
     },
-    images: [
-      '/images/peptide_mask/s1c.jpeg',
-      '/images/peptide_mask/s2c.jpeg',
-      '/images/peptide_mask/s3c.jpeg',
-      '/images/peptide_mask/s4c.jpeg',
-      '/images/peptide_mask/s5c.jpeg',
-    ],
+    // Gallery is DB-only (the "Blue means cool" campaign under /images/peptide_campaign).
     videoUrl: '/videos/peptide.mp4',
   },
   '38': {

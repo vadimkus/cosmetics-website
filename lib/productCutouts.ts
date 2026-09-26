@@ -93,7 +93,7 @@ const CUTOUTS: Record<string, string> = {
   // 36 SOOTHING BOMB SEA ALGAE MASK
   '/images/sea_algae/Main.jpeg': '/images/cutout/36.webp',
   // 37 PEPTIDE GEL MASK
-  '/images/peptide_mask/main.jpeg': '/images/cutout/37.webp',
+  '/images/peptide_campaign/main.jpg': '/images/cutout/37.webp',
   // 38 EZ CO₂ MASK KIT
   '/images/ez_mask/main.jpeg': '/images/cutout/38.webp',
   // 39 ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]

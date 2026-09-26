@@ -294,7 +294,7 @@ const EN: PeptideGelCopy = {
         body: 'Acetyl Hexapeptide-8 is 0.05 ppm finished. Sodium Hyaluronate is 0.0005%. Hydrolyzed collagen is 0.002%. They are in the formula. They are not why you buy the box.',
       },
     ],
-    figureAlt: 'GENOSYS PEPTIDE GEL MASK pouch, the white-and-blue 38g sheet',
+    figureAlt: 'One fifth glycerin: a blue slice of hydrogel on a white plate, 20%',
   },
   howTo: {
     eyebrow: 'How to use',

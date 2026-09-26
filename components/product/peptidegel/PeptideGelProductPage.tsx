@@ -57,6 +57,7 @@ import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -94,14 +95,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s4c is the
- *  post-procedure cool-down slide, s3c the twenty-to-forty-minute how-to.
- *  s1c / s2c / s5c still print patented thermo-sensitive delivery, so they
- *  stay in the thumbnail strip only and are queued for re-export. The engine
- *  figure stays on the pouch. */
-const EFFECTS_IMAGE = '/images/peptide_mask/s4c.jpeg'
-const HOWTO_IMAGE = '/images/peptide_mask/s3c.jpeg'
-const ENGINE_IMAGE = '/images/peptide_mask/main.jpeg'
+/** Section art from the "Blue means cool" campaign, each slide paired with the
+ *  section it illustrates: s2 (still feeling the heat, the post-procedure
+ *  cool-down) beside the effects, s3 (one fifth glycerin, 20%) beside the
+ *  engine, s9 (press it on, the directions) beside the how-to. AR and RU
+ *  renders swap in through localizeProductImage. */
+const EFFECTS_IMAGE = '/images/peptide_campaign/s2.jpg'
+const HOWTO_IMAGE = '/images/peptide_campaign/s9.jpg'
+const ENGINE_IMAGE = '/images/peptide_campaign/s3.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -169,10 +170,14 @@ export default function PeptideGelProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
+
+  const effectsImage = localizeProductImage(EFFECTS_IMAGE, locale)
+  const engineImage = localizeProductImage(ENGINE_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -586,7 +591,7 @@ export default function PeptideGelProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={effectsImage}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -634,7 +639,7 @@ export default function PeptideGelProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={engineImage}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -681,7 +686,7 @@ export default function PeptideGelProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={howToImage}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"

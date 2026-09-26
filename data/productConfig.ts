@@ -520,7 +520,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '39',
     // Gallery migrated to DB-only 2026-09-25 (product.image /images/ultra/
     // main-v2.jpeg + images s1-s6). Config wins over DB and listed the main.
-    videoUrl: '/videos/ultra.mp4',
+    videoUrl: '/videos/ultra2-web.mp4',
     pricing: {
       basePrice: 250
     },

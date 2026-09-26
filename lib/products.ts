@@ -607,7 +607,7 @@ export const products: Product[] = [
     images: JSON.stringify(
       Array.from({ length: 12 }, (_, i) => `/images/ultra_campaign/s${i + 1}.jpg`),
     ),
-    videoUrl: '/videos/ultra.mp4',
+    videoUrl: '/videos/ultra2-web.mp4',
     category: 'Sun',
     inStock: true,
   },

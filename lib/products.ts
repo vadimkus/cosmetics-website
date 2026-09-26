@@ -568,7 +568,10 @@ export const products: Product[] = [
     price: 380,
     description: '38g × 5. Face hydrogel sheet. After a dermatological procedure, sit 20-40 minutes, take the sheet off, massage the leftover in. Glycerin 20% is the pouch. The peptide sits at 0.05 ppm. Dermatologically tested.',
     image: '/images/peptide_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/peptide_campaign/s${i + 1}.jpg`)),
+    images: JSON.stringify(
+      ['s1', 's2', 's3', 's4b', 's5', 's6b', 's7', 's8', 's9b', 's10b', 's11', 's12']
+        .map(s => `/images/peptide_campaign/${s}.jpg`),
+    ),
     category: 'Mask',
     inStock: true,
     videoUrl: '/videos/peptide.mp4',

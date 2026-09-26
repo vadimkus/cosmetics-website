@@ -1,8 +1,10 @@
 /**
  * Product 37 (PEPTIDE GEL MASK): the "Blue means cool" campaign.
  * Main image -> /images/peptide_campaign/main.jpg (pouch + box packshot, no type),
- * gallery -> /images/peptide_campaign/s1.jpg ... s12.jpg. AR/RU slides swap in at
- * render through lib/localizedProductImages.ts, so the record holds the EN paths only.
+ * gallery -> /images/peptide_campaign/s1.jpg ... s12.jpg, with s4b / s6b / s9b / s10b in
+ * place of the first exports (they drew the two-piece mask as one sheet). AR/RU slides
+ * swap in at render through lib/localizedProductImages.ts, so the record holds the EN
+ * paths only.
  * The old /images/peptide_mask/ files stay on disk (static references still use main.jpeg).
  *
  * Run after the deploy carrying the files is live; it refuses to write otherwise.
@@ -21,7 +23,8 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/peptide_campaign/main.jpg'
-const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/peptide_campaign/s${i + 1}.jpg`)
+const GALLERY = ['s1', 's2', 's3', 's4b', 's5', 's6b', 's7', 's8', 's9b', 's10b', 's11', 's12']
+  .map(s => `/images/peptide_campaign/${s}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/peptide_campaign/', `/peptide_campaign/${l}/`)))
 
 async function main() {

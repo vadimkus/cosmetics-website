@@ -98,10 +98,10 @@ interface ActiveIngredient {
 /** Section art from the "Blue means cool" campaign, each slide paired with the
  *  section it illustrates: s2 (still feeling the heat, the post-procedure
  *  cool-down) beside the effects, s3 (one fifth glycerin, 20%) beside the
- *  engine, s9 (press it on, the directions) beside the how-to. AR and RU
+ *  engine, s9b (press it on, the directions) beside the how-to. AR and RU
  *  renders swap in through localizeProductImage. */
 const EFFECTS_IMAGE = '/images/peptide_campaign/s2.jpg'
-const HOWTO_IMAGE = '/images/peptide_campaign/s9.jpg'
+const HOWTO_IMAGE = '/images/peptide_campaign/s9b.jpg'
 const ENGINE_IMAGE = '/images/peptide_campaign/s3.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {

@@ -115,3 +115,29 @@ Main + s1–s12 are in `~/Desktop/peptide/` at 2560 × 2560. 13 jobs × 16 credi
   `ar/` renders; no `peptide_mask/s*c.jpeg` left. Mobile API `/api/mobile/products/37` returns
   main + 12 slides, localized for `x-locale: ru` / `ar` (the removed config gallery no longer
   overrides the DB).
+
+## Two-piece correction (21:48–22:30)
+
+Vadim: s4 is wrong. The mask is not one solid sheet; it is two parts (reference photos: an
+upper piece over forehead, eyes, nose and upper cheeks; a lower piece over lower cheeks,
+mouth and chin; the seam runs across the cheeks at nostril level). The same one-sheet mask
+was also on s6 (bust), s9 (sofa) and s10 (clinic), so all four were redone.
+
+- CapCut, same settings. Prompts in `campaign/_paste/04b.txt`, `06b.txt`, `09b.txt`, `10b.txt`.
+  s4: new top-down flat lay of the two pieces in face order on the protective film, fingertips
+  lifting the lower piece's corner, one drop. s6 / s9 / s10: the current render attached as
+  reference with an edit prompt that changes only the mask; pose and layout held within ~10 px,
+  so the type layout is unchanged.
+- s4 render sat centre-right, under the headline column, so `_scripts/s4b_compose.py` scales it
+  to 76% and anchors it right (fingers still enter from the frame edge) over a matching blue
+  with a 160 px feathered join. The film's left edge lands at x ≈ 1296.
+- Picks: s4 batch variant 2, s6 variant 4 (8 renders: the job ran twice), s9 variant 2,
+  s10 variant 4. Plates `~/Desktop/peptide/s4b.png`, `s6b.png`, `s9b.png`, `s10b.png`; the old
+  renders stay. Credits 633 → 553 (80, the s6 job was billed twice).
+- Copy: s4 "into a cool, bouncy hydrogel." + "Two pieces, upper and lower face."
+  (RU "Две части: для верха и низа лица.", AR "قطعتان: للجزء العلوي والسفلي من الوجه.");
+  s6 "Press both pieces close, and the gel follows every curve of the face."
+  (RU "Прижмите обе части…", AR "اضغطي القطعتين…"). All lines 0 busy px.
+- Site: new files `s4b/s6b/s9b/s10b.jpg` (+ `ru/`, `ar/`); the one-sheet `s4/s6/s9/s10.jpg`
+  stay on disk unreferenced (immutable cache, new names). Registry, how-to figure (s9b),
+  `lib/products.ts` fallback and `scripts/update-product-37-campaign-gallery.ts` updated.

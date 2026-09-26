@@ -35,6 +35,22 @@ function videoContainers(file: string): string[] {
   return out
 }
 
+// Width and height from the MP4 track header (tkhd), so the test needs no ffprobe
+// on the CI runner. Audio tracks carry 0x0, so the first non-zero pair is video.
+function mp4Dimensions(file: string): [number, number] | null {
+  const buf = readFileSync(file)
+  let i = buf.indexOf('tkhd')
+  while (i >= 4) {
+    const end = i - 4 + buf.readUInt32BE(i - 4)
+    if (end > buf.length) return null
+    const w = buf.readUInt32BE(end - 8) / 65536
+    const h = buf.readUInt32BE(end - 4) / 65536
+    if (w && h) return [w, h]
+    i = buf.indexOf('tkhd', i + 4)
+  }
+  return null
+}
+
 describe('bespoke product video containers', () => {
   const pages = bespokePages().filter((f) => videoContainers(f).length > 0)
 
@@ -69,21 +85,10 @@ describe('bespoke product video containers', () => {
     const landscape = productVideos.filter((v) => {
       const full = path.join(ROOT, v)
       if (!existsSync(full)) return false
-      try {
-        const dims = execFileSync(
-          'ffprobe',
-          ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', full],
-          { encoding: 'utf8' }
-        )
-          .trim()
-          .split(',')
-          .map(Number)
-        const [w, h] = dims
-        if (typeof w !== 'number' || typeof h !== 'number' || !w || !h) return false
+      const dims = mp4Dimensions(full)
+      if (!dims) return false
+      const [w, h] = dims
         return w >= h
-      } catch {
-        return false
-      }
     })
 
     // If this ever fails, a landscape clip has been added and the page playing

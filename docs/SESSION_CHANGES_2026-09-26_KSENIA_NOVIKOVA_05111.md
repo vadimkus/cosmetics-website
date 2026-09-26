@@ -27,3 +27,11 @@ count was stale client state, not missing data.
   orders were missed. Now `useFocusEffect` refetch, counting every order except
   cancelled/canceled/deleted. Commit `ba6adcb`; OTA Android `eff28edc`, iOS `9ed9281e`
   (runtime 1.13).
+
+## Email typo corrected (26 Sep 2026)
+
+She signed up as `ksenis.legal.mb@gmail.com`; correct address is `ksenia.legal.mb@gmail.com`.
+`scripts/fix-ksenia-email-20260926.ts --apply` moved the user (tokenVersion bumped), the order,
+analytics rows and the MoySklad counterparty to the new address, then sent welcome, order
+confirmation (GENCardW2609267134) and a password-reset link to it. All three accepted by SMTP.
+Her own signup password still works with the new email.

@@ -105,3 +105,13 @@ Main + s1–s12 are in `~/Desktop/peptide/` at 2560 × 2560. 13 jobs × 16 credi
 - DB: `scripts/update-product-37-campaign-gallery.ts --apply` after the deploy (checks all 37 URLs
   are 200 first). Before: image `/images/peptide_mask/main.jpeg`, gallery `peptide_mask/s1c–s5c`.
   Old files stay on disk; `routineStepImages` and `OrderHistory` still use the old `main.jpeg`.
+
+### Live (21:47)
+
+- Commit `abddad3a4`; the deploy served the files at 21:46. DB script applied (image
+  `peptide_campaign/main.jpg`, gallery s1–s12). `/api/revalidate` hit for `/products/37`,
+  `/ru/products/37`, `/ar/products/37`.
+- Live HTML: EN page references the 12 EN slides, RU page the 12 `ru/` renders, AR page the 12
+  `ar/` renders; no `peptide_mask/s*c.jpeg` left. Mobile API `/api/mobile/products/37` returns
+  main + 12 slides, localized for `x-locale: ru` / `ar` (the removed config gallery no longer
+  overrides the DB).

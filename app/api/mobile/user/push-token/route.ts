@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
+import { prisma } from '@/lib/database'
 
 /**
  * Mobile Push Token Endpoint
@@ -57,6 +58,14 @@ export async function PUT(request: NextRequest) {
 
     const ok = await updateUser(user.id, { expoPushToken })
     if (!ok) return NextResponse.json({ success: false, error: 'Failed to save push token' }, { status: 500 })
+
+    // A token belongs to one phone, and the phone to whoever signed in last.
+    // Leaving it on a previous account doubles every broadcast and sends that
+    // account's order updates to this person.
+    await prisma.user.updateMany({
+      where: { expoPushToken, id: { not: user.id } },
+      data: { expoPushToken: null },
+    })
 
     debugLog('[MOBILE_PUSH_TOKEN] PUT ok', { ms: Date.now() - startTime })
     return NextResponse.json({ success: true, data: { expoPushToken } })

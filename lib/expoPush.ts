@@ -315,10 +315,16 @@ export async function sendExpoPushToTokens(
 ): Promise<{ sent: number; failed: number; invalidTokens: string[] }> {
   const result = { sent: 0, failed: 0, invalidTokens: [] as string[] }
 
+  // One message per phone even if a token still sits on two accounts.
+  const seenTokens = new Set<string>()
   const valid = messages.filter(m => {
-    if (isValidExpoPushToken(m.token)) return true
-    result.failed++
-    return false
+    if (!isValidExpoPushToken(m.token)) {
+      result.failed++
+      return false
+    }
+    if (seenTokens.has(m.token)) return false
+    seenTokens.add(m.token)
+    return true
   })
   if (valid.length === 0) return result
 

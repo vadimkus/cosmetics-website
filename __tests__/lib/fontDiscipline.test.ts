@@ -59,8 +59,9 @@ describe('display serif', () => {
 
   it('is applied by .cera-serif alone; no other rule sets the face', () => {
     // .cera-numeral used to set the family itself, which put the serif on 13px
-    // step numbers and pack sizes regardless of the floor.
-    const out = execSync(`rg -n --glob '!node_modules' 'font-cera-serif' app components -g '*.css' | rg -v 'app/globals.css' || true`, {
+    // step numbers and pack sizes regardless of the floor. app/fonts.css only
+    // defines the variable (the self-hosted @font-face file).
+    const out = execSync(`rg -n --glob '!node_modules' 'font-cera-serif' app components -g '*.css' | rg -v 'app/(globals|fonts).css' || true`, {
       cwd: ROOT,
       encoding: 'utf8',
     }).trim()

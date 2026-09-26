@@ -25,4 +25,6 @@ regexes = [
   '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.\.\.''',
   # i18n routine description key — false positive for generic-api-key
   '''routineSnowO2Desc''',
+  # INCI ingredient "Snail Secretion Filtrate" - "Secret" + the next ingredient trips generic-api-key
+  '''Secretion Filtrate, [A-Za-z/ ]+''',
 ]

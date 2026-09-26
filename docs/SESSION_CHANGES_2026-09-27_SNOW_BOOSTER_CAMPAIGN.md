@@ -81,3 +81,14 @@ Phytolex as the engine, any hydration %.
   the deploy — image, gallery and the EN text fields (description, productDetails, keyFeatures,
   benefits, ingredients, howToUse, directions). Before: image `/images/Second/main_booster.jpg`,
   gallery `["/images/Second/main_booster2.png"]`; both files stay (routine images use them).
+
+## Live check (27 Sep 2026)
+
+- Code `523aaa7f5` live after ~5 min; DB `--apply` done (before: `Second/main_booster.jpg` +
+  `["/images/Second/main_booster2.png"]`); revalidated `/products/16` EN/RU/AR, `/`, `/products`
+  EN/RU/AR.
+- `/products/16`, `/ru/products/16`, `/ar/products/16`: new main + all 12 slides in the locale's
+  own folder (no EN slide on RU/AR), `main_booster2` gone. EN body shows the new copy
+  ("Fresh moisture in one spray.", "Daily moisture, nothing heavy."); no lot code, no contract
+  manufacturer.
+- Mobile API `/api/mobile/products/16`: main + 12 slides, `ru/` and `ar/` per `x-locale`.

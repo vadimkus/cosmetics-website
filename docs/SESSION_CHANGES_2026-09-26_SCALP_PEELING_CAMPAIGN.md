@@ -74,3 +74,18 @@ to buy, "5 minutes" (RU/AR page only, not on EN), microneedling at home, lot cod
 - Live HTML: EN page serves the 12 EN slides, RU the 12 `ru/` renders, AR the 12 `ar/` renders;
   new main and `cutout/46-v2.webp` on all three; `Second/pp.jpg` gone. Mobile API returns main +
   12 slides, localized for `x-locale: ru` / `ar`.
+
+### Section figures on the page
+
+The slides were only in the gallery. `ScalpPeelingProductPage.tsx` now places four of them in the
+body, localized per language through `localizeProductImage`:
+
+| Section | Slide | Layout |
+|---|---|---|
+| What is actually doing the work | s3 (33.6% alcohol) | beside the header, cards below |
+| Cooling | s4 (1.7% cooling agents) | beside the header, table below |
+| How to use | s10 (section, swab, repeat) | replaces the plain packshot beside the steps |
+| Precautions | s11 (dry first, heat later) | sticky beside the single-column list |
+
+`SlideFigure` = square, rounded 28 px, `object-contain`, `CeraReveal`. Checked on the dev server in
+EN at desktop width, plus AR (right-to-left, `ar/s4.jpg`).

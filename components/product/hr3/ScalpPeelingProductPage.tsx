@@ -92,6 +92,26 @@ interface Props {
   routineProducts?: Product[]
 }
 
+/** Section art from the "Cold start" campaign, each slide paired with the section it
+ *  illustrates: s3 (33.6%, built to cut oil) beside the working formula, s4 (1.7%, the
+ *  coldest thing we make) beside the cooling table, s10 (section, swab, repeat) beside
+ *  the how-to, s11 (dry first, heat later) beside the precautions. AR and RU renders
+ *  swap in through localizeProductImage. */
+const FORMULA_IMAGE = '/images/scalp_campaign/s3.jpg'
+const COOLING_IMAGE = '/images/scalp_campaign/s4.jpg'
+const HOWTO_IMAGE = '/images/scalp_campaign/s10.jpg'
+const SAFETY_IMAGE = '/images/scalp_campaign/s11.jpg'
+
+function SlideFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square w-full overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-contain" />
+      </div>
+    </CeraReveal>
+  )
+}
+
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
   try {
@@ -135,6 +155,11 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
   }, [product.image, product.images, product.name, locale])
+
+  const formulaImage = localizeProductImage(FORMULA_IMAGE, locale)
+  const coolingImage = localizeProductImage(COOLING_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
+  const safetyImage = localizeProductImage(SAFETY_IMAGE, locale)
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()
@@ -459,7 +484,15 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
       {/* ────────────────────── The working formula ─────────────────────── */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-          <CeraSectionHeader eyebrow={copy.working.eyebrow} title={copy.working.title} intro={copy.working.intro} />
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-14">
+            <CeraSectionHeader
+              align="start"
+              eyebrow={copy.working.eyebrow}
+              title={copy.working.title}
+              intro={copy.working.intro}
+            />
+            <SlideFigure src={formulaImage} alt={copy.working.title} />
+          </div>
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-6">
             {copy.working.items.map((item, i) => (
               <CeraReveal
@@ -483,8 +516,16 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
 
       {/* ─────────────────── How cold, across the line ──────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[1000px] px-4 sm:px-6">
-          <CeraSectionHeader eyebrow={copy.cooling.eyebrow} title={copy.cooling.title} intro={copy.cooling.intro} />
+        <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-14">
+            <SlideFigure src={coolingImage} alt={copy.cooling.title} />
+            <CeraSectionHeader
+              align="start"
+              eyebrow={copy.cooling.eyebrow}
+              title={copy.cooling.title}
+              intro={copy.cooling.intro}
+            />
+          </div>
 
           <CeraReveal className="cera-card mt-9 overflow-hidden">
             <table className="hr3-table w-full border-collapse text-start">
@@ -555,12 +596,13 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
             <div className="lg:sticky lg:top-24 lg:self-start">
               <CeraReveal>
-                <div className="cera-stage relative aspect-square overflow-hidden rounded-[28px]">
+                <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <Image
-                    src={product.image}
-                    alt={product.name}
+                    src={howToImage}
+                    alt={copy.howTo.title}
                     fill
                     sizes="(max-width: 1024px) 92vw, 44vw"
+                    quality={85}
                     className="object-contain"
                   />
                 </div>
@@ -664,19 +706,24 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
       ) : null}
 
       {/* ───────────────────────────── Safety ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
-        <CeraSectionHeader eyebrow={copy.safety.eyebrow} title={copy.safety.title} />
-        <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {copy.safety.points.map((point, i) => (
-            <CeraReveal key={point} as="li" delay={i * 60} className="cera-card flex gap-4 p-5">
-              <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
-              <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <SlideFigure src={safetyImage} alt={copy.safety.title} className="lg:sticky lg:top-24 lg:self-start" />
+          <div>
+            <CeraSectionHeader align="start" eyebrow={copy.safety.eyebrow} title={copy.safety.title} />
+            <ul className="mt-10 grid grid-cols-1 gap-3">
+              {copy.safety.points.map((point, i) => (
+                <CeraReveal key={point} as="li" delay={i * 60} className="cera-card flex gap-4 p-5">
+                  <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
+                  <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+                </CeraReveal>
+              ))}
+            </ul>
+            <CeraReveal>
+              <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.safety.note}</p>
             </CeraReveal>
-          ))}
-        </ul>
-        <CeraReveal>
-          <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.safety.note}</p>
-        </CeraReveal>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── What goes with it ────────────────────── */}

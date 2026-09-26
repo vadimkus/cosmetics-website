@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [SNOW BOOSTER campaign](./SESSION_CHANGES_2026-09-27_SNOW_BOOSTER_CAMPAIGN.md) | "Let it snow" main + 12 slides EN/RU/AR for product 16 (200 ml + 1000 ml), snow white / label cyan `#63CCE9` / slate `#333F48`. 4 slides on the page, EN copy in selling voice, DB gallery + EN fields. |
 | 🟡 **Important** | [Skin-concern artwork](./SESSION_CHANGES_2026-09-26_SKIN_CONCERN_CAMPAIGN.md) | "Name it. Treat it." 8 new 16:9 frames (concern + the treatment touching it) in `public/images/concern_campaign/`. `lib/concernVisuals.ts` + new `cardPosition`; tile copy narrowed. Tiles, heroes, OG 1600×900. |
 | 🟡 **Important** | [Yana Stepanian 05108 paid](./SESSION_CHANGES_2026-09-25_YANA_STEPANIAN_05108.md) | INV **05108** / SHIP **06913** / PAY **06290** / **474 AED**. SO **GENCardW2609259248**. Website id linked. |
 | 🟡 **Important** | [Write-off PDRN 60000 and Ivory](./SESSION_CHANGES_2026-09-25_WRITEOFF_PDRN_IVORY.md) | Loss **00008-00522** / **948.70 AED** buy. PDRN 60000 ×10, Ivory cushion ×2. |

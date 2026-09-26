@@ -51,7 +51,7 @@ const CUTOUTS: Record<string, string> = {
   // 15 INTENSIVE PROBLEM CONTROL TONER
   '/images/problem/Main-v2.jpg': '/images/cutout/15-v2.webp',
   // 16 SNOW BOOSTER
-  '/images/Second/main_booster.jpg': '/images/cutout/16.webp',
+  '/images/booster_campaign/main.jpg': '/images/cutout/16.webp',
   // 17 EyeCell EYE CONTOUR SERUM
   '/images/eye_serum/main.jpeg': '/images/cutout/17.webp',
   // 18 MOISTURE REPLENISHING HYALURON SERUM

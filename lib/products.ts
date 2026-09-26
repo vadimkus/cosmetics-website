@@ -260,11 +260,11 @@ export const products: Product[] = [
     id: '16',
     name: 'SNOW BOOSTER',
     price: 260,
-    description: '200ml / 1000ml. Daily toner for all skin types. Apply or spray morning and evening to give moisture. Can go over makeup. Moisturizes and soothes, then refines after the cleanse. Betaine 3% is the named active. Phytolex is a 0.5% premix. Not the oil-control toner. Dermatologically tested.',
-    image: '/images/Second/main_booster.jpg',
-    images: JSON.stringify([
-      '/images/Second/main_booster2.png',
-    ]),
+    description: '200ml / 1000ml. Daily hydrating toner for all skin types. 3% betaine with glycerin 5.78%, butylene glycol 4.55% and dipropylene glycol 4.00% brings moisture, softness and comfort straight back after cleansing. Smooth it on or spray it morning and evening; the fine mist works over makeup too. Dermatologically tested. Made in Korea.',
+    image: '/images/booster_campaign/main.jpg',
+    images: JSON.stringify(
+      Array.from({ length: 12 }, (_, i) => `/images/booster_campaign/s${i + 1}.jpg`),
+    ),
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',

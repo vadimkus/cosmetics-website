@@ -48,6 +48,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -92,8 +93,21 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Intertek 200 ml front packshot. Gallery is packshots only. */
-const ENGINE_IMAGE = '/images/Second/main_booster2.png'
+/** Section art from the "Let it snow" campaign, swapped per locale like the gallery. */
+const EFFECTS_IMAGE = '/images/booster_campaign/s2.jpg'
+const ENGINE_IMAGE = '/images/booster_campaign/s3.jpg'
+const HOWTO_IMAGE = '/images/booster_campaign/s8.jpg'
+const DETAILS_IMAGE = '/images/booster_campaign/s11.jpg'
+
+function SlideFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square w-full overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-contain" />
+      </div>
+    </CeraReveal>
+  )
+}
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -165,10 +179,14 @@ export default function BoosterProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
+  const effectsImage = localizeProductImage(EFFECTS_IMAGE, locale)
+  const engineImage = localizeProductImage(ENGINE_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
+  const detailsImage = localizeProductImage(DETAILS_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -617,11 +635,15 @@ export default function BoosterProductPage({
 
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
-        <CeraSectionHeader
-          eyebrow={copy.effects.eyebrow}
-          title={copy.effects.title}
-          intro={copy.effects.intro}
-        />
+        <div className="mx-auto grid max-w-[1040px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-14">
+          <CeraSectionHeader
+            align="start"
+            eyebrow={copy.effects.eyebrow}
+            title={copy.effects.title}
+            intro={copy.effects.intro}
+          />
+          <SlideFigure src={effectsImage} alt={copy.effects.title} />
+        </div>
         <ol className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
           {copy.effects.cards.map((card, i) => (
             <CeraReveal
@@ -653,12 +675,12 @@ export default function BoosterProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={engineImage}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
                   quality={85}
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </CeraReveal>
@@ -695,7 +717,8 @@ export default function BoosterProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16 lg:py-24">
+        <SlideFigure src={howToImage} alt={copy.howTo.title} className="lg:sticky lg:top-24 lg:self-start" />
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -995,8 +1018,10 @@ export default function BoosterProductPage({
 
       {/* ───────────────────────────── Details ──────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[820px] px-4 sm:px-6">
-          <CeraSectionHeader eyebrow={copy.details.eyebrow} title={copy.details.title} />
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <SlideFigure src={detailsImage} alt={copy.details.title} className="lg:sticky lg:top-24 lg:self-start" />
+          <div>
+          <CeraSectionHeader align="start" eyebrow={copy.details.eyebrow} title={copy.details.title} />
           <CeraReveal className="cera-card mt-10 p-6 lg:mt-14 lg:p-8">
             <dl className="divide-y divide-[var(--cera-line)]">
               {copy.details.rows.map(row => (
@@ -1014,6 +1039,7 @@ export default function BoosterProductPage({
             </dl>
             <CeraBrochureLinks productNumber={product.productNumber ?? product.id} />
           </CeraReveal>
+          </div>
         </div>
       </section>
 

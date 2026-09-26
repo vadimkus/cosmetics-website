@@ -66,3 +66,11 @@ to buy, "5 minutes" (RU/AR page only, not on EN), microneedling at home, lot cod
   regenerated.
 - `lib/products.ts` fallback. DB: `scripts/update-product-46-campaign-gallery.ts --apply` after the
   deploy. Before: image `/images/scal.jpg`, gallery `["/images/Second/pp.jpg"]`.
+
+### Live (23:21)
+
+- Commit `a8881d5e5` deployed; DB gallery applied (image `scalp_campaign/main.jpg`, gallery
+  s1–s12); `/products/46`, `/ru/products/46`, `/ar/products/46` revalidated.
+- Live HTML: EN page serves the 12 EN slides, RU the 12 `ru/` renders, AR the 12 `ar/` renders;
+  new main and `cutout/46-v2.webp` on all three; `Second/pp.jpg` gone. Mobile API returns main +
+  12 slides, localized for `x-locale: ru` / `ar`.

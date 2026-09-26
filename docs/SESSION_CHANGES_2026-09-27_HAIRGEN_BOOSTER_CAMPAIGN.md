@@ -105,3 +105,23 @@ Picks: main 4, 01 1, 02 1, 03 1, 04 2, 05 3, 06 1, 07 2, 08 4, 09 1, 10 2, 11 1,
 - Still in the page payload (not rendered here): companion records 45 ("No efficacy study exists
   for this product") and 64 (`evidence`: "No efficacy study is held for the stamp or the device it
   fits"). Worth the same selling-voice pass on those two products.
+
+## Dossier sweep (27 Sep 2026, same night)
+
+Vadim: "read product page and remove dossier - we are selling". Read the live EN / RU / AR HTML,
+rendered text and page payload.
+
+- Rendered, now gone in all three languages: warranty "in line with the manual" -> "Two years from
+  the date of purchase"; safety "other than those the manufacturer recommends" -> "Use it only with
+  the HR³ products made for it"; the stamp-section note and the depth FAQ no longer explain away the
+  Mesopecia Kit's 0.5 mm (the note now says a fresh stamp means sharp needles and the same feel).
+  Same warranty line in the central RU/AR record and the DB keyFeatures.
+- Payload: the page shipped the full records of its companions 45 / 64 / 47 / 46, with
+  "per the product artwork ... neither the leaflet nor the manual", "No efficacy study ...", "the
+  assessor notes ...", "registered as ...". Product 3 only links them, so `getRoutineProducts` now
+  strips their long-form fields for link-only layouts (`LINK_ONLY_COMPANIONS = {'3'}`); layouts
+  that add companions to the bag keep full records.
+- Product 64 record (`scripts/fix-product-64-stamp-details-20260927.ts --apply`): `needleDepth`
+  "0.3 mm, a cosmetic depth"; `evidence` removed. The mobile app shows productDetails.
+- Kept: the Mesopecia Kit cross-sell ("the manual version", 0.5 mm roller, AED 1,100, behind the
+  price gate), contraindications, and the see-a-doctor line.

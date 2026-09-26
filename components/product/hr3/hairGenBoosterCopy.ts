@@ -209,7 +209,7 @@ const EN: HairGenBoosterCopy = {
       {
         name: 'Warranty',
         dose: '24 months',
-        body: 'From the date of purchase, for normal use in line with the manual.',
+        body: 'Two years from the date of purchase.',
       },
     ],
   },
@@ -267,8 +267,7 @@ const EN: HairGenBoosterCopy = {
     title: 'Why it feels like a massage',
     body:
       'The needle depth is set by the stamp, not the handpiece, and the HR³ MATRIX HAIR STAMP is 0.3 mm: a cosmetic depth. Add an even, powered rhythm instead of hand pressure, and what you feel is a steady massage along the parting rather than needles.',
-    note:
-      'Not to be confused with the Mesopecia Kit\u2019s 0.5 mm: that is the roller in the kit, a different applicator.',
+    note: 'A fresh stamp every session means sharp needles and the same feel every time.',
   },
 
   spec: {
@@ -299,7 +298,7 @@ const EN: HairGenBoosterCopy = {
       'Do not use over inflamed areas, or areas at risk of infection.',
       'Do not use on broken, wounded, sunburned or freshly shaved scalp.',
       'Stop immediately and seek medical advice if a rash or allergic reaction appears.',
-      'Do not use with cosmetics other than those the manufacturer recommends.',
+      'Use it only with the HR³ products made for it.',
       'A fresh stamp every session. It is single use and it is personal - never share one.',
       'Do not disassemble, modify or repair the device yourself.',
       'Do not handle the device or the charger with wet hands. Keep out of reach of children.',
@@ -323,7 +322,7 @@ const EN: HairGenBoosterCopy = {
       },
       {
         q: 'How deep do the needles go?',
-        a: '0.3 mm. The depth belongs to the stamp rather than the handpiece, and the HR³ MATRIX HAIR STAMP works at a cosmetic 0.3 mm. The 0.5 mm you may have seen is the roller in the Mesopecia Kit.',
+        a: '0.3 mm, a cosmetic depth, set by the HR³ MATRIX HAIR STAMP rather than the handpiece. That is why it feels like a massage rather than needles.',
       },
       {
         q: 'What does a session cost?',

@@ -53,7 +53,7 @@ const COPY = {
     { title: 'Three speeds', description: '280, 330 and 400 stamps per minute, changed with a short press; the device holds the pace evenly.' },
     { title: 'Ten minutes, then it stops', description: 'The built-in timer ends the session after ten minutes, and the ampoule absorbs within it.' },
     { title: 'Blue and red light', description: '14 LEDs glow through 48 clear light bumps in the head.' },
-    { title: '24-month warranty', description: 'Two years from the date of purchase, for normal use in line with the manual.' },
+    { title: '24-month warranty', description: 'Two years from the date of purchase.' },
   ]),
   benefits: JSON.stringify([
     'Works the HR³ MATRIX HAIR SOLUTION α ampoule into the scalp as it stamps',

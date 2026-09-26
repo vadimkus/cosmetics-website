@@ -339,13 +339,38 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
 }
 
 /**
+ * Layouts whose companions are only links (picture, name, URL). Every other layout adds
+ * companions to the bag, which needs the full record.
+ */
+const LINK_ONLY_COMPANIONS = new Set(['3'])
+
+function asCompanionLink(p: Product): Product {
+  return {
+    ...p,
+    description: '',
+    descriptionRu: null,
+    descriptionAr: null,
+    disclaimer: null,
+    productDetails: null,
+    keyFeatures: null,
+    benefits: null,
+    ingredients: null,
+    howToUse: null,
+    directions: null,
+  }
+}
+
+/**
  * The bespoke layouts add companion products straight to the bag, so they need
  * real price and stock records. Resolved on the server so the cross-sell is
  * render-complete on first paint rather than popping in after hydration.
  */
 export async function getRoutineProducts(productNumber: string): Promise<Product[]> {
   const companions = BESPOKE_COMPANIONS[productNumber]
-  if (companions) return getProductsByNumbers([...companions])
+  if (companions) {
+    const products = await getProductsByNumbers([...companions])
+    return LINK_ONLY_COMPANIONS.has(productNumber) ? products.map(asCompanionLink) : products
+  }
 
   const numbers = (PRODUCT_ROUTINES[productNumber]?.steps ?? [])
     .map(step => ROUTINE_STEP_PRODUCT_IDS[step.titleKey])

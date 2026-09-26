@@ -141,3 +141,6 @@ was also on s6 (bust), s9 (sofa) and s10 (clinic), so all four were redone.
 - Site: new files `s4b/s6b/s9b/s10b.jpg` (+ `ru/`, `ar/`); the one-sheet `s4/s6/s9/s10.jpg`
   stay on disk unreferenced (immutable cache, new names). Registry, how-to figure (s9b),
   `lib/products.ts` fallback and `scripts/update-product-37-campaign-gallery.ts` updated.
+- Live 22:28: commit `32784d728` deployed, DB gallery applied, three pages revalidated. EN / RU /
+  AR pages and the mobile API serve s4b / s6b / s9b / s10b in their language; no one-sheet
+  s4 / s6 / s9 / s10 left on the pages.

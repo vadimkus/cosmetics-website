@@ -89,3 +89,6 @@ body, localized per language through `localizeProductImage`:
 
 `SlideFigure` = square, rounded 28 px, `object-contain`, `CeraReveal`. Checked on the dev server in
 EN at desktop width, plus AR (right-to-left, `ar/s4.jpg`).
+
+Live (23:41): commit `bf428fbc0` deployed, three paths revalidated. Live HTML carries s3/s4/s10/s11
+with the section titles as alt text: EN plain, RU `ru/`, AR `ar/`.

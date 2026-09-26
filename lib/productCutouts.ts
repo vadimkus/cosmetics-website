@@ -25,7 +25,7 @@ const CUTOUTS: Record<string, string> = {
   // 2 Needle Pen-K
   '/images/Needle-pen.jpg': '/images/cutout/2.webp',
   // 3 HairGen BOOSTER
-  '/images/hairgen_campaign/main.jpg': '/images/cutout/3.webp',
+  '/images/hairgen_campaign/main2.jpg': '/images/cutout/3.webp',
   // 4 POWER SOLUTION HES
   '/images/hes_power/main.jpeg': '/images/cutout/4.webp',
   // 5 POWER SOLUTION CVS

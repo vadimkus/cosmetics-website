@@ -133,3 +133,22 @@ consumables + the peeling) in `bespokePdp.tsx` and `COMPANION_PRODUCT_IDS`; grid
 wide under the "Every session" eyebrow. Also removed, EN / RU / AR, the two signed-in mentions
 that sent buyers to the cheaper kit: the "Prefer to start by hand?" line under the running cost
 and the "How is it different from the Mesopecia Kit?" FAQ.
+
+## Handle and size fix (27 Sep 2026)
+
+Vadim on slides 05 and 09: "the device does not have such handle - it's solid, and check size".
+Cause: the prompt described "a curved grip loop at the back", read off the three-quarter photo
+where the rear is a shallow ribbed grip recess. The model built an open handle from it on every
+slide using the front reference: main, 04, 05, 07, 08, 09, 11, 12 (01, 03, 06 show the real recess
+from the three-quarter reference and stay).
+
+Size, from the 2023 training manual drawing: Ø 90 mm × 137.15 mm; box 151 × 151 × 190 mm; stand
+is a round ring base. New prompt: solid one-piece body, no handle / loop / opening, "9 cm across and
+13.7 cm tall, about the size of a large coffee mug"; in the hand shots fingers wrap the narrow upper
+body; negatives add no handle / loop / hole / oversized device. Main needed a second try with an
+explicit height cue (device top about three quarters up the box): mainc_2 at ~69% vs 72% true.
+
+Picks: main mainc_2, 04b_2, 05b_4, 07b_4, 08b_2, 09b_1, 11b_4, 12b_2 (9 jobs, 144 credits,
+~1,600 left). New files under new names (immutable cache): `main2.jpg`, `s4b s5b s7b s8b s9b s11b
+s12b.jpg` in EN / ru / ar. Page figures, fallback, update script and cutout source point at them;
+the old files stay on disk and in the localization registry.

@@ -105,11 +105,13 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
-  // Product 3, HairGen BOOSTER, "In. Not on." campaign. main.jpg is a plain packshot and
-  // is not translated.
+  // Product 3, HairGen BOOSTER, "In. Not on." campaign. The main packshot is not translated;
+  // the b-slides replace renders that showed a handle the device does not have.
   '/images/hairgen_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
+      's10.jpg', 's11.jpg', 's11b.jpg', 's12.jpg', 's12b.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
+      's10.jpg', 's11.jpg', 's11b.jpg', 's12.jpg', 's12b.jpg'],
   },
 }
 

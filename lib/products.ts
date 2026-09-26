@@ -604,13 +604,9 @@ export const products: Product[] = [
     price: 250,
     description: '50g. Non-greasy and silky sunscreen with powerful UV protection. It is a non-greasy silky sunscreen that strongly defends skin against UV rays with a 7-filter broad-spectrum UV system, and supports skin recovery with hydrolyzed hyaluronic acid and lactobacillus ferment lysate. Niacinamide 2% and Ceramide NP brighten and strengthen the barrier. Free from oxybenzone and octinoxate. Key ingredients: 7-Filter UV System, Niacinamide 2%, Ceramide NP, Hydrolyzed Sodium Hyaluronate, Lactobacillus Ferment Lysate, Tropical Fruit Extracts (Pineapple, Papaya, Litchi, Guava). Dermatologically tested.',
     image: '/images/ultra/main-v3.jpeg',
-    images: JSON.stringify([
-      '/images/ultra/s2-v2.jpeg',
-      '/images/ultra/s3.jpeg',
-      '/images/ultra/s4.jpeg',
-      '/images/ultra/s5.jpeg',
-      '/images/ultra/s6.jpeg',
-    ]),
+    images: JSON.stringify(
+      Array.from({ length: 12 }, (_, i) => `/images/ultra_campaign/s${i + 1}.jpg`),
+    ),
     videoUrl: '/videos/ultra.mp4',
     category: 'Sun',
     inStock: true,

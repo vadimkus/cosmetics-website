@@ -1,7 +1,7 @@
 /**
  * Product 53 (INTENSIVE REPAIR COLLAGEN MASK): the "Red means stop" campaign.
  * Main image -> /images/collagen_campaign/main.jpg (clean sachet packshot, no type),
- * gallery -> /images/collagen_campaign/s1.jpg ... s11.jpg. AR/RU slides swap in at
+ * gallery -> /images/collagen_campaign/s1.jpg ... s12.jpg. AR/RU slides swap in at
  * render through lib/localizedProductImages.ts, so the record holds the EN paths only.
  * The old /images/collagen_mask/ files stay on disk (static references still use Main.jpeg).
  *
@@ -21,7 +21,7 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/collagen_campaign/main.jpg'
-const GALLERY = Array.from({ length: 11 }, (_, i) => `/images/collagen_campaign/s${i + 1}.jpg`)
+const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/collagen_campaign/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/collagen_campaign/', `/collagen_campaign/${l}/`)))
 
 async function main() {

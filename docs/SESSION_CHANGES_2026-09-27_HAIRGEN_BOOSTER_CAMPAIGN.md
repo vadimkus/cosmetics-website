@@ -91,3 +91,17 @@ Picks: main 4, 01 1, 02 1, 03 1, 04 2, 05 3, 06 1, 07 2, 08 4, 09 1, 10 2, 11 1,
 - Cut-out: `cutout/3.webp` kept, report source moved to the new main,
   `lib/productCutouts.ts` regenerated.
 - Old `/images/Booster.jpg` and `/images/Second/hair_*.jpg` stay on disk.
+
+## Live check (27 Sep 2026)
+
+- Code `68a60909f` live after ~4.5 min; DB `--apply` done (before: `/images/Booster.jpg` +
+  `Second/hair_light|hair_box|hair_sol.jpg`); revalidated `/products/3` EN/RU/AR, `/`, `/products`
+  EN/RU/AR.
+- `/products/3`, `/ru/products/3`, `/ar/products/3`: new main + all 12 slides from the locale's own
+  folder (no EN slide on RU/AR), old images gone, section figures s3/s4/s5/s9/s11 localized, new
+  copy in all three; price FAQs hidden signed out.
+- Mobile API `/api/mobile/products/3`: main + 12 slides, `ru/` and `ar/` per `x-locale`;
+  `localizedDescription` carries the new RU/AR text.
+- Still in the page payload (not rendered here): companion records 45 ("No efficacy study exists
+  for this product") and 64 (`evidence`: "No efficacy study is held for the stamp or the device it
+  fits"). Worth the same selling-voice pass on those two products.

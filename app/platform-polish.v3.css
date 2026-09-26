@@ -68,6 +68,26 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
+/* --- Blog dark call-out boxes ---
+   Article HTML sets `text-white` on the box, but `.cera-page :where(h1, h2, h3)` and
+   the prose element colours target the children directly, which painted CTA titles
+   in body ink on a dark fill. Text that carries its own colour class keeps it. */
+.blog-content .text-white :is(h1, h2, h3, h4) {
+  color: inherit;
+}
+
+.blog-content .text-white :is(p, li, strong):not(
+  [class*='text-white'], [class*='text-black'], [class*='text-['],
+  [class*='text-gray-'], [class*='text-slate-'], [class*='text-zinc-'], [class*='text-neutral-'],
+  [class*='text-stone-'], [class*='text-red-'], [class*='text-orange-'], [class*='text-amber-'],
+  [class*='text-yellow-'], [class*='text-lime-'], [class*='text-green-'], [class*='text-emerald-'],
+  [class*='text-teal-'], [class*='text-cyan-'], [class*='text-sky-'], [class*='text-blue-'],
+  [class*='text-indigo-'], [class*='text-violet-'], [class*='text-purple-'], [class*='text-fuchsia-'],
+  [class*='text-pink-'], [class*='text-rose-'], [class*='text-primary-']
+) {
+  color: inherit;
+}
+
 /* --- Home section scroll reveals (JS toggles .is-in-view both ways) --- */
 .reveal-on-view {
   transition:

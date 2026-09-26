@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Source-guard tests (fontDiscipline, memberNumberOnCreate) shell out to rg
+      - name: Install ripgrep
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep
+
       - name: Typecheck
         run: npx tsc --noEmit
 

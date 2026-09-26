@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_Arabic } from 'next/font/google'
+import { preload } from 'react-dom'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import Script from 'next/script'
 import { headers } from 'next/headers'
+import './fonts.css'
 import './globals.css'
 import './platform-polish.v3.css'
 import './platform-phase-a.v2.css'
@@ -65,36 +66,19 @@ import CookieConsentBanner from '@/components/CookieConsentBanner'
 import { getSiteUrl } from '@/lib/siteConfig'
 import ScrollToTop from '@/components/ScrollToTop'
 
-const inter = Inter({ 
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  display: 'swap',
-  variable: '--font-inter',
-  // Preload specific weights for better performance
-  // Variable fonts include all weights, but we hint the most common ones
-  preload: true,
-  fallback: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'Helvetica Neue',
-    'Arial',
-    'sans-serif',
-  ],
-})
+// Faces are self-hosted from app/fonts.css (see the note there). These keep the
+// shape of the old next/font objects so the <body> class list reads the same.
+const inter = { className: 'gx-font-inter', variable: 'gx-font-inter-var' }
+const notoSansArabic = { variable: 'gx-font-arabic-var' }
 
-const notoSansArabic = Noto_Sans_Arabic({
-  subsets: ['arabic'],
-  display: 'swap',
-  variable: '--font-arabic',
-  weight: ['300', '400', '500', '600', '700'],
-  preload: true,
-  fallback: [
-    'Tahoma',
-    'Arial',
-    'sans-serif',
-  ],
-})
+// Latin Inter, Arabic and Cormorant subsets that next/font used to preload.
+const PRELOADED_FONTS = [
+  '/fonts/9c72aa0f40e4eef8.woff2',
+  '/fonts/1bffadaabf893a1e.woff2',
+  '/fonts/83afe278b6a6bb3c.woff2',
+  '/fonts/3fd1b3eda9c5392f.woff2',
+  '/fonts/01e4147cff8141ee.woff2',
+]
 
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
@@ -248,6 +232,9 @@ export default async function RootLayout({
   const locale = getLocaleFromPath(pathname)
   const dir = locale === 'ar' ? 'rtl' : 'ltr'
   const messages = loadMessages(locale)
+  for (const href of PRELOADED_FONTS) {
+    preload(href, { as: 'font', type: 'font/woff2', crossOrigin: '' })
+  }
 
   return (
     <html lang={locale} dir={dir} translate="no" className="notranslate" suppressHydrationWarning data-scroll-behavior="smooth">
@@ -255,8 +242,8 @@ export default async function RootLayout({
         {/* Browser auto-translation mutates React-owned text nodes and can crash route transitions. */}
         <meta name="google" content="notranslate" />
         {/* Preconnect to external domains for faster resource loading.
-            NOTE: no fonts.googleapis/gstatic preconnect - next/font self-hosts
-            fonts at build time, so those origins are never fetched at runtime. */}
+            NOTE: no fonts.googleapis/gstatic preconnect - fonts are served from
+            /fonts (app/fonts.css), so those origins are never fetched. */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GENOSYS Search" />

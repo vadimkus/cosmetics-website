@@ -202,6 +202,10 @@ REVISION = {
     "55": 3,
     # New studio kit shot replacing the flat render.
     "62": 3,
+    # "Cold start" campaign packshot (scalp_campaign/main.jpg, 26 Sep 2026) has ice
+    # around the bottle, so v2 is normalised from the supplied transparent container
+    # PNG (current label) rather than traced from the photograph.
+    "46": 2,
 }
 
 

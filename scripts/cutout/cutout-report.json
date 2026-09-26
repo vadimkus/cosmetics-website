@@ -402,11 +402,11 @@
   {
     "product": "46",
     "status": "ok",
-    "source": "/images/scal.jpg",
-    "file": "/images/cutout/46.webp",
+    "source": "/images/scalp_campaign/main.jpg",
+    "file": "/images/cutout/46-v2.webp",
     "name": "HR\u00b3 MATRIX SCALP PEELING \u03b1",
-    "coverage": 0.208,
-    "bytes": 12018,
+    "coverage": 0.207,
+    "bytes": 40162,
     "review": false
   },
   {

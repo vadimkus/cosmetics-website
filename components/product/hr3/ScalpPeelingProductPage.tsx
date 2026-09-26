@@ -68,6 +68,7 @@ import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
@@ -130,10 +131,10 @@ export default function ScalpPeelingProductPage({ product, unitsSold = 0, routin
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()

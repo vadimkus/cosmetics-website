@@ -111,7 +111,7 @@ const CUTOUTS: Record<string, string> = {
   // 45 HR³ MATRIX HAIR SOLUTION α
   '/images/hair_sol_o/Main.jpeg': '/images/cutout/45-v3.webp',
   // 46 HR³ MATRIX SCALP PEELING α
-  '/images/scal.jpg': '/images/cutout/46.webp',
+  '/images/scalp_campaign/main.jpg': '/images/cutout/46-v2.webp',
   // 47 HR³ MATRIX MESOPECIA KIT
   '/images/meso.jpg': '/images/cutout/47.webp',
   // 48 Hair-GENTRON

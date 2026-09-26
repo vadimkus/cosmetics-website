@@ -156,19 +156,20 @@ export default function PWAProfilePage() {
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
   
-  // Fetch orders count
+  // Fetch orders count. Refetched whenever the page is shown again: mobile
+  // Safari restores this page from its back-forward cache after checkout,
+  // which skips React effects and left a new customer looking at "0 purchases".
   useEffect(() => {
+    if (!user?.email) return
+    let cancelled = false
     const fetchOrdersCount = async () => {
-      if (!user?.email) return
       try {
-        // Build URL with both auth email and contact email for better matching
         let url = `/api/orders?email=${encodeURIComponent(user.email)}`
         if (user.contactEmail && user.contactEmail.trim()) {
           url += `&contactEmail=${encodeURIComponent(user.contactEmail.trim())}`
         }
-        
-        const response = await fetch(url)
-        if (response.ok) {
+        const response = await fetch(url, { cache: 'no-store', credentials: 'include' })
+        if (response.ok && !cancelled) {
           const data = await response.json()
           setOrdersCount(data.orders?.length || 0)
         }
@@ -176,8 +177,18 @@ export default function PWAProfilePage() {
         console.error('Error fetching orders count:', error)
       }
     }
+    const onVisible = () => { if (document.visibilityState === 'visible') fetchOrdersCount() }
     fetchOrdersCount()
-  }, [user?.email])
+    window.addEventListener('pageshow', fetchOrdersCount)
+    window.addEventListener('focus', fetchOrdersCount)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      cancelled = true
+      window.removeEventListener('pageshow', fetchOrdersCount)
+      window.removeEventListener('focus', fetchOrdersCount)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [user?.email, user?.contactEmail])
 
   // Fetch unread notifications count
   useEffect(() => {

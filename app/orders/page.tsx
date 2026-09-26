@@ -249,7 +249,7 @@ export default function OrdersPage() {
         url += `&contactEmail=${encodeURIComponent(user.contactEmail.trim())}`
       }
       
-      const response = await fetch(url)
+      const response = await fetch(url, { cache: 'no-store', credentials: 'include' })
       if (response.ok) {
         const data = await response.json()
         setOrders(data.orders || [])
@@ -263,9 +263,20 @@ export default function OrdersPage() {
     }
   }
 
+  // Also refetch when the page is shown again: Safari's back-forward cache
+  // restores it after checkout without running effects.
   useEffect(() => {
     fetchOrders()
-  }, [user?.email])
+    const onShow = () => { fetchOrders() }
+    const onVisible = () => { if (document.visibilityState === 'visible') fetchOrders() }
+    window.addEventListener('pageshow', onShow)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      window.removeEventListener('pageshow', onShow)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.email, user?.contactEmail])
 
   const handleRefresh = async () => {
     setRefreshing(true)

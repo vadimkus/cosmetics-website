@@ -231,34 +231,40 @@ export default function ProfilePageRefactored() {
     return undefined
   }, [user, forceRefreshUser])
 
-  // Fetch user orders
+  // Fetch user orders. Refetched when the page is shown again (back-forward
+  // cache after checkout, tab switch) so a just-paid order appears.
   useEffect(() => {
+    if (!user?.email) return
+    let cancelled = false
     const fetchOrders = async () => {
-      if (!user?.email) return
-      
       setLoadingOrders(true)
       try {
-        // Build URL with both auth email and contact email for better matching
         let url = `/api/orders?email=${encodeURIComponent(user.email)}`
         if (user.contactEmail && user.contactEmail.trim()) {
           url += `&contactEmail=${encodeURIComponent(user.contactEmail.trim())}`
         }
-        
-        const response = await fetch(url)
+        const response = await fetch(url, { cache: 'no-store', credentials: 'include' })
         if (response.ok) {
           const data = await response.json()
-          setOrders(data.orders || [])
+          if (!cancelled) setOrders(data.orders || [])
         } else {
           errorLog('Failed to fetch orders:', response.statusText)
         }
       } catch (error) {
         errorLog('Error fetching orders:', error)
       } finally {
-        setLoadingOrders(false)
+        if (!cancelled) setLoadingOrders(false)
       }
     }
-
+    const onVisible = () => { if (document.visibilityState === 'visible') fetchOrders() }
     fetchOrders()
+    window.addEventListener('pageshow', fetchOrders)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      cancelled = true
+      window.removeEventListener('pageshow', fetchOrders)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
   }, [user?.email, user?.contactEmail])
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

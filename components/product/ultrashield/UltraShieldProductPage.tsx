@@ -77,6 +77,16 @@ interface Props {
   routineProducts?: Product[]
 }
 
+// A campaign slide set inside a section. The slide carries its own type, so it is
+// shown whole: square, cover, no caption.
+function SlideFigure({ src, alt, sizes }: { src: string; alt: string; sizes: string }) {
+  return (
+    <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+      <Image src={src} alt={alt} fill sizes={sizes} quality={80} className="object-cover" />
+    </div>
+  )
+}
+
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
   try {
@@ -120,6 +130,11 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
   }, [product.image, product.images, product.name])
+
+  // The DB gallery, in order, is the campaign set s1-s12. Each section picks the
+  // slide that makes its point; a missing slide simply renders nothing.
+  const slides = useMemo(() => parseJsonArray<string>(product.images), [product.images])
+  const slide = (n: number) => slides[n - 1] || null
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()
@@ -425,6 +440,17 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
       <section className="mx-auto max-w-[1000px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.measured.eyebrow} title={copy.measured.title} intro={copy.measured.intro} />
 
+        {slide(2) && slide(3) ? (
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:mt-14">
+            <CeraReveal>
+              <SlideFigure src={slide(2)!} alt={copy.measured.title} sizes="(max-width: 1000px) 46vw, 480px" />
+            </CeraReveal>
+            <CeraReveal delay={80}>
+              <SlideFigure src={slide(3)!} alt={copy.measured.title} sizes="(max-width: 1000px) 46vw, 480px" />
+            </CeraReveal>
+          </div>
+        ) : null}
+
         <CeraReveal className="usc-measure mt-10 p-6 md:p-9 lg:mt-14">
           <dl className="divide-y divide-[var(--cera-blush-deep)]">
             {copy.measured.rows.map(row => (
@@ -472,9 +498,15 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
                   {copy.filters.seventh}
                 </p>
               </CeraReveal>
+              {slide(4) && slide(5) ? (
+                <CeraReveal delay={80} className="mt-8 grid grid-cols-2 gap-3 sm:gap-4">
+                  <SlideFigure src={slide(4)!} alt={copy.filters.title} sizes="(max-width: 1024px) 46vw, 240px" />
+                  <SlideFigure src={slide(5)!} alt={copy.filters.title} sizes="(max-width: 1024px) 46vw, 240px" />
+                </CeraReveal>
+              ) : null}
             </div>
 
-            <CeraReveal className="cera-card overflow-hidden">
+            <CeraReveal className="cera-card self-start overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="usc-table w-full border-collapse text-start">
                   <caption className="sr-only">{copy.filters.title}</caption>
@@ -523,7 +555,13 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
       {/* ──────────────────────── Actives that count ────────────────────── */}
       <section className="mx-auto max-w-[1040px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.actives.eyebrow} title={copy.actives.title} intro={copy.actives.intro} />
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-14 lg:gap-6">
+        <div className={`mt-10 grid grid-cols-1 gap-6 lg:mt-14 ${slide(7) ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)] lg:gap-8' : ''}`}>
+        {slide(7) ? (
+          <CeraReveal className="mx-auto w-full max-w-[460px] lg:max-w-none">
+            <SlideFigure src={slide(7)!} alt={copy.actives.title} sizes="(max-width: 1024px) 92vw, 480px" />
+          </CeraReveal>
+        ) : null}
+        <div className={`grid grid-cols-1 gap-4 ${slide(7) ? 'md:grid-cols-3 lg:grid-cols-1' : 'md:grid-cols-3 lg:gap-6'}`}>
           {copy.actives.items.map((item, i) => (
             <CeraReveal key={item.name} delay={i * 80} as="article" className="cera-card cera-card-hover flex flex-col p-6 lg:p-7">
               <p dir="ltr" className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)]">
@@ -536,17 +574,25 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
             </CeraReveal>
           ))}
         </div>
+        </div>
       </section>
 
       {/* ────────── The trace complex, homosalate, water resistance ─────── */}
       <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[900px] px-4 sm:px-6">
-          <CeraReveal className="usc-note p-6 md:p-9">
-            <p className="cera-eyebrow">{copy.honesty.eyebrow}</p>
-            <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.honesty.title}</h2>
-            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
-            <p className="mt-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">{copy.honesty.aside}</p>
-          </CeraReveal>
+          <div className={`grid grid-cols-1 gap-6 ${slide(8) ? 'md:grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)] md:items-center' : ''}`}>
+            <CeraReveal className="usc-note p-6 md:p-9">
+              <p className="cera-eyebrow">{copy.honesty.eyebrow}</p>
+              <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.honesty.title}</h2>
+              <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
+              <p className="mt-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">{copy.honesty.aside}</p>
+            </CeraReveal>
+            {slide(8) ? (
+              <CeraReveal delay={80} className="mx-auto w-full max-w-[420px]">
+                <SlideFigure src={slide(8)!} alt={copy.homosalate.title} sizes="(max-width: 768px) 92vw, 340px" />
+              </CeraReveal>
+            ) : null}
+          </div>
 
           <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <CeraReveal delay={80} className="usc-note p-6 md:p-7">
@@ -624,6 +670,13 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
               ))}
             </ol>
 
+            {slide(9) && slide(10) ? (
+              <CeraReveal className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+                <SlideFigure src={slide(9)!} alt={copy.howTo.steps[0]?.title || copy.howTo.title} sizes="(max-width: 1024px) 46vw, 300px" />
+                <SlideFigure src={slide(10)!} alt={copy.howTo.title} sizes="(max-width: 1024px) 46vw, 300px" />
+              </CeraReveal>
+            ) : null}
+
             <CeraReveal>
               <p className="mt-8 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]">
                 {copy.howTo.note}
@@ -645,6 +698,16 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
               </CeraReveal>
             ))}
           </ul>
+          {slide(6) && slide(11) ? (
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5">
+              <CeraReveal>
+                <SlideFigure src={slide(6)!} alt={copy.uae.title} sizes="(max-width: 900px) 46vw, 430px" />
+              </CeraReveal>
+              <CeraReveal delay={80}>
+                <SlideFigure src={slide(11)!} alt={copy.uae.title} sizes="(max-width: 900px) 46vw, 430px" />
+              </CeraReveal>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -659,9 +722,14 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
                 {copy.lab.intro}
               </p>
             </CeraReveal>
+            {slide(1) ? (
+              <CeraReveal delay={80} className="mt-8 max-w-[420px]">
+                <SlideFigure src={slide(1)!} alt={product.name} sizes="(max-width: 1024px) 92vw, 420px" />
+              </CeraReveal>
+            ) : null}
           </div>
 
-          <CeraReveal className="cera-card overflow-hidden">
+          <CeraReveal className="cera-card self-start overflow-hidden">
             <table className="usc-table w-full border-collapse text-start">
               <caption className="sr-only">{copy.lab.title}</caption>
               <tbody>
@@ -758,6 +826,11 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
       {/* ───────────────────────── Specification ────────────────────────── */}
       <section className="mx-auto max-w-[820px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.spec.eyebrow} title={copy.spec.title} />
+        {slide(12) ? (
+          <CeraReveal className="mx-auto mt-10 max-w-[440px] lg:mt-14">
+            <SlideFigure src={slide(12)!} alt={product.name} sizes="(max-width: 820px) 92vw, 440px" />
+          </CeraReveal>
+        ) : null}
         <CeraReveal className="cera-card mt-10 p-6 lg:mt-14 lg:p-8">
           <dl className="divide-y divide-[var(--cera-line)]">
             {copy.spec.rows.map(row => (

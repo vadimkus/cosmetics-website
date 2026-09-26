@@ -912,3 +912,16 @@ export function getUltraShieldCopy(locale: string | undefined): UltraShieldCopy 
 
 /** Multi Sun Cream is the lighter sibling; the rest is the post-sun shelf. */
 export const COMPANION_PRODUCT_IDS = ['40', '36', '16', '13'] as const
+
+/**
+ * The campaign slides carry their own type, so AR and RU have their own renders
+ * of s1-s12 under /images/ultra_campaign/{ar,ru}/. The DB gallery stays on the
+ * EN paths (the app reads it); every other image passes through unchanged.
+ */
+const CAMPAIGN_SLIDE = /^\/images\/ultra_campaign\/(s(?:[1-9]|1[0-2])\.jpg)$/
+
+export function localizeCampaignSlide(src: string, locale: string | undefined): string {
+  if (locale !== 'ar' && locale !== 'ru') return src
+  const m = CAMPAIGN_SLIDE.exec(src)
+  return m ? `/images/ultra_campaign/${locale}/${m[1]}` : src
+}

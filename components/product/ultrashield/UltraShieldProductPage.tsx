@@ -69,7 +69,7 @@ import {
   CeraStickyQuantity,
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
-import { COMPANION_PRODUCT_IDS, getUltraShieldCopy } from './ultraShieldCopy'
+import { COMPANION_PRODUCT_IDS, getUltraShieldCopy, localizeCampaignSlide } from './ultraShieldCopy'
 
 interface Props {
   product: Product
@@ -126,14 +126,17 @@ export default function UltraShieldProductPage({ product, unitsSold = 0, routine
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeCampaignSlide(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   // The DB gallery, in order, is the campaign set s1-s12. Each section picks the
   // slide that makes its point; a missing slide simply renders nothing.
-  const slides = useMemo(() => parseJsonArray<string>(product.images), [product.images])
+  const slides = useMemo(
+    () => parseJsonArray<string>(product.images).map(src => localizeCampaignSlide(src, locale)),
+    [product.images, locale]
+  )
   const slide = (n: number) => slides[n - 1] || null
 
   const companions = useMemo(() => {

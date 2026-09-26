@@ -55,6 +55,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -80,6 +81,22 @@ interface Props {
   product: Product
   unitsSold?: number
   routineProducts?: Product[]
+}
+
+const IDEA_IMAGE = '/images/hairgen_campaign/s4.jpg'
+const BUILD_IMAGE = '/images/hairgen_campaign/s3.jpg'
+const HOWTO_IMAGE = '/images/hairgen_campaign/s9.jpg'
+const DEPTH_IMAGE = '/images/hairgen_campaign/s5.jpg'
+const SPEC_IMAGE = '/images/hairgen_campaign/s11.jpg'
+
+function SlideFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square w-full overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-contain" />
+      </div>
+    </CeraReveal>
+  )
 }
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -122,10 +139,16 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
+
+  const ideaImage = localizeProductImage(IDEA_IMAGE, locale)
+  const buildImage = localizeProductImage(BUILD_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
+  const depthImage = localizeProductImage(DEPTH_IMAGE, locale)
+  const specImage = localizeProductImage(SPEC_IMAGE, locale)
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()
@@ -428,31 +451,42 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
         </div>
       </section>
 
-      {/* ────────── What it is, and what the leaflet claims it is ────────── */}
-      <section className="mx-auto max-w-[900px] px-4 pt-14 sm:px-6 lg:pt-20">
-        <CeraReveal className="hr3-alert p-6 md:p-9">
-          <p className="cera-eyebrow hr3-alert__title">{copy.whatItIs.eyebrow}</p>
-          <h2 className="cera-serif hr3-alert__title mt-3 text-[26px] leading-tight sm:text-[33px]">
-            {copy.whatItIs.title}
-          </h2>
-          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.body}</p>
-          <ul className="mt-5 space-y-2.5">
-            {copy.whatItIs.items.map(item => (
-              <li key={item} className={`flex gap-2.5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
-                <span className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-[#b4801f]" aria-hidden="true" />
-                <span className="text-[15px] font-medium leading-relaxed text-[var(--cera-ink)]">{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.detail}</p>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.leaflet}</p>
-        </CeraReveal>
+      {/* ──────────────────────────── The idea ──────────────────────────── */}
+      <section className="mx-auto max-w-[1200px] px-4 pt-16 sm:px-6 lg:pt-24">
+        <div className="mx-auto grid max-w-[1040px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-14">
+          <CeraReveal>
+            <p className="cera-eyebrow">{copy.whatItIs.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[30px] leading-[1.1] sm:text-[40px]">{copy.whatItIs.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.body}</p>
+            <ul className="mt-6 space-y-2.5">
+              {copy.whatItIs.items.map(item => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
+                    <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
+                  </span>
+                  <span className="text-[15px] font-medium leading-relaxed text-[var(--cera-ink)]">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.detail}</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.whatItIs.leaflet}</p>
+          </CeraReveal>
+          <SlideFigure src={ideaImage} alt={copy.whatItIs.title} />
+        </div>
       </section>
 
       {/* ─────────────────────── The specification ──────────────────────── */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-          <CeraSectionHeader eyebrow={copy.build.eyebrow} title={copy.build.title} intro={copy.build.intro} />
+          <div className="mx-auto grid max-w-[1040px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-14">
+            <CeraSectionHeader
+              align="start"
+              eyebrow={copy.build.eyebrow}
+              title={copy.build.title}
+              intro={copy.build.intro}
+            />
+            <SlideFigure src={buildImage} alt={copy.build.title} />
+          </div>
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-6">
             {copy.build.items.map((item, i) => (
               <CeraReveal
@@ -523,19 +557,7 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="lg:sticky lg:top-24 lg:self-start">
-              <CeraReveal>
-                <div className="cera-stage relative aspect-square overflow-hidden rounded-[28px]">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 1024px) 92vw, 44vw"
-                    className="object-contain"
-                  />
-                </div>
-              </CeraReveal>
-            </div>
+            <SlideFigure src={howToImage} alt={copy.howTo.title} className="lg:sticky lg:top-24 lg:self-start" />
 
             <div>
               <CeraReveal>
@@ -574,12 +596,13 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
         </div>
       </section>
 
-      {/* ───────────── The number we do not have ────────────── */}
+      {/* ─────────────────────────── The stamp ──────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[900px] px-4 sm:px-6">
-          <CeraReveal className="hr3-note p-6 md:p-9">
+        <div className="mx-auto grid max-w-[1040px] grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-14">
+          <SlideFigure src={depthImage} alt={copy.depth.title} />
+          <CeraReveal>
             <p className="cera-eyebrow">{copy.depth.eyebrow}</p>
-            <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.depth.title}</h2>
+            <h2 className="cera-serif mt-3 text-[30px] leading-[1.1] sm:text-[40px]">{copy.depth.title}</h2>
             <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.depth.body}</p>
             <p className="mt-4 flex items-start gap-2.5 text-[15px] leading-relaxed text-[var(--cera-muted)]">
               <Info className="mt-[3px] h-4 w-4 flex-none" aria-hidden="true" />
@@ -641,21 +664,24 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
       )}
 
       {/* ───────────────────────── Specification ────────────────────────── */}
-      <section className="mx-auto max-w-[820px] px-4 py-16 sm:px-6 lg:py-24">
-        <CeraSectionHeader eyebrow={copy.spec.eyebrow} title={copy.spec.title} />
-        <CeraReveal className="cera-card mt-10 p-6 lg:mt-14 lg:p-8">
-          <dl className="divide-y divide-[var(--cera-line)]">
-            {copy.spec.rows.map(row => (
-              <div key={row.label} className="flex gap-4 py-3.5">
-                <dt className="w-[36%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
-                  {row.label}
-                </dt>
-                <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
-              </div>
-            ))}
-            <CeraBarcodeRows productNumber={product.productNumber ?? product.id} label={t('product.barcode')} />
-          </dl>
-        </CeraReveal>
+      <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16 lg:py-24">
+        <SlideFigure src={specImage} alt={copy.spec.title} className="lg:sticky lg:top-24 lg:self-start" />
+        <div>
+          <CeraSectionHeader align="start" eyebrow={copy.spec.eyebrow} title={copy.spec.title} />
+          <CeraReveal className="cera-card mt-10 p-6 lg:mt-14 lg:p-8">
+            <dl className="divide-y divide-[var(--cera-line)]">
+              {copy.spec.rows.map(row => (
+                <div key={row.label} className="flex gap-4 py-3.5">
+                  <dt className="w-[36%] flex-none text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]">
+                    {row.label}
+                  </dt>
+                  <dd className="text-[15px] leading-snug text-[var(--cera-body)]">{row.value}</dd>
+                </div>
+              ))}
+              <CeraBarcodeRows productNumber={product.productNumber ?? product.id} label={t('product.barcode')} />
+            </dl>
+          </CeraReveal>
+        </div>
       </section>
 
       {/* ──────────────────────────── FAQ ───────────────────────────────── */}

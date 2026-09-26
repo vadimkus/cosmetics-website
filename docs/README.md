@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [HairGen BOOSTER campaign](./SESSION_CHANGES_2026-09-27_HAIRGEN_BOOSTER_CAMPAIGN.md) | "IN. NOT ON." main + 12 slides EN/RU/AR for product 3, graphite + silver `#D8DADC`, copper numerals. Page copy rewritten in selling voice (EN/RU/AR + central RU/AR + DB), 5 slides on the page. |
 | 🟡 **Important** | [SNOW BOOSTER campaign](./SESSION_CHANGES_2026-09-27_SNOW_BOOSTER_CAMPAIGN.md) | "Let it snow" main + 12 slides EN/RU/AR for product 16 (200 ml + 1000 ml), snow white / label cyan `#63CCE9` / slate `#333F48`. 4 slides on the page, EN copy in selling voice, DB gallery + EN fields. |
 | 🟡 **Important** | [Skin-concern artwork](./SESSION_CHANGES_2026-09-26_SKIN_CONCERN_CAMPAIGN.md) | "Name it. Treat it." 8 new 16:9 frames (concern + the treatment touching it) in `public/images/concern_campaign/`. `lib/concernVisuals.ts` + new `cardPosition`; tile copy narrowed. Tiles, heroes, OG 1600×900. |
 | 🟡 **Important** | [Yana Stepanian 05108 paid](./SESSION_CHANGES_2026-09-25_YANA_STEPANIAN_05108.md) | INV **05108** / SHIP **06913** / PAY **06290** / **474 AED**. SO **GENCardW2609259248**. Website id linked. |

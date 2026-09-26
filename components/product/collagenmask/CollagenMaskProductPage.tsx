@@ -70,6 +70,7 @@ import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
@@ -104,15 +105,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. S3 is the
- *  ingredient breakdown and stays beside the essence section, S5 is the
- *  firm-hydrated-repaired results slide, S4 the fifteen-to-twenty-minute
- *  how-to. S2 still carries brightening and anti-ageing lines this page
- *  does not claim, so it stays in the thumbnail strip and is queued for
- *  re-export. */
-const EFFECTS_IMAGE = '/images/collagen_mask/S5.jpeg'
-const HOWTO_IMAGE = '/images/collagen_mask/S4.jpeg'
-const ENGINE_IMAGE = '/images/collagen_mask/S3.jpeg'
+/** Section art from the "Red means stop" campaign, each slide paired with the
+ *  section it illustrates: s5 (same sponge, plump with water) beside the
+ *  effects, s3 (18% water magnets) beside the essence, s9 (phone down, sheet
+ *  on, 15 to 20 minutes) beside the how-to. AR and RU renders swap in through
+ *  localizeProductImage. */
+const EFFECTS_IMAGE = '/images/collagen_campaign/s5.jpg'
+const HOWTO_IMAGE = '/images/collagen_campaign/s9.jpg'
+const ENGINE_IMAGE = '/images/collagen_campaign/s3.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -172,10 +172,14 @@ export default function CollagenMaskProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
+
+  const effectsImage = localizeProductImage(EFFECTS_IMAGE, locale)
+  const engineImage = localizeProductImage(ENGINE_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -593,7 +597,7 @@ export default function CollagenMaskProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={effectsImage}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -641,7 +645,7 @@ export default function CollagenMaskProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={engineImage}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -688,7 +692,7 @@ export default function CollagenMaskProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={howToImage}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"

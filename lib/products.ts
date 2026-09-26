@@ -799,8 +799,8 @@ export const products: Product[] = [
     price: 36,
     description:
       'One 23g single-use non-woven sheet with a moisture-focused essence. Glycerin 10.052% and butylene glycol 8.010% form an 18.062% humectant base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Apply for 15-20 minutes. Dermatologically tested. Contains Alcohol 0.1%, Parfum (Fragrance) 0.01% and soybean extract.',
-    image: '/images/collagen_mask/Main.jpeg',
-    images: null,
+    image: '/images/collagen_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 11 }, (_, i) => `/images/collagen_campaign/s${i + 1}.jpg`)),
     category: 'Mask',
     inStock: true,
     size: '23 g / 1 sheet',

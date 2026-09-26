@@ -80,6 +80,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
     ar: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
   },
+  // Product 53, INTENSIVE REPAIR COLLAGEN MASK, "Red means stop" campaign. main.jpg is
+  // a plain packshot and is not translated. Slide 12 (the closing card) is not rendered yet.
+  '/images/collagen_campaign': {
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg'],
+  },
 }
 
 /**

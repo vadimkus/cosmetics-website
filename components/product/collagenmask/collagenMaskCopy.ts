@@ -67,8 +67,8 @@
  *     them. Only the Russian panel does, and that inconsistency is logged as an
  *     artwork correction rather than copied onto the site.
  *   - BRIGHTENING or EVENS TONE. There is no vitamin C, niacinamide, arbutin or
- *     any other brightener in the formula. Our own gallery slide S2 claims it;
- *     the slide is wrong and is queued for re-export.
+ *     any other brightener in the formula. The old gallery slide S2 claimed it;
+ *     the gallery is now the collagen_campaign set, which does not.
  *   - MARINE COLLAGEN. Only the Russian pack panel says the collagen is marine.
  *     No formula, COA or quali-quanti names a source species.
  *   - CUPRA, TENCEL, BIO-CELLULOSE. The only substrate wording anywhere is

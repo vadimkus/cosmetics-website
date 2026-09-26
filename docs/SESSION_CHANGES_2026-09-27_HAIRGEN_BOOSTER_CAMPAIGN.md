@@ -125,3 +125,11 @@ rendered text and page payload.
   "0.3 mm, a cosmetic depth"; `evidence` removed. The mobile app shows productDetails.
 - Kept: the Mesopecia Kit cross-sell ("the manual version", 0.5 mm roller, AED 1,100, behind the
   price gate), contraindications, and the see-a-doctor line.
+
+## Mesopecia Kit off the page (27 Sep 2026)
+
+Vadim: "it does not need mesopecia - remove it". Companions `['45', '64', '46']` (stamp
+consumables + the peeling) in `bespokePdp.tsx` and `COMPANION_PRODUCT_IDS`; grid now three
+wide under the "Every session" eyebrow. Also removed, EN / RU / AR, the two signed-in mentions
+that sent buyers to the cheaper kit: the "Prefer to start by hand?" line under the running cost
+and the "How is it different from the Mesopecia Kit?" FAQ.

@@ -321,9 +321,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // The two liquids inside the box first: this page argues that anyone wanting a full
   // course should buy 45 standalone, since the kit holds six vials against its eight.
   '47': ['45', '46', '43', '44'],
-  // The two consumables the device cannot run without come first, because its page is
-  // built on the running cost. Then the manual alternative, then the prep step.
-  '3': ['45', '64', '47', '46'],
+  // The two consumables the device cannot run without, then the prep step.
+  '3': ['45', '64', '46'],
   // The manufacturer brochure pairs the helmet with the Mesopecia Kit, so that leads.
   // Then the other hair device, then the two liquids.
   '48': ['47', '3', '45', '46'],

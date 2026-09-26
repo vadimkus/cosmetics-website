@@ -224,8 +224,7 @@ const EN: HairGenBoosterCopy = {
       { label: 'Per session', value: '150', note: 'consumables', here: true },
       { label: 'The device itself', value: '1,800', note: 'once' },
     ],
-    body:
-      'A box of each covers eight sessions, so buy them in pairs and they run out together. Prefer to start by hand? The HR³ MATRIX Mesopecia Kit is the manual version: a 0.5 mm roller with the scalp peeling and six of the same ampoules, AED 1,100 all in.',
+    body: 'A box of each covers eight sessions, so buy them in pairs and they run out together.',
   },
 
   howTo: {
@@ -334,11 +333,6 @@ const EN: HairGenBoosterCopy = {
         a: 'HairGen BOOSTER is scalp care: it works the HR³ ampoule, made to nourish the scalp and condition hair, into the scalp evenly and on schedule. If hair is falling out suddenly, in patches or in large amounts, see a doctor first - the device does not replace diagnosis or treatment, and it fits alongside what they advise.',
       },
       {
-        q: 'How is it different from the Mesopecia Kit?',
-        a: 'The kit is the manual version: a 0.5 mm roller with the scalp peeling and six ampoules, AED 1,100 all in. HairGen BOOSTER is the powered one - you buy the handpiece once, and it keeps the rate, the pressure and the time for you, with the ampoule feeding as it stamps. Start with the kit to try the protocol; choose the BOOSTER once you know you will keep it up.',
-        needsPrices: true,
-      },
-      {
         q: 'Can I use my own serum in it?',
         a: 'Use HR³ MATRIX HAIR SOLUTION α. The stamp screws onto the HR³ vial, so the ampoule is part of the mechanism, and the device is designed to be used only with the products made for it.',
       },
@@ -363,8 +357,5 @@ export function getHairGenBoosterCopy(locale: string | undefined): HairGenBooste
   return HAIRGEN_BOOSTER_COPY[(locale as Locale) ?? 'en'] ?? HAIRGEN_BOOSTER_COPY.en
 }
 
-/**
- * The two consumables it cannot run without come first, then the manual alternative, then
- * the prep step.
- */
-export const COMPANION_PRODUCT_IDS = ['45', '64', '47', '46'] as const
+/** The two consumables it cannot run without, then the prep step. */
+export const COMPANION_PRODUCT_IDS = ['45', '64', '46'] as const

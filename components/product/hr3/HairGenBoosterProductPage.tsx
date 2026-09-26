@@ -632,8 +632,8 @@ export default function HairGenBoosterProductPage({ product, unitsSold = 0, rout
       {companions.length > 0 && (
         <section className="bg-white py-16 lg:py-20">
           <div className="mx-auto max-w-[1040px] px-4 sm:px-6">
-            <CeraSectionHeader eyebrow={copy.build.eyebrow} title={copy.companionsTitle} />
-            <ul className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+            <CeraSectionHeader eyebrow={copy.running.eyebrow} title={copy.companionsTitle} />
+            <ul className="mx-auto mt-8 grid max-w-[820px] grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
               {companions.map((item, i) => (
                 <CeraReveal key={item.id} as="li" delay={i * 60}>
                   <Link

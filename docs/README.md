@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Skin-concern artwork](./SESSION_CHANGES_2026-09-26_SKIN_CONCERN_CAMPAIGN.md) | "Name it. Treat it." 8 new 16:9 frames (concern + the treatment touching it) in `public/images/concern_campaign/`. `lib/concernVisuals.ts` + new `cardPosition`; tile copy narrowed. Tiles, heroes, OG 1600×900. |
 | 🟡 **Important** | [Yana Stepanian 05108 paid](./SESSION_CHANGES_2026-09-25_YANA_STEPANIAN_05108.md) | INV **05108** / SHIP **06913** / PAY **06290** / **474 AED**. SO **GENCardW2609259248**. Website id linked. |
 | 🟡 **Important** | [Write-off PDRN 60000 and Ivory](./SESSION_CHANGES_2026-09-25_WRITEOFF_PDRN_IVORY.md) | Loss **00008-00522** / **948.70 AED** buy. PDRN 60000 ×10, Ivory cushion ×2. |
 | 🟡 **Important** | [Evolution paymentin 10,668](./SESSION_CHANGES_2026-09-25_EVOLUTION_PAYMENTIN_10668.md) | PAY **06289**. **05012** + **05041** + **05050** + **05102**. Ref **EPHCOP2680AT2CA5**. All **Доставлен**. |

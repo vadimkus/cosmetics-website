@@ -19,14 +19,14 @@ jest.mock('next/image', () => ({
 }))
 
 const EXPECTED_IMAGES = {
-  'sun-protection': '/images/home/skin_concern/sun-protection.webp',
-  'acne-treatment': '/images/home/skin_concern/acne-blemishes.webp',
-  pigmentation: '/images/home/skin_concern/pigmentation.webp',
-  'scars-treatment': '/images/home/skin_concern/scar-treatment.webp',
-  'hair-loss': '/images/home/skin_concern/hair-loss.webp',
-  'anti-aging': '/images/home/skin_concern/anti-aging.webp',
-  hydration: '/images/home/skin_concern/hydration.webp',
-  sensitivity: '/images/home/skin_concern/sensitive-skin.webp',
+  'sun-protection': '/images/concern_campaign/sun-protection.webp',
+  'acne-treatment': '/images/concern_campaign/acne-blemishes.webp',
+  pigmentation: '/images/concern_campaign/pigmentation.webp',
+  'scars-treatment': '/images/concern_campaign/scar-treatment.webp',
+  'hair-loss': '/images/concern_campaign/hair-loss.webp',
+  'anti-aging': '/images/concern_campaign/anti-aging.webp',
+  hydration: '/images/concern_campaign/hydration.webp',
+  sensitivity: '/images/concern_campaign/sensitive-skin.webp',
 }
 
 describe('shared concern visuals', () => {

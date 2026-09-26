@@ -48,7 +48,7 @@ export default function RelatedConcernCards({
                     isRtl ? '' : 'group-hover:scale-[1.025]'
                   }`}
                   style={{
-                    objectPosition: visual.imagePosition,
+                    objectPosition: visual.cardPosition,
                     transform: isRtl ? 'scaleX(-1)' : undefined,
                   }}
                   aria-hidden="true"

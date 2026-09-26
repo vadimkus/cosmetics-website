@@ -1,6 +1,12 @@
 export interface ConcernVisual {
   image: string
   imagePosition: string
+  /**
+   * For cards that set copy over the left of the image (~1.45:1). Shifts the
+   * crop left so the face starts where the copy ends; imagePosition keeps the
+   * subject centred for the hero and square thumbnails.
+   */
+  cardPosition: string
 }
 
 /**
@@ -9,39 +15,51 @@ export interface ConcernVisual {
  *
  * Keep slug coverage aligned with CONCERN_PAGES in lib/concernsData.ts.
  * The focused mapping test fails if either list drifts.
+ *
+ * 1600x900 frames: the concern and the moment it is treated sit in the right
+ * half, the left half is empty ivory under the copy. The vertical position
+ * keeps that detail inside the ~3.2:1 landing hero.
  */
 export const CONCERN_VISUALS = {
   'sun-protection': {
-    image: '/images/home/skin_concern/sun-protection.webp',
-    imagePosition: '58% center',
+    image: '/images/concern_campaign/sun-protection.webp',
+    imagePosition: '68% 50%',
+    cardPosition: '38% 50%',
   },
   'acne-treatment': {
-    image: '/images/home/skin_concern/acne-blemishes.webp',
-    imagePosition: '60% center',
+    image: '/images/concern_campaign/acne-blemishes.webp',
+    imagePosition: '64% 32%',
+    cardPosition: '0% 32%',
   },
   pigmentation: {
-    image: '/images/home/skin_concern/pigmentation.webp',
-    imagePosition: '59% center',
+    image: '/images/concern_campaign/pigmentation.webp',
+    imagePosition: '64% 45%',
+    cardPosition: '27% 45%',
   },
   'scars-treatment': {
-    image: '/images/home/skin_concern/scar-treatment.webp',
-    imagePosition: '60% center',
+    image: '/images/concern_campaign/scar-treatment.webp',
+    imagePosition: '64% 48%',
+    cardPosition: '27% 48%',
   },
   'hair-loss': {
-    image: '/images/home/skin_concern/hair-loss.webp',
-    imagePosition: '61% center',
+    image: '/images/concern_campaign/hair-loss.webp',
+    imagePosition: '66% 22%',
+    cardPosition: '0% 22%',
   },
   'anti-aging': {
-    image: '/images/home/skin_concern/anti-aging.webp',
-    imagePosition: '61% center',
+    image: '/images/concern_campaign/anti-aging.webp',
+    imagePosition: '62% 40%',
+    cardPosition: '16% 40%',
   },
   hydration: {
-    image: '/images/home/skin_concern/hydration.webp',
-    imagePosition: '60% center',
+    image: '/images/concern_campaign/hydration.webp',
+    imagePosition: '66% 38%',
+    cardPosition: '8% 38%',
   },
   sensitivity: {
-    image: '/images/home/skin_concern/sensitive-skin.webp',
-    imagePosition: '62% center',
+    image: '/images/concern_campaign/sensitive-skin.webp',
+    imagePosition: '62% 50%',
+    cardPosition: '0% 50%',
   },
 } as const satisfies Record<string, ConcernVisual>
 

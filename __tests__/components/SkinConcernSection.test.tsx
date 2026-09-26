@@ -41,14 +41,14 @@ describe('SkinConcernSection', () => {
       'Sensitive Skin',
     ])
     expect(SKIN_CONCERN_CARDS.map((card) => getConcernVisual(card.slug)?.image)).toEqual([
-      '/images/home/skin_concern/sun-protection.webp',
-      '/images/home/skin_concern/acne-blemishes.webp',
-      '/images/home/skin_concern/pigmentation.webp',
-      '/images/home/skin_concern/scar-treatment.webp',
-      '/images/home/skin_concern/hair-loss.webp',
-      '/images/home/skin_concern/anti-aging.webp',
-      '/images/home/skin_concern/hydration.webp',
-      '/images/home/skin_concern/sensitive-skin.webp',
+      '/images/concern_campaign/sun-protection.webp',
+      '/images/concern_campaign/acne-blemishes.webp',
+      '/images/concern_campaign/pigmentation.webp',
+      '/images/concern_campaign/scar-treatment.webp',
+      '/images/concern_campaign/hair-loss.webp',
+      '/images/concern_campaign/anti-aging.webp',
+      '/images/concern_campaign/hydration.webp',
+      '/images/concern_campaign/sensitive-skin.webp',
     ])
 
     const headings = screen.getAllByRole('heading', { level: 3 })

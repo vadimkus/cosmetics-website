@@ -54,7 +54,7 @@ export async function generateMetadata(
       url: `${baseUrl}/ar/products/concern/${slug}`,
       siteName: 'GENOSYS',
       locale: 'ar_AE',
-      images: [{ url: socialImage, width: visual ? 960 : 1200, height: visual ? 720 : 630, alt: seo.h1 }],
+      images: [{ url: socialImage, width: visual ? 1600 : 1200, height: visual ? 900 : 630, alt: seo.h1 }],
     },
     twitter: {
       card: 'summary_large_image',

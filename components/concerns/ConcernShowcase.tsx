@@ -283,7 +283,7 @@ export default function ConcernShowcase({
                 fill
                 sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 320px"
                 className="home-tile__image home-tile__image--mirrored pointer-events-none -z-20 object-cover"
-                style={{ objectPosition: visual.imagePosition }}
+                style={{ objectPosition: visual.cardPosition }}
                 aria-hidden="true"
               />
               <span className="home-tile__wash pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
@@ -298,10 +298,10 @@ export default function ConcernShowcase({
                   </span>
                 </div>
 
-                <h3 className="cera-serif mt-3.5 max-w-[76%] text-[18px] leading-tight text-[var(--cera-ink)] lg:text-[19px]">
+                <h3 className="cera-serif mt-3.5 max-w-[58%] text-[18px] leading-tight text-[var(--cera-ink)] lg:text-[19px]">
                   {concern.label[locale]}
                 </h3>
-                <p className="mt-1.5 max-w-[70%] text-[12px] leading-[1.45] text-[var(--cera-muted)]">
+                <p className="mt-1.5 max-w-[50%] text-[12px] leading-[1.45] text-[var(--cera-muted)]">
                   {concern.benefit[locale]}
                 </p>
 

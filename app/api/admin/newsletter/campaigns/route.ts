@@ -6,13 +6,16 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { SITE_URL } from '@/lib/siteConfig'
 import { renderNewsletterMarkdown } from '@/lib/newsletterMarkdown'
 import { buildUnsubscribeUrl, isValidEmail, normalizeEmail } from '@/lib/newsletter'
-import { sendNewsletterCampaignEmail } from '@/lib/email'
+import { createBulkMailer, sendNewsletterCampaignEmail } from '@/lib/email'
 
 type LocaleFilter = 'en' | 'ar' | 'ru' | null
 type Status = 'draft' | 'sending' | 'sent' | 'failed' | 'cancelled'
 
 // Delay between emails - keeps us well under Gmail SMTP bursts (60+/sec headroom).
 const SEND_DELAY_MS = 150
+// A run of failures means Gmail is refusing the login; carrying on only extends
+// the lockout on the account order confirmations depend on.
+const MAX_CONSECUTIVE_FAILURES = 5
 // Max rows per campaign in a single invocation. On Vercel Pro (60s timeout) this is
 // ~400 recipients @ 150ms; bump MAX_SEND_CAP or split across invocations if you
 // cross that threshold. Serverless limits are real - don't pretend otherwise.
@@ -233,9 +236,11 @@ async function runProductionSend(
   let failedCount = 0
   const errors: Array<{ email: string; error: string }> = []
   let cursor: string | undefined = undefined
+  const mailer = createBulkMailer()
+  let consecutiveFailures = 0
 
   try {
-    while (true) {
+    while (consecutiveFailures < MAX_CONSECUTIVE_FAILURES) {
       const page = (await prisma.newsletterSubscriber.findMany({
         where,
         orderBy: { id: 'asc' },
@@ -251,6 +256,10 @@ async function runProductionSend(
       if (page.length === 0) break
 
       for (const sub of page) {
+        if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+          errors.push({ email: '__run__', error: `Stopped after ${MAX_CONSECUTIVE_FAILURES} consecutive failures` })
+          break
+        }
         const unsubscribeUrl = buildUnsubscribeUrl(SITE_URL, sub.unsubscribeToken, (sub.locale as 'en' | 'ar' | 'ru') || 'en')
         try {
           const result = await sendNewsletterCampaignEmail({
@@ -259,19 +268,23 @@ async function runProductionSend(
             bodyHtml: opts.bodyHtml,
             unsubscribeUrl,
             locale: sub.locale || 'en',
+            mailer,
           })
           if (result.success) {
             sentCount++
+            consecutiveFailures = 0
             // Stamp lastSentAt best-effort; failure here shouldn't abort the run.
             prisma.newsletterSubscriber
               .update({ where: { id: sub.id }, data: { lastSentAt: new Date() } })
               .catch(e => errorLog('[newsletter/campaigns] lastSentAt update failed:', e))
           } else {
             failedCount++
+            consecutiveFailures++
             if (errors.length < 50) errors.push({ email: sub.email, error: result.error || 'Unknown error' })
           }
         } catch (e) {
           failedCount++
+          consecutiveFailures++
           const msg = e instanceof Error ? e.message : 'Unknown error'
           if (errors.length < 50) errors.push({ email: sub.email, error: msg })
           errorLog('[newsletter/campaigns] send exception:', sub.email, e)
@@ -319,5 +332,7 @@ async function runProductionSend(
         },
       })
       .catch(() => {})
+  } finally {
+    mailer.close()
   }
 }

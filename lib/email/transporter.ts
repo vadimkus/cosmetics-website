@@ -29,6 +29,57 @@ transporter.verify((error, _success) => {
   }
 })
 
+export interface BulkMailer {
+  send: (to: string, subject: string, html: string) => Promise<{ success: boolean; messageId?: string; error?: string }>
+  close: () => void
+}
+
+/**
+ * One pooled SMTP session for a bulk run. The shared transporter opens a new
+ * session, and so a new Gmail login, for every message; around 60 logins in two
+ * minutes trips Gmail's "Too many login attempts" block on the same account that
+ * sends order confirmations. Create one per campaign and close it when the run ends,
+ * so no pooled socket outlives the request that opened it.
+ */
+export function createBulkMailer(): BulkMailer {
+  const emailUser = EMAIL_USER || GMAIL_USER
+  const pooled = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: { user: emailUser, pass: EMAIL_PASSWORD || GMAIL_APP_PASSWORD },
+    pool: true,
+    maxConnections: 1,
+    maxMessages: 100,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 30000,
+  })
+
+  return {
+    async send(to, subject, html) {
+      if (!emailUser || !(EMAIL_PASSWORD || GMAIL_APP_PASSWORD)) {
+        return { success: false, error: 'Email credentials are not configured' }
+      }
+      try {
+        const result = await pooled.sendMail({
+          from: `"Genosys Middle East FZ-LLC" <${emailUser}>`,
+          to,
+          subject,
+          html,
+        })
+        return { success: true, messageId: result.messageId }
+      } catch (error) {
+        errorLog('❌ Bulk email failed:', to, error instanceof Error ? error.message : error)
+        return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+      }
+    },
+    close() {
+      pooled.close()
+    },
+  }
+}
+
 // NodemailerError type for SMTP error handling
 interface NodemailerError {
   code?: string

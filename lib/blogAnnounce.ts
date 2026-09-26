@@ -17,7 +17,7 @@ import { prisma } from './prisma'
 import { debugLog, errorLog } from './logger'
 import { SITE_URL } from './siteConfig'
 import { buildUnsubscribeUrl } from './newsletter'
-import { sendNewsletterCampaignEmail } from './email'
+import { createBulkMailer, sendNewsletterCampaignEmail, type BulkMailer } from './email'
 import { sendExpoPushToTokens } from './expoPush'
 import {
   NEXT_PUBLIC_VAPID_PUBLIC_KEY as ENV_VAPID_PUBLIC,
@@ -39,6 +39,9 @@ export { postCopy, buildAnnouncementHtml, type Locale } from './blogAnnounceCopy
 
 // Matches the newsletter campaign runner: comfortably inside Gmail SMTP burst limits.
 const EMAIL_DELAY_MS = 150
+// A run of failures means the SMTP account is refusing us; carrying on only
+// extends Gmail's lockout on the account order confirmations depend on.
+const MAX_CONSECUTIVE_FAILURES = 5
 
 export interface AnnounceChannels {
   mobile: boolean
@@ -232,7 +235,18 @@ async function announceToWeb(post: PostRow, sentBy: string, result: AnnounceResu
  * panel stays readable.
  */
 async function announceToNewsletter(post: PostRow, sentBy: string, result: AnnounceResult): Promise<void> {
+  const mailer = createBulkMailer()
+  try {
+    await sendNewsletterLocales(post, sentBy, result, mailer)
+  } finally {
+    mailer.close()
+  }
+}
+
+async function sendNewsletterLocales(post: PostRow, sentBy: string, result: AnnounceResult, mailer: BulkMailer): Promise<void> {
+  let consecutiveFailures = 0
   for (const locale of LOCALES) {
+    if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) break
     const subscribers = await prisma.newsletterSubscriber.findMany({
       where: { isActive: true, locale },
       select: { id: true, email: true, unsubscribeToken: true },
@@ -262,6 +276,10 @@ async function announceToNewsletter(post: PostRow, sentBy: string, result: Annou
     const errors: Array<{ email: string; error: string }> = []
 
     for (const sub of subscribers) {
+      if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+        errors.push({ email: '*', error: `Stopped after ${MAX_CONSECUTIVE_FAILURES} consecutive failures; ${subscribers.length - sent - failed} not attempted` })
+        break
+      }
       try {
         const sendResult = await sendNewsletterCampaignEmail({
           to: sub.email,
@@ -269,18 +287,22 @@ async function announceToNewsletter(post: PostRow, sentBy: string, result: Annou
           bodyHtml,
           unsubscribeUrl: buildUnsubscribeUrl(SITE_URL, sub.unsubscribeToken, locale),
           locale,
+          mailer,
         })
         if (sendResult.success) {
           sent++
+          consecutiveFailures = 0
           prisma.newsletterSubscriber
             .update({ where: { id: sub.id }, data: { lastSentAt: new Date() } })
             .catch(e => errorLog('[BLOG_ANNOUNCE] lastSentAt update failed:', e))
         } else {
           failed++
+          consecutiveFailures++
           if (errors.length < 50) errors.push({ email: sub.email, error: sendResult.error || 'Unknown error' })
         }
       } catch (e) {
         failed++
+        consecutiveFailures++
         if (errors.length < 50) errors.push({ email: sub.email, error: e instanceof Error ? e.message : 'Unknown error' })
       }
       await new Promise(r => setTimeout(r, EMAIL_DELAY_MS))

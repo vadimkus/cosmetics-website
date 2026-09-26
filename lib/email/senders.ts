@@ -6,7 +6,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { ADMIN_EMAIL, GMAIL_USER, EMAIL_USER, GMAIL_APP_PASSWORD } from '@/lib/envValidation'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { getPreferredEmail } from '@/lib/emailHelpers'
-import { sendEmail } from './transporter'
+import { sendEmail, type BulkMailer } from './transporter'
 import { emailTemplates } from './templates'
 import type { OrderConfirmationEmailData, AdminNewOrderEmailData } from './types'
 import { resolveOrderChannel } from '@/lib/orderChannel'
@@ -42,7 +42,7 @@ export const sendNewsletterWelcomeEmail = async (params: { email: string; locale
   return await sendEmail(params.email, template.subject, template.html)
 }
 
-export const sendNewsletterCampaignEmail = async (params: { to: string; subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string }) => {
+export const sendNewsletterCampaignEmail = async (params: { to: string; subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string; mailer?: BulkMailer }) => {
   // Build the template args with `locale` only if it's a defined string - TS
   // `exactOptionalPropertyTypes` treats `locale: undefined` as an explicit undefined,
   // which isn't the same as an omitted optional property.
@@ -53,6 +53,7 @@ export const sendNewsletterCampaignEmail = async (params: { to: string; subject:
   }
   if (params.locale) templateArgs.locale = params.locale
   const template = emailTemplates.newsletterCampaign(templateArgs)
+  if (params.mailer) return await params.mailer.send(params.to, template.subject, template.html)
   return await sendEmail(params.to, template.subject, template.html)
 }
 

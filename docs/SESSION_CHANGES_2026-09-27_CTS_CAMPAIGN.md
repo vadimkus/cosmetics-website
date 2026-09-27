@@ -88,3 +88,17 @@ ten vials. Composites kept in `picks/_comp/`. Shipped as `s1b s3b s9b s11b s12b`
 `ar/`) alongside the earlier `s10b`; gallery, section slides, registry, `lib/products.ts` and the
 campaign DB script point at them; DB records swapped with `scripts/swap-gallery-slide.ts`. Tooling
 is described in the AWS campaign note.
+
+## Slide 12 reissued as s12c (same night)
+
+The s12b carton was re-shot from the flat front composite, so it came back as a flat card:
+soft corners, no side panel, and a garbled mirror of "GENOSYS" on the top edge. The new
+reference is the three-quarter packshot cutout (`public/images/cutout/6-v2.webp`, "×10"
+removed) on the empty `cts_plate_light.png` set (`_gen/ref_solid/cts_s12_v2.png`), re-shot in
+CapCut with `_prompts/s12_solid_v2.txt`, which holds the carton to straight edges, square
+corners and the "GENOSYS Power Solution" side panel. Of four takes, take 1
+(`_gen/gi/capcut_s12v2_1.png`) is the only one that spells the side panel right; the others
+drift to "Powre". Type clears in EN, RU and AR (0 busy px). Shipped as `s12c.jpg` (EN, `ru/`,
+`ar/`), commit `b33d73db6`; section slides, registry, `lib/products.ts` and the campaign DB
+script point at it; DB record swapped with `scripts/swap-gallery-slide.ts`. `s12b` stays on
+disk for any cached page.

@@ -97,7 +97,7 @@ const CUTOUTS: Record<string, string> = {
   // 38 EZ CO₂ MASK KIT
   '/images/ez_mask/main.jpeg': '/images/cutout/38.webp',
   // 39 ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]
-  '/images/ultra/main-v3.jpeg': '/images/cutout/39-v3.webp',
+  '/images/ultra/main-v4.jpg': '/images/cutout/39-v4.webp',
   // 40 MULTI SUN CREAM [SPF 40 PA++]
   '/images/multisun_campaign/main.jpg': '/images/cutout/40-v2.webp',
   // 41 SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]

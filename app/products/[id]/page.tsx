@@ -15,7 +15,7 @@ import {
   getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
-  truncateText,
+  truncateText, wholeSentences,
 } from '@/lib/seo'
 
 // ISR: serve cached HTML for up to 5 minutes; admin mutations in
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   // The product name is the primary keyword; the suffix stays short (brand +
   // market). Long descriptive terms live in the H1/description instead.
   const productTitle = `${productName} | GENOSYS UAE`
-  const productDescription = `${truncateText(productDescriptionText, 150)} Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
+  const productDescription = `${wholeSentences(productDescriptionText, 150)} Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
   const productKeywords = [
     productName,
     `GENOSYS ${product.category}`,

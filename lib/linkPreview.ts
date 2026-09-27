@@ -5,7 +5,7 @@ import {
   getLocalizedProductDescription,
   getLocalizedProductName,
   getLocalizedProductUrl,
-  truncateText,
+  previewDescription,
 } from '@/lib/seo'
 
 export { isLinkPreviewBot } from '@/lib/linkPreviewBot'
@@ -36,7 +36,7 @@ export function renderProductLinkPreview(product: Product, locale: Locale, origi
   const slug = getCanonicalProductSlug(product)
   const name = getLocalizedProductName(product, locale)
   const title = `${name} | ${TITLE_SUFFIX[locale]}`
-  const description = `${truncateText(getLocalizedProductDescription(product, locale), 150)} ${TAIL[locale]}`
+  const description = previewDescription(getLocalizedProductDescription(product, locale), TAIL[locale])
   const url = getLocalizedProductUrl(slug, locale)
   const prefix = locale === 'en' ? '' : `/${locale}`
   const image = `${origin}${prefix}/products/${slug}/opengraph-image`

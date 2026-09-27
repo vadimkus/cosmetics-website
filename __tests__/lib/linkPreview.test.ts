@@ -55,6 +55,23 @@ describe('renderProductLinkPreview', () => {
     expect(renderProductLinkPreview(product, 'ar', 'https://genosys.ae')).toContain('<html lang="ar" dir="rtl">')
   })
 
+  it('ends a long description on a whole sentence, without the tail it has no room for', () => {
+    const long = {
+      ...product,
+      description:
+        'A single sheet that leaves skin firmer, calmer and properly hydrated in fifteen minutes. The essence is built on a genuinely generous humectant base with collagen and botanical extracts.',
+    } as unknown as Product
+    const html = renderProductLinkPreview(long, 'en', 'https://genosys.ae')
+    expect(html).toContain(
+      '<meta property="og:description" content="A single sheet that leaves skin firmer, calmer and properly hydrated in fifteen minutes.">'
+    )
+  })
+
+  it('keeps the brand tail when the description is short enough', () => {
+    const html = renderProductLinkPreview(product, 'en', 'https://genosys.ae')
+    expect(html).toMatch(/og:description" content="[^"]*Free shipping over 1000 AED\.">/)
+  })
+
   it('stays small enough for impatient crawlers', () => {
     expect(renderProductLinkPreview(product, 'en', 'https://genosys.ae').length).toBeLessThan(4000)
   })

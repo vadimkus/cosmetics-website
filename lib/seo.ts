@@ -22,7 +22,40 @@ export function escapeXml(value: string): string {
 export function truncateText(value: string, maxLength: number): string {
   const normalized = value.replace(/\s+/g, ' ').trim()
   if (normalized.length <= maxLength) return normalized
-  return `${normalized.slice(0, maxLength - 3).trim()}...`
+  const cut = normalized.slice(0, maxLength - 1)
+  const lastSpace = cut.lastIndexOf(' ')
+  const words = lastSpace > maxLength * 0.6 ? cut.slice(0, lastSpace) : cut
+  return `${words.replace(/[\s,;:.\-–]+$/, '')}…`
+}
+
+/**
+ * Whole sentences that fit in `maxLength`, so a snippet never ends mid-word.
+ * Falls back to a word-boundary cut when even the first sentence is too long.
+ */
+export function wholeSentences(value: string, maxLength: number): string {
+  const normalized = value.replace(/\s+/g, ' ').trim()
+  if (normalized.length <= maxLength) return normalized
+  let out = ''
+  // Split only where punctuation is followed by a space, so "SPF 65.9" and
+  // "12.50%" stay inside their sentence.
+  for (const sentence of normalized.split(/(?<=[.!?؟])\s+/)) {
+    if (!/[.!?؟]$/.test(sentence)) break
+    const next = `${out} ${sentence}`.trim()
+    if (next.length > maxLength) break
+    out = next
+  }
+  return out || truncateText(normalized, maxLength)
+}
+
+/**
+ * Description for a messenger link preview. Messengers show two to three
+ * lines and cut anything longer themselves, stacking their own ellipsis on
+ * ours, so the brand tail is added only when it still fits.
+ */
+export function previewDescription(value: string, tail: string, maxLength = 160): string {
+  const body = wholeSentences(value, maxLength)
+  const withTail = `${body} ${tail}`
+  return withTail.length <= maxLength ? withTail : body
 }
 
 export function stripHtml(value: string): string {

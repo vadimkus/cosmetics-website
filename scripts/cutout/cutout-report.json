@@ -652,11 +652,11 @@
   {
     "product": "9",
     "status": "ok",
-    "source": "/images/aws-hero.jpg",
-    "file": "/images/cutout/9.webp",
+    "source": "/images/aws_campaign/main.jpg",
+    "file": "/images/cutout/9-v2.webp",
     "name": "POWER SOLUTION AWS",
-    "coverage": 0.204,
-    "bytes": 24578,
+    "coverage": 0.567,
+    "bytes": 52562,
     "review": false
   }
 ]

@@ -1,0 +1,67 @@
+# Product 9, POWER SOLUTION AWS: "Line by line." campaign
+
+Date: 2026-09-27. Main + 12 slides in EN, RU and AR; selling copy on every surface; dossier voice removed.
+
+## Images
+
+`public/images/aws_campaign/`: `main.jpg` + `s1.jpg`-`s12.jpg` (1600 px, q88), with `ru/` and `ar/` sets
+registered in `lib/localizedProductImages.ts`. Sources and scripts: `~/Desktop/AWS/campaign/`
+(`_scripts/aws_main_build.py`, `aws_composite.py`, `aws_slides.py`, `aws_copy.py`, `contact.py`,
+`capcut_ui.py`, `capcut_batch.sh`).
+
+- **Plates**: every scene plate was generated in the CapCut desktop app (AI image, GPT Image 2.5,
+  2k, 1:1), four options per slide, driven from `capcut_ui.py` (Quartz clicks, prompt paste,
+  thumbnail download through the Save dialog). All options are in `_gen/gi/capcut_s*_*.png`; the
+  picks are listed in `aws_composite.py` `PICK`. CapCut's "Ai" badge is cropped off every plate.
+- **Main**: the Power Solution family angle, built on the same template render as CTS: the real AWS
+  carton artwork warped onto the face, the real vial PNG, grey "x10", pure white.
+- **Product slides** (s1 open box, s3 vial on wine, s9 ten vials, s11 vial on water, s12 carton +
+  vial) are the real PNGs composited onto the CapCut plates, so every label is the actual print.
+- **Scene slides** (s2, s4-s8, s10) are CapCut plates as generated.
+
+| # | EN headline | Claim |
+|---|---|---|
+| 1 | LINE BY LINE. | Ten vials that reduce the appearance of wrinkles and firm the skin |
+| 2 | FEWER LINES. FIRMER SKIN. | Carton English panel |
+| 3 | REGISTERED FOR WRINKLES. | Korean wrinkle-improving functional cosmetic, principal ingredient adenosine |
+| 4 | ADENOSINE 0.04%. | Registered dose, latest batch 99.94% of it |
+| 5 | 21.6% MOISTURE. | Butylene glycol + glycerin 21.60% |
+| 6 | 2.5% SOY FERMENT. | Largest active by weight |
+| 7 | LIGHT AS SILK. | Light fluid serum, spreads and sinks in as you pat |
+| 8 | GRAPE & ROSE. | Callus cultures, hyaluronic acid, allantoin |
+| 9 | TEN TREATMENTS. | Ten sealed 2 ml vials |
+| 10 | PAT IT IN. | Cleanse, open, apply, pat until absorbed (serum shown colourless) |
+| 11 | MADE IN KOREA. | Dermatologically tested, DTS MG |
+| 12 | LINE BY LINE. | Spec card + shop lines |
+
+Type clears the product in all three languages. The clearance check flags s12 only because the spec
+card is deliberately set in pearl on the wine silk, and the check reads silk sheen as busy.
+
+## Copy
+
+- `components/product/powersolution/awsCopy.ts`: EN rewritten in selling voice ("Line by line."). Out:
+  "5-Free" (its fifth exclusion is artificial surfactant; PPG-26-Buteth-26 and PEG-40 hydrogenated
+  castor oil are on the list, so the page names the four exclusions the list bears out), the roller
+  FAQ, specific gravity, fill volume, lot codes. Kept: every formula percentage, pH 4.93 inside 3.80 to
+  5.80, the 99.94% adenosine batch figure, pregnancy (artemisia) and hinoki (not fragrance-free)
+  guidance. The old unused RU/AR bases in this file are deleted.
+- `awsLocalizedCopy.ts`: full RU and AR copy mirroring EN.
+- `data/productLocalizedCopyAudit.ts` product 9 RU/AR: selling description; specific gravity and
+  measured fill rows removed; pH reads as a figure inside its specification.
+- `messages/en.json` `pc9*` rewritten from carton voice.
+- `__tests__/data/productLocalizedCopyAudit.test.ts`: requires 99,94% / 99.94%; forbids 1,028 / 1.028,
+  2,12 мл / 2.12 مل, роллер and дермаролл.
+
+## Page
+
+`awsCopy.ts` variant: `figureSlides` (s2 and s7 as the inline figures), `sectionSlides` (formula s4 s5 s6
+s8, how-to s9 s10, suited s1, details s3 s11 s12), `heroOnWhite: true`, no blended slides. `.ps-aws`
+stage and shot tint moved to the plates' blush-mauve (#f1e4ea).
+
+## Elsewhere
+
+- `lib/products.ts` fallback for id 9 (main + 12 slides, selling description).
+- Cut-out `public/images/cutout/9-v2.webp` (REVISION 2, PARTS and REPAIR as product 6).
+- DB: `scripts/update-product-9-campaign-gallery.ts` (image, 12-slide gallery, EN fields, descriptionRu/Ar
+  from the central copy). Refuses `--apply` until all images and the cut-out return 200.
+- Old `aws-hero.jpg`, `AWS.jpg`, `Second/aws*.jpg` stay on disk for order history and the protocol scripts.

@@ -37,7 +37,7 @@ const CUTOUTS: Record<string, string> = {
   // 8 POWER SOLUTION SWS
   '/images/sws_0/Main.jpeg': '/images/cutout/8.webp',
   // 9 POWER SOLUTION AWS
-  '/images/aws-hero.jpg': '/images/cutout/9.webp',
+  '/images/aws_campaign/main.jpg': '/images/cutout/9-v2.webp',
   // 10 SNOW O₂ CLEANSER
   '/images/cleanser_o/Main.jpeg': '/images/cutout/10-v2.webp',
   // 11 SKIN DEFENDER LIP & EYE MAKEUP REMOVER

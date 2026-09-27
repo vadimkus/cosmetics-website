@@ -143,9 +143,9 @@
 /* --- AWS, product 9 ------------------------------------------------------ */
 /* WHY MAGENTA. The AWS wordmark, the DNA mark above it and the PROFESSIONAL
    bar are one magenta, sampled off the vial at about #c2185b / Pantone 221 C
-   and 187 C. The hero sits on the same cool studio sweep as CVS and SWS, so
-   the stage stays cool-grey and the accent does the separation: CVS is a hard
-   red (#be0a14), SWS is burnt orange, HES is green, this one is wine magenta.
+   and 187 C. The main is the family white packshot, and the accent does the
+   separation: CVS is a hard red (#be0a14), SWS is burnt orange, HES is green,
+   this one is wine magenta.
    Neutrals lean rose enough that the magenta does not sit on an identical CVS
    page with a different badge.
 
@@ -161,11 +161,11 @@
   --cera-body: #4a323a;
   --cera-muted: #7a5c66;
   --cera-line: #e8d5dc;
-  /* Sampled from the outer ring of aws-hero.jpg after the square pad, so the
-     closing-band column edge meets the shot's own sweep. */
-  --cera-shot: #e0dee4;
-  --ps-stage: #e0dee4;
-  --ps-figure-stage: #e0dee4;
+  /* The blush-mauve sky of the campaign's light plates: the white main
+     multiplies into it in the closing band, and it sits behind the slides. */
+  --cera-shot: #f1e4ea;
+  --ps-stage: #f1e4ea;
+  --ps-figure-stage: #f1e4ea;
   --ps-stage-shadow: rgba(34, 16, 22, 0.4);
   --ps-card-hover-glow: rgba(138, 18, 64, 0.26);
 }

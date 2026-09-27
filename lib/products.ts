@@ -134,13 +134,11 @@ export const products: Product[] = [
     id: '9',
     name: 'POWER SOLUTION AWS',
     price: 580,
-    description: 'AWS is Anti-Wrinkle Solution. Korea registers it as a wrinkle-improving functional cosmetic with adenosine 0.04% as the principal ingredient. Reduces the appearance of wrinkles and improves skin firmness. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
-    // The squared hero, matching the database. AWS.jpg is the same shot at 956x662
-    // and leaves a hard-cornered band above and below it in the square gallery
-    // stage. The main image is deliberately not repeated in `images`: web and
-    // mobile both prepend it.
-    image: '/images/aws-hero.jpg',
-    images: JSON.stringify(['/images/Second/aws1.jpg', '/images/Second/aws2.jpg']),
+    description: 'Line by line. POWER SOLUTION AWS, Anti-Wrinkle Solution, reduces the appearance of wrinkles and improves skin firmness. Korea registers it as a wrinkle-improving functional cosmetic with adenosine 0.04% as the principal ingredient. 2 ml × 10 sealed glass vials. Dermatologically tested. Made in Korea by DTS MG.',
+    // "Line by line." campaign set (aws_campaign), matching the database. The main
+    // image is deliberately not repeated in `images`: web and mobile both prepend it.
+    image: '/images/aws_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/aws_campaign/s${i + 1}.jpg`)),
     category: 'PRO Solution',
     inStock: true,
   },

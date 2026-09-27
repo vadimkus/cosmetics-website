@@ -518,15 +518,19 @@ describe('audited product localization copy', () => {
       '0.4 جزء في المليون',
       '4,93',
       '4.93',
-      '1,028',
-      '1.028',
-      '2,12 мл',
-      '2.12 مل',
+      '99,94%',
+      '99.94%',
     ]) {
       expect(text).toContain(required)
     }
 
     for (const unsupported of [
+      '1,028',
+      '1.028',
+      '2,12 мл',
+      '2.12 مل',
+      'роллер',
+      'дермаролл',
       'арбутин 2%',
       'أربوتين 2%',
       'ботокс',
@@ -548,7 +552,6 @@ describe('audited product localization copy', () => {
 
     expect(getAwsCopy('ru').freeFrom.items).not.toContain('ПАВ')
     expect(getAwsCopy('ar').freeFrom.items).not.toContain('المواد الخافضة للتوتر السطحي')
-    expect(text).toContain('PEG-40 Hydrogenated Castor Oil')
     expect(text).toContain('вода кипариса хиноки')
     expect(text).toContain('ماء سرو الهينوكي')
   })

@@ -100,6 +100,8 @@ REPAIR = {
     # y=0.796 at x=0.776), and the vial's straight side covers it from x=0.735, so
     # this rectangle lies wholly on product.
     "6": [(0.6000, 0.4500, 0.7400, 0.7960)],
+    # AWS main is built on the same template render as CTS, so the same face quad.
+    "9": [(0.6000, 0.4500, 0.7400, 0.7960)],
 }
 
 # Secondary subjects Vision drops when it locks onto the largest object.
@@ -118,6 +120,11 @@ PARTS = {
     ],
     # Same family layout as 7 (cts_campaign/main.jpg): vial and "x10" re-traced.
     "6": [
+        (0.720, 0.360, 0.945, 0.860, "vision"),
+        (0.735, 0.855, 0.895, 0.945, "keywhite"),
+    ],
+    # Same family layout (aws_campaign/main.jpg, same template as 6).
+    "9": [
         (0.720, 0.360, 0.945, 0.860, "vision"),
         (0.735, 0.855, 0.895, 0.945, "keywhite"),
     ],
@@ -234,6 +241,9 @@ REVISION = {
     # carton and one vial on white, the family angle of 4, 7 and 8, replacing the
     # squared studio-sweep shot.
     "6": 2,
+    # "Line by line." campaign packshot (aws_campaign/main.jpg, 27 Sep 2026): closed
+    # carton and one vial on white, the family angle, replacing the studio-sweep shot.
+    "9": 2,
     # "Five lights. One dome." campaign packshot (led_campaign/main.jpg, 27 Sep 2026): the
     # IR II dome on white with its real control panel, replacing the 956 x 662 LEDD.jpg.
     "49": 2,

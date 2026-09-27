@@ -98,26 +98,48 @@ describe('product 49 RU/AR localized copy', () => {
     expect(text).toContain('1-10 دقائق')
   })
 
-  it('does not convert the old GENO LED certificate into IR II certification', () => {
+  it('does not claim certification or medical status for IR II', () => {
     const text = JSON.stringify(liveCopy).toLocaleLowerCase()
 
-    expect(text).toContain('старому geno led на 32 вт')
-    expect(text).toContain('geno led الأقدم بقدرة 32 واط')
-    expect(text).toContain('выпущенному в 2024')
-    expect(text).toContain('أطلق في 2024')
-    expect(text).not.toContain('ir ii сертифицирован')
-    expect(text).not.toContain('ir ii حاصل على شهادة')
+    for (const forbidden of [
+      'ir ii сертифицирован',
+      'ir ii حاصل على شهادة',
+      'медицинское изделие',
+      'جهاز طبي',
+      'сертификат ce',
+      'شهادة ce',
+    ]) {
+      expect(text).not.toContain(forbidden)
+    }
   })
 
-  it('does not invent a manual safety list or post-procedure timing', () => {
+  it('keeps post-procedure timing with the specialist and the 2019 paper tied to the older model', () => {
     const text = JSON.stringify(liveCopy).toLocaleLowerCase()
 
-    expect(text).toContain('нет руководства пользователя именно для geno-led ir ii')
-    expect(text).toContain('لا تتضمن دليل استخدام خاصاً بطراز geno-led ir ii')
-    expect(text).toContain('не переносим противопоказания')
-    expect(text).toContain('لا ننقل موانع الاستعمال')
+    expect(text).toContain('определяет специалист')
+    expect(text).toContain('يحدد المختص')
+    expect(text).toContain('модель ir ii вышла в 2024 году')
+    expect(text).toContain('أُطلق طراز ir ii في 2024')
     expect(text).not.toContain('сразу после микронидлинга')
     expect(text).not.toContain('مباشرة بعد الوخز')
+  })
+
+  it('sells in its own voice, without archive or source-hedging language', () => {
+    const text = JSON.stringify(liveCopy).toLocaleLowerCase()
+
+    for (const forbidden of [
+      'архив',
+      'не переносим',
+      'dts mg публикует',
+      'производитель не публикует',
+      'не заменяет руководство',
+      'الأرشيف',
+      'لا ننقل',
+      'تنشر dts mg',
+      'لا تنشر الشركة',
+    ]) {
+      expect(text).not.toContain(forbidden)
+    }
   })
 
   it('removes medical, efficacy and absolute-safety claims from live RU/AR surfaces', () => {

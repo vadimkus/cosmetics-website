@@ -117,3 +117,13 @@ Shipped as `s8c.jpg` (EN, `ru/`, `ar/`); gallery, the patch card figure, the reg
 `lib/products.ts` and the campaign DB script point at s8c. DB swap:
 `scripts/swap-gallery-slide.ts 50 /images/eyekit_campaign/s8b.jpg /images/eyekit_campaign/s8c.jpg --apply`.
 `s8.jpg` and `s8b.jpg` stay on disk.
+
+## Slide 7 reissued as s7b (same evening)
+
+"20-40 MINUTES." showed milky, pearl-grey oval patches. Re-shot in the CapCut desktop app with the
+first plate as the reference (`campaign/_prompts/s7_clear.txt`): same woman, pose, black set and
+framing, with the real patch under each eye, a glass-clear crescent from the inner corner to the
+temple seen only by its edge and highlights. Pick `_gen/gi/capcut_s7clear_2.png`; first plate kept
+as `picks/_orig/s7.png`. Copy unchanged, 0 busy px in EN, RU and AR. Shipped as `s7b.jpg` (EN,
+`ru/`, `ar/`); registry, `lib/products.ts` and the campaign DB script point at it; DB swap with
+`scripts/swap-gallery-slide.ts 50 /images/eyekit_campaign/s7.jpg /images/eyekit_campaign/s7b.jpg --apply`.

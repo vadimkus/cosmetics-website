@@ -365,11 +365,11 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
   ],
   '49': [
     t('5 LED wavelengths', '423 / 532 / 583 / 640 / 830 nm modes for multi-concern LED care.', '1 710 светодиодов', '380 красных, 380 синих, 380 зелёных, 380 жёлтых и 190 инфракрасных.', '1,710 صمام LED', '380 أحمر و380 أزرق و380 أخضر و380 أصفر و190 تحت الأحمر.'),
-    t('Near-IR SMD LEDs', 'High-brightness near-infrared SMD LEDs support regeneration protocols.', '5 опубликованных длин волн', '423 / 532 / 583 / 640 / 830 нм; полоса каждого режима 20 ±5 нм.', '5 أطوال موجية منشورة', '423 / 532 / 583 / 640 / 830 نانومتر؛ عرض النطاق 20 ±5 لكل وضع.'),
-    t('Postcare pairing', 'Often paired with Peptide Gel Mask under red light for recovery.', 'Дозиметрия по режимам', 'Для каждой длины волны опубликованы плотность мощности и стандартная доза.', 'بيانات جرعات لكل وضع', 'شدة إشعاع وجرعة معيارية منشورتان لكل طول موجي.'),
+    t('Near-IR SMD LEDs', 'High-brightness near-infrared SMD LEDs support regeneration protocols.', '5 длин волн', '423 / 532 / 583 / 640 / 830 нм; полоса каждого режима 20 ±5 нм.', '5 أطوال موجية', '423 / 532 / 583 / 640 / 830 نانومتر؛ عرض النطاق 20 ±5 لكل وضع.'),
+    t('Postcare pairing', 'Often paired with Peptide Gel Mask under red light for recovery.', 'Дозиметрия по режимам', 'Для каждой длины волны известны плотность мощности и стандартная доза.', 'بيانات جرعات لكل وضع', 'شدة إشعاع وجرعة معيارية معروفتان لكل طول موجي.'),
     t('Professional device', 'Clinic LED tool for regeneration, soothing and trouble-care protocols.', 'Два сценария сочетания', 'Цвет + ИК одновременно; красный + другой цвет чередуются каждые 3 секунды.', 'طريقتان للجمع', 'لون + تحت الأحمر معاً؛ والأحمر + لون آخر بالتناوب كل 3 ثوانٍ.'),
-    t('Broad 423-830 nm range', 'Covers blue-to-near-IR spectrum in one device workflow.', '70 Вт электрической мощности', 'Суммарный оптический выход в ваттах производитель не публикует.', '70 واط قدرة كهربائية مقدرة', 'لا تنشر الشركة إجمالي الخرج الضوئي بالواط.'),
-    t('Protocol-driven use', 'Select wavelength by concern instead of one generic light setting.', '520 × 220 × 315 мм · 2,6 кг', 'Опубликованные габариты и вес IR II.', '520 × 220 × 315 مم · 2.6 كغ', 'الأبعاد والوزن المنشوران لطراز IR II.'),
+    t('Broad 423-830 nm range', 'Covers blue-to-near-IR spectrum in one device workflow.', '70 Вт электрической мощности', 'Номинальная электрическая мощность, на 10 Вт больше, чем у GENO-LED IR.', '70 واط قدرة كهربائية مقدرة', 'القدرة الكهربائية المقدرة، بزيادة 10 واط عن GENO-LED IR.'),
+    t('Protocol-driven use', 'Select wavelength by concern instead of one generic light setting.', '520 × 220 × 315 мм · 2,6 кг', 'Купол шире, чем у GENO-LED IR: 520 мм против 380.', '520 × 220 × 315 مم · 2.6 كغ', 'قبة أعرض من GENO-LED IR: ‏520 مم مقابل 380.'),
   ],
   '60': [
     t('60,000 ppm spicules', 'Professional BIO-MESO dose for intensive no-needle microneedling.', 'Комплекс 60 000 ppm', 'Число относится ко всему комплексу BIO-MESO™ PDRN, а не к одному PDRN или количеству спикул.', 'مركب بتركيز 60,000 ppm', 'يشير الرقم إلى مركب BIO-MESO™ PDRN كاملاً، وليس إلى PDRN وحده أو عدد الشويكات.'),

@@ -62,3 +62,26 @@ timer runs 5-30 minutes in 5-minute steps), the 2019 study, and "made in Korea".
 RU/AR page and central copy (`data/product49LocalizedCopy.ts`) are still the August regulatory
 hedge ("no IR II manual, DoC or classification on file"), enforced by the test above. Selling
 voice there is a decision for Vadim.
+
+## RU/AR page rewritten in selling voice (same evening)
+
+The RU/AR page was the audit's hedge layer (`SAFE_RU` / `SAFE_AR` on top of older copy with
+medical claims): "no manual in the archive", "the certificate belongs to the older 32 W unit", "we
+do not carry over contraindications", "classification document missing". Both layers are replaced
+by one `RU` and one `AR` object in `genoLedCopy.ts`, mirroring the EN structure and selling what the
+brochure and the 21 Aug audit verify: 1,710 LEDs and their split, five wavelengths, irradiance and
+dose per mode, colour + IR together, red alternating every three seconds, panel timer 5-30 min in
+5-min steps and the 5-60 / 1-10 min dose table, voice prompt and auto-off, 70 W electrical, size and
+weight, and the brochure's slide-4 comparison with GENO-LED IR (1,145 LEDs, 60 W, 380 × 220 × 280 mm,
+1.9 kg). Still out, per the audit: any effect claim per wavelength, therapy or medical status, IR II
+certification, contact / folding / coverage claims, post-procedure timing (left to the specialist),
+and the 2019 paper as IR II evidence (it is framed as the earlier GENO-LED, IR II launched 2024).
+Buyers are told to request the manual, DoC and classification for their serial number before purchase.
+
+Same pass on the other RU/AR surfaces: `data/product49LocalizedCopy.ts` (description, directions,
+panel timer, key features; `evidenceBoundary` removed), `messages/{ru,ar}.json` `pc49*` (Peptide Gel
+Mask under red light, from the CTS/CVS/AWS sequences) and `lib/productQuickFactsCatalog.ts` '49'.
+`__tests__/data/product49LocalizedCopy.test.ts` keeps every hardware and banned-claim check, no
+longer requires the archive hedges, and now fails if archive or source-hedging language returns.
+DB: `scripts/update-product-49-ru-ar-selling-copy-20260927.ts --apply` (descriptionRu/Ar only).
+EN is unchanged.

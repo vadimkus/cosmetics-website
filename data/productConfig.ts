@@ -45,7 +45,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '6': {
     id: '6',
-    images: ['/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg'],
     pricing: {
       basePrice: 580
     },
@@ -59,7 +58,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '7': {
     id: '7',
-    images: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8-v2', 'Closing'].map((n) => `/images/pcs_v/${n}.jpeg`),
     pricing: {
       basePrice: 580
     },
@@ -90,7 +88,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 580
     },
-    images: ['/images/Second/aws1.jpg', '/images/Second/aws2.jpg'],
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
@@ -135,16 +132,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '10': {
     id: '10',
     videoUrl: '/videos/cleanser.mp4',
-    images: [
-      '/images/cleanser_o/S1.jpeg',
-      '/images/cleanser_o/S2.jpeg',
-      '/images/cleanser_o/S3.jpeg',
-      '/images/cleanser_o/S4.jpeg',
-      '/images/cleanser_o/S5.jpeg',
-      '/images/cleanser_o/S6.jpeg',
-      '/images/cleanser_o/S7.jpeg',
-      '/images/cleanser_o/Closing.jpeg',
-    ],
     pricing: {
       basePrice: 330,
       sizeVariants: {
@@ -218,27 +205,10 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 330
     },
-    images: [
-      '/images/sensitive_serum/main.jpeg',
-      '/images/sensitive_serum/s1.jpeg',
-      '/images/sensitive_serum/s2.jpeg',
-      '/images/sensitive_serum/s3.jpeg',
-      '/images/sensitive_serum/s4.jpeg',
-      '/images/sensitive_serum/s5.jpeg',
-      '/images/sensitive_serum/s6.jpeg',
-    ],
     videoUrl: '/videos/all_serum.mp4',
   },
   '20': {
     id: '20',
-    images: [
-      '/images/problems_serum/s1.jpeg',
-      '/images/problems_serum/s2.jpeg',
-      '/images/problems_serum/s3.jpeg',
-      '/images/problems_serum/s4.jpeg',
-      '/images/problems_serum/s5.jpeg',
-      '/images/problems_serum/s6.jpeg',
-    ],
     videoUrl: '/videos/problem_serum.mp4',
     pricing: {
       basePrice: 330
@@ -253,16 +223,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '21': {
     id: '21',
-    images: [
-      '/images/radiance_serum/S1.jpeg',
-      '/images/radiance_serum/S2.jpeg',
-      '/images/radiance_serum/S3.jpeg',
-      '/images/radiance_serum/S4.jpeg',
-      '/images/radiance_serum/S5.jpeg',
-      '/images/radiance_serum/S6.jpeg',
-      '/images/radiance_serum/S7.jpeg',
-      '/images/radiance_serum/S8b.jpeg',
-    ],
     videoUrl: '/videos/radiance_serum.mp4',
     pricing: {
       basePrice: 330
@@ -277,15 +237,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '22': {
     id: '22',
-    images: [
-      '/images/multif_serum/main.jpeg',
-      '/images/multif_serum/s1.jpeg',
-      '/images/multif_serum/s2.jpeg',
-      '/images/multif_serum/s3.jpeg',
-      '/images/multif_serum/s4.jpeg',
-      '/images/multif_serum/s5.jpeg',
-      '/images/multif_serum/s6.jpeg',
-    ],
     videoUrl: '/videos/multif_serum.mp4',
     pricing: {
       basePrice: 330
@@ -354,14 +305,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }
     ],
-    images: [
-      '/images/hyaluron/s1.jpeg',
-      '/images/hyaluron/s2.jpeg',
-      '/images/hyaluron/s3.jpeg',
-      '/images/hyaluron/s4.jpeg',
-      '/images/hyaluron/s5.jpeg',
-      '/images/hyaluron/s6.jpeg',
-    ],
     videoUrl: '/videos/hyaluron.mp4',
     documentation: [
       {
@@ -398,14 +341,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     sizes: [
       { value: '50g', label: '50g', available: true },
       { value: '230g', label: '230g', available: true }
-    ],
-    images: [
-      '/images/radiance/s1.jpeg',
-      '/images/radiance/s2.jpeg',
-      '/images/radiance/s3.jpeg',
-      '/images/radiance/s4.jpeg',
-      '/images/radiance/s5.jpeg',
-      '/images/radiance/s6.jpeg',
     ],
     videoUrl: '/videos/radiance.mp4',
     documentation: [
@@ -464,16 +399,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 300
     },
-    images: [
-      '/images/hydro_o/S1.jpeg',
-      '/images/hydro_o/S2.jpeg',
-      '/images/hydro_o/S3.jpeg',
-      '/images/hydro_o/S4.jpeg',
-      '/images/hydro_o/S5.jpeg',
-      '/images/hydro_o/S6.jpeg',
-      '/images/hydro_o/S7.jpeg',
-      '/images/hydro_o/Closing.jpeg',
-    ],
     videoUrl: '/videos/hydro-cool-modeling-mask-20260831.mp4',
   },
   '36': {
@@ -521,15 +446,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '40': {
     id: '40',
-    images: [
-      '/images/sun/main.jpeg',
-      '/images/sun/s1.jpeg',
-      '/images/sun/s2.jpeg',
-      '/images/sun/s3.jpeg',
-      '/images/sun/s4.jpeg',
-      '/images/sun/s5.jpeg',
-      '/images/sun/s6.jpeg',
-    ],
     videoUrl: '/videos/sun2.mp4',
     pricing: {
       basePrice: 210

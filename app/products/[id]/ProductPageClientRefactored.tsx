@@ -407,7 +407,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </span>
               {product.size && (
                 <span className="inline-block bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
-                  {t('product.size')}: {product.size}
+                  {t('product.size')}: {translateSize(product.size, locale)}
                 </span>
               )}
             </div>

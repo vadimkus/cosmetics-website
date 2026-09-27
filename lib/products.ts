@@ -900,7 +900,7 @@ Eight stamps per box. One stamp and one fresh ampoule per treatment - it is sing
     ]),
     category: 'Scalp/Hair',
     inStock: true,
-    size: '1 box - 8 pcs of hair stamp',
+    size: '1 box (8 pcs)',
     isPriceOnRequest: false,
   },
   {

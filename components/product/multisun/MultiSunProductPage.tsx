@@ -61,6 +61,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { COMPANION_PRODUCT_IDS, getMultiSunCopy } from './multiSunCopy'
+import { translateSize } from '@/utils/sizeTranslations'
 
 /** Section art from the "Your daily shade" campaign, each slide beside the section it
  *  illustrates: s3 (four filters), s2 (SPF 40 PA++), s4 (under make-up), s8 (calm under the
@@ -818,7 +819,7 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
             </div>
             <div className="min-w-0">
               <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
-              <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
+              <p className="truncate text-[11px] text-[var(--cera-muted)]">{translateSize(product.size, locale)}</p>
             </div>
           </div>
           <div className="flex min-w-0 flex-1 items-end justify-between gap-3 md:w-auto md:flex-none md:justify-start">

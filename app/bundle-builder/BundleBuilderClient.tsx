@@ -19,6 +19,7 @@ import type { ApiUser, User } from '@/types/user'
 import BottomSheet from '@/components/ui/BottomSheet'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface BundleBuilderClientProps {
   products: Product[]
@@ -232,7 +233,7 @@ function BundleProductCard({
         {/* Product Size */}
         {product.size && (
           <p className="text-xs text-[var(--cera-muted)] mt-1">
-            {product.size}
+            {translateSize(product.size, locale)}
           </p>
         )}
         {/* Product Description */}

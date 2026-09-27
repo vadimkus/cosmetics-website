@@ -8,6 +8,7 @@ import { translateCategory } from '@/utils/categoryTranslations'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
+import { translateSize } from '@/utils/sizeTranslations'
 
 const MESSAGES_BY_LOCALE = { en: enMessages, ar: arMessages, ru: ruMessages } as const
 
@@ -106,7 +107,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
               {getDescription(product)}
             </p>
             {product.size && (
-              <p className="text-xs text-[var(--cera-muted)] mb-2">{product.size}</p>
+              <p className="text-xs text-[var(--cera-muted)] mb-2">{translateSize(product.size, locale)}</p>
             )}
             <ConcernProductPrice
               product={product}

@@ -77,6 +77,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { COMPANION_PRODUCT_IDS, getHairTonicCopy } from './hairTonicCopy'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface Props {
   product: Product
@@ -741,7 +742,7 @@ export default function HairTonicProductPage({ product, unitsSold = 0, routinePr
             </div>
             <div className="min-w-0">
               <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
-              <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
+              <p className="truncate text-[11px] text-[var(--cera-muted)]">{translateSize(product.size, locale)}</p>
             </div>
           </div>
           <div className="flex min-w-0 flex-1 items-end justify-between gap-3 md:w-auto md:flex-none md:justify-start">

@@ -81,6 +81,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getBbCushionCopy, type BbCushionShade } from './bbCushionCopy'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface Props {
   product: Product
@@ -527,7 +528,7 @@ export default function BbCushionProductPage({
 
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
               <span className="cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
-                {product.size}
+                {translateSize(product.size, locale)}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-blush)] px-4 py-2 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
                 <Sun className="h-3.5 w-3.5" aria-hidden="true" />
@@ -1333,7 +1334,7 @@ export default function BbCushionProductPage({
             <div className="min-w-0">
               <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
-                {product.size} · SPF50+ PA++++
+                {translateSize(product.size, locale)} · SPF50+ PA++++
                 {selectedShade ? ` · ${selectedShade.code} ${selectedShade.name}` : ''}
               </p>
             </div>

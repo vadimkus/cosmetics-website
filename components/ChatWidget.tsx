@@ -9,6 +9,7 @@ import { useCartStore } from '@/lib/cartStore'
 import { useToast } from '@/components/ToastProvider'
 import { MessageCircle, X, Send, Loader2, Sparkles, User, Minimize2, ShoppingCart, Check } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface ChatWidgetProps {
   className?: string
@@ -227,7 +228,7 @@ function ChatProductCard({
               {text.aed} {product.price}
             </p>
             {product.size && (
-              <p className="text-[10px] text-[var(--cera-muted,#665e59)]">{product.size}</p>
+              <p className="text-[10px] text-[var(--cera-muted,#665e59)]">{translateSize(product.size, locale)}</p>
             )}
           </div>
           <button

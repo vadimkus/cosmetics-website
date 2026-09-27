@@ -76,6 +76,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getBioMesoCopy, type BioMesoCopy } from './biomesoCopy'
+import { translateSize } from '@/utils/sizeTranslations'
 
 /**
  * Everything that differs between the two ampoules. Keeping it to copy, two
@@ -493,7 +494,7 @@ export default function BioMesoProductPage({
                 single most likely way to misuse the product. */}
             <div className="mt-7 flex flex-wrap items-center gap-2.5">
               <span className="cera-numeral rounded-full border border-[var(--cera-line)] bg-white px-4 py-2 text-[16px] text-[var(--cera-ink)]">
-                {product.size}
+                {translateSize(product.size, locale)}
               </span>
               <span className="rounded-full bg-[var(--cera-blush)] px-4 py-2 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
                 {copy.weeklyNote}
@@ -1292,7 +1293,7 @@ export default function BioMesoProductPage({
             <div className="min-w-0">
               <p className="truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
-                {product.size} · {copy.weeklyNote}
+                {translateSize(product.size, locale)} · {copy.weeklyNote}
               </p>
             </div>
           </div>
@@ -1313,7 +1314,7 @@ export default function BioMesoProductPage({
                 </p>
               </div>
             ) : null}
-            <p className="min-w-0 max-w-[52%] shrink truncate text-[11px] text-[var(--cera-muted)] md:hidden">{product.size}</p>
+            <p className="min-w-0 max-w-[52%] shrink truncate text-[11px] text-[var(--cera-muted)] md:hidden">{translateSize(product.size, locale)}</p>
           </div>
 
           {inCartQty === 0 && product.inStock && user ? (

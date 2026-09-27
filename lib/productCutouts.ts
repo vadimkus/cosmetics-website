@@ -91,7 +91,7 @@ const CUTOUTS: Record<string, string> = {
   // 35 HYDRO COOL MODELING MASK
   '/images/hydro_o/Main.jpeg': '/images/cutout/35-v2.webp',
   // 36 SOOTHING BOMB SEA ALGAE MASK
-  '/images/sea_algae/Main.jpeg': '/images/cutout/36.webp',
+  '/images/seaalgae_campaign/main.jpg': '/images/cutout/36-v2.webp',
   // 37 PEPTIDE GEL MASK
   '/images/peptide_campaign/main.jpg': '/images/cutout/37.webp',
   // 38 EZ CO₂ MASK KIT

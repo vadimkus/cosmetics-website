@@ -209,6 +209,9 @@ REVISION = {
     # "Every needle counts." campaign packshot (roller_campaign/main.jpg, 27 Sep 2026):
     # the single roller on white, replacing the seven-device family photo.
     "1": 2,
+    # "Calm on contact." campaign packshot (seaalgae_campaign/main.jpg, 27 Sep 2026): the
+    # registered pouch artwork, replacing the earlier pouch design.
+    "36": 2,
 }
 
 

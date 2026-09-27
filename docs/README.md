@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Sea Algae Mask campaign](./SESSION_CHANGES_2026-09-27_SEA_ALGAE_CAMPAIGN.md) | "CALM ON CONTACT." main + 12 slides EN/RU/AR for product 36, mint + deep green. Bespoke page copy in selling voice (EN/RU/AR + central RU/AR + DB), 5 slides on the page, "dermatologically tested" from the registered artwork, INCI typo fixed, cut-out `36-v2.webp`. |
 | 🟡 **Important** | [DTS Roller campaign](./SESSION_CHANGES_2026-09-27_ROLLER_CAMPAIGN.md) | "EVERY NEEDLE COUNTS." main + 12 slides EN/RU/AR for product 1, native crimson + white. Selling copy EN/RU/AR + quick facts, training-deck download removed, sizes fixed to 0.25-2.0 mm (DB + config), new cut-out `1-v2.webp`. |
 | 🟡 **Important** | [HairGen BOOSTER campaign](./SESSION_CHANGES_2026-09-27_HAIRGEN_BOOSTER_CAMPAIGN.md) | "IN. NOT ON." main + 12 slides EN/RU/AR for product 3, graphite + silver `#D8DADC`, copper numerals. Page copy rewritten in selling voice (EN/RU/AR + central RU/AR + DB), 5 slides on the page. |
 | 🟡 **Important** | [SNOW BOOSTER campaign](./SESSION_CHANGES_2026-09-27_SNOW_BOOSTER_CAMPAIGN.md) | "Let it snow" main + 12 slides EN/RU/AR for product 16 (200 ml + 1000 ml), snow white / label cyan `#63CCE9` / slate `#333F48`. 4 slides on the page, EN copy in selling voice, DB gallery + EN fields. |

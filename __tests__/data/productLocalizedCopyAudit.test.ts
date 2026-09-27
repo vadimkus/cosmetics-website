@@ -2576,8 +2576,9 @@ describe('audited product localization copy', () => {
 
     for (const unsupported of [
       'целебная сила океана', 'قوة الشفاء للمحيط', 'заживление кожи', 'شفاء البشرة',
+      // "Dermatologically tested" is allowed: the registered pouch artwork prints it.
       'противовоспалитель', 'مضادة للالتهابات', 'всех типов кожи', 'جميع أنواع البشرة',
-      'дерматологически протестировано', 'مختبر جلدياً', '23г', '23 غ',
+      '23г', '23 غ',
       '2-3 раза', '2-3 مرات',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())

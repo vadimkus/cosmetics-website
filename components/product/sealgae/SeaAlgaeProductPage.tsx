@@ -6,19 +6,14 @@
  * Built on the shared editorial system, with a sea-green palette in
  * sealgae.css.
  *
- * The page has an unusual job. The product is named after an ingredient that
- * is dosed at 10 ppm, and every piece of copy the brand ships leads on it. So
- * this page leads on what is actually at a functional dose - glycerin 5.04%,
- * methylpropanediol 10%, betaine 0.5%, allantoin and panthenol at 0.1% - and
- * on the Eucalace® sheet, which is the genuine engineering. The algae gets its
- * own section stating the dose plainly, because GENOSYS already print "(10ppm)"
- * on the back of the pouch and papering over it would be the only dishonest
- * option available.
+ * The page sells calm on contact: the Eucalace® sheet, the percent-level humectants
+ * (methylpropanediol 10%, glycerin 5.04%, betaine 0.5%) and the calmers (allantoin and
+ * panthenol at 0.1%), with the sea algae and centella named in their own section.
+ * "Dermatologically tested" is printed on the registered pouch artwork.
  *
- * Do not add: "dermatologically tested" (not on the pouch, no report in the
- * dossier), any hydration percentage (no efficacy study exists), the deck's
- * ingredient-dictionary claims at 1-10 ppm, the contract manufacturer, or the
- * lot code. See the source audit for the full list.
+ * Do not add: any hydration percentage, a use frequency, the deck's ingredient
+ * physiology (wound healing, collagen, tyrosinase, sebum), the contract manufacturer
+ * or a lot code.
  */
 
 import '../cerabarrier/cerabarrier.css'
@@ -46,6 +41,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -66,6 +62,26 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { COMPANION_PRODUCT_IDS, getSeaAlgaeCopy } from './seaAlgaeCopy'
+
+/** Section art from the "Calm on contact" campaign, each slide beside the section it
+ *  illustrates: s5 (the Eucalace® sheet), s8 (5% glycerin), s3 (sea algae + centella),
+ *  s10 (green by nature) and s11 (after sun, after flights). AR and RU renders swap in
+ *  through localizeProductImage. */
+const SHEET_IMAGE = '/images/seaalgae_campaign/s5.jpg'
+const FORMULA_IMAGE = '/images/seaalgae_campaign/s8.jpg'
+const SEA_IMAGE = '/images/seaalgae_campaign/s3.jpg'
+const COLOUR_IMAGE = '/images/seaalgae_campaign/s10.jpg'
+const WHEN_IMAGE = '/images/seaalgae_campaign/s11.jpg'
+
+function SectionFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+      </div>
+    </CeraReveal>
+  )
+}
 
 interface Props {
   product: Product
@@ -122,10 +138,10 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()
@@ -430,7 +446,9 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
       {/* ───────────────────────────── The sheet ────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.sheet.eyebrow} title={copy.sheet.title} intro={copy.sheet.intro} />
-        <div className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
+        <div className="mx-auto mt-10 grid max-w-[1100px] grid-cols-1 gap-6 lg:mt-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
+        <SectionFigure src={localizeProductImage(SHEET_IMAGE, locale)} alt={copy.sheet.title} />
+        <div className="grid grid-cols-1 gap-4">
           {copy.sheet.points.map((point, i) => (
             <CeraReveal
               key={point.title}
@@ -450,6 +468,7 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
             </CeraReveal>
           ))}
         </div>
+        </div>
       </section>
 
       {/* ──────────────────────── The functional formula ────────────────── */}
@@ -467,6 +486,11 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
                   {copy.formula.note}
                 </p>
               </CeraReveal>
+              <SectionFigure
+                src={localizeProductImage(FORMULA_IMAGE, locale)}
+                alt={copy.formula.title}
+                className="mt-8 max-w-[440px]"
+              />
             </div>
 
             <CeraReveal className="cera-card overflow-hidden">
@@ -515,24 +539,30 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
         </div>
       </section>
 
-      {/* ─────────────────────── The ppm conversation ───────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
-        <CeraReveal className="sea-note p-6 md:p-10">
-          <p className="cera-eyebrow">{copy.honesty.eyebrow}</p>
-          <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[34px]">{copy.honesty.title}</h2>
-          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
-          <p className="mt-5 border-s-2 border-[var(--cera-blush-deep)] ps-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">
-            {copy.honesty.aside}
-          </p>
-        </CeraReveal>
+      {/* ──────────────────────── Sea algae and colour ──────────────────── */}
+      <section className="mx-auto max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-12">
+          <SectionFigure src={localizeProductImage(SEA_IMAGE, locale)} alt={copy.sea.title} />
+          <CeraReveal className="sea-note p-6 md:p-10">
+            <p className="cera-eyebrow">{copy.sea.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[34px]">{copy.sea.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.sea.body}</p>
+            <p className="mt-5 border-s-2 border-[var(--cera-blush-deep)] ps-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">
+              {copy.sea.aside}
+            </p>
+          </CeraReveal>
+        </div>
 
-        <CeraReveal delay={90} className="mt-6">
-          <div className="cera-card p-6 md:p-8">
-            <p className="cera-eyebrow">{copy.colour.eyebrow}</p>
-            <h3 className="cera-serif mt-2 text-[22px] leading-tight sm:text-[26px]">{copy.colour.title}</h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.colour.body}</p>
-          </div>
-        </CeraReveal>
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.6fr)] sm:items-center">
+          <CeraReveal delay={90}>
+            <div className="cera-card p-6 md:p-8">
+              <p className="cera-eyebrow">{copy.colour.eyebrow}</p>
+              <h3 className="cera-serif mt-2 text-[22px] leading-tight sm:text-[26px]">{copy.colour.title}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.colour.body}</p>
+            </div>
+          </CeraReveal>
+          <SectionFigure src={localizeProductImage(COLOUR_IMAGE, locale)} alt={copy.colour.title} />
+        </div>
       </section>
 
       {/* ───────────────────────── How to use + video ───────────────────── */}
@@ -606,6 +636,11 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
       {/* ────────────────────────── When to use it ──────────────────────── */}
       <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.when.eyebrow} title={copy.when.title} intro={copy.when.intro} />
+        <SectionFigure
+          src={localizeProductImage(WHEN_IMAGE, locale)}
+          alt={copy.when.title}
+          className="mx-auto mt-10 max-w-[520px]"
+        />
         <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {copy.when.items.map((item, i) => (
             <CeraReveal key={item} as="li" delay={i * 60} className="cera-card flex gap-3.5 p-5">
@@ -661,9 +696,6 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
               <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.lab.title}</h2>
               <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">
                 {copy.lab.intro}
-              </p>
-              <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
-                {copy.lab.disclaimer}
               </p>
             </CeraReveal>
           </div>

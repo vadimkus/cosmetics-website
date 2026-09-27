@@ -292,11 +292,11 @@
   {
     "product": "36",
     "status": "ok",
-    "source": "/images/sea_algae/Main.jpeg",
-    "file": "/images/cutout/36.webp",
+    "source": "/images/seaalgae_campaign/main.jpg",
+    "file": "/images/cutout/36-v2.webp",
     "name": "SOOTHING BOMB SEA ALGAE MASK",
-    "coverage": 0.535,
-    "bytes": 29066,
+    "coverage": 0.529,
+    "bytes": 53326,
     "review": false
   },
   {

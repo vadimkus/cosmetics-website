@@ -1,10 +1,6 @@
 /**
  * Copy for the EyeCell EYE ZONE CARE KIT page (product 50), in English,
- * Arabic and Russian.
- *
- * This is a registered DTS MG four-piece kit with its own carton and its own
- * EAN. It is not a UAE-assembled beauty box. Do not reuse beauty-box language
- * ("no barcode", "assembled here", "five full-size items").
+ * Arabic and Russian. "Rested eyes." campaign, Sep 2026.
  *
  * ─── Sourcing ──────────────────────────────────────────────────────────────
  *
@@ -12,59 +8,43 @@
  *   /Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/
  *     Registration DOC/Artwork/[GENOSYS]EYECELL KIT.pdf  (Feb 2025)
  *   English function: Anti-wrinkle, Eye bag relief, Dark circle relief, Soothing
- *   Front sentence: designed for professional eye-zone treatment covering
- *   dehydration, dark circle, eye bag, crow's feet. Combines cosmetics with a
- *   roller specially designed for the eye area to help absorption and activate
- *   collagen production.
+ *   Front sentence: professional eye-zone treatment covering dehydration,
+ *   dark circle, eye bag, crow's feet, with a roller designed for the eye area.
  *   Contents: Eye Contour Serum 10ml, Eye Contour Cream 20g,
  *   Eye Peptide Gel Patch 101g, GENOSYS Eye Roller 0.25mm x 1ea
- *   How-to: cleanse; serum then roll; patches 20 minutes; cream.
+ *   How-to: 1 cleanse; 2 serum then roll; 3 patches; 4 cream.
+ *   RU panel: roll horizontally and vertically for a few minutes; patches
+ *   20-40 min; disinfect the roller 5 min in chlorhexidine before reuse.
  *   Precautions: external use; keep off eyes; avoid pregnancy / lactation;
- *   cool / dry; children; stop if redness / swelling / irritation.
- *   French panel: do not use the roller if keloid, stainless-steel allergy,
- *   or dermatitis.
- *
- * Older label (do not prefer)
- *   Intertek/Label/[GENOSYS]EYECELL EYE ZONE CARE KIT.pdf
- *   Patch 98g, older INCI. Use 101g from the 2025 artwork and product 33.
+ *   stop if redness / swelling / irritation. French panel: no roller with
+ *   keloid, stainless-steel allergy or dermatitis.
  *
  * Component pages already shipped - do not contradict them
- *   17 Eye Contour Serum  - Arbutin 2% + Adenosine 0.04%. Peptides at trace.
- *                          Haloxyl is a 0.10% premix. 370 AED. 10ml.
- *   24 Eye Contour Cream  - Arbutin 2% + Adenosine 0.04%. Peptides at trace.
- *                          Haloxyl is a 0.05% premix. Contains peanut oil and
- *                          retinyl palmitate. Orange peel oil + limonene.
- *                          370 AED. 20g. Pregnancy line on the English pack.
+ *   17 Eye Contour Serum  - Arbutin 2% + Adenosine 0.04%. 10ml.
+ *   24 Eye Contour Cream  - Arbutin 2% + Adenosine 0.04%, squalane 2.5%,
+ *                          jojoba 2%. Peanut oil, retinyl palmitate, orange
+ *                          peel oil + limonene. 20g.
  *   33 Eye Peptide Gel Patch - Niacinamide 2% + Adenosine 0.04%.
- *                          Peptide is 46.5 ppb. Sit 20-40 min then remove.
- *                          101g / 60ea. Parfum in it. English pack prints no
- *                          pregnancy line. 380 AED.
+ *                          20-40 min then remove. 101g / 60ea. Parfum.
  *
- * The roller is not product 1
- *   Product 1 is the 450-needle Standard Detachable face roller.
+ * The kit roller is not product 1
+ *   Product 1 is the sterile single-use face roller in five needle lengths.
  *   The kit holds GENOSYS EYE ROLLER, one-body, 0.25mm, 60 needles,
- *   article EBT025 / export GRME025. Not sold as its own retail PDP.
- *   Do not link the roller to /products/1. Do not put 230 AED into the
- *   separate total.
+ *   reusable after disinfection. Not sold on its own.
  *
  * Value math (live prices, not hardcoded here)
- *   17 + 24 + 33 = the separate cosmetic total. Kit 980 AED.
- *   The roller is only in the kit, so it is not in that sum.
+ *   17 + 24 + 33 = the separate total. The roller is not in that sum.
  *
  * ─── Claims that must not come back ────────────────────────────────────────
  *
- *   10 Years Back / Turn Years Back     Printed on the packs. Not our headline.
- *   Peptide / Haloxyl / callus / stem-cell as the engine
+ *   10 Years Back as a result             Printed on the packs. Not a claim.
+ *   Peptide / Haloxyl / stem-cell as the engine
  *   Patented thermo-sensitive / transdermal patches
  *   Botox / muscle-relaxant
- *   Collagen activation as a medical or wound-healing claim
- *   Efficacy test on the kit as a whole     No kit-level trial on file
- *   All skin types
- *   Fragrance-free
- *   Pregnancy-safe
- *   The kit roller = product 1
- *   Contract manufacturers (COTDE, GENIC). DTS MG only.
- *   Lot / batch codes
+ *   Collagen activation, absorption or delivery claims for the roller
+ *   All skin types · Fragrance-free · Pregnancy-safe
+ *   Carton or dossier voice ("the carton says", "no trial on file")
+ *   Contract manufacturers. DTS MG only. Lot / batch codes.
  */
 
 export type EyeKitLocale = 'en' | 'ar' | 'ru'
@@ -101,6 +81,12 @@ export interface EyeKitCopy {
   viewBag: string
   badges: string[]
   stats: { value: string; label: string }[]
+  concern: {
+    eyebrow: string
+    title: string
+    body: string
+    points: string[]
+  }
   contents: {
     eyebrow: string
     title: string
@@ -124,6 +110,13 @@ export interface EyeKitCopy {
     steps: { title: string; body: string }[]
     note: string
     videoTitle: string
+  }
+  roller: {
+    eyebrow: string
+    title: string
+    body: string
+    points: string[]
+    aside: string
   }
   evidence: {
     eyebrow: string
@@ -159,19 +152,19 @@ export interface EyeKitCopy {
 const ROLLER_IMAGE = '/images/eye_kit/roller.jpeg'
 
 const EN: EyeKitCopy = {
-  eyebrow: 'EyeCell · Four-piece kit',
+  eyebrow: 'EyeCell · Eye zone care kit',
   backToProducts: 'All products',
-  headline: 'The eye-zone sequence, in one carton.',
+  headline: 'Rested eyes, in four steps.',
   subheadline:
-    'Serum, the 0.25mm eye roller, patches, then cream. A registered Korean kit with its own barcode, not a box assembled here.',
+    'Serum, a 0.25 mm eye roller, cooling gel patches and cream: one routine for dark circles, eye bags and crow\'s feet, with every piece in the box.',
   heroBullets: [
-    'Serum, a gentle roll, patches for 20-40 minutes, then cream',
-    'Arbutin 2% and adenosine 0.04% on the serum and the cream',
-    'Niacinamide 2% and adenosine 0.04% on the patches',
-    'The 0.25mm eye roller ships only in this kit',
+    'Serum and a gentle roll, patches for 20-40 minutes, then cream',
+    'Arbutin 2% and adenosine 0.04% in the serum and the cream',
+    'Niacinamide 2% and adenosine 0.04% in the patches',
+    'The 0.25 mm eye roller comes only in this kit',
   ],
   kitSize: '1 box',
-  fullSizeNote: 'Registered Korean kit',
+  fullSizeNote: 'Full-size serum, cream and patches',
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over 1,000 AED · Ships from Dubai',
   addToBag: 'Add to bag',
@@ -181,40 +174,46 @@ const EN: EyeKitCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: [
-    'Dermatologically tested',
-    'Made in Korea',
-    'Own barcode',
-    'Four-piece sequence',
-  ],
+  badges: ['Dermatologically tested', 'Made in Korea', 'Full-size products', 'Eye roller included'],
   stats: [
-    { value: '4', label: 'Pieces in the carton' },
-    { value: '2%', label: 'Arbutin on serum and cream' },
-    { value: '2%', label: 'Niacinamide on the patches' },
-    { value: '0.25mm', label: 'Eye roller, 60 needles' },
+    { value: '4', label: 'Pieces in one box' },
+    { value: '2%', label: 'Arbutin in serum and cream' },
+    { value: '2%', label: 'Niacinamide in the patches' },
+    { value: '0.25 mm', label: 'Eye roller, 60 needles' },
   ],
+  concern: {
+    eyebrow: 'Made for the eye zone',
+    title: 'Dark circles, eye bags and crow\'s feet, cared for together.',
+    body: 'The skin around the eyes is the first place a short night shows. The kit answers it in layers: brightening arbutin and wrinkle-care adenosine in the serum and cream, niacinamide in patches that cool and soothe, and a fine roller made for the curve under the eye.',
+    points: [
+      'Brighter-looking under-eyes',
+      'Smoother-looking crow\'s feet',
+      'Eye bags that look less puffy',
+      'Skin that feels soothed and hydrated',
+    ],
+  },
   contents: {
-    eyebrow: 'Inside the carton',
-    title: 'Three cosmetics you already know, plus the roller that only lives here.',
+    eyebrow: 'Inside the box',
+    title: 'Three full-size formulas and the roller made for them.',
     intro:
-      'Each cosmetic has its own page, its own price and its own paperwork. The eye roller does not. It is a one-body 0.25mm tool made for the orbital bone, and it ships only in this kit.',
+      'Serum, cream and patches are the same full-size products sold on their own pages. The 0.25 mm eye roller is the piece you only get here: one body, 60 fine needles, shaped for the eye contour.',
     items: [
       {
         id: 'serum',
         title: 'EyeCell EYE CONTOUR SERUM',
         productNumber: '17',
         quantity: 1,
-        step: 'Step 1 · First layer',
-        body: 'The intensive leave-on serum. Deep wrinkles, dark circles and eye puffs. Arbutin 2% is the figure that belongs on a card. Adenosine 0.04% is the wrinkle-care pair. Then you roll.',
-        facts: ['10ml', 'Arbutin 2%', 'Adenosine 0.04%', 'Leave on'],
+        step: 'Step 2 · Serum first',
+        body: 'An intensive leave-on serum for dark circles, puffiness and deep lines. Arbutin 2% brightens and adenosine 0.04% smooths, placed through a fine metal tip right onto the contour. The roller goes over it.',
+        facts: ['10 ml', 'Arbutin 2%', 'Adenosine 0.04%', 'Leave on'],
       },
       {
         id: 'roller',
         title: 'GENOSYS EYE ROLLER',
         quantity: 1,
-        step: 'Step 1 · With the serum',
-        body: 'One-body, 0.25mm, 60 needles. Made for the curve around the eye, not for the face. Extra care, light pressure, keep it off the eye and the lip. This is not the 450-needle detachable roller on its own page.',
-        facts: ['0.25mm', '60 needles', 'One-body', 'Kit only'],
+        step: 'Step 2 · Over the serum',
+        body: 'One body, 0.25 mm, 60 fine needles, sized for the delicate curve around the eye. Roll it lightly over the serum, horizontally and vertically, away from the eye and the lips.',
+        facts: ['0.25 mm', '60 needles', 'One body', 'Kit only'],
         image: ROLLER_IMAGE,
       },
       {
@@ -222,177 +221,187 @@ const EN: EyeKitCopy = {
         title: 'EyeCell EYE PEPTIDE GEL PATCH',
         productNumber: '33',
         quantity: 1,
-        step: 'Step 2 · Take-off mask',
-        body: 'Hydrogel crescents under the eyes, or on the brow bones when you want the intensive sit. Niacinamide 2% and adenosine 0.04% are the functional pair. Twenty to forty minutes, then take them off. The peptide sits at trace.',
-        facts: ['101g / 60 ea', 'Niacinamide 2%', 'Adenosine 0.04%', '20-40 min, then remove'],
+        step: 'Step 3 · Gel patches',
+        body: 'Cooling hydrogel crescents under the eyes, or along the brow bones for a fuller treatment. Niacinamide 2% and adenosine 0.04% work while you rest for 20 to 40 minutes, then lift them off and pat the essence in.',
+        facts: ['101 g / 60 pcs', 'Niacinamide 2%', 'Adenosine 0.04%', '20-40 min'],
       },
       {
         id: 'cream',
         title: 'EyeCell EYE CONTOUR CREAM',
         productNumber: '24',
         quantity: 1,
-        step: 'Step 3 · Seal',
-        body: 'The daily leave-on cream after the patches come off. Same Korean functional pair as the serum: arbutin 2% and adenosine 0.04%. Contains peanut oil and a retinyl palmitate ester. Orange peel oil and limonene are in it, so it is not fragrance-free.',
-        facts: ['20g', 'Arbutin 2%', 'Adenosine 0.04%', 'Contains peanut oil'],
+        step: 'Step 4 · Cream to finish',
+        body: 'The finishing layer. The same arbutin 2% and adenosine 0.04% as the serum, with squalane 2.5% and jojoba oil 2% to leave the contour soft and comfortable. Contains peanut oil, orange peel oil and limonene.',
+        facts: ['20 g', 'Arbutin 2%', 'Adenosine 0.04%', 'Contains peanut oil'],
       },
     ],
     eanLabel: 'Barcode',
     each: 'each',
     viewItem: 'Open this product',
     kitOnly: 'Only in this kit',
-    boughtSeparately: 'Serum, cream and patches on their own pages',
+    boughtSeparately: 'Serum, cream and patches bought separately',
     inThisBox: 'This kit',
     youSave: 'You save',
-    againstSeparate: 'against those three bought separately',
-    seeBreakdown: 'See the arithmetic',
+    againstSeparate: 'against the three bought separately',
+    seeBreakdown: 'See the breakdown',
     savingNote:
-      'The separate total is the three cosmetics at the prices on their own pages. The 0.25mm eye roller is only in the kit, so it is not in that sum. If a clinic discount ever makes the three cheaper than the kit, this row hides.',
+      'The separate total counts the serum, cream and patches at their own prices. The eye roller comes on top and is not counted.',
   },
   howTo: {
     eyebrow: 'How to use it',
-    title: 'Four steps. The carton writes the order.',
-    intro:
-      'Cleanse, serum and roll, patches, cream. The English kit panel prints 20 minutes on the patches. Wear them 20-40 minutes, which is what the patch itself says.',
+    title: 'Four steps, one calm routine.',
+    intro: 'Cleanse, serum and a gentle roll, patches for 20 to 40 minutes, then cream to finish.',
     steps: [
       {
         title: 'Cleanse the eye contour',
-        body: 'Make-up off, skin dry enough to take a serum. Keep cleanser out of the eye.',
+        body: 'Remove make-up and cleanse gently, then pat the skin dry so the serum goes onto clean skin.',
       },
       {
         title: 'Serum, then a gentle roll',
-        body: 'A thin layer of Eye Contour Serum. Roll the 0.25mm eye roller over that layer and let it absorb. Extra care. Not too much pressure. Keep the roller off the eye, the mucous membrane and the lip.',
+        body: 'Smooth Eye Contour Serum under the eyes and along the brow bones. Roll the 0.25 mm eye roller over it for a few minutes, horizontally and vertically, with light pressure and away from the eye.',
       },
       {
-        title: 'Patches, 20-40 minutes',
-        body: 'Two crescents under the eyes. Two more on the brow bones when you want the intensive sit. Then remove. Pat the leftover in. Do not leave them on overnight.',
+        title: 'Patches for 20-40 minutes',
+        body: 'Place two crescents under the eyes, and two more on the brow bones if you like. Rest, lift them off after 20 to 40 minutes and pat the leftover essence in.',
       },
       {
-        title: 'Cream to seal',
-        body: 'Eye Contour Cream last. A small amount, a gentle pat, then leave on. Morning or evening after the sequence.',
+        title: 'Cream to finish',
+        body: 'A small amount of Eye Contour Cream, patted in gently with the fingertips.',
       },
     ],
-    note: 'Skip the roller if you have a keloid history, a stainless-steel allergy or dermatitis. The cream contains peanut oil. The kit carton says avoid use during pregnancy and lactation.',
-    videoTitle: 'The sequence on film',
+    note: 'Skip the roller with a keloid tendency, a stainless-steel allergy, dermatitis or broken skin. The cream contains peanut oil. Avoid the kit during pregnancy and breastfeeding.',
+    videoTitle: 'The routine on film',
+  },
+  roller: {
+    eyebrow: 'The eye roller',
+    title: '0.25 mm, made for the eye zone.',
+    body: 'Sixty fine needles on a small one-body drum, sized for the thin skin under the eye and along the brow bone. It glides over the serum in light passes and goes back into the box when you are done.',
+    points: [
+      'Over the serum, horizontally and vertically, for a few minutes',
+      'Light pressure, away from the eye and the lips',
+      'Before each reuse, soak it in chlorhexidine solution for 5 minutes',
+      'Yours alone: never share it',
+    ],
+    aside: 'Skip the roller with a keloid tendency, a stainless-steel allergy, dermatitis or broken skin, and use the three formulas on their own.',
   },
   evidence: {
-    eyebrow: 'What is actually on the cards',
-    title: 'Two functional pairs, and a 0.25mm roller.',
+    eyebrow: 'What does the work',
+    title: 'Two proven pairs and one fine roller.',
     intro:
-      'The kit has no trial of its own. What can be said is what is already measured on the three cosmetics and printed on the roller.',
+      'Arbutin, niacinamide and adenosine are the ingredients Korea recognises for brightening and wrinkle care, and each formula carries them at the levels set for functional cosmetics.',
     cards: [
       {
         value: '2% + 0.04%',
         title: 'Serum and cream',
-        body: 'Arbutin 2% and adenosine 0.04%. The Korean functional pair on both leave-ons. Peptides sit at cosmetic trace. Haloxyl is a premix name, not the engine.',
+        body: 'Arbutin 2% for brighter-looking under-eyes and adenosine 0.04% for smoother-looking lines, in both leave-on layers.',
       },
       {
         value: '2% + 0.04%',
         title: 'The patches',
-        body: 'Niacinamide 2% and adenosine 0.04%. Sit 20-40 minutes, then take them off. The named peptide is 46.5 ppb.',
+        body: 'Niacinamide 2% and adenosine 0.04% in a cooling hydrogel that stays on for 20 to 40 minutes while you rest.',
       },
       {
-        value: '0.25mm',
+        value: '0.25 mm',
         title: 'The eye roller',
-        body: 'Sixty needles, one-body, made for the eye contour. The carton says it helps absorption. That is the carton sentence, not a medical microneedling claim.',
+        body: 'Sixty fine needles on a one-body drum made for the eye contour. Light passes over the serum for a few minutes, then the patches.',
       },
     ],
-    footnote:
-      'No kit-level efficacy study is on file. Do not read "10 Years Back" on the packs as a measured result. This is not a peptide kit and not a Botox story.',
+    footnote: 'The kit is dermatologically tested and made in Korea by DTS MG.',
   },
   suited: {
     eyebrow: 'Who it is for',
-    title: 'The full EyeCell sequence, or the pieces.',
+    title: 'The whole routine, or just the pieces.',
     forTitle: 'This kit is for you if',
     forList: [
-      'You want serum, roller, patches and cream in one carton',
-      'The job is dehydration, dark circles, eye bags or crow\'s feet',
-      'You will use the 0.25mm roller gently, then take the patches off',
+      'You want serum, roller, patches and cream in one box',
+      'Dark circles, eye bags or crow\'s feet are what you want to work on',
+      'You like a routine you can repeat at home, step by step',
     ],
-    notForTitle: 'Buy something else if',
+    notForTitle: 'Choose something else if',
     notForList: [
-      'You are pregnant or breastfeeding. The kit carton says avoid',
-      'You have a peanut allergy. The cream contains peanut oil',
-      'You have a keloid history, a metal allergy or dermatitis. Skip the roller, or buy the three cosmetics on their own',
-      'You only want one piece. Open that product instead',
-      'You want the 450-needle face roller. That is a different tool',
+      'You are pregnant or breastfeeding: avoid the kit in that time',
+      'You are allergic to peanuts: the cream contains peanut oil',
+      'You have a keloid tendency, a metal allergy or dermatitis: skip the roller, or take the three formulas on their own',
+      'You only want one piece: open that product instead',
+      'You want to roll the whole face: the face roller is made for that',
     ],
     alternativesLabel: 'The pieces, and the face roller',
     alternatives: [
       { productNumber: '17', label: 'Eye Contour Serum' },
       { productNumber: '24', label: 'Eye Contour Cream' },
       { productNumber: '33', label: 'Eye Peptide Gel Patch' },
-      { productNumber: '1', label: 'Face roller, 450 needles' },
+      { productNumber: '1', label: 'Face microneedle roller' },
     ],
-    note: 'The cream is not fragrance-free: orange peel oil and limonene. The patches carry Parfum. Keep every piece out of the eye.',
+    note: 'The cream contains orange peel oil and limonene, and the patches contain fragrance. Keep every piece away from the eye itself.',
   },
   details: {
-    eyebrow: 'On the carton',
-    title: 'The facts that belong on a card.',
+    eyebrow: 'At a glance',
+    title: 'Everything in the box.',
     rows: [
-      { label: 'Form', value: 'Registered four-piece eye-zone kit' },
+      { label: 'Form', value: 'Four-piece eye-zone care kit' },
       { label: 'Size', value: '1 box' },
-      { label: 'Contents', value: 'Serum 10ml, cream 20g, patches 101g / 60 ea, eye roller 0.25mm' },
+      { label: 'Contents', value: 'Serum 10 ml, cream 20 g, gel patches 101 g / 60 pcs, eye roller 0.25 mm' },
       { label: 'Function', value: 'Anti-wrinkle, eye bag relief, dark circle relief, soothing' },
       { label: 'Made by', value: 'DTS MG, South Korea' },
       { label: 'Testing', value: 'Dermatologically tested' },
-      { label: 'Caution', value: 'Avoid during pregnancy and lactation. Cream contains peanut oil' },
+      { label: 'Caution', value: 'Avoid during pregnancy and breastfeeding. Cream contains peanut oil' },
     ],
     barcodeLabel: 'Barcode',
   },
   faq: {
     eyebrow: 'Before you buy',
-    title: 'The questions this kit actually gets.',
+    title: 'Questions about the kit.',
     items: [
       {
-        q: 'Is this a beauty box?',
-        a: 'No. Beauty boxes are assembled here and have no EAN of their own. This carton is a registered Korean kit with barcode 8809046298035.',
+        q: 'What do I get over buying the pieces separately?',
+        a: 'The full EyeCell routine in one box, for less than the serum, cream and patches cost on their own, plus the 0.25 mm eye roller, which is only sold in this kit.',
       },
       {
-        q: 'Is the roller the same as the microneedle roller on its own page?',
-        a: 'No. That page is the 450-needle detachable face roller. This kit holds a one-body 0.25mm eye roller with 60 needles. It is not sold on its own.',
+        q: 'Is the eye roller the same as the face roller?',
+        a: 'No. The face roller is a sterile single-use roller for the whole face, in five needle lengths. This is a one-body 0.25 mm roller with 60 needles, made for the eye zone and reusable after disinfection.',
       },
       {
         q: 'How long do the patches stay on?',
-        a: '20-40 minutes, then remove. The English kit panel prints 20 minutes. The patch itself, and the Korean and Russian kit panels, print 20-40. Wear the longer window.',
+        a: '20 to 40 minutes, then lift them off and pat the leftover essence in. Do not sleep in them.',
+      },
+      {
+        q: 'How do I look after the roller?',
+        a: 'Before each reuse, soak it in chlorhexidine solution for 5 minutes, and keep it for yourself: never share it.',
       },
       {
         q: 'Can I use it while pregnant?',
-        a: 'The kit carton says avoid use during pregnancy and lactation. The cream also prints that line and carries a retinyl palmitate ester. Ask your doctor before any eye-zone kit in that window.',
+        a: 'Avoid the kit during pregnancy and breastfeeding. The cream also contains a retinyl palmitate ester. Ask your doctor before starting any eye-zone routine in that time.',
       },
       {
         q: 'Does it contain peanut oil?',
-        a: 'The cream does. Arachis Hypogaea (Peanut) Oil is in the registered cream formula. If peanut is an allergen for you, skip the kit or buy the serum and the patches on their own.',
+        a: 'The cream does: Arachis Hypogaea (Peanut) Oil. If peanut is an allergen for you, skip the kit and choose the serum and patches on their own.',
       },
       {
         q: 'Is it fragrance-free?',
-        a: 'No. The cream has orange peel oil and limonene. The patches have Parfum.',
+        a: 'No. The cream contains orange peel oil and limonene, and the patches contain fragrance.',
       },
       {
         q: 'Can I buy the pieces separately?',
-        a: 'Serum, cream and patches each have their own page. The 0.25mm eye roller does not. It only ships in this kit.',
-      },
-      {
-        q: 'Is this a peptide kit? Does it replace Botox?',
-        a: 'No. Peptides sit at cosmetic trace on all three cosmetics. The figures that belong on a card are the functional pairs: arbutin and adenosine on the serum and cream, niacinamide and adenosine on the patches. This is not a muscle-relaxant story.',
+        a: 'Serum, cream and patches each have their own page. The 0.25 mm eye roller comes only in this kit.',
       },
     ],
   },
 }
 
 const AR: EyeKitCopy = {
-  eyebrow: 'EyeCell · طقم من أربع قطع',
+  eyebrow: 'EyeCell · طقم العناية بمحيط العين',
   backToProducts: 'كل المنتجات',
-  headline: 'طقوس متكاملة تمنح محيط العين عناية أدق.',
+  headline: 'عيون مرتاحة في أربع خطوات.',
   subheadline:
-    'سيروم ورولر حصري بعمق 0.25 مم، ثم لصقات هيدروجيل وكريم يومي. أربع خطوات متناسقة لمظهر أكثر نضارة ونعومة وتجانساً حول العين.',
+    'سيروم ورولر للعين بعمق 0.25 مم ولصقات جل منعشة وكريم: روتين واحد للهالات الداكنة وانتفاخ تحت العين وتجاعيد زوايا العين، وكل قطعة في العلبة.',
   heroBullets: [
-    'السيروم مع الرولر، لصقات من 20 إلى 40 دقيقة، ثم الكريم',
-    'أربوتين 2% وأدينوزين 0.04% في السيروم وفي الكريم',
+    'السيروم مع تمريرة لطيفة للرولر، لصقات 20-40 دقيقة، ثم الكريم',
+    'أربوتين 2% وأدينوزين 0.04% في السيروم والكريم',
     'نياسيناميد 2% وأدينوزين 0.04% في اللصقات',
-    'رولر العين 0.25 مم يأتي في هذا الطقم فقط',
+    'رولر العين 0.25 مم متوفر في هذا الطقم فقط',
   ],
   kitSize: 'علبة واحدة',
-  fullSizeNote: 'طقوس EyeCell الكاملة',
+  fullSizeNote: 'سيروم وكريم ولصقات بالحجم الكامل',
   vatIncluded: 'شامل الضريبة',
   freeDelivery: 'توصيل مجاني فوق 1,000 درهم · الشحن من دبي',
   addToBag: 'أضيفي إلى السلة',
@@ -402,35 +411,46 @@ const AR: EyeKitCopy = {
   loginToShop: 'سجّلي الدخول للشراء',
   inBag: 'في سلتك',
   viewBag: 'عرض السلة',
-  badges: ['مختبر جلدياً', 'صُنع في كوريا', 'رولر حصري للطقم', 'تسلسل من أربع خطوات'],
+  badges: ['مختبر جلدياً', 'صُنع في كوريا', 'منتجات بالحجم الكامل', 'رولر العين مرفق'],
   stats: [
-    { value: '4', label: 'قطع في العلبة' },
+    { value: '4', label: 'قطع في علبة واحدة' },
     { value: '2%', label: 'أربوتين في السيروم والكريم' },
     { value: '2%', label: 'نياسيناميد في اللصقات' },
-    { value: '0.25مم', label: 'رولر العين، 60 إبرة' },
+    { value: '0.25 مم', label: 'رولر العين، 60 إبرة' },
   ],
+  concern: {
+    eyebrow: 'مصمم لمحيط العين',
+    title: 'الهالات والانتفاخ وتجاعيد زوايا العين، بعناية واحدة.',
+    body: 'بشرة محيط العين أول ما يكشف ليلة قصيرة. يجيب الطقم على ذلك بطبقات: أربوتين للإشراق وأدينوزين للعناية بالتجاعيد في السيروم والكريم، ونياسيناميد في لصقات منعشة ومهدئة، ورولر دقيق مصمم لانحناءة ما تحت العين.',
+    points: [
+      'مظهر أكثر إشراقاً تحت العينين',
+      'تجاعيد زوايا العين أكثر نعومة',
+      'انتفاخ أقل وضوحاً',
+      'بشرة مرطبة ومهدأة',
+    ],
+  },
   contents: {
     eyebrow: 'داخل العلبة',
-    title: 'كل ما تحتاجه طقوس EyeCell، من السيروم إلى الكريم.',
+    title: 'ثلاث تركيبات بالحجم الكامل والرولر المصمم لها.',
     intro:
-      'ثلاثة مستحضرات عناية كاملة الحجم مع رولر GENOSYS EYE ROLLER المصمم لمحيط العين. الرولر بعمق 0.25 مم و60 إبرة، ولا يتوفر منفرداً.',
+      'السيروم والكريم واللصقات هي المنتجات نفسها التي تُباع في صفحاتها، بحجمها الكامل. أما رولر العين 0.25 مم فتجدينه هنا فقط: قطعة واحدة، 60 إبرة دقيقة، بشكل يناسب محيط العين.',
     items: [
       {
         id: 'serum',
         title: 'EyeCell EYE CONTOUR SERUM',
         productNumber: '17',
         quantity: 1,
-        step: 'الخطوة 1 · السيروم أولاً',
-        body: 'سيروم مكثف يُترك على البشرة للعناية بمظهر التجاعيد العميقة والهالات والميل إلى الانتفاخ. يجمع الأربوتين 2% والأدينوسين 0.04%، ثم يُستخدم الرولر بعناية خاصة وفق خطوات الطقم.',
+        step: 'الخطوة 2 · السيروم أولاً',
+        body: 'سيروم مكثف يُترك على البشرة للهالات والانتفاخ والخطوط العميقة. أربوتين 2% يفتّح وأدينوزين 0.04% ينعّم، ورأس معدني دقيق يضعه على محيط العين بدقة. ثم يأتي الرولر فوقه.',
         facts: ['10 مل', 'أربوتين 2%', 'أدينوزين 0.04%', 'من دون شطف'],
       },
       {
         id: 'roller',
         title: 'GENOSYS EYE ROLLER',
         quantity: 1,
-        step: 'الخطوة 1 · مع السيروم',
-        body: 'رولر من قطعة واحدة بعمق 0.25 مم و60 إبرة لمحيط العين. يُمرر فوق السيروم بحركات أفقية وعمودية مع عناية خاصة ومن دون ضغط، بعيداً عن العين والأغشية المخاطية.',
-        facts: ['0.25 مم', '60 إبرة', 'قطعة واحدة', 'قابل لإعادة الاستخدام بعد التعقيم'],
+        step: 'الخطوة 2 · فوق السيروم',
+        body: 'رولر من قطعة واحدة بعمق 0.25 مم و60 إبرة دقيقة لانحناءة محيط العين الرقيقة. مرّريه بخفة فوق السيروم أفقياً وعمودياً، بعيداً عن العين والشفتين.',
+        facts: ['0.25 مم', '60 إبرة', 'قطعة واحدة', 'في الطقم فقط'],
         image: ROLLER_IMAGE,
       },
       {
@@ -438,17 +458,17 @@ const AR: EyeKitCopy = {
         title: 'EyeCell EYE PEPTIDE GEL PATCH',
         productNumber: '33',
         quantity: 1,
-        step: 'الخطوة 2 · لصقات هيدروجيل',
-        body: 'توضع تحت العينين أو أسفل الحاجبين لتمنح البشرة ترطيباً وراحة طوال الجلسة. يجمع القناع بين نياسيناميد 2% وأدينوزين 0.04% للعناية بمظهر اللون والتجاعيد. تترك 20-40 دقيقة ثم تزال.',
-        facts: ['101 غ / 60 لصقة', 'نياسيناميد 2%', 'أدينوزين 0.04%', '20-40 دقيقة ثم تزال'],
+        step: 'الخطوة 3 · لصقات الجل',
+        body: 'أهلّة هيدروجل منعشة تحت العينين أو على عظمة الحاجب لعناية أشمل. يعمل النياسيناميد 2% والأدينوزين 0.04% بينما ترتاحين 20-40 دقيقة، ثم انزعي اللصقات وربّتي على بقايا الخلاصة.',
+        facts: ['101 غ / 60 لصقة', 'نياسيناميد 2%', 'أدينوزين 0.04%', '20-40 دقيقة'],
       },
       {
         id: 'cream',
         title: 'EyeCell EYE CONTOUR CREAM',
         productNumber: '24',
         quantity: 1,
-        step: 'الخطوة 3 · استكمال العناية',
-        body: 'بعد إزالة اللصقات، يُستخدم الكريم اليومي لاستكمال العناية. يجمع مثل السيروم بين الأربوتين 2% والأدينوزين 0.04%، مع السكوالان 2.5% وزيت الجوجوبا 2% لنعومة البشرة وراحتها. يحتوي على زيت الفول السوداني، كما أن وجود زيت قشر البرتقال والليمونين يعني أنه ليس خالياً تماماً من المكونات العطرية.',
+        step: 'الخطوة 4 · الكريم للختام',
+        body: 'الطبقة الأخيرة. أربوتين 2% وأدينوزين 0.04% كما في السيروم، مع سكوالان 2.5% وزيت الجوجوبا 2% لبشرة ناعمة ومريحة. يحتوي على زيت الفول السوداني وزيت قشر البرتقال والليمونين.',
         facts: ['20 غ', 'أربوتين 2%', 'أدينوزين 0.04%', 'يحتوي زيت الفول السوداني'],
       },
     ],
@@ -456,103 +476,109 @@ const AR: EyeKitCopy = {
     each: 'للقطعة',
     viewItem: 'افتحي هذا المنتج',
     kitOnly: 'في هذا الطقم فقط',
-    boughtSeparately: 'السيروم والكريم واللصقات في صفحاتها',
+    boughtSeparately: 'السيروم والكريم واللصقات منفردة',
     inThisBox: 'هذا الطقم',
     youSave: 'توفّرين',
-    againstSeparate: 'مقابل شراء الثلاثة منفصلة',
-    seeBreakdown: 'انظري الحساب',
+    againstSeparate: 'مقارنة بشراء المنتجات الثلاثة منفردة',
+    seeBreakdown: 'انظري التفاصيل',
     savingNote:
-      'تُحسب المقارنة من أسعار السيروم والكريم واللصقات عند شرائها منفصلة. أما رولر العين 0.25 مم فهو إضافة حصرية لهذا الطقم ولا يدخل سعره في المقارنة.',
+      'يُحسب المجموع المنفصل بأسعار السيروم والكريم واللصقات في صفحاتها. أما رولر العين فيأتي إضافة ولا يدخل في الحساب.',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
-    title: 'أربع خطوات، بترتيب واحد واضح.',
-    intro:
-      'ابدئي ببشرة نظيفة، ثم ضعي السيروم واستخدمي الرولر، واتركي اللصقات 20-40 دقيقة، واختتمي بالكريم.',
+    title: 'أربع خطوات، روتين هادئ واحد.',
+    intro: 'التنظيف، ثم السيروم مع تمريرة لطيفة للرولر، ثم اللصقات 20-40 دقيقة، والكريم للختام.',
     steps: [
       {
         title: 'نظّفي محيط العين',
-        body: 'المكياج خارجاً، والبشرة جافة بما يكفي لتأخذ السيروم. أبقي المنظف بعيداً عن العين.',
+        body: 'أزيلي المكياج ونظّفي البشرة بلطف، ثم جففيها بالتربيت ليوضع السيروم على بشرة نظيفة.',
       },
       {
         title: 'السيروم، ثم الرولر',
-        body: 'وزعي كمية كافية من سيروم محيط العين تحت العينين وأسفل الحاجبين. مرري رولر 0.25 مم بحركات أفقية وعمودية لبضع دقائق مع عناية خاصة ومن دون ضغط، بعيداً عن العين والأغشية المخاطية.',
+        body: 'وزّعي السيروم تحت العينين وأسفل الحاجبين. مرّري رولر 0.25 مم فوقه لبضع دقائق بحركات أفقية وعمودية، بخفة وبعيداً عن العين.',
       },
       {
-        title: 'اللصقات، 20-40 دقيقة',
-        body: 'هلالان تحت العينين. هلالان آخران على عظمتي الحاجب إن أردتِ الجلسة المكثّفة. ثم ارفعي. ربّتي على المتبقي. لا تتركيها طوال الليل.',
+        title: 'اللصقات 20-40 دقيقة',
+        body: 'ضعي هلالين تحت العينين، وهلالين آخرين على عظمتي الحاجب إن رغبتِ. استرخي، ثم انزعيها بعد 20-40 دقيقة وربّتي على بقايا الخلاصة.',
       },
       {
-        title: 'اختتمي بالكريم',
-        body: 'ضعي كمية صغيرة من كريم محيط العين ووزعيها بأطراف الأصابع بلطف حتى الامتصاص.',
-      },
-      {
-        title: 'عقّمي الرولر قبل إعادة استخدامه',
-        body: 'تسمح العبوة بإعادة استخدام الرولر بعد غمره 5 دقائق في محلول الكلورهيكسيدين. احتفظي به للاستخدام الشخصي فقط.',
+        title: 'الكريم للختام',
+        body: 'كمية صغيرة من كريم محيط العين، تربّتين عليها بلطف بأطراف الأصابع.',
       },
     ],
-    note: 'لا تستخدمي الرولر مع قابلية للندبات الجدروية أو حساسية من الفولاذ المقاوم للصدأ أو التهاب جلدي أو على بشرة متضررة. يحتوي الكريم على زيت الفول السوداني، ويُتجنب الطقم كاملاً أثناء الحمل والرضاعة.',
-    videoTitle: 'التسلسل على الفيلم',
+    note: 'لا تستخدمي الرولر مع قابلية للندبات الجدروية أو حساسية من الفولاذ المقاوم للصدأ أو التهاب جلدي أو على بشرة متضررة. يحتوي الكريم على زيت الفول السوداني. تجنّبي الطقم أثناء الحمل والرضاعة.',
+    videoTitle: 'الروتين بالفيديو',
+  },
+  roller: {
+    eyebrow: 'رولر العين',
+    title: '0.25 مم، مصمم لمحيط العين.',
+    body: 'ستون إبرة دقيقة على أسطوانة صغيرة من قطعة واحدة، تناسب البشرة الرقيقة تحت العين وعلى عظمة الحاجب. ينزلق بخفة فوق السيروم، ثم يعود إلى علبته بعد الروتين.',
+    points: [
+      'فوق السيروم، أفقياً وعمودياً، لبضع دقائق',
+      'من دون ضغط، وبعيداً عن العين والشفتين',
+      'قبل كل إعادة استخدام، اغمريه 5 دقائق في محلول الكلورهيكسيدين',
+      'لكِ وحدكِ: لا تشاركيه مع أحد',
+    ],
+    aside: 'تجاوزي الرولر مع قابلية للندبات الجدروية أو حساسية من الفولاذ المقاوم للصدأ أو التهاب جلدي أو بشرة متضررة، واستخدمي التركيبات الثلاث وحدها.',
   },
   evidence: {
-    eyebrow: 'التركيبات الأساسية',
-    title: 'مكوّنات وظيفية واضحة في كل مرحلة.',
+    eyebrow: 'ما الذي يعمل',
+    title: 'ثنائيان مثبتان ورولر دقيق.',
     intro:
-      'يركز كل منتج على المواد الوظيفية المثبتة في تركيبته، بينما يكمل الرولر تسلسل العناية من دون وعود طبية.',
+      'الأربوتين والنياسيناميد والأدينوزين مكونات وظيفية معتمدة في كوريا للإشراق والعناية بالتجاعيد، وكل تركيبة تحملها بالتركيزات المحددة لذلك.',
     cards: [
       {
         value: '2% + 0.04%',
         title: 'السيروم والكريم',
-        body: 'يجمع السيروم والكريم الأربوتين 2% للعناية بمظهر الهالات والأدينوزين 0.04% للعناية بمظهر التجاعيد. وتأتي الببتيدات وHaloxyl كدعم إضافي للتركيبة.',
+        body: 'أربوتين 2% لمظهر أكثر إشراقاً تحت العينين وأدينوزين 0.04% لخطوط أكثر نعومة، في الطبقتين اللتين تبقيان على البشرة.',
       },
       {
         value: '2% + 0.04%',
         title: 'اللصقات',
-        body: 'نياسيناميد 2% لمظهر أكثر تجانساً ونضارة، وأدينوزين 0.04% للعناية بمظهر التجاعيد. تترك اللصقات 20-40 دقيقة ثم تزال.',
+        body: 'نياسيناميد 2% وأدينوزين 0.04% في هيدروجل منعش يبقى 20-40 دقيقة بينما ترتاحين.',
       },
       {
-        value: '0.25مم',
+        value: '0.25 مم',
         title: 'رولر العين',
-        body: 'ستون إبرة في تصميم من قطعة واحدة لمحيط العين. يُستخدم فوق السيروم بعناية ومن دون أي ادعاء بالتوصيل الطبي أو الاختراق.',
+        body: 'ستون إبرة دقيقة على أسطوانة من قطعة واحدة لمحيط العين. تمريرات خفيفة فوق السيروم لبضع دقائق، ثم اللصقات.',
       },
     ],
-    footnote:
-      'يستند وصف كل خطوة إلى مكوّنات المستحضرات ووظيفتها التجميلية الموثقة، من دون نقل نتائج من دراسات لا تخص هذا الطقم كاملاً.',
+    footnote: 'الطقم مختبر جلدياً ومصنوع في كوريا بواسطة DTS MG.',
   },
   suited: {
     eyebrow: 'لمن هو',
-    title: 'تسلسل EyeCell كاملاً، أو القطع.',
+    title: 'الروتين كاملاً، أو القطع منفردة.',
     forTitle: 'هذا الطقم لكِ إن',
     forList: [
       'أردتِ السيروم والرولر واللصقات والكريم في علبة واحدة',
-      'أردتِ عناية متكاملة بمظهر التجاعيد والهالات والانتفاخ والراحة',
-      'يمكنكِ اتباع تسلسل السيروم والرولر واللصقات والكريم بدقة',
+      'أردتِ العناية بالهالات أو الانتفاخ أو تجاعيد زوايا العين',
+      'تحبين روتيناً منزلياً سهل التكرار خطوة بخطوة',
     ],
-    notForTitle: 'اشتري شيئاً آخر إن',
+    notForTitle: 'اختاري شيئاً آخر إن',
     notForList: [
-      'كنتِ حاملاً أو مرضعة؛ تحذير الطقم يشمل هذه الفترة كاملة',
-      'لديكِ حساسية الفول السوداني. الكريم يحتوي زيته',
-      'لديكِ قابلية لندبات جدروية أو حساسية من الفولاذ المقاوم للصدأ أو التهاب جلد. تجنّبي الرولر أو اختاري المستحضرات منفصلة',
-      'أردتِ قطعة واحدة فقط. افتحي ذلك المنتج',
-      'أردتِ رولر الوجه 450 إبرة. تلك أداة أخرى',
+      'كنتِ حاملاً أو مرضعة: تجنّبي الطقم في هذه الفترة',
+      'لديكِ حساسية من الفول السوداني: الكريم يحتوي زيته',
+      'لديكِ قابلية للندبات الجدروية أو حساسية من المعادن أو التهاب جلدي: تجاوزي الرولر أو اختاري التركيبات الثلاث منفردة',
+      'أردتِ قطعة واحدة فقط: افتحي صفحتها',
+      'أردتِ تمرير الرولر على الوجه كله: رولر الوجه مصمم لذلك',
     ],
-    alternativesLabel: 'القطع، ورولر الوجه',
+    alternativesLabel: 'القطع منفردة، ورولر الوجه',
     alternatives: [
-      { productNumber: '17', label: 'سيروم EyeCell المكثف لمحيط العين' },
+      { productNumber: '17', label: 'سيروم EyeCell لمحيط العين' },
       { productNumber: '24', label: 'كريم EyeCell لمحيط العين' },
-      { productNumber: '33', label: 'لصقات هيدروجيل EyeCell للعين' },
-      { productNumber: '1', label: 'رولر الوجه، 450 إبرة' },
+      { productNumber: '33', label: 'لصقات الجل EyeCell للعين' },
+      { productNumber: '1', label: 'رولر الإبر الدقيقة للوجه' },
     ],
-    note: 'يحتوي الكريم على زيت قشر البرتقال والليمونين، وتحتوي اللصقات على العطر. أبقي جميع المكونات بعيداً عن العينين والأغشية المخاطية.',
+    note: 'يحتوي الكريم على زيت قشر البرتقال والليمونين، وتحتوي اللصقات على عطر. أبقي كل القطع بعيداً عن العين نفسها.',
   },
   details: {
-    eyebrow: 'تفاصيل الطقم',
-    title: 'أربع خطوات، بأحجامها الدقيقة.',
+    eyebrow: 'لمحة سريعة',
+    title: 'كل ما في العلبة.',
     rows: [
-      { label: 'الشكل', value: 'طقم عناية متكامل من أربع قطع لمحيط العين' },
+      { label: 'الشكل', value: 'طقم من أربع قطع للعناية بمحيط العين' },
       { label: 'الحجم', value: 'علبة واحدة' },
-      { label: 'المحتويات', value: 'سيروم 10 مل، كريم 20 غ، لصقات 101 غ / 60 قطعة، رولر عين 0.25 مم' },
-      { label: 'الوظيفة', value: 'مضاد تجاعيد، تخفيف أكياس العين، تخفيف الهالات، تهدئة' },
+      { label: 'المحتويات', value: 'سيروم 10 مل، كريم 20 غ، لصقات جل 101 غ / 60 لصقة، رولر عين 0.25 مم' },
+      { label: 'الوظيفة', value: 'مضاد للتجاعيد، تخفيف أكياس العين، تخفيف الهالات، تهدئة' },
       { label: 'الصانع', value: 'DTS MG، كوريا الجنوبية' },
       { label: 'الاختبار', value: 'مختبر جلدياً' },
       { label: 'تنبيه', value: 'تجنّبي أثناء الحمل والرضاعة. الكريم يحتوي زيت الفول السوداني' },
@@ -561,58 +587,58 @@ const AR: EyeKitCopy = {
   },
   faq: {
     eyebrow: 'قبل الشراء',
-    title: 'الأسئلة التي يأتي بها هذا الطقم فعلاً.',
+    title: 'أسئلة عن الطقم.',
     items: [
       {
-        q: 'ما الذي يميز هذا الطقم عن شراء المستحضرات منفصلة؟',
-        a: 'يمنحكِ تسلسل EyeCell كاملاً ويضيف رولر العين 0.25 مم ذي 60 إبرة، وهو لا يُباع منفرداً.',
+        q: 'ماذا أكسب مقارنة بشراء القطع منفردة؟',
+        a: 'روتين EyeCell كاملاً في علبة واحدة بسعر أقل من السيروم والكريم واللصقات منفردة، مع رولر العين 0.25 مم الذي لا يُباع إلا في هذا الطقم.',
       },
       {
-        q: 'هل الرولر هو نفسه رولر الإبر في صفحته؟',
-        a: 'لا. تلك الصفحة لرولر الوجه القابل للفصل بـ 450 إبرة. هذا الطقم يحمل رولر عين قطعة واحدة 0.25 مم بـ 60 إبرة. لا يُباع وحده.',
+        q: 'هل رولر العين هو نفسه رولر الوجه؟',
+        a: 'لا. رولر الوجه معقّم للاستخدام مرة واحدة على الوجه كله، بخمسة أطوال للإبر. أما هذا فرولر من قطعة واحدة بعمق 0.25 مم و60 إبرة لمحيط العين، ويمكن إعادة استخدامه بعد التعقيم.',
       },
       {
         q: 'كم تبقى اللصقات؟',
-        a: 'تُترك من 20 إلى 40 دقيقة ثم تُزال. يمكن وضعها تحت العينين و/أو أسفل الحاجبين.',
+        a: '20-40 دقيقة، ثم انزعيها وربّتي على بقايا الخلاصة. لا تنامي بها.',
+      },
+      {
+        q: 'كيف أعتني بالرولر؟',
+        a: 'قبل كل إعادة استخدام، اغمريه 5 دقائق في محلول الكلورهيكسيدين، واحتفظي به لنفسكِ: لا تشاركيه مع أحد.',
       },
       {
         q: 'هل يُستخدم أثناء الحمل؟',
-        a: 'لا يُستخدم الطقم أثناء الحمل أو الرضاعة. ويحمل الكريم التحذير نفسه كما يحتوي على ريتينيل بالميتات.',
+        a: 'تجنّبي الطقم أثناء الحمل والرضاعة. يحتوي الكريم أيضاً على ريتينيل بالميتات. استشيري طبيبكِ قبل أي روتين لمحيط العين في هذه الفترة.',
       },
       {
         q: 'هل يحتوي زيت الفول السوداني؟',
-        a: 'نعم. تحتوي تركيبة الكريم على Arachis Hypogaea (Peanut) Oil. إن كان الفول السوداني محسّساً لكِ، فلا تستخدمي الطقم، ويمكنكِ اختيار السيروم واللصقات منفصلين.',
+        a: 'نعم، في الكريم: Arachis Hypogaea (Peanut) Oil. إن كان الفول السوداني يسبب لكِ الحساسية، فاختاري السيروم واللصقات منفردة.',
       },
       {
         q: 'هل هو خالٍ من العطر؟',
-        a: 'لا. الكريم فيه زيت قشر البرتقال والليمونين. اللصقات فيها Parfum.',
+        a: 'لا. يحتوي الكريم على زيت قشر البرتقال والليمونين، وتحتوي اللصقات على عطر.',
       },
       {
-        q: 'هل أشتري القطع منفصلة؟',
-        a: 'للسيروم والكريم واللصقات صفحة لكل منها. رولر العين 0.25 مم لا. يُشحن في هذا الطقم فقط.',
-      },
-      {
-        q: 'هل يمكن إعادة استخدام الرولر؟',
-        a: 'نعم. تنص اللوحة الروسية على تعقيمه 5 دقائق في محلول الكلورهيكسيدين قبل إعادة الاستخدام. الرولر للاستخدام الشخصي ولا يشارك.',
+        q: 'هل يمكنني شراء القطع منفردة؟',
+        a: 'للسيروم والكريم واللصقات صفحة لكل منها. أما رولر العين 0.25 مم فيأتي في هذا الطقم فقط.',
       },
     ],
   },
 }
 
 const RU: EyeKitCopy = {
-  eyebrow: 'EyeCell · Набор из четырёх частей',
+  eyebrow: 'EyeCell · Набор для зоны вокруг глаз',
   backToProducts: 'Все продукты',
-  headline: 'Продуманный ритуал для выразительного взгляда.',
+  headline: 'Свежий взгляд за четыре шага.',
   subheadline:
-    'Сыворотка, эксклюзивный роллер 0,25 мм, гидрогелевые патчи и ежедневный крем. Четыре согласованных этапа для более свежего, гладкого и ровного вида кожи вокруг глаз.',
+    'Сыворотка, роллер 0,25 мм для глаз, охлаждающие гелевые патчи и крем: один ритуал против тёмных кругов, мешков и гусиных лапок, и всё уже в коробке.',
   heroBullets: [
-    'Сыворотка с роллером, патчи на 20-40 минут, затем крем',
-    'Арбутин 2% и аденозин 0,04% в сыворотке и в креме',
+    'Сыворотка и мягкий роллер, патчи на 20-40 минут, затем крем',
+    'Арбутин 2% и аденозин 0,04% в сыворотке и креме',
     'Ниацинамид 2% и аденозин 0,04% в патчах',
     'Роллер для глаз 0,25 мм есть только в этом наборе',
   ],
   kitSize: '1 коробка',
-  fullSizeNote: 'Полный ритуал EyeCell',
+  fullSizeNote: 'Сыворотка, крем и патчи полного объёма',
   vatIncluded: 'НДС включён',
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
   addToBag: 'В корзину',
@@ -622,40 +648,46 @@ const RU: EyeKitCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: [
-    'Дерматологически протестировано',
-    'Сделано в Корее',
-    'Роллер только в наборе',
-    'Последовательность из четырёх этапов',
-  ],
+  badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Полноразмерные средства', 'Роллер в комплекте'],
   stats: [
-    { value: '4', label: 'Части в коробке' },
+    { value: '4', label: 'Предмета в одной коробке' },
     { value: '2%', label: 'Арбутин в сыворотке и креме' },
     { value: '2%', label: 'Ниацинамид в патчах' },
     { value: '0,25 мм', label: 'Роллер для глаз, 60 игл' },
   ],
+  concern: {
+    eyebrow: 'Создан для зоны вокруг глаз',
+    title: 'Тёмные круги, мешки и гусиные лапки: уход сразу за всем.',
+    body: 'Кожа вокруг глаз первой выдаёт короткую ночь. Набор отвечает слоями: осветляющий арбутин и аденозин против морщин в сыворотке и креме, ниацинамид в охлаждающих успокаивающих патчах и тонкий роллер, созданный для изгиба под глазом.',
+    points: [
+      'Более светлая кожа под глазами',
+      'Более гладкие гусиные лапки',
+      'Менее заметные мешки',
+      'Успокоенная, увлажнённая кожа',
+    ],
+  },
   contents: {
     eyebrow: 'Что в коробке',
-    title: 'Весь ритуал EyeCell: от сыворотки до крема.',
+    title: 'Три полноразмерные формулы и роллер, созданный для них.',
     intro:
-      'Три полноразмерных средства и GENOSYS EYE ROLLER, разработанный для контура глаз. Цельный роллер 0,25 мм на 60 игл отдельно не продаётся.',
+      'Сыворотка, крем и патчи те же, что продаются на своих страницах, в полном объёме. Роллер для глаз 0,25 мм есть только здесь: цельный корпус, 60 тонких игл, форма под контур глаза.',
     items: [
       {
         id: 'serum',
         title: 'EyeCell EYE CONTOUR SERUM',
         productNumber: '17',
         quantity: 1,
-        step: 'Шаг 1 · Сначала сыворотка',
-        body: 'Интенсивная несмываемая сыворотка для ухода за глубокими морщинами, тёмными кругами и склонностью к припухлости. Сочетает арбутин 2% и аденозин 0,04%; затем роллер используют с особой осторожностью по инструкции набора.',
+        step: 'Шаг 2 · Сначала сыворотка',
+        body: 'Интенсивная несмываемая сыворотка для тёмных кругов, припухлости и глубоких морщин. Арбутин 2% осветляет, аденозин 0,04% разглаживает, а тонкий металлический носик наносит её точно по контуру. Роллер идёт поверх.',
         facts: ['10 мл', 'Арбутин 2%', 'Аденозин 0,04%', 'Не смывать'],
       },
       {
         id: 'roller',
         title: 'GENOSYS EYE ROLLER',
         quantity: 1,
-        step: 'Шаг 1 · Вместе с сывороткой',
-        body: 'Цельный роллер 0,25 мм на 60 игл для контура глаз. Его проводят поверх сыворотки горизонтальными и вертикальными движениями, с особой осторожностью и без надавливания, вдали от глаз и слизистых.',
-        facts: ['0,25 мм', '60 игл', 'Цельный', 'Повторное использование после дезинфекции'],
+        step: 'Шаг 2 · Поверх сыворотки',
+        body: 'Цельный роллер 0,25 мм, 60 тонких игл под нежный изгиб вокруг глаза. Прокатывайте его легко поверх сыворотки, горизонтально и вертикально, не касаясь глаз и губ.',
+        facts: ['0,25 мм', '60 игл', 'Цельный', 'Только в наборе'],
         image: ROLLER_IMAGE,
       },
       {
@@ -663,17 +695,17 @@ const RU: EyeKitCopy = {
         title: 'EyeCell EYE PEPTIDE GEL PATCH',
         productNumber: '33',
         quantity: 1,
-        step: 'Шаг 2 · Гидрогелевые патчи',
-        body: 'Расположите под глазами или под бровями для длительного увлажнения и комфорта. Ниацинамид 2% и аденозин 0,04% ухаживают за видимым тоном и морщинами. Оставьте на 20-40 минут, затем снимите.',
-        facts: ['101 г / 60 патчей', 'Ниацинамид 2%', 'Аденозин 0,04%', '20-40 мин, затем снять'],
+        step: 'Шаг 3 · Гелевые патчи',
+        body: 'Охлаждающие гидрогелевые полумесяцы под глаза или на надбровные дуги для более полного ухода. Ниацинамид 2% и аденозин 0,04% работают, пока вы отдыхаете 20-40 минут; затем снимите патчи и вбейте остатки эссенции.',
+        facts: ['101 г / 60 шт', 'Ниацинамид 2%', 'Аденозин 0,04%', '20-40 мин'],
       },
       {
         id: 'cream',
         title: 'EyeCell EYE CONTOUR CREAM',
         productNumber: '24',
         quantity: 1,
-        step: 'Шаг 3 · Завершить уход',
-        body: 'После снятия патчей нанесите ежедневный крем. Как и сыворотка, он сочетает арбутин 2% и аденозин 0,04%, а сквалан 2,5% и масло жожоба 2% поддерживают мягкость и комфорт кожи. Крем содержит арахисовое масло; масло цедры апельсина и лимонен означают, что формула не полностью свободна от ароматических компонентов.',
+        step: 'Шаг 4 · Крем в завершение',
+        body: 'Финальный слой. Те же арбутин 2% и аденозин 0,04%, что и в сыворотке, плюс сквалан 2,5% и масло жожоба 2% для мягкости и комфорта. Содержит арахисовое масло, масло цедры апельсина и лимонен.',
         facts: ['20 г', 'Арбутин 2%', 'Аденозин 0,04%', 'Содержит арахисовое масло'],
       },
     ],
@@ -681,144 +713,150 @@ const RU: EyeKitCopy = {
     each: 'за штуку',
     viewItem: 'Открыть этот продукт',
     kitOnly: 'Только в этом наборе',
-    boughtSeparately: 'Сыворотка, крем и патчи на своих страницах',
+    boughtSeparately: 'Сыворотка, крем и патчи по отдельности',
     inThisBox: 'Этот набор',
     youSave: 'Вы экономите',
-    againstSeparate: 'против этих трёх по отдельности',
+    againstSeparate: 'по сравнению с тремя средствами по отдельности',
     seeBreakdown: 'Смотреть расчёт',
     savingNote:
-      'Сравнение рассчитано по ценам сыворотки, крема и патчей при покупке по отдельности. Эксклюзивный роллер 0,25 мм идёт дополнением к набору и в отдельную сумму не входит.',
+      'Отдельная сумма считается по ценам сыворотки, крема и патчей на их страницах. Роллер для глаз идёт сверху и в расчёт не входит.',
   },
   howTo: {
     eyebrow: 'Как пользоваться',
-    title: 'Четыре шага в точной последовательности.',
-    intro:
-      'Начните с чистой кожи, нанесите сыворотку и используйте роллер, оставьте патчи на 20-40 минут и завершите уход кремом.',
+    title: 'Четыре шага, один спокойный ритуал.',
+    intro: 'Очищение, сыворотка и мягкий роллер, патчи на 20-40 минут и крем в завершение.',
     steps: [
       {
         title: 'Очистите контур глаз',
-        body: 'Макияж снят, кожа достаточно сухая, чтобы принять сыворотку. Очищающее средство не в глаз.',
+        body: 'Снимите макияж, бережно очистите кожу и промокните насухо, чтобы сыворотка легла на чистую кожу.',
       },
       {
         title: 'Сыворотка, затем роллер',
-        body: 'Распределите достаточное количество сыворотки под глазами и под бровями. В течение нескольких минут проводите роллером 0,25 мм горизонтально и вертикально, с особой осторожностью и без надавливания, не заходя на глаза и слизистые.',
+        body: 'Распределите сыворотку под глазами и под бровями. В течение нескольких минут прокатывайте роллер 0,25 мм поверх неё горизонтально и вертикально, легко и не касаясь глаз.',
       },
       {
-        title: 'Патчи, 20-40 минут',
-        body: 'Два полумесяца под глаза. Ещё два на кости бровей, если нужна интенсивная посадка. Затем снять. Остаток вбить. Не оставлять на ночь.',
+        title: 'Патчи на 20-40 минут',
+        body: 'Два полумесяца под глаза и, по желанию, ещё два на надбровные дуги. Отдохните, через 20-40 минут снимите и вбейте остатки эссенции.',
       },
       {
-        title: 'Завершите кремом',
-        body: 'Нанесите небольшое количество крема для контура глаз и мягко распределите кончиками пальцев до впитывания.',
-      },
-      {
-        title: 'Продезинфицируйте роллер перед повторным использованием',
-        body: 'Коробка допускает повторное применение после пяти минут в растворе хлоргексидина. Роллер должен оставаться только вашим.',
+        title: 'Крем в завершение',
+        body: 'Небольшое количество крема для контура глаз, мягко вбейте кончиками пальцев.',
       },
     ],
-    note: 'Не используйте роллер при склонности к келоидным рубцам, аллергии на нержавеющую сталь, дерматите или на повреждённой коже. Крем содержит арахисовое масло. Весь набор противопоказан во время беременности и грудного вскармливания.',
-    videoTitle: 'Последовательность на видео',
+    note: 'Не используйте роллер при склонности к келоидным рубцам, аллергии на нержавеющую сталь, дерматите или на повреждённой коже. Крем содержит арахисовое масло. Не используйте набор во время беременности и грудного вскармливания.',
+    videoTitle: 'Ритуал на видео',
+  },
+  roller: {
+    eyebrow: 'Роллер для глаз',
+    title: '0,25 мм, созданный для зоны вокруг глаз.',
+    body: 'Шестьдесят тонких игл на маленьком цельном барабане, под тонкую кожу под глазом и вдоль надбровной дуги. Он легко скользит по сыворотке и после ухода возвращается в коробку.',
+    points: [
+      'Поверх сыворотки, горизонтально и вертикально, несколько минут',
+      'Без нажима, не касаясь глаз и губ',
+      'Перед каждым повторным применением выдержите 5 минут в растворе хлоргексидина',
+      'Только для вас: никому не передавайте',
+    ],
+    aside: 'Пропустите роллер при склонности к келоидным рубцам, аллергии на нержавеющую сталь, дерматите или повреждённой коже и используйте три формулы отдельно.',
   },
   evidence: {
-    eyebrow: 'Главное в формулах',
-    title: 'Функциональные активы на каждом этапе.',
+    eyebrow: 'Что работает',
+    title: 'Две проверенные пары и тонкий роллер.',
     intro:
-      'Каждое средство опирается на подтверждённые функциональные активы, а роллер дополняет ритуал без медицинских обещаний.',
+      'Арбутин, ниацинамид и аденозин признаны в Корее функциональными ингредиентами для осветления и ухода за морщинами, и каждая формула содержит их в концентрациях, установленных для функциональной косметики.',
     cards: [
       {
         value: '2% + 0,04%',
         title: 'Сыворотка и крем',
-        body: 'Сыворотка и крем сочетают арбутин 2% для ухода за тёмными кругами и аденозин 0,04% для ухода за морщинами. Пептиды и Haloxyl дополняют формулу.',
+        body: 'Арбутин 2% для более светлой кожи под глазами и аденозин 0,04% для более гладких морщин, в обоих несмываемых слоях.',
       },
       {
         value: '2% + 0,04%',
         title: 'Патчи',
-        body: 'Ниацинамид 2% для более ровного и свежего вида, аденозин 0,04% для ухода за видимыми морщинами. Оставьте на 20-40 минут, затем снимите.',
+        body: 'Ниацинамид 2% и аденозин 0,04% в охлаждающем гидрогеле, который остаётся на коже 20-40 минут, пока вы отдыхаете.',
       },
       {
         value: '0,25 мм',
         title: 'Роллер для глаз',
-        body: 'Цельный роллер на 60 игл для контура глаз. Используется поверх сыворотки без заявлений о медицинской доставке или проникновении.',
+        body: 'Шестьдесят тонких игл на цельном барабане для контура глаз. Лёгкие движения поверх сыворотки несколько минут, затем патчи.',
       },
     ],
-    footnote:
-      'Здесь только подтверждённые косметические функции каждого средства, без медицинских обещаний и переноса чужих результатов на весь набор.',
+    footnote: 'Набор дерматологически протестирован и произведён в Корее компанией DTS MG.',
   },
   suited: {
     eyebrow: 'Кому подходит',
-    title: 'Полная последовательность EyeCell или отдельные части.',
-    forTitle: 'Этот набор ваш, если',
+    title: 'Весь ритуал или отдельные средства.',
+    forTitle: 'Этот набор для вас, если',
     forList: [
-      'Нужны сыворотка, роллер, патчи и крем в одной коробке',
-      'Нужен комплексный уход за видимыми морщинами, тёмными кругами, припухлостью и комфортом кожи',
-      'Вы готовы точно соблюдать порядок: сыворотка, роллер, патчи и крем',
+      'Хотите сыворотку, роллер, патчи и крем в одной коробке',
+      'Хотите поработать с тёмными кругами, мешками или гусиными лапками',
+      'Любите домашний ритуал, который легко повторять шаг за шагом',
     ],
-    notForTitle: 'Возьмите другое, если',
+    notForTitle: 'Выберите другое, если',
     notForList: [
-      'Беременность или грудное вскармливание: предупреждение относится ко всему набору',
-      'Аллергия на арахис. В креме арахисовое масло',
-      'Склонность к келоидным рубцам, аллергия на нержавеющую сталь или дерматит. Исключите роллер или выберите средства отдельно',
-      'Нужна только одна часть. Откройте тот продукт',
-      'Нужен лицевой роллер на 450 игл. Это другой инструмент',
+      'Вы беременны или кормите грудью: в этот период набор не используют',
+      'У вас аллергия на арахис: в креме арахисовое масло',
+      'Склонность к келоидным рубцам, аллергия на металл или дерматит: пропустите роллер или возьмите три средства отдельно',
+      'Нужно только одно средство: откройте его страницу',
+      'Хотите прокатывать всё лицо: для этого есть лицевой роллер',
     ],
-    alternativesLabel: 'Части и лицевой роллер',
+    alternativesLabel: 'Средства по отдельности и лицевой роллер',
     alternatives: [
-      { productNumber: '17', label: 'Интенсивная сыворотка EyeCell для контура глаз' },
+      { productNumber: '17', label: 'Сыворотка EyeCell для контура глаз' },
       { productNumber: '24', label: 'Крем EyeCell для контура глаз' },
-      { productNumber: '33', label: 'Гидрогелевые патчи EyeCell для глаз' },
-      { productNumber: '1', label: 'Лицевой роллер, 450 игл' },
+      { productNumber: '33', label: 'Гелевые патчи EyeCell для глаз' },
+      { productNumber: '1', label: 'Лицевой микроигольчатый роллер' },
     ],
-    note: 'Крем содержит масло цедры апельсина и лимонен, а патчи - отдушку. Не допускайте попадания средств на глаза и слизистые.',
+    note: 'Крем содержит масло цедры апельсина и лимонен, а патчи - отдушку. Не допускайте попадания средств в глаза.',
   },
   details: {
-    eyebrow: 'Детали набора',
-    title: 'Четыре этапа в точных объёмах.',
+    eyebrow: 'Коротко',
+    title: 'Всё, что в коробке.',
     rows: [
-      { label: 'Форма', value: 'Комплексный набор из четырёх частей для контура глаз' },
+      { label: 'Форма', value: 'Набор из четырёх предметов для зоны вокруг глаз' },
       { label: 'Размер', value: '1 коробка' },
-      { label: 'Состав', value: 'Сыворотка 10 мл, крем 20 г, патчи 101 г / 60 шт, роллер 0,25 мм' },
-      { label: 'Функция', value: 'Против морщин, мешков, тёмных кругов, успокоение' },
+      { label: 'Состав', value: 'Сыворотка 10 мл, крем 20 г, гелевые патчи 101 г / 60 шт, роллер для глаз 0,25 мм' },
+      { label: 'Функция', value: 'Против морщин, мешков и тёмных кругов, успокоение' },
       { label: 'Производитель', value: 'DTS MG, Южная Корея' },
       { label: 'Тест', value: 'Дерматологически протестировано' },
-      { label: 'Осторожно', value: 'Не использовать при беременности и кормлении. В креме арахисовое масло' },
+      { label: 'Осторожно', value: 'Не использовать при беременности и кормлении грудью. В креме арахисовое масло' },
     ],
     barcodeLabel: 'Штрихкод',
   },
   faq: {
     eyebrow: 'Перед покупкой',
-    title: 'Вопросы, которые этот набор реально получает.',
+    title: 'Вопросы о наборе.',
     items: [
       {
-        q: 'Чем набор отличается от покупки средств по отдельности?',
-        a: 'Он даёт полный ритуал EyeCell и включает роллер для глаз 0,25 мм на 60 игл, который отдельно не продаётся.',
+        q: 'Что я получаю по сравнению с покупкой по отдельности?',
+        a: 'Полный ритуал EyeCell в одной коробке дешевле, чем сыворотка, крем и патчи по отдельности, плюс роллер для глаз 0,25 мм, который продаётся только в этом наборе.',
       },
       {
-        q: 'Роллер тот же, что на странице микроигольчатого роллера?',
-        a: 'Нет. Та страница это съёмный лицевой роллер на 450 игл. В этом наборе цельный роллер для глаз 0,25 мм на 60 игл. Отдельно его не продают.',
+        q: 'Роллер для глаз и лицевой роллер - это одно и то же?',
+        a: 'Нет. Лицевой роллер стерильный и одноразовый, для всего лица, с пятью длинами игл. Здесь цельный роллер 0,25 мм на 60 игл для зоны вокруг глаз, который можно использовать повторно после дезинфекции.',
       },
       {
         q: 'Сколько держать патчи?',
-        a: '20-40 минут, затем снять. Патчи можно расположить под глазами и/или под бровями.',
+        a: '20-40 минут, затем снимите их и вбейте остатки эссенции. Не оставляйте на ночь.',
+      },
+      {
+        q: 'Как ухаживать за роллером?',
+        a: 'Перед каждым повторным применением выдерживайте его 5 минут в растворе хлоргексидина и никому не передавайте.',
       },
       {
         q: 'Можно ли при беременности?',
-        a: 'Набор не используют во время беременности и грудного вскармливания. То же предупреждение есть у крема, который также содержит ретинилпальмитат.',
+        a: 'Во время беременности и грудного вскармливания набор не используют. Крем также содержит ретинилпальмитат. Перед любым уходом за зоной вокруг глаз в этот период посоветуйтесь с врачом.',
       },
       {
         q: 'Есть ли арахисовое масло?',
-        a: 'Да. В формуле крема есть Arachis Hypogaea (Peanut) Oil. При аллергии на арахис не используйте набор; сыворотку и патчи можно выбрать отдельно.',
+        a: 'Да, в креме: Arachis Hypogaea (Peanut) Oil. При аллергии на арахис выберите сыворотку и патчи отдельно.',
       },
       {
         q: 'Это без отдушки?',
-        a: 'Нет. В креме масло цедры апельсина и лимонен. В патчах Parfum.',
+        a: 'Нет. В креме масло цедры апельсина и лимонен, в патчах отдушка.',
       },
       {
-        q: 'Можно купить части отдельно?',
-        a: 'У сыворотки, крема и патчей есть свои страницы. У роллера 0,25 мм нет. Он едет только в этом наборе.',
-      },
-      {
-        q: 'Можно ли использовать роллер повторно?',
-        a: 'Да. Русская панель требует перед повторным использованием выдержать его 5 минут в растворе хлоргексидина. Роллер предназначен только для личного использования.',
+        q: 'Можно купить средства отдельно?',
+        a: 'У сыворотки, крема и патчей есть свои страницы. Роллер для глаз 0,25 мм есть только в этом наборе.',
       },
     ],
   },

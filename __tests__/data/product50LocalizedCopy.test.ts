@@ -115,8 +115,32 @@ describe('product 50 RU/AR localized copy', () => {
     expect(text).toContain('20-40')
     expect(text).toContain('крем')
     expect(text).toContain('الكريم')
-    expect(text).toContain('не устанавливает универсальную частоту')
-    expect(text).toContain('لا تضع العبوة وتيرة عامة')
+    expect(text).toContain('подбирается индивидуально')
+    expect(text).toContain('بشكل فردي')
+  })
+
+  it('keeps carton and dossier voice off every product 50 surface', () => {
+    const text = JSON.stringify({ ...liveCopy, bespokeEn: getEyeKitCopy('en') }).toLocaleLowerCase()
+
+    for (const forbidden of [
+      'the carton',
+      'carton says',
+      'registered korean kit',
+      'no kit-level',
+      'not a botox',
+      '450-needle',
+      'коробка не',
+      'коробка требует',
+      'на коробке',
+      'на 450 игл',
+      'تحذير العبوة',
+      'تطلب العبوة',
+      'لا تحدد العبوة',
+      'لا تضع العبوة',
+      '450 إبرة',
+    ]) {
+      expect(text).not.toContain(forbidden)
+    }
   })
 
   it('keeps kit-level pregnancy and peanut-allergy warnings explicit', () => {

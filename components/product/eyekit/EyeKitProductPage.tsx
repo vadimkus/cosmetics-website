@@ -4,14 +4,15 @@
  * Product page for the EyeCell EYE ZONE CARE KIT (product 50).
  *
  * Modeled on the beauty-box layout because the argument is the sequence and
- * the arithmetic, not a fourth formula. It is not registered as a beauty box:
- * this carton is a registered Korean kit with its own EAN, and the fourth
- * piece (the 0.25mm eye roller) has no retail PDP.
+ * the arithmetic, not a fourth formula. The fourth piece (the 0.25mm eye
+ * roller) has no retail PDP.
  *
+ *   concern   dark circles, eye bags, crow's feet
  *   contents  serum, roller, patches, cream. Live price / size / barcode /
  *             link for 17, 24 and 33. The roller is kit-only.
  *   howTo     cleanse, serum + roll, patches 20-40 min, cream
- *   evidence  the two functional pairs and the 0.25mm roller. No kit trial.
+ *   roller    0.25mm, how to roll it, 5-minute chlorhexidine soak
+ *   evidence  the two functional pairs and the 0.25mm roller
  *   suited    pregnancy, peanut oil, metal / keloid, or buy one piece
  *
  * The separate total is the three cosmetics only. The roller is not in that
@@ -45,6 +46,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -68,6 +70,29 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getEyeKitCopy } from './eyekitCopy'
+
+/** Section art from the "Rested eyes" campaign, each slide beside the section it
+ *  illustrates: s2 (the concerns), s3 (four steps), s6 (gentle rolls), and s4, s8, s5 on
+ *  the serum, patch and roller cards. AR and RU renders swap in through
+ *  localizeProductImage. */
+const CONCERN_IMAGE = '/images/eyekit_campaign/s2.jpg'
+const STEPS_IMAGE = '/images/eyekit_campaign/s3.jpg'
+const ROLLER_SECTION_IMAGE = '/images/eyekit_campaign/s6.jpg'
+const EVIDENCE_IMAGES = [
+  '/images/eyekit_campaign/s4.jpg',
+  '/images/eyekit_campaign/s8.jpg',
+  '/images/eyekit_campaign/s5.jpg',
+]
+
+function SectionFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+      </div>
+    </CeraReveal>
+  )
+}
 
 interface Props {
   product: Product
@@ -120,25 +145,18 @@ export default function EyeKitProductPage({
   }, [routineProducts])
 
   /**
-   * Kit hero, then the four-piece group shot and anything the kit record
-   * lists, then the live packshots of 17 / 24 / 33 and the kit-only roller.
-   * Member mains are composed from the catalogue so a replaced packshot
-   * updates here too. Main is prepended; it is not also stored in `images`.
+   * Kit hero, then the campaign slides the kit record lists, in the shopper's
+   * language. The member packshots live in the contents list below, not here.
+   * Main is prepended; it is not also stored in `images`.
    */
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
-    const members = copy.contents.items
-      .map(item => (item.productNumber ? memberByNumber.get(item.productNumber)?.image : item.image))
-      .filter((src): src is string => Boolean(src))
     const listed = parseJsonArray<string>(product.images)
-    const list = Array.from(
-      new Set([product.image, ...listed, ...members].filter(Boolean))
-    )
+    const list = Array.from(new Set([product.image, ...listed].filter(Boolean)))
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
-      blend: src === '/images/eye_kit/roller.jpeg' || src === '/images/eye_kit/contents.jpeg',
     }))
-  }, [copy.contents.items, memberByNumber, product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
 
   /**
    * Copy declares the four pieces and the order; the catalogue supplies
@@ -526,6 +544,28 @@ export default function EyeKitProductPage({
         </div>
       </section>
 
+      {/* ──────────────────────────── The concern ───────────────────────── */}
+      <section className="mx-auto max-w-[1100px] px-4 pt-16 sm:px-6 lg:pt-24">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12">
+          <CeraReveal>
+            <p className="cera-eyebrow">{copy.concern.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.concern.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.concern.body}</p>
+            <ul className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {copy.concern.points.map(point => (
+                <li key={point} className="flex items-start gap-3">
+                  <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
+                    <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
+                  </span>
+                  <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+                </li>
+              ))}
+            </ul>
+          </CeraReveal>
+          <SectionFigure src={localizeProductImage(CONCERN_IMAGE, locale)} alt={copy.concern.title} />
+        </div>
+      </section>
+
       {/* ────────────────────────── What is inside ──────────────────────── */}
       <section id="contents" className="mx-auto max-w-[1200px] scroll-mt-24 px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader
@@ -700,32 +740,39 @@ export default function EyeKitProductPage({
 
       {/* ───────────────────────── How to use it ────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[900px] px-4 sm:px-6">
+        <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
           <CeraSectionHeader
             eyebrow={copy.howTo.eyebrow}
             title={copy.howTo.title}
             intro={copy.howTo.intro}
           />
 
-          <ol className="mt-10 space-y-4 lg:mt-14">
-            {copy.howTo.steps.map((step, i) => (
-              <CeraReveal key={step.title} as="li" delay={i * 70}>
-                <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
-                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
-                    <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[24px]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
-                      {step.body}
-                    </p>
+          <div className="mt-10 grid grid-cols-1 gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-start lg:gap-12">
+            <ol className="space-y-4">
+              {copy.howTo.steps.map((step, i) => (
+                <CeraReveal key={step.title} as="li" delay={i * 70}>
+                  <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
+                    <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
+                      <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[24px]">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)] sm:text-[16px]">
+                        {step.body}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </CeraReveal>
-            ))}
-          </ol>
+                </CeraReveal>
+              ))}
+            </ol>
+            <SectionFigure
+              src={localizeProductImage(STEPS_IMAGE, locale)}
+              alt={copy.howTo.title}
+              className="lg:sticky lg:top-24"
+            />
+          </div>
 
           <CeraReveal>
             <p className="mt-8 flex gap-3 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]">
@@ -751,7 +798,32 @@ export default function EyeKitProductPage({
         </div>
       </section>
 
-      {/* ─────────────────────── What was measured ──────────────────────── */}
+      {/* ─────────────────────────── The eye roller ─────────────────────── */}
+      <section className="mx-auto max-w-[1100px] px-4 pt-16 sm:px-6 lg:pt-24">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-center lg:gap-12">
+          <SectionFigure src={localizeProductImage(ROLLER_SECTION_IMAGE, locale)} alt={copy.roller.title} />
+          <CeraReveal className="cera-card p-6 md:p-9">
+            <p className="cera-eyebrow">{copy.roller.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[28px] leading-tight sm:text-[36px]">{copy.roller.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.roller.body}</p>
+            <ul className="mt-6 space-y-2.5">
+              {copy.roller.points.map(point => (
+                <li key={point} className="flex items-start gap-3">
+                  <span className="mt-[3px] flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
+                    <Check className="h-[11px] w-[11px] text-[var(--cera-rose-ink)]" strokeWidth={3} />
+                  </span>
+                  <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 border-s-2 border-[var(--cera-blush-deep)] ps-5 text-[14px] italic leading-relaxed text-[var(--cera-muted)]">
+              {copy.roller.aside}
+            </p>
+          </CeraReveal>
+        </div>
+      </section>
+
+      {/* ───────────────────────── What does the work ───────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader
           eyebrow={copy.evidence.eyebrow}
@@ -764,20 +836,34 @@ export default function EyeKitProductPage({
               key={card.title}
               as="article"
               delay={i * 70}
-              className="cera-card cera-card-hover flex flex-col p-6 lg:p-7"
+              className="cera-card cera-card-hover flex flex-col overflow-hidden"
             >
-              <p
-                dir="auto"
-                className={`cera-serif text-[34px] leading-none text-[var(--cera-rose)] sm:text-[40px] ${
-                  /^\d/.test(card.value) ? 'cera-numeral' : ''
-                }`}
-              >
-                {card.value}
-              </p>
-              <h3 className="cera-serif mt-4 text-[19px] leading-tight text-[var(--cera-ink)] sm:text-[21px]">
-                {card.title}
-              </h3>
-              <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)]">{card.body}</p>
+              {EVIDENCE_IMAGES[i] ? (
+                <div className="relative aspect-square w-full">
+                  <Image
+                    src={localizeProductImage(EVIDENCE_IMAGES[i], locale)}
+                    alt={card.title}
+                    fill
+                    sizes="(max-width: 768px) 92vw, 340px"
+                    quality={82}
+                    className="object-cover"
+                  />
+                </div>
+              ) : null}
+              <div className="flex flex-1 flex-col p-6 lg:p-7">
+                <p
+                  dir="auto"
+                  className={`cera-serif text-[34px] leading-none text-[var(--cera-rose)] sm:text-[40px] ${
+                    /^\d/.test(card.value) ? 'cera-numeral' : ''
+                  }`}
+                >
+                  {card.value}
+                </p>
+                <h3 className="cera-serif mt-4 text-[19px] leading-tight text-[var(--cera-ink)] sm:text-[21px]">
+                  {card.title}
+                </h3>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--cera-body)]">{card.body}</p>
+              </div>
             </CeraReveal>
           ))}
         </div>
@@ -809,9 +895,8 @@ export default function EyeKitProductPage({
               </ul>
             </CeraReveal>
 
-            {/* Six beauty boxes exist and only one of them is right for any given
-                shopper, so the mismatches are as useful as the matches - and
-                tinted differently, so which list is which survives a glance. */}
+            {/* The mismatches are as useful as the matches, and tinted
+                differently, so which list is which survives a glance. */}
             <CeraReveal as="section" delay={90} className="cera-card ek-notfor p-6 lg:p-7">
               <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)]">
                 {copy.suited.notForTitle}
@@ -827,8 +912,8 @@ export default function EyeKitProductPage({
                 ))}
               </ul>
 
-              {/* The other boxes named above. Sending someone to search
-                  for them by name would be a dead end. */}
+              {/* The pieces named above. Sending someone to search for them
+                  by name would be a dead end. */}
               <p className="mt-5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-muted)]">
                 {copy.suited.alternativesLabel}
               </p>

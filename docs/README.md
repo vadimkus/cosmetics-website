@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Eye Kit campaign](./SESSION_CHANGES_2026-09-27_EYE_KIT_CAMPAIGN.md) | "RESTED EYES." main + 12 slides EN/RU/AR for product 50, charcoal + pearl-rose, crimson accents, real labels set onto the renders. Bespoke page in selling voice (carton voice, beauty-box FAQ and 450-needle references gone), central RU/AR + DB + quick facts, concern and eye-roller sections, 5 slides on the page, cut-out `50-v2.webp`. |
 | 🟡 **Important** | [Multi Sun campaign](./SESSION_CHANGES_2026-09-27_MULTI_SUN_CAMPAIGN.md) | "YOUR DAILY SHADE." main + 12 slides EN/RU/AR for product 40, sky + ivory, crimson headlines. Bespoke page in selling voice (assay table, octinoxate section, allergen list and EU-limit column gone), central RU/AR + DB + quick facts, 5 slides on the page, cut-out `40-v2.webp`. |
 | 🟡 **Important** | [Sea Algae Mask campaign](./SESSION_CHANGES_2026-09-27_SEA_ALGAE_CAMPAIGN.md) | "CALM ON CONTACT." main + 12 slides EN/RU/AR for product 36, mint + deep green. Bespoke page copy in selling voice (EN/RU/AR + central RU/AR + DB), 5 slides on the page, "dermatologically tested" from the registered artwork, INCI typo fixed, cut-out `36-v2.webp`. |
 | 🟡 **Important** | [DTS Roller campaign](./SESSION_CHANGES_2026-09-27_ROLLER_CAMPAIGN.md) | "EVERY NEEDLE COUNTS." main + 12 slides EN/RU/AR for product 1, native crimson + white. Selling copy EN/RU/AR + quick facts, training-deck download removed, sizes fixed to 0.25-2.0 mm (DB + config), new cut-out `1-v2.webp`. |

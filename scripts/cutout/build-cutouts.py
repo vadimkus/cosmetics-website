@@ -216,6 +216,9 @@ REVISION = {
     # white tube on white defeats Vision along its lit edge, so v2 is normalised from the
     # supplied transparent container PNG (~/Desktop/sun40) rather than traced from the photo.
     "40": 2,
+    # "Rested eyes." campaign packshot (eyekit_campaign/main.jpg, 27 Sep 2026): the box,
+    # serum, cream, patch jar and eye roller as one group on white.
+    "50": 2,
 }
 
 

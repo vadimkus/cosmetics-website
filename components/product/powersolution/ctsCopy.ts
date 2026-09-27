@@ -405,7 +405,7 @@ export const CTS_VARIANT: PowerSolutionVariant = {
   figureSlides: true,
   sectionSlides: {
     formula: ['s4', 's5', 's7', 's8'].map((s) => `/images/cts_campaign/${s}.jpg`),
-    howTo: ['/images/cts_campaign/s3.jpg', '/images/cts_campaign/s10.jpg'],
+    howTo: ['/images/cts_campaign/s3.jpg', '/images/cts_campaign/s10b.jpg'],
     suited: ['/images/cts_campaign/s1.jpg'],
     details: ['s9', 's11', 's12'].map((s) => `/images/cts_campaign/${s}.jpg`),
   },

@@ -442,11 +442,11 @@
   {
     "product": "5",
     "status": "ok",
-    "source": "/images/cvs-hero.jpg",
-    "file": "/images/cutout/5.webp",
+    "source": "/images/cvs_campaign/main.jpg",
+    "file": "/images/cutout/5-v2.webp",
     "name": "POWER SOLUTION CVS",
-    "coverage": 0.209,
-    "bytes": 24566,
+    "coverage": 0.565,
+    "bytes": 52704,
     "review": false
   },
   {

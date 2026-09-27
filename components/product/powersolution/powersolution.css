@@ -22,43 +22,36 @@
  */
 
 /* --- CVS, product 5 ------------------------------------------------------ */
-/* WHY COOL GREY AND ONE RED. Everything about this product is white, glass and
-   clinical: a white carton, clear vials, a lifestyle shot on a lilac-grey
-   studio backdrop sampled at #cecbd2. The only colour anywhere on it is the
-   label red, sampled off the DNA mark and the CVS wordmark at #be0a14. So the
-   page runs cool and near-neutral and spends its one colour on the accent,
-   which is what the packaging does.
+/* WHY CORAL. The CVS wordmark, the DNA mark above it and the icon on the carton
+   are one coral, sampled off the vial label at about #d1716d. The "Vitality,
+   concentrated." campaign runs on that coral in golden sunlight, so the accent is
+   the coral, deepened to #9c3d33 for text, and the neutrals lean warm apricot.
+   The hero is the family packshot on white; the stage takes the pale apricot of
+   the slides.
 
-   It has to stay clear of the two bespoke pages a shopper is most likely to see
-   either side of it. Product 53 is crimson (#b8323a) and product 52 is a warm
-   dusty clay (#a87461); both sit on warm grounds. This one is a colder, harder
-   red on a cold ground, and the neutrals are blue-leaning rather than
-   brown-leaning, so a professional ampoule does not read as a retail mask. */
+   It has to stay clear of its neighbours: product 53 is crimson (#b8323a), product
+   52 a dusty clay (#a87461), SWS burnt orange (#e06a12). This one is a pink-leaning
+   coral on a pale apricot ground, with a browner terracotta for text.
+
+   Closest text pair (#9c3d33 on #faf3ef) clears WCAG AA. */
 .cera-page.powersolution-page.ps-cvs {
-  --cera-cream: #f5f4f8;
-  --cera-cream-deep: #e6e4ec;
-  --cera-blush: #fbecee;
-  --cera-blush-deep: #edcbcf;
-  --cera-rose: #be0a14;
-  --cera-rose-ink: #96101c;
-  --cera-ink: #161c22;
-  --cera-body: #3c4550;
-  --cera-muted: #6d7883;
-  --cera-line: #dedde5;
-  /* The closing band. The shot is contained in a 300px column, so whatever tone
-     the band carries meets the shot's own sweep along a straight vertical edge.
-     Sampled from the outer ring of cvs-hero.jpg, which means the column edge has
-     nothing to give it away. A shade lighter, as this was, drew the shot as a
-     panel on the band. */
-  --cera-shot: #e6e5e8;
-  /* Same tone as that outer ring, which is what makes the card read identically
-     on every slide: the hero fills the stage with its own sweep, and the two
-     white packshots multiply down to this, so clicking through the rail does not
-     change the colour of the card. */
-  --ps-stage: #e6e5e8;
-  --ps-figure-stage: #e6e5e8;
-  --ps-stage-shadow: rgba(22, 28, 34, 0.4);
-  --ps-card-hover-glow: rgba(150, 16, 28, 0.26);
+  --cera-cream: #faf3ef;
+  --cera-cream-deep: #f2e3db;
+  --cera-blush: #fbe9e3;
+  --cera-blush-deep: #f2c9bb;
+  --cera-rose: #d1716d;
+  --cera-rose-ink: #9c3d33;
+  --cera-ink: #26140f;
+  --cera-body: #4d3530;
+  --cera-muted: #7d615a;
+  --cera-line: #ecd8cf;
+  /* The pale apricot of the campaign plates: the white main multiplies into it in
+     the closing band, and it sits behind the slides. */
+  --cera-shot: #f6e2d8;
+  --ps-stage: #f6e2d8;
+  --ps-figure-stage: #f6e2d8;
+  --ps-stage-shadow: rgba(38, 20, 15, 0.4);
+  --ps-card-hover-glow: rgba(156, 61, 51, 0.26);
 }
 
 /* --- HES, product 4 ------------------------------------------------------ */

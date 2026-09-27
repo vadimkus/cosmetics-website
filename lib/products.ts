@@ -72,13 +72,11 @@ export const products: Product[] = [
     id: '5',
     name: 'POWER SOLUTION CVS',
     price: 580,
-    description: '2ml x 10ea. Skin revitalizing ampoule for microneedling treatment. Dermatologically tested. Efficacy test on moisturizing. Features: It is a skin revitalizing ampoule specially formulated for microneedling treatment that supplies nutrients to the skin, soothes and hydrates skin with sh-polypeptide-7 (recombinant human peptide), botanical stem cell extracts and panthenol. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Dermatologically tested. Key Ingredients: sh-polypeptide-7, Palmitoyl Tripeptide-1, Lactobacillus/Soymilk Ferment Filtrate, Panthenol, Allantoin, Hyaluronic Acid, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Lactobacillus Ferment Lysate Filtrate. Manufactured in South Korea.',
-    // The squared hero, matching the database. CVS.jpg is the same shot at 956x662
-    // and leaves a hard-cornered band above and below it in the square gallery
-    // stage. The main image is deliberately not repeated in `images`: web and
-    // mobile both prepend it.
-    image: '/images/cvs-hero.jpg',
-    images: JSON.stringify(['/images/Second/cvs_big1.jpg', '/images/Second/cvs_big2.jpg']),
+    description: 'Vitality, concentrated. POWER SOLUTION CVS, Concentrated Vitality Solution, is the nourishing vial of the Power Solution range: it supplies moisture and nutrients to tired, dry skin, for glow and vitality. A 23.97% moisture base with soy ferment 2.5% and panthenol 0.5%. No parabens, ethanol, artificial pigment or artificial fragrance. 2 ml × 10 sealed glass vials. Dermatologically tested. Made in Korea by DTS MG.',
+    // "Vitality, concentrated." campaign set (cvs_campaign), matching the database. The
+    // main image is deliberately not repeated in `images`: web and mobile both prepend it.
+    image: '/images/cvs_campaign/main.jpg',
+    images: JSON.stringify(['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12'].map((n) => `/images/cvs_campaign/${n}.jpg`)),
     category: 'PRO Solution',
     inStock: true,
   },

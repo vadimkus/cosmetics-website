@@ -152,6 +152,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
+  // Product 5, POWER SOLUTION CVS, "Vitality, concentrated." campaign. The main packshot
+  // is not translated; the page's inline figures and section slides swap from this list too.
+  '/images/cvs_campaign': {
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+  },
   // Product 6, POWER SOLUTION CTS, "Back to smooth." campaign. The main packshot is not
   // translated; the page's inline figures swap from this list too. s10b replaces s10,
   // whose serum on the cheek read as a blue-grey paste instead of a clear sheen. The other

@@ -29,7 +29,7 @@ const CUTOUTS: Record<string, string> = {
   // 4 POWER SOLUTION HES
   '/images/hes_power/main.jpeg': '/images/cutout/4.webp',
   // 5 POWER SOLUTION CVS
-  '/images/cvs-hero.jpg': '/images/cutout/5.webp',
+  '/images/cvs_campaign/main.jpg': '/images/cutout/5-v2.webp',
   // 6 POWER SOLUTION CTS
   '/images/cts_campaign/main.jpg': '/images/cutout/6-v2.webp',
   // 7 POWER SOLUTION PCS

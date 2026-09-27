@@ -102,6 +102,8 @@ REPAIR = {
     "6": [(0.6000, 0.4500, 0.7400, 0.7960)],
     # AWS main is built on the same template render as CTS, so the same face quad.
     "9": [(0.6000, 0.4500, 0.7400, 0.7960)],
+    # CVS main (cvs_campaign/main.jpg) is the same template render again.
+    "5": [(0.6000, 0.4500, 0.7400, 0.7960)],
 }
 
 # Secondary subjects Vision drops when it locks onto the largest object.
@@ -125,6 +127,11 @@ PARTS = {
     ],
     # Same family layout (aws_campaign/main.jpg, same template as 6).
     "9": [
+        (0.720, 0.360, 0.945, 0.860, "vision"),
+        (0.735, 0.855, 0.895, 0.945, "keywhite"),
+    ],
+    # Same family layout (cvs_campaign/main.jpg, same template as 6 and 9).
+    "5": [
         (0.720, 0.360, 0.945, 0.860, "vision"),
         (0.735, 0.855, 0.895, 0.945, "keywhite"),
     ],
@@ -249,6 +256,9 @@ REVISION = {
     # "Five lights. One dome." campaign packshot (led_campaign/main.jpg, 27 Sep 2026): the
     # IR II dome on white with its real control panel, replacing the 956 x 662 LEDD.jpg.
     "49": 2,
+    # "Vitality, concentrated." campaign packshot (cvs_campaign/main.jpg, 27 Sep 2026): closed
+    # carton and one vial on white, the family angle, replacing the lilac studio-sweep hero.
+    "5": 2,
 }
 
 

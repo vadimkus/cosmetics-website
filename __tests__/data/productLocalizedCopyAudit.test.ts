@@ -242,10 +242,6 @@ describe('audited product localization copy', () => {
       '2.5%',
       '5,94',
       '5.94',
-      '1,032',
-      '1.032',
-      '2,05 мл',
-      '2.05 مل',
       '1 ppm',
       'جزء واحد في المليون',
     ]) {
@@ -253,6 +249,10 @@ describe('audited product localization copy', () => {
     }
 
     for (const unsupported of [
+      '1,032',
+      '1.032',
+      '2,05 мл',
+      '2.05 مل',
       'заживлен',
       'регенерац',
       'неоколлаген',

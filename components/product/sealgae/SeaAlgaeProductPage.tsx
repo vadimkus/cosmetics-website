@@ -42,6 +42,9 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { localizeProductImage } from '@/lib/localizedProductImages'
+import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -123,10 +126,18 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
   const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', '')
   const inCartQty = cartLine?.quantity || 0
 
-  const parsedIngredients = useMemo(
-    () => parseJsonArray<ActiveIngredient>(product.ingredients),
-    [product.ingredients]
-  )
+  const parsedIngredients = useMemo(() => {
+    const key = product.productNumber || product.id
+    const localised =
+      locale === 'ar'
+        ? getProductTranslations(key)?.ingredients
+        : locale === 'ru'
+          ? getProductTranslationsRu(key)?.ingredients
+          : null
+    return parseJsonArray<ActiveIngredient>(
+      withFullInciFallback(localised || product.ingredients, product.ingredients, locale) || ''
+    )
+  }, [locale, product.id, product.ingredients, product.productNumber])
   const actives = useMemo(
     () => parsedIngredients.filter(i => i.name !== 'Full INCI'),
     [parsedIngredients]

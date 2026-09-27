@@ -13,6 +13,9 @@
   s10 (colour), s11 (when to use). Gallery and figures swap RU/AR through
   `localizeProductImage`.
 - New listing cut-out `public/images/cutout/36-v2.webp`; routine step thumbnail for `'36'`.
+- The actives cards now read the RU/AR ingredients from `data/product36LocalizedCopy.ts`
+  (`withFullInciFallback`, as on the AFS and Bio-Ferment pages); they had shown the English DB
+  entries on every locale.
 
 ## Slides
 

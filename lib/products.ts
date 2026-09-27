@@ -743,9 +743,11 @@ export const products: Product[] = [
     id: '49',
     name: 'GENO-LED IR II',
     price: 5500,
-    description: 'LED device that resolves complicated skin problems. It is a LLLT device which resolves complicated skin problems by irradiating lights with various wave lengths - 640nm (red), 423nm (blue), 532nm (green), 583nm (yellow) and 830nm (infrared). Features: Dome shape for less light loss, Excellent and powerful high-brightness and special near-infrared light SMD LED element, Light of different lengths (423nm~830nm) - Blue light, Green light, Yellow light, Red light + Infrared light, Available for the treatment of whole body - total care device, Effective for various types of skin problems, Gentle and safe treatment without pain, side effects and downtime. LED Specifications: Red (640nm) - 380ea, Blue (423nm) - 380ea, Green (532nm) - 380ea, Yellow (583nm) - 380ea, Infrared (830nm) - 190ea. Total: 1,710 LED and IR lamps. Effects: Cell regeneration, Anti-aging, Brightening, Soothing, Acne treatment, Improvement in edema/erythema, Hair loss care, Improvement in blood circulation. Face, Scalp, Body Total Care device.',
-    image: '/images/LEDD.jpg',
-    images: null,
+    description: 'Five lights. One dome. GENO-LED IR II is a professional LED unit with 1,710 LEDs across red 640 nm, blue 423 nm, green 532 nm, yellow 583 nm and infrared 830 nm, for face, body and scalp. Irradiance and standard dose are published for every mode, any colour runs with infrared at the same time, and red alternates with another colour every three seconds. Nothing touches the skin and there are no consumables. 520 × 220 × 315 mm, 2.6 kg.',
+    // "Five lights. One dome." campaign set (led_campaign), matching the database. The main
+    // image is deliberately not repeated in `images`: web and mobile both prepend it.
+    image: '/images/led_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/led_campaign/s${i + 1}.jpg`)),
     videoUrl: '/videos/led.mp4',
     category: 'Device',
     inStock: true,

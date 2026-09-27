@@ -53,6 +53,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -74,6 +75,22 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { DOSE_RANGES, PROTOCOL_PRODUCT_IDS, STUDY_URL, getGenoLedCopy } from './genoLedCopy'
+
+/** "Five lights. One dome." campaign slides set beside the two sections they illustrate:
+ *  s7 (a colour plus infrared, red alternating) and s11 (face, body and scalp in one unit).
+ *  AR and RU renders swap in through localizeProductImage. */
+const COMBINE_IMAGE = '/images/led_campaign/s7.jpg'
+const BUILD_IMAGE = '/images/led_campaign/s11.jpg'
+
+function SlideFigure({ src, alt }: { src: string; alt: string }) {
+  return (
+    <CeraReveal>
+      <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" className="object-cover" />
+      </div>
+    </CeraReveal>
+  )
+}
 
 interface Props {
   product: Product
@@ -117,10 +134,10 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS professional LED therapy device, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
 
   /** The five products the documented protocols are built on. */
   const protocolProducts = useMemo(() => {
@@ -592,15 +609,18 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           title={copy.combining.title}
           intro={copy.combining.intro}
         />
-        <div className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
-          {copy.combining.cards.map((card, i) => (
-            <CeraReveal key={card.title} delay={i * 80} as="article" className="cera-card cera-card-hover p-6 lg:p-7">
-              <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
-                {card.title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)]">{card.body}</p>
-            </CeraReveal>
-          ))}
+        <div className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-6 lg:mt-14 lg:grid-cols-2 lg:items-center lg:gap-10">
+          <SlideFigure src={localizeProductImage(COMBINE_IMAGE, locale)} alt={copy.combining.title} />
+          <div className="grid grid-cols-1 gap-4 lg:gap-6">
+            {copy.combining.cards.map((card, i) => (
+              <CeraReveal key={card.title} delay={i * 80} as="article" className="cera-card cera-card-hover p-6 lg:p-7">
+                <h3 className="cera-serif text-[21px] leading-tight text-[var(--cera-ink)] sm:text-[23px]">
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-[var(--cera-body)]">{card.body}</p>
+              </CeraReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -608,7 +628,10 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
       <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
           <CeraSectionHeader eyebrow={copy.build.eyebrow} title={copy.build.title} intro={copy.build.intro} />
-          <div className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
+          <div className="mx-auto mt-10 max-w-[560px] lg:mt-14">
+            <SlideFigure src={localizeProductImage(BUILD_IMAGE, locale)} alt={copy.build.title} />
+          </div>
+          <div className="mx-auto mt-6 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-8 lg:gap-6">
             {copy.build.points.map((point, i) => (
               <CeraReveal
                 key={point.title}

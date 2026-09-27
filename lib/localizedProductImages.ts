@@ -137,6 +137,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
+  // Product 49, GENO-LED IR II, "Five lights. One dome." campaign. The main packshot is not
+  // translated; the page's two inline figures (s7, s11) swap from this list too.
+  '/images/led_campaign': {
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+  },
   // Product 6, POWER SOLUTION CTS, "Back to smooth." campaign. The main packshot is not
   // translated; the page's two inline figures (s2, s6) swap from this list too.
   '/images/cts_campaign': {

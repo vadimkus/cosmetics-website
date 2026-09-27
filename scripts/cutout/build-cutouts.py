@@ -234,6 +234,9 @@ REVISION = {
     # carton and one vial on white, the family angle of 4, 7 and 8, replacing the
     # squared studio-sweep shot.
     "6": 2,
+    # "Five lights. One dome." campaign packshot (led_campaign/main.jpg, 27 Sep 2026): the
+    # IR II dome on white with its real control panel, replacing the 956 x 662 LEDD.jpg.
+    "49": 2,
 }
 
 

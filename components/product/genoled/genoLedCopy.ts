@@ -159,7 +159,7 @@ const EN: GenoLedCopy = {
     'Any colour runs with infrared at the same time',
     'No contact, no downtime, no consumables',
   ],
-  badges: ['Made in Korea', '2.6 kg · foldable dome', 'Face, body and scalp', 'Official UAE distributor'],
+  badges: ['Made in Korea', '2.6 kg · moves between rooms', 'Face, body and scalp', 'Official UAE distributor'],
 
   addToBag: 'Add to bag',
   adding: 'Adding…',
@@ -176,7 +176,7 @@ const EN: GenoLedCopy = {
     { value: '1,710', label: 'LEDs - 380 of each colour, 190 infrared' },
     { value: '5', label: 'Wavelengths, 423 to 830 nm' },
     { value: '70 W', label: 'Rated power' },
-    { value: '2.6 kg', label: 'Foldable dome, moves between rooms' },
+    { value: '2.6 kg', label: 'Light enough to move between rooms' },
   ],
 
   wavelengths: {
@@ -249,7 +249,7 @@ const EN: GenoLedCopy = {
       range: 'Dose range',
     },
     note:
-      'Bandwidth is 20 ±5 nm on every mode. Rated power of 70 W is the electrical draw, not optical output - the manufacturer does not publish a total optical figure, so we do not either.',
+      'Bandwidth is 20 ±5 nm on every mode. Rated power of 70 W is the electrical draw.',
   },
 
   combining: {
@@ -282,8 +282,8 @@ const EN: GenoLedCopy = {
         body: '380 each of red, blue, green and yellow, plus 190 infrared. Density is what gives you an even field across the whole treatment area instead of a bright centre.',
       },
       {
-        title: 'It folds and it moves',
-        body: '520 × 220 × 315 mm and 2.6 kg. It goes from the facial bed to the scalp chair without a trolley, and stores flat between clients.',
+        title: 'It moves with you',
+        body: '520 × 220 × 315 mm and 2.6 kg. It goes from the facial bed to the scalp chair without a trolley.',
       },
       {
         title: 'Nothing to reorder',
@@ -308,7 +308,7 @@ const EN: GenoLedCopy = {
       },
       {
         concern: 'Post-procedure recovery',
-        protocol: 'Red, or red with infrared, straight after needling, injection, thread lifting or a peel.',
+        protocol: 'Red light as the post-care step after needling or a peel.',
       },
       {
         concern: 'Scalp and hair',
@@ -316,7 +316,7 @@ const EN: GenoLedCopy = {
       },
     ],
     note:
-      'Ten documented cases sit in the brochure, credited to Dr Marija Boscovic, each captioned with the protocol used. They are photographs with protocols attached and no measurements, so treat them as documentation rather than as data.',
+      'Ten documented cases sit in the brochure, credited to Dr Marija Boscovic, each captioned with the protocol used.',
     pairTitle: 'What runs with it',
     pairIntro: 'The products named in those protocols, all in stock here.',
   },
@@ -414,7 +414,7 @@ const EN: GenoLedCopy = {
       },
       {
         q: 'Can it be used straight after needling or a peel?',
-        a: 'That is its most common use. Red, on its own or with infrared, is the standard post-procedure step, and the manufacturer documents it after needling, injection, thread lifting and chemical peels. Follow the timing your own protocol sets.',
+        a: 'That is its most common use. Red, on its own or with infrared, is the post-care step after needling or a peel. Follow the timing your own protocol sets.',
       },
       {
         q: 'What comes with it, and how is it delivered?',

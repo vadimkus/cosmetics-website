@@ -117,7 +117,7 @@ const CUTOUTS: Record<string, string> = {
   // 48 Hair-GENTRON
   '/images/gen.jpg': '/images/cutout/48.webp',
   // 49 GENO-LED IR II
-  '/images/LEDD.jpg': '/images/cutout/49.webp',
+  '/images/led_campaign/main.jpg': '/images/cutout/49-v2.webp',
   // 50 EyeCell EYE ZONE CARE KIT
   '/images/eyekit_campaign/main.jpg': '/images/cutout/50-v2.webp',
   // 51 BIO-FERMENT AGE DEFYING POWDER MASK

@@ -432,11 +432,11 @@
   {
     "product": "49",
     "status": "ok",
-    "source": "/images/LEDD.jpg",
-    "file": "/images/cutout/49.webp",
+    "source": "/images/led_campaign/main.jpg",
+    "file": "/images/cutout/49-v2.webp",
     "name": "GENO-LED IR II",
-    "coverage": 0.248,
-    "bytes": 25546,
+    "coverage": 0.252,
+    "bytes": 41678,
     "review": false
   },
   {

@@ -68,3 +68,12 @@ pale aqua (#daedee).
 - DB: `scripts/update-product-6-campaign-gallery.ts` (image, 12-slide gallery, EN fields, descriptionRu/Ar
   from the central copy). Refuses `--apply` until all 37 images and the cut-out return 200.
 - Old `cts-hero.jpg`, `CTS.jpg`, `Second/cts_big*.jpg` stay on disk for order history.
+
+## Slide 10 reissued as s10b (same day)
+
+The serum on the model's cheek in "PAT IT IN." read as an opaque blue-grey paste. On skin CTS
+goes on colourless, so the plate was redrawn with the serum as a clear wet sheen only
+(`_gen/gi/cts_10_clear_a.png`; the first plate is kept as `picks/_s10_opaque_serum.png`). Copy
+unchanged. Shipped as `s10b.jpg` in EN, `ru/`, `ar/`; the registry, `lib/products.ts` and the
+campaign DB script point at it, and the record was swapped with the new generic
+`scripts/swap-gallery-slide.ts` (checks the new file and its localized twins are live first).

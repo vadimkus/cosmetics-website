@@ -144,10 +144,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 6, POWER SOLUTION CTS, "Back to smooth." campaign. The main packshot is not
-  // translated; the page's two inline figures (s2, s6) swap from this list too.
+  // translated; the page's inline figures swap from this list too. s10b replaces s10,
+  // whose serum on the cheek read as a blue-grey paste instead of a clear sheen.
   '/images/cts_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11.jpg', 's12.jpg'],
   },
 }
 

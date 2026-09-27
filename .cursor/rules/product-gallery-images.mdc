@@ -25,10 +25,10 @@ array of gallery paths, e.g. `'["/images/6000/S1.jpeg","/images/6000/S2.jpeg"]'`
 
 - Do NOT include the main image in `images` — web (`components/product/ProductImageGallery.tsx`)
   and mobile (`lib/pricingEngine.ts`) both prepend `product.image` automatically.
-- Do NOT add new `images` arrays to `data/productConfig.ts`. Legacy entries exist
-  there (config wins over DB when present) — leave them, but never extend the pattern.
-  If a product already has a config gallery, edit it in BOTH config and DB, or
-  migrate it to DB-only.
+- Do NOT add `images` arrays to `data/productConfig.ts`. Config wins over DB in the
+ mobile API, so a config gallery hides every later DB change from the app. The last
+ 12 legacy entries were removed on 27 Sep 2026 and
+ `__tests__/lib/productConfigNoGallery.test.ts` fails if one comes back.
 - The mobile app is API-driven — a DB gallery update needs **no OTA**.
 
 ## Workflow for adding gallery images

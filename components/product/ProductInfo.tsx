@@ -147,7 +147,7 @@ export default function ProductInfo({
       <div className="flex items-center gap-4 mt-12 pt-4">
         {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25' || product.id === '37') && (
           <div className="text-sm font-medium text-[var(--color-text-secondary)]">
-            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
+            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/1.0mm/1.5mm/2.0mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
           </div>
         )}
         {canUserSeePrices(user) ? (
@@ -212,7 +212,7 @@ export default function ProductInfo({
           <div className="flex flex-wrap gap-3">
             {product.id === '1' && (
               <>
-                {[{ size: '0.25mm', price: 230 }, { size: '0.5mm', price: 230 }, { size: '0.1mm', price: 230 }, { size: '0.15mm', price: 230 }, { size: '0.2mm', price: 230 }].map((option) => (
+                {[{ size: '0.25mm', price: 230 }, { size: '0.5mm', price: 230 }, { size: '1.0mm', price: 230 }, { size: '1.5mm', price: 230 }, { size: '2.0mm', price: 230 }].map((option) => (
                   <button
                     key={option.size}
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${

@@ -206,6 +206,9 @@ REVISION = {
     # around the bottle, so v2 is normalised from the supplied transparent container
     # PNG (current label) rather than traced from the photograph.
     "46": 2,
+    # "Every needle counts." campaign packshot (roller_campaign/main.jpg, 27 Sep 2026):
+    # the single roller on white, replacing the seven-device family photo.
+    "1": 2,
 }
 
 

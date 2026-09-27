@@ -21,7 +21,7 @@
  */
 const CUTOUTS: Record<string, string> = {
   // 1 Microneedle Roller
-  '/images/genosys-microneedling-devices.jpg': '/images/cutout/1.webp',
+  '/images/roller_campaign/main.jpg': '/images/cutout/1-v2.webp',
   // 2 Needle Pen-K
   '/images/Needle-pen.jpg': '/images/cutout/2.webp',
   // 3 HairGen BOOSTER

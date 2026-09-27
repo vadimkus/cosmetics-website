@@ -2,11 +2,11 @@
   {
     "product": "1",
     "status": "ok",
-    "source": "/images/genosys-microneedling-devices.jpg",
-    "file": "/images/cutout/1.webp",
+    "source": "/images/roller_campaign/main.jpg",
+    "file": "/images/cutout/1-v2.webp",
     "name": "Microneedle Roller",
-    "coverage": 0.111,
-    "bytes": 31510,
+    "coverage": 0.129,
+    "bytes": 37596,
     "review": false
   },
   {

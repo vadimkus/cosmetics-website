@@ -6,6 +6,7 @@ import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
 import { Product } from '@/types'
 import { getProductVideoUrl, getProductImages as getConfigImages } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import {
   productTransitionName,
   updateProductImageWithTransition,
@@ -26,7 +27,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   const configKey = product.productNumber || product.id
   const transitionName = productTransitionName(configKey)
   const videoUrl = getProductVideoUrl(configKey)
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
 
   const getProductImages = () => {
     // Always start with the main image (packshot). Config galleries sometimes
@@ -56,7 +57,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     return [mainImage]
   }
 
-  const productImages = getProductImages()
+  const productImages = getProductImages().map(src => localizeProductImage(src, locale))
 
   const selectImage = (index: number) => {
     if (index === selectedImage) return

@@ -11,7 +11,7 @@ import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 
 // Audited against the production product table on 2026-08-08.
 export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> = {
-  '1': '/images/genosys-microneedling-devices.jpg',
+  '1': '/images/roller_campaign/main.jpg',
   '3': '/images/Booster.jpg',
   '6': '/images/CTS.jpg',
   '10': '/images/cleanser_o/Main.jpeg',

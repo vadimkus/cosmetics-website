@@ -106,24 +106,17 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       sizeVariants: {
         '0.25mm': 230,
         '0.5mm': 230,
-        '0.1mm': 230,
-        '0.15mm': 230,
-        '0.2mm': 230
+        '1.0mm': 230,
+        '1.5mm': 230,
+        '2.0mm': 230
       }
     },
     sizes: [
       { value: '0.25mm', label: '0.25mm', available: true },
       { value: '0.5mm', label: '0.5mm', available: true },
-      { value: '0.1mm', label: '0.1mm', available: true },
-      { value: '0.15mm', label: '0.15mm', available: true },
-      { value: '0.2mm', label: '0.2mm', available: true }
-    ],
-    documentation: [
-      {
-        title: 'Overview of Microneedling',
-        url: 'https://genosys.ae/documents/PPT/Overview%20of%20Microneedling_S.pdf',
-        type: 'pdf'
-      }
+      { value: '1.0mm', label: '1.0mm', available: true },
+      { value: '1.5mm', label: '1.5mm', available: true },
+      { value: '2.0mm', label: '2.0mm', available: true }
     ]
   },
   '2': {

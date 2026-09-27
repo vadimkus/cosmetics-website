@@ -15,7 +15,7 @@ import {
   getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
-  truncateText, wholeSentences,
+  wholeSentences,
 } from '@/lib/seo'
 
 // ISR: serve cached HTML for up to 5 minutes; admin mutations in

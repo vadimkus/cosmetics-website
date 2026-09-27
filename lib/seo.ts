@@ -25,7 +25,7 @@ export function truncateText(value: string, maxLength: number): string {
   const cut = normalized.slice(0, maxLength - 1)
   const lastSpace = cut.lastIndexOf(' ')
   const words = lastSpace > maxLength * 0.6 ? cut.slice(0, lastSpace) : cut
-  return `${words.replace(/[\s,;:.\-–]+$/, '')}…`
+  return `${words.replace(/[\s,;:.-]+$/, '')}…`
 }
 
 /**

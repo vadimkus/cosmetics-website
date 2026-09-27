@@ -15,7 +15,7 @@ import {
   getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
-  truncateText, wholeSentences,
+  wholeSentences,
 } from '@/lib/seo'
 
 // ISR: cache for 5 min; admin routes must revalidateTag('products', 'max').

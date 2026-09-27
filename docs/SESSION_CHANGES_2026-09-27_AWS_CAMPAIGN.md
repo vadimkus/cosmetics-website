@@ -83,3 +83,22 @@ it, `generate` waits on the draft folder instead of the screen, `fetch` decodes 
 straight from CapCut's draft folder without the "Ai" badge (`capcut_unmask.py`: the files are XOR
 masked in periodic spans; spans are recovered from each chunk's CRC). Keystrokes refuse to fire
 unless CapCut is in front and the Mac is unlocked. Batch: `_scripts/capcut_solid_batch.sh`.
+
+## Slide 12 reissued as s12c (same night)
+
+Same fault as CTS s12b: re-shot from the flat front composite, the carton came back as a flat
+card with soft corners, no side panel, and a mirrored "GENOSYS" on its top edge. The new
+reference is the three-quarter packshot cutout (`public/images/cutout/9-v2.webp`, "×10" removed)
+on the empty `capcut_s12_1.png` set (`_gen/ref_solid/aws_s12_v2.png`), re-shot with
+`_prompts/s12_solid_v2.txt`. All four takes kept the square box but redrew the small type
+("Powe Solution", "Anti-Winkle"), so take 4 had the real print laid back on with the new
+`_scripts/print_restore.py` (SIFT + ECC alignment per region, take's paper and light times the
+reference ink; regions in `_gen/ref_solid/aws_s12_regions.json`: side panel on its own plane,
+front small print, vial label). The satin highlight behind the shop lines was eased so they read.
+Shipped as `s12c.jpg` (EN, `ru/`, `ar/`); section slides, registry, `lib/products.ts` and the
+campaign DB script point at it; DB record swapped. The flat-carton pick is kept as
+`picks/_s12b_flat_carton.png`.
+
+`capcut_unmask.py` fix: a mask span edge can fall inside a chunk header, which made one take read
+a 1.77 GB chunk length and hang. Headers are now read with the key switching at any byte, and a
+reading is kept only if the next header parses too. `fetch` hangs were this, not CapCut.

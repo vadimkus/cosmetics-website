@@ -139,10 +139,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   },
   // Product 9, POWER SOLUTION AWS, "Line by line." campaign. The main packshot is not
   // translated; the page's inline figures swap from this list too. The b slides (1, 3, 9,
-  // 11, 12) replace composites whose carton and vials sat on the set instead of in it.
+  // 11) replace composites whose carton and vials sat on the set instead of in it.
+  // s12c replaces s12b, whose carton lost its side panel and square edges.
   '/images/aws_campaign': {
-    ru: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12b.jpg'],
-    ar: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12b.jpg'],
+    ru: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12c.jpg'],
+    ar: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12c.jpg'],
   },
   // Product 49, GENO-LED IR II, "Five lights. One dome." campaign. The main packshot is not
   // translated; the page's two inline figures (s7, s11) swap from this list too.

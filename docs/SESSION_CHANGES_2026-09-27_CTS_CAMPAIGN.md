@@ -102,3 +102,14 @@ drift to "Powre". Type clears in EN, RU and AR (0 busy px). Shipped as `s12c.jpg
 `ar/`), commit `b33d73db6`; section slides, registry, `lib/products.ts` and the campaign DB
 script point at it; DB record swapped with `scripts/swap-gallery-slide.ts`. `s12b` stays on
 disk for any cached page.
+
+## Slide 9 reissued as s9c (same night)
+
+Same fault and fix as AWS s9c: the s9b vials were one vial stamped ten times in two straight
+rows. The reference (`_scripts/cts_s9_cluster.py`, the AWS layout on the aqua set,
+`_gen/ref_solid/cts_s9_cluster.png`) stands the ten as one receding group, re-shot in CapCut with
+`_prompts/s9_cluster.txt`. Take 1 (`_gen/gi/capcut_s9cluster_1.png`) kept all ten and printed
+"Cytokine concentrate Solution" right on the front labels. Type clears in EN, RU and AR (0 busy
+px). Shipped as `s9c.jpg` (EN, `ru/`, `ar/`); details section slide, registry, `lib/products.ts`
+and the campaign DB script point at it; DB record swapped. The grid pick is kept as
+`picks/_s9b_grid.png`.

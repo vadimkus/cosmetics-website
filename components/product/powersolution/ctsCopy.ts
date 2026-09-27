@@ -92,9 +92,10 @@
  * PCS and SWS; s1-s12 are the claim slides, with RU and AR renders swapped in by
  * lib/localizedProductImages.ts. The two inline figures use s2 and s6, and
  * `sectionSlides` places the other ten in the formula, how-to, suited and
- * details sections. The product slides ship as s1b, s3b, s9b, s11b and s12c: one
+ * details sections. The product slides ship as s1b, s3b, s9c, s11b and s12c: one
  * photograph each, not the product pasted on a plate. s12c is shot from the
- * three-quarter packshot, so the carton keeps its side panel and square edges. The old
+ * three-quarter packshot, so the carton keeps its side panel and square edges; s9c
+ * stands the ten vials as one receding group instead of a stamped grid. The old
  * cts-hero.jpg, CTS.jpg and Second/cts_big*.jpg stay on disk for order history.
  */
 
@@ -409,7 +410,7 @@ export const CTS_VARIANT: PowerSolutionVariant = {
     formula: ['s4', 's5', 's7', 's8'].map((s) => `/images/cts_campaign/${s}.jpg`),
     howTo: ['/images/cts_campaign/s3b.jpg', '/images/cts_campaign/s10b.jpg'],
     suited: ['/images/cts_campaign/s1b.jpg'],
-    details: ['s9b', 's11b', 's12c'].map((s) => `/images/cts_campaign/${s}.jpg`),
+    details: ['s9c', 's11b', 's12c'].map((s) => `/images/cts_campaign/${s}.jpg`),
   },
   blendGallerySlides: new Set(),
   heroOnWhite: true,

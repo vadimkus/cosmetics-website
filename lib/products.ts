@@ -756,7 +756,7 @@ export const products: Product[] = [
     price: 980,
     description: '1 box. Rested eyes in four steps: Eye Contour Serum 10ml, the GENOSYS Eye Roller 0.25mm, Eye Peptide Gel Patch 101g / 60 pcs and Eye Contour Cream 20g. Cleanse, serum then a gentle roll, cooling patches for 20-40 minutes, then cream. Arbutin 2% and adenosine 0.04% in the serum and the cream, niacinamide 2% and adenosine 0.04% in the patches. The 0.25mm eye roller comes only in this kit. Dermatologically tested.',
     image: '/images/eyekit_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/eyekit_campaign/s${i + 1}.jpg`)),
+    images: JSON.stringify(['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8b', 's9', 's10', 's11', 's12'].map((n) => `/images/eyekit_campaign/${n}.jpg`)),
     category: 'Eye care',
     inStock: true,
     size: '1 box',

@@ -72,7 +72,7 @@ import {
 import { getEyeKitCopy } from './eyekitCopy'
 
 /** Section art from the "Rested eyes" campaign, each slide beside the section it
- *  illustrates: s2 (the concerns), s3 (four steps), s6 (gentle rolls), and s4, s8, s5 on
+ *  illustrates: s2 (the concerns), s3 (four steps), s6 (gentle rolls), and s4, s8b, s5 on
  *  the serum, patch and roller cards. AR and RU renders swap in through
  *  localizeProductImage. */
 const CONCERN_IMAGE = '/images/eyekit_campaign/s2.jpg'
@@ -80,7 +80,7 @@ const STEPS_IMAGE = '/images/eyekit_campaign/s3.jpg'
 const ROLLER_SECTION_IMAGE = '/images/eyekit_campaign/s6.jpg'
 const EVIDENCE_IMAGES = [
   '/images/eyekit_campaign/s4.jpg',
-  '/images/eyekit_campaign/s8.jpg',
+  '/images/eyekit_campaign/s8b.jpg',
   '/images/eyekit_campaign/s5.jpg',
 ]
 

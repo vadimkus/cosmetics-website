@@ -86,3 +86,18 @@ as on the patch page) and slide 12 (the kit crowded the close card). Working fol
 
 `scripts/update-product-50-campaign-gallery.ts --apply` after the deploy: image, gallery, EN
 fields and `descriptionRu/Ar`. It refuses to write until all 37 image URLs return 200.
+
+## Slide 8 reissued as s8b (same day)
+
+The first s8 showed pearl-grey matte patches in the jar and thin film crescents on the floor.
+The real EyeCell Eye Peptide Gel Patch (`~/Desktop/Insta_Olga/Eye_kit/patch.mp4`) is a thick,
+crystal-clear hydrogel crescent, fanned in layers under clear essence, dark-glassy in the black
+jar with bright rims. The plate was redrawn with the real patches from video frames as
+references; the lid top and jar label were transplanted back from the first plate, which carried
+the real artwork (`campaign/_scripts/eye_s8_real_patches.py`, first plate kept as
+`picks/_orig/s8.png`). Copy unchanged.
+
+Shipped as `s8b.jpg` (EN, `ru/`, `ar/`) because `/images` is immutable-cached: gallery, the patch
+card figure on the page, `lib/localizedProductImages.ts`, `lib/products.ts` and the campaign DB
+script all point at s8b. DB swap: `scripts/update-product-50-s8b-gallery.ts --apply`. `s8.jpg` stays
+on disk.

@@ -331,6 +331,12 @@ export interface PowerSolutionVariant {
    */
   figureSlides?: boolean
   /**
+   * Further campaign slides set into the sections they illustrate, as a row of
+   * squares after the section's own content. Localized like the figures above.
+   * A variant without it renders exactly as before.
+   */
+  sectionSlides?: Partial<Record<'formula' | 'howTo' | 'suited' | 'details', readonly string[]>>
+  /**
    * Gallery slides to multiply into the stage tint. Every slide in these
    * galleries is square and so fills the square stage edge to edge, which means
    * a slide shot on pure white turns the whole card into a stark white block

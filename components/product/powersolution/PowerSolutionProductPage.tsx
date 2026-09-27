@@ -100,6 +100,49 @@ import {
 } from '../cerabarrier/CeraPrimitives'
 import { RANGE, type PowerSolutionVariant } from './powerSolutionCopy'
 
+const SLIDE_SIZES: Record<number, string> = {
+  1: '420px',
+  2: '(max-width: 900px) 46vw, 420px',
+  3: '(max-width: 640px) 92vw, 260px',
+  4: '(max-width: 1024px) 46vw, 290px',
+}
+
+/** A row of campaign slides closing a section; nothing when the variant has none. */
+function SectionSlides({
+  slides,
+  alt,
+  locale,
+  className = '',
+}: {
+  slides: readonly string[] | undefined
+  alt: string
+  locale: string
+  className?: string
+}) {
+  if (!slides?.length) return null
+  const n = Math.min(slides.length, 4)
+  const grid =
+    n === 4 ? 'grid-cols-2 lg:grid-cols-4' : n === 3 ? 'grid-cols-1 sm:grid-cols-3' : n === 2 ? 'grid-cols-2' : 'mx-auto max-w-[420px] grid-cols-1'
+  return (
+    <div className={`grid gap-3 sm:gap-4 ${grid} ${className}`}>
+      {slides.map((src, i) => (
+        <CeraReveal key={src} delay={i * 70} className={n === 3 ? 'mx-auto w-full max-w-[420px] sm:max-w-none' : ''}>
+          <div className="cera-stage relative aspect-square overflow-hidden rounded-[24px]">
+            <Image
+              src={localizeProductImage(src, locale)}
+              alt={alt}
+              fill
+              sizes={SLIDE_SIZES[n]}
+              quality={85}
+              className="object-cover"
+            />
+          </div>
+        </CeraReveal>
+      ))}
+    </div>
+  )
+}
+
 interface Props {
   product: Product
   unitsSold?: number
@@ -726,6 +769,8 @@ export default function PowerSolutionProductPage({
               </p>
             </div>
           </CeraReveal>
+
+          <SectionSlides slides={variant.sectionSlides?.formula} alt={copy.formula.title} locale={locale} className="mt-10 lg:mt-14" />
         </div>
       </section>
 
@@ -935,6 +980,8 @@ export default function PowerSolutionProductPage({
             </p>
           </CeraReveal>
 
+          <SectionSlides slides={variant.sectionSlides?.howTo} alt={copy.howTo.title} locale={locale} className="mt-8" />
+
           {/* Only some of the six ampoules have a clip. The frame is held to
               9:16 because the exports are 1080x1920 portrait, so a square or
               widescreen cover crop would throw away most of the height. */}
@@ -1038,6 +1085,7 @@ export default function PowerSolutionProductPage({
         <CeraReveal>
           <p className="mt-6 text-[14px] text-[var(--cera-muted)]">{copy.suited.note}</p>
         </CeraReveal>
+        <SectionSlides slides={variant.sectionSlides?.suited} alt={copy.suited.title} locale={locale} className="mt-8" />
       </section>
 
       {/* ───────────────────────────── Details ──────────────────────────── */}
@@ -1061,6 +1109,7 @@ export default function PowerSolutionProductPage({
             </dl>
             <CeraBrochureLinks productNumber={product.productNumber ?? product.id} />
           </CeraReveal>
+          <SectionSlides slides={variant.sectionSlides?.details} alt={copy.details.title} locale={locale} className="mt-8" />
         </div>
       </section>
 

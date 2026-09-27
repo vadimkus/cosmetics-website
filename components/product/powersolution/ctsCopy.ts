@@ -90,7 +90,9 @@
  * IMAGES. The "Back to smooth." campaign, public/images/cts_campaign/: main.jpg
  * is the closed carton and one vial on white, the family angle shared with HES,
  * PCS and SWS; s1-s12 are the claim slides, with RU and AR renders swapped in by
- * lib/localizedProductImages.ts. The two inline figures use s2 and s6. The old
+ * lib/localizedProductImages.ts. The two inline figures use s2 and s6, and
+ * `sectionSlides` places the other ten in the formula, how-to, suited and
+ * details sections. The old
  * cts-hero.jpg, CTS.jpg and Second/cts_big*.jpg stay on disk for order history.
  */
 
@@ -401,6 +403,12 @@ export const CTS_VARIANT: PowerSolutionVariant = {
   vialImage: '/images/cts_campaign/s2.jpg',
   boxImage: '/images/cts_campaign/s6.jpg',
   figureSlides: true,
+  sectionSlides: {
+    formula: ['s4', 's5', 's7', 's8'].map((s) => `/images/cts_campaign/${s}.jpg`),
+    howTo: ['/images/cts_campaign/s3.jpg', '/images/cts_campaign/s10.jpg'],
+    suited: ['/images/cts_campaign/s1.jpg'],
+    details: ['s9', 's11', 's12'].map((s) => `/images/cts_campaign/${s}.jpg`),
+  },
   blendGallerySlides: new Set(),
   heroOnWhite: true,
 }

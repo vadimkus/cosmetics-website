@@ -101,3 +101,19 @@ Shipped as `s8b.jpg` (EN, `ru/`, `ar/`) because `/images` is immutable-cached: g
 card figure on the page, `lib/localizedProductImages.ts`, `lib/products.ts` and the campaign DB
 script all point at s8b. DB swap: `scripts/update-product-50-s8b-gallery.ts --apply`. `s8.jpg` stays
 on disk.
+
+## Slide 8 reissued as s8c (same day)
+
+Vadim's reference photos show how the patch really sits on skin: one large, glass-clear crescent
+from the inner corner of the eye, under the lower lashes, up to the temple. No tint; only its fine
+edge and glossy highlights show, with the skin unchanged through it. s8b still showed the patches
+in the jar, so slide 8 is now the patch worn: a near-profile close-up generated in the CapCut
+desktop app (GPT Image 2.5, `campaign/_prompts/s8_face_v2.txt`, pick `_gen/gi/capcut_s8face2_1.png`),
+face in the right half so the far eye is hidden and the copy has clean backdrop (0 busy px in EN,
+RU and AR). The CapCut "Ai" badge is painted out with backdrop rather than cropped, so the face
+keeps its place (`campaign/_scripts/eye_s8_face_plate.py` -> `picks/s8c.png`). Copy unchanged.
+
+Shipped as `s8c.jpg` (EN, `ru/`, `ar/`); gallery, the patch card figure, the registry,
+`lib/products.ts` and the campaign DB script point at s8c. DB swap:
+`scripts/swap-gallery-slide.ts 50 /images/eyekit_campaign/s8b.jpg /images/eyekit_campaign/s8c.jpg --apply`.
+`s8.jpg` and `s8b.jpg` stay on disk.

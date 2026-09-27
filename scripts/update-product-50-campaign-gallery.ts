@@ -28,7 +28,7 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/eyekit_campaign/main.jpg'
-const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8b', 's9', 's10', 's11', 's12'].map(n => `/images/eyekit_campaign/${n}.jpg`)
+const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8c', 's9', 's10', 's11', 's12'].map(n => `/images/eyekit_campaign/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/eyekit_campaign/', `/eyekit_campaign/${l}/`)))
 
 const COPY = {

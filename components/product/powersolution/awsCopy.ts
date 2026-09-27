@@ -90,7 +90,9 @@
  * IMAGES. The "Line by line." campaign, public/images/aws_campaign/: main.jpg is
  * the closed carton and one vial on white, the family angle shared with HES, CTS,
  * PCS and SWS; s1-s12 are the claim slides, with RU and AR renders swapped in by
- * lib/localizedProductImages.ts, and all twelve sit on the page. The old
+ * lib/localizedProductImages.ts, and all twelve sit on the page. The product slides
+ * ship as s1b, s3b, s9b, s11b and s12b: one photograph each, not the product pasted
+ * on a plate. The old
  * aws-hero.jpg, AWS.jpg and Second/aws*.jpg stay on disk for order history.
  */
 
@@ -391,9 +393,9 @@ export const AWS_VARIANT: PowerSolutionVariant = {
   figureSlides: true,
   sectionSlides: {
     formula: ['s4', 's5', 's6', 's8'].map((s) => `/images/aws_campaign/${s}.jpg`),
-    howTo: ['/images/aws_campaign/s9.jpg', '/images/aws_campaign/s10.jpg'],
-    suited: ['/images/aws_campaign/s1.jpg'],
-    details: ['s3', 's11', 's12'].map((s) => `/images/aws_campaign/${s}.jpg`),
+    howTo: ['/images/aws_campaign/s9b.jpg', '/images/aws_campaign/s10.jpg'],
+    suited: ['/images/aws_campaign/s1b.jpg'],
+    details: ['s3b', 's11b', 's12b'].map((s) => `/images/aws_campaign/${s}.jpg`),
   },
   blendGallerySlides: new Set(),
   heroOnWhite: true,

@@ -26,7 +26,7 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/aws_campaign/main.jpg'
-const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/aws_campaign/s${i + 1}.jpg`)
+const GALLERY = ['s1b', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11b', 's12b'].map(n => `/images/aws_campaign/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/aws_campaign/', `/aws_campaign/${l}/`)))
 const CUTOUT = '/images/cutout/9-v2.webp'
 

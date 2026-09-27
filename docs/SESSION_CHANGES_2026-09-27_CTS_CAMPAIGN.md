@@ -77,3 +77,14 @@ goes on colourless, so the plate was redrawn with the serum as a clear wet sheen
 unchanged. Shipped as `s10b.jpg` in EN, `ru/`, `ar/`; the registry, `lib/products.ts` and the
 campaign DB script point at it, and the record was swapped with the new generic
 `scripts/swap-gallery-slide.ts` (checks the new file and its localized twins are live first).
+
+## Product slides reissued as one photograph (same evening)
+
+Slides 1, 3, 9, 11 and 12 read as the real carton and vials pasted on a plate. Each is now one
+photograph re-shot in the CapCut desktop app with the composite as the reference image
+(`~/Desktop/cts_ps/campaign/_prompts/s<N>_solid.txt`), keeping the layout and the real print, with
+real contact, reflection and light. Type clears in EN, RU and AR (0 busy px); slide 9 still shows
+ten vials. Composites kept in `picks/_comp/`. Shipped as `s1b s3b s9b s11b s12b` (EN, `ru/`,
+`ar/`) alongside the earlier `s10b`; gallery, section slides, registry, `lib/products.ts` and the
+campaign DB script point at them; DB records swapped with `scripts/swap-gallery-slide.ts`. Tooling
+is described in the AWS campaign note.

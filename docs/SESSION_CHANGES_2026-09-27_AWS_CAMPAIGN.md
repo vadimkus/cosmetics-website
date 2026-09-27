@@ -65,3 +65,21 @@ stage and shot tint moved to the plates' blush-mauve (#f1e4ea).
 - DB: `scripts/update-product-9-campaign-gallery.ts` (image, 12-slide gallery, EN fields, descriptionRu/Ar
   from the central copy). Refuses `--apply` until all images and the cut-out return 200.
 - Old `aws-hero.jpg`, `AWS.jpg`, `Second/aws*.jpg` stay on disk for order history and the protocol scripts.
+
+## Product slides reissued as one photograph (same evening)
+
+Slides 1, 3, 9, 11 and 12 read as the real carton and vials pasted on a plate. Each is now one
+photograph re-shot in the CapCut desktop app: the composite went in as the reference image with
+`_prompts/s<N>_solid.txt` ("re-shoot as one studio photograph, same layout, same print"), so the
+products sit in the satin and the water with real contact, reflection and one light, and the type
+layout still clears (0 busy px; s12 flags satin texture only). Print checked on every pick
+(one discarded option misspelled "Solution"); slide 9 still shows ten vials. Composites kept in
+`picks/_comp/`. Shipped as `s1b s3b s9b s11b s12b` (EN, `ru/`, `ar/`); gallery, section slides,
+registry, `lib/products.ts` and the campaign DB script point at them; DB records swapped with
+`scripts/swap-gallery-slide.ts`.
+
+CapCut tooling (`_scripts/capcut_ui.py`): `upload` attaches a reference image, `clearref` removes
+it, `generate` waits on the draft folder instead of the screen, `fetch` decodes the four new PNGs
+straight from CapCut's draft folder without the "Ai" badge (`capcut_unmask.py`: the files are XOR
+masked in periodic spans; spans are recovered from each chunk's CRC). Keystrokes refuse to fire
+unless CapCut is in front and the Mac is unlocked. Batch: `_scripts/capcut_solid_batch.sh`.

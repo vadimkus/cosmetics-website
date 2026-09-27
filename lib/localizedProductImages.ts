@@ -138,10 +138,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8c.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 9, POWER SOLUTION AWS, "Line by line." campaign. The main packshot is not
-  // translated; the page's inline figures swap from this list too.
+  // translated; the page's inline figures swap from this list too. The b slides (1, 3, 9,
+  // 11, 12) replace composites whose carton and vials sat on the set instead of in it.
   '/images/aws_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12b.jpg'],
+    ar: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10.jpg', 's11b.jpg', 's12b.jpg'],
   },
   // Product 49, GENO-LED IR II, "Five lights. One dome." campaign. The main packshot is not
   // translated; the page's two inline figures (s7, s11) swap from this list too.
@@ -151,10 +152,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   },
   // Product 6, POWER SOLUTION CTS, "Back to smooth." campaign. The main packshot is not
   // translated; the page's inline figures swap from this list too. s10b replaces s10,
-  // whose serum on the cheek read as a blue-grey paste instead of a clear sheen.
+  // whose serum on the cheek read as a blue-grey paste instead of a clear sheen. The other
+  // b slides (1, 3, 9, 11, 12) replace composites whose carton and vials sat on the set.
   '/images/cts_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10b.jpg', 's11b.jpg', 's12b.jpg'],
+    ar: ['s1b.jpg', 's2.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9b.jpg', 's10b.jpg', 's11b.jpg', 's12b.jpg'],
   },
 }
 

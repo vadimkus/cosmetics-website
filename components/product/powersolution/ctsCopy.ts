@@ -92,7 +92,8 @@
  * PCS and SWS; s1-s12 are the claim slides, with RU and AR renders swapped in by
  * lib/localizedProductImages.ts. The two inline figures use s2 and s6, and
  * `sectionSlides` places the other ten in the formula, how-to, suited and
- * details sections. The old
+ * details sections. The product slides ship as s1b, s3b, s9b, s11b and s12b: one
+ * photograph each, not the product pasted on a plate. The old
  * cts-hero.jpg, CTS.jpg and Second/cts_big*.jpg stay on disk for order history.
  */
 
@@ -405,9 +406,9 @@ export const CTS_VARIANT: PowerSolutionVariant = {
   figureSlides: true,
   sectionSlides: {
     formula: ['s4', 's5', 's7', 's8'].map((s) => `/images/cts_campaign/${s}.jpg`),
-    howTo: ['/images/cts_campaign/s3.jpg', '/images/cts_campaign/s10b.jpg'],
-    suited: ['/images/cts_campaign/s1.jpg'],
-    details: ['s9', 's11', 's12'].map((s) => `/images/cts_campaign/${s}.jpg`),
+    howTo: ['/images/cts_campaign/s3b.jpg', '/images/cts_campaign/s10b.jpg'],
+    suited: ['/images/cts_campaign/s1b.jpg'],
+    details: ['s9b', 's11b', 's12b'].map((s) => `/images/cts_campaign/${s}.jpg`),
   },
   blendGallerySlides: new Set(),
   heroOnWhite: true,

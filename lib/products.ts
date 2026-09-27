@@ -91,7 +91,7 @@ export const products: Product[] = [
     // main image is deliberately not repeated in `images`: web and mobile both
     // prepend it.
     image: '/images/cts_campaign/main.jpg',
-    images: JSON.stringify(['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10b', 's11', 's12'].map((n) => `/images/cts_campaign/${n}.jpg`)),
+    images: JSON.stringify(['s1b', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9b', 's10b', 's11b', 's12b'].map((n) => `/images/cts_campaign/${n}.jpg`)),
     category: 'PRO Solution',
     inStock: true,
   },
@@ -138,7 +138,7 @@ export const products: Product[] = [
     // "Line by line." campaign set (aws_campaign), matching the database. The main
     // image is deliberately not repeated in `images`: web and mobile both prepend it.
     image: '/images/aws_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/aws_campaign/s${i + 1}.jpg`)),
+    images: JSON.stringify(['s1b', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11b', 's12b'].map((n) => `/images/aws_campaign/${n}.jpg`)),
     category: 'PRO Solution',
     inStock: true,
   },

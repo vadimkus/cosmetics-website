@@ -63,6 +63,9 @@ ids in carts and favourites hold). Needle counts per the deck: 540 at 0.25 mm, 4
   through `localizeProductImage`, so RU/AR slides appear on standard pages (bespoke pages
   already did this). Only folders registered in `lib/localizedProductImages.ts` change.
 - `lib/localizedProductImages.ts`: `/images/roller_campaign` registered for ru + ar.
+- `components/product/ProductContentDisplay.tsx` + `messages/{en,ru,ar}.json`: detail labels for
+  `needleMaterial`, `availableLengths`, `construction`, `sterilization`, `shelfLife`,
+  `certification` (RU/AR pages showed them in English).
 - `components/product/peptidegel/peptideGelLocalizedCopy.ts`: an em dash in one RU alt text
   (from the product 37 campaign) was failing `__tests__/lib/noDashes.test.ts` on main.
 
@@ -75,6 +78,12 @@ green, so a gain pull to `#C41230` multiplied green ~18x and turned the needle d
 
 Working folder: `~/Desktop/roller/campaign/` (`_gen/gi/` renders, `picks/`, `final/`,
 `_scripts/roller_slides.py`, `roller_copy.py`, `make_prompts.py`).
+
+## Verified live
+
+EN / RU / AR pages: 13 images (main + `s1-s12`, `ru/` and `ar/` on those locales), sizes
+0.25-2.0 mm, no documentation block, no dossier phrases. Mobile API: same gallery per locale and
+the five correct variants.
 
 ## DB
 

@@ -91,9 +91,10 @@
  * the closed carton and one vial on white, the family angle shared with HES, CTS,
  * PCS and SWS; s1-s12 are the claim slides, with RU and AR renders swapped in by
  * lib/localizedProductImages.ts, and all twelve sit on the page. The product slides
- * ship as s1b, s3b, s9b, s11b and s12c: one photograph each, not the product pasted
+ * ship as s1b, s3b, s9c, s11b and s12c: one photograph each, not the product pasted
  * on a plate. s12c is shot from the three-quarter packshot, so the carton keeps its
- * side panel and square edges. The old
+ * side panel and square edges; s9c stands the ten vials as one receding group instead
+ * of a stamped grid. The old
  * aws-hero.jpg, AWS.jpg and Second/aws*.jpg stay on disk for order history.
  */
 
@@ -394,7 +395,7 @@ export const AWS_VARIANT: PowerSolutionVariant = {
   figureSlides: true,
   sectionSlides: {
     formula: ['s4', 's5', 's6', 's8'].map((s) => `/images/aws_campaign/${s}.jpg`),
-    howTo: ['/images/aws_campaign/s9b.jpg', '/images/aws_campaign/s10.jpg'],
+    howTo: ['/images/aws_campaign/s9c.jpg', '/images/aws_campaign/s10.jpg'],
     suited: ['/images/aws_campaign/s1b.jpg'],
     details: ['s3b', 's11b', 's12c'].map((s) => `/images/aws_campaign/${s}.jpg`),
   },

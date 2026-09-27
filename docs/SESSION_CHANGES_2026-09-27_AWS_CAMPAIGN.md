@@ -102,3 +102,16 @@ campaign DB script point at it; DB record swapped. The flat-carton pick is kept 
 `capcut_unmask.py` fix: a mask span edge can fall inside a chunk header, which made one take read
 a 1.77 GB chunk length and hang. Headers are now read with the key switching at any byte, and a
 reading is kept only if the next header parses too. `fetch` hangs were this, not CapCut.
+
+## Slide 9 reissued as s9c (same night)
+
+The s9b vials read as pasted: one vial stamped ten times in two straight rows, every copy the
+same size and light. The new reference (`_scripts/aws_s9_cluster.py`,
+`_gen/ref_solid/aws_s9_cluster.png`) stands the ten as one receding group: two staggered rows
+from the front right to the back left, each vial sized by its depth, overlapping, with floor
+reflections and the far ones slightly soft. Re-shot in CapCut with `_prompts/s9_cluster.txt`
+(glass showing the set through it, rim highlights, contact shadows, depth of field); take 1
+(`_gen/gi/capcut_s9cluster_1.png`) kept all ten vials and printed "Anti-Wrinkle Solution" right on
+every front label, so no print restore was needed. Type clears in EN, RU and AR (0 busy px).
+Shipped as `s9c.jpg` (EN, `ru/`, `ar/`); how-to section slide, registry, `lib/products.ts` and the
+campaign DB script point at it; DB record swapped. The grid pick is kept as `picks/_s9b_grid.png`.

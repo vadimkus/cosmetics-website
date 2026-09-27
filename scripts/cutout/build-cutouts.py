@@ -79,6 +79,11 @@ FLOOR = {
     # the tube it is meant to keep. Measured by mirror symmetry about the contact
     # line, which is what a reflection is: r=0.82 for the front tube.
     "32": 0.916,
+    # Carton and device on a glossy black floor (hairgen_campaign/main2.jpg). The device
+    # stands in front, so one rule cannot serve both: the carton's contact edge is the dark
+    # hairline at 83.2%, and the LED needle tips meet their own reflection at 84.1%, the
+    # narrowest blue row. Given as (x0, x1, floor) spans; the device starts at x=0.64.
+    "3": [(0.0, 0.64, 0.832), (0.64, 1.0, 0.841)],
 }
 
 # Regions Vision drops that are part of the product, as fractions of the source
@@ -104,6 +109,11 @@ REPAIR = {
     "9": [(0.6000, 0.4500, 0.7400, 0.7960)],
     # CVS main (cvs_campaign/main.jpg) is the same template render again.
     "5": [(0.6000, 0.4500, 0.7400, 0.7960)],
+    # The carton's silver side panel behind the device (hairgen_campaign/main2.jpg). Mid-grey
+    # metal in shadow reads as backdrop to Vision, which tore it out from the dark-to-silver
+    # break at y=0.678 to the floor. The panel runs from the corner edge at x=0.590 behind the
+    # device, and every torn pixel up to x=0.6525 measures as panel, so it is restored whole.
+    "3": [(0.5900, 0.6780, 0.6525, 0.8255)],
 }
 
 # Secondary subjects Vision drops when it locks onto the largest object.
@@ -259,6 +269,10 @@ REVISION = {
     # "Vitality, concentrated." campaign packshot (cvs_campaign/main.jpg, 27 Sep 2026): closed
     # carton and one vial on white, the family angle, replacing the lilac studio-sweep hero.
     "5": 2,
+    # "In. Not on." campaign packshot (hairgen_campaign/main2.jpg): carton and device on a
+    # glossy black floor. v1 was traced from the retired glassware photograph and was still
+    # mapped to the new main, so the closing band showed the old shot.
+    "3": 2,
 }
 
 
@@ -354,14 +368,19 @@ def normalize(im, floor=None):
     """Trim to the silhouette, then centre it on a square with a fixed margin.
 
     `floor` clears the mask below the contact line before trimming, so a kept
-    reflection is gone before it can influence the crop.
+    reflection is gone before it can influence the crop. It is one height for
+    the whole frame, or (x0, x1, height) spans when products meet the floor at
+    different depths.
     """
     im = im.copy()
 
     if floor is not None:
-        cut = int(round(im.height * floor))
-        below = Image.new("RGBA", (im.width, im.height - cut), (0, 0, 0, 0))
-        im.paste(below, (0, cut))
+        spans = floor if isinstance(floor, list) else [(0.0, 1.0, floor)]
+        for x0, x1, height in spans:
+            left, right = int(round(im.width * x0)), int(round(im.width * x1))
+            cut = int(round(im.height * height))
+            below = Image.new("RGBA", (right - left, im.height - cut), (0, 0, 0, 0))
+            im.paste(below, (left, cut))
 
     bbox = im.getbbox()
     if not bbox:

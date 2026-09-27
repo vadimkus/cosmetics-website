@@ -223,10 +223,10 @@
     "product": "3",
     "status": "ok",
     "source": "/images/hairgen_campaign/main2.jpg",
-    "file": "/images/cutout/3.webp",
+    "file": "/images/cutout/3-v2.webp",
     "name": "HairGen BOOSTER",
-    "coverage": 0.19,
-    "bytes": 30056,
+    "coverage": 0.523,
+    "bytes": 75828,
     "review": false
   },
   {

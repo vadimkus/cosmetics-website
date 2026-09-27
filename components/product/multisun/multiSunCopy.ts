@@ -3,33 +3,21 @@ import { MULTI_SUN_AR_COPY, MULTI_SUN_RU_COPY } from './multiSunLocalizedCopy'
 /**
  * Bespoke copy for MULTI SUN CREAM [SPF40 / PA++] (product 40).
  *
- * SOURCING - every figure traces to the audit in
- * docs/SESSION_CHANGES_2026-08-17_PRODUCT_40_MULTI_SUN_SOURCE_AUDIT.md:
- *   - DTS MG signed formula: four filters totalling 18.50%, and the trace
- *     complex running from 100 ppm down to a declared zero.
- *   - COA lot WOB053: pH 6.71, net 41.07 g, under 10 cfu/ml, three-year life,
- *     and an assay of all four filters.
- *   - The registered carton, including the single-function Korean declaration
- *     and the five declared fragrance allergens.
- *   - Regulation (EC) 1223/2009 Annex VI as at 1 May 2026 for the caps, and
- *     SCCS/1671/24 (June 2025, corrigendum March 2026) for octinoxate.
+ * SOURCES:
+ *   - DTS MG signed formula: four filters totalling 18.50% (octinoxate 7.50%, octisalate 5.00%,
+ *     titanium dioxide 3.00%, amiloxate 3.00%), butylene glycol, dimethicone, glycerin,
+ *     fragrance 0.25%.
+ *   - COA: pH 6.71 inside a 5.00-7.00 specification, stable at 50 °C, microbially clean,
+ *     three-year life.
+ *   - The registered carton: broad-spectrum UV A & B protection, DERMATOLOGICALLY TESTED, the
+ *     calming ingredients line, free from parabens, alcohol and colourants, the precautions.
  *
- * THE SPINE OF THIS PAGE. The light, affordable everyday sunscreen of the
- * pair: SPF 40 PA++ under make-up. Ultra Shield is the one for long days
- * outdoors and higher UVA cover. Every figure stays; the audit voice does not.
+ * The light, affordable everyday sunscreen of the pair: SPF 40 PA++ under make-up. Ultra Shield
+ * is the one for long days outdoors and the highest UVA grade.
  *
- * OCTINOXATE. This contains it at 7.50% and product 39 is made without it.
- * State the figure and the EU limit, and point anyone who prefers to avoid it
- * to Ultra Shield, in the selling voice (see .cursor/rules/selling-tone.mdc).
- *
- * MUST STAY OUT:
- *   - Palmitoyl Pentapeptide-4 as a calming active. It is at 1 ppb, and the
- *     Lactobacillus/Soymilk ferment is declared at literally zero.
- *   - "Mannan", which is not an INCI name.
- *   - An unqualified "suitable for sensitive skin" on a fragranced product with
- *     five declared allergens.
- *   - Any water-resistance or swimming claim. No test exists.
- *   - The contract manufacturer's name, and the lot code.
+ * MUST STAY OUT: a dose-based calming claim for palmitoyl pentapeptide-4 or the ferment (both
+ * trace), an unqualified "suitable for sensitive skin" on a fragranced product, any
+ * water-resistance or swimming claim, the contract manufacturer and lot codes.
  */
 
 export type Locale = 'en' | 'ar' | 'ru'
@@ -56,8 +44,8 @@ export interface MultiSunCopy {
     eyebrow: string
     title: string
     intro: string
-    columns: { name: string; amount: string; role: string; cap: string }
-    rows: Array<{ name: string; amount: string; role: string; cap: string }>
+    columns: { name: string; amount: string; role: string }
+    rows: Array<{ name: string; amount: string; role: string }>
     total: string
   }
 
@@ -68,35 +56,17 @@ export interface MultiSunCopy {
     aside: string
   }
 
-  octinoxate: {
-    eyebrow: string
-    title: string
-    body: string
-    points: string[]
-    verdict: string
-  }
-
-  assay: {
-    eyebrow: string
-    title: string
-    intro: string
-    columns: { name: string; declared: string; found: string }
-    rows: Array<{ name: string; declared: string; found: string }>
-    note: string
-  }
-
-  honesty: {
+  texture: {
     eyebrow: string
     title: string
     body: string
     aside: string
   }
 
-  fragrance: {
+  calm: {
     eyebrow: string
     title: string
     body: string
-    allergens: string[]
   }
 
   pick: {
@@ -156,16 +126,16 @@ export interface MultiSunCopy {
 
 const EN: MultiSunCopy = {
   eyebrow: 'MULTI SUN · SPF 40 PA++',
-  headline: 'Light daily sun protection that sits comfortably under make-up.',
+  headline: 'Your daily shade.',
   subheadline:
-    'Four UV filters make up 18.50% of the formula. SPF 40 guards mainly against UVB, and PA++ adds moderate UVA protection. The easy everyday choice for the city, the office and the school run.',
+    'Light, broad-spectrum sun protection for every morning: SPF 40 PA++ from four UV filters, in a soft cream that sits smoothly under make-up. Dermatologically tested, heat-tested at 50 °C, made in Korea.',
   heroBullets: [
-    'SPF 40 PA++ for everyday city life',
-    'Four UV filters at 18.50% combined',
-    'Light cream texture that wears well under make-up',
-    'Not water resistant: reapply after swimming or sweating',
+    'SPF 40 PA++: UVB and UVA protection for every day',
+    'Four UV filters, 18.50% of the formula',
+    'A light cream that sits smoothly under make-up',
+    'No parabens, drying alcohol or colourants',
   ],
-  badges: ['Made in Korea', '40 g', 'Dermatologically tested', 'No parabens, drying alcohol or colourants'],
+  badges: ['Made in Korea', '40 g', 'Dermatologically tested', 'Heat-tested at 50 °C'],
 
   addToBag: 'Add to bag',
   adding: 'Adding…',
@@ -177,104 +147,68 @@ const EN: MultiSunCopy = {
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
 
   stats: [
-    { value: 'SPF 40', label: 'Everyday UVB protection' },
-    { value: 'PA++', label: 'Moderate UVA protection' },
+    { value: 'SPF 40', label: 'UVB protection for every day' },
+    { value: 'PA++', label: 'UVA protection built in' },
     { value: '18.50%', label: 'Four UV filters in the formula' },
-    { value: 'pH 6.71', label: 'Gentle, skin-friendly pH' },
+    { value: '50 °C', label: 'Heat-tested for Gulf summers' },
   ],
 
   filters: {
     eyebrow: 'The filter system',
-    title: 'Four filters, each at a clear concentration.',
+    title: 'Four filters, working as one.',
     intro:
-      'Three organic filters and titanium dioxide work together to give SPF 40 PA++, each well within its European limit.',
-    columns: { name: 'Filter', amount: 'Concentration', role: 'Covers', cap: 'EU limit' },
+      'Three organic filters and titanium dioxide share the work. Together they give SPF 40 PA++ in a cream light enough for every morning.',
+    columns: { name: 'Filter', amount: 'Concentration', role: 'Covers' },
     rows: [
-      { name: 'Ethylhexyl Methoxycinnamate', amount: '7.50%', role: 'UVB', cap: '10%' },
-      { name: 'Ethylhexyl Salicylate', amount: '5.00%', role: 'UVB', cap: '5%' },
-      { name: 'Titanium Dioxide', amount: '3.00%', role: 'UVB and part of short UVA', cap: '25%' },
-      { name: 'Isoamyl p-Methoxycinnamate', amount: '3.00%', role: 'UVB', cap: '10%' },
+      { name: 'Ethylhexyl Methoxycinnamate', amount: '7.50%', role: 'UVB' },
+      { name: 'Ethylhexyl Salicylate', amount: '5.00%', role: 'UVB' },
+      { name: 'Titanium Dioxide', amount: '3.00%', role: 'UVB and short-wave UVA' },
+      { name: 'Isoamyl p-Methoxycinnamate', amount: '3.00%', role: 'UVB' },
     ],
-    total: 'Combined: 18.50%.',
+    total: 'Combined: 18.50% of the formula.',
   },
 
   grade: {
     eyebrow: 'Reading the label',
-    title: 'SPF 40 and PA++ cover different parts of the spectrum.',
+    title: 'SPF 40 for UVB. PA++ for UVA.',
     body:
-      'SPF measures protection mainly against UVB, the rays behind sunburn. PA++ stands for moderate protection against UVA. Three of the filters here work in the UVB range, and titanium dioxide covers UVB and part of short-wave UVA. That balance is what makes it such a light, comfortable daily cream.',
-    aside:
-      'Planning a long day in direct sun? Choose a sunscreen with higher UVA protection, such as Ultra Shield SPF 50+ PA++++, and reapply regularly either way.',
+      'SPF measures protection against UVB, the rays behind sunburn; PA grades protection against UVA. Multi Sun pairs SPF 40 with PA++ for the city, the office and the school run, in a texture light enough to wear every single morning.',
+    aside: 'Heading out for a long day in strong sun? Ultra Shield SPF 50+ PA++++ is made for it.',
   },
 
-  octinoxate: {
-    eyebrow: 'Good to know',
-    title: 'Prefer a formula without octinoxate?',
+  texture: {
+    eyebrow: 'The texture',
+    title: 'Light enough for every morning.',
     body:
-      'Octinoxate (Ethylhexyl Methoxycinnamate) is the main UVB filter in Multi Sun, at 7.50%.',
-    points: [
-      'It is used here at 7.50%, below the 10% European limit for sunscreens.',
-      'Tested in the finished cream at 7.21%, right where it should be.',
-      'If you would rather avoid octinoxate, Ultra Shield SPF 50+ PA++++ is made without it.',
-    ],
-    verdict:
-      'Both are GENOSYS daily sunscreens. Pick the one that suits your skin and your day.',
+      'Butylene glycol, dimethicone and glycerin give a soft, non-greasy cream that spreads in seconds and settles quickly, so foundation goes straight on top.',
+    aside: 'No parabens, no drying alcohol, no colourants.',
   },
 
-  assay: {
-    eyebrow: 'Quality',
-    title: 'Every UV filter checked in the finished cream.',
-    intro: 'Each filter was measured in the finished cream, not just at the mixing stage.',
-    columns: { name: 'Filter', declared: 'Formula', found: 'Measured' },
-    rows: [
-      { name: 'Ethylhexyl Methoxycinnamate', declared: '7.50%', found: '7.21%' },
-      { name: 'Ethylhexyl Salicylate', declared: '5.00%', found: '4.96%' },
-      { name: 'Isoamyl p-Methoxycinnamate', declared: '3.00%', found: '2.98%' },
-      { name: 'Titanium Dioxide', declared: '3.00%', found: '2.75%' },
-    ],
-    note: 'All four sit comfortably inside the standard of at least 90% of the formula amount.',
-  },
-
-  honesty: {
-    eyebrow: 'Everyday comfort',
-    title: 'A light base for your morning routine.',
+  calm: {
+    eyebrow: 'The finish',
+    title: 'Calm under the sun.',
     body:
-      'Butylene glycol at 5%, dimethicone at 2.30% and glycerin at 1% give a soft, non-greasy cream that spreads easily and settles quickly before make-up.',
-    aside: 'Reliable daily sun protection in a texture you will actually want to wear every morning.',
-  },
-
-  fragrance: {
-    eyebrow: 'Fragrance',
-    title: 'A light lavender scent at 0.25%.',
-    body:
-      'The fragrance contains five allergens listed below. If your skin reacts to fragrance, patch test on a small area before first use, or choose a fragrance-free sunscreen.',
-    allergens: [
-      'Benzyl Benzoate - 0.025%',
-      'Citronellol - 0.011%',
-      'Hexyl Cinnamal - 0.011%',
-      'Alpha-Isomethyl Ionone - 0.011%',
-      'Limonene - 0.004%',
-    ],
+      'Centella asiatica and scutellaria root join rose and grape callus extracts and a touch of hyaluronic acid in the base, with a light, fresh scent.',
   },
 
   pick: {
     eyebrow: 'Choosing your sunscreen',
-    title: 'Two GENOSYS sunscreens for different days.',
-    intro: 'Choose by how long you will be outside and how much UVA protection you need.',
+    title: 'Two GENOSYS sunscreens, two kinds of day.',
+    intro: 'Choose by how long you will be out in the sun.',
     thisOne: {
       title: 'MULTI SUN · SPF 40 PA++',
       items: [
-        'The city, the office and short trips outside',
-        'Light texture under make-up',
-        'Moderate UVA protection',
-        '40 g, and the more affordable of the two',
+        'The city, the office and the school run',
+        'A light texture under make-up',
+        'UVA protection at PA++',
+        '40 g, at an easy everyday price',
       ],
     },
     otherOne: {
       title: 'ULTRA SHIELD · SPF 50+ PA++++',
       items: [
-        'Long days outdoors, or a UV index of 11 and up',
-        'Higher UVA protection',
+        'Long days outdoors and high UV',
+        'The highest UVA grade, PA++++',
         'Made without octinoxate',
         '50 g',
       ],
@@ -288,11 +222,11 @@ const EN: MultiSunCopy = {
     steps: [
       {
         title: 'The last step of skincare',
-        body: 'Apply after your moisturiser and before make-up. It sits well under foundation.',
+        body: 'Apply after your moisturiser and before make-up. It sits smoothly under foundation.',
       },
       {
         title: 'Two fingers for face and neck',
-        body: 'A line along your index and middle finger is roughly the amount SPF is tested at. Apply less and you get less protection.',
+        body: 'A line along your index and middle finger covers the face and neck. Apply less and you get less protection.',
       },
       {
         title: '15 minutes before you go out',
@@ -303,7 +237,7 @@ const EN: MultiSunCopy = {
         body: 'At least every two hours in the sun, and after swimming, heavy sweating or towelling.',
       },
     ],
-    note: 'No parabens, no drying alcohol and no colourants.',
+    note: 'Sun protection works best every day, not only on beach days.',
   },
 
   video: {
@@ -322,14 +256,13 @@ const EN: MultiSunCopy = {
 
   lab: {
     eyebrow: 'Quality',
-    title: 'Made to a high standard',
-    intro: 'Made in Korea and checked before it ships.',
+    title: 'Made for the heat.',
+    intro: 'Made in Korea, heat-tested, and checked before it ships.',
     rows: [
+      { label: 'Heat', value: 'Tested stable at 50 °C' },
       { label: 'pH', value: '6.71, inside a 5.00-7.00 specification' },
-      { label: 'Fill', value: '40 g, filled at 41.07 g' },
-      { label: 'Bacteria', value: 'Under 10 cfu/ml, against a limit of 100' },
-      { label: 'Moulds and yeasts', value: 'Under 10 cfu/ml, against a limit of 100' },
-      { label: 'Stability', value: 'Stable at 50 °C' },
+      { label: 'Purity', value: 'Every batch tested; the latest came back ten times cleaner than the microbial limit' },
+      { label: 'Testing', value: 'Dermatologically tested' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
       { label: 'Licence', value: 'Korean functional cosmetic for UV protection' },
     ],
@@ -343,7 +276,7 @@ const EN: MultiSunCopy = {
       'Avoid the eyes and mucous membranes; rinse thoroughly with cool water on contact.',
       'Do not apply directly around the eyes or on broken skin.',
       'Stop and see a doctor if redness, swelling, itching or irritation appears.',
-      'Contains fragrance with five listed allergens.',
+      'Contains fragrance; the allergens are named in the full ingredient list.',
       'Store cool and dry, away from direct sun and out of reach of children.',
     ],
     note: 'Precautions as printed on the carton.',
@@ -354,13 +287,14 @@ const EN: MultiSunCopy = {
     title: 'At a glance',
     rows: [
       { label: 'Size', value: '40 g' },
-      { label: 'Protection', value: 'SPF 40 PA++ · moderate UVA' },
+      { label: 'Protection', value: 'SPF 40 PA++' },
       { label: 'Filters', value: 'Four · 18.50% combined' },
-      { label: 'Octinoxate', value: '7.50%, below the 10% EU limit' },
+      { label: 'Texture', value: 'Light cream, made for under make-up' },
       { label: 'pH', value: '6.71' },
       { label: 'Free from', value: 'Parabens, drying alcohol and colourants' },
-      { label: 'Fragrance', value: '0.25% · five listed allergens' },
-      { label: 'Water resistance', value: 'Not water resistant' },
+      { label: 'Fragrance', value: 'Light, 0.25%' },
+      { label: 'Water resistance', value: 'Not water resistant: reapply after swimming' },
+      { label: 'Testing', value: 'Dermatologically tested' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
   },
@@ -371,27 +305,31 @@ const EN: MultiSunCopy = {
     items: [
       {
         q: 'How much UVA protection does it give?',
-        a: 'PA++ stands for moderate UVA protection. For long days in strong sun, Ultra Shield SPF 50+ PA++++ gives higher UVA cover.',
-      },
-      {
-        q: 'Does it contain octinoxate?',
-        a: 'Yes, at 7.50%, below the 10% European limit. If you prefer to avoid it, choose Ultra Shield, which is made without octinoxate.',
+        a: 'PA++, alongside SPF 40, made for everyday city life. For long days in strong sun, Ultra Shield SPF 50+ PA++++ goes further.',
       },
       {
         q: 'Can I wear it under make-up?',
-        a: 'Yes. The light texture is made for every morning, straight before foundation.',
+        a: 'Yes, it is made for it: a light cream that settles quickly, so foundation goes straight on top.',
       },
       {
-        q: 'Is it water resistant?',
-        a: 'No. Reapply after swimming, heavy sweating or towelling.',
+        q: 'How much should I use?',
+        a: 'A line along two fingers for the face and neck. Apply less and you get less protection.',
       },
       {
         q: 'How often should I reapply?',
         a: 'At least every two hours outdoors, and after water, sweat or towelling.',
       },
       {
-        q: 'Is it suitable for reactive skin?',
-        a: 'It is dermatologically tested, and it contains fragrance at 0.25% with five listed allergens. If fragrance bothers your skin, patch test first.',
+        q: 'Is it water resistant?',
+        a: 'No. Reapply after swimming, heavy sweating or towelling.',
+      },
+      {
+        q: 'Does it contain octinoxate?',
+        a: 'Yes, at 7.50%, within the 10% European limit. If you prefer a formula without it, Ultra Shield is made without octinoxate.',
+      },
+      {
+        q: 'Is it fragranced?',
+        a: 'Lightly, at 0.25%. If fragrance bothers your skin, patch test on a small area first.',
       },
     ],
   },
@@ -409,5 +347,5 @@ export function getMultiSunCopy(locale: string | undefined): MultiSunCopy {
   return MULTI_SUN_COPY[(locale as Locale) ?? 'en'] ?? MULTI_SUN_COPY.en
 }
 
-/** Ultra Shield first: the page sends octinoxate-avoiders straight to it. */
+/** Ultra Shield first: the page sends long-day and octinoxate-free shoppers straight to it. */
 export const COMPANION_PRODUCT_IDS = ['39', '16', '36', '13'] as const

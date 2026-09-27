@@ -342,11 +342,11 @@
   {
     "product": "40",
     "status": "ok",
-    "source": "/images/sun/main.jpeg",
-    "file": "/images/cutout/40.webp",
+    "source": "/images/multisun_campaign/main.jpg",
+    "file": "/images/cutout/40-v2.webp",
     "name": "MULTI SUN CREAM [SPF 40 PA++]",
-    "coverage": 0.263,
-    "bytes": 26622,
+    "coverage": 0.265,
+    "bytes": 38976,
     "review": false
   },
   {

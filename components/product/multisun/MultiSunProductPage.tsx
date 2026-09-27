@@ -6,24 +6,13 @@
  * Built on the shared editorial system, with a warm amber palette in
  * multisun.css.
  *
- * The page is organised around one genuinely interesting fact: this cream
- * carries MORE filter by weight than the SPF50+ in the range - 18.50% against
- * 17.10% - and rates lower, because three of its four filters absorb UVB and
- * the only UVA cover is titanium dioxide. Explaining that is better selling
- * than pretending the two products differ only in size.
+ * The page sells the everyday sunscreen of the pair: SPF 40 PA++ from four filters, a light
+ * cream under make-up, heat-tested at 50 °C. Ultra Shield (product 39) is named for long days
+ * in strong sun and for anyone who prefers a formula without octinoxate.
  *
- * It also does two things a sunscreen page normally avoids. It states that the
- * product contains octinoxate at 7.50%, with the EU cap, the SCCS endocrine
- * finding and the fact that the SCCS did not assess environmental effects -
- * and then points anyone avoiding octinoxate at product 39, which is the more
- * expensive tube. And it names all five fragrance allergens rather than
- * leaving them on the carton.
- *
- * Do not add: palmitoyl pentapeptide-4 as an active (1 ppb), the
- * Lactobacillus/Soymilk ferment as anything at all (declared 0.0000000%),
- * "Mannan" (not an INCI name), an unqualified sensitive-skin claim on a
- * fragranced product, any water-resistance claim, the contract manufacturer,
- * or the lot code. See the source audit.
+ * Do not add: a dose-based calming claim for palmitoyl pentapeptide-4 or the ferment (both
+ * trace), an unqualified sensitive-skin claim on a fragranced product, any water-resistance
+ * claim, the contract manufacturer or a lot code.
  */
 
 import '../cerabarrier/cerabarrier.css'
@@ -38,7 +27,6 @@ import {
   AlertTriangle,
   Check,
   Heart,
-  Info,
   Minus,
   Plus,
   Share2,
@@ -52,6 +40,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -72,6 +61,25 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { COMPANION_PRODUCT_IDS, getMultiSunCopy } from './multiSunCopy'
+
+/** Section art from the "Your daily shade" campaign, each slide beside the section it
+ *  illustrates: s3 (four filters), s2 (SPF 40 PA++), s4 (under make-up), s8 (calm under the
+ *  sun) and s7 (heat-tested at 50 °C). AR and RU renders swap in through localizeProductImage. */
+const FILTERS_IMAGE = '/images/multisun_campaign/s3.jpg'
+const GRADE_IMAGE = '/images/multisun_campaign/s2.jpg'
+const TEXTURE_IMAGE = '/images/multisun_campaign/s4.jpg'
+const CALM_IMAGE = '/images/multisun_campaign/s8.jpg'
+const LAB_IMAGE = '/images/multisun_campaign/s7.jpg'
+
+function SectionFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  return (
+    <CeraReveal className={className}>
+      <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 92vw, 44vw" quality={85} className="object-cover" />
+      </div>
+    </CeraReveal>
+  )
+}
 
 interface Props {
   product: Product
@@ -118,10 +126,10 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   const companions = useMemo(() => {
     const byNumber = new Map<string, Product>()
@@ -437,6 +445,11 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                 {copy.filters.total}
               </p>
             </CeraReveal>
+            <SectionFigure
+              src={localizeProductImage(FILTERS_IMAGE, locale)}
+              alt={copy.filters.title}
+              className="mt-8 max-w-[440px]"
+            />
           </div>
 
           <CeraReveal className="cera-card overflow-hidden">
@@ -445,7 +458,7 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                 <caption className="sr-only">{copy.filters.title}</caption>
                 <thead>
                   <tr className="border-b border-[var(--cera-line)]">
-                    {[copy.filters.columns.name, copy.filters.columns.amount, copy.filters.columns.role, copy.filters.columns.cap].map(head => (
+                    {[copy.filters.columns.name, copy.filters.columns.amount, copy.filters.columns.role].map(head => (
                       <th
                         key={head}
                         scope="col"
@@ -472,9 +485,6 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                       <td className="px-3.5 py-4 text-start align-top text-[13px] leading-snug text-[var(--cera-body)]">
                         {row.role}
                       </td>
-                      <td dir="ltr" className="msc-figure whitespace-nowrap px-3.5 py-4 text-start align-top text-[13px] text-[var(--cera-muted)]">
-                        {row.cap}
-                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -484,9 +494,9 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
         </div>
       </section>
 
-      {/* ────────────────── Why PA++ and not PA++++ ─────────────────────── */}
+      {/* ───────────────────────── Reading the label ────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[900px] px-4 sm:px-6">
+        <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12">
           <CeraReveal>
             <p className="cera-eyebrow">{copy.grade.eyebrow}</p>
             <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.grade.title}</h2>
@@ -495,102 +505,30 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
               {copy.grade.aside}
             </p>
           </CeraReveal>
+          <SectionFigure src={localizeProductImage(GRADE_IMAGE, locale)} alt={copy.grade.title} />
         </div>
       </section>
 
-      {/* ───────────────────────── Octinoxate ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-20">
-        <CeraReveal className="rounded-3xl border border-[var(--cera-line)] bg-white p-6 md:p-9">
-          <p className="cera-eyebrow">{copy.octinoxate.eyebrow}</p>
-          <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.octinoxate.title}</h2>
-          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.octinoxate.body}</p>
-
-          <ul className="mt-6 space-y-3">
-            {copy.octinoxate.points.map(point => (
-              <li key={point} className={`flex gap-3.5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
-                <Check className="mt-1 h-4 w-4 flex-none text-[var(--cera-rose)]" aria-hidden="true" />
-                <span className="text-[15px] leading-relaxed text-[var(--cera-body)]">{point}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-6 text-[15px] leading-relaxed text-[var(--cera-muted)]">{copy.octinoxate.verdict}</p>
-        </CeraReveal>
-      </section>
-
-      {/* ─────────────────────── The batch assay ────────────────────────── */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[1000px] px-4 sm:px-6">
-          <CeraSectionHeader eyebrow={copy.assay.eyebrow} title={copy.assay.title} intro={copy.assay.intro} />
-
-          <CeraReveal className="cera-card mt-10 overflow-hidden lg:mt-14">
-            <table className="msc-table w-full border-collapse text-start">
-              <caption className="sr-only">{copy.assay.title}</caption>
-              <thead>
-                <tr className="border-b border-[var(--cera-line)]">
-                  {[copy.assay.columns.name, copy.assay.columns.declared, copy.assay.columns.found].map(head => (
-                    <th
-                      key={head}
-                      scope="col"
-                      className="px-4 py-3.5 text-start text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)]"
-                    >
-                      {head}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {copy.assay.rows.map(row => (
-                  <tr key={row.name} className="border-b border-[var(--cera-line)] last:border-b-0">
-                    <th scope="row" dir="ltr" className="px-4 py-4 text-start align-top text-[14px] font-medium leading-snug text-[var(--cera-ink)]">
-                      {row.name}
-                    </th>
-                    <td dir="ltr" className="msc-figure whitespace-nowrap px-4 py-4 text-start align-top text-[14px] text-[var(--cera-muted)]">
-                      {row.declared}
-                    </td>
-                    <td dir="ltr" className="msc-figure whitespace-nowrap px-4 py-4 text-start align-top text-[14px] font-semibold text-[var(--cera-rose-ink)]">
-                      {row.found}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </CeraReveal>
-
-          <CeraReveal>
-            <p className="mt-5 flex items-start gap-2.5 text-[14px] leading-relaxed text-[var(--cera-muted)]">
-              <Info className="mt-[2px] h-4 w-4 flex-none" aria-hidden="true" />
-              <span>{copy.assay.note}</span>
-            </p>
+      {/* ──────────────────────── Texture and finish ────────────────────── */}
+      <section className="mx-auto max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-center lg:gap-12">
+          <SectionFigure src={localizeProductImage(TEXTURE_IMAGE, locale)} alt={copy.texture.title} />
+          <CeraReveal className="msc-note p-6 md:p-9">
+            <p className="cera-eyebrow">{copy.texture.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.texture.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.texture.body}</p>
+            <p className="mt-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">{copy.texture.aside}</p>
           </CeraReveal>
         </div>
-      </section>
 
-      {/* ───────────── The trace complex, and the fragrance ─────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-20">
-        <CeraReveal className="msc-note p-6 md:p-9">
-          <p className="cera-eyebrow">{copy.honesty.eyebrow}</p>
-          <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.honesty.title}</h2>
-          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.honesty.body}</p>
-          <p className="mt-5 text-[15px] italic leading-relaxed text-[var(--cera-muted)]">{copy.honesty.aside}</p>
-        </CeraReveal>
-
-        <CeraReveal delay={90} className="msc-note mt-6 p-6 md:p-9">
-          <p className="cera-eyebrow">{copy.fragrance.eyebrow}</p>
-          <h2 className="cera-serif mt-3 text-[24px] leading-tight sm:text-[29px]">{copy.fragrance.title}</h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.fragrance.body}</p>
-          <ul className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {copy.fragrance.allergens.map(a => (
-              <li
-                key={a}
-                dir="ltr"
-                className={`msc-figure rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream)] px-3.5 py-2 text-[13px] text-[var(--cera-body)] ${isRtl ? 'text-right' : ''}`}
-              >
-                {a}
-              </li>
-            ))}
-          </ul>
-        </CeraReveal>
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12">
+          <CeraReveal delay={90} className="msc-note p-6 md:p-9">
+            <p className="cera-eyebrow">{copy.calm.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[26px] leading-tight sm:text-[33px]">{copy.calm.title}</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.calm.body}</p>
+          </CeraReveal>
+          <SectionFigure src={localizeProductImage(CALM_IMAGE, locale)} alt={copy.calm.title} />
+        </div>
       </section>
 
       {/* ────────────────── Which of the two sunscreens ─────────────────── */}
@@ -700,6 +638,11 @@ export default function MultiSunProductPage({ product, unitsSold = 0, routinePro
                   {copy.lab.intro}
                 </p>
               </CeraReveal>
+              <SectionFigure
+                src={localizeProductImage(LAB_IMAGE, locale)}
+                alt={copy.lab.title}
+                className="mt-8 max-w-[440px]"
+              />
             </div>
 
             <CeraReveal className="cera-card overflow-hidden">

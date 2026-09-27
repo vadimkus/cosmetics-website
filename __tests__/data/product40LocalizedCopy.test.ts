@@ -33,7 +33,7 @@ describe('product 40 localized copy', () => {
     }
   })
 
-  it('preserves the exact filter declarations and measurements', () => {
+  it('preserves the exact filter declarations', () => {
     const copy = JSON.stringify({
       ru: PRODUCT_40_RU_TRANSLATION,
       ar: PRODUCT_40_AR_TRANSLATION,
@@ -51,14 +51,6 @@ describe('product 40 localized copy', () => {
       '5.00%',
       '3,00%',
       '3.00%',
-      '7,21%',
-      '7.21%',
-      '4,96%',
-      '4.96%',
-      '2,98%',
-      '2.98%',
-      '2,75%',
-      '2.75%',
     ]) {
       expect(copy).toContain(required)
     }

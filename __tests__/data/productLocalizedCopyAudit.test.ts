@@ -2690,8 +2690,6 @@ describe('audited product localization copy', () => {
 
     expect(text).toContain('18,50%')
     expect(text).toContain('18.50%')
-    expect(text).toContain('7,21%')
-    expect(text).toContain('7.21%')
     expect(text).toContain('6,71')
     expect(text).toContain('6.71')
     expect(text).toContain('не реже чем каждые два часа')

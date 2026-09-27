@@ -212,6 +212,10 @@ REVISION = {
     # "Calm on contact." campaign packshot (seaalgae_campaign/main.jpg, 27 Sep 2026): the
     # registered pouch artwork, replacing the earlier pouch design.
     "36": 2,
+    # "Your daily shade." campaign packshot (multisun_campaign/main.jpg, 27 Sep 2026). The
+    # white tube on white defeats Vision along its lit edge, so v2 is normalised from the
+    # supplied transparent container PNG (~/Desktop/sun40) rather than traced from the photo.
+    "40": 2,
 }
 
 

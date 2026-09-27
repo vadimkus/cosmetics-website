@@ -99,7 +99,7 @@ const CUTOUTS: Record<string, string> = {
   // 39 ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]
   '/images/ultra/main-v3.jpeg': '/images/cutout/39-v3.webp',
   // 40 MULTI SUN CREAM [SPF 40 PA++]
-  '/images/sun/main.jpeg': '/images/cutout/40.webp',
+  '/images/multisun_campaign/main.jpg': '/images/cutout/40-v2.webp',
   // 41 SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]
   '/images/cushion_2/main.jpeg': '/images/cutout/41.webp',
   // 42 INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]

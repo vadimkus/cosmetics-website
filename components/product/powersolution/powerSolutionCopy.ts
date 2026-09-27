@@ -324,6 +324,13 @@ export interface PowerSolutionVariant {
   /** 4:3, on pure white, with the no-additions badge legible. */
   boxImage: string
   /**
+   * The two figures above are full-bleed campaign slides rather than packs on
+   * white: square, cropped to fill, never multiplied (a slide's own backdrop
+   * would muddy into the tint), and swapped per locale through
+   * lib/localizedProductImages.ts because they carry type.
+   */
+  figureSlides?: boolean
+  /**
    * Gallery slides to multiply into the stage tint. Every slide in these
    * galleries is square and so fills the square stage edge to edge, which means
    * a slide shot on pure white turns the whole card into a stark white block

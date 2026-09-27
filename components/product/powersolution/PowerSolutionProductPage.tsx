@@ -77,6 +77,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { loginPathWithReturn } from '@/lib/loginReturn'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
@@ -164,17 +165,22 @@ export default function PowerSolutionProductPage({
   )
 
   // The DB `images` field is the single source of truth for the gallery; the
-  // main image is prepended, matching the product-gallery-images rule.
+  // main image is prepended, matching the product-gallery-images rule. The
+  // record holds the EN paths; translated slides swap in by locale.
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const list = Array.from(
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
       blend: variant.blendGallerySlides.has(src),
     }))
-  }, [product.image, product.images, product.name, variant.blendGallerySlides])
+  }, [locale, product.image, product.images, product.name, variant.blendGallerySlides])
+
+  const figureStage = variant.figureSlides ? 'cera-stage' : 'cera-stage ps-figure'
+  const vialFigure = variant.figureSlides ? localizeProductImage(variant.vialImage, locale) : variant.vialImage
+  const boxFigure = variant.figureSlides ? localizeProductImage(variant.boxImage, locale) : variant.boxImage
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -596,17 +602,17 @@ export default function PowerSolutionProductPage({
             </div>
           </div>
 
-          {/* On pure white, so the multiply rule drops the surround into the
-              tint and the vial stands on the page with no inner edge. */}
+          {/* A pack on pure white multiplies into the tint and stands on the
+              page with no inner edge; a campaign slide fills the stage. */}
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage ps-figure relative aspect-square overflow-hidden rounded-[28px]">
+            <div className={`${figureStage} relative aspect-square overflow-hidden rounded-[28px]`}>
               <Image
-                src={variant.vialImage}
+                src={vialFigure}
                 alt={copy.solution.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
                 quality={90}
-                className="object-contain p-6"
+                className={variant.figureSlides ? 'object-cover' : 'object-contain p-6'}
               />
             </div>
           </CeraReveal>
@@ -727,14 +733,16 @@ export default function PowerSolutionProductPage({
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage ps-figure relative aspect-[4/3] overflow-hidden rounded-[28px]">
+            <div
+              className={`${figureStage} relative ${variant.figureSlides ? 'aspect-square' : 'aspect-[4/3]'} overflow-hidden rounded-[28px]`}
+            >
               <Image
-                src={variant.boxImage}
+                src={boxFigure}
                 alt={copy.freeFrom.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
                 quality={90}
-                className="object-contain p-5"
+                className={variant.figureSlides ? 'object-cover' : 'object-contain p-5'}
               />
             </div>
           </CeraReveal>

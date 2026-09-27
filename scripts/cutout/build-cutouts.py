@@ -94,6 +94,12 @@ REPAIR = {
     # photograph at x=0.185 and x=0.473 and holding to within a pixel all the
     # way down to the floor, so the missing panel is restored, not invented.
     "65": [(0.1850, 0.7400, 0.4737, 0.8880)],
+    # The carton face beside the vial. The face is near-white board (243-251) on a
+    # 255 sweep, so Vision tears the lower corner where it meets the vial. The face
+    # is a known quad in cts_campaign/main.jpg (bottom edge y=0.818 at x=0.151 to
+    # y=0.796 at x=0.776), and the vial's straight side covers it from x=0.735, so
+    # this rectangle lies wholly on product.
+    "6": [(0.6000, 0.4500, 0.7400, 0.7960)],
 }
 
 # Secondary subjects Vision drops when it locks onto the largest object.
@@ -109,6 +115,11 @@ PARTS = {
     "7": [
         (0.740, 0.280, 0.970, 0.790, "vision"),
         (0.735, 0.800, 0.925, 0.900, "keywhite"),
+    ],
+    # Same family layout as 7 (cts_campaign/main.jpg): vial and "x10" re-traced.
+    "6": [
+        (0.720, 0.360, 0.945, 0.860, "vision"),
+        (0.735, 0.855, 0.895, 0.945, "keywhite"),
     ],
     # Kit shot: Vision keeps the white bottles and the masks but drops the
     # black serum bottle and the white box behind them. Both re-traced on
@@ -219,6 +230,10 @@ REVISION = {
     # "Rested eyes." campaign packshot (eyekit_campaign/main.jpg, 27 Sep 2026): the box,
     # serum, cream, patch jar and eye roller as one group on white.
     "50": 2,
+    # "Back to smooth." campaign packshot (cts_campaign/main.jpg, 27 Sep 2026): closed
+    # carton and one vial on white, the family angle of 4, 7 and 8, replacing the
+    # squared studio-sweep shot.
+    "6": 2,
 }
 
 

@@ -86,13 +86,12 @@ export const products: Product[] = [
     id: '6',
     name: 'POWER SOLUTION CTS',
     price: 580,
-    description: 'CTS is Cytokine Concentrate Solution. The carton function is improvement of skin texture: it helps the skin retain its natural elasticity and increases the strength of skin. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
-    // The squared hero, matching the database. CTS.jpg is the same shot at 956x662
-    // and leaves a hard-cornered band above and below it in the square gallery
-    // stage. The main image is deliberately not repeated in `images`: web and
-    // mobile both prepend it.
-    image: '/images/cts-hero.jpg',
-    images: JSON.stringify(['/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg']),
+    description: 'Back to smooth. POWER SOLUTION CTS, Cytokine Concentrate Solution, refines skin texture and helps skin keep its natural elasticity and strength, with copper tripeptide-1 at 212 ppm, the largest peptide dose in the range, over a 28% moisture base. 2 ml × 10 sealed glass vials. Dermatologically tested. Made in Korea by DTS MG.',
+    // "Back to smooth." campaign set (cts_campaign), matching the database. The
+    // main image is deliberately not repeated in `images`: web and mobile both
+    // prepend it.
+    image: '/images/cts_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/cts_campaign/s${i + 1}.jpg`)),
     category: 'PRO Solution',
     inStock: true,
   },

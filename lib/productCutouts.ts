@@ -31,7 +31,7 @@ const CUTOUTS: Record<string, string> = {
   // 5 POWER SOLUTION CVS
   '/images/cvs-hero.jpg': '/images/cutout/5.webp',
   // 6 POWER SOLUTION CTS
-  '/images/cts-hero.jpg': '/images/cutout/6.webp',
+  '/images/cts_campaign/main.jpg': '/images/cutout/6-v2.webp',
   // 7 POWER SOLUTION PCS
   '/images/pcs_v/Main.jpeg': '/images/cutout/7-v2.webp',
   // 8 POWER SOLUTION SWS

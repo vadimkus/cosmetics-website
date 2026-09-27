@@ -552,11 +552,11 @@
   {
     "product": "6",
     "status": "ok",
-    "source": "/images/cts-hero.jpg",
-    "file": "/images/cutout/6.webp",
+    "source": "/images/cts_campaign/main.jpg",
+    "file": "/images/cutout/6-v2.webp",
     "name": "POWER SOLUTION CTS",
-    "coverage": 0.21,
-    "bytes": 24308,
+    "coverage": 0.567,
+    "bytes": 53636,
     "review": false
   },
   {

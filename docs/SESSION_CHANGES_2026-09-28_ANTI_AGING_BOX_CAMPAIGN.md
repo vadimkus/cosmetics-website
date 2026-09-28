@@ -80,3 +80,14 @@ Second run of [Beauty Box style v1](./BEAUTY_BOX_CAMPAIGN_STYLE.md) (after 55, "
   (`build-cutouts.py` revision + comment, old keypaper part removed, report, manifest).
 - DB: `scripts/update-product-58-campaign-gallery.ts --apply` after the deploy (checks all 37 URLs
   return 200 first): image, gallery, EN/RU/AR description.
+
+## Live check (28 Sep 2026)
+
+- Code `9b5415e7a` live after ~6 min. Updater dry run: all 37 URLs 200; `--apply` done (before:
+  `bbox_age/main-v2.jpg`, `images` null). Revalidated tag `products`, `/products/58` EN/RU/AR,
+  `/products` EN/RU/AR, `/`.
+- HTML: `/products/58` renders `main.jpg` + the 12 EN slides; `/ru/` and `/ar/` render their own
+  `ru/` and `ar/` slides; `bb-garnet`; cut-out `58-v3`. Browser (`/ar/products/58`): kit shot on
+  the stage, Arabic thumbnails, no broken images.
+- Mobile API `/api/mobile/products/58` (x-api-key, x-locale): 13 images per locale = main + 12
+  locale slides; `localizedDescription` RU/AR carry the new copy.

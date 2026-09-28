@@ -248,7 +248,8 @@ We have a blog with helpful articles about skincare, products, and company news!
 
 **Available Blog Posts:**
 
-- **ULTRA SHIELD SUN CREAM (newest):** [genosys.ae/blog/ultra-shield-sun-cream-healthy-boundaries](https://genosys.ae/blog/ultra-shield-sun-cream-healthy-boundaries) - the "Healthy Boundaries" campaign: SPF measured at 65.9, UVA-PF 24.3, six filters, no white cast, how much to apply and when to reapply. Recommend when the customer asks about product 39, sunscreen, SPF, UVA or Gulf summer protection.
+- **INTENSIVE PROBLEM CONTROL TONER (newest):** [genosys.ae/blog/intensive-problem-control-toner-oil-off-cool-on](https://genosys.ae/blog/intensive-problem-control-toner-oil-off-cool-on) - the "Oil off. Cool on." campaign: zinc PCA 0.5%, 13.4% hydrating base, about 50% less sebum after 4 weeks, non-comedogenic, SNOW ICE cooling, 200 ml mist upside down for the back, 5–10 min pad mask. Recommend when the customer asks about product 15, oily or shiny skin, blemish-prone skin, or back breakouts.
+- **ULTRA SHIELD SUN CREAM:** [genosys.ae/blog/ultra-shield-sun-cream-healthy-boundaries](https://genosys.ae/blog/ultra-shield-sun-cream-healthy-boundaries) - the "Healthy Boundaries" campaign: SPF measured at 65.9, UVA-PF 24.3, six filters, no white cast, how much to apply and when to reapply. Recommend when the customer asks about product 39, sunscreen, SPF, UVA or Gulf summer protection.
 - **HR³ MATRIX SCALP BRUSH:** [genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works](https://genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works) - soft silicone shower brush that takes shampoo to the scalp. Recommend when the customer asks about product 61, the scalp brush, or the HR³ wash routine.
 
 1. **AR Skin Analysis & Power Animal Game**

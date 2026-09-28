@@ -162,8 +162,10 @@ export default function BeautyBoxProductPage({
   }, [routineProducts])
 
   /**
-   * The box shot, then the box's own campaign slides (its `images` field), then
-   * the items in the order they are used.
+   * The box shot, then either the box's own campaign slides (its `images` field)
+   * or, for a box without a campaign yet, the items in the order they are used.
+   * A campaign already shows every item, and member packshots after it read as
+   * leftovers from an older set.
    *
    * The member photographs already exist on the item records. Composing them in
    * here rather than copying paths into the box record means a member packshot
@@ -176,7 +178,7 @@ export default function BeautyBoxProductPage({
       .map(item => memberByNumber.get(item.productNumber)?.image)
       .filter((src): src is string => Boolean(src))
     const own = parseJsonArray<string>(product.images).filter(src => !members.includes(src))
-    const list = Array.from(new Set([product.image, ...own, ...members].filter(Boolean)))
+    const list = Array.from(new Set([product.image, ...(own.length ? own : members)].filter(Boolean)))
     return list.map((src, i) => ({
       src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,

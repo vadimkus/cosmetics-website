@@ -99,3 +99,14 @@ rules, 12-slide grammar, type, palettes and idea seeds for 56, 57, 58, 59 and 62
   slides + 5 member packshots. `/api/mobile/products/59`: main + its 5 members.
 - The CTA stays the site-wide `--cera-cta` (`#9c686d`, `globals.css`); no product palette
   overrides it.
+
+## Member packshots dropped from campaign boxes (28 Sep, 18:40)
+
+- Vadim, looking at the live thumbnails: "we are serving old slides?" The 12 new slides were
+  live; images 14 to 18 were the member packshots (`cleanser_o/Main.jpeg`,
+  `pct_campaign/main.jpg`, `seaalgae_campaign/main.jpg`, `problems_serum/main.jpeg`,
+  `problem_cream/main.jpeg`), three of them from older shoots, and after slide 12 they read as
+  leftovers.
+- Rule now: a box with campaign slides shows main + slides only (13 images); a box without
+  slides keeps main + members in page order. Web (`BeautyBoxProductPage.tsx`) and mobile API
+  (`lib/beautyBoxGallery.ts`) alike; test rewritten; style guide updated.

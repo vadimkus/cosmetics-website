@@ -2,7 +2,8 @@ import { BEAUTY_BOXES } from '@/components/product/beautybox/beautyBoxes'
 
 /**
  * A beauty box's gallery is its kit shot, then its own campaign slides (the DB
- * `images` field), then the packshot of each product inside it in page order.
+ * `images` field), or the packshot of each product inside it in page order when
+ * the box has no campaign yet.
  * The website builds this on the client from the catalogue; the mobile API
  * builds it here so the app sees the same slides without an app release.
  * Member images are looked up live, so a repointed packshot flows through.
@@ -28,7 +29,7 @@ const parseImages = (images: string | null | undefined): string[] => {
 }
 
 /**
- * Returns the JSON `images` string for a box (kit shot, own slides, then members),
+ * Returns the JSON `images` string for a box (kit shot, then own slides or members),
  * or the value untouched when the product is not a box. `mainImageByNumber` maps member productNumber to
  * its current main image.
  */
@@ -42,9 +43,10 @@ export const beautyBoxImagesJson = (
   const members = beautyBoxMemberNumbers(productNumber)
     .map((n) => mainImageByNumber.get(n))
     .filter((src): src is string => Boolean(src))
-  // Kit shot, then the box's own campaign slides, then members, as on the web
-  // page; the app renders `images` as the whole gallery and does not add `image`.
+  // Kit shot, then the box's own campaign slides or, without a campaign, the
+  // members, as on the web page; the app renders `images` as the whole gallery
+  // and does not add `image`.
   const own = parseImages(images).filter((src) => !members.includes(src))
-  const list = Array.from(new Set([mainImage, ...own, ...members].filter((v): v is string => Boolean(v))))
+  const list = Array.from(new Set([mainImage, ...(own.length ? own : members)].filter((v): v is string => Boolean(v))))
   return list.length ? JSON.stringify(list) : images ?? null
 }

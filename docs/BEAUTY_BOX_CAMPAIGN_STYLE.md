@@ -75,4 +75,5 @@ The page palette (`beautybox.css`) follows the campaign once a box is redone.
    `bbp_copy.py`, `bbp_export.py`, `sheet.py`.
 5. Site: `public/images/<box>_campaign/{main,s1…s12}.jpg` + `ru/`, `ar/`; register the folder in
    `lib/localizedProductImages.ts`; DB `image` + `images` via a `scripts/update-product-NN-campaign-gallery.ts`
-   run after the deploy. The box page and the mobile API show main → campaign slides → member packshots.
+   run after the deploy. The box page and the mobile API show main → campaign slides; member packshots only
+   fill the gallery of a box that has no campaign yet (the campaign already shows every item).

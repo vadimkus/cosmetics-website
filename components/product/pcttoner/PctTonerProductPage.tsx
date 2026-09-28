@@ -774,6 +774,7 @@ export default function PctTonerProductPage({
               <div className="pct-video relative mt-4 mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
+                  poster="/images/pct_campaign/reel-poster.jpg"
                   controls
                   playsInline
                   preload="metadata"

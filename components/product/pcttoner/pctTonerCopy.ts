@@ -318,7 +318,7 @@ const EN: PctTonerCopy = {
     ],
     note:
       'For external use only. Avoid the eyes and mucous membranes; if contact occurs, rinse with cool water. Stop use if irritation persists.',
-    videoTitle: 'Three ways to apply',
+    videoTitle: 'Oil off. Cool on. In 20 seconds',
   },
   actives: {
     eyebrow: 'Ingredients',

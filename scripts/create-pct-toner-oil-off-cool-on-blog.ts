@@ -8,7 +8,8 @@
  *
  * Artwork: the 12-slide "Oil off. Cool on." campaign, live as the /products/15
  * gallery. EN uses public/images/pct_campaign/, RU and AR their own ru/ and ar/
- * folders. Slide 9 ships as s9b ("BACK DAY."). Featured: s1. Video: /videos/problem.mp4.
+ * folders. Slide 9 ships as s9b ("BACK DAY."). Featured: s1. Video: the 20 s campaign Reel,
+ * /videos/pct-reel-web.mp4 (same file as the /products/15 video).
  *
  * Not sold here (per pctTonerCopy.ts omissions): copper tripeptide, BHA/salicylic
  * as the engine, SNOW ICE or Anti Sebum P as the oil-control reason, hyaluronate
@@ -24,8 +25,8 @@ import { prisma } from '../lib/prisma'
 
 const SLUG = 'intensive-problem-control-toner-oil-off-cool-on'
 const IMG = '/images/pct_campaign'
-const VIDEO = '/videos/problem.mp4'
-const POSTER = '/images/pct_campaign/main.jpg'
+const VIDEO = '/videos/pct-reel-web.mp4'
+const POSTER = '/images/pct_campaign/reel-poster.jpg'
 const ULTRA = 'ultra-shield-sun-cream-healthy-boundaries'
 
 type Locale = 'en' | 'ru' | 'ar'
@@ -218,7 +219,7 @@ ${formula([
     ${slide('en', 's10', 'Soaked cotton pads on the forehead and cheeks: soak, press, 10 minutes')}
     <p class="text-gray-700">For a longer cool-down, soak cotton pads, lay them on the skin and leave them for 5 to 10 minutes, then carry on with your routine. It is the fastest way to bring hot, shiny skin back down after a long day.</p>
   </div>
-  ${videoBlock('Three ways to apply')}
+  ${videoBlock('Oil off. Cool on. In 20 seconds')}
 
   <div>
     <h2 class="text-3xl font-bold">Your day, in one bottle.</h2>
@@ -348,7 +349,7 @@ ${formula([
     ${slide('ru', 's10', 'Пропитанные ватные диски на лбу и щеках: пропитать, приложить, 10 минут')}
     <p class="text-gray-700">Для долгого охлаждения пропитайте ватные диски, разложите их на коже и оставьте на 5-10 минут, затем продолжите уход. Самый быстрый способ вернуть разгорячённую, блестящую кожу в норму после долгого дня.</p>
   </div>
-  ${videoBlock('Три способа нанесения')}
+  ${videoBlock('Минус блеск. Плюс свежесть. За 20 секунд')}
 
   <div>
     <h2 class="text-3xl font-bold">Весь день в одном флаконе.</h2>
@@ -478,7 +479,7 @@ ${formula([
     ${slide('ar', 's10', 'أقراص قطن مشبعة على الجبهة والخدين: بلّلي، ضعي، 10 دقائق')}
     <p class="text-gray-700">لتبريد أطول، بلّلي أقراص القطن وضعيها على البشرة واتركيها من 5 إلى 10 دقائق، ثم أكملي روتينكِ. أسرع طريقة لتهدئة البشرة الحارة اللامعة بعد يوم طويل.</p>
   </div>
-  ${videoBlock('ثلاث طرق للاستخدام')}
+  ${videoBlock('وداعاً للمعان. أهلاً بالانتعاش. في 20 ثانية')}
 
   <div>
     <h2 class="text-3xl font-bold">يومكِ كله في عبوة واحدة.</h2>

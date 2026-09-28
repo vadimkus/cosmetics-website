@@ -257,7 +257,7 @@ export const products: Product[] = [
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',
-    videoUrl: '/videos/problem.mp4',
+    videoUrl: '/videos/pct-reel-web.mp4',
   },
   {
     id: '16',

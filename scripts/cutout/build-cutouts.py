@@ -301,6 +301,12 @@ REVISION = {
     # on the text-free CapCut take (~/Desktop/Insta_Olga/bb_problem/campaign/picks/main.png),
     # then normalised. Do not rebuild 55 from the photograph.
     "55": 4,
+    # "Lights on. World off." campaign main (gentron_campaign/main.jpg, 28 Sep 2026): the
+    # helmet and controller on a black set with LED glow, which Vision cannot separate
+    # cleanly. v2 is Vision run on the three-quarter studio photo with the controller
+    # (~/Desktop/hair_gentron, the main's reference), then normalised. Do not rebuild 48
+    # from the campaign main.
+    "48": 2,
 }
 
 

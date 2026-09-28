@@ -143,18 +143,26 @@ describe('product 48 RU/AR localized copy', () => {
     }
   })
 
-  it('keeps brochure wavelengths attributed and omits LED count and irradiance claims', () => {
+  it('states the three wavelengths in its own voice and omits LED count and irradiance claims', () => {
     const text = JSON.stringify({
       bespokeRu: liveCopy.bespokeRu,
       bespokeAr: liveCopy.bespokeAr,
     })
 
-    expect(text).toContain('официальной брошюре')
-    expect(text).toContain('النشرة الرسمية')
-    expect(text).toContain('840')
-    expect(text).toContain('640')
-    expect(text).toContain('420')
+    expect(text).toContain('Красный 640 нм · инфракрасный 840 нм · синий 420 нм')
+    expect(text).toContain('أحمر 640 نانومتر · تحت الأحمر 840 نانومتر · أزرق 420 نانومتر')
+    for (const dossier of ['брошюр', 'النشرة', 'не представлены', 'لا تتوفر بيانات']) {
+      expect(text).not.toContain(dossier)
+    }
     expect(text).not.toContain('60 светодиод')
     expect(text).not.toContain('ستين مصباح')
+  })
+
+  it('carries no dossier voice in the live RU/AR descriptions', () => {
+    for (const description of [PRODUCT_48_RU_TRANSLATION.description, PRODUCT_48_AR_TRANSLATION.description]) {
+      for (const dossier of ['не медицинское', 'не представлены', 'ليس جهازاً طبياً', 'لا تتوفر بيانات']) {
+        expect(description).not.toContain(dossier)
+      }
+    }
   })
 })

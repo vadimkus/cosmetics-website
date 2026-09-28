@@ -115,7 +115,7 @@ const CUTOUTS: Record<string, string> = {
   // 47 HR³ MATRIX MESOPECIA KIT
   '/images/meso.jpg': '/images/cutout/47.webp',
   // 48 Hair-GENTRON
-  '/images/gen.jpg': '/images/cutout/48.webp',
+  '/images/gentron_campaign/main.jpg': '/images/cutout/48-v2.webp',
   // 49 GENO-LED IR II
   '/images/led_campaign/main.jpg': '/images/cutout/49-v2.webp',
   // 50 EyeCell EYE ZONE CARE KIT

@@ -422,11 +422,11 @@
   {
     "product": "48",
     "status": "ok",
-    "source": "/images/gen.jpg",
-    "file": "/images/cutout/48.webp",
+    "source": "/images/gentron_campaign/main.jpg",
+    "file": "/images/cutout/48-v2.webp",
     "name": "Hair-GENTRON",
-    "coverage": 0.356,
-    "bytes": 31420,
+    "coverage": 0.237,
+    "bytes": 76090,
     "review": false
   },
   {

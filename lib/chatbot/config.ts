@@ -390,7 +390,7 @@ For professional devices: GENO-LED IR II, Hair-GENTRON, HairGen BOOSTER.
 
 ## 🔌 PROFESSIONAL DEVICES
 - GENO-LED IR II: professional LED dome, 1,710 LEDs, five wavelengths with published irradiance and dose
-- Hair-GENTRON: Electro stimulation for hair growth
+- Hair-GENTRON: LED helmet for the scalp: red, infrared and blue light, air-pressure massage, heat and music, 10/20/30-minute timer, no consumables. Never describe it as a hair-loss treatment or as growing hair.
 - HairGen BOOSTER: Microneedling for scalp (needs solution + needles)
 Professional use only. Contact for training.
 

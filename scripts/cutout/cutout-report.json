@@ -73,10 +73,10 @@
     "product": "16",
     "status": "ok",
     "source": "/images/booster_campaign/main.jpg",
-    "file": "/images/cutout/16.webp",
+    "file": "/images/cutout/16-v2.webp",
     "name": "SNOW BOOSTER",
-    "coverage": 0.151,
-    "bytes": 18622,
+    "coverage": 0.325,
+    "bytes": 43130,
     "review": false
   },
   {
@@ -303,10 +303,10 @@
     "product": "37",
     "status": "ok",
     "source": "/images/peptide_campaign/main.jpg",
-    "file": "/images/cutout/37.webp",
+    "file": "/images/cutout/37-v2.webp",
     "name": "PEPTIDE GEL MASK",
-    "coverage": 0.608,
-    "bytes": 26042,
+    "coverage": 0.493,
+    "bytes": 63456,
     "review": false
   },
   {
@@ -483,10 +483,10 @@
     "product": "53",
     "status": "ok",
     "source": "/images/collagen_campaign/main.jpg",
-    "file": "/images/cutout/53.webp",
+    "file": "/images/cutout/53-v2.webp",
     "name": "INTENSIVE REPAIR COLLAGEN MASK",
-    "coverage": 0.608,
-    "bytes": 46320,
+    "coverage": 0.598,
+    "bytes": 69908,
     "review": false
   },
   {

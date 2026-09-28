@@ -116,6 +116,20 @@ REPAIR = {
     "3": [(0.5900, 0.6780, 0.6525, 0.8255)],
 }
 
+# Product hidden behind a prop, where the photograph has no product pixels to restore.
+#
+# (x0, y0, x1, y1, dx) in frame fractions: the region is rebuilt from the same rows dx
+# to its left, pixels and mask both, so a straight seal or edge runs on through it. Each
+# row is then shifted in colour to meet the true pixels on both sides of the gap, which
+# carries the pack's lighting across instead of repeating the clone source's. Only for
+# surfaces that are uniform along the row, such as a sachet's crimped seal.
+CLONE = {
+    # An ice cube stands over the sachet's bottom seal (peptide_campaign/main.jpg) and
+    # Vision cut a V into the pack there. The seal and the plain blue above it are
+    # uniform along the row, and x=0.15 to 0.27 is clear of ice and type.
+    "37": [(0.2656, 0.7250, 0.3813, 0.7750, 0.1156)],
+}
+
 # Secondary subjects Vision drops when it locks onto the largest object.
 #
 # Each entry is (x0, y0, x1, y1, mode) in frame fractions. "vision" runs the
@@ -273,6 +287,17 @@ REVISION = {
     # glossy black floor. v1 was traced from the retired glassware photograph and was still
     # mapped to the new main, so the closing band showed the old shot.
     "3": 2,
+    # Same fault on three more campaign mains, each newer than its cut-out by four weeks:
+    # "Let it snow" (booster_campaign/main.jpg, both bottles; v1 had the 200 ml alone),
+    # peptide_campaign/main.jpg (sachet and box; v1 had the sachet alone) and
+    # collagen_campaign/main.jpg (v1 was traced from the earlier sachet shot).
+    # The bottles stand buried in snow, which Vision tears into a crumbled base, so 16-v2 is
+    # the two supplied container PNGs (~/Desktop/Insta_Olga/booster) placed at the main's
+    # measured scale and position (1000 ml 0.3142 at 415,175; 200 ml 0.1795 at 968,472),
+    # then normalised. Do not rebuild 16 from the photograph.
+    "16": 2,
+    "37": 2,
+    "53": 2,
 }
 
 
@@ -314,6 +339,38 @@ def assemble(png_path, source_path, rects):
         patch = source.crop(box).convert("RGBA")
         im.paste(patch, box[:2])
     return im
+
+
+def clone_fill(im, source_path, clones):
+    """Rebuild prop-covered product from its own row neighbours (see CLONE)."""
+    if not clones:
+        return im
+    import numpy as np
+
+    source = Image.open(source_path).convert("RGB")
+    if source.size != im.size:
+        source = source.resize(im.size, Image.LANCZOS)
+    rgb = np.asarray(source).astype(np.float32)
+    out = np.asarray(im).astype(np.float32).copy()
+    alpha = out[..., 3].copy()
+
+    for x0, y0, x1, y1, dx in clones:
+        x0, x1 = int(round(im.width * x0)), int(round(im.width * x1))
+        y0, y1 = int(round(im.height * y0)), int(round(im.height * y1))
+        d = int(round(im.width * dx))
+        patch = rgb[y0:y1, x0 - d:x1 - d].copy()
+
+        def band(img, x):
+            return img[y0:y1, x - 4:x + 1].mean(axis=1)
+
+        left = band(rgb, x0 - 1) - band(rgb, x0 - d - 1)
+        right = band(rgb, x1 + 4) - band(rgb, x1 - d + 4)
+        t = np.linspace(0.0, 1.0, x1 - x0, dtype=np.float32)[None, :, None]
+        patch += (1 - t) * left[:, None, :] + t * right[:, None, :]
+
+        out[y0:y1, x0:x1, :3] = np.clip(patch, 0, 255)
+        out[y0:y1, x0:x1, 3] = alpha[y0:y1, x0 - d:x1 - d]
+    return Image.fromarray(out.astype(np.uint8), "RGBA")
 
 
 def add_parts(im, source_path, parts):
@@ -500,7 +557,11 @@ def main():
                 continue
 
             canvas = normalize(
-                add_parts(assemble(raw, disk, REPAIR.get(number)), disk, PARTS.get(number)),
+                add_parts(
+                    clone_fill(assemble(raw, disk, REPAIR.get(number)), disk, CLONE.get(number)),
+                    disk,
+                    PARTS.get(number),
+                ),
                 FLOOR.get(number),
             )
             share = coverage(canvas)

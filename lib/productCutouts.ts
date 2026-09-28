@@ -51,7 +51,7 @@ const CUTOUTS: Record<string, string> = {
   // 15 INTENSIVE PROBLEM CONTROL TONER
   '/images/problem/Main-v2.jpg': '/images/cutout/15-v2.webp',
   // 16 SNOW BOOSTER
-  '/images/booster_campaign/main.jpg': '/images/cutout/16.webp',
+  '/images/booster_campaign/main.jpg': '/images/cutout/16-v2.webp',
   // 17 EyeCell EYE CONTOUR SERUM
   '/images/eye_serum/main.jpeg': '/images/cutout/17.webp',
   // 18 MOISTURE REPLENISHING HYALURON SERUM
@@ -93,7 +93,7 @@ const CUTOUTS: Record<string, string> = {
   // 36 SOOTHING BOMB SEA ALGAE MASK
   '/images/seaalgae_campaign/main.jpg': '/images/cutout/36-v2.webp',
   // 37 PEPTIDE GEL MASK
-  '/images/peptide_campaign/main.jpg': '/images/cutout/37.webp',
+  '/images/peptide_campaign/main.jpg': '/images/cutout/37-v2.webp',
   // 38 EZ CO₂ MASK KIT
   '/images/ez_mask/main.jpeg': '/images/cutout/38.webp',
   // 39 ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]
@@ -125,7 +125,7 @@ const CUTOUTS: Record<string, string> = {
   // 52 SKIN REBOOT PDRN MASK PACK
   '/images/pdrn_mask_new/Main.jpeg': '/images/cutout/52.webp',
   // 53 INTENSIVE REPAIR COLLAGEN MASK
-  '/images/collagen_campaign/main.jpg': '/images/cutout/53.webp',
+  '/images/collagen_campaign/main.jpg': '/images/cutout/53-v2.webp',
   // 54 Holiday Kit
   '/images/Hol_kit_v2.jpg': '/images/cutout/54.webp',
   // 55 PROBLEM SKIN CARE BEAUTY BOX

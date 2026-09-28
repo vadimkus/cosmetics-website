@@ -124,3 +124,24 @@ RU: МИНУС БЛЕСК. ПЛЮС СВЕЖЕСТЬ. … МАТОВО. И СВ�
   the AI avatar tab (REF_SLOT, REF_X, UPLOAD_ITEM, PROMPT).
 - Ships as `s9b.jpg` (EN / ru / ar) because `/images/*` is cached immutable; gallery, fallback,
   localized list and the DB script point to s9b. The old `s9.jpg` files stay on disk.
+
+## Blog post (28 Sep, 15:40) — published
+
+- Slug `intensive-problem-control-toner-oil-off-cool-on`, id `cmul62kla0000it8z6cgzod4m`.
+  EN https://genosys.ae/blog/intensive-problem-control-toner-oil-off-cool-on · `/ru/blog/…` · `/ar/blog/…`.
+- Script `scripts/create-pct-toner-oil-off-cool-on-blog.ts` (idempotent by slug, keeps
+  `publishedAt`), built like the Ultra Shield post. Featured `s1.jpg`; s2–s12 (s9b) as section
+  art; **RU/AR use their own `pct_campaign/{ru,ar}/` slides**. `/videos/problem.mp4` after the
+  pad-mask section.
+- Campaign-cobalt blocks: gradient ice hero, 4-stat row, four-week sebum bar chart (before vs
+  about half, no absolute deck values), formula table (zinc PCA 0.5, BG 5.4, glycerin 5.0,
+  DPG 3.0, panthenol/allantoin/trehalose 0.1 each), day timeline (morning / after the gym /
+  evening / hot-day pad mask), 200 ml vs 500 ml cards, fit lists, `dl` FAQ, CTA to `/products/15`.
+  Links: `/products/20`, `/products/30`, Ultra Shield blog.
+- Every claim is from `pctTonerCopy.ts` / `pctTonerLocalizedCopy.ts`; omissions honoured (no
+  copper peptide, BHA engine, SNOW ICE or Anti Sebum P as the oil-control reason, acne treatment,
+  fragrance-free, lot code). Anti Sebum P and SNOW ICE only as supporting lines.
+- Commit `2548250a6` (script + Genie entry in `lib/chatbot/config.ts`) deployed before the DB
+  write; the new arbitrary classes were confirmed in the live CSS first.
+- Live check: EN/RU/AR 200, all 36 slide URLs + video 200, hero gradient renders, hero and CTA
+  headings white, FAQ present. Not announced (no push / email) — waiting for Vadim.

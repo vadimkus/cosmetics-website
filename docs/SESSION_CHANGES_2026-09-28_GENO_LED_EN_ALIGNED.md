@@ -36,7 +36,10 @@ timer and auto shut-off, 70 W electrical, and the comparison with GENO-LED IR.
   keyFeatures, benefits, howToUse and directions, then verifies the write
 - `__tests__/data/product49LocalizedCopy.test.ts` now also checks EN
 
-Not touched: `skinType`, `targetConcerns` and `usage` on the record, and the name-based concern
-map in `lib/productsDb.ts`. The August audit cleared these, but they have been set again.
+Concern tags cleared again (Vadim, same day): the record had `skinType` normal, four
+`targetConcerns` and `usage` evening, and `lib/productsDb.ts` mapped the device to anti-aging,
+acne and sensitivity by name, so it showed on those concern pages and in skin-analysis picks.
+The script now nulls skinType, targetConcerns, usage and ageGroup, the name map entry is gone,
+and the test fails if the device matches a concern again.
 
 Also fixed: the CVS Arabic cart buttons said الحقيبة (handbag); now السلة, per `bagWording.test.ts`.

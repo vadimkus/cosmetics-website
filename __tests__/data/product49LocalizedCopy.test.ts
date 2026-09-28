@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { getGenoLedCopy } from '@/components/product/genoled/genoLedCopy'
 import {
   PRODUCT_49_AR_TRANSLATION,
@@ -7,6 +10,7 @@ import {
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getCategoryBySlug } from '@/lib/concernsData'
+import { filterProductsByConcern } from '@/lib/productsDb'
 import { products } from '@/lib/products'
 import { getCatalogQuickFacts } from '@/lib/productQuickFactsCatalog'
 import arMessages from '@/messages/ar.json'
@@ -252,5 +256,15 @@ describe('product 49 EN copy', () => {
     ]) {
       expect(text).not.toContain(forbidden)
     }
+  })
+})
+
+describe('product 49 concern mapping', () => {
+  it('is not matched to any skin concern by name', () => {
+    const led = { id: '49', name: 'GENO-LED IR II', targetConcerns: null, category: 'Device' } as unknown as Parameters<typeof filterProductsByConcern>[0][number]
+
+    expect(
+      filterProductsByConcern([led], ['anti-aging', 'acne-blemishes', 'brightening', 'sensitivity', 'page-acne'])
+    ).toEqual([])
   })
 })

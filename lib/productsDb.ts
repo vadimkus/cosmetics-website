@@ -345,7 +345,8 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   // Devices
   'Microneedle Roller': ['anti-aging', 'acne-blemishes', 'page-acne', 'scar-repair'],
   'Needle Pen-K': ['anti-aging', 'acne-blemishes', 'page-acne', 'scar-repair'],
-  'GENO-LED IR II': ['anti-aging', 'acne-blemishes', 'sensitivity', 'page-acne'],
+  // GENO-LED IR II is deliberately absent: no concern or effect claim is verified for it
+  // (docs/SESSION_CHANGES_2026-08-21_PRODUCT_49_GENO_LED_LOCALIZATION_AUDIT.md).
 
   // Products without full curated entries - page-specific keys only
   'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]': ['sun-protection', 'brightening', 'hydration', 'anti-aging'],

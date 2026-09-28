@@ -27,7 +27,8 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/pct_campaign/main.jpg'
-const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12'].map(n => `/images/pct_campaign/${n}.jpg`)
+// s9b (28 Sep): the "BACK DAY" gym slide replaced the first upside-down slide; new name, as /images/* is cached immutable.
+const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11', 's12'].map(n => `/images/pct_campaign/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/pct_campaign/', `/pct_campaign/${l}/`)))
 const CUTOUT = '/images/cutout/15-v3.webp'
 

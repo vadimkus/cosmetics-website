@@ -39,7 +39,7 @@ selling, make it cool, main + 12 slides.
 | 06 | fingertips on a clear matte cheek | MADE NOT TO CLOG. |
 | 07 | water crown splash on cobalt | MATTE, NOT DRY. |
 | 08 | tea tree, peppermint, rosemary on crushed ice | TEA TREE & PEPPERMINT. |
-| 09 | hand holding the 200 ml upside down over the shoulder | UPSIDE DOWN? STILL SPRAYS. |
+| 09 | post-workout, cobalt locker room: the 200 ml upside down over her shoulder (`s9b`) | BACK DAY. |
 | 10 | soaked cotton pads on forehead and cheeks | SOAK. PRESS. 10 MIN. |
 | 11 | the pair on an ice block, cobalt | HOME. CLINIC. |
 | 12 | the pair on frosted white with ice + spec card | STAY MATTE. STAY COOL. |
@@ -105,3 +105,22 @@ RU: МИНУС БЛЕСК. ПЛЮС СВЕЖЕСТЬ. … МАТОВО. И СВ�
   стянутости."; AR "لمعان أقل، انتعاش أكثر، بلا شد."; none of the dossier phrases on the page.
 - Mobile API `/api/mobile/products/15` (x-api-key): main + 12 slides, `ru/` and `ar/` per
   `x-locale`.
+
+## Slide 9 replaced: "BACK DAY." (28 Sep, 11:30)
+
+- Vadim asked for a new upside-down slide with a more real, concise and gripping analogy. The
+  bare back against a pale wall became a post-workout moment: a woman in a sports bra in a
+  cobalt locker room, reaching over her shoulder with the 200 ml upside down. EN "BACK DAY."
+  (the gym term for the back workout); RU "ДЕНЬ СПИНЫ."; AR "ظهرك أيضاً." (your back too).
+  Body: after the gym your back needs it too; the 200 ml sprays upside down, where you can't
+  reach (carton: 360° spray, upside down for the back).
+- CapCut: `s9g` generated the scene with a stand-in bottle; `pct_refs.py s9g` put the real
+  200 ml on the same axis at her hand's scale with her skin laid back over it; `s9gr` re-shot
+  it. The first re-shoot drew a solid blue band on the base end because the prompt named the
+  band, which on this bottle held upside down sits under her fingers; the prompt now lists
+  only the print that is visible (logo on the body, PCT mark at the base end). Pick: s9gr v4
+  of the second round, print as rendered.
+- `capcut_ui.py` 1710 layout re-measured: the prompt block sits 24 pt lower since CapCut added
+  the AI avatar tab (REF_SLOT, REF_X, UPLOAD_ITEM, PROMPT).
+- Ships as `s9b.jpg` (EN / ru / ar) because `/images/*` is cached immutable; gallery, fallback,
+  localized list and the DB script point to s9b. The old `s9.jpg` files stay on disk.

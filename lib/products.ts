@@ -253,7 +253,7 @@ export const products: Product[] = [
     // "Oil off. Cool on." campaign set (pct_campaign), matching the database. The main image
     // is deliberately not repeated in `images`: web and mobile both prepend it.
     image: '/images/pct_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/pct_campaign/s${i + 1}.jpg`)),
+    images: JSON.stringify(['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11', 's12'].map(n => `/images/pct_campaign/${n}.jpg`)),
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',

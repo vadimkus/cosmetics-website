@@ -92,6 +92,7 @@ import {
   CeraStickyQuantity,
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { pickBeautyBoxLocale } from './beautyBoxCopy'
 import { BEAUTY_BOXES, type BeautyBoxConfig, type BeautyBoxNumber } from './beautyBoxes'
 
@@ -161,30 +162,26 @@ export default function BeautyBoxProductPage({
   }, [routineProducts])
 
   /**
-   * The box shot, then the five items in the order they are used, then anything
-   * else the box record lists.
+   * The box shot, then the box's own campaign slides (its `images` field), then
+   * the items in the order they are used.
    *
-   * A box has one photograph of its own - the five products standing in front of
-   * the carton - and no second angle to show, because there is no bottle to turn
-   * round. What a shopper wants after that group shot is a closer look at each
-   * item, and those photographs already exist on the item records. Composing the
-   * gallery from them rather than copying paths into the box record means a
-   * member packshot that gets replaced is replaced here too, which the
-   * product-gallery-images rule exists to guarantee. The box record's own
-   * `images` field still wins for anything it does list.
+   * The member photographs already exist on the item records. Composing them in
+   * here rather than copying paths into the box record means a member packshot
+   * that gets replaced is replaced here too, which the product-gallery-images rule
+   * exists to guarantee. Campaign slides carry text, so they swap to the
+   * locale's own export where one is registered.
    */
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const members = copy.contents.items
       .map(item => memberByNumber.get(item.productNumber)?.image)
       .filter((src): src is string => Boolean(src))
-    const list = Array.from(
-      new Set([product.image, ...members, ...parseJsonArray<string>(product.images)].filter(Boolean))
-    )
+    const own = parseJsonArray<string>(product.images).filter(src => !members.includes(src))
+    const list = Array.from(new Set([product.image, ...own, ...members].filter(Boolean)))
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [copy.contents.items, memberByNumber, product.image, product.images, product.name])
+  }, [copy.contents.items, locale, memberByNumber, product.image, product.images, product.name])
 
   /**
    * The copy declares what is in the box and in which order; the catalogue

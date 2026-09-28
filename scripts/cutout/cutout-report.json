@@ -502,11 +502,11 @@
   {
     "product": "55",
     "status": "ok",
-    "source": "/images/bb_problem/Main-v2.jpeg",
-    "file": "/images/cutout/55-v3.webp",
+    "source": "/images/bb_problem_campaign/main.jpg",
+    "file": "/images/cutout/55-v4.webp",
     "name": "PROBLEM SKIN CARE BEAUTY BOX",
-    "coverage": 0.488,
-    "bytes": 92122,
+    "coverage": 0.406,
+    "bytes": 58740,
     "review": false
   },
   {

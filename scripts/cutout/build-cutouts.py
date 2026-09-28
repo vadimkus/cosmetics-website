@@ -166,11 +166,6 @@ PARTS = {
         (0.170, 0.180, 0.960, 0.640, "vision"),
         (0.370, 0.540, 0.560, 0.930, "vision"),
     ],
-    # Same kit layout as 59: box and black serum re-traced on their own crops.
-    "55": [
-        (0.170, 0.190, 0.960, 0.640, "vision"),
-        (0.370, 0.560, 0.560, 0.930, "vision"),
-    ],
     # Same kit layout: box and black serum re-traced on their own crops.
     "62": [
         (0.150, 0.170, 0.860, 0.640, "keypaper"),
@@ -250,8 +245,6 @@ REVISION = {
     # Studio pair replacing the render; generator mark painted out first.
     "15": 2,
     # New studio kit shot replacing the flat render.
-    "55": 3,
-    # New studio kit shot replacing the flat render.
     "62": 3,
     # "Cold start" campaign packshot (scalp_campaign/main.jpg, 26 Sep 2026) has ice
     # around the bottle, so v2 is normalised from the supplied transparent container
@@ -303,6 +296,11 @@ REVISION = {
     # container PNGs (~/Desktop/problem_boost) at the main's layout (pct_refs.py pair), then
     # normalised. Do not rebuild 15 from the photograph.
     "15": 3,
+    # "The Oil Change" campaign main (bb_problem_campaign/main.jpg, 28 Sep 2026): the five
+    # singles in the open kit case, top down. The main carries the title, so v4 is Vision run
+    # on the text-free CapCut take (~/Desktop/Insta_Olga/bb_problem/campaign/picks/main.png),
+    # then normalised. Do not rebuild 55 from the photograph.
+    "55": 4,
 }
 
 

@@ -140,33 +140,31 @@
   }
 }
 
-/* --- Problem Skin Care box (#55): pine ----------------------------------- */
-/* The three sea algae sachets are the only saturated colour in the box
-   photograph, and green is the one hue no other beauty box page uses. The
-   blue on the toner and cream bands is close to bb-water (#59), so taking the
-   green keeps 55 and 59 from reading as the same page. Greens stay cool and
-   slightly grey so the packshot whites do not go yellow against them. */
-.cera-page.bb-pine {
-  --cera-cream: #f5f8f5;
-  --cera-cream-deep: #e8f0ea;
-  --cera-blush: #eaf2ec;
-  --cera-blush-deep: #c6ddcd;
-  --cera-rose: #2f6b4f;
-  --cera-rose-ink: #1f4d38;
-  --cera-ink: #0f1613;
-  --cera-body: #2b3630;
-  --cera-muted: #5a6b62;
-  --cera-line: #d8e6dc;
+/* --- 55, PROBLEM SKIN · "The Oil Change" (Beauty Box style v1) ---------- */
+/* Powder blue and signal orange, the classic motor-oil livery the campaign is
+   built on, with navy ink. The accent is a burnt orange rather than the slide
+   orange (#F26A21) so it holds 4.5:1 as text on the pale grounds. */
+.cera-page.bb-livery {
+  --cera-cream: #f4f9fc;
+  --cera-cream-deep: #e3f0f8;
+  --cera-blush: #eaf4fa;
+  --cera-blush-deep: #bcdcef;
+  --cera-rose: #c2501a;
+  --cera-rose-ink: #0e2a47;
+  --cera-ink: #0b1b2b;
+  --cera-body: #26394b;
+  --cera-muted: #566a7c;
+  --cera-line: #d4e6f2;
   --cera-shot: #ffffff;
 }
 
-.bb-pine .cera-stage {
-  box-shadow: 0 20px 52px -34px rgba(31, 77, 56, 0.3);
+.bb-livery .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(14, 42, 71, 0.32);
 }
 
 @media (hover: hover) {
-  .bb-pine .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(15, 22, 19, 0.04), 0 26px 48px -26px rgba(31, 77, 56, 0.32);
+  .bb-livery .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(11, 27, 43, 0.04), 0 26px 48px -26px rgba(14, 42, 71, 0.32);
   }
 }
 
@@ -175,7 +173,7 @@
    Its photograph has no coloured carton band - the title is plain black - and
    the only two saturated objects in it are already spoken for: the pink
    overnight-mask tube is where 57 took its plum, and the deep green algae sachet
-   is where 55 took its pine. Taking either would make two box pages read as one.
+   was 55's before it moved to the oil-change livery. Taking either would make two box pages read as one.
 
    So the page goes neutral: a warm oat ground with a desaturated clay accent.
    That leaves the pink tube and the green sachet to read as accents against the

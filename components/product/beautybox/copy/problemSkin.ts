@@ -108,14 +108,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'Less oil in four weeks. Fewer breakouts after it.',
+  headline: 'An oil change for oily, blemish-prone skin.',
   subheadline:
-    'Oil is what starts the cycle. It blocks the pore, the pore inflames, and the mark it leaves outlasts the spot by months. So every step in this box was measured against that one thing, and every step moved it. The toner cut sebum by about half in four weeks. The serum took it down 17% and faded existing marks by 8%. The cream, 14% and 9%. Around them, an oxygen cleanser that never needs scrubbing and three sea algae masks for the evenings when skin has had enough.',
+    'Five GENOSYS singles in routine order. An air-foam cleanser for a dry face, a zinc PCA toner that took sebum down by about half in four weeks, a serum Korea registers for oil and sebum control, a gel cream with no traditional oil phase to put water back, and three sea algae sheet masks for the evenings skin needs a break. Matte, fresh, never stripped.',
   heroBullets: [
-    'Shine, breakouts and the marks they leave behind, which is usually the part nobody treats',
-    'Sebum down by about half on the toner in four weeks, and down again on the serum and the cream',
-    'The toner is certified non-comedogenic, so the routine cannot block the pores it is clearing',
-    'Four full sizes and three sheet masks, for less than the same five bought one at a time',
+    'Built for skin that shines by noon and breaks out easily',
+    'About half the sebum after four weeks with the toner',
+    'Zinc PCA at every treatment step: 0.5% in the toner, 0.05% in the serum and the cream',
+    'Four full sizes and three sheet masks, for less than the five bought one at a time',
   ],
   kitSize: '5 products',
   fullSizeNote: 'Full sizes',
@@ -130,16 +130,16 @@ const EN: BeautyBoxCopy = {
   viewBag: 'View bag',
   badges: ['Authentic GENOSYS', 'Made in Korea', '4 full sizes + 3 masks', 'Dubai in 1-2 hours'],
   stats: [
-    { value: '50%', label: 'less sebum after four weeks with the toner' },
-    { value: '17%', label: 'less sebum on the serum, and 8% fewer marks, over four weeks' },
-    { value: '3', label: 'sea algae masks, for the evenings skin needs calming' },
-    { value: 'Korea', label: 'made for DTS MG in Seoul, the lab GENOSYS was built around' },
+    { value: '~50%', label: 'less sebum after four weeks with the toner' },
+    { value: '0.5%', label: 'zinc PCA in the toner' },
+    { value: '0.05%', label: 'zinc PCA in the serum and in the cream' },
+    { value: '3', label: 'sea algae sheet masks for the evenings skin needs a break' },
   ],
   contents: {
     eyebrow: 'What is inside',
-    title: 'Five products, and each one works on oil',
+    title: 'Five singles, one routine',
     intro:
-      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run one routine end to end: wash without scrubbing, take the oil down, treat what is already there, and keep the skin comfortable enough that you actually stay with it.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run one routine end to end: clean without scrubbing, take the shine down, keep working on it, and put water back so skin stays comfortable enough that you stick with it.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -147,8 +147,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 1 - Cleanse',
         body:
-          'Goes on to a dry face and foams by itself, so oily skin gets a deep clean with no rubbing over spots that are already sore. Phytolex SC, a mung bean, birch and curly dock complex, settles the irritation as it works.',
-        facts: ['Foams on its own, no scrubbing', 'Bubble agent at 3%', 'Phytolex SC', '180ml'],
+          'Pump it onto a dry face and it builds its own air foam, so oily skin gets a thorough clean with no scrubbing over spots that are already sore. Massage gently, then rinse with tepid water.',
+        facts: ['Goes on a dry face', 'Builds its own air foam', 'No scrubbing', '180ml'],
       },
       {
         titleKey: 'routineProblemControlTonerTitle',
@@ -156,17 +156,17 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 2 - Tone',
         body:
-          'The strongest number in the box comes from here: sebum down by about half after four weeks. Anti Sebum P, a patented four-plant complex, tightens pores and slows the oil, salicylic acid clears out what is already in them, and SNOW ICE drops the skin temperature so a face that runs hot stops feeling like it.',
-        facts: ['Sebum down ~50% in 4 weeks', 'Certified non-comedogenic', 'Anti Sebum P, patented', '200ml'],
+          'The biggest number in the box: about half the sebum after four weeks. Zinc PCA at 0.5% works on the oil, a 13.4% hydrating base puts water straight back, and the SNOW ICE cooling complex lands cold. Non-comedogenic, tested by QACS Ltd.',
+        facts: ['~50% less sebum in 4 weeks', 'Zinc PCA 0.5%', 'Non-comedogenic', '200ml'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 3,
-        step: 'Any evening skin needs calming',
+        step: 'Any evening skin needs a break',
         body:
-          'Three of them, because problem skin in treatment has bad weeks. A eucalyptus Eucalace® sheet, breathable and residue-free, carrying allantoin and panthenol at 0.1% each. Chestnut shell extract keeps working on sebum and pore size while you lie there, and witch hazel leaf tightens the look of the pores themselves.',
-        facts: ['Allantoin and panthenol 0.1% each', 'Eucalace® sheet', 'No artificial pigment', '25g each'],
+          'Three of them, because problem skin has bad weeks. A soft eucalyptus Eucalace® sheet soaked in a hydrating essence with allantoin and panthenol at 0.1% each. Fifteen to twenty minutes after the toner, then pat the rest in.',
+        facts: ['Eucalace® sheet', 'Allantoin and panthenol 0.1% each', 'No artificial pigment', '25g each'],
       },
       {
         titleKey: 'routineProblemControlSerumTitle',
@@ -174,8 +174,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Treat, morning and night',
         body:
-          'Zinc PCA at 0.05%, and it goes in neat rather than as a diluted premix. That is the ingredient Korea registers this serum on for anti-blemishes, oil and sebum control. Over 90% of the bottle is water, so it goes under the cream without adding anything to the surface.',
-        facts: ['Zinc PCA 0.05%, neat', 'Over 90% water', 'Dermatologically tested', '30ml'],
+          'Nine tenths water, with zinc PCA at a full 0.05%, neat. Korea registers this serum for anti-blemishes, oil and sebum control. Oil-free and fragrance-free, it sinks in fast under the cream.',
+        facts: ['Zinc PCA 0.05%, neat', 'Registered for oil and sebum control', 'Oil-free, fragrance-free', '30ml'],
       },
       {
         titleKey: 'routineProblemControlCreamTitle',
@@ -183,8 +183,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 4 - Seal it in',
         body:
-          'The step that answers the usual complaint about acne routines, that they leave skin tight and peeling. There is no oil in this cream at all, so it can close the routine without adding anything back: trehalose at 1.5% and xylitol at 0.5% hold water in while the same 0.05% of zinc PCA keeps working.',
-        facts: ['No oil, butter, wax or emulsifier', 'Zinc PCA 0.05%, as in the serum', 'Trehalose 1.5%, xylitol 0.5%', '50g'],
+          'The step that stops an oil routine leaving skin tight. A light gel with no traditional oil phase: trehalose at 1.5% and xylitol at 0.5% hold water in while zinc PCA at 0.05% keeps working.',
+        facts: ['No traditional oil phase', 'Zinc PCA 0.05%', 'Trehalose 1.5% + xylitol 0.5%', '50g'],
       },
     ],
     eanLabel: 'Barcode',
@@ -200,77 +200,77 @@ const EN: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'How to use it',
-    title: 'A week on problem skin',
+    title: 'Your service schedule',
     intro:
-      'Four steps morning and night, with a mask on any evening you want one. Each product carries its own full instructions on its own page; this is how they fit together.',
+      'Four steps morning and night, with a mask on any evening you want one. Each product carries its full instructions on its own page; this is how they fit together.',
     steps: [
       {
-        title: 'Morning: cleanse on dry skin',
+        title: 'Cleanse on dry skin',
         body:
-          'Pump the cleanser on to a dry face, avoiding the eyes. Wait for the oxygen bubbles to build, massage gently in circles, rinse with tepid water. No scrubbing, which is the point on skin with active spots.',
+          'Pump the cleanser onto a dry face, avoiding the eyes. Let the air foam build, massage gently in circles and rinse with tepid water. No scrubbing, which is the point on skin with active spots.',
       },
       {
         title: 'Tone, and take your time over it',
         body:
-          'Soak a cotton pad and wipe along the skin, which lifts the residue cleansing leaves behind. It cools as it goes on, and that is the SNOW ICE complex rather than alcohol.',
+          'Soak a cotton pad and sweep it along the skin, or mist the 200 ml straight onto the face. It cools as it goes on: that is the SNOW ICE complex.',
       },
       {
         title: 'Or use the toner as a ten-minute compress',
         body:
-          'On a bad week, soak pads and lay them over the oiliest areas for five to ten minutes. It is the cheapest way to get more out of a bottle you already own.',
+          'On a bad week, soak cotton pads and lay them over the oiliest areas for five to ten minutes. The easiest way to get more out of a bottle you already own.',
       },
       {
         title: 'Serum, morning and night',
         body:
-          'Two or three drops over the whole face while the toner is still damp, then press rather than rub. This is the step doing the sebum work, so it is the one worth not skipping.',
+          'Two or three drops over the face after the toner, avoiding the eye area. Pat in until absorbed, then go straight to the cream.',
       },
       {
         title: 'Cream last',
         body:
-          'A small amount, smoothed over the serum, morning and night. Oily skin often skips moisturiser and then produces more oil to compensate. This one is built not to be heavy.',
+          'A small amount smoothed over the serum, morning and night. Oily skin needs water too, and this one is built light enough to wear.',
       },
       {
-        title: 'A mask, whenever skin is angry',
+        title: 'A mask, whenever skin needs a break',
         body:
-          'On a clean face after the toner, lay the sheet on for fifteen to twenty minutes. Lift it off and press the rest in. Do not rinse. Follow with the serum and cream as usual.',
+          'On a clean face after the toner, lay the sheet on for fifteen to twenty minutes. Lift it off and pat the rest in. Do not rinse. Follow with the serum and cream as usual.',
       },
     ],
     note:
-      'The toner contains a BHA and the serum contains willow bark, so both make skin a little more sun-sensitive. Wear sun protection in the morning, which also matters because sunlight darkens the marks a breakout leaves behind.',
+      'Wear sunscreen in the morning. The toner contains salicylic acid and tea tree leaf oil, the mask peppermint oil, and the cleanser and cream are fragranced, so bring the products in one at a time if your skin reacts to fragrance, essential oils or salicylates.',
   },
   evidence: {
     eyebrow: 'What is in it',
     title: 'The numbers behind it',
     intro:
-      'Three of the five products here were measured on the same thing, over the same four weeks, and all three moved it. Here is what they came back with.',
+      'Every figure below comes from the products inside the box, and every one of them is on that product’s own page.',
     cards: [
       {
-        value: '50%',
+        value: '~50%',
         title: 'Less sebum after four weeks, on the toner',
         body:
-          'The largest single result in this box, and it comes from the step most people treat as optional. Four weeks of use took the amount of sebum on the skin down by about half. It is also the step that earns the box its non-comedogenic certification.',
+          'In a four-week study of the finished toner, measured sebum fell by about half. It is the step most people treat as optional, and it carries the biggest result in the box.',
       },
       {
-        value: '17%',
-        title: 'Less sebum on the serum, and 8% fewer marks',
+        value: '0.5%',
+        title: 'Zinc PCA in the toner',
         body:
-          'Measured over four weeks. The second number is the one worth reading twice: colour-blemishes, meaning the marks a breakout leaves behind long after the spot has gone, fell 8%. Most acne routines never touch those.',
+          'Ten times the level in the serum and the cream, on a 13.4% hydrating base that keeps skin comfortable as the oil comes off.',
       },
       {
-        value: '14%',
-        title: 'Less sebum on the cream, and 9% fewer marks',
+        value: '0.05%',
+        title: 'Zinc PCA in the serum and the cream',
         body:
-          'Same four-week measurement, same two things, from the step that is meant to be doing nothing but moisturising. That is why the cream is in the routine rather than any other moisturiser you already own.',
+          'Neat in the serum, which Korea registers for oil and sebum control, and again in the cream, so the work carries on after the last step.',
       },
       {
-        value: 'Certified',
-        title: 'Non-comedogenic, tested by QACS Ltd.',
+        value: 'QACS',
+        title: 'A non-comedogenic toner',
         body:
-          'The toner was tested and certified for low likelihood of blocking pores. On a routine aimed at clogged pores, that is not a technicality: it is the difference between a product that clears skin and one that quietly feeds the problem.',
+          'Tested by QACS Ltd. for a low likelihood of clogging pores. On a routine for clogged, blemish-prone skin, that is the first box a toner has to tick.',
       },
     ],
     footnote:
-      'Two of the names on the toner are ours. Anti Sebum P is a patented complex of David elm root, kudzu root, evening primrose flower and longleaf pine leaf, and it works by contracting pores and slowing sebum at the gland. SNOW ICE is a cooling complex that activates TRPM8, the receptor that senses cold, which is why the toner drops skin temperature rather than just feeling wet.',
+      'Two names on the toner are ours. Anti Sebum P is a patented complex of four botanicals: elm root, kudzu root, evening primrose flower and longleaf pine leaf. SNOW ICE is the cooling complex behind its cold, fresh finish.',
   },
   suited: {
     eyebrow: 'Suitability',
@@ -278,17 +278,17 @@ const EN: BeautyBoxCopy = {
     forTitle: 'A good match if',
     forList: [
       'Your skin is oily and shines by midday, and blotting paper has become part of your routine',
-      'You break out regularly and the marks left behind are as much of a problem as the spots',
-      'Your pores look enlarged around the nose and cheeks',
-      'You have tried drying everything out and ended up with skin that is both oily and flaking',
-      'You want the sebum claim measured rather than implied',
+      'You break out regularly and want one routine instead of five guesses',
+      'Your pores clog easily around the nose and cheeks',
+      'You have tried drying everything out and ended up with skin that is both oily and tight',
+      'You like a mist for the face, neck or back',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
       'Dark patches and uneven tone are the real target. The Skin Brightening box is built around two Korean-licensed brighteners',
       'Lines and firmness are the real target. The Anti-Aging box is built around the registered anti-wrinkle serum and cream',
       'Dryness is the real target. The Deep Moisturizing box is built for that instead',
-      'Menthol bothers you. The toner cools deliberately and the mask carries peppermint oil, so both will tingle',
+      'Menthol bothers you. The toner cools on purpose and the mask carries peppermint oil, so both will tingle',
       'You are pregnant or breastfeeding, in which case check the salicylic acid in the toner with your doctor before starting',
     ],
     alternativesLabel: 'The boxes mentioned above',
@@ -298,7 +298,7 @@ const EN: BeautyBoxCopy = {
       { productNumber: '59', label: 'Deep Moisturizing Beauty Box' },
     ],
     note:
-      'Cleanser, toner, serum, cream and mask are all dermatologically tested, and the toner is certified non-comedogenic on top of that. If your skin is reactive as well as oily, start the toner every other day.',
+      'The toner is non-comedogenic, tested by QACS Ltd. If your skin is reactive as well as oily, bring the products in one at a time.',
   },
   details: {
     eyebrow: 'Specifications',
@@ -306,13 +306,12 @@ const EN: BeautyBoxCopy = {
     rows: [
       { label: 'Contents', value: '5 products: cleanser 180ml, toner 200ml, serum 30ml, cream 50g, and three sea algae masks at 25g each' },
       { label: 'Skin type', value: 'Oily, combination and blemish-prone skin. The cream is the step that keeps it from going tight' },
-      { label: 'Routine', value: 'Cleanse, tone, serum, cream, morning and night. A mask on any evening skin needs calming' },
-      { label: 'Clinical', value: 'Sebum down about 50% on the toner, 17% on the serum and 14% on the cream, each over four weeks. Marks down 8% on the serum and 9% on the cream' },
-      { label: 'Certification', value: 'The toner is certified non-comedogenic, tested by QACS Ltd.' },
+      { label: 'Routine', value: 'Cleanse, tone, serum, cream, morning and night. A mask on any evening skin needs a break' },
+      { label: 'Key figures', value: 'Toner: about 50% less sebum in four weeks, zinc PCA 0.5%, 13.4% hydrating base. Serum and cream: zinc PCA 0.05% each. Mask: 15 to 20 minutes' },
+      { label: 'Certification', value: 'The toner is non-comedogenic, tested by QACS Ltd.' },
       { label: 'Sensation', value: 'The toner cools on contact through the SNOW ICE complex, and the mask contains peppermint oil' },
-      { label: 'Fragrance', value: 'The cleanser is lightly fragranced, allergens listed in full. The mask has no added fragrance and no artificial pigment' },
+      { label: 'Fragrance', value: 'The cleanser and cream are fragranced, allergens listed in full. The mask has no added fragrance and no artificial pigment' },
       { label: 'Origin', value: 'Made in Korea for DTS MG Co., Ltd., Seoul' },
-      { label: 'Testing', value: 'All five products dermatologically tested' },
       { label: 'Discounts', value: 'The bundle price is already the discount, so other offers do not stack on the box' },
     ],
   },
@@ -322,23 +321,23 @@ const EN: BeautyBoxCopy = {
     items: [
       {
         q: 'Will this dry my skin out like other acne products?',
-        a: 'That is what the cream is there to stop. Most acne routines work by stripping oil and leave skin tight, flaking and, a week later, oilier than before as it overcompensates. Here the sebum work happens through zinc PCA at the gland rather than by degreasing the surface, and the cream puts water back with xylitol and trehalose. It still measured 14% less sebum while doing it.',
+        a: 'That is what the cream is there to stop. The oil work sits in the toner, serum and cream through zinc PCA rather than harsh degreasing, and the gel cream puts water back with trehalose and xylitol.',
       },
       {
         q: 'What is the tingle in the toner?',
-        a: 'SNOW ICE, our cooling complex, built on menthyl lactate and two other cooling agents. It activates TRPM8, the receptor your skin uses to sense cold, so it genuinely lowers skin temperature rather than just feeling cold. There is no alcohol behind it. If you dislike the sensation it fades in under a minute.',
+        a: 'That is SNOW ICE, the cooling complex in the toner. It gives a clear cold, fresh feel as it goes on and settles quickly. If you dislike it, use the toner every other day.',
       },
       {
         q: 'Why three sheet masks and only one of everything else?',
-        a: 'Because problem skin has bad weeks and the other four are daily steps that last months. The masks are the thing you reach for after a flare-up, a long day, or a night that showed on your face. Chestnut shell extract in them works on sebum and pore size too, so they are not just a comfort step.',
+        a: 'Because problem skin has bad weeks, and the other four are daily steps that last. The masks are for the evenings after a flare-up or a long day: fifteen to twenty minutes, then pat the rest in.',
       },
       {
         q: 'Can I use this with a prescription acne treatment?',
-        a: 'Speak to whoever prescribed it first. Retinoids and benzoyl peroxide already thin and sensitise the skin, and the toner contains a BHA on top of that. Where people usually land is keeping the cleanser, the cream and the masks, and spacing the toner and serum around the prescription rather than layering everything.',
+        a: 'Speak to whoever prescribed it first. Retinoids and benzoyl peroxide already sensitise the skin, and the toner contains salicylic acid. Where people usually land is keeping the cleanser, the cream and the masks, and spacing the toner and serum around the prescription.',
       },
       {
         q: 'How soon would I see anything?',
-        a: 'All three measurements were taken at four weeks, so that is the honest answer for the sebum and the marks. Oiliness is the first thing you notice changing, usually before the month is up. Take a photograph now, because marks fade slowly enough that a mirror will not show you the difference.',
+        a: 'Give it the four weeks the toner study ran for. Take a photo on day one, because a mirror is a poor judge of slow change.',
       },
       {
         q: 'Can I just buy the products separately?',
@@ -517,7 +516,7 @@ const AR: BeautyBoxCopy = {
       },
     ],
     footnote:
-      'اسمان على التونر من تسميتنا نحن. \u2066Anti Sebum P\u2069 مركب حاصل على براءة اختراع من جذر الدردار الصيني وجذر الكودزو وزهرة زهرة الربيع المسائية وأوراق الصنوبر طويل الأوراق، ويعمل بتضييق المسام وإبطاء الدهون عند الغدة. و\u2066SNOW ICE\u2069 مركب تبريد ينشّط \u2066TRPM8\u2069، المستقبل الذي يستشعر البرودة، ولهذا يخفض التونر حرارة البشرة بدل أن يكون مجرد إحساس بالبلل.',
+      'اسمان على التونر من تسميتنا نحن. \u2066Anti Sebum P\u2069 مركّب حاصل على براءة اختراع من أربعة نباتات: جذر الدردار وجذر الكودزو وزهرة الربيع المسائية وأوراق الصنوبر طويل الأوراق. و\u2066SNOW ICE\u2069 مركّب التبريد الذي يمنح التونر إحساساً بارداً ومنعشاً.',
   },
   suited: {
     eyebrow: 'الملاءمة',
@@ -759,7 +758,7 @@ const RU: BeautyBoxCopy = {
       },
     ],
     footnote:
-      'Два названия на тонике - наши собственные. Anti Sebum P - запатентованный комплекс из корня вяза Давида, корня кудзу, цветка энотеры и хвои болотной сосны, он сужает поры и притормаживает себум прямо у железы. SNOW ICE - охлаждающий комплекс, активирующий TRPM8, рецептор холода, поэтому тоник действительно снижает температуру кожи, а не просто ощущается влажным.',
+      'Два названия на тонике - наши собственные. Anti Sebum P - запатентованный комплекс из четырёх растений: корня вяза, корня кудзу, цветка энотеры и хвои длиннохвойной сосны. SNOW ICE - охлаждающий комплекс, который даёт тонику холодный, свежий финиш.',
   },
   suited: {
     eyebrow: 'Кому подходит',

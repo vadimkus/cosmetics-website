@@ -103,6 +103,7 @@ next-env.d.ts
 !/data/product64LocalizedCopy.ts
 !/data/product65LocalizedCopy.ts
 !/data/product66LocalizedCopy.ts
+!/data/product67LocalizedCopy.ts
 
 # Customer-specific protocols / PII (keep in ~/Documents/genosys-customer-protocols/)
 /docs/customers/

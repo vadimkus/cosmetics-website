@@ -44,7 +44,7 @@ function variant(
 
 describe('product option model', () => {
   it('requires an explicit selection for every configured live option product', () => {
-    const expected = ['1', '10', '15', '16', '25', '28', '29', '30', '31', '32', '41', '63', '66']
+    const expected = ['1', '10', '15', '16', '25', '28', '29', '30', '31', '32', '41', '63', '66', '67']
     const configBacked = Object.entries(PRODUCT_CONFIG)
       .filter(([, config]) => (config.sizes?.length || 0) > 1 || (config.colors?.length || 0) > 1)
       .map(([id]) => id)

@@ -630,6 +630,16 @@
     "review": false
   },
   {
+    "product": "67",
+    "status": "ok",
+    "source": "/images/stamp_campaign/main.jpg",
+    "file": "/images/cutout/67.webp",
+    "name": "Microneedle Stamp",
+    "coverage": 0.172,
+    "bytes": 45214,
+    "review": false
+  },
+  {
     "product": "7",
     "status": "ok",
     "source": "/images/pcs_v/Main.jpeg",

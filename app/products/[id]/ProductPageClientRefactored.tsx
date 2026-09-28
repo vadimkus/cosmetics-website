@@ -979,6 +979,15 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
+            {(product.id === '67' || product.productNumber === '67') && (
+              <div className="hidden md:block">
+                <ProductRecommendation
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Desktop only */}
             {(product.id === '4' || product.productNumber === '4') && (
               <div className="hidden md:block">

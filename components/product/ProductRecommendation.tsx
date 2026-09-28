@@ -203,6 +203,17 @@ export default function ProductRecommendation({
         ]
       }
     }
+    if ((currentProduct.id === '67' || currentProduct.productNumber === '67') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc67Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc67Benefit1Title'), text: t('product.pc67Benefit1Text') },
+          { title: t('product.pc67Benefit2Title'), text: t('product.pc67Benefit2Text') },
+          { title: t('product.pc67Benefit3Title'), text: t('product.pc67Benefit3Text') },
+          { title: t('product.pc67Benefit4Title'), text: t('product.pc67Benefit4Text') }
+        ]
+      }
+    }
     // PRO Solution + Microneedle Roller combinations (4, 5, 6, 7, 8, 9 + 1)
     if ((currentProduct.id === '4' || currentProduct.productNumber === '4') && recommendedProduct.id === '1') {
       return {

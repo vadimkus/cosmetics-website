@@ -116,6 +116,26 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '2.0mm', label: '2.0mm', available: true }
     ]
   },
+  '67': {
+    id: '67',
+    pricing: {
+      basePrice: 230,
+      sizeVariants: {
+        '0.25mm': 230,
+        '0.5mm': 230,
+        '1.0mm': 230,
+        '1.5mm': 230,
+        '2.0mm': 230
+      }
+    },
+    sizes: [
+      { value: '0.25mm', label: '0.25mm', available: true },
+      { value: '0.5mm', label: '0.5mm', available: true },
+      { value: '1.0mm', label: '1.0mm', available: true },
+      { value: '1.5mm', label: '1.5mm', available: true },
+      { value: '2.0mm', label: '2.0mm', available: true }
+    ]
+  },
   '2': {
     id: '2',
     pricing: {

@@ -152,6 +152,8 @@ const CUTOUTS: Record<string, string> = {
   '/images/pdrn_5000_new/Main.jpeg': '/images/cutout/65-v2.webp',
   // 66 CERABARRIER BIOME GEL CLEANSER
   '/images/cera_o/Main.jpeg': '/images/cutout/66-v2.webp',
+  // 67 Microneedle Stamp
+  '/images/stamp_campaign/main.jpg': '/images/cutout/67.webp',
 }
 
 /**

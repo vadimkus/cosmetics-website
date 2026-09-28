@@ -912,4 +912,16 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     isPriceOnRequest: false,
     videoUrl: '/videos/5000.mp4',
   },
+  {
+    id: '67',
+    productNumber: '67',
+    name: 'Microneedle Stamp',
+    price: 230,
+    description: 'The GENOSYS DTS microneedle stamp: 140 disk-cut needles in one flat head, pressed straight down exactly where you want them. Acne scars, lines, the smile line, small zones and the scalp. Press, lift, move, with no drag across the skin. Five lengths, 0.25 to 2.0 mm. Sterile, single use, CE-marked, made in Korea.',
+    image: '/images/stamp_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/stamp_campaign/s${i + 1}.jpg`)),
+    category: 'Microneedling',
+    inStock: true,
+    size: '0.25mm',
+  },
 ]

@@ -281,6 +281,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'Hair-GENTRON': 'ddfccf89-62bd-11ea-0a80-01a0000df3c7',                      // HAIR GENTRON DEVICE
   'HairGen BOOSTER': 'e83c5eb3-9eb7-11ec-0a80-0316003aaa94',                   // HAIRGEN BOOSTER DEVICE
   'Microneedle Roller': 'e6bfaf3b-33ce-11ea-0a80-020c000b009b',               // Standard Detachable 0.25mm (default)
+  'Microneedle Stamp': '2e9e930a-bb74-11f1-0a80-083a0004a735',                // DTS Stamp 0.25mm (default), code 54504
   'Needle Pen-K': '67616f70-42bf-11ea-0a80-01e3000bf0f5',                      // Dermafix Premium
 
   // === Mist ===
@@ -363,6 +364,13 @@ const SIZE_VARIANT_MAP: Record<string, string> = {
   'MICRONEEDLE ROLLER | 1.0mm':  'fca27ce5-343a-11ea-0a80-01b500011297', // code 00003
   'MICRONEEDLE ROLLER | 1.5mm':  'c83c9cf9-343b-11ea-0a80-05dc0000f00e', // code 00004
   'MICRONEEDLE ROLLER | 2.0mm':  'f4fb8b3a-343b-11ea-0a80-06a400010a65', // code 00005
+
+  // === Microneedle Stamp (product 67) - needle-length variants ===
+  'MICRONEEDLE STAMP | 0.25mm': '2e9e930a-bb74-11f1-0a80-083a0004a735', // code 54504
+  'MICRONEEDLE STAMP | 0.5mm':  '2f0c541f-bb74-11f1-0a80-16890004d602', // code 54505
+  'MICRONEEDLE STAMP | 1.0mm':  '2f6a5f8a-bb74-11f1-0a80-0bc100047ddf', // code 54506
+  'MICRONEEDLE STAMP | 1.5mm':  '2fdc76ac-bb74-11f1-0a80-0bc100047df1', // code 54507
+  'MICRONEEDLE STAMP | 2.0mm':  '303dd73c-bb74-11f1-0a80-173c00045868', // code 54508
 
   // === CERABARRIER Biome Gel Cleanser (product 66) ===
   'CERABARRIER BIOME GEL CLEANSER | 200ml': '4403ccba-6ed1-11f1-0a80-16ec00a25b21', // code 54484

@@ -344,6 +344,7 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
 
   // Devices
   'Microneedle Roller': ['anti-aging', 'acne-blemishes', 'page-acne', 'scar-repair'],
+  'Microneedle Stamp': ['acne-blemishes', 'page-acne', 'scar-repair', 'anti-aging'],
   'Needle Pen-K': ['anti-aging', 'acne-blemishes', 'page-acne', 'scar-repair'],
   // GENO-LED IR II is deliberately absent: no concern or effect claim is verified for it
   // (docs/SESSION_CHANGES_2026-08-21_PRODUCT_49_GENO_LED_LOCALIZATION_AUDIT.md).

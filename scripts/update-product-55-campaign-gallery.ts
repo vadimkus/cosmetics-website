@@ -23,8 +23,14 @@ const DESCRIPTION =
   'An oil change for oily, blemish-prone skin. Five GENOSYS singles in routine order: SNOW O₂ Cleanser 180 ml goes on a dry face and builds its own air foam; Intensive Problem Control Toner 200 ml puts zinc PCA 0.5% on a 13.4% hydrating base, and in a four-week study of the finished toner measured sebum fell by about half; Problem Control Serum 30 ml carries zinc PCA 0.05%, and Korea registers it for oil and sebum control; Intensive Problem Control Cream 50 g is a light gel with no traditional oil phase, trehalose 1.5% and xylitol 0.5%; and three Soothing Bomb Sea Algae Masks 25 g are there for the evenings skin needs a break. Cleanse, tone, serum, cream, morning and night. The toner is non-comedogenic, tested by QACS Ltd. Made in Korea. Together for less than the five bought separately.'
 
 async function live(path: string): Promise<boolean> {
-  const res = await fetch(`https://genosys.ae${path}`, { method: 'HEAD' })
-  return res.ok
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetch(`https://genosys.ae${path}`, { method: 'HEAD' })
+      return res.ok
+    } catch (error) {
+      if (attempt === 3) throw error
+    }
+  }
 }
 
 async function main() {

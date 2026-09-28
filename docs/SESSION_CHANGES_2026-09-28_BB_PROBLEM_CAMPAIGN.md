@@ -84,3 +84,18 @@ rules, 12-slide grammar, type, palettes and idea seeds for 56, 57, 58, 59 and 62
   which failed `noDashes.test.ts`.
 - DB: `scripts/update-product-55-campaign-gallery.ts --apply` after the deploy (checks all 37
   URLs return 200 first): image, gallery, EN description.
+
+## Live check (28 Sep 2026)
+
+- Code `334760250` live after ~6 min. The first dry runs aborted on random connect timeouts
+  from this network (about 1 in 12 fresh connections; curl showed the same files 200), so the
+  script's live check now retries a failed connection twice. `--apply` done (before:
+  `bb_problem/Main-v2.jpeg`, `images` null). Revalidated tag `products`, `/products/55` and
+  `/products/59` EN/RU/AR, `/products` EN/RU/AR, `/`.
+- HTML: `/products/55` renders `main.jpg` + the 12 EN slides, `/ru/` its 12 `ru/` slides, `/ar/`
+  its 12 `ar/` slides (no EN slide on RU/AR), `bb-livery`, cut-out `55-v4`. Browser: all 13 AR
+  images load, AR slide 1 right-to-left in the viewer.
+- Mobile API `/api/mobile/products/55` (x-api-key, x-locale): 18 images = main + 12 locale
+  slides + 5 member packshots. `/api/mobile/products/59`: main + its 5 members.
+- The CTA stays the site-wide `--cera-cta` (`#9c686d`, `globals.css`); no product palette
+  overrides it.

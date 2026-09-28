@@ -62,11 +62,11 @@
   {
     "product": "15",
     "status": "ok",
-    "source": "/images/problem/Main-v2.jpg",
-    "file": "/images/cutout/15-v2.webp",
+    "source": "/images/pct_campaign/main.jpg",
+    "file": "/images/cutout/15-v3.webp",
     "name": "INTENSIVE PROBLEM CONTROL TONER",
-    "coverage": 0.332,
-    "bytes": 54140,
+    "coverage": 0.287,
+    "bytes": 50952,
     "review": false
   },
   {

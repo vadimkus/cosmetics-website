@@ -298,6 +298,11 @@ REVISION = {
     "16": 2,
     "37": 2,
     "53": 2,
+    # "Oil off. Cool on." campaign packshot (pct_campaign/main.jpg, 28 Sep 2026): the 200 ml
+    # mist and 500 ml pump on white, with ice at their bases. Like 16, v3 is the two supplied
+    # container PNGs (~/Desktop/problem_boost) at the main's layout (pct_refs.py pair), then
+    # normalised. Do not rebuild 15 from the photograph.
+    "15": 3,
 }
 
 

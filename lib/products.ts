@@ -249,16 +249,11 @@ export const products: Product[] = [
     id: '15',
     name: 'INTENSIVE PROBLEM CONTROL TONER',
     price: 260,
-    description: '200ml / 500ml. Oil-control toner for blemish-prone skin. Apply or spray morning and evening. Takes excess oil and sebum, then puts water back. Zinc PCA 0.5% is the named active. The 200 ml bottle turns upside down for the back. Salicylic acid is 0.001%. Copper peptide is not in the formula. Dermatologically tested.',
-    image: '/images/problem/Main-v2.jpg',
-    images: JSON.stringify([
-      '/images/problem/S1.jpg',
-      '/images/problem/S2.jpg',
-      '/images/problem/S3.jpg',
-      '/images/problem/S4.jpg',
-      '/images/problem/S5.jpg',
-      '/images/problem/S6.jpg',
-    ]),
+    description: 'Oil off. Cool on. INTENSIVE PROBLEM CONTROL TONER is the cooling oil-control toner for blemish-prone skin: it takes excess oil and sebum off and puts quick hydration straight back. Zinc PCA 0.5% on a 13.4% hydrating base of butylene glycol, glycerin and dipropylene glycol, with tea tree, peppermint, Anti Sebum P and the SNOW ICE cooling complex for a fresh, cool finish. In a four-week study, measured sebum fell by about half. Non-comedogenic (QACS Ltd.) and dermatologically tested. The 200 ml mist sprays at any angle, even upside down for the back; the 500 ml pump is for the treatment room. Made in Korea.',
+    // "Oil off. Cool on." campaign set (pct_campaign), matching the database. The main image
+    // is deliberately not repeated in `images`: web and mobile both prepend it.
+    image: '/images/pct_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/pct_campaign/s${i + 1}.jpg`)),
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',

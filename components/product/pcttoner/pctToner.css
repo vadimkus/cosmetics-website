@@ -2,9 +2,9 @@
  * Palette override for the INTENSIVE PROBLEM CONTROL TONER page (product 15).
  *
  * Structural rules live in cerabarrier.css. This file only restates the
- * variables. The accent is the PCT name-bar blue, sampled off the live
- * pack. Ice blue itself fails WCAG as body text; steel ink keeps body
- * copy readable.
+ * variables. The accent is the label band cobalt of the "Oil off. Cool on."
+ * campaign (#1E3A8A). Ice blue itself fails WCAG as body text; navy ink keeps
+ * body copy readable.
  *
  * Keep it clear of Cerabarrier's rose cream, EPI's mint, Snow O2's ember
  * orange, Remover's dark gold, SRS bone/steel, and the mist's peach and
@@ -15,27 +15,27 @@
  */
 
 .cera-page.pct-page {
-  --cera-cream: #eef3f8;
-  --cera-cream-deep: #d7e2ee;
-  --cera-blush: #c5d6e8;
-  --cera-blush-deep: #8eafcc;
-  --cera-rose: #2f6fa8;
-  --cera-rose-ink: #1d4f7a;
-  --cera-ink: #101820;
-  --cera-body: #2c3844;
-  --cera-muted: #5a6b7a;
-  --cera-line: #c9d6e2;
-  --cera-shot: #e6eef5;
+  --cera-cream: #eef3fb;
+  --cera-cream-deep: #d6e1f5;
+  --cera-blush: #cddcf6;
+  --cera-blush-deep: #8fa8e0;
+  --cera-rose: #2d4fb0;
+  --cera-rose-ink: #1e3a8a;
+  --cera-ink: #0f1a3d;
+  --cera-body: #2a3553;
+  --cera-muted: #5a6785;
+  --cera-line: #cfdaf0;
+  --cera-shot: #e8eff9;
 }
 
 .pct-page .cera-stage {
-  background-color: #eaf0f6;
-  box-shadow: 0 24px 60px -34px rgba(29, 79, 122, 0.28);
+  background-color: #e8eff9;
+  box-shadow: 0 24px 60px -34px rgba(30, 58, 138, 0.28);
 }
 
 @media (hover: hover) {
   .pct-page .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(16, 24, 32, 0.04), 0 26px 48px -26px rgba(47, 111, 168, 0.22);
+    box-shadow: 0 2px 4px rgba(16, 24, 32, 0.04), 0 26px 48px -26px rgba(45, 79, 176, 0.22);
   }
 }
 
@@ -50,5 +50,5 @@
 
 .pct-page .pct-video {
   border: 1px solid var(--cera-line);
-  background: #101820;
+  background: #0f1a3d;
 }

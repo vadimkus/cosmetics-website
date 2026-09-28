@@ -70,10 +70,13 @@
  * Snow Booster. This is not the mist. Copper Tripeptide-1 is on the
  * DTS MG deck and is not in the registered INCI. Do not sell it.
  *
- * Live English, Arabic and Russian still sold patented Anti Sebum P,
- * BHA as the engine, copper peptide, SNOW ICE as a lead, all skin
- * types including sensitive, pH restore as the purpose, and acne as
- * a drug claim.
+ * VOICE ("Oil off. Cool on." campaign, 28 Sep 2026): all three
+ * locales sell the toner. Zinc PCA 0.5% and the 13.4% hydrating base
+ * lead; the four-week sebum study and non-comedogenic back them up;
+ * the SNOW ICE cooling feel and Anti Sebum P (patented on the DTS MG
+ * deck and the Korean carton) are supporting lines, never the reason
+ * the toner controls oil. Specific gravity, measured fill and trace
+ * percentages (salicylic acid, hyaluronate) stay off the page.
  *
  * CLAIMS THE PAGE MAKES, AND WHERE THEY COME FROM
  *   Oil control                                    artwork function
@@ -98,10 +101,10 @@
  *     study. Do not print them as product results.
  *   - SALICYLIC ACID / BHA as the engine. Finished dose is 0.001%.
  *   - ANTI SEBUM P / PATENTED as the reason to buy. Four extracts at
- *     0.005% total. Korean carton names patented. English does not.
- *   - SNOW ICE as the lead. One amide at 0.05%, two at parts per
- *     million. Cooling is real. It is not why you buy an oil-control
- *     toner.
+ *     0.005% total. Name it as a supporting complex, never the engine.
+ *   - SNOW ICE as the oil-control claim. One amide at 0.05%, two at
+ *     parts per million. The cooling feel is real and can be sold as
+ *     a feel; it does not control oil.
  *   - HYALURONATE as the hydration engine. 0.0005%. Quick hydration
  *     is the 13.4% humectant stack.
  *   - TANNIC ACID as an astringent engine. 0.00005%.
@@ -213,24 +216,24 @@ export const PCT_TONER_FULL_INCI =
 
 const EN: PctTonerCopy = {
   eyebrow: 'Oil-control toner · Blemish-prone skin',
-  headline: 'Apply. Or spray.',
+  headline: 'Oil off. Cool on.',
   subheadline:
-    'An oil-control toner for blemish-prone skin. It takes excess oil and sebum, then puts water back. Zinc PCA at 0.5% is the named active at a real dose. Morning and evening.',
+    'A cooling oil-control toner for blemish-prone skin. It takes excess oil and sebum off, puts quick hydration straight back and leaves a fresh, cool finish. Zinc PCA 0.5% on a 13.4% hydrating base, morning and evening.',
   heroBullets: [
-    'Apply or spray sufficiently, morning and evening',
-    'Oil control first, then quick hydration',
-    '200 ml turns upside down for the back',
-    '200 ml at home, 500 ml on the clinic shelf',
+    'Takes the shine off without drying skin out',
+    'About 50% less sebum after 4 weeks of use',
+    'Cools on contact with the SNOW ICE complex',
+    'Non-comedogenic and dermatologically tested',
   ],
-  badges: ['Dermatologically tested', 'Made in Korea', '200 ml / 500 ml', 'Morning and evening'],
+  badges: ['Non-comedogenic', 'Dermatologically tested', 'Made in Korea', '200 ml / 500 ml'],
   chooseSize: 'Choose a size',
   sizes: {
     homecareLabel: 'Home',
-    homecareNote: 'The 360° spray. Face in the morning, back when you turn it over.',
+    homecareNote: 'The 200 ml mist sprays at any angle, even upside down for the back.',
     proLabel: 'Professional',
-    proNote: 'The clinic bottle. Same formula, a cotton-pad run.',
+    proNote: 'The 500 ml pump for the treatment room. The same formula.',
   },
-  usageNote: 'Morning and evening',
+  usageNote: 'Morning and evening, after cleansing',
   addToBag: 'Add to bag',
   adding: 'Adding…',
   added: 'Added',
@@ -241,116 +244,114 @@ const EN: PctTonerCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over 1,000 AED · Ships from Dubai',
   stats: [
-    { value: '0.5%', label: 'Zinc PCA, the figure on the card' },
-    { value: 'AM/PM', label: 'Apply or spray, both times' },
-    { value: '360°', label: 'The 200 ml bottle, upside down' },
-    { value: '~50%', label: 'Sebum after 4 weeks, DTS MG' },
+    { value: '0.5%', label: 'Zinc PCA for oil control' },
+    { value: '13.4%', label: 'Hydrating base' },
+    { value: '~50%', label: 'Less sebum after 4 weeks' },
+    { value: '360°', label: 'The 200 ml sprays at any angle' },
   ],
   effects: {
     eyebrow: 'What it does',
-    title: 'Oil first. Then water.',
+    title: 'Matte, fresh, never stripped.',
     intro:
-      'The carton is one sentence: it helps remove excess oil and sebum for blemish-prone skin while adding quick hydration. That is the toner.',
+      'Made for skin that shines by noon and breaks out easily: it takes excess oil and sebum off and puts quick hydration straight back.',
     cards: [
       {
-        title: 'Apply or spray',
-        body: 'Morning and evening, after the cleanse. Enough to cover the face. The 200 ml bottle also goes on the back, upside down.',
+        title: 'Shine off',
+        body: 'Zinc PCA at 0.5% helps control excess sebum, so skin looks fresher and more matte for longer.',
       },
       {
-        title: 'Oil control',
-        body: 'This is the function printed on the carton. Shine and sebum are the job. It is not a peel and it is not a medicine for acne.',
+        title: 'Water back',
+        body: 'Butylene glycol, glycerin and dipropylene glycol, 13.4% of the formula, keep skin comfortable as the oil comes off.',
       },
       {
-        title: 'Quick hydration',
-        body: 'Butylene glycol, glycerin and dipropylene glycol sit at about 13.4%. That is the water the carton promises, not a hyaluronate story.',
+        title: 'Cool on contact',
+        body: 'The SNOW ICE cooling complex takes the heat off skin the moment the toner lands.',
       },
     ],
   },
   engine: {
-    eyebrow: 'The toner',
-    title: 'Zinc at half a percent.',
+    eyebrow: 'The formula',
+    title: 'Zinc PCA 0.5% at the centre.',
     body:
-      'Zinc PCA is 0.5% of the bottle, the largest named active after the solvents. That is the figure that belongs on a card. Anti Sebum P, salicylic acid and hyaluronate sit in the formula. They are not the engine. Copper peptide is not in the bottle.',
+      'The formula is built around zinc PCA at a working 0.5% and a light hydrating base, with botanicals and a cooling complex for a fresh finish. A daily oil-control toner, gentle enough for morning and evening.',
     points: [
       {
         title: 'Zinc PCA · 0.5%',
-        body: 'The sebum-facing salt at a dose you can feel on a card. This is why the toner is an oil-control toner, not a water toner.',
+        body: 'The oil-control active for shiny skin: helps keep sebum in check and pores looking cleaner.',
       },
       {
-        title: 'The water that follows',
-        body: 'Butylene glycol 5.4%, glycerin 5% and dipropylene glycol 3%. Quick hydration is this stack, not sodium hyaluronate at 0.0005%.',
+        title: 'Hydrating base · 13.4%',
+        body: 'Butylene glycol 5.4%, glycerin 5% and dipropylene glycol 3% hold water in the skin without a heavy film.',
       },
       {
-        title: 'Anti Sebum P and BHA',
-        body: 'Named because leftover copy treated them as the reason to buy. The four Anti Sebum P extracts sit at 0.005% together. Salicylic acid is 0.001%. They are in the formula. They are not why you pick this bottle.',
+        title: 'Panthenol, allantoin and trehalose · 0.1% each',
+        body: 'Three softening ingredients that keep skin comfortable after cleansing.',
       },
       {
-        title: 'Copper peptide is not here',
-        body: 'The DTS MG deck shows Copper Tripeptide-1. The registered INCI does not. Do not buy this toner for a copper peptide.',
+        title: 'Tea tree, peppermint and Anti Sebum P',
+        body: 'Tea tree, peppermint and rosemary join Anti Sebum P, a patented complex of four botanicals, for a fresh, clean finish.',
       },
     ],
-    figureAlt: 'GENOSYS Intensive Problem Control Toner, 200 ml bottle and carton',
+    figureAlt: 'GENOSYS Intensive Problem Control Toner, zinc PCA 0.5%',
   },
   howTo: {
     eyebrow: 'How to use',
-    title: 'Apply, or spray. Morning and evening.',
+    title: 'One toner, three ways.',
     frequency: 'Morning and evening',
     steps: [
       {
-        title: 'Apply or spray',
-        body: 'After cleansing, enough to cover the face. The carton stops at sufficiently, morning and evening.',
+        title: 'After cleansing',
+        body: 'Apply enough toner to cover clean skin, avoiding the eye area.',
       },
       {
-        title: 'Cotton pad',
-        body: 'Wipe along the texture if you want a clean pass. That is the clinic how-to on the DTS MG deck.',
+        title: 'With a cotton pad',
+        body: 'Soak a pad and sweep it gently along the skin.',
       },
       {
-        title: 'The back',
-        body: 'The 200 ml bottle sprays 360°. Turn it upside down for the back and the neck.',
+        title: 'As a mist',
+        body: 'Spray evenly over the face. The 200 ml works upside down for the neck, shoulders and back.',
       },
       {
-        title: 'Optional pads',
-        body: 'Soak cotton pads and leave them on for 5 to 10 minutes when you want a longer sit. Then the serum.',
+        title: 'As a pad mask',
+        body: 'Soak cotton pads and leave them on for 5 to 10 minutes for a longer cool-down, then continue your routine.',
       },
     ],
     note:
-      'Keep it off the eyes and mucous membranes; rinse with cool water if contact occurs. For external use only. An opened bottle is a 12-month toner.',
-    videoTitle: 'The toner, on a face',
+      'For external use only. Avoid the eyes and mucous membranes; if contact occurs, rinse with cool water. Stop use if irritation persists.',
+    videoTitle: 'Three ways to apply',
   },
   actives: {
-    eyebrow: 'Inside the bottle',
-    title: 'What is actually in it.',
+    eyebrow: 'Ingredients',
+    title: 'Every active, and how much of it.',
     intro:
-      'Every percentage here is a finished concentration in the bottle, not a guess from a trade name at the top of a list.',
+      'Zinc PCA and the hydrating base do the daily work; botanicals and the cooling complex add the fresh finish.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote:
-      'Every ingredient, strongest first. Your box prints a shorter panel, so this page gives you the full formula.',
+    inciNote: 'Listed from the highest concentration to the lowest: the full formula of the product.',
   },
   suited: {
     eyebrow: 'Is it for you',
-    title: 'An oil-control toner, if shine is the job.',
-    forTitle: 'Buy it if',
+    title: 'For skin that needs oil control without harsh cleansing.',
+    forTitle: 'Choose it if',
     forList: [
-      'Your skin is blemish-prone and you want excess oil taken off, then water put back',
-      'You want a toner you can apply or spray, morning and evening',
-      'You want the 200 ml 360° bottle for the back, or the 500 ml on a clinic shelf',
-      'You already own the Problem Control serum and cream, or you are starting that line',
+      'Your skin gets shiny fast',
+      'Your pores clog easily and you get the occasional breakout',
+      'You want a light daily toner after cleansing',
+      'You like a mist for the face, neck or back',
     ],
-    notTitle: 'Look elsewhere if',
+    notTitle: 'Choose something else if',
     notList: [
-      'You want a hydration toner for every skin type. That is Snow Booster',
-      'You came for a BHA peel. Salicylic acid here is 0.001%',
-      'You came for a copper peptide. It is not in this formula',
-      'You need a fragrance-free toner. Tea tree leaf oil and cooling amides are in this one',
-      'You want the 80 ml shea mist. That is a different bottle',
+      'You want an acid BHA peel: this is a daily toner, not a peel',
+      'You want an all-round hydrating toner: try SNOW BOOSTER',
+      'You need a formula with no aromatic ingredients: tea tree leaf oil and cooling agents are in this one',
+      'Your skin is broken or actively irritated: restore its comfort first',
     ],
-    note: 'For external use only. Keep it away from the eyes and mucous membranes, and rinse with cool water if contact occurs.',
+    note: 'If your skin is sensitive, try it on a small area first.',
   },
   routine: {
-    eyebrow: 'The rest of the morning',
-    title: 'Cleanse, then this, then the line.',
+    eyebrow: 'Your routine',
+    title: 'Cleanse, tone, treat.',
     intro:
-      'The toner sits after the cleanse. Soothing bomb mask, Problem Control serum and Problem Control cream follow when you run the full line.',
+      'Use the toner straight after cleansing. Follow with a mask when you need one, then the Problem Control serum and cream.',
     thisProduct: 'This toner',
     viewProduct: 'View',
     chooseOptions: 'Choose size',
@@ -358,502 +359,74 @@ const EN: PctTonerCopy = {
   },
   faq: {
     eyebrow: 'Questions',
-    title: 'Before you spray it on.',
+    title: 'Good to know before you spray.',
     items: [
       {
-        q: 'Is this a BHA toner?',
-        a: 'No. Salicylic acid is 0.001%. The carton function is oil control. Do not buy it as a peel.',
+        q: 'Is it an acid BHA toner?',
+        a: 'No. It is a daily oil-control toner built around zinc PCA 0.5%, not an exfoliating acid, so it suits morning and evening use.',
       },
       {
-        q: 'Does it contain copper peptide?',
-        a: 'No. Copper Tripeptide-1 appears on the DTS MG deck. It is not on the registered Formula INCI. The bottle you receive does not carry it.',
+        q: 'Will it clog pores?',
+        a: 'It is non-comedogenic, tested by QACS Ltd., so it has a low likelihood of clogging pores. It is made for blemish-prone skin.',
       },
       {
         q: 'What is Anti Sebum P?',
-        a: 'Four extracts: elm root, kudzu root, evening primrose flower and pine leaf, 0.00125% each. They are in the formula. They are not the 0.5% zinc.',
+        a: 'A patented complex of four botanicals: elm root, kudzu root, evening primrose flower and longleaf pine leaf. It works alongside zinc PCA in the formula.',
       },
       {
-        q: 'Where does the 50% sebum figure come from?',
-        a: 'The DTS MG deck. About 50% less sebum after four weeks. That is a product study on the deck, not a supplier premix number. We do not print the 68.2% or 79.96% figures that sit next to Anti Sebum P on the same slides.',
+        q: 'How do you know it controls sebum?',
+        a: 'In a four-week study of the finished toner, measured sebum fell by about half.',
       },
       {
-        q: 'Which size should I buy?',
-        a: '200 ml is the home spray, and the one that works upside down on the back. 500 ml is the clinic bottle, same formula, cotton-pad pace. Pick the one that matches how often the bottle is used.',
+        q: 'Which size should I choose?',
+        a: '200 ml is the home size and sprays at any angle, even upside down. 500 ml is the pump bottle for the treatment room. The formula is the same.',
       },
       {
-        q: 'Is it the same as Snow Booster?',
-        a: 'No. Snow Booster is the daily hydration toner. This one is oil control for blemish-prone skin. Different job, different bottle.',
+        q: 'How is it different from SNOW BOOSTER?',
+        a: 'This toner is for oil control and blemish-prone skin. SNOW BOOSTER is the all-round hydrating toner for everyday comfort.',
       },
       {
-        q: 'Is it fragrance-free?',
-        a: 'No. Tea tree leaf oil is 0.015%, and the cooling amides are in the formula. Do not buy it for a free-from list.',
+        q: 'Does it have a scent?',
+        a: 'A fresh, herbal one, from tea tree leaf oil and the cooling agents, so it is not a fragrance-free toner.',
       },
       {
         q: 'Can I use it on my back?',
-        a: 'The 200 ml carton prints 360° spray, upside down for the back. That is the bottle for hard-to-reach skin. The 500 ml is a cotton-pad bottle.',
+        a: 'Yes. The 200 ml mist sprays at any angle, so you can turn it upside down for the shoulders and back.',
       },
       {
-        q: 'Is this an acne treatment?',
-        a: 'The carton function is oil control, for blemish-prone skin. It is a toner, not a medicine. If you need a doctor for acne, see a doctor.',
+        q: 'Does it treat acne?',
+        a: 'It is a cosmetic toner for oil control and blemish-prone skin. For severe or persistent breakouts, see a dermatologist.',
       },
     ],
   },
   details: {
-    eyebrow: 'The facts',
-    title: 'What the documents actually say.',
+    eyebrow: 'The details',
+    title: 'Formula and format.',
     rows: [
-      { label: 'Function', value: 'Oil control - the line printed on the carton' },
-      { label: 'Format', value: 'Leave-on toner. Apply or spray' },
-      { label: 'Sizes', value: '200 ml home · 500 ml professional' },
-      { label: 'Appearance', value: 'Transparent liquid, light yellow' },
+      { label: 'Function', value: 'Oil control and quick hydration' },
+      { label: 'Format', value: 'Leave-on toner: cotton pad, mist or pad mask' },
+      { label: 'Sizes', value: '200 ml mist for home · 500 ml pump for the treatment room' },
+      { label: 'Texture', value: 'Clear, light yellow liquid' },
       { label: 'pH', value: '4.81, inside a 4.30 to 5.50 specification' },
-      { label: 'How to', value: 'Apply or spray sufficiently, morning and evening' },
-      { label: '200 ml extra', value: '360° spray, upside down for the back' },
-      { label: 'Study', value: 'About 50% less sebum after 4 weeks (DTS MG deck)' },
-      { label: 'Tests', value: 'Dermatologically tested; non-comedogenic, QACS Ltd.' },
+      { label: 'Study', value: 'About 50% less sebum after 4 weeks' },
+      { label: 'Tested', value: 'Dermatologically tested; non-comedogenic, QACS Ltd.' },
       { label: 'After opening', value: '12 months' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the bottle' },
-      { label: 'Manufacturer', value: 'DTS MG Co., Ltd., South Korea' },
+      { label: 'Made by', value: 'DTS MG Co., Ltd., South Korea' },
     ],
   },
   closing: {
-    title: 'Apply, or spray.',
-    body: 'The oil-control toner of the Problem Control line, and every percentage is printed above, nothing hidden.',
+    title: 'Oil off. Cool on.',
+    body: 'The cooling oil-control toner of the Problem Control line: zinc PCA 0.5%, quick hydration and a fresh finish, morning and evening.',
   },
   reviewsTitle: 'Reviews',
   backToProducts: 'Products',
 }
 
-const AR: PctTonerCopy = {
-  eyebrow: 'تونر للتحكم بالدهون · بشرة معرّضة للعيوب',
-  headline: 'ضعي. أو رشي.',
-  subheadline:
-    'تونر للتحكم بالدهون للبشرة المعرّضة للعيوب. يزيل الزيت والزهم الزائد، ثم يعيد الماء. زنك PCA بنسبة 0.5% هو المكوّن المسمّى بجرعة حقيقية. صباحاً ومساءً.',
-  heroBullets: [
-    'ضعي أو رشي بكمية كافية، صباحاً ومساءً',
-    'التحكم بالدهون أولاً، ثم ترطيب سريع',
-    '200 مل تنقلب للظهر',
-    '200 مل في المنزل، 500 مل على رف العيادة',
-  ],
-  badges: ['مختبر جلدياً', 'صُنع في كوريا', '200 مل / 500 مل', 'صباحاً ومساءً'],
-  chooseSize: 'اختاري الحجم',
-  sizes: {
-    homecareLabel: 'منزلي',
-    homecareNote: 'رذاذ 360°. الوجه في الصباح، الظهر عندما تقلبين الزجاجة.',
-    proLabel: 'احترافي',
-    proNote: 'زجاجة العيادة. التركيبة نفسها، بقطعة قطن.',
-  },
-  usageNote: 'صباحاً ومساءً',
-  addToBag: 'أضيفي إلى السلة',
-  adding: 'جارٍ الإضافة…',
-  added: 'تمت الإضافة',
-  inBag: 'في سلتك',
-  viewBag: 'عرض السلة',
-  loginToShop: 'سجّلي الدخول للشراء',
-  outOfStock: 'غير متوفر',
-  vatIncluded: 'شامل الضريبة',
-  freeDelivery: 'توصيل مجاني فوق 1,000 درهم · الشحن من دبي',
-  stats: [
-    { value: '0.5%', label: 'زنك PCA، الرقم على البطاقة' },
-    { value: 'ص/م', label: 'ضعي أو رشي، في المرتين' },
-    { value: '360°', label: 'زجاجة 200 مل، بالمقلوب' },
-    { value: '~50%', label: 'الزهم بعد 4 أسابيع، DTS MG' },
-  ],
-  effects: {
-    eyebrow: 'ماذا يفعل',
-    title: 'الدهون أولاً. ثم الماء.',
-    intro:
-      'العلبة جملة واحدة: يساعد على إزالة الزيت والزهم الزائد للبشرة المعرّضة للعيوب مع ترطيب سريع. هذا هو التونر.',
-    cards: [
-      {
-        title: 'ضعي أو رشي',
-        body: 'صباحاً ومساءً، بعد التنظيف. بما يكفي لتغطية الوجه. زجاجة 200 مل تذهب أيضاً إلى الظهر، بالمقلوب.',
-      },
-      {
-        title: 'التحكم بالدهون',
-        body: 'هذه وظيفة العلبة. اللمعان والزهم هما العمل. ليس تقشيراً وليس دواءً لحب الشباب.',
-      },
-      {
-        title: 'ترطيب سريع',
-        body: 'بيوتيلين جلايكول والجليسرين وDipropylene Glycol عند نحو 13.4%. هذا ماء العلبة، لا قصة هيالورونات.',
-      },
-    ],
-  },
-  engine: {
-    eyebrow: 'التونر',
-    title: 'الزنك بنصف في المئة.',
-    body:
-      'زنك PCA هو 0.5% من الزجاجة، أكبر مكوّن مسمّى بعد المذيبات. هذا الرقم الذي يستحق بطاقة. Anti Sebum P وحمض الساليسيليك والهيالورونات في التركيبة. ليست المحرّك. ببتيد النحاس ليس في الزجاجة.',
-    points: [
-      {
-        title: 'زنك PCA · 0.5%',
-        body: 'ملح الزهم بجرعة تُحس على بطاقة. لهذا السبب هذا تونر تحكم بالدهون، لا تونر ماء.',
-      },
-      {
-        title: 'الماء الذي يلي',
-        body: 'بيوتيلين جلايكول 5.4% وجليسرين 5% وDipropylene Glycol 3%. الترطيب السريع هذه المجموعة، لا هيالورونات الصوديوم عند 0.0005%.',
-      },
-      {
-        title: 'Anti Sebum P وBHA',
-        body: 'مذكوران لأن النسخ القديمة عاملتهما كسبب الشراء. مستخلصات Anti Sebum P الأربعة معاً 0.005%. حمض الساليسيليك 0.001%. هما في التركيبة. وليسا سبب اختيار هذه الزجاجة.',
-      },
-      {
-        title: 'ببتيد النحاس ليس هنا',
-        body: 'عرض DTS MG يظهر Copper Tripeptide-1. قائمة INCI المسجّلة لا تظهره. لا تشتري هذا التونر من أجل ببتيد نحاس.',
-      },
-    ],
-    figureAlt: 'تونر GENOSYS Intensive Problem Control، زجاجة وعلبة 200 مل',
-  },
-  howTo: {
-    eyebrow: 'طريقة الاستخدام',
-    title: 'ضعي، أو رشي. صباحاً ومساءً.',
-    frequency: 'صباحاً ومساءً',
-    steps: [
-      {
-        title: 'ضعي أو رشي',
-        body: 'بعد التنظيف، بما يكفي لتغطية الوجه. العلبة تتوقف عند بكمية كافية، صباحاً ومساءً.',
-      },
-      {
-        title: 'قطعة قطن',
-        body: 'امسحي مع ملمس البشرة إن أردتِ مروراً نظيفاً. هذه طريقة العيادة في عرض DTS MG.',
-      },
-      {
-        title: 'الظهر',
-        body: 'زجاجة 200 مل ترش 360°. اقلبيها للظهر والرقبة.',
-      },
-      {
-        title: 'قطع اختيارية',
-        body: 'انقعي قطع القطن واتركيها 5 إلى 10 دقائق عندما تريدين جلوساً أطول. ثم السيروم.',
-      },
-    ],
-    note:
-      'أبعديه عن العينين والأغشية المخاطية؛ اشطفي بماء بارد إن لامس. للاستخدام الخارجي فقط. الزجاجة المفتوحة تونر لـ 12 شهراً.',
-    videoTitle: 'التونر، على الوجه',
-  },
-  actives: {
-    eyebrow: 'داخل الزجاجة',
-    title: 'ما فيها فعلاً.',
-    intro:
-      'كل نسبة هنا تركيز نهائي في الزجاجة، لا تخمين من اسم تجاري في أعلى قائمة.',
-    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-    inciNote:
-      'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك تطبع لوحة أقصر، وهذه الصفحة تعطيك التركيبة كاملة.',
-  },
-  suited: {
-    eyebrow: 'هل يناسبك',
-    title: 'تونر تحكم بالدهون، إن كان اللمعان هو العمل.',
-    forTitle: 'اشتريه إذا',
-    forList: [
-      'بشرتك معرّضة للعيوب وتريدين إزالة الزيت الزائد ثم إعادة الماء',
-      'تريدين تونراً يُوضع أو يُرش، صباحاً ومساءً',
-      'تريدين زجاجة 200 مل بـ 360° للظهر، أو 500 مل على رف العيادة',
-      'تملكين سيروم وكريم Problem Control، أو تبدأين هذا الخط',
-    ],
-    notTitle: 'ابحثي في مكان آخر إذا',
-    notList: [
-      'تريدين تونر ترطيب لكل أنواع البشرة. ذلك Snow Booster',
-      'جئتِ لتقشير BHA. حمض الساليسيليك هنا 0.001%',
-      'جئتِ لببتيد نحاس. ليس في هذه التركيبة',
-      'تحتاجين تونراً بلا عطر. زيت أوراق الشاي وأميدات التبريد في هذا',
-      'تريدين رذاذ الشيا 80 مل. تلك زجاجة أخرى',
-    ],
-    note: 'للاستخدام الخارجي فقط. أبعديه عن العينين والأغشية المخاطية، واشطفي بماء بارد إن لامس.',
-  },
-  routine: {
-    eyebrow: 'بقية الصباح',
-    title: 'نظّفي، ثم هذا، ثم الخط.',
-    intro:
-      'التونر يأتي بعد التنظيف. قناع Soothing Bomb ثم سيروم Problem Control ثم الكريم عندما تُكمِلين الخط.',
-    thisProduct: 'هذا التونر',
-    viewProduct: 'عرض',
-    chooseOptions: 'اختاري الحجم',
-    fromPrice: 'من',
-  },
-  faq: {
-    eyebrow: 'أسئلة',
-    title: 'قبل أن ترشّيه.',
-    items: [
-      {
-        q: 'هل هذا تونر BHA؟',
-        a: 'لا. حمض الساليسيليك 0.001%. وظيفة العلبة التحكم بالدهون. لا تشتريه كتقشير.',
-      },
-      {
-        q: 'هل يحتوي ببتيد نحاس؟',
-        a: 'لا. Copper Tripeptide-1 يظهر في عرض DTS MG. ليس في قائمة INCI المسجّلة. الزجاجة التي تصلين لا تحمله.',
-      },
-      {
-        q: 'ما هو Anti Sebum P؟',
-        a: 'أربعة مستخلصات: جذر الدردار وجذر الكودزو وزهرة الأونوثيرا وورق الصنوبر، 0.00125% لكل منها. في التركيبة. ليست زنك 0.5%.',
-      },
-      {
-        q: 'من أين رقم 50% للزهم؟',
-        a: 'عرض DTS MG. نحو 50% أقل زهماً بعد أربعة أسابيع. هذه دراسة المنتج على العرض، لا رقم خلطة مورّد. لا نطبع 68.2% أو 79.96% بجانب Anti Sebum P على الشرائح نفسها.',
-      },
-      {
-        q: 'أي حجم أشتري؟',
-        a: '200 مل رذاذ المنزل، وهو الذي يعمل بالمقلوب على الظهر. 500 مل زجاجة العيادة، التركيبة نفسها، بإيقاع قطعة القطن. اختاري ما يناسب كثرة الاستخدام.',
-      },
-      {
-        q: 'هل هو نفسه Snow Booster؟',
-        a: 'لا. Snow Booster تونر الترطيب اليومي. هذا للتحكم بالدهون للبشرة المعرّضة للعيوب. عمل مختلف، زجاجة مختلفة.',
-      },
-      {
-        q: 'هل هو بلا عطر؟',
-        a: 'لا. زيت أوراق الشاي 0.015%، وأميدات التبريد في التركيبة. لا تشتريه لقائمة خالٍ من.',
-      },
-      {
-        q: 'هل أستخدمه على ظهري؟',
-        a: 'علبة 200 مل تطبع رذاذ 360°، بالمقلوب للظهر. هذه زجاجة المناطق الصعبة. 500 مل زجاجة قطعة قطن.',
-      },
-      {
-        q: 'هل هذا علاج لحب الشباب؟',
-        a: 'وظيفة العلبة التحكم بالدهون، للبشرة المعرّضة للعيوب. هذا تونر، لا دواء. إن احتجتِ طبيباً لحب الشباب، راجعي طبيباً.',
-      },
-    ],
-  },
-  details: {
-    eyebrow: 'الحقائق',
-    title: 'ما تقوله الوثائق فعلاً.',
-    rows: [
-      { label: 'الوظيفة', value: 'التحكم بالدهون - السطر المطبوع على العلبة' },
-      { label: 'الشكل', value: 'تونر يُترك. ضعي أو رشي' },
-      { label: 'الأحجام', value: '200 مل منزلي · 500 مل احترافي' },
-      { label: 'المظهر', value: 'سائل شفاف، أصفر فاتح' },
-      { label: 'الأس الهيدروجيني', value: '4.81، داخل مواصفة 4.30 إلى 5.50' },
-      { label: 'الاستخدام', value: 'ضعي أو رشي بكمية كافية، صباحاً ومساءً' },
-      { label: '200 مل إضافي', value: 'رذاذ 360°، بالمقلوب للظهر' },
-      { label: 'الدراسة', value: 'نحو 50% أقل زهماً بعد 4 أسابيع (عرض DTS MG)' },
-      { label: 'الاختبارات', value: 'مختبر جلدياً؛ غير مسبب لانسداد المسام، QACS Ltd.' },
-      { label: 'بعد الفتح', value: '12 شهراً' },
-      { label: 'الصلاحية', value: 'ثلاث سنوات دون فتح، وتاريخ الانتهاء على الزجاجة' },
-      { label: 'الشركة المصنّعة', value: 'DTS MG Co., Ltd.، كوريا الجنوبية' },
-    ],
-  },
-  closing: {
-    title: 'ضعي، أو رشي.',
-    body: 'تونر التحكم بالدهون في خط Problem Control، وكل نسبة مطبوعة أعلاه، لا شيء مخفي.',
-  },
-  reviewsTitle: 'التقييمات',
-  backToProducts: 'المنتجات',
-}
-
-const RU: PctTonerCopy = {
-  eyebrow: 'Тоник для контроля жира · кожа, склонная к высыпаниям',
-  headline: 'Нанеси. Или распыли.',
-  subheadline:
-    'Тоник для контроля жира для кожи, склонной к высыпаниям. Снимает лишний жир и себум, затем возвращает воду. Zinc PCA 0,5% - названный актив в реальной дозе. Утром и вечером.',
-  heroBullets: [
-    'Нанеси или распыли достаточно, утром и вечером',
-    'Сначала контроль жира, затем быстрое увлажнение',
-    '200 мл переворачивается для спины',
-    '200 мл дома, 500 мл на полке клиники',
-  ],
-  badges: ['Дерматологически протестировано', 'Сделано в Корее', '200 мл / 500 мл', 'Утром и вечером'],
-  chooseSize: 'Выбери объём',
-  sizes: {
-    homecareLabel: 'Дом',
-    homecareNote: 'Спрей 360°. Лицо утром, спина когда перевернёшь флакон.',
-    proLabel: 'Профессиональный',
-    proNote: 'Флакон клиники. Та же формула, ход ватным диском.',
-  },
-  usageNote: 'Утром и вечером',
-  addToBag: 'В корзину',
-  adding: 'Добавляю…',
-  added: 'Добавлено',
-  inBag: 'В корзине',
-  viewBag: 'Корзина',
-  loginToShop: 'Войди, чтобы купить',
-  outOfStock: 'Нет в наличии',
-  vatIncluded: 'НДС включён',
-  freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
-  stats: [
-    { value: '0,5%', label: 'Zinc PCA, цифра на карточке' },
-    { value: 'У/В', label: 'Нанеси или распыли, оба раза' },
-    { value: '360°', label: 'Флакон 200 мл, вверх дном' },
-    { value: '~50%', label: 'Себум через 4 недели, DTS MG' },
-  ],
-  effects: {
-    eyebrow: 'Что делает',
-    title: 'Сначала жир. Потом вода.',
-    intro:
-      'На коробке одно предложение: помогает убрать лишний жир и себум с кожи, склонной к высыпаниям, и сразу даёт быстрое увлажнение. Это и есть тоник.',
-    cards: [
-      {
-        title: 'Нанеси или распыли',
-        body: 'Утром и вечером, после умывания. Достаточно, чтобы покрыть лицо. Флакон 200 мл идёт и на спину, вверх дном.',
-      },
-      {
-        title: 'Контроль жира',
-        body: 'Это функция на коробке. Блеск и себум - работа. Это не пилинг и не лекарство от акне.',
-      },
-      {
-        title: 'Быстрое увлажнение',
-        body: 'Бутиленгликоль, глицерин и дипропиленгликоль около 13,4%. Это вода с коробки, не история про гиалуронат.',
-      },
-    ],
-  },
-  engine: {
-    eyebrow: 'Тоник',
-    title: 'Цинк на половине процента.',
-    body:
-      'Zinc PCA - 0,5% флакона, самый крупный названный актив после растворителей. Это цифра для карточки. Anti Sebum P, салициловая кислота и гиалуронат в формуле. Они не двигатель. Медного пептида во флаконе нет.',
-    points: [
-      {
-        title: 'Zinc PCA · 0,5%',
-        body: 'Соль для себума в дозе, которую видно на карточке. Поэтому это тоник для контроля жира, не водный тоник.',
-      },
-      {
-        title: 'Вода следом',
-        body: 'Бутиленгликоль 5,4%, глицерин 5% и дипропиленгликоль 3%. Быстрое увлажнение - этот стек, не гиалуронат натрия на 0,0005%.',
-      },
-      {
-        title: 'Anti Sebum P и BHA',
-        body: 'Названы, потому что старые тексты продавали их как причину купить. Четыре экстракта Anti Sebum P вместе 0,005%. Салициловая кислота 0,001%. Они в формуле. Они не причина выбрать этот флакон.',
-      },
-      {
-        title: 'Медного пептида здесь нет',
-        body: 'В презентации DTS MG есть Copper Tripeptide-1. В зарегистрированном INCI его нет. Не бери этот тоник ради медного пептида.',
-      },
-    ],
-    figureAlt: 'GENOSYS Intensive Problem Control Toner, флакон и коробка 200 мл',
-  },
-  howTo: {
-    eyebrow: 'Как использовать',
-    title: 'Нанеси или распыли. Утром и вечером.',
-    frequency: 'Утром и вечером',
-    steps: [
-      {
-        title: 'Нанеси или распыли',
-        body: 'После умывания, достаточно чтобы покрыть лицо. Коробка останавливается на «достаточно, утром и вечером».',
-      },
-      {
-        title: 'Ватный диск',
-        body: 'Протри по текстуре, если нужен чистый проход. Так в инструкции DTS MG для клиники.',
-      },
-      {
-        title: 'Спина',
-        body: 'Флакон 200 мл распыляет на 360°. Переверни для спины и шеи.',
-      },
-      {
-        title: 'По желанию',
-        body: 'Пропитай диски и оставь на 5-10 минут, когда нужен более длинный контакт. Затем сыворотка.',
-      },
-    ],
-    note:
-      'Держи в стороне от глаз и слизистых; промой прохладной водой при контакте. Только наружно. Открытый флакон - тоник на 12 месяцев.',
-    videoTitle: 'Тоник на лице',
-  },
-  actives: {
-    eyebrow: 'Внутри флакона',
-    title: 'Что в нём на самом деле.',
-    intro:
-      'Каждый процент здесь - готовая концентрация во флаконе, не догадка по торговому имени сверху списка.',
-    inciTitle: 'Полный список ингредиентов (INCI)',
-    inciNote:
-      'Каждый ингредиент, от большего к меньшему. На вашей коробке панель короче, поэтому здесь формула целиком.',
-  },
-  suited: {
-    eyebrow: 'Тебе ли он',
-    title: 'Тоник для контроля жира, если блеск - задача.',
-    forTitle: 'Бери, если',
-    forList: [
-      'Кожа склонна к высыпаниям, и ты хочешь снять лишний жир, затем вернуть воду',
-      'Нужен тоник, который наносят или распыляют, утром и вечером',
-      'Нужен флакон 200 мл на 360° для спины, или 500 мл на полке клиники',
-      'Уже есть сыворотка и крем Problem Control, или ты начинаешь эту линейку',
-    ],
-    notTitle: 'Ищи другое, если',
-    notList: [
-      'Нужен увлажняющий тоник для любого типа кожи. Это Snow Booster',
-      'Пришла за BHA-пилингом. Салициловая кислота здесь 0,001%',
-      'Пришла за медным пептидом. Его нет в этой формуле',
-      'Нужен тоник без отдушки. Масло чайного дерева и охлаждающие амиды здесь есть',
-      'Нужен мист с ши 80 мл. Это другой флакон',
-    ],
-    note: 'Только наружно. Держи в стороне от глаз и слизистых, промой прохладной водой при контакте.',
-  },
-  routine: {
-    eyebrow: 'Остальное утро',
-    title: 'Умойся, затем это, затем линейка.',
-    intro:
-      'Тоник стоит после умывания. Маска Soothing Bomb, сыворотка Problem Control и крем идут следом, когда ведёшь полную линейку.',
-    thisProduct: 'Этот тоник',
-    viewProduct: 'Смотреть',
-    chooseOptions: 'Выбери объём',
-    fromPrice: 'От',
-  },
-  faq: {
-    eyebrow: 'Вопросы',
-    title: 'До того как распылить.',
-    items: [
-      {
-        q: 'Это BHA-тоник?',
-        a: 'Нет. Салициловая кислота 0,001%. Функция на коробке - контроль жира. Не бери его как пилинг.',
-      },
-      {
-        q: 'Есть ли медный пептид?',
-        a: 'Нет. Copper Tripeptide-1 есть в презентации DTS MG. В зарегистрированном INCI его нет. Флакон, который приедет, его не несёт.',
-      },
-      {
-        q: 'Что такое Anti Sebum P?',
-        a: 'Четыре экстракта: корень вяза, корень пуэрарии, цветок примулы вечерней и хвоя сосны, по 0,00125%. Они в формуле. Это не цинк 0,5%.',
-      },
-      {
-        q: 'Откуда цифра 50% по себуму?',
-        a: 'Презентация DTS MG. Около 50% меньше себума через четыре недели. Это исследование продукта на слайдах, не цифра премикса поставщика. Мы не печатаем 68,2% и 79,96% рядом с Anti Sebum P на тех же слайдах.',
-      },
-      {
-        q: 'Какой объём брать?',
-        a: '200 мл - домашний спрей, и тот, что работает вверх дном на спине. 500 мл - флакон клиники, та же формула, темп ватного диска. Бери тот, который совпадает с тем, как часто открывают бутылку.',
-      },
-      {
-        q: 'Это то же, что Snow Booster?',
-        a: 'Нет. Snow Booster - ежедневный увлажняющий тоник. Этот - контроль жира для кожи, склонной к высыпаниям. Другая задача, другой флакон.',
-      },
-      {
-        q: 'Он без отдушки?',
-        a: 'Нет. Масло чайного дерева 0,015%, плюс охлаждающие амиды. Не бери его из-за списка без.',
-      },
-      {
-        q: 'Можно на спину?',
-        a: 'Коробка 200 мл пишет спрей 360°, вверх дном для спины. Это флакон для труднодоступной кожи. 500 мл - флакон с ватным диском.',
-      },
-      {
-        q: 'Это лечение акне?',
-        a: 'Функция на коробке - контроль жира, для кожи, склонной к высыпаниям. Это тоник, не лекарство. Если нужен врач по акне, иди к врачу.',
-      },
-    ],
-  },
-  details: {
-    eyebrow: 'Факты',
-    title: 'Что документы говорят на самом деле.',
-    rows: [
-      { label: 'Функция', value: 'Контроль жира - строка на коробке' },
-      { label: 'Формат', value: 'Тоник leave-on. Нанеси или распыли' },
-      { label: 'Объёмы', value: '200 мл дом · 500 мл профессиональный' },
-      { label: 'Вид', value: 'Прозрачная жидкость, светло-жёлтая' },
-      { label: 'pH', value: '4,81, в пределах спецификации 4,30-5,50' },
-      { label: 'Применение', value: 'Нанеси или распыли достаточно, утром и вечером' },
-      { label: '200 мл дополнительно', value: 'Спрей 360°, вверх дном для спины' },
-      { label: 'Исследование', value: 'Около 50% меньше себума через 4 недели (презентация DTS MG)' },
-      { label: 'Тесты', value: 'Дерматологически протестировано; некомедогенно, QACS Ltd.' },
-      { label: 'После вскрытия', value: '12 месяцев' },
-      { label: 'Срок', value: 'Три года невскрытым, срок годности на флаконе' },
-      { label: 'Производитель', value: 'DTS MG Co., Ltd., Южная Корея' },
-    ],
-  },
-  closing: {
-    title: 'Нанеси или распыли.',
-    body: 'Тоник для контроля жира линейки Problem Control, и каждый процент напечатан выше, ничего не скрыто.',
-  },
-  reviewsTitle: 'Отзывы',
-  backToProducts: 'Продукты',
-}
-
 const BY_LOCALE: Record<PctTonerLocale, PctTonerCopy> = {
   en: EN,
-  ar: { ...AR, ...PCT_TONER_LOCALIZED_COPY.ar },
-  ru: { ...RU, ...PCT_TONER_LOCALIZED_COPY.ru },
+  ar: PCT_TONER_LOCALIZED_COPY.ar,
+  ru: PCT_TONER_LOCALIZED_COPY.ru,
 }
 
 export function getPctTonerCopy(locale: string): PctTonerCopy {

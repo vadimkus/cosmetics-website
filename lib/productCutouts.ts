@@ -49,7 +49,7 @@ const CUTOUTS: Record<string, string> = {
   // 14 MICROBIOME ENERGY INFUSING MIST
   '/images/mist_0/Main.jpeg': '/images/cutout/14.webp',
   // 15 INTENSIVE PROBLEM CONTROL TONER
-  '/images/problem/Main-v2.jpg': '/images/cutout/15-v2.webp',
+  '/images/pct_campaign/main.jpg': '/images/cutout/15-v3.webp',
   // 16 SNOW BOOSTER
   '/images/booster_campaign/main.jpg': '/images/cutout/16-v2.webp',
   // 17 EyeCell EYE CONTOUR SERUM

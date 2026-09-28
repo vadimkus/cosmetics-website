@@ -56,6 +56,7 @@ import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -93,13 +94,10 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. S5 is the
- *  clear-calm-not-stripped results slide, S4 the three-ways-to-use how-to.
- *  Leftover slide copy (patented Anti Sebum P, pH balance) is queued for
- *  re-export; the editorial copy does not repeat it. */
-const EFFECTS_IMAGE = '/images/problem/S5.jpg'
-const HOWTO_IMAGE = '/images/problem/S4.jpg'
-const ENGINE_IMAGE = '/images/problem/S1.jpg'
+/** Section art from the "Oil off. Cool on." campaign, swapped per locale like the gallery. */
+const EFFECTS_IMAGE = '/images/pct_campaign/s7.jpg'
+const ENGINE_IMAGE = '/images/pct_campaign/s4.jpg'
+const HOWTO_IMAGE = '/images/pct_campaign/s10.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -171,10 +169,13 @@ export default function PctTonerProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
+  const effectsImage = localizeProductImage(EFFECTS_IMAGE, locale)
+  const engineImage = localizeProductImage(ENGINE_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -627,7 +628,7 @@ export default function PctTonerProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={effectsImage}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -675,7 +676,7 @@ export default function PctTonerProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={engineImage}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -722,7 +723,7 @@ export default function PctTonerProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={howToImage}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"

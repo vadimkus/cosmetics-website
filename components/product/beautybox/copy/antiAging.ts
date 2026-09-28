@@ -90,8 +90,8 @@
  *   Any percentage from the      DTS MG cites a clinical study on improvement of
  *   P&K study                    the skin age index, P&K Skin Research Center,
  *                                22 Feb to 13 May 2024, 24 adult women aged
- *                                30-59. We do not hold the report. The citation
- *                                is quoted; no number is invented from it.
+ *                                30-59. We do not hold the report, so the page
+ *                                does not cite it at all.
  *   "Anti-aging Peptide 6" or    Both are real and both are on the serum label,
  *   "collagen and elastin" as    but the six peptides total 2.7 ppm and the
  *   the reason it works          collagen 0.1 ppm. Named, never sold as the
@@ -112,6 +112,9 @@
  *   Any duration for the kit     Nothing documents how many weeks the box lasts,
  *   ("3 months of skincare")     so the page states pack sizes and the sheet
  *                                count and lets the reader do the rest.
+ *   A mask frequency in RU/AR    EN follows product 53's own EN page ("two to
+ *                                three times a week"); the RU/AR pages of 53
+ *                                carry no number, so neither do these.
  *
  * See beautyBoxCopy.ts for the rules every box module follows, including why no
  * price appears in any of them.
@@ -122,14 +125,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'Softer lines and a more even tone, morning and night.',
+  headline: 'Time, well kept. Softer lines and a more even tone.',
   subheadline:
-    'The serum and the cream at the centre of this box work on both at once, and Korea licenses them to do exactly that: dual-function cosmetics for wrinkle improvement and for brightening. Niacinamide at 2% and adenosine at 0.04% are what earn those licences, and every production batch is tested to confirm both. Around them, the oxygen cleanser, the fragrance-free toner and five collagen sheet masks.',
+    'Five GENOSYS singles in routine order. A cleanser that bubbles up on its own on a dry face, a fragrance-free toner, and at the centre a serum and a cream Korea licenses for two jobs at once, wrinkle improvement and brightening: a full 2% niacinamide and 0.04% adenosine in both, tested on every batch, with bakuchiol, the retinol alternative you can wear by day. Five collagen sheet masks for your evenings.',
   heroBullets: [
-    'Fine lines and uneven tone worked on together, in the same two steps, twice a day',
-    'Niacinamide 2% and adenosine 0.04% in serum and cream alike, confirmed on every production batch',
-    'Bakuchiol at 0.1% in both, a retinol alternative that holds up in daylight, so it can be worn in the morning',
-    'Five full sizes and five sheet masks, for less than the same five bought one at a time',
+    'Fine lines and uneven tone, worked on together in the same two steps, twice a day',
+    'A full 2% niacinamide and 0.04% adenosine in the serum and the cream, tested on every batch',
+    'Bakuchiol 0.1% in both, the retinol alternative you can wear in the morning',
+    'Four full sizes and five sheet masks, for less than the five bought one at a time',
   ],
   kitSize: '5 products',
   fullSizeNote: 'Full sizes',
@@ -147,18 +150,18 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Dermatologically tested', 'Dubai in 1-2 hours'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', '4 full sizes + 5 masks', 'Dubai in 1-2 hours'],
   stats: [
-    { value: '5', label: 'full-size products, in the order you use them' },
-    { value: '2%', label: 'niacinamide in the serum and in the cream, confirmed batch by batch' },
-    { value: '0.04%', label: 'adenosine, the concentration Korea registers for wrinkle improvement' },
-    { value: 'Korea', label: 'made for DTS MG, every item dermatologically tested' },
+    { value: '2%', label: 'niacinamide in the serum and in the cream, tested on every batch' },
+    { value: '0.04%', label: 'adenosine, the level Korea licenses for wrinkle improvement' },
+    { value: '0.1%', label: 'bakuchiol in both, the retinol alternative that holds up in daylight' },
+    { value: '5', label: 'collagen sheet masks for your evenings' },
   ],
   contents: {
     eyebrow: 'What is inside',
-    title: 'Five products, one sequence',
+    title: 'Five singles, one routine',
     intro:
-      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. What the box does is put the whole sequence in your hands at once, for less than the pieces.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run one routine end to end: clean gently, rebalance, work on lines and tone twice a day, then seal it in. For less than the pieces.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -166,8 +169,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 1 - Cleanse',
         body:
-          'Goes on to a dry face, where oxygen bubbles form on their own and lift make-up and the day off the skin. Massage in circles as they appear, then rinse with tepid water, so the actives that follow land on skin that has not been scrubbed.',
-        facts: ['Foams on its own', 'Bubble agent at 3%', 'pH 5.86', '180ml'],
+          'Pump it onto a dry face and it bubbles up on its own, lifting make-up and the day off the skin. Massage in circles as the bubbles build, then rinse with tepid water, so the actives that follow land on skin that has not been scrubbed.',
+        facts: ['Goes on a dry face', 'Bubbles up on its own', 'No scrubbing', '180ml'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -175,8 +178,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 2 - Tone',
         body:
-          'A daily toner for every skin type that hydrates with betaine and pumpkin ferment and brings pH back down after cleansing. Completely fragrance-free, and light enough to go over make-up during the day.',
-        facts: ['Fragrance-free', 'Betaine 3%, pumpkin ferment 1%', 'Goes over make-up'],
+          'A daily toner for every skin type that hydrates with betaine and pumpkin ferment and brings skin back into balance after cleansing. Completely fragrance-free, and light enough to mist over make-up during the day.',
+        facts: ['Fragrance-free', 'Betaine 3%, pumpkin ferment 1%', 'Goes over make-up', '200ml'],
       },
       {
         titleKey: 'routineAntiWrinkleSerumTitle',
@@ -184,8 +187,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Treat',
         body:
-          'Both actives at full strength: niacinamide at 2% for tone, adenosine at 0.04% for wrinkles, with bakuchiol at 0.1% alongside them. Patted in with the fingers rather than rubbed, morning and evening, always before the cream.',
-        facts: ['Niacinamide 2%, adenosine 0.04%', 'Bakuchiol 0.1%', '30ml'],
+          'Licensed in Korea for two jobs at once: adenosine at 0.04% for wrinkles and niacinamide at 2% for tone, with bakuchiol at 0.1% alongside. Pat it in with your fingertips, morning and evening, always before the cream.',
+        facts: ['Licensed for wrinkles and brightening', 'Niacinamide 2%, adenosine 0.04%', 'Bakuchiol 0.1%', '30ml'],
       },
       {
         titleKey: 'routineAntiWrinkleCreamTitle',
@@ -193,8 +196,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 4 - Seal',
         body:
-          'The same two actives at the same concentrations, in a base built to stay put: glycerin at 8%, mango seed butter at 0.8%, propolis and a ceramide liposome. Massaged in gently after the serum, morning and evening.',
-        facts: ['Niacinamide 2%, adenosine 0.04%', 'Mango seed butter 0.8%', '50g'],
+          'The same two actives at the same strength, in a richer cream that stays put: glycerin at 8%, mango seed butter at 0.8% and propolis. Massage it in gently after the serum, morning and evening.',
+        facts: ['Licensed for wrinkles and brightening', 'Niacinamide 2%, adenosine 0.04%', 'Mango seed butter 0.8%', '50g'],
       },
       {
         titleKey: 'routineCollagenMaskTitle',
@@ -202,7 +205,7 @@ const EN: BeautyBoxCopy = {
         quantity: 5,
         step: 'Two or three evenings a week',
         body:
-          'Five nonwoven sheets soaked in a hydrating essence: glycerin at 10%, butylene glycol at 8%, sodium hyaluronate and betaine, with centella, witch hazel, grapefruit, pomegranate and soy. Fifteen to twenty minutes after toning, then serum and cream as usual.',
+          'Five sheets soaked in a hydrating essence of glycerin, sodium hyaluronate and betaine, with centella, witch hazel, grapefruit, pomegranate and soy. Fifteen to twenty minutes after toning, then serum and cream as usual.',
         facts: ['Sodium hyaluronate 0.5%', 'Glycerin 10%', '23g a sheet'],
       },
     ],
@@ -219,24 +222,24 @@ const EN: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'How to use it',
-    title: 'Morning and evening, in this order',
+    title: 'Wind it twice a day',
     intro:
-      'Four steps twice a day, and a sheet mask two or three evenings a week. Each product carries its own full instructions on its own page; this is how they fit together across a day.',
+      'Four steps morning and night, and a sheet mask two or three evenings a week. Each product carries its full instructions on its own page; this is how they fit together across a day.',
     steps: [
       {
         title: 'Cleanse on dry skin',
         body:
-          'Pump the cleanser on to a dry face, avoiding the eyes. Wait for the oxygen bubbles, massage in circles, rinse with tepid water. Morning and evening.',
+          'Pump the cleanser onto a dry face, avoiding the eyes. Let the bubbles build, massage in circles and rinse with tepid water. Morning and evening.',
       },
       {
         title: 'Tone while skin is damp',
         body:
-          'Sweep or spray the toner on straight after cleansing, before skin has dried, and press it in with your palms. It can also go over make-up during the day.',
+          'Sweep or mist the toner on straight after cleansing, before skin has dried, and press it in with your palms. It can also go over make-up during the day.',
       },
       {
         title: 'Serum, patted not rubbed',
         body:
-          'Apply it to the face and pat it in gently with your fingers. Morning and evening, always before the cream.',
+          'Apply it to the face and pat it in gently with your fingertips. Morning and evening, always before the cream.',
       },
       {
         title: 'Cream to finish',
@@ -246,17 +249,17 @@ const EN: BeautyBoxCopy = {
       {
         title: 'Mask, two or three evenings a week',
         body:
-          'After toning, lay a sheet on and leave it 15 to 20 minutes. Take it off, pat in the essence left on the skin, then serum and cream as normal. Five sheets in the box, and each sachet is meant to be used straight after opening.',
+          'After toning, lay a sheet on and leave it 15 to 20 minutes. Take it off, pat in the essence left on the skin, then serum and cream as normal. Each sachet is meant to be used straight after opening.',
       },
     ],
     note:
-      'Sunscreen is the one thing this routine assumes and does not contain. Bakuchiol being photostable means it survives daylight, not that it protects you from it.',
+      'Sunscreen is the one thing this routine assumes and does not contain. Bakuchiol holds up in daylight, so it can be worn in the morning, but it does not protect you from the sun.',
   },
   evidence: {
     eyebrow: 'What is in it',
     title: 'The numbers behind it',
     intro:
-      'Two of the five products are registered functional cosmetics, and the two ingredients that registration rests on are tested on every production batch. These are the numbers that come back.',
+      'Two of the five are licensed in Korea as functional cosmetics, and the two actives behind that licence are tested on every production batch. Here is what comes back.',
     cards: [
       {
         value: '2%',
@@ -274,25 +277,26 @@ const EN: BeautyBoxCopy = {
         value: '0.1%',
         title: 'Bakuchiol, in both the serum and the cream',
         body:
-          'The retinol alternative, at the same dose in both steps. Photostable, which is why this is a routine you can run morning and evening instead of only after dark.',
+          'The retinol alternative, at the same dose in both steps. It holds up in daylight, which is why this routine runs morning and evening instead of only after dark.',
       },
     ],
     footnote:
-      'Around those two: the Anti-aging Peptide 6 complex, hydrolyzed collagen and elastin, propolis and a ceramide lipid-barrier liposome in the serum, mango seed butter and propolis in the cream, and collagen with witch hazel, centella, grapefruit and pomegranate in the masks. All named on the labels and listed in full on the pages above. There is also a clinical study on the skin age index, run at P&K Skin Research Center on 24 women aged 30 to 59.',
+      'Around those two: the Anti-aging Peptide 6 complex with hydrolyzed collagen, elastin and propolis in the serum, mango seed butter and propolis in the cream, and collagen with witch hazel, centella, grapefruit and pomegranate in the masks. All named on the labels and listed in full on the pages above.',
   },
   suited: {
     eyebrow: 'Suitability',
     title: 'Who this box is for',
     forTitle: 'A good match if',
     forList: [
-      'Fine lines, slackening firmness or uneven tone are what you want to work on',
+      'Fine lines or uneven tone are what you want to work on',
       'You would rather buy actives at concentrations you can check',
-      'Retinol has irritated you, or you want an active you can wear in the morning as well as at night',
+      'Retinol has been too much for your skin, or you want an active you can wear in the morning as well as at night',
       'You are starting an anti-aging routine and would rather buy the sequence than assemble it yourself',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
       'You are pregnant or breastfeeding. The serum and the cream both contain bakuchiol, so check with your doctor first',
+      'You react to propolis or other bee products. The serum and the cream both contain propolis extract',
       'Fragrance is a problem for you. Four of the five items are fragranced, and every GENOSYS box is built around the same fragranced cleanser, so buy individual pieces instead',
       'Dryness rather than ageing is the actual problem. The Deep Moisturizing box is built for that',
       'Acne or congestion is the problem. The Problem Skin Care box targets it directly',
@@ -329,8 +333,8 @@ const EN: BeautyBoxCopy = {
         a: 'It is a Korean regulatory term rather than a marketing one. A dual-function cosmetic is licensed for two named claims, here wrinkle improvement and brightening, and names the ingredient behind each one. On both the serum and the cream those are adenosine at 0.04% and niacinamide at 2%, the two principal actives on the licence.',
       },
       {
-        q: 'Is bakuchiol as good as retinol?',
-        a: 'The two behave alike in gene expression, and published work found no statistical difference between them in wrinkle surface area. What is clearly different is tolerance: bakuchiol is photostable, so unlike retinol it can be worn in daylight, and it comes without the irritation retinol is known for. Both the serum and the cream carry it at 0.1%.',
+        q: 'Why bakuchiol instead of retinol?',
+        a: 'Because it is the plant-derived retinol alternative that holds up in daylight and is kinder to skin, so the routine can run morning and night instead of only after dark. Both the serum and the cream carry it at 0.1%.',
       },
       {
         q: 'What about the peptides and the collagen?',
@@ -338,7 +342,7 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'Can I just buy the products separately?',
-        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same five units at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
+        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same five products at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
       },
       {
         q: 'Can I use it while pregnant or breastfeeding?',
@@ -346,7 +350,7 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'How long will it last?',
-        a: 'The cleanser, toner, serum and cream are full retail units, and on twice-daily use most people get a couple of months out of them. There are five mask sheets, which is two or three weeks at the recommended frequency. The cream also comes in a 250g professional size if you get through it faster than the rest.',
+        a: 'The cleanser, toner, serum and cream are the same full retail units sold on their own pages, so each lasts exactly as long as it does there. There are five mask sheets. The cream also comes in a 250g professional size if you get through it faster than the rest.',
       },
     ],
   },
@@ -355,14 +359,14 @@ const EN: BeautyBoxCopy = {
 const AR: BeautyBoxCopy = {
   eyebrow: 'صندوق الجمال',
   backToProducts: 'المنتجات',
-  headline: 'تجاعيد أنعم ولون أكثر توحّداً، صباحاً ومساءً.',
+  headline: 'الوقت في صفّكِ. خطوط أنعم ولون أكثر توحّداً.',
   subheadline:
-    'السيروم والكريم في قلب هذا الصندوق يعملان على الاثنين معاً، وكوريا ترخّصهما لذلك تحديداً: مستحضران ثنائيا الوظيفة لتحسين التجاعيد وتفتيح البشرة. النياسيناميد بنسبة 2% والأدينوزين بنسبة 0.04% هما ما يستحقّ هذين الترخيصين، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين. ومن حولهما منظف الأكسجين، وتونر بلا عطر مضاف، وخمسة أقنعة كولاجين ورقية.',
+    'خمسة منتجات GENOSYS منفردة بترتيب الروتين. منظف تتكوّن فقاعاته من تلقاء نفسها على وجه جاف، وتونر بلا عطر، وفي القلب سيروم وكريم ترخّصهما كوريا لمهمّتين معاً، تحسين التجاعيد وتفتيح البشرة: نياسيناميد 2% كاملة وأدينوزين 0.04% في كليهما، وكل دفعة تُختبَر، مع الباكوتشيول، بديل الريتينول الذي يمكن استخدامه نهاراً. وخمسة أقنعة كولاجين ورقية لأمسياتكِ.',
   heroBullets: [
     'الخطوط الدقيقة وتفاوت اللون يُعالَجان معاً، في الخطوتين نفسيهما، مرتين يومياً',
-    'نياسيناميد 2% وأدينوزين 0.04% في السيروم والكريم معاً، ومؤكَّدان في كل دفعة إنتاج',
-    'باكوتشيول بنسبة 0.1% في الاثنين، وهو بديل للريتينول ثابت ضوئياً فيمكن استخدامه في الصباح',
-    'خمسة أحجام كاملة وخمسة أقنعة ورقية، بأقل من ثمن المنتجات الخمسة نفسها واحداً واحداً',
+    'نياسيناميد 2% كاملة وأدينوزين 0.04% في السيروم والكريم، وكل دفعة تُختبَر',
+    'باكوتشيول 0.1% في الاثنين، بديل الريتينول الذي يناسب الصباح',
+    'أربعة أحجام كاملة وخمسة أقنعة ورقية، بأقل من ثمن المنتجات الخمسة منفردة',
   ],
   kitSize: '5 منتجات',
   fullSizeNote: 'أحجام كاملة',
@@ -375,18 +379,18 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّلي الدخول للشراء',
   inBag: 'في سلتك',
   viewBag: 'عرض السلة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'مختبر من أطباء الجلد', 'دبي خلال ساعة إلى ساعتين'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', '4 أحجام كاملة + 5 أقنعة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
-    { value: '5', label: 'منتجات بالحجم الكامل، بترتيب استخدامها' },
-    { value: '2%', label: 'نياسيناميد في السيروم وفي الكريم، معايَر في كل دفعة' },
-    { value: '0.04%', label: 'أدينوزين، وهي النسبة التي تسجّلها كوريا لتحسين التجاعيد' },
-    { value: 'كوريا', label: 'صُنع لصالح DTS MG، وكل منتج مختبر من أطباء الجلد' },
+    { value: '2%', label: 'نياسيناميد في السيروم وفي الكريم، وكل دفعة تُختبَر' },
+    { value: '0.04%', label: 'أدينوزين، النسبة التي ترخّصها كوريا لتحسين التجاعيد' },
+    { value: '0.1%', label: 'باكوتشيول في الاثنين، بديل الريتينول الثابت في ضوء النهار' },
+    { value: '5', label: 'أقنعة كولاجين ورقية لأمسياتكِ' },
   ],
   contents: {
     eyebrow: 'ماذا يوجد داخله',
-    title: 'خمسة منتجات، تتابع واحد',
+    title: 'خمسة منتجات، روتين واحد',
     intro:
-      'لكل منتج هنا صفحته وسعره، ويمكنك قراءة تفاصيله كاملة قبل الشراء. ما يفعله الصندوق أنه يضع التتابع كله بين يديك مرة واحدة، بأقل من ثمن قطعه منفصلة.',
+      'لكل منتج هنا صفحته وسعره، ويمكنكِ قراءة تفاصيله كاملة قبل الشراء. ومعاً تؤدي روتيناً كاملاً: تنظيف لطيف، ثم إعادة التوازن، ثم عناية بالخطوط واللون مرتين يومياً، ثم ختام يحبس كل شيء. بأقل من ثمن القطع منفصلة.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -394,8 +398,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 1 - التنظيف',
         body:
-          'يُوضع على بشرة جافة، فتتكوّن فقاعات الأكسجين من تلقاء نفسها وترفع المكياج وآثار اليوم عن البشرة. دلّكي بحركات دائرية عند ظهورها، ثم اغسلي بماء فاتر، لتنزل المواد الفعّالة بعده على بشرة لم تُفرك.',
-        facts: ['يتحوّل إلى رغوة من تلقائه', 'مادة الفقاعات بنسبة 3%', 'الحموضة 5.86', '180 مل'],
+          'يوضع على وجه جاف فتتكوّن فقاعاته من تلقاء نفسها وترفع المكياج وآثار اليوم عن البشرة. دلّكي بحركات دائرية مع تكوّن الفقاعات، ثم اشطفي بماء فاتر، لتنزل المواد الفعّالة بعده على بشرة لم تُفرك.',
+        facts: ['يوضع على وجه جاف', 'فقاعات من تلقاء نفسها', 'بلا فرك', '180 مل'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -403,35 +407,35 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 2 - التونر',
         body:
-          'تونر يومي خفيف لجميع أنواع البشرة يعيد الرطوبة والراحة بعد التنظيف بفضل البيتين 3%. ويمكن رشه فوق المكياج لإنعاش البشرة خلال اليوم.',
-        facts: ['بلا عطر مضاف', 'بيتين 3%', 'يُستخدم فوق المكياج'],
+          'تونر يومي لكل أنواع البشرة يرطّب بالبيتائين وخلاصة اليقطين المخمّرة ويعيد التوازن إلى البشرة بعد التنظيف. خالٍ تماماً من العطر، وخفيف بما يكفي لرشّه فوق المكياج خلال النهار.',
+        facts: ['بلا عطر', 'بيتائين 3%، خلاصة يقطين مخمّرة 1%', 'يُرش فوق المكياج', '200 مل'],
       },
       {
         titleKey: 'routineAntiWrinkleSerumTitle',
         productNumber: '22',
         quantity: 1,
-        step: 'الخطوة 3 - السيروم',
+        step: 'الخطوة 3 - العناية',
         body:
-          'قاعدة ترطيب غنية بالغليسرين 25.45%، مع نياسيناميد 2% لتجانس مظهر اللون، وأدينوزين 0.04% للعناية بالتجاعيد، وباكوتشيول 0.1%. يُربت صباحاً ومساءً قبل الكريم.',
-        facts: ['غليسرين 25.45%', 'نياسيناميد 2%، أدينوزين 0.04%', 'باكوتشيول 0.1% · 30 مل'],
+          'مرخّص في كوريا لمهمّتين معاً: أدينوزين 0.04% للتجاعيد ونياسيناميد 2% للون، ومعهما باكوتشيول 0.1%. ربّتيه بأطراف أصابعكِ صباحاً ومساءً، ودائماً قبل الكريم.',
+        facts: ['مرخّص للتجاعيد والتفتيح', 'نياسيناميد 2%، أدينوزين 0.04%', 'باكوتشيول 0.1%', '30 مل'],
       },
       {
         titleKey: 'routineAntiWrinkleCreamTitle',
         productNumber: '32',
         quantity: 1,
-        step: 'الخطوة 4 - الإغلاق',
+        step: 'الخطوة 4 - الختام',
         body:
-          'يحبس الرطوبة بعد السيروم بفضل الغليسرين 8% وقاعدة مطرية تقارب 13%، مع نياسيناميد 2% لتجانس مظهر اللون وأدينوزين 0.04% للعناية بالتجاعيد. يُدلّك بلطف صباحاً ومساءً.',
-        facts: ['غليسرين 8% · قاعدة مطرية ≈13%', 'نياسيناميد 2% · أدينوزين 0.04%', 'زبدة مانجو 0.8% · 50 غ'],
+          'المكوّنان نفسهما بالتركيز نفسه، في كريم أغنى يبقى في مكانه: غليسرين 8% وزبدة بذور المانجو 0.8% والبروبوليس. دلّكيه بلطف بعد السيروم، صباحاً ومساءً.',
+        facts: ['مرخّص للتجاعيد والتفتيح', 'نياسيناميد 2%، أدينوزين 0.04%', 'زبدة المانجو 0.8%', '50 غ'],
       },
       {
         titleKey: 'routineCollagenMaskTitle',
         productNumber: '53',
         quantity: 5,
-        step: 'مساء اختياري للقناع',
+        step: 'خطوة المساء',
         body:
-          'خمسة أقنعة غير منسوجة بخلاصة مرطبة: غليسرين 10.052% وبيوتيلين غلايكول 8.010% وهيالورونات الصوديوم 0.5% وبيتايين 0.8% وألانتوين 0.2%. يستخدم قناع واحد بعد التونر مدة 15-20 دقيقة، ثم يتبع بالسيروم والكريم. لا تحدد العبوة وتيرة أسبوعية.',
-        facts: ['قاعدة مرطبة 18.062%', 'هيالورونات الصوديوم 0.5%', '23 غ للقناع'],
+          'خمسة أقنعة مشبعة بخلاصة مرطبة من الغليسرين وهيالورونات الصوديوم والبيتائين، مع السنتيلا والهاماميليس والجريب فروت والرمان والصويا. 15-20 دقيقة بعد التونر، ثم السيروم والكريم كالمعتاد.',
+        facts: ['هيالورونات الصوديوم 0.5%', 'غليسرين 10%', '23 غ للقناع'],
       },
     ],
     eanLabel: 'الباركود',
@@ -447,19 +451,19 @@ const AR: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
-    title: 'صباحاً ومساءً، بهذا الترتيب',
+    title: 'اضبطيه مرتين يومياً',
     intro:
-      'أربع خطوات مرتين يومياً، مع قناع ورقي اختياري بحسب روتينك. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيب تعاونها معاً على مدار اليوم.',
+      'أربع خطوات صباحاً ومساءً، وقناع ورقي في الأمسيات التي تريدين فيها المزيد. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيبها معاً على مدار اليوم.',
     steps: [
       {
         title: 'التنظيف على بشرة جافة',
         body:
-          'ضعي المنظف على وجه جاف مع تجنب العينين. انتظري ظهور فقاعات الأكسجين، دلّكي بحركات دائرية، ثم اغسلي بماء فاتر. صباحاً ومساءً.',
+          'ضعي المنظف على وجه جاف مع تجنّب العينين. اتركي الفقاعات تتكوّن، ودلّكي بحركات دائرية، ثم اشطفي بماء فاتر. صباحاً ومساءً.',
       },
       {
         title: 'التونر والبشرة رطبة',
         body:
-          'ضعي التونر أو رشّيه مباشرة بعد التنظيف قبل أن تجف البشرة، واضغطيه بكفّيك. ويمكن استخدامه أيضاً فوق المكياج خلال النهار.',
+          'ضعي التونر أو رشّيه مباشرة بعد التنظيف قبل أن تجف البشرة، واضغطيه بكفّيكِ. ويمكن استخدامه أيضاً فوق المكياج خلال النهار.',
       },
       {
         title: 'السيروم بالطبطبة لا بالفرك',
@@ -467,64 +471,65 @@ const AR: BeautyBoxCopy = {
           'ضعي السيروم على الوجه ووزّعيه بالطبطبة بأطراف الأصابع. صباحاً ومساءً، ودائماً قبل الكريم.',
       },
       {
-        title: 'الكريم للإنهاء',
+        title: 'الكريم للختام',
         body:
-          'كمية صغيرة على الوجه والرقبة، تُدلّك بلطف حتى تختفي. وفي الصباح أنهي بواقي الشمس.',
+          'كمية صغيرة على الوجه والرقبة، تُدلّك بلطف حتى تختفي. وفي الصباح أنهي بواقي شمس.',
       },
       {
-        title: 'مساء اختياري للقناع',
+        title: 'القناع في المساء',
         body:
-          'بعد التونر، ضعي القناع واتركيه من 15 إلى 20 دقيقة. أزيليه، ووزّعي ما تبقى من الإسنس بالطبطبة، ثم السيروم والكريم كالمعتاد. خمسة أقنعة في الصندوق، وكل كيس يُستخدم مباشرة بعد فتحه.',
+          'بعد التونر، ضعي القناع واتركيه 15-20 دقيقة. أزيليه، وربّتي ما تبقى من الخلاصة، ثم السيروم والكريم كالمعتاد. وكل كيس يُستخدم مباشرة بعد فتحه.',
       },
     ],
     note:
-      'واقي الشمس هو الشيء الوحيد الذي يفترضه هذا الروتين ولا يحتويه. وثبات الباكوتشيول ضوئياً يعني أنه يتحمّل ضوء النهار، لا أنه يحميك منه.',
+      'واقي الشمس هو الشيء الوحيد الذي يفترضه هذا الروتين ولا يحتويه. الباكوتشيول يتحمّل ضوء النهار فيناسب الصباح، لكنه لا يحميكِ من الشمس.',
   },
   evidence: {
     eyebrow: 'ما في التركيبة',
     title: 'الأرقام التي وراءها',
     intro:
-      'منتجان من الخمسة مستحضران وظيفيان مسجّلان، والمادتان اللتان يقوم عليهما هذا التسجيل تُختبَران في كل دفعة إنتاج. وهذه هي الأرقام التي تعود.',
+      'منتجان من الخمسة مرخّصان في كوريا كمستحضرات وظيفية، والمادتان اللتان يقوم عليهما الترخيص تُختبَران في كل دفعة إنتاج. وهذه هي النتائج.',
     cards: [
       {
         value: '2%',
-        title: 'نياسيناميد لتجانس مظهر اللون',
+        title: 'نياسيناميد، مؤكَّد في كل دفعة',
         body:
-          'نسبة 2% كاملة في السيروم والكريم. أظهر أحدث قياس للسيروم 96.72% من القيمة المستهدفة، وبلغ قياس الكريم 100.54%.',
+          'نسبة 2% كاملة في السيروم والكريم، وكل دفعة تُختبَر لإثباتها. آخر نتيجة بلغت 98.65% من هذه النسبة في السيروم و100.54% في الكريم.',
       },
       {
         value: '0.04%',
-        title: 'أدينوزين، بالنسبة التي يحددها الترخيص',
+        title: 'أدينوزين، بالنسبة التي يسمّيها الترخيص',
         body:
-          'النسبة المسجلة في كوريا للعناية بالتجاعيد موجودة في الخطوتين. أظهر أحدث قياس للسيروم 101% من القيمة المستهدفة، وبلغ قياس الكريم 103.75%.',
+          'النسبة التي تعتمدها كوريا لتحسين التجاعيد، في الخطوتين وبالاختبار نفسه: 96.25% من هذه النسبة في دفعة السيروم و103.75% في الكريم.',
       },
       {
         value: '0.1%',
         title: 'باكوتشيول، في السيروم والكريم معاً',
         body:
-          'بديل الريتينول، بالنسبة نفسها في الخطوتين. وهو ثابت ضوئياً، ولهذا يمكن اتّباع هذا الروتين صباحاً ومساءً لا بعد الغروب فقط.',
+          'بديل الريتينول، بالنسبة نفسها في الخطوتين. يتحمّل ضوء النهار، ولهذا يعمل هذا الروتين صباحاً ومساءً لا بعد الغروب فقط.',
       },
     ],
     footnote:
-      'يكمل الغليسرين والبيتايين والبانثينول ترطيب السيروم، بينما يضيف الكريم طبقة أكثر غنى، وتمنح أقنعة الكولاجين الروتين خمس خطوات اختيارية منفصلة.',
+      'وحولهما: مركّب Anti-aging Peptide 6 مع الكولاجين والإيلاستين المحلّلين والبروبوليس في السيروم، وزبدة بذور المانجو والبروبوليس في الكريم، والكولاجين مع الهاماميليس والسنتيلا والجريب فروت والرمان في الأقنعة. كلها مذكورة على الملصقات ومدرجة كاملة في صفحات المنتجات أعلاه.',
   },
   suited: {
     eyebrow: 'مدى الملاءمة',
     title: 'لمن هذا الصندوق',
     forTitle: 'مناسب إذا',
     forList: [
-      'كانت الخطوط الدقيقة أو تراخي الشد أو تفاوت اللون هي ما تريدين العمل عليه',
-      'كنت تفضّلين شراء مواد فعّالة بنسب يمكنك التحقق منها',
-      'كان الريتينول قد هيّج بشرتك، أو أردت مادة فعّالة تصلح للصباح كما تصلح للمساء',
-      'كنت تبدأين روتيناً مضاداً للتقدّم في السن وتفضّلين شراء التتابع كاملاً بدل تجميعه بنفسك',
+      'كانت الخطوط الدقيقة أو تفاوت اللون هي ما تريدين العمل عليه',
+      'كنتِ تفضّلين مواد فعّالة بنسب يمكنكِ التحقق منها',
+      'كان الريتينول أقوى مما تتحمّله بشرتكِ، أو أردتِ مادة فعّالة تصلح للصباح كما تصلح للمساء',
+      'كنتِ تبدأين روتيناً للعناية بعلامات التقدّم في السن وتفضّلين شراء التتابع كاملاً بدل تجميعه بنفسكِ',
     ],
     notForTitle: 'ابحثي عن غيره إذا',
     notForList: [
-      'كنت حاملاً أو مرضعة. السيروم والكريم يحتويان الباكوتشيول، فراجعي طبيبك أولاً',
-      'كان العطر مشكلة لبشرتك. أربعة من الخمسة معطّرة، وكل صناديق GENOSYS مبنية على المنظف المعطّر نفسه، فاشتري القطع منفصلة',
+      'كنتِ حاملاً أو مرضعة. السيروم والكريم يحتويان الباكوتشيول، فراجعي طبيبكِ أولاً',
+      'كانت لديكِ حساسية من البروبوليس أو منتجات النحل. السيروم والكريم يحتويان خلاصة البروبوليس',
+      'كان العطر مشكلة لبشرتكِ. أربعة من الخمسة معطّرة، وكل صناديق GENOSYS مبنية على المنظف المعطّر نفسه، فاشتري القطع منفصلة',
       'كان الجفاف لا التقدّم في السن هو المشكلة الحقيقية. صندوق الترطيب العميق مخصص لذلك',
       'كان حب الشباب أو انسداد المسام هو المشكلة. صندوق البشرة المعرّضة للمشاكل يستهدفه مباشرة',
-      'كنت تملكين بالفعل منتجين أو ثلاثة من الخمسة. شراء الناقص وحده سيكون أقل تكلفة',
+      'كنتِ تملكين بالفعل منتجين أو ثلاثة من الخمسة. شراء الناقص وحده سيكون أقل تكلفة',
     ],
     alternativesLabel: 'الصناديق المذكورة أعلاه',
     alternatives: [
@@ -532,15 +537,15 @@ const AR: BeautyBoxCopy = {
       { productNumber: '55', label: 'صندوق البشرة المعرّضة للمشاكل' },
     ],
     note:
-      'كل منتج في الصندوق مختبر من أطباء الجلد. وإن لم يوافق أحدها بشرتك، أوقفي ذلك المنتج بعينه لا الروتين كله.',
+      'كل منتج في الصندوق مختبر من أطباء الجلد. وإن لم يوافق أحدها بشرتكِ، أوقفي ذلك المنتج بعينه لا الروتين كله.',
   },
   details: {
     eyebrow: 'المواصفات',
     title: 'التفاصيل',
     rows: [
-      { label: 'المحتويات', value: '5 منتجات: منظف 180ml، تونر 200ml، سيروم 30ml، كريم 50g، و5 أقنعة ورقية 23g للواحد' },
-      { label: 'نوع البشرة', value: 'البشرة الناضجة وكل بشرة تعمل على الخطوط أو تفاوت اللون. التونر والمنظف يناسبان كل أنواع البشرة' },
-      { label: 'الروتين', value: 'تنظيف وتونر وسيروم وكريم صباحاً ومساءً، مع إضافة قناع عندما يناسب روتينك' },
+      { label: 'المحتويات', value: '5 منتجات: منظف 180 مل، تونر 200 مل، سيروم 30 مل، كريم 50 غ، و5 أقنعة ورقية 23 غ للواحد' },
+      { label: 'نوع البشرة', value: 'كل بشرة تعمل على الخطوط أو تفاوت اللون. المنظف والتونر يناسبان كل أنواع البشرة' },
+      { label: 'الروتين', value: 'تنظيف وتونر وسيروم وكريم صباحاً ومساءً، وقناع في الأمسيات التي تريدين فيها المزيد' },
       { label: 'التسجيل', value: 'السيروم والكريم مستحضران كوريان ثنائيا الوظيفة: تحسين التجاعيد وتفتيح البشرة' },
       { label: 'بلد الصنع', value: 'صُنع في كوريا لصالح DTS MG Co., Ltd.، سيول' },
       { label: 'الاختبار', value: 'كل منتج مختبر من أطباء الجلد' },
@@ -557,24 +562,24 @@ const AR: BeautyBoxCopy = {
         a: 'هو مصطلح تنظيمي كوري لا تسويقي. فالمستحضر ثنائي الوظيفة مرخّص لادّعاءين محددين، هنا تحسين التجاعيد وتفتيح البشرة، ويُسمّي المادة التي تحمل كل واحد منهما. وفي السيروم والكريم هما الأدينوزين بنسبة 0.04% والنياسيناميد بنسبة 2%، المادتان الأساسيتان في الترخيص.',
       },
       {
-        q: 'هل الباكوتشيول بمستوى الريتينول؟',
-        a: 'المادتان تتصرفان بشكل متشابه في التعبير الجيني، وأعمال منشورة لم تجد فرقاً ذا دلالة إحصائية بينهما في مساحة التجاعيد. والفرق الواضح هو التحمّل: الباكوتشيول ثابت ضوئياً، فيمكن استخدامه في ضوء النهار خلافاً للريتينول، ويأتي بلا التهيّج المعروف عن الريتينول. ويحتويه السيروم والكريم بنسبة 0.1%.',
+        q: 'لماذا الباكوتشيول بدل الريتينول؟',
+        a: 'لأنه بديل الريتينول النباتي الذي يتحمّل ضوء النهار ويأتي ألطف على البشرة، فيعمل الروتين صباحاً ومساءً لا بعد الغروب فقط. ويحتويه السيروم والكريم بنسبة 0.1%.',
       },
       {
         q: 'وماذا عن الببتيدات والكولاجين؟',
-        a: 'يحمل السيروم مركّب Anti-aging Peptide 6: ستة ببتيدات إلى جانب الكولاجين والإيلاستين المُحلّلين. وتحمل الأقنعة الكولاجين مع الهاماميليس والسنتيلا والرمان. كلها على الملصقات وفي قوائم المكوّنات على صفحة كل منتج. أما المادتان اللتان يسمّيهما الترخيص الكوري وتُعايَران في كل دفعة فهما النياسيناميد 2% والأدينوزين 0.04%.',
+        a: 'يحمل السيروم مركّب Anti-aging Peptide 6: ستة ببتيدات إلى جانب الكولاجين والإيلاستين المحلّلين، وتحمل الأقنعة الكولاجين مع الهاماميليس والسنتيلا والرمان. كلها على الملصقات وفي قوائم المكوّنات على صفحة كل منتج. أما المادتان اللتان يسمّيهما الترخيص الكوري وتُختبَران في كل دفعة فهما النياسيناميد 2% والأدينوزين 0.04%.',
       },
       {
         q: 'هل يمكنني شراء المنتجات منفصلة؟',
-        a: 'نعم، وكل منتج مرتبط أعلاه. الصندوق ليس تركيبة مختلفة ولا حجماً حصرياً، بل المنتجات الخمسة نفسها بمجموع أقل. وإن كنت تملكين بعضها، فشراء الناقص سيكون أقل تكلفة من الصندوق.',
+        a: 'نعم، وكل منتج مرتبط أعلاه. الصندوق ليس تركيبة مختلفة ولا حجماً حصرياً، بل المنتجات الخمسة نفسها بمجموع أقل. وإن كنتِ تملكين بعضها، فشراء الناقص سيكون أقل تكلفة من الصندوق.',
       },
       {
         q: 'هل يمكن استخدامه خلال الحمل أو الرضاعة؟',
-        a: 'راجعي طبيبك أولاً وخذي معك قوائم المكوّنات. الجزء الذي يستحق السؤال هو الباكوتشيول في السيروم والكريم، فهو يُطرح كبديل للريتينول. أما المنظف والتونر والأقنعة فهي الألطف في الصندوق.',
+        a: 'راجعي طبيبكِ أولاً وخذي معكِ قوائم المكوّنات. الجزء الذي يستحق السؤال هو الباكوتشيول في السيروم والكريم، فهو يُطرح كبديل للريتينول. أما المنظف والتونر والأقنعة فهي الألطف في الصندوق.',
       },
       {
         q: 'إلى متى يكفي؟',
-        a: 'المنظف والتونر والسيروم والكريم وحدات بيع كاملة. ويضم الصندوق خمسة أقنعة فردية محكمة الإغلاق، ولا تحدد العبوة وتيرتها الأسبوعية. ويتوفر الكريم أيضاً بحجم مهني 250g.',
+        a: 'المنظف والتونر والسيروم والكريم هي وحدات البيع الكاملة نفسها المعروضة في صفحاتها، فيدوم كل منها بقدر ما يدوم هناك. وفي الصندوق خمسة أقنعة. ويتوفر الكريم أيضاً بحجم مهني 250 غ لمن تنهيه أسرع من البقية.',
       },
     ],
   },
@@ -583,14 +588,14 @@ const AR: BeautyBoxCopy = {
 const RU: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Более гладкие морщины и ровный тон, утром и вечером.',
+  headline: 'Время на вашей стороне. Мягче морщины, ровнее тон.',
   subheadline:
-    'Сыворотка и крем в центре этого набора работают над тем и другим одновременно, и Корея лицензирует их именно на это: средства двойного действия - разглаживание морщин и выравнивание тона. Лицензии заслужены ниацинамидом 2% и аденозином 0,04%, и каждая производственная партия проверяется на соответствие. Вокруг них кислородное очищающее средство, тоник без добавленной отдушки и пять коллагеновых тканевых масок.',
+    'Пять средств GENOSYS в порядке ухода. Очищение, которое само поднимается пузырьками на сухом лице, тоник без отдушки, а в центре сыворотка и крем, зарегистрированные в Корее сразу для двух задач, против морщин и для выравнивания тона: полные 2% ниацинамида и 0,04% аденозина в обоих, каждая партия проверяется, плюс бакучиол, альтернатива ретинолу, которую можно наносить днём. И пять коллагеновых тканевых масок для ваших вечеров.',
   heroBullets: [
-    'Мелкие морщины и неровный тон прорабатываются вместе, теми же двумя шагами, дважды в день',
-    'Ниацинамид 2% и аденозин 0,04% и в сыворотке, и в креме, подтверждено на каждой партии',
-    'Бакучиол 0,1% в обоих средствах: альтернатива ретинолу, фотостабильная, поэтому её можно наносить утром',
-    'Пять полных розничных объёмов и пять тканевых масок - дешевле, чем те же пять средств по одному',
+    'Морщины и неровный тон в работе одновременно, теми же двумя шагами, дважды в день',
+    'Полные 2% ниацинамида и 0,04% аденозина в сыворотке и креме, каждая партия проверяется',
+    'Бакучиол 0,1% в обоих, альтернатива ретинолу, которая подходит и для утра',
+    'Четыре полноразмерных средства и пять масок дешевле, чем покупать их по одному',
   ],
   kitSize: '5 средств',
   fullSizeNote: 'Полные объёмы',
@@ -603,18 +608,18 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Дерматологический контроль', 'Дубай за 1-2 часа'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', '4 полных объёма + 5 масок', 'Дубай за 1-2 часа'],
   stats: [
-    { value: '5', label: 'средств полного объёма, в порядке применения' },
-    { value: '2%', label: 'ниацинамида в сыворотке и в креме, с проверкой в каждой партии' },
-    { value: '0,04%', label: 'аденозина - концентрация, которую Корея регистрирует для разглаживания морщин' },
-    { value: 'Корея', label: 'произведено для DTS MG, каждое средство прошло дерматологический контроль' },
+    { value: '2%', label: 'ниацинамида в сыворотке и в креме, каждая партия проверяется' },
+    { value: '0,04%', label: 'аденозина, концентрация, которую Корея регистрирует против морщин' },
+    { value: '0,1%', label: 'бакучиола в обоих, альтернатива ретинолу, устойчивая к дневному свету' },
+    { value: '5', label: 'коллагеновых тканевых масок для ваших вечеров' },
   ],
   contents: {
     eyebrow: 'Что внутри',
-    title: 'Пять средств, один порядок',
+    title: 'Пять средств, один уход',
     intro:
-      'У каждого средства здесь своя страница и своя цена, так что все подробности можно прочитать до покупки. Набор просто отдаёт вам весь порядок сразу - дешевле, чем по частям.',
+      'У каждого средства здесь своя страница и своя цена, так что все подробности можно прочитать до покупки. Вместе они дают весь уход от начала до конца: мягкое очищение, баланс, работа с морщинами и тоном дважды в день и финальный слой, который всё запечатывает. Дешевле, чем по частям.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -622,8 +627,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 1 - Очищение',
         body:
-          'Наносится на сухое лицо: кислородные пузырьки образуются сами и поднимают макияж и следы дня с кожи. Как появятся - помассируйте круговыми движениями и смойте тёплой водой, чтобы активы следующих шагов легли на кожу, которую не тёрли.',
-        facts: ['Пенится сам', 'Пузырьковый агент 3%', 'pH 5,86', '180 мл'],
+          'Наносится на сухое лицо и само поднимается пузырьками, снимая макияж и следы дня. Помассируйте круговыми движениями, пока пузырьки нарастают, и смойте тёплой водой, чтобы активы следующих шагов легли на кожу, которую не тёрли.',
+        facts: ['На сухое лицо', 'Пузырьки образуются сами', 'Без трения', '180 мл'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -631,17 +636,17 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 2 - Тоник',
         body:
-          'Лёгкий ежедневный тоник для всех типов кожи возвращает влагу и комфорт после очищения благодаря бетаину 3%. Днём его можно распылять поверх макияжа.',
-        facts: ['Без добавленной отдушки', 'Бетаин 3%', 'Можно поверх макияжа'],
+          'Ежедневный тоник для любого типа кожи увлажняет бетаином и ферментом тыквы и возвращает коже баланс после очищения. Совсем без отдушки и настолько лёгкий, что днём его можно распылять поверх макияжа.',
+        facts: ['Без отдушки', 'Бетаин 3%, фермент тыквы 1%', 'Можно поверх макияжа', '200 мл'],
       },
       {
         titleKey: 'routineAntiWrinkleSerumTitle',
         productNumber: '22',
         quantity: 1,
-        step: 'Шаг 3 - Сыворотка',
+        step: 'Шаг 3 - Уход',
         body:
-          'Насыщенная увлажняющая основа с глицерином 25,45%, ниацинамид 2% для ровного тона, аденозин 0,04% для ухода против морщин и бакучиол 0,1%. Мягко вбивайте утром и вечером перед кремом.',
-        facts: ['Глицерин 25,45%', 'Ниацинамид 2%, аденозин 0,04%', 'Бакучиол 0,1% · 30 мл'],
+          'Зарегистрирована в Корее сразу для двух задач: аденозин 0,04% против морщин и ниацинамид 2% для ровного тона, а рядом бакучиол 0,1%. Вбивайте кончиками пальцев утром и вечером, всегда перед кремом.',
+        facts: ['Против морщин и для ровного тона', 'Ниацинамид 2%, аденозин 0,04%', 'Бакучиол 0,1%', '30 мл'],
       },
       {
         titleKey: 'routineAntiWrinkleCreamTitle',
@@ -649,17 +654,17 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 4 - Финал',
         body:
-          'Помогает сохранить влагу после сыворотки: глицерин 8% сочетается со смягчающей фазой около 13%, ниацинамид 2% поддерживает ровный тон, а аденозин 0,04% - уход за морщинами. Мягко распределяйте утром и вечером.',
-        facts: ['Глицерин 8% · смягчающая фаза ≈13%', 'Ниацинамид 2% · аденозин 0,04%', 'Масло манго 0,8% · 50 г'],
+          'Те же два актива в той же концентрации, в более насыщенном креме, который остаётся на коже: глицерин 8%, масло семян манго 0,8% и прополис. Мягко распределяйте после сыворотки утром и вечером.',
+        facts: ['Против морщин и для ровного тона', 'Ниацинамид 2%, аденозин 0,04%', 'Масло манго 0,8%', '50 г'],
       },
       {
         titleKey: 'routineCollagenMaskTitle',
         productNumber: '53',
         quantity: 5,
-        step: 'Дополнительный вечер с маской',
+        step: 'Вечерний шаг',
         body:
-          'Пять масок из нетканого материала с увлажняющей эссенцией: глицерин 10,052%, бутиленгликоль 8,010%, гиалуронат натрия 0,5%, бетаин 0,8% и аллантоин 0,2%. Одну маску используют после тоника 15-20 минут, затем продолжают уход сывороткой и кремом. Недельная частота на упаковке не указана.',
-        facts: ['Увлажняющая основа 18,062%', 'Гиалуронат натрия 0,5%', '23 г на маску'],
+          'Пять масок, пропитанных увлажняющей эссенцией с глицерином, гиалуронатом натрия и бетаином, с центеллой, гамамелисом, грейпфрутом, гранатом и экстрактом сои. 15-20 минут после тоника, затем сыворотка и крем как обычно.',
+        facts: ['Гиалуронат натрия 0,5%', 'Глицерин 10%', '23 г на маску'],
       },
     ],
     eanLabel: 'Штрихкод',
@@ -675,83 +680,84 @@ const RU: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'Как применять',
-    title: 'Утром и вечером, в этом порядке',
+    title: 'Заводите дважды в день',
     intro:
-      'Четыре шага дважды в день и дополнительная тканевая маска по вашему ритму ухода. Полные инструкции есть на странице каждого средства; здесь - как они складываются вместе в течение дня.',
+      'Четыре шага утром и вечером и тканевая маска в те вечера, когда хочется большего. Полная инструкция к каждому средству на его странице; здесь показано, как они складываются в один день.',
     steps: [
       {
         title: 'Очищение на сухой коже',
         body:
-          'Нанесите средство на сухое лицо, избегая области глаз. Дождитесь кислородных пузырьков, помассируйте круговыми движениями, смойте тёплой водой. Утром и вечером.',
+          'Нанесите средство на сухое лицо, избегая области глаз. Дайте пузырькам нарасти, помассируйте круговыми движениями и смойте тёплой водой. Утром и вечером.',
       },
       {
         title: 'Тоник на влажную кожу',
         body:
-          'Нанесите или распылите тоник сразу после очищения, пока кожа не высохла, и вбейте ладонями. Днём его можно использовать даже поверх макияжа.',
+          'Нанесите или распылите тоник сразу после очищения, пока кожа не высохла, и прижмите ладонями. Днём его можно использовать и поверх макияжа.',
       },
       {
-        title: 'Сыворотка: вбивать, а не растирать',
+        title: 'Сыворотку вбивать, а не втирать',
         body:
-          'Упаковка здесь конкретна: нанесите на лицо и мягко вбейте кончиками пальцев. Утром и вечером, всегда до крема.',
+          'Нанесите на лицо и мягко вбейте кончиками пальцев. Утром и вечером, всегда перед кремом.',
       },
       {
-        title: 'Крем в финале',
+        title: 'Крем в завершение',
         body:
-          'Небольшое количество на лицо и шею, мягко распределить до полного впитывания. Утром завершайте своей солнцезащитой.',
+          'Немного крема на лицо и шею, мягко вмассируйте до впитывания. Утром завершите уход средством с SPF.',
       },
       {
-        title: 'Дополнительный вечер с маской',
+        title: 'Маска вечером',
         body:
-          'После тоника наложите маску на 15-20 минут. Снимите, вбейте остатки эссенции, затем сыворотка и крем как обычно. В наборе пять масок, и каждое саше рассчитано на применение сразу после открытия.',
+          'После тоника наложите маску на 15-20 минут. Снимите, вбейте оставшуюся эссенцию, затем сыворотка и крем как обычно. Каждое саше используйте сразу после вскрытия.',
       },
     ],
     note:
-      'Солнцезащита - единственное, что этот уход подразумевает, но не содержит. Фотостабильность бакучиола означает, что он выдерживает дневной свет, а не что он от него защищает.',
+      'Солнцезащитное средство - единственное, что этот уход предполагает, но не содержит. Бакучиол устойчив к дневному свету, поэтому подходит для утра, но от солнца он не защищает.',
   },
   evidence: {
-    eyebrow: 'Что внутри формулы',
+    eyebrow: 'Что в формуле',
     title: 'Цифры, которые за этим стоят',
     intro:
-      'Два средства из пяти - зарегистрированные функциональные косметические средства, и две молекулы, на которых держится эта регистрация, проверяются в каждой производственной партии. Вот какие цифры возвращаются.',
+      'Два средства из пяти зарегистрированы в Корее как функциональная косметика, и оба актива, на которых стоит эта регистрация, проверяют в каждой производственной партии. Вот что показывают проверки.',
     cards: [
       {
         value: '2%',
-        title: 'Ниацинамид для более ровного тона',
+        title: 'Ниацинамид, подтверждённый в каждой партии',
         body:
-          'Полные 2% и в сыворотке, и в креме. Последнее измерение сыворотки показало 96,72% от целевого значения, крема - 100,54%.',
+          'Полные 2% и в сыворотке, и в креме, и каждую партию проверяют, чтобы это подтвердить. Последняя проверка показала 98,65% от этой цифры в сыворотке и 100,54% в креме.',
       },
       {
         value: '0,04%',
-        title: 'Аденозин в той дозе, которую называет лицензия',
+        title: 'Аденозин в той дозе, которую называет регистрация',
         body:
-          'Зарегистрированная в Корее концентрация для ухода против морщин есть в обоих средствах. Последнее измерение сыворотки показало 101% от целевого значения, крема - 103,75%.',
+          'Концентрация, которую Корея признаёт для ухода против морщин, на обоих шагах и с той же проверкой: 96,25% от этой цифры в партии сыворотки и 103,75% в креме.',
       },
       {
         value: '0,1%',
-        title: 'Бакучиол - и в сыворотке, и в креме',
+        title: 'Бакучиол, и в сыворотке, и в креме',
         body:
-          'Альтернатива ретинолу, в одной и той же дозе на двух шагах. Фотостабилен - именно поэтому этот уход работает и утром, и вечером, а не только после захода солнца.',
+          'Альтернатива ретинолу в одной и той же дозе на двух шагах. Устойчив к дневному свету, поэтому этот уход работает и утром, и вечером, а не только после заката.',
       },
     ],
     footnote:
-      'Глицерин, бетаин и пантенол усиливают увлажняющую основу сыворотки, крем добавляет более насыщенный завершающий слой, а пять коллагеновых масок дают пять отдельных дополнительных этапов.',
+      'Вокруг них: комплекс Anti-aging Peptide 6 с гидролизованными коллагеном и эластином и прополисом в сыворотке, масло семян манго и прополис в креме, коллаген с гамамелисом, центеллой, грейпфрутом и гранатом в масках. Всё указано на этикетках и полностью перечислено на страницах выше.',
   },
   suited: {
     eyebrow: 'Кому подходит',
     title: 'Для кого этот набор',
     forTitle: 'Подойдёт, если',
     forList: [
-      'Работать нужно с мелкими морщинами, потерей плотности или неровным тоном',
-      'Вы предпочитаете покупать активы в концентрациях, которые можно проверить',
-      'Ретинол вас раздражал, или нужен актив, который можно наносить и утром, и вечером',
-      'Вы начинаете антивозрастной уход и предпочитаете купить готовый порядок, а не собирать его самостоятельно',
+      'Вы хотите работать с морщинами или неровным тоном',
+      'Вам важны активы в концентрациях, которые можно проверить',
+      'Ретинол оказался для вашей кожи слишком сильным, или нужен актив, который можно наносить и утром, и вечером',
+      'Вы начинаете антивозрастной уход и хотите купить готовую последовательность, а не собирать её сами',
     ],
-    notForTitle: 'Лучше другой набор, если',
+    notForTitle: 'Лучше выбрать другое, если',
     notForList: [
-      'Вы беременны или кормите. В сыворотке и в креме есть бакучиол, поэтому сначала посоветуйтесь с врачом',
-      'Ароматизаторы для вас проблема. Четыре средства из пяти ароматизированы, и все наборы GENOSYS собраны вокруг одного и того же ароматизированного очищающего средства, так что покупайте средства по отдельности',
-      'Настоящая проблема - сухость, а не возраст. Для этого собран набор для глубокого увлажнения',
-      'Проблема - акне и забитые поры. Этим занимается набор для проблемной кожи',
+      'Вы беременны или кормите грудью. В сыворотке и креме есть бакучиол, поэтому сначала посоветуйтесь с врачом',
+      'У вас реакция на прополис или другие продукты пчеловодства. В сыворотке и креме есть экстракт прополиса',
+      'Для вас проблема отдушка. Четыре средства из пяти ароматизированы, и все наборы GENOSYS построены вокруг одного ароматизированного очищения, так что лучше покупать средства по отдельности',
+      'Настоящая проблема не возраст, а сухость. Для неё создан набор Deep Moisturizing',
+      'Проблема в акне или забитых порах. Набор Problem Skin Care работает именно с этим',
       'У вас уже есть два-три средства из пяти. Докупить недостающие выйдет дешевле',
     ],
     alternativesLabel: 'Наборы, упомянутые выше',
@@ -767,12 +773,12 @@ const RU: BeautyBoxCopy = {
     title: 'Детали',
     rows: [
       { label: 'Состав набора', value: '5 средств: очищение 180 мл, тоник 200 мл, сыворотка 30 мл, крем 50 г, 5 тканевых масок по 23 г' },
-      { label: 'Тип кожи', value: 'Зрелая кожа и любая кожа, работающая с морщинами или неровным тоном. Тоник и очищающее средство подходят всем типам' },
-      { label: 'Порядок', value: 'Очищение, тоник, сыворотка и крем утром и вечером; маска по вашему ритму ухода' },
-      { label: 'Регистрация', value: 'Сыворотка и крем - корейские средства двойного действия: разглаживание морщин и выравнивание тона' },
+      { label: 'Тип кожи', value: 'Любая кожа, работающая с морщинами или неровным тоном. Очищение и тоник подходят всем типам кожи' },
+      { label: 'Уход', value: 'Очищение, тоник, сыворотка, крем утром и вечером; маска в те вечера, когда хочется большего' },
+      { label: 'Регистрация', value: 'Сыворотка и крем зарегистрированы в Корее как средства двойного действия: против морщин и для выравнивания тона' },
       { label: 'Производство', value: 'Сделано в Корее для DTS MG Co., Ltd., Сеул' },
-      { label: 'Контроль', value: 'Все средства прошли дерматологический контроль' },
-      { label: 'Штрихкоды', value: 'У каждого средства свой EAN, он указан рядом с позицией выше' },
+      { label: 'Тестирование', value: 'Каждое средство прошло дерматологический контроль' },
+      { label: 'Штрихкоды', value: 'У каждого средства свой EAN, он указан рядом со средством выше' },
       { label: 'Скидки', value: 'Цена набора уже является скидкой, поэтому другие предложения на него не суммируются' },
     ],
   },
@@ -781,263 +787,31 @@ const RU: BeautyBoxCopy = {
     title: 'Вопросы, которые стоит задать',
     items: [
       {
-        q: 'Что на самом деле значит "multi functional"?',
-        a: 'Это корейский регуляторный термин, а не маркетинговый. Средство двойного действия лицензируется под два названных заявления - здесь разглаживание морщин и выравнивание тона - и называет молекулу, отвечающую за каждое из них. И в сыворотке, и в креме это аденозин 0,04% и ниацинамид 2%, два основных актива в этой регистрации.',
+        q: 'Что на самом деле значит «multi functional»?',
+        a: 'Это корейский регуляторный термин, а не маркетинговый. Средство двойного действия зарегистрировано под две конкретные функции, здесь уход против морщин и выравнивание тона, и для каждой названо своё действующее вещество. В сыворотке и в креме это аденозин 0,04% и ниацинамид 2%, два главных актива регистрации.',
       },
       {
-        q: 'Бакучиол не хуже ретинола?',
-        a: 'Обе молекулы ведут себя схоже в профиле экспрессии генов, а опубликованные работы не нашли статистически значимой разницы между ними по площади морщин. Явно отличается переносимость: бакучиол фотостабилен, поэтому в отличие от ретинола его можно носить при дневном свете, и он обходится без раздражения, которым известен ретинол. В сыворотке и в креме его 0,1%.',
+        q: 'Почему бакучиол, а не ретинол?',
+        a: 'Потому что это растительная альтернатива ретинолу, которая устойчива к дневному свету и мягче к коже, так что уход работает и утром, и вечером, а не только после заката. Сыворотка и крем содержат его в концентрации 0,1%.',
       },
       {
-        q: 'А что с пептидами и коллагеном?',
-        a: 'В сыворотке - комплекс Anti-aging Peptide 6: шесть пептидов рядом с гидролизованными коллагеном и эластином. В масках - коллаген с гамамелисом, центеллой и гранатом. Всё это есть на этикетках и в составах на страницах каждого средства. А две молекулы, которые называет корейская лицензия и которые проверяются в каждой партии, - это ниацинамид 2% и аденозин 0,04%.',
+        q: 'А пептиды и коллаген?',
+        a: 'В сыворотке есть комплекс Anti-aging Peptide 6, шесть пептидов вместе с гидролизованными коллагеном и эластином, а в масках коллаген с гамамелисом, центеллой и гранатом. Всё это указано на этикетках и в полных составах на странице каждого средства. А два актива, на которых построена корейская регистрация и которые проверяют в каждой партии, это ниацинамид 2% и аденозин 0,04%.',
       },
       {
         q: 'Можно купить средства по отдельности?',
-        a: 'Да, и каждое из них связано ссылкой выше. Набор - это не другая формула и не эксклюзивный объём, а те же пять единиц дешевле в сумме. Если часть у вас уже есть, докупить недостающее выйдет дешевле набора.',
+        a: 'Да, каждое из них есть по ссылке выше. Набор не другая формула и не эксклюзивный объём, а те же пять средств дешевле в сумме. Если часть из них у вас уже есть, докупить недостающие выйдет дешевле набора.',
       },
       {
         q: 'Можно при беременности и кормлении?',
-        a: 'Сначала обсудите с врачом и возьмите с собой составы. Спрашивать стоит про бакучиол в сыворотке и в креме - он продаётся как альтернатива ретинолу. Очищающее средство, тоник и маски - самое мягкое в наборе.',
+        a: 'Сначала обсудите с врачом и возьмите с собой составы. Спрашивать стоит про бакучиол в сыворотке и в креме, его предлагают как альтернативу ретинолу. Очищение, тоник и маски самые мягкие средства в наборе.',
       },
       {
         q: 'На сколько хватит набора?',
-        a: 'Очищение, тоник, сыворотка и крем представлены в полных розничных объёмах. В наборе также пять индивидуально запечатанных масок; недельная частота на упаковке не указана. Крем выпускается и в профессиональном объёме 250 г.',
+        a: 'Очищение, тоник, сыворотка и крем это те же полные розничные объёмы, что продаются на их страницах, так что каждое средство прослужит ровно столько же. В наборе пять масок. Крем выпускается и в профессиональном объёме 250 г, если он заканчивается быстрее остального.',
       },
     ],
   },
 }
 
-const SAFE_AR: BeautyBoxCopy = {
-  ...AR,
-  headline: 'روتين واضح للعناية بمظهر الخطوط وتفاوت اللون.',
-  subheadline:
-    'أربع خطوات يومية وخمسة أقنعة منفردة. يحتوي السيروم والكريم على نياسيناميد 2% وأدينوزين 0.04%، وهما مستحضران كوريان ثنائيا الوظيفة للعناية بمظهر تفاوت اللون والتجاعيد. أما المنظف والتونر والأقنعة فتحتفظ كل منها بوظيفتها وتعليماتها الخاصة.',
-  heroBullets: [
-    'تسع قطع: أربعة منتجات كاملة الحجم وخمسة أقنعة ورقية',
-    'غليسرين 25.45% في السيروم و8% في الكريم',
-    'نياسيناميد 2% وأدينوزين 0.04% في السيروم والكريم',
-    'الأسعار والقيمة المنفصلة تحسب مباشرة من السجل الحالي',
-  ],
-  kitSize: 'مجموعة واحدة · 9 قطع',
-  stats: [
-    { value: '9', label: 'قطع محددة داخل المجموعة' },
-    { value: '4', label: 'خطوات يومية صباحاً ومساءً' },
-    { value: '5', label: 'أقنعة أحادية الاستخدام بوزن 23 غ' },
-    { value: '15-20', label: 'دقيقة لكل قناع' },
-  ],
-  contents: {
-    ...AR.contents,
-    title: 'أربعة منتجات كاملة وخمسة أقنعة',
-    intro: 'لكل مكوّن صفحته وسعره وتعليماته. تجمع هذه الصفحة الوحدات التسع وتحسب قيمتها وفق الأسعار الحالية.',
-    items: [
-      {
-        titleKey: 'routineSnowO2Title', productNumber: '10', quantity: 1, step: 'الخطوة 1 · التنظيف',
-        body: 'يوزع SNOW O₂ بحجم 180 مل على وجه جاف، وتترك الرغوة لتتكون، ثم يدلك بلطف ويشطف بالماء الفاتر.',
-        facts: ['180 مل', 'إيثر 8%', 'يستخدم على وجه جاف'],
-      },
-      {
-        titleKey: 'routineSnowBoosterTitle', productNumber: '16', quantity: 1, step: 'الخطوة 2 · المعزز',
-        body: 'يوضع SNOW BOOSTER بحجم 200 مل باليدين أو كرذاذ بعد التنظيف، صباحاً ومساءً.',
-        facts: ['200 مل', 'بيتايين 3%', 'يوضع أو يرش'],
-      },
-      {
-        titleKey: 'routineAntiWrinkleSerumTitle', productNumber: '22', quantity: 1, step: 'الخطوة 3 · السيروم',
-        body: 'سيروم 30 مل بغليسرين 25.45% ونياسيناميد 2% وأدينوزين 0.04% وباكوتشيول 0.1%. يربت قبل الكريم.',
-        facts: ['30 مل', 'غليسرين 25.45%', 'نياسيناميد 2% · أدينوزين 0.04%'],
-      },
-      {
-        titleKey: 'routineAntiWrinkleCreamTitle', productNumber: '32', quantity: 1, step: 'الخطوة 4 · الكريم',
-        body: 'كريم 50 غ بغليسرين 8% وقاعدة مطرية تقارب 13% ونياسيناميد 2% وأدينوزين 0.04%. يستخدم بعد السيروم.',
-        facts: ['50 غ', 'غليسرين 8%', 'قاعدة مطرية نحو 13%'],
-      },
-      {
-        titleKey: 'routineCollagenMaskTitle', productNumber: '53', quantity: 5, step: 'مساء إضافي · القناع',
-        body: 'خمسة أقنعة بوزن 23 غ. يستخدم قناع واحد بعد المعزز لمدة 15-20 دقيقة، ثم يتبع بالسيروم والكريم. لا تحدد العبوة وتيرة أسبوعية.',
-        facts: ['23 غ × 5', 'قاعدة مرطبة 18.062%', 'كولاجين 1 ppm'],
-      },
-    ],
-    againstSeparate: 'مقارنة بشراء المكونات منفردة',
-    savingNote: 'تتحدث الأسعار مباشرة من سجل المنتجات.',
-  },
-  howTo: {
-    eyebrow: 'طريقة الاستخدام',
-    title: 'صباحاً ومساءً بهذا الترتيب',
-    intro: 'التنظيف ثم المعزز ثم السيروم ثم الكريم. يستخدم القناع كخطوة إضافية وفق تعليماته، من دون وتيرة مخترعة.',
-    steps: [
-      { title: 'التنظيف', body: 'يوضع SNOW O₂ على وجه جاف، ثم تدلك الرغوة بلطف وتشطف بالماء الفاتر.' },
-      { title: 'المعزز', body: 'يوضع SNOW BOOSTER باليدين أو كرذاذ بعد التنظيف.' },
-      { title: 'السيروم', body: 'يوضع على الوجه ويربت بلطف بأطراف الأصابع.' },
-      { title: 'الكريم', body: 'يوزع بعد السيروم. يختتم روتين الصباح بواقي شمس مناسب.' },
-      { title: 'القناع', body: 'بعد المعزز، يترك 15-20 دقيقة، ثم يرفع وتربت الخلاصة المتبقية ويتبع بالسيروم والكريم.' },
-    ],
-    note: 'الحماية اليومية من الشمس مهمة مع روتين العناية بتفاوت اللون والتجاعيد، لكنها غير موجودة داخل المجموعة.',
-  },
-  evidence: {
-    eyebrow: 'حقائق المكونات',
-    title: 'أرقام تخص كل منتج على حدة',
-    intro: 'لا تنقل نتائج منتج واحد إلى المجموعة كلها. هذه التركيزات تخص السيروم أو الكريم أو القناع المذكور.',
-    cards: [
-      { value: '25.45%', title: 'غليسرين في السيروم', body: 'قاعدة ترطيب مرتفعة في السيروم وحده.' },
-      { value: '2% + 0.04%', title: 'نياسيناميد وأدينوزين', body: 'في السيروم والكريم؛ وقد تحقق فحص الجودة من محتواهما في كل منتج.' },
-      { value: '18.062%', title: 'قاعدة ترطيب القناع', body: 'غليسرين 10.052% وبيوتيلين غلايكول 8.010% في كل قناع.' },
-    ],
-    footnote: 'لا نحتفظ بتقرير دراسة P&K المذكور سابقاً، لذلك لا تنسب هذه الصفحة أي نتيجة سريرية إلى المجموعة.',
-  },
-  suited: {
-    ...AR.suited,
-    title: 'قبل اختيار المجموعة',
-    forList: [
-      'ترغبين في روتين صباحي ومسائي مرتب للعناية بمظهر الخطوط وتفاوت اللون',
-      'تريدين شراء المنتجات الأربعة مع خمسة أقنعة منفردة',
-      'تفضلين تركيزات واضحة في السيروم والكريم',
-    ],
-    notForList: [
-      'تحتاجين روتيناً خالياً من العطر أو الزيوت العطرية',
-      'لديك حساسية معروفة من البروبوليس أو منتجات النحل',
-      'لديك بالفعل عدة مكونات من المجموعة',
-    ],
-    note: 'أدخلي المنتجات واحداً بعد الآخر إذا كانت بشرتك سريعة التفاعل.',
-  },
-  details: {
-    eyebrow: 'المواصفات',
-    title: 'تفاصيل المجموعة',
-    rows: [
-      { label: 'المحتويات', value: 'SNOW O₂ ‏180 مل، SNOW BOOSTER ‏200 مل، سيروم 30 مل، كريم 50 غ، خمسة أقنعة 23 غ' },
-      { label: 'عدد القطع', value: '9 قطع' },
-      { label: 'الترتيب اليومي', value: 'تنظيف ← معزز ← سيروم ← كريم' },
-      { label: 'القناع', value: '15-20 دقيقة بعد المعزز؛ لا تحدد العبوة وتيرة أسبوعية' },
-      { label: 'الحماية النهارية', value: 'واقي شمس مناسب بعد الكريم' },
-      { label: 'السعر', value: 'يحسب من الأسعار الحالية' },
-    ],
-  },
-  faq: {
-    eyebrow: 'قبل الشراء',
-    title: 'أسئلة عملية',
-    items: [
-      { q: 'كم قطعة في المجموعة؟', a: 'تسع قطع: أربعة منتجات كاملة الحجم وخمسة أقنعة منفردة.' },
-      { q: 'ما الترتيب اليومي؟', a: 'SNOW O₂ ثم SNOW BOOSTER ثم السيروم ثم الكريم، صباحاً ومساءً.' },
-      { q: 'كم مرة يستخدم القناع؟', a: 'تحدد العبوة مدة 15-20 دقيقة ولا تحدد وتيرة أسبوعية.' },
-      { q: 'هل الباكوتشيول يعادل الريتينول؟', a: 'تحتوي الصيغتان على باكوتشيول 0.1%. الدراسة المقارنة المنشورة استخدمت 0.5%، لذلك لا نقدم ادعاء تكافؤ.' },
-      { q: 'هل توجد دراسة خاصة بالمجموعة؟', a: 'لا نملك تقرير فعالية خاصاً بالمجموعة. السيروم والكريم مسجلان في كوريا للعناية بمظهر تفاوت اللون والتجاعيد.' },
-    ],
-  },
-}
-
-const SAFE_RU: BeautyBoxCopy = {
-  ...RU,
-  headline: 'Понятный уход за морщинами и неровным тоном.',
-  subheadline:
-    'Четыре ежедневных шага и пять отдельных масок. Сыворотка и крем содержат ниацинамид 2% и аденозин 0,04% и зарегистрированы в Корее для ухода за неровным тоном и морщинами. Очищение, бустер и маски сохраняют собственные функции и инструкции.',
-  heroBullets: [
-    'Девять единиц: четыре полноразмерных средства и пять тканевых масок',
-    'Глицерин 25,45% в сыворотке и 8% в креме',
-    'Ниацинамид 2% и аденозин 0,04% в сыворотке и креме',
-    'Цены и стоимость по отдельности рассчитываются по актуальным данным',
-  ],
-  kitSize: '1 набор · 9 единиц',
-  stats: [
-    { value: '9', label: 'точных единиц в наборе' },
-    { value: '4', label: 'ежедневных шага утром и вечером' },
-    { value: '5', label: 'одноразовых масок по 23 г' },
-    { value: '15-20', label: 'минут на одну маску' },
-  ],
-  contents: {
-    ...RU.contents,
-    title: 'Четыре полноразмерных средства и пять масок',
-    intro: 'У каждого компонента своя страница, цена и инструкция. Здесь девять единиц объединены в набор с расчётом по текущим ценам.',
-    items: [
-      {
-        titleKey: 'routineSnowO2Title', productNumber: '10', quantity: 1, step: 'Шаг 1 · Очищение',
-        body: 'SNOW O₂ 180 мл наносят на сухое лицо, дожидаются пены, мягко массируют и смывают тёплой водой.',
-        facts: ['180 мл', 'Эфир 8%', 'Нанесение на сухое лицо'],
-      },
-      {
-        titleKey: 'routineSnowBoosterTitle', productNumber: '16', quantity: 1, step: 'Шаг 2 · Бустер',
-        body: 'SNOW BOOSTER 200 мл наносят руками или распыляют после очищения утром и вечером.',
-        facts: ['200 мл', 'Бетаин 3%', 'Нанесение или распыление'],
-      },
-      {
-        titleKey: 'routineAntiWrinkleSerumTitle', productNumber: '22', quantity: 1, step: 'Шаг 3 · Сыворотка',
-        body: 'Сыворотка 30 мл с глицерином 25,45%, ниацинамидом 2%, аденозином 0,04% и бакучиолом 0,1%. Наносится до крема.',
-        facts: ['30 мл', 'Глицерин 25,45%', 'Ниацинамид 2% · аденозин 0,04%'],
-      },
-      {
-        titleKey: 'routineAntiWrinkleCreamTitle', productNumber: '32', quantity: 1, step: 'Шаг 4 · Крем',
-        body: 'Крем 50 г с глицерином 8%, смягчающей фазой около 13%, ниацинамидом 2% и аденозином 0,04%. Наносится после сыворотки.',
-        facts: ['50 г', 'Глицерин 8%', 'Смягчающая фаза около 13%'],
-      },
-      {
-        titleKey: 'routineCollagenMaskTitle', productNumber: '53', quantity: 5, step: 'Дополнительный вечер · Маска',
-        body: 'Пять масок по 23 г. Одну маску используют после бустера 15-20 минут, затем наносят сыворотку и крем. Недельная частота не указана.',
-        facts: ['23 г × 5', 'Увлажняющая основа 18,062%', 'Коллаген 1 ppm'],
-      },
-    ],
-    againstSeparate: 'по сравнению с покупкой компонентов по отдельности',
-    savingNote: 'Цены обновляются напрямую из актуальных карточек продуктов.',
-  },
-  howTo: {
-    eyebrow: 'Как применять',
-    title: 'Утром и вечером в одном порядке',
-    intro: 'Очищение, бустер, сыворотка и крем. Маска добавляется по собственной инструкции, без придуманной частоты.',
-    steps: [
-      { title: 'Очищение', body: 'Нанесите SNOW O₂ на сухое лицо, дождитесь пены, мягко помассируйте и смойте тёплой водой.' },
-      { title: 'Бустер', body: 'Нанесите SNOW BOOSTER руками или распылите после очищения.' },
-      { title: 'Сыворотка', body: 'Нанесите на лицо и мягко вбейте кончиками пальцев.' },
-      { title: 'Крем', body: 'Распределите после сыворотки. Утром завершите уход подходящим SPF.' },
-      { title: 'Маска', body: 'После бустера оставьте на 15-20 минут, снимите, вбейте остатки эссенции, затем нанесите сыворотку и крем.' },
-    ],
-    note: 'Ежедневная защита от солнца важна в уходе за неровным тоном и морщинами, но в набор не входит.',
-  },
-  evidence: {
-    eyebrow: 'Факты о формулах',
-    title: 'Цифры относятся к конкретным компонентам',
-    intro: 'Результаты одного продукта нельзя переносить на весь набор. Ниже указано, к какому средству относится каждая концентрация.',
-    cards: [
-      { value: '25,45%', title: 'Глицерин в сыворотке', body: 'Высокая увлажняющая база именно в сыворотке.' },
-      { value: '2% + 0,04%', title: 'Ниацинамид и аденозин', body: 'В сыворотке и креме; контроль качества проверяет содержание обоих компонентов.' },
-      { value: '18,062%', title: 'Увлажняющая основа маски', body: 'Глицерин 10,052% и бутиленгликоль 8,010% в каждой маске.' },
-    ],
-    footnote: 'Отчёта исследования P&K, которое упоминалось раньше, у нас нет, поэтому клинический результат набору не приписывается.',
-  },
-  suited: {
-    ...RU.suited,
-    title: 'Что учесть перед покупкой',
-    forList: [
-      'Нужен готовый утренний и вечерний порядок для ухода за морщинами и неровным тоном',
-      'Вы хотите четыре полноразмерных средства и пять отдельных масок',
-      'Вы предпочитаете проверяемые концентрации в сыворотке и креме',
-    ],
-    notForList: [
-      'Вам нужен уход без отдушки и эфирных масел',
-      'У вас известная аллергия на прополис или продукты пчеловодства',
-      'Несколько компонентов набора у вас уже есть',
-    ],
-    note: 'При реактивной коже вводите средства по одному.',
-  },
-  details: {
-    eyebrow: 'Характеристики',
-    title: 'О наборе',
-    rows: [
-      { label: 'Состав', value: 'SNOW O₂ 180 мл, SNOW BOOSTER 200 мл, сыворотка 30 мл, крем 50 г, пять масок по 23 г' },
-      { label: 'Количество', value: '9 единиц' },
-      { label: 'Ежедневный порядок', value: 'Очищение → бустер → сыворотка → крем' },
-      { label: 'Маска', value: '15-20 минут после бустера; недельная частота не указана' },
-      { label: 'Дневная защита', value: 'Подходящий SPF после крема' },
-      { label: 'Цена', value: 'Рассчитывается по актуальным ценам' },
-    ],
-  },
-  faq: {
-    eyebrow: 'Перед покупкой',
-    title: 'Практические вопросы',
-    items: [
-      { q: 'Сколько единиц в наборе?', a: 'Девять: четыре полноразмерных средства и пять отдельных масок.' },
-      { q: 'Какой ежедневный порядок?', a: 'SNOW O₂, затем SNOW BOOSTER, сыворотка и крем утром и вечером.' },
-      { q: 'Как часто использовать маску?', a: 'Упаковка указывает 15-20 минут, но не задаёт недельную частоту.' },
-      { q: 'Бакучиол равен ретинолу?', a: 'В обеих формулах бакучиола 0,1%. Опубликованное сравнительное исследование использовало 0,5%, поэтому эквивалентность не заявляется.' },
-      { q: 'Есть ли отдельное исследование набора?', a: 'Отчёта об эффективности всего набора у нас нет. Сыворотка и крем зарегистрированы в Корее для ухода за неровным тоном и морщинами.' },
-    ],
-  },
-}
-
-export const ANTI_AGING_COPY: BeautyBoxLocaleCopy = { en: EN, ar: SAFE_AR, ru: SAFE_RU }
+export const ANTI_AGING_COPY: BeautyBoxLocaleCopy = { en: EN, ar: AR, ru: RU }

@@ -96,11 +96,11 @@ describe('Beauty Box Quick Facts catalog', () => {
   it('audits product 58 as the anti-aging box, not a Beige 50g item', () => {
     const facts = getCatalogQuickFacts('58', 'en')
     expect(facts.map(fact => fact.title)).toEqual([
-      'Firmness + line care',
+      'Lines + tone, together',
       '9 pieces inside',
-      'Matched treatment duo',
-      'Five mask sessions',
-      'Clear routine order',
+      'Full-strength actives',
+      'Bakuchiol by day',
+      'Five collagen masks',
       'Save AED 208.50',
     ])
     expect(JSON.stringify(facts)).not.toMatch(/Beige|Selected shade|Format["']?\s*[:,]\s*["']?50g/i)

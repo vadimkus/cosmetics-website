@@ -532,11 +532,11 @@
   {
     "product": "58",
     "status": "ok",
-    "source": "/images/bbox_age/main-v2.jpg",
-    "file": "/images/cutout/58-v2.webp",
+    "source": "/images/bb_age_campaign/main.jpg",
+    "file": "/images/cutout/58-v3.webp",
     "name": "ANTI-AGING BEAUTY BOX",
-    "coverage": 0.398,
-    "bytes": 123096,
+    "coverage": 0.416,
+    "bytes": 66934,
     "review": false
   },
   {

@@ -38,8 +38,8 @@ describe('product 58 localized copy', () => {
     })
     for (const required of [
       '180 мл', '180 مل', '200 мл', '200 مل', '30 мл', '30 مل',
-      '50 г', '50 غ', '23 г', '23 غ', '15-20', '25,45%', '25.45%',
-      '2%', '0,04%', '0.04%', '18,062%', '18.062%',
+      '50 г', '50 غ', '23 г', '23 غ', '15-20',
+      '2%', '0,04%', '0.04%', '0,1%', '0.1%',
     ]) {
       expect(text).toContain(required)
     }
@@ -78,6 +78,8 @@ describe('product 58 localized copy', () => {
       ar: PRODUCT_58_AR_TRANSLATION,
       bespokeRu: ANTI_AGING_COPY.ru,
       bespokeAr: ANTI_AGING_COPY.ar,
+      factsRu: getCatalogQuickFacts('58', 'ru'),
+      factsAr: getCatalogQuickFacts('58', 'ar'),
     }).toLocaleLowerCase()
     for (const forbidden of [
       'омолож', 'تجديد قوية', 'молодая кожа', 'بشرة شابة', 'подтянут', 'مشدود',
@@ -88,6 +90,27 @@ describe('product 58 localized copy', () => {
       'липосом', 'ليبوسوم', 'глубокое увлажнение', 'ترطيب عميق',
       '2-3 раза', '2-3 раза', '2-3 مرات', '2-3 مرات',
       '1,390', '1181.50', '208.50',
+    ]) {
+      expect(live).not.toContain(forbidden)
+    }
+  })
+
+  it('sells in its own voice instead of reading from the dossier', () => {
+    const live = JSON.stringify({
+      ru: PRODUCT_58_RU_TRANSLATION,
+      ar: PRODUCT_58_AR_TRANSLATION,
+      en: ANTI_AGING_COPY.en,
+      bespokeRu: ANTI_AGING_COPY.ru,
+      bespokeAr: ANTI_AGING_COPY.ar,
+      facts: getCatalogQuickFacts('58', 'en'),
+      factsRu: getCatalogQuickFacts('58', 'ru'),
+      factsAr: getCatalogQuickFacts('58', 'ar'),
+    }).toLocaleLowerCase()
+    for (const forbidden of [
+      'не указан', 'не задаёт', 'у нас нет', 'не заявляется', 'по текущим ценам', 'по актуальным',
+      'لا تحدد العبوة', 'لا نملك', 'لا نحتفظ', 'وفق الأسعار الحالية', 'مخترعة',
+      'p&k', 'skin age index', '1 ppm', 'جزء واحد في المليون', '25,45%', '25.45%', '18,062%', '18.062%',
+      'firmness', 'elasticity',
     ]) {
       expect(live).not.toContain(forbidden)
     }

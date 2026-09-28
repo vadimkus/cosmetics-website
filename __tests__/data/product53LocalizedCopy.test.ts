@@ -109,7 +109,8 @@ describe('product 53 RU/AR localized copy', () => {
       'routineCollagenMaskTitle',
       'routineAntiWrinkleCreamTitle',
     ])
-    expect(JSON.stringify(boxItems)).toContain('18,062%')
-    expect(JSON.stringify(boxItems)).toContain('18.062%')
+    expect(JSON.stringify(boxItems)).toContain('15-20')
+    expect(JSON.stringify(boxItems)).toContain('0,5%')
+    expect(JSON.stringify(boxItems)).toContain('0.5%')
   })
 })

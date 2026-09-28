@@ -173,11 +173,6 @@ PARTS = {
         (0.340, 0.420, 0.560, 0.900, "vision"),
         (0.470, 0.600, 0.650, 0.930, "vision"),
     ],
-    # Kit shot (main-v2): Vision keeps all five products but drops the white
-    # Beauty Box behind them. Box keyed back from its own crop.
-    "58": [
-        (0.300, 0.210, 0.775, 0.805, "keypaper"),
-    ],
     # Box and four syringes (main-v2): Vision keeps the box and drops the
     # white syringes. Re-traced on their own crop.
     "60": [
@@ -216,9 +211,6 @@ REVISION = {
     # New campaign packshot: both bottles square on white, replacing the
     # August main_clean render.
     "10": 2,
-    # New kit shot (main-v2.jpg, 16 Sep 2026): five products in front of the
-    # Beauty Box, replacing the August arrangement the first cut-out traced.
-    "58": 2,
     # New render (main-v2.jpg, 16 Sep 2026): same box-and-four-syringes layout
     # on a flat white field, replacing the July glossy-floor shot.
     "60": 2,
@@ -307,6 +299,12 @@ REVISION = {
     # (~/Desktop/hair_gentron, the main's reference), then normalised. Do not rebuild 48
     # from the campaign main.
     "48": 2,
+    # "Time, well kept." campaign main (bb_age_campaign/main.jpg, 28 Sep 2026): the five
+    # singles in the open kit case, top down, garnet foam and brass hardware. The main
+    # carries the title, so v3 is Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/bb_age/campaign/picks/main.png), then normalised. Do not rebuild
+    # 58 from the photograph.
+    "58": 3,
 }
 
 

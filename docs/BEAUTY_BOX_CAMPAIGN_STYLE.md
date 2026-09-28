@@ -5,7 +5,8 @@ their own. The style gives every set the box it never had: **a precision kit cas
 from above, with each single seated in its own die-cut foam pocket in routine order. Every box
 uses the same architecture; only the foam colour, the accent and the campaign idea change.
 
-First run: product 55, "The Oil Change" (see `SESSION_CHANGES_2026-09-28_PROBLEM_SKIN_BOX_CAMPAIGN.md`).
+First run: product 55, "The Oil Change" (see `SESSION_CHANGES_2026-09-28_BB_PROBLEM_CAMPAIGN.md`).
+Second run: product 58, "Time, well kept" (see `SESSION_CHANGES_2026-09-28_ANTI_AGING_BOX_CAMPAIGN.md`).
 
 ## The object
 
@@ -55,9 +56,25 @@ The page palette (`beautybox.css`) follows the campaign once a box is redone.
 | 55 Problem Skin | powder blue `#9ACDEB` | signal orange `#F26A21` | **The Oil Change** (done) |
 | 56 Skin Brightening | ivory | sunlit amber | Lights On |
 | 57 Charming Look | blush | plum | Backstage Kit |
-| 58 Anti-Aging | deep garnet | brass | The Restoration |
+| 58 Anti-Aging | garnet velvet `#7A1D2E` | brass `#B8925A` (champagne `#D6BC92` ground) | **Time, well kept** (done) |
 | 59 Deep Moisturizing | aqua | deep teal | The Refill |
 | 62 Sensitive Skin | oat | sage | Handle With Care |
+
+## Every box gets its own idea, not a reskin
+
+The kit case, the one-pack-per-step slides and the close are the series. The idea is not: 55 is a
+car service (dipstick, service card, "full service"), 58 is fine watchmaking (guilloché dial, brass
+micrometer, sundial, a blank pocket-watch dial for the schedule, "keep good time"). Each box also
+gets its own recurring prop so the step slides do not look like 55 in a new colour: in 58 every
+pack stands on a round brass-rimmed pedestal shaped like a watch case. Pick the idea from what the
+routine promises, then find the objects that say it without a pack in frame.
+
+Hardware follows the accent: 58's latches, hinges and stripe are brass, not aluminium.
+
+Packs are drawn from real photographs when the site renders disagree with the product. The 58
+serum bottle is black glass fading to clear at the base (Intertek `MULTI FUNCTIONAL ANTI-WRINKLE
+SERUM/Pics/Front.jpeg`), not the solid black of the older renders, and the cream is the current
+white tube with red lettering, not the old salmon-band "INTENSIVE MULTI FUNCTIONAL CREAM" artwork.
 
 ## Production rules
 

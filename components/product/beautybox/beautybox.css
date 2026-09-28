@@ -43,32 +43,33 @@
 }
 
 /* --- 58, ANTI-AGING ----------------------------------------------------- */
-/* The carton sets ANTI AGING in a deep crimson serif and the five mask sachets
-   inside are garnet red - the only colour in an otherwise white and black
-   line-up. Taking the accent from the sachets rather than inventing a gold keeps
-   the page and the photograph in the same register, and garnet is far enough
-   from 66's dusty rose that the two pages never read as the same template. */
+/* Follows the "Time, well kept" campaign (Beauty Box style v1): the kit case
+   has garnet foam, brass hardware and a bone-white shell, and the carousel
+   alternates garnet, champagne and ivory grounds. So the page takes a warm
+   ivory ground, champagne panels with a brass-tinted edge and the garnet as its
+   accent. Garnet stays far enough from 66's dusty rose that the two pages never
+   read as the same template. */
 .cera-page.bb-garnet {
-  --cera-cream: #fbf6f6;
-  --cera-cream-deep: #f4e8e9;
-  --cera-blush: #f8e9eb;
-  --cera-blush-deep: #e7c8ce;
-  --cera-rose: #a3324a;
-  --cera-rose-ink: #7a2032;
-  --cera-ink: #171113;
-  --cera-body: #3b3033;
-  --cera-muted: #6a575b;
-  --cera-line: #eddfe0;
+  --cera-cream: #fbf7f1;
+  --cera-cream-deep: #f3eadf;
+  --cera-blush: #f6ede2;
+  --cera-blush-deep: #e4d0ae;
+  --cera-rose: #8e2438;
+  --cera-rose-ink: #6b1a2b;
+  --cera-ink: #1b1214;
+  --cera-body: #3d3032;
+  --cera-muted: #6b5a55;
+  --cera-line: #ecdfcf;
   --cera-shot: #ffffff;
 }
 
 .bb-garnet .cera-stage {
-  box-shadow: 0 20px 52px -34px rgba(122, 32, 50, 0.28);
+  box-shadow: 0 20px 52px -34px rgba(107, 26, 43, 0.3);
 }
 
 @media (hover: hover) {
   .bb-garnet .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(23, 17, 19, 0.04), 0 26px 48px -26px rgba(122, 32, 50, 0.3);
+    box-shadow: 0 2px 4px rgba(27, 18, 20, 0.04), 0 26px 48px -26px rgba(107, 26, 43, 0.3);
   }
 }
 

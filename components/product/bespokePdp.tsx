@@ -341,7 +341,7 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
  * Layouts whose companions are only links (picture, name, URL). Every other layout adds
  * companions to the bag, which needs the full record.
  */
-const LINK_ONLY_COMPANIONS = new Set(['3'])
+const LINK_ONLY_COMPANIONS = new Set(['3', '48'])
 
 function asCompanionLink(p: Product): Product {
   return {

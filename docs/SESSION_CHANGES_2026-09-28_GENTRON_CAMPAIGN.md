@@ -98,3 +98,16 @@ reach the far edge (02, 07). RU 01 headline in four lines, RU 03 "КРАСНЫЙ
   descriptions.
 - Tests: `product48LocalizedCopy.test.ts` wavelengths now stated in our own voice; new check that
   the RU/AR descriptions carry no dossier phrases.
+
+## Live check (28 Sep 2026)
+
+- Code `a66520bbd` live after ~6 min; DB `--apply` done (before: `/images/gen.jpg`, no gallery);
+  revalidated tag `products`, `/products/48` and the hair-loss concern EN/RU/AR, `/products`
+  EN/RU/AR, `/`.
+- `/products/48`, `/ru/…`, `/ar/…`: "View image 13 of 13", each locale's own 12 slides, cut-out
+  `48-v2`, no dossier phrase rendered. Mobile API: main + 12 slides per `x-locale`, no follicle /
+  efficacy wording (the one "circulation" is the manual's diabetes contraindication).
+- The page payload still carried companion 45's "No efficacy study exists for this product"
+  (not rendered). The Gentron companion grid is links only, so `LINK_ONLY_COMPANIONS` in
+  `bespokePdp.tsx` now includes 48, as product 3 does. `videoUrl` stays in the record payload but
+  is not rendered.

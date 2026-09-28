@@ -93,3 +93,15 @@ RU: МИНУС БЛЕСК. ПЛЮС СВЕЖЕСТЬ. … МАТОВО. И СВ�
 - DB: `scripts/update-product-15-campaign-gallery.ts --apply` after the deploy — image,
   gallery and the EN text fields; RU/AR descriptions from the central copy. The old
   `/images/problem/` files stay on disk (older orders and emails may reference them).
+
+## Live check (28 Sep 2026)
+
+- Code `12f620bea` live after ~4 min; DB `--apply` done (before: `problem/Main-v2.jpg` +
+  `problem/S1–S6.jpg`); revalidated tag `products`, `/products/15` EN/RU/AR, `/`, `/products`
+  EN/RU/AR.
+- Browser: `/products/15`, `/ru/products/15`, `/ar/products/15` show the new main and all 12
+  slides from the locale's own folder (no EN slide on RU/AR), cut-out `15-v3` in the closing
+  band. EN body "Oil off. Cool on." / "Matte, fresh, never stripped."; RU "Матово, свежо и без
+  стянутости."; AR "لمعان أقل، انتعاش أكثر، بلا شد."; none of the dossier phrases on the page.
+- Mobile API `/api/mobile/products/15` (x-api-key): main + 12 slides, `ru/` and `ar/` per
+  `x-locale`.

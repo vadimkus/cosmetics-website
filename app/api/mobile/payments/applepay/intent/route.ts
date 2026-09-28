@@ -12,6 +12,7 @@ import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { canonicalOrderItemImage } from '@/lib/orderItemImage'
 import { resolveRedemptionForCheckout } from '@/lib/loyalty'
+import { rememberRelayContactEmail } from '@/lib/relayContactEmail'
 import { CartItem, Product } from '@/types'
 import {
   getValidatedBundleDiscountPercent,
@@ -136,6 +137,7 @@ export async function POST(request: NextRequest) {
     if (!isAppleRelay && customerEmailLower !== userEmailLower && (!contactEmailLower || customerEmailLower !== contactEmailLower)) {
       return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
     }
+    await rememberRelayContactEmail(user, customer.email)
     // orders.customerEmail is a foreign key to User.email. The checkout form may
     // legitimately contain contactEmail (especially for Apple relay accounts),
     // but persisting that value breaks the FK and prevents Stripe from opening.

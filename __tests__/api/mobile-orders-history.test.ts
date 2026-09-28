@@ -45,6 +45,8 @@ jest.mock('@/lib/database', () => ({
   },
 }))
 
+jest.mock('@/lib/relayContactEmail', () => ({ rememberRelayContactEmail: jest.fn() }))
+
 jest.mock('@/lib/email', () => ({
   sendOrderConfirmationEmail: jest.fn(),
   sendAdminNewOrderNotification: jest.fn(),

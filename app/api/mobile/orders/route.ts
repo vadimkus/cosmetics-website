@@ -6,6 +6,7 @@ import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
+import { rememberRelayContactEmail } from '@/lib/relayContactEmail'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
@@ -612,6 +613,7 @@ export async function POST(request: NextRequest) {
     // Create order
     const orderNotes = typeof orderData?.orderNotes === 'string' ? orderData.orderNotes.trim() : ''
     
+    await rememberRelayContactEmail(user, orderData.customerEmail)
     // Get preferred email for sending notifications (contactEmail if set, else regular email)
     const preferredEmail = getPreferredEmail(user)
     

@@ -11,6 +11,7 @@ import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheck
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { canonicalOrderItemImage } from '@/lib/orderItemImage'
+import { rememberRelayContactEmail } from '@/lib/relayContactEmail'
 import { CartItem, Product } from '@/types'
 import {
   getValidatedBundleDiscountPercent,
@@ -365,6 +366,7 @@ export async function POST(request: NextRequest) {
     if (!isAppleRelay && customerEmailLower !== userEmailLower && (!contactEmailLower || customerEmailLower !== contactEmailLower)) {
       return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
     }
+    await rememberRelayContactEmail(user, customer.email)
     // orders.customerEmail references User.email. Keep the canonical login
     // email in the relationship even when checkout uses a verified contactEmail.
     const orderCustomerEmail = user.email

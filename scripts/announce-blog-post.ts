@@ -16,6 +16,7 @@
  */
 import { prisma } from '../lib/prisma'
 import { announceBlogPost, postCopy, type Locale } from '../lib/blogAnnounce'
+import { EXCLUDE_APPLE_RELAY } from '../lib/emailHelpers'
 
 const LOCALES: Locale[] = ['en', 'ru', 'ar']
 
@@ -73,7 +74,7 @@ async function main() {
   const [mobile, web, subs] = await Promise.all([
     prisma.user.count({ where: { expoPushToken: { not: null } } }),
     prisma.pushSubscription.count(),
-    prisma.newsletterSubscriber.groupBy({ by: ['locale'], where: { isActive: true }, _count: true }),
+    prisma.newsletterSubscriber.groupBy({ by: ['locale'], where: { isActive: true, ...EXCLUDE_APPLE_RELAY }, _count: true }),
   ])
 
   console.log(`\n${post.title}`)

@@ -7,6 +7,7 @@ import { SITE_URL } from '@/lib/siteConfig'
 import { renderNewsletterMarkdown } from '@/lib/newsletterMarkdown'
 import { buildUnsubscribeUrl, isValidEmail, normalizeEmail } from '@/lib/newsletter'
 import { createBulkMailer, sendNewsletterCampaignEmail } from '@/lib/email'
+import { EXCLUDE_APPLE_RELAY } from '@/lib/emailHelpers'
 
 type LocaleFilter = 'en' | 'ar' | 'ru' | null
 type Status = 'draft' | 'sending' | 'sent' | 'failed' | 'cancelled'
@@ -140,7 +141,7 @@ export async function POST(request: NextRequest) {
     if (isTest) {
       totalRecipients = 1
     } else {
-      const where: Record<string, unknown> = { isActive: true }
+      const where: Record<string, unknown> = { isActive: true, ...EXCLUDE_APPLE_RELAY }
       if (localeFilter) where.locale = localeFilter
       if (sourceFilter) where.source = sourceFilter
       totalRecipients = await prisma.newsletterSubscriber.count({ where })
@@ -228,7 +229,7 @@ async function runProductionSend(
   opts: { localeFilter: LocaleFilter; sourceFilter: string | null; subject: string; bodyHtml: string }
 ) {
   const PAGE_SIZE = 100
-  const where: Record<string, unknown> = { isActive: true }
+  const where: Record<string, unknown> = { isActive: true, ...EXCLUDE_APPLE_RELAY }
   if (opts.localeFilter) where.locale = opts.localeFilter
   if (opts.sourceFilter) where.source = opts.sourceFilter
 

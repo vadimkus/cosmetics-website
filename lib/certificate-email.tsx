@@ -5,6 +5,7 @@
 
 import { SITE_URL } from '@/lib/siteConfig'
 import { EMAIL_HOST, EMAIL_PORT, EMAIL_SECURE, EMAIL_USER, EMAIL_PASSWORD, EMAIL_FROM } from '@/lib/envValidation'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 interface CertificateEmailProps {
   recipientName?: string
@@ -200,6 +201,7 @@ Professional Korean Dermacosmetics in UAE
 
 // Example usage with nodemailer (for API route)
 export async function sendCertificateEmail(props: CertificateEmailProps): Promise<boolean> {
+  if (isApplePrivateRelayEmail(props.recipientEmail)) return false
   try {
     // Import nodemailer dynamically
     const nodemailer = await import('nodemailer')

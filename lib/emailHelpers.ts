@@ -33,6 +33,11 @@ export function isApplePrivateRelayEmail(email: string): boolean {
   )
 }
 
+/** Prisma `where` fragment that leaves Apple Private Relay addresses out of a recipient list. */
+export const EXCLUDE_APPLE_RELAY = {
+  NOT: { email: { contains: '@privaterelay.appleid.com', mode: 'insensitive' as const } },
+}
+
 /**
  * Check if we should skip sending email to this address
  * Returns true for Apple Private Relay emails that don't have a contact email alternative

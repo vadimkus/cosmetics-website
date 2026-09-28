@@ -16,6 +16,7 @@ import { prisma } from '../lib/prisma'
 import { SITE_URL } from '../lib/siteConfig'
 import { buildUnsubscribeUrl } from '../lib/newsletter'
 import { createBulkMailer, sendNewsletterCampaignEmail } from '../lib/email'
+import { EXCLUDE_APPLE_RELAY } from '../lib/emailHelpers'
 import { LOCALES, buildAnnouncementHtml, postCopy } from '../lib/blogAnnounceCopy'
 
 const EMAIL_DELAY_MS = 150
@@ -45,7 +46,7 @@ async function main() {
   const plan = []
   for (const locale of LOCALES) {
     const subscribers = await prisma.newsletterSubscriber.findMany({
-      where: { isActive: true, locale, OR: [{ lastSentAt: null }, { lastSentAt: { lt: since } }] },
+      where: { isActive: true, locale, ...EXCLUDE_APPLE_RELAY, OR: [{ lastSentAt: null }, { lastSentAt: { lt: since } }] },
       select: { id: true, email: true, unsubscribeToken: true },
       orderBy: { id: 'asc' },
     })

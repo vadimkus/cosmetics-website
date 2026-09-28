@@ -19,6 +19,7 @@
 import { prisma } from '../lib/prisma'
 import { buildAnnouncementHtml, postCopy, LOCALES, type Locale } from '../lib/blogAnnounceCopy'
 import { sendNewsletterCampaignEmail } from '../lib/email'
+import { isApplePrivateRelayEmail } from '../lib/emailHelpers'
 import { buildUnsubscribeUrl, generateUnsubscribeToken, isValidEmail, normalizeEmail } from '../lib/newsletter'
 import { SITE_URL } from '../lib/siteConfig'
 
@@ -69,7 +70,7 @@ async function main() {
   const localeByEmail = new Map<string, Locale>()
   for (const o of orders) {
     const email = normalizeEmail(o.customerEmail)
-    if (isValidEmail(email)) localeByEmail.set(email, isLocale(o.locale) ? o.locale : 'en')
+    if (isValidEmail(email) && !isApplePrivateRelayEmail(email)) localeByEmail.set(email, isLocale(o.locale) ? o.locale : 'en')
   }
 
   // Skip anyone already on the list, in either state: active subscribers were

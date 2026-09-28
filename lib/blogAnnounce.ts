@@ -19,6 +19,7 @@ import { SITE_URL } from './siteConfig'
 import { buildUnsubscribeUrl } from './newsletter'
 import { createBulkMailer, sendNewsletterCampaignEmail, type BulkMailer } from './email'
 import { sendExpoPushToTokens } from './expoPush'
+import { EXCLUDE_APPLE_RELAY } from './emailHelpers'
 import {
   NEXT_PUBLIC_VAPID_PUBLIC_KEY as ENV_VAPID_PUBLIC,
   VAPID_PRIVATE_KEY as ENV_VAPID_PRIVATE,
@@ -248,7 +249,7 @@ async function sendNewsletterLocales(post: PostRow, sentBy: string, result: Anno
   for (const locale of LOCALES) {
     if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) break
     const subscribers = await prisma.newsletterSubscriber.findMany({
-      where: { isActive: true, locale },
+      where: { isActive: true, locale, ...EXCLUDE_APPLE_RELAY },
       select: { id: true, email: true, unsubscribeToken: true },
     })
     if (subscribers.length === 0) continue

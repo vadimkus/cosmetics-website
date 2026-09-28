@@ -5,6 +5,18 @@
 import nodemailer from 'nodemailer'
 import { debugLog, errorLog } from '@/lib/logger'
 import { EMAIL_USER, GMAIL_USER, EMAIL_PASSWORD, GMAIL_APP_PASSWORD } from '@/lib/envValidation'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
+
+// Apple Hide My Email relays only forward from sender domains registered with Apple, so
+// mail to them is lost. Nothing is sent to these addresses from any path.
+export interface EmailSendResult {
+  success: boolean
+  messageId?: string
+  error?: string
+  skipped?: boolean
+}
+
+const RELAY_SKIPPED: EmailSendResult = { success: true, skipped: true, error: 'Apple Private Relay address, not sent' }
 
 // Email configuration - Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -30,7 +42,7 @@ transporter.verify((error, _success) => {
 })
 
 export interface BulkMailer {
-  send: (to: string, subject: string, html: string) => Promise<{ success: boolean; messageId?: string; error?: string }>
+  send: (to: string, subject: string, html: string) => Promise<EmailSendResult>
   close: () => void
 }
 
@@ -58,6 +70,7 @@ export function createBulkMailer(): BulkMailer {
 
   return {
     async send(to, subject, html) {
+      if (isApplePrivateRelayEmail(to)) return RELAY_SKIPPED
       if (!emailUser || !(EMAIL_PASSWORD || GMAIL_APP_PASSWORD)) {
         return { success: false, error: 'Email credentials are not configured' }
       }
@@ -90,7 +103,11 @@ interface NodemailerError {
  * Send an email using the configured SMTP transporter
  * Validates environment configuration before sending
  */
-export const sendEmail = async (to: string, subject: string, html: string) => {
+export const sendEmail = async (to: string, subject: string, html: string): Promise<EmailSendResult> => {
+  if (isApplePrivateRelayEmail(to)) {
+    debugLog('📧 Skipped Apple Private Relay recipient:', to)
+    return RELAY_SKIPPED
+  }
   try {
     debugLog('📧 Attempting to send email to:', to)
     debugLog('📧 Using Gmail service')

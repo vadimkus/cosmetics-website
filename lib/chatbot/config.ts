@@ -388,7 +388,7 @@ Complete hair loss solution:
 For professional devices: GENO-LED IR II, Hair-GENTRON, HairGen BOOSTER.
 
 ## 🔌 PROFESSIONAL DEVICES
-- GENO-LED IR II: LED therapy for skin rejuvenation
+- GENO-LED IR II: professional LED dome, 1,710 LEDs, five wavelengths with published irradiance and dose
 - Hair-GENTRON: Electro stimulation for hair growth
 - HairGen BOOSTER: Microneedling for scalp (needs solution + needles)
 Professional use only. Contact for training.
@@ -506,7 +506,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800 - Professional hair growth device
 - [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 460 - Microneedle stamp refills (8 pcs) for HairGen Booster
 - [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 6,600 - Advanced hair device
-- [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} - AED 5,500 - LED therapy device
+- [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} - AED 5,500 - Professional LED device
 
 ### PRO Solutions (Professional Ampoules)
 - [POWER SOLUTION HES](https://genosys.ae/products/4){{id:4}} - AED 580 - Hydrating/moisturizing

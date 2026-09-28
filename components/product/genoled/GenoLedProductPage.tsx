@@ -135,7 +135,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
     )
     return list.map((src, i) => ({
       src: localizeProductImage(src, locale),
-      alt: `${product.name} - GENOSYS professional LED therapy device, image ${i + 1} of ${list.length}`,
+      alt: `${product.name} - GENOSYS professional LED device, image ${i + 1} of ${list.length}`,
     }))
   }, [locale, product.image, product.images, product.name])
 

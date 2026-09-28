@@ -156,3 +156,79 @@ export const PRODUCT_49_AR_TRANSLATION = {
   directions:
     'للاستخدام المهني من قبل مختص مدرّب. اضبطي مدة التعرض من جدول الجرعات ومن دليل جهازك، ويحدد المختص الفاصل الزمني بعد الحقن أو شد الخيوط أو الوخز الدقيق أو التقشير. اطلبي منا قبل الشراء دليل الاستخدام وإعلان المطابقة ووثيقة التصنيف الخاصة بالرقم التسلسلي للجهاز.',
 } as const
+
+export const PRODUCT_49_EN_RECORD = {
+  description:
+    'Five lights. One dome. GENO-LED IR II is a professional dome LED unit with 1,710 LEDs across five wavelengths: red 640 nm, blue 423 nm, green 532 nm, yellow 583 nm and infrared 830 nm. Every mode is published with its irradiance and standard dose, so a session is planned before it starts: 42 mW/cm² and 28 J/cm² on red, 46 mW/cm² and 28 J/cm² on blue. Any colour runs with infrared at the same time, and red alternates with blue, green or yellow every three seconds. A timer in 5-minute steps, a voice message a minute before the end and automatic shut-off. 70 W rated electrical power, 520 × 220 × 315 mm, 2.6 kg. Made in Korea for the professional treatment room.',
+  productDetails: JSON.stringify({
+    form: 'Professional dome LED device',
+    leds: '1,710: 380 red · 380 blue · 380 green · 380 yellow · 190 infrared',
+    wavelengths: '423 · 532 · 583 · 640 · 830 nm',
+    irradiance: 'Red 42 · blue 46 · green 15 · yellow 11 · infrared 15 mW/cm²',
+    standardDose: 'Red 28 · blue 28 · green 9 · yellow 7 · infrared 12 J/cm²',
+    publishedDoseRanges: 'Red 1-186 · blue 1-152 · green 1-52 · yellow 1-39 · infrared 1-56 J/cm²',
+    bandwidth: '20 ±5 nm on every mode',
+    publishedExposureRanges: 'Visible modes 5-60 minutes · infrared 1-10 minutes',
+    panelTimer: 'Panel timer 5-30 minutes in 5-minute steps',
+    combinations: 'Any visible colour + IR together · red + blue/green/yellow alternating every 3 seconds',
+    controls: 'Automatic shut-off · voice message 1 minute before the end · English, Korean and Chinese',
+    ratedPower: '70 W rated electrical power, not optical output',
+    dimensions: '520 × 220 × 315 mm',
+    weight: '2.6 kg',
+    origin: 'DTS MG Co., Ltd. · Made in Korea',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: '1,710 LEDs',
+      description: '380 LEDs of each visible colour and 190 infrared.',
+    },
+    {
+      title: 'Five modes, every one dosed',
+      description: 'Irradiance, standard dose, dose range and bandwidth published for each wavelength.',
+    },
+    {
+      title: 'Two ways to combine light',
+      description: 'Colour and IR run together; red with another colour alternates every three seconds.',
+    },
+    {
+      title: 'A panel with timer and auto shut-off',
+      description: 'A 5-30 minute timer in 5-minute steps and a voice message a minute before the end.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'Five exactly specified wavelengths in one professional unit',
+    'Published dosimetry for every mode instead of vague intensity levels',
+    'Any visible colour runs at the same time as infrared',
+    'Red alternates with blue, green or yellow every three seconds',
+    'A control panel with a 5-minute timer step and automatic finish',
+    'A compact 520 × 220 × 315 mm body at 2.6 kg',
+  ]),
+  howToUse: JSON.stringify([
+    {
+      step: 'Plug in the adapter',
+      instruction: 'Use the power socket on either side of the unit. Once connected, the power button lights up and the unit goes to standby.',
+    },
+    {
+      step: 'Switch it on',
+      instruction: 'Touch the Power ON/OFF button.',
+    },
+    {
+      step: 'Set the time',
+      instruction: 'Set the timer with the up and down keys: 5-30 minutes in 5-minute steps.',
+    },
+    {
+      step: 'Choose the light',
+      instruction: 'Choose red, blue, green or yellow. Add IR to run with it at the same time.',
+    },
+    {
+      step: 'Add alternation if you want it',
+      instruction: 'After red, choose blue, green or yellow: the two colours alternate every three seconds.',
+    },
+    {
+      step: 'Let it finish',
+      instruction: 'A message plays a minute before the end, then the unit switches itself off.',
+    },
+  ]),
+  directions:
+    'For professional use by a trained specialist. Set exposure from the dose table and the manual for your unit; the interval after injections, a thread lift, microneedling or a peel is set by the specialist. Before you buy, ask us for the manual, the declaration of conformity and the classification document for the serial number of your unit.',
+} as const

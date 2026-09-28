@@ -1,13 +1,16 @@
 import { getGenoLedCopy } from '@/components/product/genoled/genoLedCopy'
 import {
   PRODUCT_49_AR_TRANSLATION,
+  PRODUCT_49_EN_RECORD,
   PRODUCT_49_RU_TRANSLATION,
 } from '@/data/product49LocalizedCopy'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getCategoryBySlug } from '@/lib/concernsData'
+import { products } from '@/lib/products'
 import { getCatalogQuickFacts } from '@/lib/productQuickFactsCatalog'
 import arMessages from '@/messages/ar.json'
+import enMessages from '@/messages/en.json'
 import ruMessages from '@/messages/ru.json'
 
 const liveCopy = {
@@ -170,6 +173,82 @@ describe('product 49 RU/AR localized copy', () => {
       'غير مؤلم',
       'يفقد ضوءاً أقل',
       'تحفظ المسافة',
+    ]) {
+      expect(text).not.toContain(forbidden)
+    }
+  })
+})
+
+const liveEn = {
+  record: PRODUCT_49_EN_RECORD,
+  fallback: products.find((p) => p.id === '49')?.description,
+  bespoke: getGenoLedCopy('en'),
+  quickFacts: getCatalogQuickFacts('49', 'en'),
+  category: getCategoryBySlug('device')?.seo.en,
+  recommendation: [
+    enMessages.product.pc49Intro,
+    enMessages.product.pc49Benefit1Text,
+    enMessages.product.pc49Benefit2Text,
+    enMessages.product.pc49Benefit3Text,
+    enMessages.product.pc49Benefit4Text,
+  ],
+}
+
+describe('product 49 EN copy', () => {
+  it('sells the same verified hardware as RU/AR', () => {
+    const text = JSON.stringify(liveEn)
+
+    for (const required of [
+      '1,710',
+      '1-186',
+      '1-56',
+      '20 ±5',
+      '520 × 220 × 315',
+      '2.6 kg',
+      'every three seconds',
+      '5-30 minutes',
+      'rated electrical power',
+      'set by the specialist',
+      'IR II launched in 2024',
+    ]) {
+      expect(text).toContain(required)
+    }
+  })
+
+  it('keeps the fallback description identical to the record', () => {
+    expect(liveEn.fallback).toBe(PRODUCT_49_EN_RECORD.description)
+  })
+
+  it('removes the medical, efficacy, contact and absolute-safety claims the audit removed from RU/AR', () => {
+    const text = JSON.stringify(liveEn).toLocaleLowerCase()
+
+    for (const forbidden of [
+      'led therapy',
+      'light therapy',
+      'rejuvenation',
+      'regeneration',
+      'collagen',
+      'elastin',
+      'circulation',
+      'acne bacteria',
+      'breakout',
+      'redness',
+      'deeper',
+      'absorption',
+      'no downtime',
+      'photo-ageing',
+      'heat damage',
+      'holds the distance',
+      'loses less light',
+      'most common use',
+      'straight after',
+      'post-care',
+      'nothing touches',
+      'never touches',
+      'no contact',
+      'certified',
+      'all skin types',
+      'painless',
     ]) {
       expect(text).not.toContain(forbidden)
     }

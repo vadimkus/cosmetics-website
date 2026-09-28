@@ -739,7 +739,7 @@ export const products: Product[] = [
     id: '49',
     name: 'GENO-LED IR II',
     price: 5500,
-    description: 'Five lights. One dome. GENO-LED IR II is a professional LED unit with 1,710 LEDs across red 640 nm, blue 423 nm, green 532 nm, yellow 583 nm and infrared 830 nm, for face, body and scalp. Irradiance and standard dose are published for every mode, any colour runs with infrared at the same time, and red alternates with another colour every three seconds. Nothing touches the skin and there are no consumables. 520 × 220 × 315 mm, 2.6 kg.',
+    description: 'Five lights. One dome. GENO-LED IR II is a professional dome LED unit with 1,710 LEDs across five wavelengths: red 640 nm, blue 423 nm, green 532 nm, yellow 583 nm and infrared 830 nm. Every mode is published with its irradiance and standard dose, so a session is planned before it starts: 42 mW/cm² and 28 J/cm² on red, 46 mW/cm² and 28 J/cm² on blue. Any colour runs with infrared at the same time, and red alternates with blue, green or yellow every three seconds. A timer in 5-minute steps, a voice message a minute before the end and automatic shut-off. 70 W rated electrical power, 520 × 220 × 315 mm, 2.6 kg. Made in Korea for the professional treatment room.',
     // "Five lights. One dome." campaign set (led_campaign), matching the database. The main
     // image is deliberately not repeated in `images`: web and mobile both prepend it.
     image: '/images/led_campaign/main.jpg',

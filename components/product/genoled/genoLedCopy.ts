@@ -31,6 +31,14 @@
  *   - "clinically proven to regrow hair". In the Biomedicines study the light
  *     was an adjunct to PRP and micrograft injections, not the intervention
  *     being measured. Say what the paper says and no more.
+ *
+ * ALL THREE LOCALES sell the hardware and the controls the brochure and the audit verify
+ * (docs/SESSION_CHANGES_2026-08-21_PRODUCT_49_GENO_LED_LOCALIZATION_AUDIT.md): LED count
+ * and split, the five wavelengths, the dosimetry, the two ways the modes combine, the
+ * panel, the electrical rating, size and weight, and the brochure's comparison with
+ * GENO-LED IR (slide 4). They make no effect claim for any wavelength, no therapy or
+ * medical status, no certification of IR II, no contact, folding or coverage claim, and
+ * no post-procedure timing.
  */
 
 export type Locale = 'en' | 'ar' | 'ru'
@@ -149,17 +157,17 @@ export interface GenoLedCopy {
 }
 
 const EN: GenoLedCopy = {
-  eyebrow: 'GENO-LED IR II · Professional LED therapy',
+  eyebrow: 'GENO-LED IR II · Professional LED device',
   headline: 'Five wavelengths, and the numbers behind each one.',
   subheadline:
-    'A dome LED unit for the treatment room: 1,710 diodes across red, blue, green, yellow and infrared, run alone or in pairs over face, body or scalp. Every mode below is published with its irradiance and its dose, so you can plan a session instead of guessing at one.',
+    'A dome LED unit for the treatment room: 1,710 diodes across red, blue, green, yellow and infrared. Every mode is published with its irradiance and its standard dose, so a session is planned before it starts instead of guessed at.',
   heroBullets: [
     '1,710 LEDs across five wavelengths, 423 to 830 nm',
-    'Irradiance and fluence published for every mode',
+    'Irradiance and standard dose for every mode',
     'Any colour runs with infrared at the same time',
-    'No contact, no downtime, no consumables',
+    'Red alternates with another colour every three seconds',
   ],
-  badges: ['Made in Korea', '2.6 kg · moves between rooms', 'Face, body and scalp', 'Official UAE distributor'],
+  badges: ['Made in Korea', '1,710 LEDs', '2.6 kg', 'Official UAE distributor'],
 
   addToBag: 'Add to bag',
   adding: 'Adding…',
@@ -169,27 +177,27 @@ const EN: GenoLedCopy = {
   loginToShop: 'Log in to see price',
   outOfStock: 'Out of stock',
   vatIncluded: 'VAT included',
-  freeDelivery: 'Delivered and set up across the UAE · Dispatched from Dubai',
+  freeDelivery: 'Delivered across the UAE · Dispatched from Dubai',
   enquire: 'Talk to us about this device',
 
   stats: [
-    { value: '1,710', label: 'LEDs - 380 of each colour, 190 infrared' },
+    { value: '1,710', label: 'LEDs: 380 of each colour, 190 infrared' },
     { value: '5', label: 'Wavelengths, 423 to 830 nm' },
-    { value: '70 W', label: 'Rated power' },
-    { value: '2.6 kg', label: 'Light enough to move between rooms' },
+    { value: '70 W', label: 'Rated electrical power' },
+    { value: '2.6 kg', label: 'The whole unit' },
   ],
 
   wavelengths: {
     eyebrow: 'The five modes',
-    title: 'Pick the light for the indication',
+    title: 'Its own light and its own dose for every job',
     intro:
-      'Each wavelength has its own job and its own dose. This is why a five-colour unit earns its place over a single red panel: one device covers the acne chair, the post-procedure bed and the scalp clinic.',
+      'Five channels in one dome instead of a single red panel. Each has its own irradiance, its own standard dose and its own range, and you can read all of it before the session starts.',
     items: [
       {
         nm: '640',
         name: 'Red',
         hex: '#d0453f',
-        body: 'The regeneration mode, and the one most used post-procedure. Run for cell renewal, circulation, collagen and elastin, and for comfort after needling or peels.',
+        body: 'The widest dose range on the unit, up to 186 J/cm². It is the light the Peptide Gel Mask runs under in GENOSYS protocols.',
         irradiance: '42 mW/cm²',
         dose: '28 J/cm²',
         time: '5-60 min',
@@ -198,7 +206,7 @@ const EN: GenoLedCopy = {
         nm: '423',
         name: 'Blue',
         hex: '#3f63c4',
-        body: 'The breakout mode. Blue light is used against the bacteria behind acne and to settle oil production, which is why the acne protocols open on it.',
+        body: 'The highest irradiance on the unit, 46 mW/cm². In GENOSYS sequences it follows the SRS peel.',
         irradiance: '46 mW/cm²',
         dose: '28 J/cm²',
         time: '5-60 min',
@@ -207,7 +215,7 @@ const EN: GenoLedCopy = {
         nm: '532',
         name: 'Green',
         hex: '#3f9a68',
-        body: 'The calm-down mode, for reactive and sensitive skin and for a quiet finish to a session.',
+        body: 'A soft channel: 15 mW/cm² and a standard dose of 9 J/cm². It runs on its own or alternating with red.',
         irradiance: '15 mW/cm²',
         dose: '9 J/cm²',
         time: '5-60 min',
@@ -216,7 +224,7 @@ const EN: GenoLedCopy = {
         nm: '583',
         name: 'Yellow',
         hex: '#d5a137',
-        body: 'The redness mode, used on flushing and erythema where a stronger light would be the wrong answer.',
+        body: 'The softest channel on the unit: 11 mW/cm² and 7 J/cm². It also alternates with red every three seconds.',
         irradiance: '11 mW/cm²',
         dose: '7 J/cm²',
         time: '5-60 min',
@@ -225,21 +233,21 @@ const EN: GenoLedCopy = {
         nm: '830',
         name: 'Infrared',
         hex: '#8a5a4a',
-        body: 'The depth mode. Runs underneath any colour for metabolism, circulation, collagen and elastin, and recovery.',
+        body: 'Runs under any colour, at the same time as it, on its own shorter clock.',
         irradiance: '15 mW/cm²',
         dose: '12 J/cm²',
         time: '1-10 min',
       },
     ],
     note:
-      'Infrared is the one mode on a shorter clock: 1 to 10 minutes against 5 to 60 for the visible colours.',
+      'Infrared runs on its own clock: 1 to 10 minutes, against 5 to 60 for the visible colours.',
   },
 
   dosimetry: {
     eyebrow: 'The specification most listings leave out',
     title: 'Irradiance and dose, per mode',
     intro:
-      'Output intensity in milliwatts per square centimetre, standard dose in joules per square centimetre, and the range the unit can reach. Without these two numbers a light device cannot be dosed, only switched on.',
+      'Output intensity in milliwatts per square centimetre, standard dose in joules per square centimetre, and the range the unit can reach. With these two numbers a light device is dosed, not just switched on.',
     columns: {
       mode: 'Mode',
       irradiance: 'Irradiance',
@@ -248,8 +256,7 @@ const EN: GenoLedCopy = {
       time: 'Time',
       range: 'Dose range',
     },
-    note:
-      'Bandwidth is 20 ±5 nm on every mode. Rated power of 70 W is the electrical draw.',
+    note: 'Bandwidth is 20 ±5 nm on every mode. 70 W is the rated electrical power of the unit.',
   },
 
   combining: {
@@ -259,35 +266,35 @@ const EN: GenoLedCopy = {
     cards: [
       {
         title: 'A colour plus infrared, together',
-        body: 'Red, blue, green or yellow runs simultaneously with 830 nm. Both lights are on the skin at the same time for the whole session, which is how most post-procedure protocols are written.',
+        body: 'Red, blue, green or yellow runs simultaneously with 830 nm: both lights stay on for the whole session.',
       },
       {
         title: 'Red plus another colour, alternating',
-        body: 'Red with blue, green or yellow swaps between the two every three seconds. It is an alternation, not a pulsed duty cycle, so the total dose of each is roughly half the clock.',
+        body: 'Red with blue, green or yellow swaps between the two every three seconds. It is an alternation, not a pulsed mode, so each colour is on for about half the clock.',
       },
     ],
   },
 
   build: {
     eyebrow: 'The unit',
-    title: 'Built for a room that runs all day',
-    intro: 'A dome rather than a flat panel, which is the difference between even light and hot spots.',
+    title: 'More light than the generation before',
+    intro: 'IR II replaces GENO-LED IR with more LEDs, more power and a bigger dome.',
     points: [
       {
-        title: 'The dome holds the distance',
-        body: 'The curve keeps every diode at a usable irradiation distance from the skin and loses less light off the sides than a flat array, so coverage stays even from cheek to jaw.',
+        title: '1,710 LEDs instead of 1,145',
+        body: '380 each of red, blue, green and yellow, plus 190 infrared.',
       },
       {
-        title: '1,710 diodes, not a handful of bright ones',
-        body: '380 each of red, blue, green and yellow, plus 190 infrared. Density is what gives you an even field across the whole treatment area instead of a bright centre.',
+        title: '70 W instead of 60',
+        body: 'The rated electrical power of the new generation.',
       },
       {
-        title: 'It moves with you',
-        body: '520 × 220 × 315 mm and 2.6 kg. It goes from the facial bed to the scalp chair without a trolley.',
+        title: 'A 520 mm dome instead of 380',
+        body: '520 × 220 × 315 mm against 380 × 220 × 280 mm on GENO-LED IR, at 2.6 kg.',
       },
       {
-        title: 'Nothing to reorder',
-        body: 'No tips, no cartridges, no gel. Once it is in the room the only running cost is the electricity, which is a real difference from every consumable-based device in the same price bracket.',
+        title: 'Five wavelengths, 20 ±5 nm bandwidth',
+        body: '423, 532, 583, 640 and 830 nm in one unit.',
       },
     ],
   },
@@ -296,97 +303,84 @@ const EN: GenoLedCopy = {
     eyebrow: 'In the treatment room',
     title: 'Where it sits in a GENOSYS protocol',
     intro:
-      'The device is documented inside real protocols rather than on its own. These are the sequences the manufacturer publishes with its case series, all of them built on products we stock.',
+      'The GENOSYS brochure shows the device inside finished sequences, and every one of them is built on products from our catalogue.',
     rows: [
-      {
-        concern: 'Active acne',
-        protocol: 'SRS peel, then blue light, finishing on PCS. Later sessions add an ALA mask under blue and red.',
-      },
-      {
-        concern: 'Acne scarring',
-        protocol: 'CTS or CVS driven in with Dermafix, then Peptide Gel Mask under red light.',
-      },
-      {
-        concern: 'Post-procedure recovery',
-        protocol: 'Red light as the post-care step after needling or a peel.',
-      },
-      {
-        concern: 'Scalp and hair',
-        protocol: 'Used as the light step alongside a scalp programme, the role it plays in the published study below.',
-      },
+      { concern: 'SRS and blue light', protocol: 'SRS peel, then blue light, finishing on PCS.' },
+      { concern: 'SRS and an ALA mask', protocol: 'SRS peel, then an ALA mask under blue and red light, finishing on PCC.' },
+      { concern: 'CTS or CVS and red light', protocol: 'CTS or CVS with Dermafix, then Peptide Gel Mask under red light.' },
+      { concern: 'AWS and red light', protocol: 'AWS with Dermafix, then Peptide Gel Mask under red light.' },
     ],
     note:
-      'Ten documented cases sit in the brochure, credited to Dr Marija Boscovic, each captioned with the protocol used.',
+      'The brochure carries ten cases from the practice of Dr Marija Boscovic, each captioned with the protocol used. The interval after injections, a thread lift, microneedling or a peel is set by the specialist.',
     pairTitle: 'What runs with it',
-    pairIntro: 'The products named in those protocols, all in stock here.',
+    pairIntro: 'The products in those sequences, all in stock.',
   },
 
   study: {
     eyebrow: 'In the literature',
-    title: 'The device in a peer-reviewed protocol',
+    title: 'GENO-LED in a peer-reviewed protocol',
     body:
-      'A team at the University of Rome Tor Vergata used GENO-LED as the low-level light therapy step in a published androgenetic-alopecia study, alongside platelet-rich plasma and follicle stem-cell micrografts. The light was given 15 days after each injection session and then every three weeks to six months.',
+      'A team at the University of Rome Tor Vergata used GENO-LED as the light step in a published androgenetic-alopecia study, alongside platelet-rich plasma and follicle stem-cell micrografts.',
     citation:
       'Gentile et al., Platelet-Rich Plasma and Micrografts Enriched with Autologous Human Follicle Mesenchymal Stem Cells Improve Hair Re-Growth in Androgenetic Alopecia. Biomedicines 2019, 7(2), 27.',
     caveat:
-      'Worth being exact about what that does and does not show: the light was an adjunct to the injections, not the treatment under measurement. It tells you this device is used in serious clinical work. It does not tell you light alone regrows hair, and the paper does not claim it either.',
+      'In that protocol the light was an adjunct to the injections. The study ran in 2019 on the previous-generation unit: IR II launched in 2024.',
     link: 'Read the paper',
   },
 
   howTo: {
     eyebrow: 'Running a session',
-    title: 'Four touches and it is going',
+    title: 'Four touches and it is running',
     steps: [
       {
-        title: 'Position the dome',
-        body: 'Cleanse the area, then bring the dome over the face, body or scalp so the light covers the whole field. Nothing touches the skin at any point.',
+        title: 'Plug in the adapter',
+        body: 'There is a power socket on either side. The power button lights up and the unit goes to standby.',
       },
       {
-        title: 'Set the clock',
-        body: 'Time goes up and down in five-minute steps. A voice cue plays a minute before the end and the unit shuts itself off, so the session does not depend on anyone watching it.',
+        title: 'Set the time',
+        body: 'Touch Power ON/OFF and set the timer with the up and down keys, in five-minute steps.',
       },
       {
         title: 'Choose the light',
-        body: 'One touch for red, blue, green or yellow. Add infrared to run underneath it, or add a second colour to alternate with red every three seconds.',
+        body: 'One touch for red, blue, green or yellow. Add IR to run with it at the same time, or a second colour to alternate with red.',
       },
       {
-        title: 'Leave it to finish',
-        body: 'Voice guidance runs in English, Korean or Chinese. Language, volume and time are set in standby, so they are configured once and left.',
+        title: 'Let it finish',
+        body: 'A voice message plays a minute before the end, then the unit switches itself off. Prompts in English, Korean or Chinese.',
       },
     ],
   },
 
   video: {
     title: 'See it running',
-    body: 'The dome in position and each of the five modes on the skin.',
+    body: 'The housing, the control panel and the light modes of the unit.',
     unsupported: 'Your browser does not support the video tag.',
   },
 
   safety: {
-    eyebrow: 'Before you use it',
-    title: 'Safety',
+    eyebrow: 'Before the first session',
+    title: 'For the professional treatment room',
     points: [
-      'Low-level LED light, not a laser. No heat damage, no photo-ageing and no wound, which is the point of running LED rather than a coherent source.',
-      'Nothing contacts the skin, so there is nothing to sterilise between clients and nothing to cross-contaminate.',
-      'Eye protection for the client, and do not look into the array. This applies to every clinical light source.',
-      'Photosensitising medication, recent photosensitising treatment or a light-aggravated condition all need clearing with the treating doctor before a session.',
-      'A professional device for trained operators. Set dose and time from the table above, not by eye.',
+      'GENO-LED IR II is built for a trained specialist.',
+      'Set exposure from the dose table above and from the manual for your unit.',
+      'The interval after injections, a thread lift, microneedling or a peel is set by the specialist.',
+      'Before you buy, ask us for the manual, the declaration of conformity and the classification document for the serial number of your unit.',
     ],
-    note: 'Supplied with a CE-certified adapter. Keep the vents clear and run the unit on a stable surface.',
+    note: 'Questions about documents, contents or delivery: message us and we will arrange it.',
   },
 
   spec: {
     eyebrow: 'The details',
     title: 'Specification',
     rows: [
-      { label: 'LEDs', value: '1,710-380 red, 380 blue, 380 green, 380 yellow, 190 infrared' },
+      { label: 'LEDs', value: '1,710: 380 red, 380 blue, 380 green, 380 yellow, 190 infrared' },
       { label: 'Wavelengths', value: '423 · 532 · 583 · 640 · 830 nm, bandwidth 20 ±5 nm' },
       { label: 'Rated power', value: '70 W electrical' },
       { label: 'Dimensions', value: '520 × 220 × 315 mm' },
       { label: 'Weight', value: '2.6 kg' },
-      { label: 'Treatment areas', value: 'Face, body and scalp' },
+      { label: 'Panel timer', value: '5-30 minutes in 5-minute steps' },
+      { label: 'Mode combinations', value: 'Colour + IR together; red + another colour alternating every 3 seconds' },
       { label: 'Voice guidance', value: 'English, Korean, Chinese' },
-      { label: 'Contact', value: 'None - the dome never touches the skin' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
     brochure: 'Download the full brochure (PDF)',
@@ -397,28 +391,28 @@ const EN: GenoLedCopy = {
     title: 'Before you buy',
     items: [
       {
-        q: 'How is this different from the first GENO-LED?',
-        a: 'More light and more coverage. The IR II carries 1,710 diodes against 1,145, draws 70 W against 60, and is a larger dome at 520 mm wide. Its irradiance is higher in every mode - red goes from 36 to 42 mW/cm², blue from 39 to 46 - which is what shortens a session at the same dose.',
+        q: 'How is IR II different from GENO-LED IR?',
+        a: 'More light and a bigger dome: 1,710 LEDs against 1,145, 70 W against 60, and 520 × 220 × 315 mm against 380 × 220 × 280 mm. The same five wavelengths: 423, 532, 583, 640 and 830 nm.',
       },
       {
-        q: 'Which mode do I start with?',
-        a: 'Red for recovery and regeneration, and it is the one you will run most. Blue for active breakouts. Yellow for redness, green for reactive skin, infrared underneath any of them for depth. The dose table above gives the standard fluence for each so you are not estimating.',
+        q: 'What dose does each mode give?',
+        a: 'Standard dose is 28 J/cm² on red and blue, 9 on green, 7 on yellow and 12 on infrared. The full table with irradiance and dose ranges is above.',
       },
       {
         q: 'How long is a session?',
-        a: 'Five to sixty minutes on the visible colours and one to ten on infrared, set in five-minute steps. Standard dose is reached at 28 J/cm² on red and blue, which is where most protocols sit.',
+        a: 'The panel timer runs from 5 to 30 minutes in 5-minute steps. The dose table gives 5 to 60 minutes for the visible colours and 1 to 10 for infrared, and the manual for your unit sets the exact exposure for your protocol.',
       },
       {
-        q: 'Are there consumables?',
-        a: 'None. No tips, cartridges or gels, and nothing touches the skin, so there is nothing to replace or sterilise. Against a device that bills per tip, that is the whole running cost argument.',
+        q: 'Can two modes run at once?',
+        a: 'Yes, in two ways. Any colour runs at the same time as infrared, and red alternates with blue, green or yellow every three seconds.',
       },
       {
-        q: 'Can it be used straight after needling or a peel?',
-        a: 'That is its most common use. Red, on its own or with infrared, is the post-care step after needling or a peel. Follow the timing your own protocol sets.',
+        q: 'Is 70 W the optical output?',
+        a: 'No, it is the rated electrical power of the unit. For dosing, what matters is the irradiance and dose in the table.',
       },
       {
         q: 'What comes with it, and how is it delivered?',
-        a: 'The dome, the CE-certified adapter and the brochure. We deliver and set up across the UAE from our own stock in Dubai - message us and we will arrange it.',
+        a: 'We deliver across the UAE from our own stock in Dubai. Message us before you buy: we will confirm the contents and send the documents for your unit.',
       },
     ],
   },
@@ -426,15 +420,6 @@ const EN: GenoLedCopy = {
   backToProducts: 'Products',
 }
 
-/*
- * RU and AR sell the hardware and the controls the brochure and the audit verify
- * (docs/SESSION_CHANGES_2026-08-21_PRODUCT_49_GENO_LED_LOCALIZATION_AUDIT.md): LED count
- * and split, the five wavelengths, the dosimetry, the two ways the modes combine, the
- * panel, the electrical rating, size and weight, and the brochure's comparison with
- * GENO-LED IR (slide 4). They make no effect claim for any wavelength, no therapy or
- * medical status, no certification of IR II, no contact, folding or coverage claim, and
- * no post-procedure timing.
- */
 const AR: GenoLedCopy = {
   eyebrow: 'GENO-LED IR II · جهاز LED مهني',
   headline: 'خمسة أطوال موجية، وأرقام دقيقة لكل واحد منها.',

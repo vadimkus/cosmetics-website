@@ -2869,7 +2869,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
     slug: 'device',
     categoryKey: 'Device',
     seo: {
-      en: { title: 'Skincare Devices UAE | LED & Microneedling Devices Dubai | GENOSYS', description: 'GENOSYS professional skincare devices for UAE. LED therapy, microneedling pens and rollers for clinic and home use. Free shipping over 1000 AED.', h1: 'Professional Skincare Devices' },
+      en: { title: 'Skincare Devices UAE | LED & Microneedling Devices Dubai | GENOSYS', description: 'GENOSYS professional skincare devices for UAE. Professional LED devices, microneedling pens and rollers for clinic and home use. Free shipping over 1000 AED.', h1: 'Professional Skincare Devices' },
       ar: { title: 'أجهزة العناية بالبشرة الإمارات | أجهزة LED والوخز دبي | GENOSYS', description: 'أجهزة GENOSYS المهنية للعناية بالبشرة، مع مواصفات تقنية واضحة وإرشادات استخدام يقودها المختص.', h1: 'أجهزة العناية بالبشرة الاحترافية' },
       ru: { title: 'Устройства для ухода за кожей ОАЭ | LED и микронидлинг Дубай | GENOSYS', description: 'Профессиональные аппараты GENOSYS для ухода за кожей с точными характеристиками и применением под контролем специалиста.', h1: 'Профессиональные устройства для ухода за кожей' },
     },

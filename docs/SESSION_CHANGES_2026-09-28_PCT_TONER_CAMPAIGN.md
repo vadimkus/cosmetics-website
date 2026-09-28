@@ -145,3 +145,14 @@ RU: МИНУС БЛЕСК. ПЛЮС СВЕЖЕСТЬ. … МАТОВО. И СВ�
   write; the new arbitrary classes were confirmed in the live CSS first.
 - Live check: EN/RU/AR 200, all 36 slide URLs + video 200, hero gradient renders, hero and CTA
   headings white, FAQ present. Not announced (no push / email) — waiting for Vadim.
+
+### Announced (28 Sep, 15:34–15:40)
+
+- Vadim: send. Dry run showed 89 mobile · 15 web push · email en 242 / ru 11 / ar 2.
+- `announcedAt` 11:34:10Z was claimed by another trigger (admin-panel save/publish route, the
+  only other caller) a minute before `announce-blog-post.ts` ran, so the script exited
+  "Already announced" and sent nothing; no `--force`, nobody notified twice.
+- What went out: web push `PWANotification` `cmul66k6y00006c8zudrdacvy` (11:34:13Z); mobile push
+  in the same run (count not logged); email via the pooled mailer — EN `cmul66mk300016c8znn37ss5t`
+  **242/242**, RU `cmul6egwl00026c8zrs5644s4` **11/11**, AR `cmul6et1z00036c8zy8a6n9va` **2/2**,
+  0 failures, 255 active subscribers stamped. No Gmail lockout.

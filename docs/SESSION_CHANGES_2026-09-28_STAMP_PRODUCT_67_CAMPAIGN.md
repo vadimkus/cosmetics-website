@@ -84,3 +84,14 @@ ExtraBold / Medium, Noto Sans Arabic for AR (feminine address, like the other ca
   `productOptions.test.ts` now lists 67 among option products.
 - DB: `scripts/create-product-67-dts-stamp.ts --apply` after the deploy (checks all 37 URLs
   return 200 first): product, five variants, EN/RU/AR copy, gallery.
+
+## Live check (29 Sep 2026, 00:15)
+
+- Code `70b3836c5` live after ~7 min. `create-product-67-dts-stamp.ts`: dry run (all 37 URLs 200),
+  then `--apply`: product `67` created, variants 0.25* / 0.5 / 1.0 / 1.5 / 2.0 mm at 230.
+  Revalidated tag `products`, `/products/67` EN/RU/AR, `/products` EN/RU/AR, `/`, `/products/1`.
+- Web: `/products/67`, `/ru/`, `/ar/` return 200 with the main + 12 slides (RU/AR their own
+  `ru/` and `ar/` slides), localized names, five length buttons, specs, features, how-to, and the
+  roller pairing block; no broken images; listing links to 67 with the campaign main.
+- Mobile API `/api/mobile/products/67`: 13 images per locale (locale slides), five variants at 230,
+  `recommendedProductId` 1, localized name, six quick facts.

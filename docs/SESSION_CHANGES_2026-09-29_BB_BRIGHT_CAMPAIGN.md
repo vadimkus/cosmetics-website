@@ -85,3 +85,17 @@ Third run of [Beauty Box style v1](./BEAUTY_BOX_CAMPAIGN_STYLE.md) (after 55 "Th
 - DB: `scripts/update-product-56-campaign-gallery.ts` writes `image` = main, `images` = s1–s12,
   EN description and RU/AR descriptions; checks all 37 URLs return 200 before writing. Old main
   image left on disk for past orders.
+
+## Live (29 Sep 2026)
+
+- Commit `a974fe93b` pushed to main; all 37 campaign files and `cutout/56-v2.webp` return 200.
+- `update-product-56-campaign-gallery.ts --apply`: `image` `/images/bbbox_brightening/main3.jpeg`
+  → `/images/bb_bright_campaign/main.jpg`, `images` null → 12 slides, EN/RU/AR descriptions written.
+  The old main stays on disk for past orders.
+- Revalidated `/products/56`, `/ru/products/56`, `/ar/products/56`, `/products`, `/` and tag
+  `products`.
+- Browser: `/products/56` shows main + s1–s12 and "Let the light in."; `/ru/products/56` serves
+  `ru/s1–s12` with "Впустите свет."; `/ar/products/56` serves `ar/s1–s12` with "دعي الضوء يدخل.".
+- Mobile API `/api/mobile/products/56`: main + 12 slides per locale (`ru/`, `ar/` paths), RU/AR in
+  `localizedDescription`.
+- Checks: `npx tsc --noEmit` clean, jest 147 suites / 1,594 tests passed.

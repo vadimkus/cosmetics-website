@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { getBbCushionCopy } from '@/components/product/bbcushion/bbCushionCopy'
+import { BEAUTY_BOXES } from '@/components/product/beautybox/beautyBoxes'
 import { CHARMING_LOOK_COPY } from '@/components/product/beautybox/copy/charmingLook'
 import {
   PRODUCT_57_AR_TRANSLATION,
@@ -87,10 +88,11 @@ describe('product 57 localized copy', () => {
       join(process.cwd(), 'components/product/beautybox/BeautyBoxProductPage.tsx'),
       'utf8',
     )
-    expect(pageSource).toContain("const requiresShade = boxNumber === '57'")
+    expect(BEAUTY_BOXES['57'].shade).toBe('cushion')
+    expect(pageSource).toContain('const requiresShade = Boolean(config.shade)')
     expect(pageSource).toContain("await addItem(product, qty, requiresShade ? shade : '', '')")
     expect(pageSource).toContain('role="radiogroup"')
-    expect(pageSource).toContain('cushionCopy.shadeRequired')
+    expect(pageSource).toContain('shadeCopy.shadeRequired')
   })
 
   it('keeps conditional PM use plus fragrance, essential-oil and eye cautions', () => {

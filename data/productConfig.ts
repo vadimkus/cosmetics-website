@@ -761,6 +761,18 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         type: 'pdf'
       }
     ]
+  },
+  // GLASS SKIN RITUAL KIT (holiday 2026). The colour is the Revita Glow shade
+  // packed in the kit; lib/moysklad.ts maps each value to its own kit SKU.
+  '68': {
+    id: '68',
+    pricing: {
+      basePrice: 740
+    },
+    colors: [
+      { value: 'Bright', label: '#01 Bright', available: true },
+      { value: 'Natural', label: '#02 Natural', available: true }
+    ]
   }
 }
 

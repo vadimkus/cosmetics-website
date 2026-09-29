@@ -16,7 +16,7 @@ const EXPECTED_RECIPIENTS = [
   '21', '22', '23', '24', '25', '27', '28', '29', '30', '31', '32', '33',
   '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45',
   '46', '47', '50', '51', '52', '53', '55', '56', '57', '58', '59', '60',
-  '61', '62', '63', '64', '65', '66',
+  '61', '62', '63', '64', '65', '66', '68',
 ]
 
 const CLEANSERS = new Set([
@@ -59,7 +59,7 @@ const LEAVE_ON_FACE_PRODUCTS = new Set([
   'routineHydroSoothingCreamTitle',
   'routineNDCellCreamTitle',
 ])
-const KIT_RECIPIENTS = new Set(['47', '50', '55', '56', '57', '58', '59', '62'])
+const KIT_RECIPIENTS = new Set(['47', '50', '55', '56', '57', '58', '59', '62', '68'])
 
 describe('recommended routine catalog', () => {
   it('covers the audited 54 product recipients from one canonical map', () => {

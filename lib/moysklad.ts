@@ -295,6 +295,7 @@ const PRODUCT_MAP: Record<string, string> = {
 
   // === Kits & Holiday ===
   'Holiday Kit': '2457826d-993a-11f0-0a80-1616000c9d82',                       // OXY VITA Holiday KIT
+  'GLASS SKIN RITUAL KIT': '93a8277c-b732-11f1-0a80-19e90026198b',             // #01 Bright (54501), default when no shade matches
 }
 
 /**
@@ -306,6 +307,10 @@ const COLOR_VARIANT_MAP: Record<string, string> = {
   'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | ivory': '8e55b3ff-d092-11ec-0a80-022900a6db36',  // #1 Ivory
   'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | beige': 'aca39b2a-d092-11ec-0a80-013600a5ed6d',  // #2 Beige
   'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | camel': '374ebc0b-a7cd-11ef-0a80-07b3001b04d7',  // #3 Camel
+  'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++] | bright': 'a71de556-07c8-11f1-0a80-03480002a6a8',      // #01 Bright 50g (54472)
+  'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++] | natural': '1d0adef0-07c9-11f1-0a80-1981000318de',     // #02 Natural 50g (54473)
+  'GLASS SKIN RITUAL KIT | bright': '93a8277c-b732-11f1-0a80-19e90026198b',                                // kit #01 Bright (54501)
+  'GLASS SKIN RITUAL KIT | natural': '93ff5a67-b732-11f1-0a80-14b600261950',                               // kit #02 Natural (54502)
 }
 
 /**

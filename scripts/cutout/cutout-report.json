@@ -668,5 +668,15 @@
     "coverage": 0.567,
     "bytes": 52562,
     "review": false
+  },
+  {
+    "product": "68",
+    "status": "ok",
+    "source": "/images/glass_skin_campaign/main.jpg",
+    "file": "/images/cutout/68.webp",
+    "name": "GLASS SKIN RITUAL KIT",
+    "coverage": 0.326,
+    "bytes": 47688,
+    "review": false
   }
 ]

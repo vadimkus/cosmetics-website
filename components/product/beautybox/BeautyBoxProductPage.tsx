@@ -82,6 +82,7 @@ import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 import { getBbCushionCopy } from '@/components/product/bbcushion/bbCushionCopy'
+import { getRevitaGlowCopy } from '@/components/product/revitaglow/revitaGlowCopy'
 
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
 import CeraClosingCta from '../cerabarrier/CeraClosingCta'
@@ -136,18 +137,20 @@ export default function BeautyBoxProductPage({
   const copy = pickBeautyBoxLocale(config.copy, locale)
   const currency = isRtl ? 'درهم' : 'AED'
 
-  // Every box is one SKU. Product 57 is the exception on colour: its physical
-  // cushion must be packed in the shade selected here, so the cart line carries
-  // Ivory, Beige or Camel even though the box itself has no size variant.
+  // Every box is one SKU unless its complexion product comes in shades: 57's
+  // cushion and 68's Revita Glow must be packed in the shade selected here, so
+  // the cart line carries it even though the box has no size variant.
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [justAdded, setJustAdded] = useState(false)
   const [shade, setShade] = useState('')
   const [shadeMissing, setShadeMissing] = useState(false)
   const shadeGroupRef = useRef<HTMLDivElement | null>(null)
-  const requiresShade = boxNumber === '57'
-  const cushionCopy = getBbCushionCopy(locale)
-  const selectedShade = cushionCopy.shades.find(option => option.value === shade) ?? null
+  const requiresShade = Boolean(config.shade)
+  const shadeCopy = config.shade === 'revita' ? getRevitaGlowCopy(locale) : getBbCushionCopy(locale)
+  const shadeOptions: ReadonlyArray<{ value: string; code: string; name: string; hex: string; tagline: string }> =
+    shadeCopy.shades
+  const selectedShade = shadeOptions.find(option => option.value === shade) ?? null
 
   const canSeePrices = canUserSeePrices(user)
   const pricing = getPricingDisplay(product, user)
@@ -330,7 +333,7 @@ export default function BeautyBoxProductPage({
     : !user
       ? copy.loginToShop
       : requiresShade && !shade
-        ? cushionCopy.shadeLabel
+        ? shadeCopy.shadeLabel
       : isAdding
         ? copy.adding
         : justAdded
@@ -425,17 +428,17 @@ export default function BeautyBoxProductPage({
               <div ref={shadeGroupRef} className="mt-7 scroll-mt-28">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-ink)]">
-                    {cushionCopy.shadeLabel}
+                    {shadeCopy.shadeLabel}
                   </p>
-                  <p className="text-[13px] text-[var(--cera-muted)]">{cushionCopy.shadeHelp}</p>
+                  <p className="text-[13px] text-[var(--cera-muted)]">{shadeCopy.shadeHelp}</p>
                 </div>
                 <div
                   role="radiogroup"
-                  aria-label={cushionCopy.shadeLabel}
+                  aria-label={shadeCopy.shadeLabel}
                   aria-required="true"
-                  className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3"
+                  className={`mt-3 grid grid-cols-1 gap-2 ${shadeOptions.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'}`}
                 >
-                  {cushionCopy.shades.map(option => {
+                  {shadeOptions.map(option => {
                     const selected = option.value === shade
                     return (
                       <button
@@ -475,7 +478,7 @@ export default function BeautyBoxProductPage({
                 </div>
                 {shadeMissing && !shade ? (
                   <p role="alert" className="mt-2.5 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
-                    {cushionCopy.shadeRequired}
+                    {shadeCopy.shadeRequired}
                   </p>
                 ) : null}
               </div>

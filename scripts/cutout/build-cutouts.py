@@ -314,6 +314,12 @@ REVISION = {
     # (~/Desktop/Insta_Olga/bb_bright/campaign/picks/main.png), then normalised. Do not
     # rebuild 56 from the photograph.
     "56": 2,
+    # "Full moon glow." holiday campaign main (glass_skin_campaign/main.jpg, 29 Sep 2026): the
+    # moon jar lid beside the open navy tray, top down. The main carries the title, so 68 is
+    # Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/holiday_kit_v/campaign/picks/main.png), then normalised. Do not
+    # rebuild 68 from the photograph.
+    "68": 1,
 }
 
 

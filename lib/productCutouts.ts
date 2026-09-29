@@ -154,6 +154,8 @@ const CUTOUTS: Record<string, string> = {
   '/images/cera_o/Main.jpeg': '/images/cutout/66-v2.webp',
   // 67 Microneedle Stamp
   '/images/stamp_scalp/main.jpg': '/images/cutout/67-v2.webp',
+  // 68 GLASS SKIN RITUAL KIT
+  '/images/glass_skin_campaign/main.jpg': '/images/cutout/68.webp',
 }
 
 /**

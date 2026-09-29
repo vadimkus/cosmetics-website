@@ -23,6 +23,7 @@ const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
   '58': 1390,    // ANTI-AGING BEAUTY BOX (1390 rounded)
   '59': 1318,    // DEEP MOISTURIZING BEAUTY BOX
   '62': 1746,    // SENSITIVE SKIN BEAUTY BOX
+  '68': 870,     // GLASS SKIN RITUAL KIT: serum 330 + cream 290 + Revita Glow 250
 }
 
 // Hair-GENTRON has a public retail price and a fixed contractual Partner price.
@@ -61,7 +62,7 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
     const isBeautyBox = false
 
   // Beauty box products excluded from Black Friday discounts specifically
-  const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59', '62']
+  const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59', '62', '68']
   
   // Check if this is a beauty box product
   const isBeautyBoxProduct = product.category === 'Beauty Boxes' || 

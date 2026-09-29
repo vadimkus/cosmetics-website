@@ -143,6 +143,7 @@ export const BESPOKE_COPY_GETTERS: Record<string, BespokeCopyGetter> = {
   '64': getHairStampCopy,
   '65': getBioMesoCopy,
   '66': getCeraCopy,
+  '68': (locale: string) => pickBeautyBoxLocale(BEAUTY_BOXES['68'].copy, locale),
 }
 
 export function getBespokeCopy(

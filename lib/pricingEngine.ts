@@ -491,6 +491,8 @@ export function generateEnhancedProductData(
     if (color.value === 'Beige') hex = '#E6D5B8'
     else if (color.value === 'Ivory') hex = '#F5E6D3'
     else if (color.value === 'Camel') hex = '#A67C52'
+    else if (color.value === 'Bright') hex = '#FFF5E6'
+    else if (color.value === 'Natural') hex = '#E8D5B7'
     
     return {
       value: color.value,

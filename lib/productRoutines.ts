@@ -543,6 +543,15 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routineRevitaGlowBBTitle', 'routineRevitaGlowBBDesc'),
     ],
   },
+  // The holiday kit's three members in the kit sheet's order: fill, seal, glow.
+  '68': {
+    headingKey: 'recommendedGlassSkinRitualRoutine',
+    steps: [
+      HYALURON_SERUM,
+      HYALURON_CREAM,
+      step('routineRevitaGlowBBTitle', 'routineRevitaGlowBBDesc'),
+    ],
+  },
   '66': {
     headingKey: 'recommendedBarrierCareRoutine',
     steps: [

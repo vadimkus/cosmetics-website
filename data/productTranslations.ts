@@ -29,6 +29,7 @@ import { PRODUCT_63_AR_TRANSLATION } from './product63LocalizedCopy'
 import { PRODUCT_51_AR_TRANSLATION } from './product51LocalizedCopy'
 import { PRODUCT_55_AR_TRANSLATION } from './product55LocalizedCopy'
 import { PRODUCT_56_AR_TRANSLATION } from './product56LocalizedCopy'
+import { PRODUCT_68_AR_TRANSLATION } from './product68LocalizedCopy'
 import { PRODUCT_57_AR_TRANSLATION } from './product57LocalizedCopy'
 import { PRODUCT_58_AR_TRANSLATION } from './product58LocalizedCopy'
 import { PRODUCT_59_AR_TRANSLATION } from './product59LocalizedCopy'
@@ -610,6 +611,7 @@ const legacyProductTranslations: Record<string, ProductTranslation> = {
   },
   '55': PRODUCT_55_AR_TRANSLATION,
   '56': PRODUCT_56_AR_TRANSLATION,
+  '68': PRODUCT_68_AR_TRANSLATION,
   '57': PRODUCT_57_AR_TRANSLATION,
   '59': PRODUCT_59_AR_TRANSLATION,
   '58': PRODUCT_58_AR_TRANSLATION,

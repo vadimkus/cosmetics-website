@@ -17,7 +17,7 @@ interface DiscountCheckProduct {
   noDiscount?: boolean
 }
 
-const BEAUTY_BOX_PRODUCT_NUMBERS = new Set(['55', '56', '57', '58', '59', '62'])
+const BEAUTY_BOX_PRODUCT_NUMBERS = new Set(['55', '56', '57', '58', '59', '62', '68'])
 
 export const normalizeText = (v: unknown) =>
   String(v ?? '')

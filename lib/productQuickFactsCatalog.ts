@@ -203,6 +203,16 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
        at 1,442 rather than raised to hold 15%, so the saving is now 304 AED. */
     t('Save AED 304', 'AED 1,746 separate value; box price AED 1,442, a 17% saving.', 'Экономия 304 AED', 'Стоимость по отдельности 1 746 AED; цена набора 1 442 AED.', 'وفّر 304 دراهم', 'القيمة المنفصلة 1,746 درهماً؛ سعر المجموعة 1,442 درهماً.'),
   ],
+  // Source: the member pages 18, 29 and 63 (hsserumCopy, mhcreamCopy, revitaGlowCopy)
+  // and the DTS MG kit sheet (holiday_kit_v). 870 = 330 + 290 + 250 at today's prices.
+  '68': [
+    t('Glass skin in 3 steps', 'Hyaluron serum fills, hyaluron cream seals, and Revita Glow BB cream finishes with a luminous tint.', 'Стеклянная кожа за 3 шага', 'Гиалуроновая сыворотка наполняет, крем запечатывает, BB-крем Revita Glow завершает сияющим тоном.', 'البشرة الزجاجية في 3 خطوات', 'سيروم الهيالورون يملأ، والكريم يحبس، وكريم Revita Glow BB يختم بلون مشرق.'),
+    t('+82% hydration, one use', 'The hyaluron cream lifted skin hydration 82% straight after one application, still holding at 72 hours.', '+82% увлажнения за одно нанесение', 'Гиалуроновый крем поднял увлажнение кожи на 82% сразу после одного нанесения, и оно держалось 72 часа.', '⁦+82%⁩ ترطيب من استخدام واحد', 'رفع كريم الهيالورون ترطيب البشرة ⁦82%⁩ مباشرة بعد استخدام واحد، وبقي 72 ساعة.'),
+    t('SPF 38 PA+++ finish', 'Revita Glow BB cream with 2% niacinamide and adenosine, registered in Korea for three functions.', 'Финиш SPF 38 PA+++', 'BB-крем Revita Glow с ниацинамидом 2% и аденозином, в Корее зарегистрирован для трёх функций.', 'لمسة ⁦SPF 38 PA+++⁩', 'كريم Revita Glow BB مع نياسيناميد 2% وأدينوزين، ومسجّل في كوريا لثلاث وظائف.'),
+    t('Pick your shade', '#01 Bright for fair to light-medium skin, #02 Natural for light-medium to medium skin.', 'Выберите оттенок', '#01 Bright для светлой и светло-средней кожи, #02 Natural для светло-средней и средней кожи.', 'اختاري درجتكِ', '⁦#01 Bright⁩ للبشرة الفاتحة إلى الفاتحة المتوسطة، و⁦#02 Natural⁩ للفاتحة المتوسطة إلى المتوسطة.'),
+    t('Puff + mirror case inside', 'The Revita Glow puff and a holiday puff case with a mirror come in the box.', 'Пуф и футляр с зеркалом', 'Пуф Revita Glow и праздничный футляр для пуфа с зеркалом лежат в коробке.', 'إسفنجة وعلبة بمرآة', 'إسفنجة Revita Glow وعلبة إسفنجة احتفالية بمرآة داخل العلبة.'),
+    t('Save AED 130', 'AED 870 separate value; kit price AED 740, a 15% saving, in the moon jar gift box.', 'Экономия 130 AED', 'По отдельности 870 AED; набор 740 AED, выгода 15%, в подарочной коробке с лунной вазой.', 'وفّري 130 درهماً', 'القيمة منفردة 870 درهماً؛ سعر المجموعة 740 درهماً بتوفير 15%، في علبة هدايا جرّة القمر.'),
+  ],
   '63': [
     t('SPF 38 / PA+++', 'Daily BB cream with meaningful UVA/UVB protection for UAE routines.', 'SPF 38 / PA+++', 'SPF относится прежде всего к UVB; PA+++ - высокий уровень UVA-защиты, PFA 8 - <16.', 'SPF 38 / PA+++', 'يتعلق SPF أساساً بـUVB؛ وتعني PA+++ حماية UVA مرتفعة، أي PFA من 8 إلى أقل من 16.'),
     t('Vita 10 complex', 'Vitamins A, B-complex, C and E support a clearer glass-skin look.', '4 УФ-фильтра', 'В Bright суммарно 21,5895%, в Natural 20,6389% из-за разной доли диоксида титана.', '4 مرشحات للأشعة', 'مجموع Bright هو 21.5895% وNatural هو 20.6389% لاختلاف ثاني أكسيد التيتانيوم.'),

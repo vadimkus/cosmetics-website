@@ -207,6 +207,37 @@
   }
 }
 
+/* --- 68, GLASS SKIN RITUAL KIT · "Full moon glow." (holiday 2026) ------- */
+/* The one kit in the set that arrives in a real printed box, so the page takes
+   the box: deep navy paper (#29386a), the moon jar's porcelain white and the
+   warm gold of its "Glow Into the Holidays" script. Navy carries the accent and
+   the ink; the grounds are the cool white of the jar, not the warm creams the
+   boxes use, so the kit reads as its own season. 55 also uses navy, but only as
+   ink under an orange accent, and its grounds are powder blue. */
+.cera-page.bb-moon {
+  --cera-cream: #f7f8fb;
+  --cera-cream-deep: #eaedf4;
+  --cera-blush: #eef1f8;
+  --cera-blush-deep: #cdd4e6;
+  --cera-rose: #33447a;
+  --cera-rose-ink: #29386a;
+  --cera-ink: #111a33;
+  --cera-body: #2c3550;
+  --cera-muted: #5d6680;
+  --cera-line: #e0e5ef;
+  --cera-shot: #ffffff;
+}
+
+.bb-moon .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(41, 56, 106, 0.32);
+}
+
+@media (hover: hover) {
+  .bb-moon .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(17, 26, 51, 0.04), 0 26px 48px -26px rgba(41, 56, 106, 0.32);
+  }
+}
+
 /* --- Shared: the hero stage --------------------------------------------- */
 /* The single-product pages tint this, because their packshots are square studio
  * shots that fill it edge to edge and the tint is never actually visible. The

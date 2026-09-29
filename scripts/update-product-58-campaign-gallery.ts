@@ -18,7 +18,8 @@ import { PRODUCT_58_AR_DESCRIPTION, PRODUCT_58_RU_DESCRIPTION } from '../data/pr
 
 const DIR = '/images/bb_age_campaign'
 const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// slide 4 ships as s4b: the toner re-shot without its clear overcap (/images/* is cached immutable)
+const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}${i === 3 ? 'b' : ''}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DESCRIPTION =

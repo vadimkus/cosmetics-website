@@ -91,3 +91,16 @@ Second run of [Beauty Box style v1](./BEAUTY_BOX_CAMPAIGN_STYLE.md) (after 55, "
   the stage, Arabic thumbnails, no broken images.
 - Mobile API `/api/mobile/products/58` (x-api-key, x-locale): 13 images per locale = main + 12
   locale slides; `localizedDescription` RU/AR carry the new copy.
+
+## Slide 4 re-shot without the overcap (29 Sep 2026)
+
+- Vadim: the toner on slide 4 should not wear its clear plastic lid. No uncapped 200 ml photo
+  exists (packshots and Intertek photos all show the overcap), so the reference was built from the
+  real cut-out with the cap removed and the white spray actuator and pump closure kept
+  (`_assets/toner_open.png`, `bbp_refs.py s4b`, same plate and position as the original,
+  `p4` take 2 at 1855 / 1795). CapCut re-shoot `s4b_2` (third run: the first two stood the bottle
+  on the floor in front of the pedestal until the prompt said "on top"). Mist now comes out of the
+  bare nozzle; label print checked.
+- Ships as `s4b.jpg` in EN/RU/AR (`/images/*` is cached immutable, so no in-place replacement);
+  `lib/localizedProductImages.ts` and `scripts/update-product-58-campaign-gallery.ts` point at it,
+  DB gallery updated with the updater after the deploy. The old `s4.jpg` files stay, unreferenced.

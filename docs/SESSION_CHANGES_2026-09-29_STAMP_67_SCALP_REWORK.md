@@ -89,3 +89,17 @@ Campaign workspace: `~/Desktop/Insta_Olga/stamp/campaign/`.
   images with the locale's slides, category Scalp/Hair, `recommendedProductId` 45.
 - Remaining "Power Solution" and face words in the page HTML come from the site-wide message
   bundle (other products' routine strings), not from product 67.
+
+## Slide 11 re-shot: the real GENOSYS roller (29 Sep, 12:10-12:35)
+
+- Owner: the roller on "ROLLER FOR THE FACE. STAMP FOR THE SCALP." was not the GENOSYS roller.
+  CapCut had given it the stamp's rounded handle and an open white fork.
+- New reference `v11b` (`stamp_refs2.py`): the real roller cut-out turned 8.7 deg so its axis
+  matches the stamp's, both the same length and spaced apart. The prompt describes the roller
+  as the roller campaign did (slim leaf-shaped handle with its moulded groove, white block,
+  clear fork, red drum with black rims) and says the two handles are different shapes.
+- CapCut 2k Medium 1:1 at the owner's request, 8 takes; picked `v11c_4` (real roller, both logos
+  sharp, the stamp's seven rows even at 1:1).
+- Shipped as `s11b.jpg` (EN/RU/AR) because `/images/*` is immutable; `s11.jpg` stays on disk
+  unused. `localizedProductImages.ts` and the updater point at `s11b`; DB applied, live on web
+  and mobile in all three locales (commit `bf609e795`).

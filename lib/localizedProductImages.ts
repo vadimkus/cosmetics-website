@@ -120,10 +120,10 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 67, GENOSYS DTS Microneedle Stamp, "Press here." scalp campaign. The main packshot
-  // is not translated. s11b replaces the first s11 export.
+  // is not translated. s10b and s11b replace the first s10 and s11 exports.
   '/images/stamp_scalp': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11b.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11b.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11b.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10b.jpg', 's11b.jpg', 's12.jpg'],
   },
   // Product 36, SOOTHING BOMB SEA ALGAE MASK, "Calm on contact." campaign. The main
   // packshot is not translated.

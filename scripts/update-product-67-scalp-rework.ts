@@ -18,8 +18,9 @@ import {
 
 const DIR = '/images/stamp_scalp'
 const MAIN = `${DIR}/main.jpg`
-// s11b replaced s11 (the first take showed a roller that is not the GENOSYS roller).
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/${i === 10 ? 's11b' : `s${i + 1}`}.jpg`)
+// Re-shot slides ship under a new name: s10b (sterile, no pack shot) and s11b (the real roller).
+const RESHOT: Record<number, string> = { 10: 's10b', 11: 's11b' }
+const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/${RESHOT[i + 1] ?? `s${i + 1}`}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DATA = {

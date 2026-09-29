@@ -101,8 +101,10 @@ export default function ProductRecommendation({
       }
     }
 
-    const currentName = currentProduct.name.toUpperCase()
-    const recommendedName = recommendedProduct.name.toUpperCase()
+    // Greek letters are part of product names (HR³ MATRIX HAIR SOLUTION α); uppercased, α reads as A.
+    const upperName = (name: string) => name.replace(/[^\u0370-\u03FF]+/g, (part) => part.toUpperCase())
+    const currentName = upperName(currentProduct.name)
+    const recommendedName = upperName(recommendedProduct.name)
 
     // Anti-aging combination (22 + 32)
     if ((currentProduct.id === '22' || currentProduct.productNumber === '22') && recommendedProduct.id === '32') {

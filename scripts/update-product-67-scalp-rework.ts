@@ -18,7 +18,8 @@ import {
 
 const DIR = '/images/stamp_scalp'
 const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// s11b replaced s11 (the first take showed a roller that is not the GENOSYS roller).
+const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/${i === 10 ? 's11b' : `s${i + 1}`}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DATA = {

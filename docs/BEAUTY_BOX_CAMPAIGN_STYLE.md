@@ -7,6 +7,7 @@ uses the same architecture; only the foam colour, the accent and the campaign id
 
 First run: product 55, "The Oil Change" (see `SESSION_CHANGES_2026-09-28_BB_PROBLEM_CAMPAIGN.md`).
 Second run: product 58, "Time, well kept" (see `SESSION_CHANGES_2026-09-28_ANTI_AGING_BOX_CAMPAIGN.md`).
+Third run: product 56, "Let the light in." (see `SESSION_CHANGES_2026-09-29_BB_BRIGHT_CAMPAIGN.md`).
 
 ## The object
 
@@ -54,7 +55,7 @@ The page palette (`beautybox.css`) follows the campaign once a box is redone.
 | Box | Foam | Accent | Idea seed |
 |---|---|---|---|
 | 55 Problem Skin | powder blue `#9ACDEB` | signal orange `#F26A21` | **The Oil Change** (done) |
-| 56 Skin Brightening | ivory | sunlit amber | Lights On |
+| 56 Skin Brightening | ivory `#F4EDE1` | sunlit amber `#E9A33E` (dusk navy for the mask) | **Let the light in** (done) |
 | 57 Charming Look | blush | plum | Backstage Kit |
 | 58 Anti-Aging | garnet velvet `#7A1D2E` | brass `#B8925A` (champagne `#D6BC92` ground) | **Time, well kept** (done) |
 | 59 Deep Moisturizing | aqua | deep teal | The Refill |
@@ -64,9 +65,11 @@ The page palette (`beautybox.css`) follows the campaign once a box is redone.
 
 The kit case, the one-pack-per-step slides and the close are the series. The idea is not: 55 is a
 car service (dipstick, service card, "full service"), 58 is fine watchmaking (guilloché dial, brass
-micrometer, sundial, a blank pocket-watch dial for the schedule, "keep good time"). Each box also
-gets its own recurring prop so the step slides do not look like 55 in a new colour: in 58 every
-pack stands on a round brass-rimmed pedestal shaped like a watch case. Pick the idea from what the
+micrometer, sundial, a blank pocket-watch dial for the schedule, "keep good time"), 56 is a fogged
+window (a wiped stripe through fog, a blind opening onto a garden, moonlight for the mask, "lights
+on"). Each box also gets its own recurring prop so the step slides do not look like 55 in a new
+colour: in 58 every pack stands on a round brass-rimmed pedestal shaped like a watch case; in 56
+the same four-pane window shadow falls across every step. Pick the idea from what the
 routine promises, then find the objects that say it without a pack in frame.
 
 Hardware follows the accent: 58's latches, hinges and stripe are brass, not aluminium.
@@ -78,7 +81,7 @@ white tube with red lettering, not the old salmon-band "INTENSIVE MULTI FUNCTION
 
 ## Production rules
 
-1. **Every image is a CapCut generation (GPT Image 2.5, 2k, 1:1). Nothing is pasted into a final.**
+1. **Every image is a CapCut generation (GPT Image 2.5, 2k, Medium, 1:1; never Max). Nothing is pasted into a final.**
    Concept plates are text-to-image. Product slides: a plate is generated empty, the real container
    PNGs are placed on it at true scale as a *reference only*, and CapCut re-shoots the whole frame as
    one photograph. The kit case reference is drawn flat (shell, foam, pockets) with the real packs

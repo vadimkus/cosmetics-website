@@ -308,6 +308,12 @@ REVISION = {
     # (~/Desktop/Insta_Olga/bb_age/campaign/picks/main.png), then normalised. Do not rebuild
     # 58 from the photograph.
     "58": 3,
+    # "Let the light in." campaign main (bb_bright_campaign/main.jpg, 29 Sep 2026): the six
+    # singles in the open kit case, top down, ivory foam and amber hardware. The main carries
+    # the title, so v2 is Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/bb_bright/campaign/picks/main.png), then normalised. Do not
+    # rebuild 56 from the photograph.
+    "56": 2,
 }
 
 

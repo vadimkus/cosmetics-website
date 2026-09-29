@@ -512,11 +512,11 @@
   {
     "product": "56",
     "status": "ok",
-    "source": "/images/bbbox_brightening/main3.jpeg",
-    "file": "/images/cutout/56.webp",
+    "source": "/images/bb_bright_campaign/main.jpg",
+    "file": "/images/cutout/56-v2.webp",
     "name": "SKIN BRIGHTENING BEAUTY BOX",
-    "coverage": 0.352,
-    "bytes": 64242,
+    "coverage": 0.399,
+    "bytes": 55522,
     "review": false
   },
   {

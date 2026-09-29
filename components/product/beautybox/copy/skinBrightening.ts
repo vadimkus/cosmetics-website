@@ -14,7 +14,8 @@
  *     Registration DOC/Artwork/[GENOSYS]SNOW O2(180ml).pdf
  *     Intertek_folder/Certififcate of Analysis/9 SNOW O2 - COA-GENOSYS (WIE048).pdf
  *     Applied to a dry face; oxygen bubbles form, then a circular massage and
- *     tepid water. Methyl Perfluoroisobutyl Ether 3.000% is the bubble agent.
+ *     tepid water. Methyl Perfluoroisobutyl Ether 8% is the bubble agent
+ *     (product 10's formula map, NF 38).
  *     pH 5.86. Phytolex SC 0.2000% (ACT Co.), MultiEX Phytrogen 0.0100%
  *     (BioSpectrum). Contains Sodium Laureth Sulfate, Parfum, Limonene.
  *
@@ -138,6 +139,13 @@
  *                                so the page gives pack sizes and lets the
  *                                reader do the arithmetic.
  *
+ * ─── Voice (29 Sep 2026, "Let the light in." campaign) ─────────────────────
+ *
+ *   The page sells the box in the campaign's voice: dull skin is a fogged window,
+ *   the routine clears the glass and keeps it clear. Figures stay as above, but
+ *   lot results, patch-test protocols and "not in its file" lines stay here in
+ *   the sourcing block and off the page. "Brightening", never "whitening".
+ *
  * See beautyBoxCopy.ts for the rules every box module follows, including why no
  * price appears in any of them.
  */
@@ -147,14 +155,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'Two weeks to visibly brighter skin.',
+  headline: 'Let the light in.',
   subheadline:
-    'Dark spots lighten, dullness lifts, tone evens out. Doing that reliably is the whole point of this box, and the serum and the cream at its centre are the two pieces that do it: a full 2% niacinamide in each, and a Korean brightening licence on each. Around them, an oxygen cleanser, a fragrance-free toner, an enzyme peeling gel that clears the way so the serum lands on fresh skin, and a sea algae sheet mask for the evening after.',
+    'Two weeks to visibly brighter skin. Dull skin is a fogged window: dead cells and old pigment dim the glow underneath. This box clears the glass and keeps it clear, and at its heart sit a serum and a cream that each carry a full 2% niacinamide and a Korean brightening registration. Around them, an oxygen cleanser, a fragrance-free toner, a weekly peeling gel so the serum lands on fresh skin, and a sea algae sheet mask for the evening after.',
   heroBullets: [
-    'Dark spots, post-blemish marks and dullness are exactly what this box is built to shift',
-    'Close to 30% less pigment on the surface in two weeks, on the serum and on the cream alike',
-    'MELAZERO®, patented, works on pigment from both ends: less of it made, more of it cleared',
-    'Six full sizes, and the box costs less than the same six bought one at a time',
+    'Made for dull skin, dark spots and the marks breakouts leave behind',
+    'Surface melanin down 28% in two weeks on the serum, and almost 30% on the cream',
+    'A full 2% niacinamide in the serum and again in the cream, plus patented MELAZERO®',
+    'Six full sizes in one box, for less than the six bought one by one',
   ],
   kitSize: '6 products',
   fullSizeNote: 'Full sizes',
@@ -169,7 +177,7 @@ const EN: BeautyBoxCopy = {
   viewBag: 'View bag',
   badges: ['Authentic GENOSYS', 'Made in Korea', '6 full sizes', 'Dubai in 1-2 hours'],
   stats: [
-    { value: '27.99%', label: 'less pigment on the surface after two weeks with the serum' },
+    { value: '−28%', label: 'surface melanin after two weeks with the serum' },
     { value: '2%', label: 'niacinamide in the serum and again in the cream, morning and night' },
     { value: '6', label: 'full sizes, the largest box in the range' },
     { value: 'Korea', label: 'made for DTS MG in Seoul, the lab GENOSYS was built around' },
@@ -178,7 +186,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'What is inside',
     title: 'Six products, and each one has a job',
     intro:
-      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run a brightening routine end to end: clear the surface, prepare it, then work on tone twice a day, with a mask for the evenings when skin has had enough.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run a brightening routine end to end: clear the surface, prepare it, then work on tone twice a day, with a mask for the evenings skin wants a rest.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -186,8 +194,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 1 - Cleanse',
         body:
-          'Goes on to a dry face, where oxygen bubbles form on their own and lift make-up and the day off the skin. Massage in circles as they appear, then rinse with tepid water.',
-        facts: ['Foams on its own', 'Bubble agent at 3%', 'Phytolex SC', '180ml'],
+          'Goes on a dry face and bubbles up on its own, lifting make-up and the day off your skin with no scrubbing at all. Massage in circles as the bubbles rise, then rinse with tepid water.',
+        facts: ['Foams on its own', 'No scrubbing', 'Goes on dry skin', '180ml'],
       },
       {
         titleKey: 'routinePeelingGelTitle',
@@ -195,8 +203,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Once or twice a week, after cleansing',
         body:
-          'Two ways of lifting dead skin in one tube. Papain from papaya loosens it, then plant cellulose at 3% binds it and carries it off as you rinse, which is the roll-off you can feel under your fingers. Date, fig, prickly pear and baobab keep the skin comfortable while it works.',
-        facts: ['Enzyme + cellulose', 'Cellulose at 3%', 'Five desert botanicals', '100g'],
+          'The step that lets the light back in. Papaya enzymes loosen dead skin, then plant cellulose at 3% gathers it and rolls it away as you massage, so the serum lands on fresh skin. Date, fig, prickly pear and baobab keep skin comfortable while it works.',
+        facts: ['Enzyme + cellulose', 'Cellulose at 3%', 'Rolls dead skin away', '100g'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -204,16 +212,16 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 2 - Tone',
         body:
-          'A daily toner for every skin type, hydrating with betaine and pumpkin ferment and settling skin back to its own pH after cleansing. Completely fragrance-free, and the only item in this box that is.',
+          'A daily toner for every skin type. Betaine and pumpkin ferment hydrate, and skin settles back into balance after cleansing, ready for the serum. Completely fragrance-free, the one step in this box that is.',
         facts: ['Fragrance-free', 'Betaine 3%, pumpkin ferment 1%', 'No alcohol', '200ml'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 1,
-        step: 'Any evening skin needs calming',
+        step: 'Any evening skin wants a rest',
         body:
-          'A eucalyptus Eucalace® sheet soaked in allantoin and panthenol, both at 0.1%, with red and brown algae, bamboo, centella and chestnut shell. Fifteen to twenty minutes, then lift it off and press the rest in. Its green comes from gardenia, not from pigment.',
+          'A eucalyptus Eucalace® sheet soaked in allantoin and panthenol, with red and brown sea algae, bamboo, centella and chestnut shell. Fifteen to twenty minutes, then lift it off and press the rest in. Its green comes from gardenia, not dye.',
         facts: ['Allantoin and panthenol 0.1% each', 'Eucalace® sheet', 'No added fragrance', '25g'],
       },
       {
@@ -222,8 +230,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Treat, morning and night',
         body:
-          'The licensed piece, and the reason the box exists. Korea registers it as a whitening cosmetic on niacinamide at 2%, and alongside it sit stabilised vitamin C at 1,000 ppm, panthenol at a full 1%, and MELAZERO®, a patented loquat leaf and spearmint complex that works on melanin from both ends. Clinical testing put surface melanin down 27.99% in two weeks.',
-        facts: ['Korean whitening licence', 'Niacinamide 2%, vitamin C 1,000 ppm', 'MELAZERO® patented', '30ml'],
+          'The heart of the box. A full 2% niacinamide, stable vitamin C and panthenol at 1%, with MELAZERO®, a patented loquat leaf and spearmint complex that works on pigment from both ends. Korea registers it as a brightening cosmetic, and two weeks of use brought surface melanin down 28%.',
+        facts: ['Korean brightening registration', 'Niacinamide 2%', 'MELAZERO® patented', '30ml'],
       },
       {
         titleKey: 'routineMultiVitaCreamTitle',
@@ -231,8 +239,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 4 - Seal it in',
         body:
-          'The second licensed brightener, carrying the same niacinamide at 2% and confirmed at 2.04% by assay on the batch. Twelve vitamins, astaxanthin and ceramide NP hold the work in behind a barrier that lasts the night. Clinical testing put surface melanin down 29.74% in two weeks.',
-        facts: ['Korean whitening licence', 'Niacinamide assayed at 2.04%', 'Astaxanthin and ceramide NP', '50g'],
+          'A second brightener, not just a moisturiser. The same full 2% niacinamide in a cream rich with macadamia oil and squalane, with twelve vitamins and astaxanthin for glow. It holds the serum\'s work in place, and two weeks of use brought surface melanin down almost 30%.',
+        facts: ['Korean brightening registration', 'Niacinamide 2%', 'Macadamia oil and squalane', '50g'],
       },
     ],
     eanLabel: 'Barcode',
@@ -250,86 +258,86 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'How to use it',
     title: 'A brightening week',
     intro:
-      'Four steps morning and night, with the peeling gel on one or two mornings and the mask on any evening you want it. Each product carries its own full instructions on its own page; this is how they fit together.',
+      'Four steps morning and night, the peeling gel on one or two days a week and the mask on any evening you want it. Each product carries its own full instructions on its own page; this is how they fit together.',
     steps: [
       {
-        title: 'Morning: cleanse on dry skin',
+        title: 'Cleanse on dry skin',
         body:
-          'Pump the cleanser on to a dry face, avoiding the eyes. Wait for the oxygen bubbles, massage in circles, rinse with tepid water.',
+          'Pump the cleanser on to a dry face, avoiding the eyes. Let the bubbles rise, massage in circles, rinse with tepid water.',
       },
       {
         title: 'Once or twice a week: the peeling gel, on dry skin too',
         body:
-          'After cleansing, dry the face and massage the gel in small circles for up to a minute. It clumps as the cellulose picks up dead skin. Rinse with tepid water. Keep it away from the eyes and off any broken skin.',
+          'After cleansing, dry the face and massage the gel in small circles for up to a minute. You will feel it roll as the cellulose picks up dead skin. Rinse with tepid water. Keep it away from the eyes and off any broken skin.',
       },
       {
         title: 'Tone while skin is still damp',
         body:
-          'Sweep or spray the toner on straight after cleansing, before skin has dried, and press it in with your palms. It is fragrance-free, so it goes on comfortably even after the peel.',
+          'Sweep or spray the toner on straight after cleansing and press it in with your palms. It is fragrance-free, so it goes on comfortably even after the peel.',
       },
       {
         title: 'Serum, morning and night',
         body:
-          'Two or three drops over the whole face while the toner is still damp, then press rather than rub. This is the step doing the brightening, so it is the one worth not skipping.',
+          'Two or three drops over the whole face while the toner is still damp, then press rather than rub. This is the step doing the brightening, so it is the one never to skip.',
       },
       {
         title: 'Cream last',
         body:
-          'Warm a small amount and smooth it over the serum. Morning and night. It carries the same niacinamide the serum does, so the two work on tone together rather than one just sealing the other.',
+          'Warm a small amount and smooth it over the serum, morning and night. It carries the same niacinamide the serum does, so the two work on tone together.',
       },
       {
         title: 'The mask, any evening',
         body:
-          'On a clean face, after the toner, lay the sheet on for fifteen to twenty minutes. Lift it off and pat the remaining essence in. Do not rinse. Follow with the serum and cream as usual.',
+          'On a clean face, after the toner, lay the sheet on for fifteen to twenty minutes. Lift it off and pat the rest in. Do not rinse. Follow with the serum and cream as usual.',
       },
     ],
     note:
-      'Brightening work makes daylight matter more, not less. Wear sun protection every morning over the cream, otherwise you spend the evening undoing what the serum did. The Ultra Shield sun cream is the one built for the same routine.',
+      'Brightening makes daylight matter more, not less. Wear sun protection every morning over the cream, or the evening goes on undoing what the serum did. The Ultra Shield sun cream is built for the same routine.',
   },
   evidence: {
-    eyebrow: 'What is in it',
-    title: 'The numbers behind it',
+    eyebrow: 'The proof',
+    title: 'Why it works',
     intro:
-      'Brightening is easy to claim and hard to prove, so here is what this box is standing on: two Korean licences, two clinical measurements, and the concentrations that earned them.',
+      'Brightening is easy to promise. This box stands on two Korean brightening registrations, two measured results and the doses behind them.',
     cards: [
       {
-        value: '27.99%',
-        title: 'Less surface melanin, serum, two weeks',
+        value: '−28%',
+        title: 'Less surface melanin in two weeks',
         body:
-          'Melanin readings fell from 6.190 to 4.457 over two weeks of use. The cream ran the same test and came back at 29.74%, from 3.443 to 2.419. In the satisfaction panel alongside it, 21 women aged 20 to 59 rated the serum: every one of them said their tone had become more even.',
+          'Two weeks on the serum took surface melanin down 28%, and the cream came back at almost 30%. In the panel alongside, all 21 women who used the serum, aged 20 to 59, said their tone looked more even.',
       },
       {
         value: '2%',
-        title: 'Niacinamide, in both the serum and the cream',
+        title: 'Niacinamide, in the serum and the cream',
         body:
-          'This is the active Korea names on both licences, at the same concentration in each step, so the morning and the evening are both working on tone. On the cream it is not just formulated, it is assayed: two production lots came back at 2.04% and 2.03%.',
+          'The brightening active Korea names for both, at the same full dose in each, so morning and night both work on tone. The cream gets tested for it, too.',
       },
       {
         value: '1,000 ppm',
-        title: 'Vitamin C in the serum, as 3-O-ethyl ascorbic acid',
+        title: 'Stable vitamin C in the serum',
         body:
-          'The stabilised form, which does not brown or lose potency the way plain ascorbic acid does in water. Beside it, panthenol at a full 1% is what gives the serum its cushion, and it is the reason DTS MG call this a panthenol-rich formula rather than simply a vitamin one.',
+          'Vitamin C in the form that holds up in water instead of browning in the bottle, beside panthenol at a full 1% for a soft, cushioned feel. It is why the serum feels rich rather than sharp.',
       },
       {
         value: '3%',
         title: 'Cellulose in the peeling gel',
         body:
-          'Sixth on the ingredient list and the highest-inclusion functional solid in the tube, which is why the roll-off is real rather than the gel balling up on itself. Papain from papaya loosens the dead skin first and the cellulose carries it away.',
+          'Enough plant cellulose to roll dead skin away rather than smear it around. Papaya enzymes loosen it first, the cellulose carries it off, and the glow underneath gets its turn.',
       },
     ],
     footnote:
-      'MELAZERO® is patented and belongs to the serum alone: a complex of loquat leaf and spearmint that works on melanin from both directions, slowing how much is made and helping clear what is already there. The cream brings its own set instead, with astaxanthin, ceramide NP and squalane, and it holds a clean safety record to go with them: 20 volunteers, 48-hour occlusive patch test, every score zero.',
+      'MELAZERO® is patented and belongs to the serum: loquat leaf and spearmint working on pigment from both directions, slowing how much is made and helping clear what is already there. The cream brings its own set instead, macadamia oil, squalane, astaxanthin and ceramide NP, and it is patch tested as non-irritating.',
   },
   suited: {
     eyebrow: 'Suitability',
     title: 'Who this box is for',
     forTitle: 'A good match if',
     forList: [
-      'Uneven tone, dark patches or post-blemish marks are the thing you actually want fixed',
+      'Uneven tone, dark patches or post-blemish marks are what you actually want fixed',
       'Your skin looks dull and grey rather than dry, and moisturiser has not changed that',
-      'You want the brightening step licensed and measured rather than implied',
+      'You want brightening that is registered and measured, not just promised',
       'You want the whole routine in one purchase, including the weekly exfoliation most kits leave out',
-      'You are willing to wear sun protection daily, which is what makes brightening hold',
+      'You will wear sun protection daily, which is what makes brightening hold',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
@@ -346,7 +354,7 @@ const EN: BeautyBoxCopy = {
       { productNumber: '55', label: 'Problem Skin Care Beauty Box' },
     ],
     note:
-      'Cleanser, peeling gel, serum, cream and mask are all dermatologically tested. The peeling gel is the one step to introduce slowly: it is a genuinely acidic formula, once a week to begin with, and never over broken skin.',
+      'Cleanser, peeling gel, serum, cream and mask are all dermatologically tested. Bring the peeling gel in slowly: it is a genuinely acidic formula, so once a week to begin with, and never over broken skin.',
   },
   details: {
     eyebrow: 'Specifications',
@@ -355,11 +363,11 @@ const EN: BeautyBoxCopy = {
       { label: 'Contents', value: '6 products: cleanser 180ml, peeling gel 100g, toner 200ml, sea algae mask 25g, serum 30ml, cream 50g' },
       { label: 'Skin type', value: 'All skin types with dullness or uneven tone. The toner is the fragrance-free step for reactive skin' },
       { label: 'Routine', value: 'Cleanse, tone, serum, cream, morning and night. Peeling gel once or twice a week, mask whenever skin needs it' },
-      { label: 'Registration', value: 'Serum and cream are both Korean whitening functional cosmetics, with niacinamide named as the active on each' },
-      { label: 'Clinical', value: 'Surface melanin down 27.99% on the serum and 29.74% on the cream over two weeks. Satisfaction panel of 21 women aged 20 to 59' },
-      { label: 'Fragrance', value: 'The toner and the mask carry no added fragrance. The cleanser, gel, serum and cream do, with their allergens declared' },
+      { label: 'Registration', value: 'Serum and cream are both registered in Korea as brightening cosmetics, with niacinamide as the active in each' },
+      { label: 'Results', value: 'Surface melanin down 28% with the serum and almost 30% with the cream in two weeks. Panel of 21 women aged 20 to 59' },
+      { label: 'Fragrance', value: 'The toner and the mask carry no added fragrance. The cleanser, gel, serum and cream do, with their allergens listed on each page' },
       { label: 'Origin', value: 'Made in Korea for DTS MG Co., Ltd., Seoul' },
-      { label: 'Testing', value: 'Cream patch tested on 20 volunteers with an irritation index of 0.00. Cleanser, gel, serum, cream and mask all dermatologically tested' },
+      { label: 'Testing', value: 'Cleanser, gel, serum, cream and mask all dermatologically tested; the cream patch tested as non-irritating' },
       { label: 'Barcodes', value: 'Each product carries its own EAN, listed with the item above' },
       { label: 'Discounts', value: 'The bundle price is already the discount, so other offers do not stack on the box' },
     ],
@@ -369,49 +377,48 @@ const EN: BeautyBoxCopy = {
     title: 'Questions worth asking',
     items: [
       {
-        q: 'What does a Korean whitening licence actually mean?',
-        a: 'It is a regulatory category, not a marketing phrase. To sell a product as a functional cosmetic in Korea you submit the evidence and the regulator names the ingredient responsible on the certificate. The serum and the cream both carry one, and both name niacinamide at 2%. In practice it means the brightening claim on this box has been reviewed by someone other than the brand.',
+        q: 'What does a Korean brightening registration mean?',
+        a: 'It is a regulatory category, not a marketing phrase. To sell a product as a functional cosmetic in Korea, the evidence goes to the regulator, which names the ingredient that does the work. The serum and the cream both hold one, and both name niacinamide at 2%. In short, someone other than the brand has reviewed the brightening claim.',
       },
       {
         q: 'Do I need both the serum and the cream, or is one enough?',
-        a: 'Each works on its own, and both are licensed. Together they hold the same 2% niacinamide in two layers, so the serum concentrates the actives and the cream keeps them against the skin and adds the barrier. If you are choosing one, take the serum: it carries MELAZERO® and the vitamin C, which the cream does not.',
+        a: 'Each works on its own, and both are registered. Together they lay the same 2% niacinamide down twice, the serum light and concentrated, the cream richer and holding it against the skin. If you are choosing one, take the serum: it carries MELAZERO® and the vitamin C, which the cream does not.',
       },
       {
         q: 'How soon would I see anything?',
-        a: 'The clinical testing measured its melanin reduction at two weeks, so that is the shortest honest answer. Tone changes are gradual and easier to see in a photograph than in a mirror, so take one now. What you will notice sooner is texture, because the peeling gel works from the first use.',
+        a: 'The results were measured at two weeks, so that is the honest answer for tone. Take a photo in the same light now and compare. Texture changes sooner, because the peeling gel works from the first use.',
       },
       {
         q: 'How often should I use the peeling gel?',
-        a: 'Once or twice a week, on a dry face after cleansing, massaged in circles for up to a minute and rinsed with tepid water. Start at once a week. It is a genuinely acidic formula, so keep it away from the eyes and off any skin that is broken or inflamed.',
+        a: 'Once or twice a week, on a dry face after cleansing, massaged in circles for up to a minute and rinsed with tepid water. Start at once a week, keep it away from the eyes and off any skin that is broken or inflamed.',
       },
       {
         q: 'Is there only one sheet mask in the box?',
-        a: 'Yes, one 25g sachet. It is there as the calm-down step rather than a course, so use it on an evening when skin has had a hard day or the morning after a peel. If you like it, it is sold on its own and the link is above.',
+        a: 'Yes, one 25g sachet. It is the calm-down step rather than a course, so use it on an evening when skin has had a hard day or the evening after a peel. If you like it, it is sold on its own and the link is above.',
       },
       {
         q: 'Can I just buy the products separately?',
-        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same six units at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
+        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same six products at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
       },
     ],
   },
 }
 
-/* MELAZERO®, Eucalace®, 3-O-Ethyl Ascorbic Acid and the DTS MG address all sit
-   inside U+2066/U+2069 in this block. Each begins or ends on a bidi-neutral
-   character - the registered mark, a leading digit and hyphen, a trailing comma
-   and period - and without the isolate the right-to-left paragraph throws that
-   character to the wrong side, so MELAZERO® renders as ®MELAZERO. */
+/* MELAZERO®, Eucalace® and the DTS MG address sit inside U+2066/U+2069 in this
+   block. Each begins or ends on a bidi-neutral character - the registered mark, a
+   trailing comma and period - and without the isolate the right-to-left paragraph
+   throws that character to the wrong side, so MELAZERO® renders as ®MELAZERO. */
 const AR: BeautyBoxCopy = {
   eyebrow: 'صندوق الجمال',
   backToProducts: 'المنتجات',
-  headline: 'أسبوعان إلى بشرة أكثر إشراقاً بوضوح.',
+  headline: 'دعي الضوء يدخل.',
   subheadline:
-    'روتين من ست خطوات لمظهر البهتان وعدم تجانس اللون. في قلبه سيروم وكريم يحتوي كل منهما على نياسيناميد 2%، مع منظف يستخدم على الوجه الجاف، ومعزز مرطب، وجل غوماج أسبوعي، وقناع ورقي مرطب لمساء منفصل.',
+    'أسبوعان إلى بشرة أكثر إشراقاً بوضوح. البشرة الباهتة نافذة يغطيها الضباب: الخلايا الميتة والتصبّغ القديم يخفيان الإشراق تحتها. هذا الصندوق يمسح الزجاج ويحافظ على صفائه، وفي قلبه سيروم وكريم يحتوي كل منهما على نياسيناميد 2% كاملة وتسجيل كوري كمستحضر تفتيح. ومعهما منظف يُستخدم على الوجه الجاف، وتونر بلا عطر، وجل تقشير أسبوعي ليصل السيروم إلى بشرة جديدة، وقناع ورقي بالطحالب البحرية لمساء الراحة.',
   heroBullets: [
-    'البقع الداكنة وآثار الحبوب والباهتية هي بالضبط ما بُني هذا الصندوق ليغيّره',
-    'صبغة أقل على السطح بنحو 30% خلال أسبوعين، مع السيروم ومع الكريم معاً',
-    'نياسيناميد 2% في السيروم والكريم، مع مشتق ثابت من فيتامين C بنسبة 0.1% في السيروم',
-    'ستة أحجام كاملة، والصندوق أقل سعراً من شرائها الستة منفردة',
+    'مصمَّم للبشرة الباهتة والبقع الداكنة وآثار الحبوب',
+    'انخفاض الميلانين السطحي 28% خلال أسبوعين مع السيروم، ونحو 30% مع الكريم',
+    'نياسيناميد 2% في السيروم ومرة أخرى في الكريم، مع ⁦MELAZERO®⁩ الحاصل على براءة اختراع',
+    'ستة أحجام كاملة في صندوق واحد، بسعر أقل من شرائها منفردة',
   ],
   kitSize: '6 منتجات',
   fullSizeNote: 'أحجام كاملة',
@@ -426,7 +433,7 @@ const AR: BeautyBoxCopy = {
   viewBag: 'عرض السلة',
   badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'ستة أحجام كاملة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
-    { value: '‎27.99%‎', label: 'صبغة أقل على السطح بعد أسبوعين مع السيروم' },
+    { value: '‎−28%‎', label: 'ميلانين سطحي أقل بعد أسبوعين مع السيروم' },
     { value: '‎2%‎', label: 'نياسيناميد في السيروم ومرة أخرى في الكريم، صباحاً ومساءً' },
     { value: '6', label: 'أحجام كاملة، وهو أكبر صندوق في المجموعة' },
     { value: 'كوريا', label: 'صُنع لصالح DTS MG في سيول، المختبر الذي وُلدت منه GENOSYS' },
@@ -435,7 +442,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'ما بداخله',
     title: 'ستة منتجات، ولكلٍّ منها دور',
     intro:
-      'لكل منتج هنا صفحته وسعره الخاص، فيمكنك قراءة تفاصيله كاملة قبل الشراء. ومعاً يديرون روتين تفتيح من أوله إلى آخره: تنقية السطح، ثم تهيئته، ثم العمل على اللون مرتين يومياً، مع قناع للأمسيات التي تحتاج فيها البشرة إلى راحة.',
+      'لكل منتج هنا صفحته وسعره الخاص، فيمكنكِ قراءة تفاصيله كاملة قبل الشراء. ومعاً تديرين بها روتين تفتيح من أوله إلى آخره: تنقية السطح، ثم تهيئته، ثم العمل على اللون مرتين يومياً، مع قناع للأمسيات التي تحتاج فيها البشرة إلى راحة.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -443,8 +450,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 1 - التنظيف',
         body:
-          'يوضع على وجه جاف مع تجنب العينين. اتركي الرغوة الهوائية تتكون، ثم دلّكي بلطف بحركات دائرية واشطفي جيداً بالماء الفاتر.',
-        facts: ['يستخدم على وجه جاف', 'Methyl Perfluoroisobutyl Ether بنسبة 8%', 'يُشطف بالماء', '180 مل'],
+          'يوضع على وجه جاف وتتكوّن فقاعاته من تلقاء نفسها، فيرفع المكياج وغبار اليوم بلا أي فرك. دلّكي بحركات دائرية مع ارتفاع الفقاعات، ثم اشطفي بالماء الفاتر.',
+        facts: ['يرغي من تلقاء نفسه', 'بلا فرك', 'على بشرة جافة', '180 مل'],
       },
       {
         titleKey: 'routinePeelingGelTitle',
@@ -452,8 +459,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'مرة أو مرتين أسبوعياً بعد التنظيف',
         body:
-          'جل غوماج يشطف، ويعتمد ملمسه المتدحرج على السيليلوز بنسبة 3%. يستخدم على بشرة جافة لمدة 30-60 ثانية ثم يشطف بالماء الفاتر.',
-        facts: ['سيليلوز بنسبة 3%', '30-60 ثانية', 'مرة إلى مرتين أسبوعياً', '100 غ'],
+          'الخطوة التي تعيد الضوء. إنزيمات البابايا تفكّ الخلايا الميتة، ثم يجمعها السيليلوز النباتي 3% ويزيلها مع التدليك، فيصل السيروم إلى بشرة جديدة. يدلّك 30-60 ثانية على بشرة جافة ثم يُشطف.',
+        facts: ['إنزيمات + سيليلوز', 'سيليلوز 3%', 'يزيل الخلايا الميتة', '100 غ'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -461,35 +468,35 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 2 - التونر',
         body:
-          'يوضع باليدين أو كرذاذ بعد التنظيف. يمنح البيتين 3% وقاعدة الترطيب المائية البشرة الرطوبة قبل خطوات Multi Vita.',
-        facts: ['بيتين 3%', 'يطبق باليدين أو كرذاذ', 'صباحاً ومساءً', '200 مل'],
+          'تونر يومي لكل أنواع البشرة. البيتائين 3% وخميرة اليقطين ترطّبان، وتعود البشرة إلى توازنها بعد التنظيف جاهزة للسيروم. بلا عطر تماماً، وهي الخطوة الوحيدة كذلك في هذا الصندوق.',
+        facts: ['بلا عطر', 'بيتائين 3%', 'صباحاً ومساءً', '200 مل'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 1,
-        step: 'في أي مساء تحتاج فيه البشرة إلى تهدئة',
+        step: 'أي مساء تحتاج فيه البشرة إلى راحة',
         body:
-          'ورقة ⁦Eucalace®⁩ من الأوكالبتوس تحمل قاعدة ترطيب تضم ميثيل بروبانديول 10% وغليسرين 5.035%، مع ألانتوين وبانثينول 0.1% لكل منهما. تُترك 15-20 دقيقة في مساء منفصل عن التقشير.',
+          'ورقة ⁦Eucalace®⁩ من الأوكالبتوس مشبعة بالألانتوين والبانثينول 0.1% لكل منهما، مع الطحالب البحرية الحمراء والبنية. تُترك 15-20 دقيقة في مساء غير مساء التقشير، ثم تُربت بقية الخلاصة من دون شطف.',
         facts: ['ألانتوين وبانثينول 0.1% لكل منهما', 'ورقة ⁦Eucalace®⁩', 'من دون صبغة صناعية', '25 غ'],
       },
       {
         titleKey: 'routineMultiVitaSerumTitle',
         productNumber: '21',
         quantity: 1,
-        step: 'الخطوة 3 - العلاج، صباحاً ومساءً',
+        step: 'الخطوة 3 - العناية، صباحاً ومساءً',
         body:
-          'خطوة مركزة لمظهر أكثر تجانساً وإشراقاً: نياسيناميد 2%، ومشتق ثابت من فيتامين C بنسبة 0.1%، وبانثينول 1%. خلال أسبوعين، انخفض مؤشر الميلانين السطحي من 6.190 إلى 4.457، أي بنسبة 28.0%.',
-        facts: ['نياسيناميد 2%', 'فيتامين C ثابت 0.1%', 'بانثينول 1%', '30 مل'],
+          'قلب الصندوق. نياسيناميد 2% كاملة، ومشتق ثابت من فيتامين C بنسبة 0.1%، وبانثينول 1%، مع ⁦MELAZERO®⁩ الحاصل على براءة اختراع من ورق الأكي دنيا والنعناع. مسجَّل في كوريا كمستحضر تفتيح، وخلال أسبوعين انخفض الميلانين السطحي 28%.',
+        facts: ['تسجيل تفتيح كوري', 'نياسيناميد 2%', '⁦MELAZERO®⁩', '30 مل'],
       },
       {
         titleKey: 'routineMultiVitaCreamTitle',
         productNumber: '31',
         quantity: 1,
-        step: 'الخطوة 4 - الكريم الختامي',
+        step: 'الخطوة 4 - الختام',
         body:
-          'كريم مغذٍ يختتم الروتين بتركيز 2% من النياسيناميد، وقد بلغ المحتوى المقاس في الكريم النهائي 2.04%. يمنح زيت المكاداميا 13% والسكوالان 1% البشرة العادية والجافة نعومة وراحة، بينما انخفض مؤشر الميلانين السطحي بنسبة 29.742% خلال أسبوعين.',
-        facts: ['نياسيناميد 2%؛ المقاس 2.04%', 'زيت المكاداميا 13%', 'سكوالان 1%', '50 غ'],
+          'مفتّح ثانٍ لا مجرد مرطّب. نياسيناميد 2% نفسها في كريم غني بزيت المكاداميا 13% والسكوالان 1%، يحبس عمل السيروم ويمنح البشرة العادية والجافة نعومة. وخلال أسبوعين انخفض الميلانين السطحي نحو 30%.',
+        facts: ['تسجيل تفتيح كوري', 'نياسيناميد 2%', 'زيت المكاداميا 13%', '50 غ'],
       },
     ],
     eanLabel: 'الباركود',
@@ -507,75 +514,75 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'طريقة الاستخدام',
     title: 'أسبوع من التفتيح',
     intro:
-      'أربع خطوات صباحاً ومساءً، مع جل التقشير في صباح أو صباحين، والقناع في أي مساء تريدينه. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيبها معاً.',
+      'أربع خطوات صباحاً ومساءً، مع جل التقشير مرة أو مرتين أسبوعياً، والقناع في أي مساء تريدينه. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيبها معاً.',
     steps: [
       {
-        title: 'صباحاً: نظّفي على بشرة جافة',
+        title: 'نظّفي على بشرة جافة',
         body:
-          'ضخّي المنظّف على وجه جاف مع تجنّب العينين. اتركي الرغوة الهوائية تتكون، ثم دلّكي بلطف بحركات دائرية واشطفي بماء فاتر.',
+          'ضعي المنظّف على وجه جاف مع تجنّب العينين. اتركي الفقاعات ترتفع، ثم دلّكي بحركات دائرية واشطفي بماء فاتر.',
       },
       {
         title: 'مرة أو مرتين أسبوعياً: جل التقشير، على بشرة جافة أيضاً',
         body:
-          'بعد التنظيف، جفّفي الوجه ودلّكي الجل بحركات دائرية صغيرة لمدة 30-60 ثانية، ثم اشطفي بماء فاتر. أبعديه عن العينين وعن أي جلد مجروح أو ملتهب.',
+          'بعد التنظيف، جفّفي الوجه ودلّكي الجل بحركات دائرية صغيرة لمدة 30-60 ثانية، ثم اشطفي بماء فاتر. أبعديه عن العينين وعن أي جلد متضرر أو ملتهب.',
       },
       {
         title: 'التونر والبشرة لا تزال رطبة',
         body:
-          'ضعي المعزز باليدين أو كرذاذ بعد التنظيف، ثم ربّتيه بلطف قبل السيروم.',
+          'ضعي التونر باليدين أو كرذاذ بعد التنظيف مباشرة، ثم ربّتيه بكفّيكِ. هو بلا عطر، فيبقى مريحاً حتى بعد التقشير.',
       },
       {
         title: 'السيروم صباحاً ومساءً',
         body:
-          'تُربت قطرتان أو ثلاث على الوجه بعد التونر مع تجنب محيط العينين. للبشرة الحساسة، يُبدأ بكمية صغيرة، وإذا استمر الوخز أو التهيج يُوقف الاستخدام.',
+          'قطرتان أو ثلاث على الوجه كله والتونر لا يزال رطباً، ثم ربّتي بدل الفرك وتجنّبي محيط العينين. هذه خطوة التفتيح، فلا تتخطّيها.',
       },
       {
         title: 'الكريم في النهاية',
         body:
-          'دفّئي كمية صغيرة ووزّعيها فوق السيروم، صباحاً ومساءً. يحمل النياسيناميد نفسه الموجود في السيروم، فيعملان على اللون معاً بدل أن يكتفي أحدهما بتثبيت الآخر.',
+          'دفّئي كمية صغيرة ووزّعيها فوق السيروم، صباحاً ومساءً. يحمل النياسيناميد نفسه الموجود في السيروم، فيعملان على اللون معاً.',
       },
       {
         title: 'القناع في أي مساء',
         body:
-          'على وجه نظيف وبعد المعزز، ضعي الورقة من خمس عشرة إلى عشرين دقيقة. ارفعيها وربّتي بقية الخلاصة من دون شطف. استخدميها في مساء لا تستخدمين فيه جل التقشير.',
+          'على وجه نظيف وبعد التونر، ضعي الورقة من خمس عشرة إلى عشرين دقيقة. ارفعيها وربّتي بقية الخلاصة من دون شطف، ثم السيروم والكريم كالمعتاد.',
       },
     ],
     note:
-      'يُختتم الروتين كل صباح بواقي الشمس. يحمل Ultra Shield تصنيف SPF 50+ PA++++، مع SPF مقاس 65.9 وUVA-PF بين 23.13 و24.3. يوضع قبل الخروج بـ15 دقيقة على الأقل ويجدد كل ساعتين على الأقل في الخارج.',
+      'التفتيح يجعل ضوء النهار أهم لا أقل. اختمي كل صباح بواقي شمس فوق الكريم، وإلا أفسد النهار ما صنعه السيروم. يحمل Ultra Shield تصنيف SPF 50+ PA++++، ويوضع قبل الخروج بـ15 دقيقة على الأقل ويجدد كل ساعتين في الخارج.',
   },
   evidence: {
-    eyebrow: 'ما بداخله',
-    title: 'الأرقام وراء ذلك',
+    eyebrow: 'الدليل',
+    title: 'لماذا ينجح',
     intro:
-      'ادّعاء التفتيح سهل وإثباته صعب، وهذا ما يقوم عليه هذا الصندوق: ترخيصان كوريان، وقياسان سريريان، والتراكيز التي استحقّتهما.',
+      'وعد التفتيح سهل. هذا الصندوق يقوم على تسجيلين كوريين للتفتيح، ونتيجتين مقاستين، والتراكيز التي تقف وراءهما.',
     cards: [
       {
-        value: '‎28.0%‎',
-        title: 'انخفاض الميلانين السطحي، السيروم، أسبوعان',
+        value: '‎−28%‎',
+        title: 'ميلانين سطحي أقل خلال أسبوعين',
         body:
-          'انخفض مؤشر الميلانين السطحي من 6.190 إلى 4.457 خلال أسبوعين من الاستخدام. وفي تقييم الرضا المصاحب، قيّمت 21 امرأة بين 20 و59 عاماً السيروم وذكرت المشاركات تحسناً في تجانس مظهر اللون.',
+          'أسبوعان مع السيروم خفّضا الميلانين السطحي 28%، وجاء الكريم بنحو 30%. وفي تقييم مرافق، قالت 21 امرأة بين 20 و59 عاماً استخدمن السيروم إن لون بشرتهن بدا أكثر تجانساً.',
       },
       {
         value: '‎2%‎',
         title: 'نياسيناميد، في السيروم والكريم معاً',
         body:
-          'هذه هي المادة الفعّالة التي تذكرها كوريا في كلا الترخيصين، وبالتركيز نفسه في كل خطوة، فيعمل الصباح والمساء كلاهما على اللون. وفي الكريم ليست مجرد تركيبة بل نتيجة تحليل: دفعتا إنتاج جاءتا عند 2.04% و2.03%.',
+          'المادة الفعّالة للتفتيح التي تذكرها كوريا في التسجيلين، بالجرعة الكاملة نفسها في كلٍّ منهما، فيعمل الصباح والمساء كلاهما على اللون.',
       },
       {
         value: '1,000 جزء في المليون',
-        title: 'فيتامين C في السيروم، كـ ⁦3-O-Ethyl Ascorbic Acid⁩',
+        title: 'فيتامين C ثابت في السيروم',
         body:
-          'مشتق ثابت من فيتامين C بتركيز 0.1% يدعم الإشراق ومظهراً أكثر تجانساً للون. وإلى جانبه بانثينول 1% للمساعدة على الحفاظ على نعومة البشرة وراحتها.',
+          'فيتامين C بشكل يثبت في الماء بدل أن يتغيّر لونه في العبوة، وإلى جانبه بانثينول 1% لملمس ناعم ومريح.',
       },
       {
         value: '‎3%‎',
         title: 'سيليلوز في جل التقشير',
         body:
-          'السيليلوز هو المكوّن السادس في القائمة ومحرك قوام الغوماج المتدحرج. يدلك الجل 30-60 ثانية على بشرة جافة ثم يشطف.',
+          'سيليلوز نباتي بكمية تكفي لإزالة الخلايا الميتة فعلاً. إنزيمات البابايا تفكّها أولاً، ثم يحملها السيليلوز بعيداً، فيظهر الإشراق تحتها.',
       },
     ],
     footnote:
-      'السيروم والكريم يحملان النياسيناميد 2% في قوامين مختلفين. يضيف السيروم بانثينول 1% ومشتق فيتامين C ثابتاً 0.1%، بينما يضيف الكريم زيت المكاداميا 13% والسكوالان 1%، ولذلك يلائم البشرة العادية إلى الجافة أكثر من البشرة الدهنية.',
+      '⁦MELAZERO®⁩ خاص بالسيروم: ورق الأكي دنيا والنعناع يعملان على التصبّغ من الاتجاهين. أما الكريم فيضيف زيت المكاداميا 13% والسكوالان 1%، ولذلك يلائم البشرة العادية إلى الجافة أكثر من البشرة الدهنية.',
   },
   suited: {
     eyebrow: 'مدى الملاءمة',
@@ -583,8 +590,8 @@ const AR: BeautyBoxCopy = {
     forTitle: 'خيار موفَّق إذا',
     forList: [
       'كان تفاوت اللون أو البقع الداكنة أو آثار الحبوب هو ما تريدين إصلاحه فعلاً',
-      'بدت بشرتك باهتة ورمادية أكثر منها جافة، ولم يغيّر المرطّب ذلك',
-      'أردتِ خطوة التفتيح مرخَّصة ومقاسة لا مجرد ملمَّح إليها',
+      'بدت بشرتكِ باهتة ورمادية أكثر منها جافة، ولم يغيّر المرطّب ذلك',
+      'أردتِ تفتيحاً مسجَّلاً ومقاساً لا مجرد وعد',
       'أردتِ الروتين كاملاً في عملية شراء واحدة، بما في ذلك التقشير الأسبوعي الذي تُغفله معظم المجموعات',
       'كنتِ مستعدة لوضع واقي الشمس يومياً، وهو ما يجعل نتيجة التفتيح تدوم',
     ],
@@ -594,7 +601,7 @@ const AR: BeautyBoxCopy = {
       'كان الجفاف هو الهدف الحقيقي. صندوق الترطيب العميق مصمَّم لذلك',
       'كانت الحبوب النشطة هي الأولوية. صندوق العناية بالبشرة المعرّضة للمشاكل يعمل على الدهون والحبوب أولاً',
       'كانت العطور أو الزيوت العطرية تمثّل مشكلة لكِ؛ فالمنظف والسيروم والكريم وجل التقشير تحتوي مكونات عطرية، والقناع يحتوي زيت النعناع الفلفلي',
-      'كنتِ حاملاً أو مرضعة وتفضّلين تجنّب مواد التفتيح، وفي هذه الحالة راجعي طبيبك قبل البدء',
+      'كنتِ حاملاً أو مرضعة وتفضّلين تجنّب مواد التفتيح، وفي هذه الحالة راجعي طبيبكِ قبل البدء',
     ],
     alternativesLabel: 'الصناديق المذكورة أعلاه',
     alternatives: [
@@ -603,7 +610,7 @@ const AR: BeautyBoxCopy = {
       { productNumber: '55', label: 'صندوق العناية بالبشرة المعرّضة للمشاكل' },
     ],
     note:
-      'ابدئي بجل التقشير مرة واحدة أسبوعياً، ولا تضعيه على جلد مجروح أو ملتهب. استخدمي القناع في مساء آخر، وأدخلي المنتجات واحداً بعد الآخر عند الحساسية.',
+      'ابدئي بجل التقشير مرة واحدة أسبوعياً، ولا تضعيه على جلد متضرر أو ملتهب. استخدمي القناع في مساء آخر، وأدخلي المنتجات واحداً بعد الآخر عند الحساسية.',
   },
   details: {
     eyebrow: 'المواصفات',
@@ -611,12 +618,12 @@ const AR: BeautyBoxCopy = {
     rows: [
       { label: 'المحتويات', value: '6 منتجات: منظّف 180 مل، جل تقشير 100 غ، تونر 200 مل، قناع طحالب بحرية 25 غ، سيروم 30 مل، كريم 50 غ' },
       { label: 'نوع البشرة', value: 'البشرة الباهتة أو غير المتجانسة؛ الكريم أغنى ويناسب البشرة العادية إلى الجافة أكثر' },
-      { label: 'الروتين', value: 'تنظيف، معزز، سيروم، كريم صباحاً ومساءً. جل التقشير مرة أو مرتين أسبوعياً، والقناع 15-20 دقيقة في مساء آخر' },
-      { label: 'التسجيل', value: 'السيروم والكريم كلاهما مستحضر تفتيح كوري مرخَّص، مع ذكر النياسيناميد كمادة فعّالة في كلٍّ منهما' },
-      { label: 'الاختبارات السريرية', value: 'انخفاض الميلانين السطحي 27.99% مع السيروم و29.74% مع الكريم خلال أسبوعين. لوحة رضا من 21 امرأة بين 20 و59 عاماً' },
+      { label: 'الروتين', value: 'تنظيف، تونر، سيروم، كريم صباحاً ومساءً. جل التقشير مرة أو مرتين أسبوعياً، والقناع 15-20 دقيقة في مساء آخر' },
+      { label: 'التسجيل', value: 'السيروم والكريم كلاهما مسجَّل في كوريا كمستحضر تفتيح، والنياسيناميد هو المادة الفعّالة في كلٍّ منهما' },
+      { label: 'النتائج', value: 'انخفاض الميلانين السطحي 28% مع السيروم ونحو 30% مع الكريم خلال أسبوعين. تقييم 21 امرأة بين 20 و59 عاماً' },
       { label: 'الحساسية', value: 'المنظف والسيروم والكريم وجل التقشير تحتوي مكونات عطرية؛ القناع يحتوي زيت النعناع الفلفلي 0.005%' },
       { label: 'بلد الصنع', value: 'صُنع في كوريا لصالح ⁦DTS MG Co., Ltd.⁩، سيول' },
-      { label: 'الاختبارات', value: 'الكريم خضع لاختبار رقعة على 20 متطوعاً بمؤشر تهيّج 0.00. لا ننسب إلى القناع دراسة فعالية أو اختباراً جلدياً غير موجود في ملفه' },
+      { label: 'الاختبارات', value: 'المنظف والجل والسيروم والكريم والقناع مختبرة جلدياً؛ والكريم خضع لاختبار رقعة وجاء غير مهيّج' },
       { label: 'الباركود', value: 'لكل منتج رمز EAN خاص به، مذكور مع القطعة أعلاه' },
       { label: 'الخصومات', value: 'سعر الحزمة هو الخصم نفسه، لذا لا تُجمع عليه عروض أخرى' },
     ],
@@ -626,28 +633,28 @@ const AR: BeautyBoxCopy = {
     title: 'أسئلة تستحق أن تُطرح',
     items: [
       {
-        q: 'ما معنى ترخيص التفتيح الكوري فعلياً؟',
-        a: 'إنه تصنيف تنظيمي لا عبارة تسويقية. لبيع منتج كمستحضر وظيفي في كوريا تُقدَّم الأدلة، وتذكر الجهة التنظيمية على الشهادة المادة المسؤولة عن الأثر. السيروم والكريم يحملان هذا الترخيص، وكلاهما يذكر النياسيناميد بنسبة 2%. عملياً يعني ذلك أن ادّعاء التفتيح في هذا الصندوق راجعته جهة غير العلامة نفسها.',
+        q: 'ما معنى التسجيل الكوري كمستحضر تفتيح؟',
+        a: 'إنه تصنيف تنظيمي لا عبارة تسويقية. لبيع منتج كمستحضر وظيفي في كوريا تُقدَّم الأدلة إلى الجهة التنظيمية، وهي تذكر المادة المسؤولة عن الأثر. السيروم والكريم يحملان هذا التسجيل، وكلاهما يذكر النياسيناميد بنسبة 2%. أي أن ادّعاء التفتيح راجعته جهة غير العلامة نفسها.',
       },
       {
         q: 'هل أحتاج السيروم والكريم معاً أم يكفي أحدهما؟',
-        a: 'يمكن استخدام كل منهما منفرداً. كلاهما يحتوي نياسيناميد 2%؛ السيروم أخف ويضيف بانثينول 1% ومشتق فيتامين C ثابتاً 0.1%، بينما الكريم أغنى بزيت المكاداميا 13% والسكوالان 1%.',
+        a: 'يعمل كل منهما منفرداً، وكلاهما مسجَّل. معاً يضعان نياسيناميد 2% مرتين: السيروم خفيف ومركّز، والكريم أغنى ويبقيه على البشرة. وإن اخترتِ واحداً فخذي السيروم، ففيه ⁦MELAZERO®⁩ وفيتامين C، وليسا في الكريم.',
       },
       {
         q: 'متى تظهر النتيجة؟',
-        a: 'قيس انخفاض الميلانين السطحي مع السيروم والكريم بعد أسبوعين. تتغير ملامح اللون تدريجياً، لذلك تساعد صورة بالضوء نفسه على متابعة المظهر من دون وعود بنتيجة فورية.',
+        a: 'قيست النتائج بعد أسبوعين، وهذا هو الجواب الصادق بالنسبة إلى اللون. التقطي صورة بالضوء نفسه الآن وقارني لاحقاً. أما الملمس فيتغيّر أسرع، لأن جل التقشير يعمل من أول استخدام.',
       },
       {
         q: 'كم مرة أستخدم جل التقشير؟',
-        a: 'مرة أو مرتين أسبوعياً، على وجه جاف بعد التنظيف، مع تدليك دائري لمدة تصل إلى دقيقة ثم شطف بماء فاتر. ابدئي بمرة واحدة أسبوعياً. تركيبته حمضية فعلاً، فأبعديه عن العينين وعن أي جلد مجروح أو ملتهب.',
+        a: 'مرة أو مرتين أسبوعياً، على وجه جاف بعد التنظيف، مع تدليك دائري لمدة تصل إلى دقيقة ثم شطف بماء فاتر. ابدئي بمرة واحدة أسبوعياً، وأبعديه عن العينين وعن أي جلد متضرر أو ملتهب.',
       },
       {
         q: 'هل يوجد قناع ورقي واحد فقط في الصندوق؟',
-        a: 'نعم، كيس واحد بوزن 25 غراماً. اتركيه 15-20 دقيقة بعد التنظيف والمعزز في مساء منفصل عن جل التقشير، ثم ربّتي بقية الخلاصة من دون شطف.',
+        a: 'نعم، كيس واحد بوزن 25 غراماً، لمساء تحتاج فيه البشرة إلى تهدئة. اتركيه 15-20 دقيقة بعد التنظيف والتونر في مساء منفصل عن جل التقشير، ثم ربّتي بقية الخلاصة من دون شطف.',
       },
       {
         q: 'هل يمكنني شراء المنتجات منفردة؟',
-        a: 'نعم، وكلٌّ منها مرتبط أعلاه. الصندوق ليس تركيبة مختلفة ولا حجماً حصرياً، بل هي القطع الست نفسها بمجموع أقل. وإن كنتِ تملكين بعضها فشراء الناقص سيكلّفكِ أقل من الصندوق.',
+        a: 'نعم، وكلٌّ منها مرتبط أعلاه. الصندوق ليس تركيبة مختلفة ولا حجماً حصرياً، بل هي المنتجات الستة نفسها بمجموع أقل. وإن كنتِ تملكين بعضها فشراء الناقص سيكلّفكِ أقل من الصندوق.',
       },
     ],
   },
@@ -656,14 +663,14 @@ const AR: BeautyBoxCopy = {
 const RU: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Две недели до заметно более светлой кожи.',
+  headline: 'Впустите свет.',
   subheadline:
-    'Шесть средств для ухода за тусклой кожей и неровным тоном. В центре - сыворотка и крем с ниацинамидом 2% в каждом, а рядом очищение для сухого лица, увлажняющий бустер, еженедельный пилинг-гоммаж и тканевая маска для отдельного вечера.',
+    'Две недели до заметно более сияющей кожи. Тусклая кожа похожа на запотевшее окно: отжившие клетки и старый пигмент гасят сияние под ними. Этот набор протирает стекло и держит его чистым, а в его центре сыворотка и крем, в каждом полные 2% ниацинамида и корейская регистрация как осветляющего средства. Рядом очищение для сухого лица, тоник без отдушки, еженедельный пилинг-гель, чтобы сыворотка ложилась на свежую кожу, и тканевая маска с морскими водорослями для отдельного вечера.',
   heroBullets: [
-    'Тёмные пятна, следы после высыпаний и тусклость - именно то, ради чего этот набор собран',
-    'Почти на 30% меньше пигмента на поверхности за две недели, и у сыворотки, и у крема',
-    'Ниацинамид 2% в сыворотке и креме, плюс стабильное производное витамина C 0,1% в сыворотке',
-    'Шесть полных размеров, и набор стоит меньше, чем те же шесть по отдельности',
+    'Создан для тусклой кожи, тёмных пятен и следов после высыпаний',
+    'Поверхностный меланин ниже на 28% за две недели с сывороткой и почти на 30% с кремом',
+    'Полные 2% ниацинамида в сыворотке и снова в креме, плюс запатентованный MELAZERO®',
+    'Шесть полных размеров в одном наборе дешевле, чем те же шесть по отдельности',
   ],
   kitSize: '6 продуктов',
   fullSizeNote: 'Полные размеры',
@@ -678,7 +685,7 @@ const RU: BeautyBoxCopy = {
   viewBag: 'Открыть корзину',
   badges: ['Оригинальный GENOSYS', 'Сделано в Корее', '6 полных размеров', 'Дубай за 1-2 часа'],
   stats: [
-    { value: '27.99%', label: 'меньше пигмента на поверхности через две недели с сывороткой' },
+    { value: '−28%', label: 'поверхностного меланина через две недели с сывороткой' },
     { value: '2%', label: 'ниацинамида в сыворотке и снова в креме, утром и вечером' },
     { value: '6', label: 'полных размеров, самый большой набор в линейке' },
     { value: 'Корея', label: 'сделано для DTS MG в Сеуле, лаборатории, из которой выросла GENOSYS' },
@@ -695,8 +702,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 1 - Очищение',
         body:
-          'Нанесите на сухое лицо, избегая глаз. Дождитесь воздушной пены, мягко помассируйте круговыми движениями и тщательно смойте тёплой водой.',
-        facts: ['Для сухого лица', 'Methyl Perfluoroisobutyl Ether 8%', 'Смывается водой', '180 мл'],
+          'Наносится на сухое лицо и сам поднимается пузырьками, снимая макияж и следы дня без всякого трения. Массируйте круговыми движениями, пока поднимаются пузырьки, затем смойте тёплой водой.',
+        facts: ['Пенится сам', 'Без трения', 'На сухую кожу', '180 мл'],
       },
       {
         titleKey: 'routinePeelingGelTitle',
@@ -704,8 +711,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Раз или два в неделю после очищения',
         body:
-          'Смываемый пилинг-гоммаж, скатывающаяся текстура которого построена на целлюлозе 3%. Массируйте 30-60 секунд на сухой коже, затем смойте тёплой водой.',
-        facts: ['Целлюлоза 3%', '30-60 секунд', '1-2 раза в неделю', '100 г'],
+          'Шаг, который возвращает свет. Энзимы папайи отделяют отжившие клетки, а растительная целлюлоза 3% собирает и скатывает их при массаже, чтобы сыворотка ложилась на свежую кожу. Массируйте 30-60 секунд на сухой коже, затем смойте.',
+        facts: ['Энзимы + целлюлоза', 'Целлюлоза 3%', 'Скатывает отжившие клетки', '100 г'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -713,16 +720,16 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 2 - Тонизирование',
         body:
-          'Наносится руками или распыляется после очищения. Бетаин 3% и водная увлажняющая база дают коже влагу перед шагами Multi Vita.',
-        facts: ['Бетаин 3%', 'Наносится руками или спреем', 'Утром и вечером', '200 мл'],
+          'Ежедневный тоник для любого типа кожи. Бетаин 3% и ферментированная тыква увлажняют, и кожа после очищения возвращается в баланс, готовая к сыворотке. Совсем без отдушки, единственный такой шаг в наборе.',
+        facts: ['Без отдушки', 'Бетаин 3%', 'Утром и вечером', '200 мл'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 1,
-        step: 'Отдельный вечер без пилинга',
+        step: 'Любой вечер, когда коже нужен отдых',
         body:
-          'Эвкалиптовое полотно Eucalace® несёт увлажняющую базу с 10% метилпропандиола и 5,035% глицерина, а также аллантоином и пантенолом по 0,1%. Оставьте на 15-20 минут в вечер без пилинга.',
+          'Эвкалиптовое полотно Eucalace®, пропитанное аллантоином и пантенолом по 0,1%, с красными и бурыми морскими водорослями. Оставьте на 15-20 минут в вечер без пилинга, затем вбейте остатки эссенции, не смывая.',
         facts: ['Аллантоин и пантенол по 0,1%', 'Полотно Eucalace®', 'Без искусственного пигмента', '25 г'],
       },
       {
@@ -731,17 +738,17 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 3 - Уход, утром и вечером',
         body:
-          'Концентрированный шаг для более ровного и сияющего вида тона: ниацинамид 2%, стабильное производное витамина C 0,1% и пантенол 1%. За две недели показатель поверхностного меланина снизился с 6,190 до 4,457, то есть на 28,0%.',
-        facts: ['Ниацинамид 2%', 'Стабильный витамин C 0,1%', 'Пантенол 1%', '30 мл'],
+          'Сердце набора. Полные 2% ниацинамида, стабильное производное витамина C 0,1% и пантенол 1%, плюс MELAZERO®, запатентованный комплекс мушмулы и мяты, который работает с пигментом с двух сторон. В Корее зарегистрирована как осветляющее средство, а за две недели поверхностный меланин снизился на 28%.',
+        facts: ['Корейская регистрация', 'Ниацинамид 2%', 'MELAZERO®', '30 мл'],
       },
       {
         titleKey: 'routineMultiVitaCreamTitle',
         productNumber: '31',
         quantity: 1,
-        step: 'Шаг 4 - Завершающий крем',
+        step: 'Шаг 4 - Финал',
         body:
-          'Питательный крем завершает уход ниацинамидом 2%; измеренное содержание в готовой формуле составило 2,04%. Масло макадамии 13% и сквалан 1% возвращают нормальной и сухой коже мягкость, а показатель поверхностного меланина снизился на 29,742% через две недели.',
-        facts: ['Ниацинамид 2%; измерено 2,04%', 'Масло макадамии 13%', 'Сквалан 1%', '50 г'],
+          'Второй осветляющий шаг, а не просто увлажнение. Те же 2% ниацинамида в креме с маслом макадамии 13% и скваланом 1%, который удерживает работу сыворотки и дарит нормальной и сухой коже мягкость. За две недели поверхностный меланин снизился почти на 30%.',
+        facts: ['Корейская регистрация', 'Ниацинамид 2%', 'Масло макадамии 13%', '50 г'],
       },
     ],
     eanLabel: 'Штрихкод',
@@ -757,14 +764,14 @@ const RU: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'Как пользоваться',
-    title: 'Неделя осветления',
+    title: 'Неделя сияния',
     intro:
-      'Четыре шага утром и вечером, пилинг-гель в одно или два утра и маска в любой вечер. У каждого продукта своя полная инструкция на своей странице; здесь - как они складываются вместе.',
+      'Четыре шага утром и вечером, пилинг-гель раз или два в неделю и маска в любой вечер. У каждого продукта своя полная инструкция на своей странице; здесь - как они складываются вместе.',
     steps: [
       {
-        title: 'Утро: очищение на сухой коже',
+        title: 'Очищение на сухой коже',
         body:
-          'Нанесите очищающее средство на сухое лицо, избегая глаз. Дождитесь воздушной пены, мягко помассируйте круговыми движениями и смойте тёплой водой.',
+          'Нанесите очищающее средство на сухое лицо, избегая глаз. Дождитесь пузырьков, помассируйте круговыми движениями и смойте тёплой водой.',
       },
       {
         title: 'Раз или два в неделю: пилинг-гель, тоже на сухую кожу',
@@ -774,60 +781,60 @@ const RU: BeautyBoxCopy = {
       {
         title: 'Тоник, пока кожа влажная',
         body:
-          'Нанесите бустер руками или распылите после очищения, затем мягко прижмите ладонями перед сывороткой.',
+          'Нанесите тоник руками или распылите сразу после очищения и прижмите ладонями. Он без отдушки, поэтому комфортен даже после пилинга.',
       },
       {
         title: 'Сыворотка утром и вечером',
         body:
-          'После тоника мягко вбейте 2-3 капли, избегая области вокруг глаз. При чувствительной коже начните с небольшого количества; если пощипывание или раздражение не проходит, прекратите применение.',
+          'Две-три капли на всё лицо, пока тоник ещё влажный, затем мягко вбейте, избегая области вокруг глаз. Это осветляющий шаг, его не стоит пропускать.',
       },
       {
         title: 'Крем в конце',
         body:
-          'Разогрейте небольшое количество и распределите поверх сыворотки, утром и вечером. В нём тот же ниацинамид, что и в сыворотке, так что они работают над тоном вместе, а не так, что один просто запечатывает другой.',
+          'Разогрейте небольшое количество и распределите поверх сыворотки, утром и вечером. В нём тот же ниацинамид, что и в сыворотке, так что они работают над тоном вместе.',
       },
       {
         title: 'Маска в любой вечер',
         body:
-          'После очищения и бустера положите полотно на пятнадцать-двадцать минут. Снимите и вбейте оставшуюся эссенцию, не смывая. Используйте в вечер без пилинг-геля.',
+          'На чистое лицо после тоника положите полотно на пятнадцать-двадцать минут. Снимите и вбейте остатки эссенции, не смывая, затем сыворотка и крем как обычно.',
       },
     ],
     note:
-      'Каждое утро завершайте уход солнцезащитным средством. Ultra Shield имеет маркировку SPF 50+ PA++++, измеренный SPF 65,9 и UVA-PF 23,13-24,3. Наносите минимум за 15 минут до выхода и обновляйте не реже чем каждые два часа на улице.',
+      'Осветление делает дневной свет важнее, а не наоборот. Каждое утро завершайте уход солнцезащитным средством поверх крема, иначе день сведёт на нет работу сыворотки. Ultra Shield имеет маркировку SPF 50+ PA++++; наносите минимум за 15 минут до выхода и обновляйте каждые два часа на улице.',
   },
   evidence: {
-    eyebrow: 'Что внутри',
-    title: 'Цифры, которые за этим стоят',
+    eyebrow: 'Доказательства',
+    title: 'Почему это работает',
     intro:
-      'Осветление легко заявить и трудно доказать, поэтому вот на чём держится этот набор: две корейские лицензии, два клинических измерения и концентрации, которые их заслужили.',
+      'Обещать сияние легко. Этот набор стоит на двух корейских регистрациях осветляющих средств, двух измеренных результатах и концентрациях, которые за ними стоят.',
     cards: [
       {
-        value: '28,0%',
-        title: 'Снижение поверхностного меланина, сыворотка, две недели',
+        value: '−28%',
+        title: 'Меньше поверхностного меланина за две недели',
         body:
-          'Показатель поверхностного меланина снизился с 6,190 до 4,457 за две недели применения. В сопутствующей оценке сыворотки участвовала 21 женщина в возрасте от 20 до 59 лет; участницы отметили более ровный вид тона.',
+          'Две недели с сывороткой снизили поверхностный меланин на 28%, а у крема результат почти 30%. В сопутствующей оценке все 21 женщина от 20 до 59 лет, пользовавшиеся сывороткой, отметили более ровный тон.',
       },
       {
         value: '2%',
         title: 'Ниацинамид, и в сыворотке, и в креме',
         body:
-          'Именно это вещество Корея называет в обеих лицензиях, и в одинаковой концентрации на каждом шаге, так что и утро, и вечер работают над тоном. В креме это не только рецептура, но и результат анализа: две производственные партии показали 2.04% и 2.03%.',
+          'Осветляющий актив, который Корея называет для обоих средств, в одной и той же полной дозе, так что и утро, и вечер работают над тоном.',
       },
       {
         value: '1,000 ppm',
-        title: 'Витамин C в сыворотке, как 3-O-этил аскорбиновая кислота',
+        title: 'Стабильный витамин C в сыворотке',
         body:
-          'Стабильное производное витамина C 0,1% поддерживает сияние и более однородный вид тона. Пантенол 1% помогает сохранять мягкость и комфорт кожи.',
+          'Витамин C в форме, которая устойчива в воде и не темнеет во флаконе, а рядом пантенол 1% для мягкой, комфортной текстуры.',
       },
       {
         value: '3%',
         title: 'Целлюлоза в пилинг-геле',
         body:
-          'Целлюлоза стоит шестой в составе и создаёт скатывающуюся текстуру гоммажа. Гель массируют 30-60 секунд на сухой коже, затем смывают.',
+          'Столько растительной целлюлозы, чтобы действительно скатывать отжившие клетки. Энзимы папайи сначала отделяют их, целлюлоза уносит, и под ними проявляется сияние.',
       },
     ],
     footnote:
-      'Сыворотка и крем несут ниацинамид 2% в разных текстурах. В сыворотке также пантенол 1% и стабильное производное витамина C 0,1%; в креме - масло макадамии 13% и сквалан 1%, поэтому он больше подходит нормальной и сухой коже, чем жирной.',
+      'MELAZERO® запатентован и есть только в сыворотке: мушмула и мята работают с пигментом с двух сторон. Крем добавляет своё - масло макадамии 13% и сквалан 1%, поэтому он больше подходит нормальной и сухой коже, чем жирной.',
   },
   suited: {
     eyebrow: 'Кому подходит',
@@ -836,7 +843,7 @@ const RU: BeautyBoxCopy = {
     forList: [
       'Неровный тон, тёмные пятна или следы после высыпаний - это то, что вы действительно хотите исправить',
       'Кожа выглядит тусклой и сероватой, а не сухой, и увлажняющий крем этого не изменил',
-      'Вы хотите, чтобы осветляющий шаг был лицензирован и измерен, а не просто заявлен',
+      'Вы хотите осветление, которое зарегистрировано и измерено, а не просто обещано',
       'Вы хотите весь уход одной покупкой, включая еженедельное отшелушивание, которое большинство наборов пропускает',
       'Вы готовы наносить защиту от солнца ежедневно - именно это удерживает результат осветления',
     ],
@@ -863,12 +870,12 @@ const RU: BeautyBoxCopy = {
     rows: [
       { label: 'Состав набора', value: '6 продуктов: очищающее средство 180 мл, пилинг-гель 100 г, тоник 200 мл, маска с морскими водорослями 25 г, сыворотка 30 мл, крем 50 г' },
       { label: 'Тип кожи', value: 'Тусклая кожа и неровный тон; более насыщенный крем лучше подходит нормальной и сухой коже' },
-      { label: 'Порядок применения', value: 'Очищение, бустер, сыворотка, крем утром и вечером. Пилинг-гель 1-2 раза в неделю, маска 15-20 минут в другой вечер' },
-      { label: 'Регистрация', value: 'Сыворотка и крем - корейские осветляющие функциональные средства, в обоих ниацинамид назван действующим веществом' },
-      { label: 'Клинические данные', value: 'Поверхностный меланин ниже на 27.99% у сыворотки и на 29.74% у крема за две недели. Опрос 21 женщины от 20 до 59 лет' },
+      { label: 'Порядок применения', value: 'Очищение, тоник, сыворотка, крем утром и вечером. Пилинг-гель 1-2 раза в неделю, маска 15-20 минут в другой вечер' },
+      { label: 'Регистрация', value: 'Сыворотка и крем зарегистрированы в Корее как осветляющие средства, в обоих действующее вещество - ниацинамид' },
+      { label: 'Результаты', value: 'Поверхностный меланин ниже на 28% с сывороткой и почти на 30% с кремом за две недели. Оценка 21 женщины от 20 до 59 лет' },
       { label: 'Чувствительность', value: 'Очищение, сыворотка, крем и пилинг-гель содержат ароматические компоненты; в маске масло мяты 0,005%' },
       { label: 'Происхождение', value: 'Сделано в Корее для DTS MG Co., Ltd., Сеул' },
-      { label: 'Тестирование', value: 'Крем прошёл патч-тест на 20 добровольцах с индексом раздражения 0,00. Маске не приписывается отсутствующее в её досье испытание эффективности или дерматологический тест' },
+      { label: 'Тестирование', value: 'Очищение, гель, сыворотка, крем и маска дерматологически протестированы; крем прошёл патч-тест как не раздражающий' },
       { label: 'Штрихкоды', value: 'У каждого продукта свой EAN, указан рядом с позицией выше' },
       { label: 'Скидки', value: 'Цена набора уже является скидкой, поэтому другие предложения на него не суммируются' },
     ],
@@ -878,28 +885,28 @@ const RU: BeautyBoxCopy = {
     title: 'Вопросы, которые стоит задать',
     items: [
       {
-        q: 'Что на самом деле означает корейская лицензия на осветление?',
-        a: 'Это регуляторная категория, а не маркетинговая формулировка. Чтобы продавать продукт как функциональное средство в Корее, нужно представить данные, и регулятор указывает в сертификате ингредиент, отвечающий за эффект. И сыворотка, и крем имеют такую лицензию, и в обеих назван ниацинамид 2%. На практике это значит, что заявление об осветлении в этом наборе проверял кто-то помимо самого бренда.',
+        q: 'Что означает корейская регистрация осветляющего средства?',
+        a: 'Это регуляторная категория, а не маркетинговая формулировка. Чтобы продавать продукт как функциональное средство в Корее, данные передают регулятору, и он называет ингредиент, отвечающий за эффект. Такая регистрация есть и у сыворотки, и у крема, и в обеих назван ниацинамид 2%. Проще говоря, заявление об осветлении проверял кто-то помимо самого бренда.',
       },
       {
         q: 'Нужны ли и сыворотка, и крем, или достаточно одного?',
-        a: 'Каждый можно использовать отдельно. В обоих 2% ниацинамида; сыворотка легче и добавляет пантенол 1% со стабильным производным витамина C 0,1%, а крем насыщеннее благодаря маслу макадамии 13% и сквалану 1%.',
+        a: 'Каждое средство работает само по себе, и оба зарегистрированы. Вместе они дважды наносят те же 2% ниацинамида: сыворотка лёгкая и концентрированная, крем насыщеннее и удерживает её на коже. Если выбирать одно, берите сыворотку: в ней MELAZERO® и витамин C, которых нет в креме.',
       },
       {
         q: 'Как быстро будет видно результат?',
-        a: 'Показатель поверхностного меланина у сыворотки и крема измеряли через две недели. Изменения тона постепенные, поэтому сравнивайте фотографии при одинаковом освещении, не ожидая мгновенного результата.',
+        a: 'Результаты измеряли через две недели, так что для тона это честный ответ. Сделайте фото при одинаковом освещении сейчас и сравните позже. Текстура меняется быстрее, потому что пилинг-гель работает с первого применения.',
       },
       {
         q: 'Как часто пользоваться пилинг-гелем?',
-        a: 'Раз или два в неделю, на сухое лицо после очищения, круговыми движениями до минуты, затем смыть тёплой водой. Начните с одного раза в неделю. Формула действительно кислая, поэтому держите её подальше от глаз и не наносите на повреждённую или воспалённую кожу.',
+        a: 'Раз или два в неделю, на сухое лицо после очищения, круговыми движениями до минуты, затем смыть тёплой водой. Начните с одного раза в неделю, держите подальше от глаз и не наносите на повреждённую или воспалённую кожу.',
       },
       {
         q: 'В наборе действительно только одна тканевая маска?',
-        a: 'Да, одно саше на 25 г. Оставьте маску на 15-20 минут после очищения и бустера в вечер без пилинг-геля, затем вбейте остатки эссенции, не смывая.',
+        a: 'Да, одно саше на 25 г, для вечера, когда коже нужен отдых. Оставьте маску на 15-20 минут после очищения и тоника в вечер без пилинг-геля, затем вбейте остатки эссенции, не смывая.',
       },
       {
         q: 'Можно ли просто купить продукты по отдельности?',
-        a: 'Да, и каждый из них есть по ссылке выше. Набор - это не другая формула и не эксклюзивный объём, это те же шесть позиций за меньшую сумму. Если что-то у вас уже есть, докупить недостающее выйдет дешевле набора.',
+        a: 'Да, и каждый из них есть по ссылке выше. Набор - это не другая формула и не эксклюзивный объём, это те же шесть продуктов за меньшую сумму. Если что-то у вас уже есть, докупить недостающее выйдет дешевле набора.',
       },
     ],
   },

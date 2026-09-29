@@ -61,6 +61,7 @@ import MesopeciaKitProductPage from '@/components/product/hr3/MesopeciaKitProduc
 import HairGenBoosterProductPage from '@/components/product/hr3/HairGenBoosterProductPage'
 import HairGentronProductPage from '@/components/product/hr3/HairGentronProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
+import StampProductPage from '@/components/product/stamp/StampProductPage'
 
 /**
  * A handful of products have bespoke editorial layouts instead of the shared
@@ -202,6 +203,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 60 and 65 are the same Bio-Meso layout with different configuration.
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,
+  '67': StampProductPage,
   '41': BbCushionProductPage,
   // 36 is named after an ingredient dosed at 10 ppm, so its page is built on
   // the humectants and the sheet instead. See the source audit.
@@ -319,6 +321,9 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '44': ['43', '61', '46', '45'],
   // The kit it ships inside, the tonic, the peeling that precedes it, then the shampoo.
   '45': ['47', '43', '46', '44'],
+  // The stamp is sold for the HR³ solution protocol; the scalp peeling and tonic
+  // sit around it, and the Mesopecia Kit bundles a stamp with both.
+  '67': ['45', '46', '47', '43'],
   // The ampoule it precedes, the kit that pairs them, then the daily products.
   '46': ['45', '47', '44', '43'],
   // The two liquids inside the box first: this page argues that anyone wanting a full

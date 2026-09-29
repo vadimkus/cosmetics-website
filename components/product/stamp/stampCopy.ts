@@ -16,91 +16,11 @@ import {
   PRODUCT_67_EN,
   PRODUCT_67_RU_TRANSLATION,
 } from '@/data/product67LocalizedCopy'
+import { dtsToolFacts, pickLocale, type DtsToolCopy, type DtsToolLocale } from '../dtstool/dtsToolCopy'
 
-export type StampLocale = 'en' | 'ar' | 'ru'
+export type StampCopy = DtsToolCopy
 
-interface Card {
-  title: string
-  body: string
-}
-
-export interface StampCopy {
-  eyebrow: string
-  headline: string
-  subheadline: string
-  heroBullets: string[]
-  badges: string[]
-  chooseLength: string
-  lengthNote: string
-  protocolTag: string
-  addToBag: string
-  adding: string
-  added: string
-  inBag: string
-  viewBag: string
-  loginToShop: string
-  outOfStock: string
-  vatIncluded: string
-  freeDelivery: string
-  stats: Array<{ value: string; label: string }>
-  why: { eyebrow: string; title: string; intro: string; cards: Card[] }
-  pairing: { eyebrow: string; title: string; body: string; viewProduct: string }
-  lengths: { eyebrow: string; title: string; body: string }
-  howTo: { eyebrow: string; title: string; frequency: string; steps: Card[]; note: string }
-  cautions: { eyebrow: string; title: string; points: string[]; note: string }
-  routine: { eyebrow: string; title: string; viewProduct: string }
-  details: { eyebrow: string; title: string; rows: Array<{ label: string; value: string }> }
-  faq: { eyebrow: string; title: string; items: Array<{ q: string; a: string }> }
-  backToProducts: string
-}
-
-type Source = {
-  productDetails: string
-  keyFeatures: string
-  benefits: string
-  howToUse: string
-  directions: string
-}
-
-const DETAIL_KEYS = [
-  'type',
-  'availableLengths',
-  'needleCount',
-  'construction',
-  'application',
-  'treatmentAreas',
-  'sterilization',
-  'safety',
-  'certification',
-  'origin',
-] as const
-
-function facts(src: Source, labels: Record<(typeof DETAIL_KEYS)[number], string>) {
-  const details = JSON.parse(src.productDetails) as Record<string, string>
-  const features = JSON.parse(src.keyFeatures) as Array<{ title: string; description: string }>
-  const steps = JSON.parse(src.howToUse) as Array<{ step: string; instruction: string }>
-  return {
-    heroBullets: (JSON.parse(src.benefits) as string[]).slice(0, 4),
-    cards: features.map(f => ({ title: f.title, body: f.description })),
-    steps: steps.map(s => ({ title: s.step, body: s.instruction })),
-    detailRows: DETAIL_KEYS.filter(k => details[k]).map(k => ({ label: labels[k], value: details[k] as string })),
-    // One sentence per caution card.
-    cautions: src.directions.split(/(?<=\.)\s+/).filter(Boolean),
-  }
-}
-
-const en = facts(PRODUCT_67_EN, {
-  type: 'Type',
-  availableLengths: 'Lengths',
-  needleCount: 'Needles',
-  construction: 'Construction',
-  application: 'Technique',
-  treatmentAreas: 'Area',
-  sterilization: 'Sterility',
-  safety: 'Use',
-  certification: 'Certification',
-  origin: 'Origin',
-})
+const en = dtsToolFacts(PRODUCT_67_EN, 'en')
 
 const EN: StampCopy = {
   eyebrow: 'HR³ Matrix · Scalp microneedling',
@@ -189,18 +109,7 @@ const EN: StampCopy = {
   backToProducts: 'All products',
 }
 
-const ru = facts(PRODUCT_67_RU_TRANSLATION, {
-  type: 'Тип',
-  availableLengths: 'Длины',
-  needleCount: 'Иглы',
-  construction: 'Конструкция',
-  application: 'Техника',
-  treatmentAreas: 'Зона',
-  sterilization: 'Стерильность',
-  safety: 'Применение',
-  certification: 'Сертификация',
-  origin: 'Происхождение',
-})
+const ru = dtsToolFacts(PRODUCT_67_RU_TRANSLATION, 'ru')
 
 /* Russian keeps its em dashes where they are correct punctuation. */
 const RU: StampCopy = {
@@ -290,18 +199,7 @@ const RU: StampCopy = {
   backToProducts: 'Все продукты',
 }
 
-const ar = facts(PRODUCT_67_AR_TRANSLATION, {
-  type: 'النوع',
-  availableLengths: 'الأطوال',
-  needleCount: 'الإبر',
-  construction: 'التصنيع',
-  application: 'التقنية',
-  treatmentAreas: 'المنطقة',
-  sterilization: 'التعقيم',
-  safety: 'الاستخدام',
-  certification: 'الشهادات',
-  origin: 'بلد المنشأ',
-})
+const ar = dtsToolFacts(PRODUCT_67_AR_TRANSLATION, 'ar')
 
 const AR: StampCopy = {
   eyebrow: 'HR³ Matrix · الوخز الدقيق لفروة الرأس',
@@ -390,8 +288,8 @@ const AR: StampCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const COPY: Record<StampLocale, StampCopy> = { en: EN, ar: AR, ru: RU }
+const COPY: Record<DtsToolLocale, StampCopy> = { en: EN, ar: AR, ru: RU }
 
 export function getStampCopy(locale: string): StampCopy {
-  return COPY[(locale as StampLocale) in COPY ? (locale as StampLocale) : 'en']
+  return pickLocale(COPY, locale)
 }

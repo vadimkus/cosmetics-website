@@ -188,6 +188,9 @@ PARTS = {
 REVISION = {
     "65": 2,
     "66": 2,
+    # Scalp rework packshot (stamp_scalp/main.jpg): re-shot from the 4x master with
+    # even needle rows, replacing the first stamp_campaign frame.
+    "67": 2,
     # New campaign packshot: two tubes rather than the single one the first
     # cut-out was traced from. A new number, because /images/* is served
     # immutable for a year and anyone who has seen the old file keeps it.

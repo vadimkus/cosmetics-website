@@ -1,7 +1,7 @@
 /**
- * Creates product 67, the GENOSYS DTS Microneedle Stamp: the roller's companion, sold in the
- * same five needle lengths (0.25 / 0.5 / 1.0 / 1.5 / 2.0 mm) at 230 AED, with the "Press here."
- * campaign as its gallery.
+ * Creates product 67, the GENOSYS DTS Microneedle Stamp: a scalp stamp made for HR³ MATRIX HAIR
+ * SOLUTION α, sold in the roller's five needle lengths (0.25 / 0.5 / 1.0 / 1.5 / 2.0 mm) at
+ * 230 AED, with the "Press here." scalp campaign as its gallery.
  *
  * - id and productNumber are both '67', so id-keyed lookups (translations, mobile routes) and
  *   number-keyed ones agree without alias entries.
@@ -27,7 +27,7 @@ import {
 } from '../data/product67LocalizedCopy'
 
 const ID = '67'
-const DIR = '/images/stamp_campaign'
+const DIR = '/images/stamp_scalp'
 const MAIN = `${DIR}/main.jpg`
 const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
@@ -38,7 +38,7 @@ const DATA = {
   nameRu: PRODUCT_67_RU_NAME,
   nameAr: PRODUCT_67_AR_NAME,
   price: PRODUCT_67_PRICE,
-  category: 'Microneedling',
+  category: 'Scalp/Hair',
   image: MAIN,
   images: JSON.stringify(GALLERY),
   inStock: true,
@@ -46,9 +46,9 @@ const DATA = {
   ...PRODUCT_67_EN,
   descriptionRu: PRODUCT_67_RU_DESCRIPTION,
   descriptionAr: PRODUCT_67_AR_DESCRIPTION,
-  skinType: 'normal',
-  targetConcerns: JSON.stringify(['acne-scars', 'anti-aging', 'pore-care']),
-  usage: 'evening',
+  skinType: null,
+  targetConcerns: JSON.stringify(['hair']),
+  usage: 'as-needed',
   ageGroup: 'adult',
   rating: 5,
   noDiscount: false,

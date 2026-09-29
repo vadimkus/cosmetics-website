@@ -982,7 +982,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             {(product.id === '67' || product.productNumber === '67') && (
               <div className="hidden md:block">
                 <ProductRecommendation
-                  recommendedProductId="1"
+                  recommendedProductId="45"
                   currentProduct={product}
                 />
               </div>

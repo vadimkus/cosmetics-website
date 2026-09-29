@@ -504,7 +504,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Devices & Microneedling
 - [Microneedle Roller](https://genosys.ae/products/1){{id:1}} - AED 230 - 450 ultra-thin needles for better product absorption
-- [Microneedle Stamp](https://genosys.ae/products/67){{id:67}} - AED 230 - 140 disk-cut needles pressed straight down for acne scars, lines, small zones and the scalp; 0.25-2.0 mm, sterile single use
+- [Microneedle Stamp](https://genosys.ae/products/67){{id:67}} - AED 230 - Scalp stamp: 140 disk-cut needles pressed straight down along each parting, no tangles; made for HR³ MATRIX HAIR SOLUTION α (0.25-0.5 mm, 10-15 min); 0.25-2.0 mm, sterile single use
 - [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800 - Professional hair growth device
 - [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 460 - Microneedle stamp refills (8 pcs) for HairGen Booster
 - [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 6,600 - Advanced hair device

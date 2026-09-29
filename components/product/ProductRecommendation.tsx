@@ -203,7 +203,7 @@ export default function ProductRecommendation({
         ]
       }
     }
-    if ((currentProduct.id === '67' || currentProduct.productNumber === '67') && recommendedProduct.id === '1') {
+    if ((currentProduct.id === '67' || currentProduct.productNumber === '67') && recommendedProduct.id === '45') {
       return {
         intro: t('product.pc67Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [

@@ -119,9 +119,9 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
-  // Product 67, GENOSYS DTS Microneedle Stamp, "Press here." campaign. The main packshot is
-  // not translated.
-  '/images/stamp_campaign': {
+  // Product 67, GENOSYS DTS Microneedle Stamp, "Press here." scalp campaign. The main packshot
+  // is not translated.
+  '/images/stamp_scalp': {
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },

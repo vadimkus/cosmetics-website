@@ -57,12 +57,31 @@ describe('product 67, GENOSYS DTS Microneedle Stamp', () => {
     }
   })
 
+  it('is a scalp tool paired with HR³ MATRIX HAIR SOLUTION α, with no face use and no hair-loss claim', () => {
+    const quickFacts = (['en', 'ru', 'ar'] as const).map(l => getCatalogQuickFacts('67', l))
+    const copy = JSON.stringify({ en: PRODUCT_67_EN, ru: PRODUCT_67_RU_TRANSLATION, ar: PRODUCT_67_AR_TRANSLATION, quickFacts })
+    for (const forbidden of [
+      // treatment targets only: the keloid-scarring contraindication stays
+      'acne', 'scars', 'wrinkle', 'smile line', ' face', 'Power Solution',
+      'постакне', 'рубцы', 'морщин', 'носогуб', ' лиц',
+      'حب الشباب', 'الندبات', 'خط الابتسامة', 'الوجه',
+      'hair loss', 'regrowth', 'hair growth', 'выпадени', 'рост волос', 'تساقط', 'إنبات',
+    ]) {
+      expect(copy.toLowerCase()).not.toContain(forbidden.toLowerCase())
+    }
+    for (const description of [PRODUCT_67_EN.description, PRODUCT_67_RU_TRANSLATION.description, PRODUCT_67_AR_TRANSLATION.description]) {
+      expect(description).toContain('HR³ MATRIX HAIR SOLUTION α')
+    }
+    const mobile = readFileSync(join(__dirname, '..', '..', 'app', 'api', 'mobile', 'products', '[id]', 'route.ts'), 'utf8')
+    expect(mobile).toMatch(/'67': '45'/)
+  })
+
   it('has six quick facts in every locale and localized campaign slides', () => {
     for (const locale of ['en', 'ru', 'ar'] as const) {
       expect(getCatalogQuickFacts('67', locale)).toHaveLength(6)
     }
-    const slides = Array.from({ length: 12 }, (_, i) => `/images/stamp_campaign/s${i + 1}.jpg`)
-    expect(localizeProductImages(slides, 'ru')[0]).toBe('/images/stamp_campaign/ru/s1.jpg')
-    expect(localizeProductImages(slides, 'ar')[11]).toBe('/images/stamp_campaign/ar/s12.jpg')
+    const slides = Array.from({ length: 12 }, (_, i) => `/images/stamp_scalp/s${i + 1}.jpg`)
+    expect(localizeProductImages(slides, 'ru')[0]).toBe('/images/stamp_scalp/ru/s1.jpg')
+    expect(localizeProductImages(slides, 'ar')[11]).toBe('/images/stamp_scalp/ar/s12.jpg')
   })
 })

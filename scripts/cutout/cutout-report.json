@@ -632,11 +632,11 @@
   {
     "product": "67",
     "status": "ok",
-    "source": "/images/stamp_campaign/main.jpg",
-    "file": "/images/cutout/67.webp",
+    "source": "/images/stamp_scalp/main.jpg",
+    "file": "/images/cutout/67-v2.webp",
     "name": "Microneedle Stamp",
-    "coverage": 0.172,
-    "bytes": 45214,
+    "coverage": 0.173,
+    "bytes": 46240,
     "review": false
   },
   {

@@ -159,13 +159,6 @@ PARTS = {
         (0.720, 0.360, 0.945, 0.860, "vision"),
         (0.735, 0.855, 0.895, 0.945, "keywhite"),
     ],
-    # Kit layout: box and black serum re-traced on their own crops.
-    "62": [
-        (0.150, 0.170, 0.860, 0.640, "keypaper"),
-        # Skin Barrier cream: Vision kept only the half inside the box crop.
-        (0.340, 0.420, 0.560, 0.900, "vision"),
-        (0.470, 0.600, 0.650, 0.930, "vision"),
-    ],
     # Box and four syringes (main-v2): Vision keeps the box and drops the
     # white syringes. Re-traced on their own crop.
     "60": [
@@ -236,8 +229,12 @@ REVISION = {
     "59": 3,
     # Studio pair replacing the render; generator mark painted out first.
     "15": 2,
-    # New studio kit shot replacing the flat render.
-    "62": 3,
+    # "Handle with care." campaign main (bb_sensitive_campaign/main.jpg, 29 Sep 2026): the
+    # six singles in the open kit case, top down, oat foam and sage hardware. The main
+    # carries the title, so v4 is Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/bb_sensitive/campaign/picks/main.png), then normalised. Do not
+    # rebuild 62 from the photograph.
+    "62": 4,
     # "Cold start" campaign packshot (scalp_campaign/main.jpg, 26 Sep 2026) has ice
     # around the bottle, so v2 is normalised from the supplied transparent container
     # PNG (current label) rather than traced from the photograph.

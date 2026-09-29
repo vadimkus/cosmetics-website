@@ -172,38 +172,34 @@
 }
 
 /* --- 62, SENSITIVE SKIN ------------------------------------------------- */
-/* This is the quietest box in the set, and the palette says so on purpose.
-   Its photograph has no coloured carton band - the title is plain black - and
-   the only two saturated objects in it are already spoken for: the pink
-   overnight-mask tube is where 57 took its plum, and the deep green algae sachet
-   was 55's before it moved to the oil-change livery. Taking either would make two box pages read as one.
-
-   So the page goes neutral: a warm oat ground with a desaturated clay accent.
-   That leaves the pink tube and the green sachet to read as accents against the
-   page rather than competing with it, and low chroma is the right register for a
-   box sold to skin that reacts to things. Clay is far enough from 56's saturated
-   marigold (#b4762a) that the two never read as the same warm page. */
+/* Follows the "Handle with care." campaign (Beauty Box style v1): the kit case
+   has oat foam, sage hardware and a bone-white shell, every step pack rests on
+   an oat-linen cushion with a sage piped edge, and the carousel alternates pale
+   oat and sage grounds. So the page keeps its quiet oat ground and takes the
+   grey-green sage as its accent. Low chroma stays the right register for skin
+   that reacts, and sage is grey enough to sit well apart from 59's saturated
+   teal (#0e5b61). */
 .cera-page.bb-oat {
-  --cera-cream: #f9f7f4;
-  --cera-cream-deep: #efe9e1;
-  --cera-blush: #f2ece3;
-  --cera-blush-deep: #d7c9b6;
-  --cera-rose: #7d6a55;
-  --cera-rose-ink: #5a4a38;
-  --cera-ink: #16130f;
-  --cera-body: #363029;
-  --cera-muted: #695f53;
-  --cera-line: #e7dfd3;
+  --cera-cream: #f9f7f2;
+  --cera-cream-deep: #efe9dd;
+  --cera-blush: #f1ece1;
+  --cera-blush-deep: #c9d3c3;
+  --cera-rose: #5e7f63;
+  --cera-rose-ink: #4e6b53;
+  --cera-ink: #141612;
+  --cera-body: #33382f;
+  --cera-muted: #5f665a;
+  --cera-line: #e3ddd0;
   --cera-shot: #ffffff;
 }
 
 .bb-oat .cera-stage {
-  box-shadow: 0 20px 52px -34px rgba(90, 74, 56, 0.28);
+  box-shadow: 0 20px 52px -34px rgba(78, 107, 83, 0.30);
 }
 
 @media (hover: hover) {
   .bb-oat .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(22, 19, 15, 0.04), 0 26px 48px -26px rgba(90, 74, 56, 0.3);
+    box-shadow: 0 2px 4px rgba(20, 22, 18, 0.04), 0 26px 48px -26px rgba(78, 107, 83, 0.32);
   }
 }
 

@@ -13,32 +13,32 @@
  */
 
 /* --- 59, DEEP MOISTURIZING ---------------------------------------------- */
-/* The carton puts DEEP MOISTURIZING on a pale cyan band, and the five products
-   inside are a white cleanser, a white toner, a white tube, a black dropper
-   bottle and three deep green sachets. A water blue picks up the carton band,
-   keeps five different packshots from fighting each other, and separates the
-   page from 61's slate-teal, the nearest neighbour in the bespoke set. */
+/* Follows "The refill." campaign (Beauty Box style v1): the kit case has aqua
+   foam, a deep-teal stripe and teal hardware on a bone-white shell, and the
+   carousel alternates pale aqua and deep teal grounds under pool light. So the
+   page takes a pale aqua-white ground, aqua panels with a soft aqua edge and the
+   case's deep teal as its accent. */
 .cera-page.bb-water {
-  --cera-cream: #f4f8fb;
-  --cera-cream-deep: #e6eff5;
-  --cera-blush: #e2eef6;
-  --cera-blush-deep: #c2dcec;
-  --cera-rose: #4887a9;
-  --cera-rose-ink: #235a72;
-  --cera-ink: #101a1f;
-  --cera-body: #2f3d45;
-  --cera-muted: #536671;
-  --cera-line: #d8e4ec;
+  --cera-cream: #f3faf9;
+  --cera-cream-deep: #e3f3f1;
+  --cera-blush: #e2f3f1;
+  --cera-blush-deep: #b9e3df;
+  --cera-rose: #1b7b80;
+  --cera-rose-ink: #0e5b61;
+  --cera-ink: #0d1c20;
+  --cera-body: #2c3f42;
+  --cera-muted: #52686a;
+  --cera-line: #d3e8e6;
   --cera-shot: #ffffff;
 }
 
 .bb-water .cera-stage {
-  box-shadow: 0 20px 52px -34px rgba(35, 90, 114, 0.32);
+  box-shadow: 0 20px 52px -34px rgba(14, 91, 97, 0.32);
 }
 
 @media (hover: hover) {
   .bb-water .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(16, 26, 31, 0.04), 0 26px 48px -26px rgba(35, 90, 114, 0.34);
+    box-shadow: 0 2px 4px rgba(13, 28, 32, 0.04), 0 26px 48px -26px rgba(14, 91, 97, 0.34);
   }
 }
 

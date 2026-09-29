@@ -18,7 +18,8 @@
  *      impurities without irritation to skin."
  *     "Apply the product on dry face, avoiding eyes. When oxygen bubbles occur,
  *      give a circular massage and rinse off with tepid water."
- *     Methyl Perfluoroisobutyl Ether 3.000% (the bubble agent). pH 5.86.
+ *     Methyl Perfluoroisobutyl Ether 8% is the bubble agent (product 10's formula
+ *     map, NF 38; the 3.000% this block used to quote was stale). pH 5.86.
  *     Contains Sodium Laureth Sulfate, Parfum, Limonene.
  *
  *   Snow Booster 200ml
@@ -85,6 +86,17 @@
  *   ("3 months of skincare")      lasts, so the page states pack sizes and the
  *                                 mask count and lets the reader do the rest.
  *
+ * ─── Voice (29 Sep 2026, "The refill." campaign) ────────────────────────────
+ *
+ *   The page sells the box in the campaign's voice: desert sun outside and air
+ *   conditioning inside leave skin running on empty, and the routine refills it
+ *   and keeps it full. Figures stay as above. The Russian and Arabic keep the
+ *   audited cautions: the SNOW O₂ pack's pregnancy and breastfeeding warning, the
+ *   fragrance and essential oils by product, no weekly mask frequency, and none of
+ *   the phrasings the product 59 test forbids ("layer by layer", instant cooling,
+ *   oxygen bubbles, mushrooms, barrier strengthening). The dermatologically tested
+ *   mark is printed on the cleanser, toner, serum and cream packs alike.
+ *
  * See beautyBoxCopy.ts for the rules every box module follows, including why no
  * price appears in any of them.
  */
@@ -94,16 +106,16 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'The whole hydration routine, in one box.',
+  headline: 'The refill.',
   subheadline:
-    'Five full-size GENOSYS products that were built to work in sequence: a cleanser that does not strip, a toner that resets pH, a serum that pulls water in, a cream that keeps it there, and three sheet masks for the days skin feels tight. Bought together they cost less than the same five bought one at a time.',
+    'Desert sun outside, air conditioning inside: skin gives its water away all day. This box puts it back and keeps it there. A cleanser that foams up on its own, a fragrance-free toner with 3% betaine, a serum with 2,000 ppm hydrolyzed hyaluronic acid that draws water in, and a cream that holds it: hydration up 82% after one use, and still higher 72 hours later. Plus three sea algae sheet masks for the evenings skin feels tight.',
   heroBullets: [
-    'For dry and dehydrated skin, and for skin that drinks a serum and still feels tight by evening',
-    'Every item is the full retail size sold on its own page, not a travel sample',
-    'Hydration measured 82% higher immediately after one use of the cream, and still higher 72 hours later',
-    'Made in Korea by DTS MG. Cleanser, toner, serum and cream all dermatologically tested',
+    'Made for dry, tight and dehydrated skin, and for skin that drinks a serum and is thirsty again by evening',
+    'Hydration up 82% straight after one use of the cream, and still measurably higher 72 hours later',
+    'A hyaluron duo: 2,000 ppm hydrolyzed hyaluronic acid in the serum, high-weight sodium hyaluronate in the cream',
+    'Four full sizes and three sheet masks, for less than the five bought one by one',
   ],
-  kitSize: '5 products',
+  kitSize: '7 pieces',
   fullSizeNote: 'Full sizes',
   vatIncluded: 'VAT included',
   /* Delivery is free over 1,000 AED (`freeShippingThreshold` in
@@ -119,18 +131,18 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Full retail sizes', 'Dubai in 1-2 hours'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', '7 pieces', 'Dubai in 1-2 hours'],
   stats: [
-    { value: '5', label: 'full-size products, in the order you use them' },
-    { value: '82%', label: 'more hydration immediately after one application of the cream' },
+    { value: '+82%', label: 'hydration straight after one use of the cream' },
     { value: '72 h', label: 'and still measurably higher three days later' },
-    { value: 'Korea', label: 'made by DTS MG in Seoul, the lab GENOSYS was built around' },
+    { value: '2,000 ppm', label: 'hydrolyzed hyaluronic acid in the serum' },
+    { value: '7', label: 'pieces: four full sizes and three sheet masks' },
   ],
   contents: {
     eyebrow: 'What is inside',
-    title: 'Five products, one sequence',
+    title: 'Five products, one refill',
     intro:
-      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. What the box does is put the whole sequence in your hands at once, for less than the pieces.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. Together they run the whole refill: clean without stripping the day into your skin, give it a first drink, draw water in, then hold it there, with three masks for the evenings it needs more.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -138,39 +150,44 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 1 - Cleanse',
         body:
-          'Goes on to a dry face, where oxygen bubbles form on their own and lift make-up and the day off the skin. Massage in circles as they appear, then rinse with tepid water: no scrubbing, and nothing left behind that the toner has to correct.',
+          'Goes on a dry face and foams up on its own, lifting make-up and the day off your skin. Massage in circles as the foam rises, then rinse with tepid water. No scrubbing.',
+        facts: ['Foams on its own', 'Goes on dry skin', 'Rinse with tepid water', '180ml'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
         productNumber: '16',
         quantity: 1,
-        step: 'Step 2 - Tone',
+        step: 'Step 2 - First sip',
         body:
-          'A daily toner for every skin type that moisturises and calms with botanical extracts while it brings pH back down after cleansing. That matters here, because the serum works on skin that is already damp.',
+          'A daily toner for every skin type. Betaine at 3% and pumpkin ferment give skin its first drink the moment it is clean, so the serum lands on skin that is already damp. Completely fragrance-free.',
+        facts: ['Fragrance-free', 'Betaine 3%', 'Smooth on or spray', '200ml'],
       },
       {
         titleKey: 'routineHyaluronSerumTitle',
         productNumber: '18',
         quantity: 1,
-        step: 'Step 3 - Water in',
+        step: 'Step 3 - Draw it in',
         body:
-          'The step that does the pulling. Hyaluronic acid across low, medium and high molecular weights replenishes moisture layer by layer, glyceryl glucoside supports the water-transport channels in the skin itself, and PENTAVITIN™ binds water to the surface so it stops running off.',
+          'The step that pulls water in. Hydrolyzed hyaluronic acid at 2,000 ppm and PENTAVITIN at 0.615%, in a light coconut-water serum. Pat two or three drops over face and neck, morning and night.',
+        facts: ['Hydrolyzed HA 2,000 ppm', 'PENTAVITIN 0.615%', 'Light, fast-sinking', '30ml'],
       },
       {
         titleKey: 'routineHyaluronCreamTitle',
         productNumber: '29',
         quantity: 1,
-        step: 'Step 4 - Water sealed',
+        step: 'Step 4 - Lock it in',
         body:
-          'The step that does the holding, and the one the 72-hour test was run on. Same hyaluronic complex, plus xylitol and erythritol for a cooling drop in skin temperature the moment it goes on, which is why it is the layer people feel first.',
+          'The step that holds it, and the one the 82% was measured on. High-weight sodium hyaluronate at 1,000.9 ppm stays on the surface and keeps water from leaving, with glycerin at 9% and PENTAVITIN. Hydration was still higher 72 hours after one use.',
+        facts: ['+82% after one use', 'Glycerin 9%', 'Sodium hyaluronate 1,000.9 ppm', '50g'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 3,
-        step: 'When skin needs a reset',
+        step: 'The top-up, any tight evening',
         body:
-          'Three Eucalace® sheets, each soaked in a sea algae complex with Centella Asiatica. Fifteen to twenty minutes after toning on the evenings when skin feels tight, then carry on with the serum and cream as usual.',
+          'Three Eucalace® eucalyptus sheets, each soaked in 25 g of essence with sea algae and centella asiatica. Fifteen to twenty minutes after the toner, then lift it off, pat the rest in and carry on with the serum and cream.',
+        facts: ['Three sheets', 'Eucalace® sheet', '15-20 minutes', '25g each'],
       },
     ],
     eanLabel: 'Barcode',
@@ -186,82 +203,89 @@ const EN: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'How to use it',
-    title: 'Morning and evening, in this order',
+    title: 'Refill twice a day',
     intro:
-      'Four steps twice a day, and a sheet mask slotted in on the evenings skin asks for it. Each product carries its own full instructions on its own page; this is how they fit together.',
+      'Four steps morning and night, and a sheet mask on the evenings skin asks for more. Each product carries its own full instructions on its own page; this is how they fit together.',
     steps: [
       {
         title: 'Cleanse on dry skin',
         body:
-          'Pump the cleanser on to a dry face, avoiding the eyes. Wait for the oxygen bubbles, massage in circles, rinse with tepid water. Morning and evening.',
+          'Pump the cleanser on to a dry face, avoiding the eyes. Let the foam rise, massage in circles, rinse with tepid water.',
       },
       {
-        title: 'Tone while skin is damp',
+        title: 'Tone while skin is still damp',
         body:
-          'Sweep or spray the toner on straight after cleansing, before skin has dried, and press it in with your palms. It can also go over make-up during the day.',
+          'Smooth or spray the toner on straight after cleansing and press it in with your palms. No rinsing.',
       },
       {
         title: 'Serum, two or three drops',
         body:
-          'Pat two or three drops over the face and neck and let it settle rather than rubbing it in. Morning and evening, always before the cream.',
+          'Pat it over face and neck and let it settle rather than rubbing it in. Morning and evening, always before the cream.',
       },
       {
-        title: 'Cream to close',
+        title: 'Cream to lock it in',
         body:
-          'A small amount over face and neck, upward strokes until it disappears. In the morning, finish with your sunscreen.',
+          'A small amount over face and neck, smoothed upward until it disappears. In the morning, finish with your sunscreen. Keep the cream out of the fridge.',
       },
       {
-        title: 'Mask on the tight evenings',
+        title: 'The mask, any tight evening',
         body:
-          'After toning, lay a sheet on and leave it 15 to 20 minutes. Take it off, pat in what is left of the essence, then serum and cream as normal. Three sheets in the box.',
+          'After the toner, lay a sheet on and leave it 15 to 20 minutes. Lift it off, pat in what is left of the essence, then serum and cream as normal. Use each sheet as soon as it is opened.',
       },
     ],
     note:
-      'Sunscreen is the one thing this routine assumes and does not contain. Hydration without daily protection is a short-lived result.',
+      'Sunscreen is the one step this routine assumes and does not contain. Add it every morning over the cream, and the water you put back stays there.',
   },
   evidence: {
-    eyebrow: 'The clinical results',
+    eyebrow: 'The proof',
     title: 'Measured on real skin',
     intro:
-      'The serum and the cream were both put through clinical measurement. Here is what came back.',
+      'Hydration is easy to promise. The serum and the cream were both put through clinical measurement, and here is what came back.',
     cards: [
       {
-        value: '82%',
-        title: 'Hydration, immediately after one use of the cream',
+        value: '+82%',
+        title: 'Hydration, straight after one use',
         body:
-          'A single application, measured against the same skin before use. The panel was 21 adult women aged 20 to 59.',
+          'One application of the hyaluron cream, measured against the same skin before use, on a panel of 21 women aged 20 to 59.',
       },
       {
         value: '72 h',
-        title: 'Still measurably higher three days later',
+        title: 'Still higher three days later',
         body:
-          'The same single application. Hydration was significantly above baseline both immediately after use and at 72 hours: a 72-hour hydration persistence effect.',
+          'The same single application: hydration was still measurably above where it started 72 hours on.',
       },
       {
-        value: 'Serum',
-        title: 'Deep hydration improved immediately',
+        value: '2,000 ppm',
+        title: 'Hydrolyzed hyaluronic acid in the serum',
         body:
-          'In the same 21-subject panel, the serum significantly improved deep skin hydration straight after a single use. That is the layer that pulls water in; the cream above is the one that keeps it there.',
+          'The step that draws water in, with PENTAVITIN at 0.615% in a coconut-water base. On the same panel it improved skin hydration straight after one use.',
+      },
+      {
+        value: '3%',
+        title: 'Betaine in the fragrance-free toner',
+        body:
+          'The toner\'s hydrator, so skin gets its first drink the moment it is clean and the serum lands on damp skin.',
       },
     ],
     footnote:
-      'Both readings come from DTS MG clinical testing on a panel of 21 adult women aged 20 to 59, after a single application.',
+      'Both clinical readings come from DTS MG testing on 21 adult women aged 20 to 59, after a single application. The 72-hour result belongs to the cream.',
   },
   suited: {
     eyebrow: 'Suitability',
     title: 'Who this box is for',
     forTitle: 'A good match if',
     forList: [
+      'Your skin feels tight by the afternoon, or looks flat and papery after a day in air conditioning',
       'Your skin is dry, or oily and dehydrated at the same time',
       'Serum alone stops working by the afternoon and you want the layer that holds it',
       'You are starting a routine from scratch and would rather buy the sequence than guess at it',
-      'You are pregnant or breastfeeding: the serum and the cream are both cleared as safe, so bring the other three to your doctor',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
-      'Fragrance is a problem for you. The cleanser and the cream are both fragranced, and so is the cleanser in every other GENOSYS box, so buy the toner, serum or mask on their own rather than a kit',
+      'Fragrance or essential oils set your skin off. The cleanser carries fragrance and limonene, the serum and cream geranium oil, the mask peppermint oil, so buy the pieces that suit you on their own. The toner is fragrance-free',
       'You are treating acne or congestion rather than dryness. The Problem Skin Care box is built for that',
       'Pigmentation or tone is the goal. The Skin Brightening box targets it directly',
+      'You are pregnant or breastfeeding. The SNOW O₂ pack says not to use it then, so talk to your doctor first',
       'You already own two or three of these five. Buying the missing pieces on their own will cost you less',
     ],
     alternativesLabel: 'The boxes mentioned above',
@@ -270,15 +294,17 @@ const EN: BeautyBoxCopy = {
       { productNumber: '56', label: 'Skin Brightening Beauty Box' },
     ],
     note:
-      'The cleanser, toner, serum and cream are all dermatologically tested. Skin is individual, though, so if one product does not agree with yours, drop that one rather than the whole routine.',
+      'Cleanser, toner, serum and cream are all dermatologically tested. Skin is individual, though, so if one product does not agree with yours, drop that one rather than the whole routine.',
   },
   details: {
     eyebrow: 'Specifications',
     title: 'The details',
     rows: [
-      { label: 'Contents', value: '5 products: cleanser 180ml, toner 200ml, serum 30ml, cream 50g, 3 sheet masks' },
-      { label: 'Skin type', value: 'Dry and dehydrated skin. The toner and cleanser suit all skin types' },
-      { label: 'Routine', value: 'Cleanse, tone, serum, cream, morning and evening. Mask as needed' },
+      { label: 'Contents', value: '7 pieces: cleanser 180ml, toner 200ml, serum 30ml, cream 50g, three sea algae sheet masks 25g each' },
+      { label: 'Skin type', value: 'Dry, tight and dehydrated skin. The toner and cleanser suit all skin types' },
+      { label: 'Routine', value: 'Cleanse, tone, serum, cream, morning and evening. A mask on any tight evening' },
+      { label: 'Results', value: 'Hydration up 82% straight after one use of the cream, still higher at 72 hours. Panel of 21 women aged 20 to 59' },
+      { label: 'Fragrance', value: 'The toner is fragrance-free. The cleanser carries fragrance, the serum and cream geranium oil, the mask peppermint oil' },
       { label: 'Origin', value: 'Made in Korea by DTS MG Co., Ltd., Seoul' },
       { label: 'Testing', value: 'Cleanser, toner, serum and cream all dermatologically tested' },
       { label: 'Barcodes', value: 'Each product carries its own EAN, listed with the item above' },
@@ -290,8 +316,12 @@ const EN: BeautyBoxCopy = {
     title: 'Questions worth asking',
     items: [
       {
+        q: 'Why a serum and a cream, when both carry hyaluronic acid?',
+        a: 'Because they do two different jobs. The serum carries hydrolyzed hyaluronic acid, the small form, at 2,000 ppm, and draws water in. The cream carries high-weight sodium hyaluronate, which stays on the surface and keeps that water from leaving. One fills, the other seals, and the 82% was measured on the cream.',
+      },
+      {
         q: 'Can I just buy the products separately?',
-        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same five units at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
+        a: 'Yes, and each one is linked above. The box is not a different formula or an exclusive size, it is the same products at a lower total. If you already own some of them, buying the gaps will cost you less than the box.',
       },
       {
         q: 'Are these the home sizes or the professional ones?',
@@ -299,19 +329,19 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'How long will it last?',
-        a: 'That depends on how heavy-handed you are. What is fixed: the cleanser, toner, serum and cream are the full retail units, used twice a day, and there are exactly three mask sheets, which is three sessions.',
+        a: 'That depends on how generously you apply. What is fixed: the cleanser, toner, serum and cream are the full retail units, used twice a day, and there are exactly three mask sheets, which is three evenings.',
       },
       {
         q: 'Can I use it while pregnant or breastfeeding?',
-        a: 'The serum and the cream are both cleared as safe for pregnant and breastfeeding women and for children. For the cleanser, the toner and the mask, check with your doctor.',
+        a: 'The SNOW O₂ pack says not to use it during pregnancy or breastfeeding, so talk to your doctor before starting the routine.',
       },
       {
         q: 'My skin is reactive. Is this the right box?',
-        a: 'Probably not. The cleanser contains fragrance and limonene, and the cream contains geranium flower oil, citronellol and geraniol. None of that is a problem for most people and all of it is named on the labels, but if fragrance sets your skin off, no box avoids it: all six GENOSYS boxes are built around the same cleanser. Buy the pieces that suit you individually instead. The toner in this box is fragrance-free.',
+        a: 'Introduce the products one at a time. The cleanser contains fragrance and limonene, the serum and cream geranium oil with citronellol, the cream geraniol too, and the mask peppermint oil. All of it is named on the labels. If fragrance sets your skin off, no box avoids it, because every GENOSYS box is built around the same cleanser, so buy the pieces that suit you instead. The toner is fragrance-free.',
       },
       {
         q: 'Where does the mask fit if there are only three?',
-        a: 'Treat them as a rescue rather than a ritual. On the evenings skin feels tight or looks flat, mask after toning and then finish with the serum and cream. Sold on its own the mask is meant for two or three uses a week, so if you want it that often, buy sheets separately.',
+        a: 'Treat them as a top-up rather than a ritual. On the evenings skin feels tight or looks flat, mask after the toner, then finish with the serum and cream. Use each sheet as soon as it is opened. If you want masks more often, they are sold on their own too.',
       },
     ],
   },
@@ -320,14 +350,14 @@ const EN: BeautyBoxCopy = {
 const AR: BeautyBoxCopy = {
   eyebrow: 'صندوق الجمال',
   backToProducts: 'المنتجات',
-  headline: 'سبع قطع لروتين ترطيب متكامل.',
+  headline: 'املئيها من جديد.',
   subheadline:
-    'أربعة منتجات GENOSYS كاملة الحجم وثلاثة أقنعة ورقية: منظف، ومعزز، وسيروم هيالورون، وكريم هيالورون للاستخدام بترتيب واضح صباحاً ومساءً. ويحسب الموقع قيمة المجموعة مقارنة بشراء مكوناتها منفردة وفق الأسعار الحالية.',
+    'شمس الصحراء في الخارج والمكيّف في الداخل: البشرة تفقد ماءها طوال اليوم. هذا الصندوق يعيد إليها الماء ويحافظ عليه. منظف يتحوّل إلى رغوة بنفسه، وتونر بلا عطر مع بيتايين 3%، وسيروم بحمض الهيالورونيك المتحلل 2,000 جزء في المليون يجذب الماء، وكريم يحبسه: ارتفع الترطيب 82% بعد استخدام واحد وبقي أعلى بعد 72 ساعة. ومعها ثلاثة أقنعة ورقية بالطحالب البحرية للأمسيات التي تشعرين فيها بشدّ البشرة.',
   heroBullets: [
-    'للبشرة الجافة والمتعطشة للماء التي تفضّل طبقات خفيفة ومنظمة',
-    'أربعة أحجام كاملة للبيع وثلاثة أقنعة 25 غ، أي سبع قطع بالضبط',
-    'في اختبار الكريم، ارتفعت قيمة الترطيب 82% بعد تطبيق واحد وظلت أعلى بدلالة بعد 72 ساعة',
-    'السيروم 30 مل والكريم 50 غ ثنائي متناسق بتركيبتين مختلفتين',
+    'للبشرة الجافة والمشدودة والمتعطشة للماء، وللبشرة التي تشرب السيروم ثم تعطش مجدداً مع المساء',
+    'ارتفع الترطيب 82% مباشرة بعد استخدام واحد للكريم، وبقي أعلى بوضوح بعد 72 ساعة',
+    'ثنائي الهيالورون: حمض الهيالورونيك المتحلل 2,000 جزء في المليون في السيروم، وهيالورونات الصوديوم عالية الوزن الجزيئي في الكريم',
+    'أربعة أحجام كاملة وثلاثة أقنعة، بسعر أقل من شراء الخمسة منفردة',
   ],
   kitSize: '7 قطع',
   fullSizeNote: 'أحجام كاملة',
@@ -340,18 +370,18 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّلي الدخول للشراء',
   inBag: 'في سلتك',
   viewBag: 'عرض السلة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'أحجام كاملة', 'دبي خلال ساعة إلى ساعتين'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', '7 قطع', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
-    { value: '7', label: 'قطع: أربعة منتجات كاملة وثلاثة أقنعة' },
+    { value: '+82%', label: 'ترطيب مباشرة بعد استخدام واحد للكريم' },
+    { value: '72 ساعة', label: 'وبقي أعلى بوضوح بعد ثلاثة أيام' },
     { value: '2,000 ppm', label: 'حمض الهيالورونيك المتحلل في السيروم' },
-    { value: '82%', label: 'ارتفاع قيمة الترطيب بعد تطبيق واحد للكريم' },
-    { value: '72 ساعة', label: 'وظلت النتيجة أعلى بدلالة من خط الأساس' },
+    { value: '7', label: 'قطع: أربعة أحجام كاملة وثلاثة أقنعة' },
   ],
   contents: {
     eyebrow: 'ماذا يوجد داخله',
-    title: 'أربعة منتجات وثلاثة أقنعة',
+    title: 'خمسة منتجات لإعادة الملء',
     intro:
-      'تقرأ الصفحة سعر كل مكوّن وحجمه وحالته مباشرة من الكتالوج. لذا يبقى حساب القيمة محدثاً، وتظهر الأقنعة الثلاثة كقطع منفصلة ضمن العدد الإجمالي.',
+      'لكل منتج هنا صفحته وسعره، فيمكنك قراءة تفاصيل أي منها قبل الشراء. ومعاً تؤدي إعادة الملء كاملة: تنظيف، ثم رشفة أولى، ثم جذب الماء، ثم حبسه، مع ثلاثة أقنعة للأمسيات التي تحتاج فيها البشرة إلى المزيد.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -359,15 +389,17 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 1 - التنظيف',
         body:
-          'منظف للوجه بحجم 180 مل. يوضع على وجه جاف مع تجنب العينين، ثم يدلك بحركات دائرية ويشطف بالماء الفاتر.',
+          'منظف للوجه بحجم 180 مل يوضع على وجه جاف مع تجنب العينين ويتحوّل إلى رغوة بنفسه. دلّكي بحركات دائرية ثم اشطفي بالماء الفاتر، من دون فرك.',
+        facts: ['يتحوّل إلى رغوة بنفسه', 'على بشرة جافة', 'يشطف بالماء الفاتر', '180 مل'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
         productNumber: '16',
         quantity: 1,
-        step: 'الخطوة 2 - المعزز',
+        step: 'الخطوة 2 - الرشفة الأولى',
         body:
-          'معزز مائي بحجم 200 مل للاستخدام بعد التنظيف صباحاً ومساءً. يحتوي على البيتايين 3% ويساعد على إبقاء البشرة مريحة قبل السيروم.',
+          'تونر يومي بحجم 200 مل لكل أنواع البشرة. البيتايين 3% يمنح البشرة رشفتها الأولى بعد التنظيف مباشرة، ليصل السيروم إلى بشرة رطبة. بلا عطر تماماً.',
+        facts: ['بلا عطر', 'بيتايين 3%', 'باليدين أو كرذاذ', '200 مل'],
       },
       {
         titleKey: 'routineHyaluronSerumTitle',
@@ -375,23 +407,26 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 3 - جذب الماء',
         body:
-          'سيروم خفيف بحمض الهيالورونيك المتحلل 2,000 جزء في المليون وPENTAVITIN بنسبة 0.615%، ضمن قاعدة مرطبة مجموعها 16.02%.',
+          'الخطوة التي تجذب الماء. سيروم خفيف بحمض الهيالورونيك المتحلل 2,000 جزء في المليون وPENTAVITIN بنسبة 0.615%. ربّتيه على الوجه والرقبة صباحاً ومساءً.',
+        facts: ['هيالورونيك متحلل 2,000 ppm', 'PENTAVITIN ‏0.615%', 'خفيف وسريع الامتصاص', '30 مل'],
       },
       {
         titleKey: 'routineHyaluronCreamTitle',
         productNumber: '29',
         quantity: 1,
-        step: 'الخطوة 4 - الاحتفاظ بالرطوبة',
+        step: 'الخطوة 4 - حبس الماء',
         body:
-          'كريم خفيف يحتوي على الغليسرين 9% وPENTAVITIN بنسبة 0.615% وهيالورونات الصوديوم عالية الوزن الجزيئي 1,000.9 جزء في المليون. في الاختبار ارتفعت قيمة الترطيب 82% بعد تطبيق واحد وظلت أعلى بدلالة بعد 72 ساعة.',
+          'الخطوة التي تحبس الماء، وعليها قيست نسبة 82%. هيالورونات الصوديوم عالية الوزن الجزيئي 1,000.9 جزء في المليون مع غليسرين 9% وPENTAVITIN بنسبة 0.615%. بقي الترطيب أعلى بعد 72 ساعة من استخدام واحد.',
+        facts: ['+82% بعد استخدام واحد', 'غليسرين 9%', 'هيالورونات الصوديوم 1,000.9 ppm', '50 غ'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 3,
-        step: 'مساء اختياري - القناع',
+        step: 'جرعة إضافية في أي مساء جاف',
         body:
-          'ثلاثة أقنعة Eucalace® من ألياف الأوكالبتوس، بقاعدة تضم ميثيل بروبانديول 10% وغليسرين 5.035% وبيتايين 0.5%. يترك القناع 15-20 دقيقة ويستخدم فور فتحه.',
+          'ثلاثة أقنعة Eucalace® من ألياف الأوكالبتوس، كل منها بوزن 25 غ مع الطحالب البحرية والسنتيلا. يترك القناع 15-20 دقيقة بعد التونر، ثم يرفع وتربت الخلاصة المتبقية ويتبع بالسيروم والكريم. يستخدم فور فتحه.',
+        facts: ['ثلاثة أقنعة', 'قناع Eucalace®', '15-20 دقيقة', '25 غ لكل قناع'],
       },
     ],
     eanLabel: 'الباركود',
@@ -407,9 +442,9 @@ const AR: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
-    title: 'صباحاً ومساءً، بهذا الترتيب',
+    title: 'املئيها مرتين يومياً',
     intro:
-      'أربع خطوات صباحاً ومساءً، ويضاف القناع في مساء منفصل بعد المعزز وقبل السيروم والكريم. لا تحدد عبوة القناع وتيرة أسبوعية.',
+      'أربع خطوات صباحاً ومساءً، ويضاف القناع في مساء منفصل بعد التونر وقبل السيروم والكريم. لا تحدد عبوة القناع وتيرة أسبوعية.',
     steps: [
       {
         title: 'التنظيف على بشرة جافة',
@@ -417,9 +452,9 @@ const AR: BeautyBoxCopy = {
           'وزعي المنظف على وجه جاف مع تجنب العينين، ودلكي بحركات دائرية ثم اشطفي بالماء الفاتر.',
       },
       {
-        title: 'المعزز بعد التنظيف',
+        title: 'التونر بعد التنظيف',
         body:
-          'ضعي المعزز باليدين أو كرذاذ على بشرة نظيفة صباحاً ومساءً، ولا تشطفيه.',
+          'ضعي التونر باليدين أو كرذاذ على بشرة نظيفة صباحاً ومساءً، ولا تشطفيه.',
       },
       {
         title: 'السيروم',
@@ -427,62 +462,69 @@ const AR: BeautyBoxCopy = {
           'ضعي السيروم على الوجه وربتي بلطف بأطراف الأصابع صباحاً ومساءً، قبل الكريم.',
       },
       {
-        title: 'الكريم',
+        title: 'الكريم لحبس الماء',
         body:
           'وزعي الكريم بلطف بعد السيروم. في الصباح، اختتمي بواقي شمس مناسب. لا تحفظي الكريم في الثلاجة.',
       },
       {
-        title: 'القناع في مساء إضافي',
+        title: 'القناع في أي مساء جاف',
         body:
-          'بعد المعزز، ضعي قناعاً واحداً واتركيه 15-20 دقيقة. ارفعيه وربتي الخلاصة المتبقية، ثم ضعي السيروم والكريم. استخدمي القناع فور فتحه.',
+          'بعد التونر، ضعي قناعاً واحداً واتركيه 15-20 دقيقة. ارفعيه وربتي الخلاصة المتبقية، ثم ضعي السيروم والكريم. استخدمي القناع فور فتحه.',
       },
     ],
     note:
-      'تحتوي المجموعة على ثلاثة أقنعة فقط، ولا تحدد العبوة وتيرة أسبوعية. واقي الشمس غير موجود في المجموعة ويضاف صباحاً.',
+      'واقي الشمس هو الخطوة التي يفترضها هذا الروتين ولا يحتويها. ضعيه كل صباح فوق الكريم ليبقى الماء الذي أعدتِه في مكانه.',
   },
   evidence: {
-    eyebrow: 'النتائج السريرية',
-    title: 'نتيجتان بشروطهما الدقيقة',
+    eyebrow: 'الدليل',
+    title: 'قياس على بشرة حقيقية',
     intro:
-      'تعرض النتائج التالية ما قيس لكل منتج على حدة، ولا تنسب إلى المجموعة كلها.',
+      'الوعد بالترطيب سهل. السيروم والكريم خضعا كلاهما لقياس سريري، وهذه النتائج.',
     cards: [
       {
-        value: '82%',
-        title: 'ارتفاع قيمة الترطيب بعد تطبيق واحد للكريم',
+        value: '+82%',
+        title: 'ترطيب مباشرة بعد استخدام واحد',
         body:
-          'قورنت النتيجة بخط الأساس لدى 21 امرأة بالغة بين 20 و59 عاماً.',
+          'تطبيق واحد لكريم الهيالورون، قورن بالبشرة نفسها قبل الاستخدام، لدى 21 امرأة بين 20 و59 عاماً.',
       },
       {
         value: '72 ساعة',
-        title: 'بقيت النتيجة أعلى بدلالة بعد 72 ساعة',
+        title: 'وبقي أعلى بعد ثلاثة أيام',
         body:
-          'بعد التطبيق الواحد نفسه، ظلت قيمة الترطيب أعلى بدلالة من خط الأساس بعد 72 ساعة.',
+          'بعد التطبيق الواحد نفسه، بقي الترطيب أعلى بوضوح من نقطة البداية بعد 72 ساعة.',
       },
       {
-        value: '50.81 → 52.238',
-        title: 'قياس الترطيب الداخلي بعد استخدام واحد للسيروم',
+        value: '2,000 ppm',
+        title: 'حمض الهيالورونيك المتحلل في السيروم',
         body:
-          'ارتفع القياس من 50.81 إلى 52.238 مباشرة بعد استخدام واحد في مجموعة من 21 امرأة بين 20 و59 عاماً.',
+          'الخطوة التي تجذب الماء، مع PENTAVITIN بنسبة 0.615% في قاعدة من ماء جوز الهند. وفي المجموعة نفسها حسّن ترطيب البشرة مباشرة بعد استخدام واحد.',
+      },
+      {
+        value: '3%',
+        title: 'بيتايين في التونر الخالي من العطر',
+        body:
+          'مرطب التونر، لتحصل البشرة على رشفتها الأولى فور تنظيفها ويصل السيروم إلى بشرة رطبة.',
       },
     ],
     footnote:
-      'نتيجة الكريم تخص الكريم وحده، ونتيجة السيروم تخص السيروم وحده. كلاهما بعد تطبيق واحد على 21 امرأة بين 20 و59 عاماً.',
+      'النتيجتان السريريتان من اختبارات DTS MG على 21 امرأة بالغة بين 20 و59 عاماً بعد تطبيق واحد. نتيجة 72 ساعة تخص الكريم.',
   },
   suited: {
     eyebrow: 'مدى الملاءمة',
     title: 'لمن هذا الصندوق',
     forTitle: 'مناسب إذا',
     forList: [
+      'كانت بشرتك تشدّ مع الظهيرة، أو تبدو باهتة بعد يوم في المكيّف',
       'كانت بشرتك جافة، أو دهنية ومجففة في الوقت نفسه',
       'توقّف السيروم وحده عن العمل بعد الظهر وتريدين الطبقة التي تحفظه',
       'كنت تبدأين روتيناً من الصفر وتفضّلين شراء التتابع كاملاً بدل التخمين',
-      'كنت تريدين روتيناً واضحاً من أربع خطوات مع ثلاث جلسات قناع إضافية',
     ],
     notForTitle: 'ابحثي عن غيره إذا',
     notForList: [
-      'كانت بشرتك تتفاعل مع العطر أو الزيوت الأساسية؛ فالمنظف معطر، والسيروم والكريم يحتويان زيت الجيرانيوم، والقناع يحتوي زيت النعناع الفلفلي',
+      'كانت بشرتك تتفاعل مع العطر أو الزيوت الأساسية؛ فالمنظف معطر، والسيروم والكريم يحتويان زيت الجيرانيوم، والقناع يحتوي زيت النعناع الفلفلي. التونر بلا عطر',
       'كنت تعالجين حب الشباب أو انسداد المسام لا الجفاف. صندوق البشرة المعرّضة للمشاكل مخصص لذلك',
       'كان التصبغ أو توحيد اللون هو الهدف. صندوق تفتيح البشرة يستهدفه مباشرة',
+      'كنت حاملاً أو مرضعة؛ تنص عبوة SNOW O₂ على عدم استخدامه خلال هذه الفترة، فاستشيري الطبيبة أولاً',
       'كنت تملكين بالفعل منتجين أو ثلاثة من الخمسة. شراء الناقص وحده سيكون أقل تكلفة',
     ],
     alternativesLabel: 'الصناديق المذكورة أعلاه',
@@ -491,17 +533,19 @@ const AR: BeautyBoxCopy = {
       { productNumber: '56', label: 'صندوق تفتيح البشرة' },
     ],
     note:
-      'المنظف والمعزز يحملان بيان الاختبار الجلدي. لا ننسب هذا البيان إلى السيروم أو الكريم أو القناع من دون تقرير خاص بكل منتج.',
+      'المنظف والتونر والسيروم والكريم مختبرة جلدياً. ومع ذلك فكل بشرة مختلفة، فإذا لم تناسبك قطعة واحدة، أوقفيها وحدها بدلاً من الروتين كله.',
   },
   details: {
     eyebrow: 'المواصفات',
     title: 'التفاصيل',
     rows: [
-      { label: 'المحتويات', value: '7 قطع: منظف 180 مل، معزز 200 مل، سيروم 30 مل، كريم 50 غ، و3 أقنعة 25 غ' },
-      { label: 'نوع البشرة', value: 'البشرة الجافة والمتعطشة للماء' },
-      { label: 'الروتين', value: 'تنظيف، معزز، سيروم، كريم صباحاً ومساءً؛ القناع في مساء إضافي' },
+      { label: 'المحتويات', value: '7 قطع: منظف 180 مل، تونر 200 مل، سيروم 30 مل، كريم 50 غ، و3 أقنعة 25 غ' },
+      { label: 'نوع البشرة', value: 'البشرة الجافة والمشدودة والمتعطشة للماء' },
+      { label: 'الروتين', value: 'تنظيف، تونر، سيروم، كريم صباحاً ومساءً؛ القناع في أي مساء جاف' },
+      { label: 'النتائج', value: 'ارتفع الترطيب 82% بعد استخدام واحد للكريم وبقي أعلى بعد 72 ساعة. 21 امرأة بين 20 و59 عاماً' },
+      { label: 'العطر', value: 'التونر بلا عطر. المنظف معطر، والسيروم والكريم بزيت الجيرانيوم، والقناع بزيت النعناع الفلفلي' },
       { label: 'بلد الصنع', value: 'صُنع في كوريا من DTS MG Co., Ltd.، سيول' },
-      { label: 'الاختبار', value: 'يحمل المنظف والمعزز بيان الاختبار الجلدي؛ لا ينطبق البيان تلقائياً على بقية القطع' },
+      { label: 'الاختبار', value: 'المنظف والتونر والسيروم والكريم مختبرة جلدياً' },
       { label: 'الباركود', value: 'لكل منتج رقم EAN خاص به، مدرج مع القطعة أعلاه' },
       { label: 'الخصومات', value: 'سعر الصندوق هو الخصم نفسه، لذا لا تُجمع عليه عروض أخرى' },
     ],
@@ -511,8 +555,12 @@ const AR: BeautyBoxCopy = {
     title: 'أسئلة تستحق السؤال',
     items: [
       {
+        q: 'لماذا سيروم وكريم وكلاهما يحتوي على الهيالورونيك؟',
+        a: 'لأن لكل منهما مهمة. السيروم يحتوي على حمض الهيالورونيك المتحلل بتركيز 2,000 جزء في المليون ويجذب الماء. والكريم يحتوي على هيالورونات الصوديوم عالية الوزن الجزيئي التي تبقى على السطح وتمنع الماء من الخروج. أحدهما يملأ والآخر يحبس، وقد قيست نسبة 82% على الكريم.',
+      },
+      {
         q: 'هل يمكنني شراء المنتجات منفصلة؟',
-        a: 'نعم، وكل منتج مرتبط أعلاه. المجموعة تحتوي أربعة منتجات كاملة الحجم وثلاثة أقنعة من المنتج نفسه؛ ويحسب الموقع المقارنة وفق الأسعار الحالية.',
+        a: 'نعم، وكل منتج مرتبط أعلاه. الصندوق ليس تركيبة مختلفة ولا حجماً حصرياً، بل المنتجات نفسها بسعر إجمالي أقل. وإن كنت تملكين بعضها، فشراء الناقص وحده أوفر.',
       },
       {
         q: 'هل هذه الأحجام المنزلية أم المهنية؟',
@@ -520,19 +568,19 @@ const AR: BeautyBoxCopy = {
       },
       {
         q: 'إلى متى تكفي؟',
-        a: 'يعتمد ذلك على كمية الاستخدام. الثابت أن المنتجات اليومية الأربعة أحجام كاملة، وأن الأقنعة ثلاثة بالضبط، أي ثلاث جلسات منفردة.',
+        a: 'يعتمد ذلك على كمية الاستخدام. الثابت أن المنتجات اليومية الأربعة أحجام كاملة، وأن الأقنعة ثلاثة بالضبط، أي ثلاث أمسيات.',
       },
       {
         q: 'هل يمكن استخدامه خلال الحمل أو الرضاعة؟',
-        a: 'تنص عبوة SNOW O₂ على عدم استخدامه أثناء الحمل والرضاعة. لا تقدّم هذه المجموعة تصريح سلامة موحداً لبقية القطع؛ راجعي الطبيبة قبل استخدام الروتين.',
+        a: 'تنص عبوة SNOW O₂ على عدم استخدامه أثناء الحمل والرضاعة. راجعي الطبيبة قبل البدء بالروتين.',
       },
       {
         q: 'بشرتي حساسة. هل هذا الصندوق مناسب؟',
-        a: 'اختبري كل قطعة منفردة. يحتوي المنظف على عطر وليمونين؛ ويحتوي السيروم والكريم على زيت الجيرانيوم ومسببات حساسية عطرية؛ ويحتوي القناع على زيت النعناع الفلفلي. كما تنصح عبوة القناع بالحذر عند التحسس من الضمادات أو الكمادات.',
+        a: 'أدخلي المنتجات واحداً بعد الآخر. يحتوي المنظف على عطر وليمونين؛ ويحتوي السيروم والكريم على زيت الجيرانيوم ومسببات حساسية عطرية؛ ويحتوي القناع على زيت النعناع الفلفلي. كما تنصح عبوة القناع بالحذر عند التحسس من الضمادات أو الكمادات. التونر بلا عطر.',
       },
       {
         q: 'أين يقع القناع إن كانت ثلاثة فقط؟',
-        a: 'في مساء القناع، ضعيه بعد المعزز لمدة 15-20 دقيقة، ثم أكملي بالسيروم والكريم. استخدميه فور فتحه. العبوة لا تحدد وتيرة أسبوعية.',
+        a: 'اعتبريه جرعة إضافية لا طقساً يومياً. في المساء الذي تشعرين فيه بشدّ البشرة، ضعيه بعد التونر لمدة 15-20 دقيقة، ثم أكملي بالسيروم والكريم. استخدميه فور فتحه. والقناع يُباع أيضاً منفرداً.',
       },
     ],
   },
@@ -541,14 +589,14 @@ const AR: BeautyBoxCopy = {
 const RU: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Семь единиц для выверенного ухода.',
+  headline: 'Долейте влаги.',
   subheadline:
-    'Четыре полноразмерных средства GENOSYS и три тканевые маски: очищение, бустер, гиалуроновая сыворотка и гиалуроновый крем в понятной утренней и вечерней последовательности. Стоимость компонентов и выгода набора рассчитываются по актуальным ценам.',
+    'Снаружи пустынное солнце, внутри кондиционер: кожа отдаёт воду весь день. Этот набор возвращает её и удерживает. Очищение, которое само превращается в пену, тоник без отдушки с 3% бетаина, сыворотка с 2 000 ppm гидролизованной гиалуроновой кислоты, которая притягивает воду, и крем, который её держит: увлажнённость выросла на 82% после одного нанесения и оставалась выше через 72 часа. Плюс три тканевые маски с морскими водорослями для вечеров, когда кожа стянута.',
   heroBullets: [
-    'Для сухой и обезвоженной кожи, которой подходит последовательное нанесение лёгких текстур',
-    'Четыре полноразмерных средства и три маски по 25 г, всего ровно семь единиц',
-    'После одного нанесения крема показатель увлажнённости вырос на 82% и оставался значимо выше исходного спустя 72 часа',
-    'Сыворотка 30 мл и крем 50 г работают как согласованный дуэт с разными формулами',
+    'Для сухой, стянутой и обезвоженной кожи, а также для кожи, которая к вечеру снова хочет пить',
+    'Увлажнённость выросла на 82% сразу после одного нанесения крема и оставалась заметно выше через 72 часа',
+    'Гиалуроновый дуэт: 2 000 ppm гидролизованной гиалуроновой кислоты в сыворотке и высокомолекулярный гиалуронат натрия в креме',
+    'Четыре полноразмерных средства и три маски дешевле, чем пять средств по отдельности',
   ],
   kitSize: '7 единиц',
   fullSizeNote: 'Полные объёмы',
@@ -561,18 +609,18 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Полные объёмы', 'Дубай за 1-2 часа'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', '7 единиц', 'Дубай за 1-2 часа'],
   stats: [
-    { value: '7', label: 'единиц: четыре полноразмерных средства и три маски' },
+    { value: '+82%', label: 'увлажнённости сразу после одного нанесения крема' },
+    { value: '72 часа', label: 'и всё ещё заметно выше через три дня' },
     { value: '2 000 ppm', label: 'гидролизованной гиалуроновой кислоты в сыворотке' },
-    { value: '82%', label: 'рост показателя увлажнённости после одного нанесения крема' },
-    { value: '72 часа', label: 'результат оставался значимо выше исходного' },
+    { value: '7', label: 'единиц: четыре полноразмерных средства и три маски' },
   ],
   contents: {
     eyebrow: 'Что внутри',
-    title: 'Четыре средства и три маски',
+    title: 'Пять средств, одна дозаправка',
     intro:
-      'Страница получает цену, объём и наличие каждого компонента из каталога. Поэтому стоимость набора сравнивается с актуальной суммой компонентов, а три маски учитываются как три отдельные единицы.',
+      'У каждого средства есть своя страница и своя цена, так что подробности можно прочитать до покупки. Вместе они делают всю дозаправку: очищение, первый глоток, притянуть воду, удержать её, и три маски для вечеров, когда коже нужно больше.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -580,39 +628,44 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 1 - Очищение',
         body:
-          'Нанесите средство на сухое лицо, избегая области глаз, мягко помассируйте круговыми движениями и смойте тёплой водой.',
+          'Очищение 180 мл наносится на сухое лицо, избегая области глаз, и само превращается в пену. Помассируйте круговыми движениями и смойте тёплой водой, без трения.',
+        facts: ['Само пенится', 'На сухую кожу', 'Смыть тёплой водой', '180 мл'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
         productNumber: '16',
         quantity: 1,
-        step: 'Шаг 2 - Бустер',
+        step: 'Шаг 2 - Первый глоток',
         body:
-          'Водный бустер 200 мл наносится после очищения утром и вечером. Формула содержит бетаин 3%.',
+          'Ежедневный тоник 200 мл для любого типа кожи. Бетаин 3% даёт коже первый глоток сразу после очищения, и сыворотка ложится на уже влажную кожу. Полностью без отдушки.',
+        facts: ['Без отдушки', 'Бетаин 3%', 'Руками или спреем', '200 мл'],
       },
       {
         titleKey: 'routineHyaluronSerumTitle',
         productNumber: '18',
         quantity: 1,
-        step: 'Шаг 3 - Сыворотка',
+        step: 'Шаг 3 - Притянуть воду',
         body:
-          'Лёгкая сыворотка с гидролизованной гиалуроновой кислотой 2 000 ppm и PENTAVITIN 0,615% в увлажняющей основе общей концентрацией 16,02%.',
+          'Шаг, который притягивает воду. Лёгкая сыворотка с гидролизованной гиалуроновой кислотой 2 000 ppm и PENTAVITIN 0,615%. Вбивайте в лицо и шею утром и вечером.',
+        facts: ['Гидролизованная ГК 2 000 ppm', 'PENTAVITIN 0,615%', 'Лёгкая текстура', '30 мл'],
       },
       {
         titleKey: 'routineHyaluronCreamTitle',
         productNumber: '29',
         quantity: 1,
-        step: 'Шаг 4 - Крем',
+        step: 'Шаг 4 - Удержать воду',
         body:
-          'Крем с глицерином 9%, PENTAVITIN 0,615% и высокомолекулярным гиалуронатом натрия 1 000,9 ppm. В исследовании показатель увлажнённости вырос на 82% после одного нанесения и оставался значимо выше исходного спустя 72 часа.',
+          'Шаг, который удерживает воду, и тот, на котором измерили 82%. Высокомолекулярный гиалуронат натрия 1 000,9 ppm с глицерином 9% и PENTAVITIN 0,615%. Через 72 часа после одного нанесения увлажнённость оставалась выше.',
+        facts: ['+82% после одного нанесения', 'Глицерин 9%', 'Гиалуронат натрия 1 000,9 ppm', '50 г'],
       },
       {
         titleKey: 'routineSoothingBombMaskTitle',
         productNumber: '36',
         quantity: 3,
-        step: 'Дополнительный вечер - Маска',
+        step: 'Дозаправка в любой сухой вечер',
         body:
-          'Три маски Eucalace® из эвкалиптового волокна с метилпропандиолом 10%, глицерином 5,035% и бетаином 0,5%. Оставьте на 15-20 минут и используйте сразу после вскрытия.',
+          'Три маски Eucalace® из эвкалиптового волокна по 25 г с морскими водорослями и центеллой. Оставьте на 15-20 минут после тоника, снимите, вбейте остатки эссенции и продолжите сывороткой и кремом. Используйте сразу после вскрытия.',
+        facts: ['Три маски', 'Основа Eucalace®', '15-20 минут', '25 г каждая'],
       },
     ],
     eanLabel: 'Штрихкод',
@@ -628,9 +681,9 @@ const RU: BeautyBoxCopy = {
   },
   howTo: {
     eyebrow: 'Как применять',
-    title: 'Утром и вечером, в этом порядке',
+    title: 'Доливайте дважды в день',
     intro:
-      'Четыре шага утром и вечером. В отдельный вечер маска идёт после бустера и перед сывороткой и кремом. Недельная частота на упаковке не указана.',
+      'Четыре шага утром и вечером. В отдельный вечер маска идёт после тоника и перед сывороткой и кремом. Недельная частота на упаковке не указана.',
     steps: [
       {
         title: 'Очищение на сухой коже',
@@ -638,9 +691,9 @@ const RU: BeautyBoxCopy = {
           'Нанесите средство на сухое лицо, избегая области глаз, мягко помассируйте круговыми движениями и смойте тёплой водой.',
       },
       {
-        title: 'Бустер после очищения',
+        title: 'Тоник после очищения',
         body:
-          'Нанесите бустер руками или распылите на чистую кожу утром и вечером. Не смывайте.',
+          'Нанесите тоник руками или распылите на чистую кожу утром и вечером. Не смывайте.',
       },
       {
         title: 'Сыворотка',
@@ -648,62 +701,69 @@ const RU: BeautyBoxCopy = {
           'Нанесите на лицо и мягко вбейте кончиками пальцев утром и вечером, перед кремом.',
       },
       {
-        title: 'Крем',
+        title: 'Крем, чтобы удержать воду',
         body:
           'Мягко распределите после сыворотки. Утром завершите уход подходящим SPF. Не храните крем в холодильнике.',
       },
       {
-        title: 'Маска в дополнительный вечер',
+        title: 'Маска в любой сухой вечер',
         body:
-          'После бустера наложите одну маску на 15-20 минут. Снимите, мягко вбейте остатки эссенции, затем нанесите сыворотку и крем. Используйте сразу после вскрытия.',
+          'После тоника наложите одну маску на 15-20 минут. Снимите, мягко вбейте остатки эссенции, затем нанесите сыворотку и крем. Используйте сразу после вскрытия.',
       },
     ],
     note:
-      'В наборе три маски; производитель не указывает недельную частоту. Солнцезащитного средства в наборе нет, его нужно добавить утром.',
+      'Солнцезащитное средство - единственный шаг, которого нет в наборе. Наносите SPF каждое утро поверх крема, и возвращённая влага останется на месте.',
   },
   evidence: {
-    eyebrow: 'Клинические результаты',
-    title: 'Два результата с точными условиями',
+    eyebrow: 'Доказательства',
+    title: 'Измерено на реальной коже',
     intro:
-      'Каждый результат относится только к указанному продукту, а не ко всему набору.',
+      'Обещать увлажнение легко. Сыворотку и крем проверили клиническими измерениями, и вот результаты.',
     cards: [
       {
-        value: '82%',
-        title: 'Рост показателя увлажнённости после одного нанесения крема',
+        value: '+82%',
+        title: 'Увлажнённость сразу после одного нанесения',
         body:
-          'Сравнение с исходным значением у 21 взрослой женщины от 20 до 59 лет.',
+          'Одно нанесение гиалуронового крема в сравнении с той же кожей до применения, у 21 женщины от 20 до 59 лет.',
       },
       {
         value: '72 ч',
-        title: 'Значимо выше исходного спустя 72 часа',
+        title: 'И всё ещё выше через три дня',
         body:
-          'После того же единственного нанесения показатель оставался значимо выше исходного спустя 72 часа.',
+          'После того же единственного нанесения увлажнённость оставалась заметно выше исходной спустя 72 часа.',
       },
       {
-        value: '50,81 → 52,238',
-        title: 'Показатель внутреннего увлажнения после сыворотки',
+        value: '2 000 ppm',
+        title: 'Гидролизованной гиалуроновой кислоты в сыворотке',
         body:
-          'После одного нанесения показатель вырос с 50,81 до 52,238 у 21 женщины от 20 до 59 лет.',
+          'Шаг, который притягивает воду, с PENTAVITIN 0,615% на основе кокосовой воды. В той же группе сыворотка улучшила увлажнённость кожи сразу после одного нанесения.',
+      },
+      {
+        value: '3%',
+        title: 'Бетаина в тонике без отдушки',
+        body:
+          'Увлажняющий компонент тоника: кожа получает первый глоток сразу после очищения, и сыворотка ложится на влажную кожу.',
       },
     ],
     footnote:
-      'Результат крема относится только к крему, результат сыворотки - только к сыворотке. Оба измерены после одного нанесения у 21 женщины от 20 до 59 лет.',
+      'Оба клинических результата получены DTS MG у 21 взрослой женщины от 20 до 59 лет после одного нанесения. Результат через 72 часа относится к крему.',
   },
   suited: {
     eyebrow: 'Кому подходит',
     title: 'Для кого этот набор',
     forTitle: 'Подойдёт, если',
     forList: [
+      'К середине дня кожа стянута или выглядит тусклой после дня под кондиционером',
       'Кожа сухая - или жирная и обезвоженная одновременно',
-      'Вы предпочитаете лёгкую сыворотку и отдельный крем',
+      'Одной сыворотки к вечеру уже не хватает, и нужен слой, который её удержит',
       'Вы начинаете уход с нуля и предпочитаете купить готовый порядок, а не угадывать',
-      'Вам нужен понятный четырёхступенчатый уход и три отдельные процедуры с маской',
     ],
     notForTitle: 'Лучше другой набор, если',
     notForList: [
-      'Кожа реагирует на отдушки или эфирные масла: очищение ароматизировано, сыворотка и крем содержат масло герани, маска - масло мяты перечной',
+      'Кожа реагирует на отдушки или эфирные масла: очищение ароматизировано, сыворотка и крем содержат масло герани, маска - масло мяты перечной. Тоник без отдушки',
       'Вы работаете с акне и забитыми порами, а не с сухостью. Для этого есть набор для проблемной кожи',
       'Цель - пигментация и ровный тон. Набор для сияния кожи занимается именно этим',
+      'Вы беременны или кормите грудью: на упаковке SNOW O₂ указано не использовать его в этот период, поэтому сначала обсудите уход с врачом',
       'У вас уже есть два-три средства из пяти. Докупить недостающие выйдет дешевле',
     ],
     alternativesLabel: 'Наборы, упомянутые выше',
@@ -712,17 +772,19 @@ const RU: BeautyBoxCopy = {
       { productNumber: '56', label: 'Набор для сияния кожи' },
     ],
     note:
-      'На очищении и бустере есть отметка о дерматологическом тестировании. Мы не переносим её на сыворотку, крем и маску без отдельного отчёта.',
+      'Очищение, тоник, сыворотка и крем дерматологически протестированы. Но кожа у всех разная: если одно средство вам не подойдёт, откажитесь от него, а не от всего ухода.',
   },
   details: {
     eyebrow: 'Характеристики',
     title: 'Детали',
     rows: [
-      { label: 'Состав набора', value: '7 единиц: очищение 180 мл, бустер 200 мл, сыворотка 30 мл, крем 50 г и 3 маски по 25 г' },
-      { label: 'Тип кожи', value: 'Сухая и обезвоженная' },
-      { label: 'Порядок', value: 'Очищение, бустер, сыворотка, крем утром и вечером; маска в дополнительный вечер' },
+      { label: 'Состав набора', value: '7 единиц: очищение 180 мл, тоник 200 мл, сыворотка 30 мл, крем 50 г и 3 маски по 25 г' },
+      { label: 'Тип кожи', value: 'Сухая, стянутая и обезвоженная' },
+      { label: 'Порядок', value: 'Очищение, тоник, сыворотка, крем утром и вечером; маска в любой сухой вечер' },
+      { label: 'Результаты', value: 'Увлажнённость +82% сразу после одного нанесения крема и выше исходной через 72 часа. 21 женщина от 20 до 59 лет' },
+      { label: 'Отдушка', value: 'Тоник без отдушки. Очищение ароматизировано, в сыворотке и креме масло герани, в маске масло мяты перечной' },
       { label: 'Производство', value: 'Сделано в Корее, DTS MG Co., Ltd., Сеул' },
-      { label: 'Контроль', value: 'Отметка о дерматологическом тестировании есть у очищения и бустера; она не распространяется автоматически на остальные продукты' },
+      { label: 'Контроль', value: 'Очищение, тоник, сыворотка и крем дерматологически протестированы' },
       { label: 'Штрихкоды', value: 'У каждого средства свой EAN, он указан рядом с позицией выше' },
       { label: 'Скидки', value: 'Цена набора уже является скидкой, поэтому другие предложения на него не суммируются' },
     ],
@@ -732,8 +794,12 @@ const RU: BeautyBoxCopy = {
     title: 'Вопросы, которые стоит задать',
     items: [
       {
+        q: 'Зачем сыворотка и крем, если в обоих гиалуроновая кислота?',
+        a: 'У них разные задачи. В сыворотке гидролизованная гиалуроновая кислота 2 000 ppm, она притягивает воду. В креме высокомолекулярный гиалуронат натрия: он остаётся на поверхности и не даёт воде уходить. Одна наполняет, другой удерживает, и 82% измерены именно на креме.',
+      },
+      {
         q: 'Можно купить средства по отдельности?',
-        a: 'Да, у каждого продукта есть своя страница. В наборе четыре полноразмерных средства и три маски; сравнение стоимости рассчитывается по актуальным ценам.',
+        a: 'Да, у каждого продукта есть своя страница. Набор - это не другая формула и не эксклюзивный объём, а те же средства дешевле. Если часть из них у вас уже есть, докупить недостающие выйдет выгоднее.',
       },
       {
         q: 'Это домашние объёмы или профессиональные?',
@@ -741,19 +807,19 @@ const RU: BeautyBoxCopy = {
       },
       {
         q: 'На сколько хватит набора?',
-        a: 'Зависит от расхода. Четыре ежедневных продукта представлены в полных розничных объёмах, а масок ровно три - на три отдельные процедуры.',
+        a: 'Зависит от расхода. Четыре ежедневных продукта представлены в полных розничных объёмах, а масок ровно три - на три вечера.',
       },
       {
         q: 'Можно при беременности и кормлении?',
-        a: 'На упаковке SNOW O₂ указано не использовать средство во время беременности и грудного вскармливания. Для остальных продуктов у набора нет общего подтверждения безопасности; обсудите уход с врачом.',
+        a: 'На упаковке SNOW O₂ указано не использовать средство во время беременности и грудного вскармливания. Обсудите уход с врачом до начала.',
       },
       {
         q: 'У меня реактивная кожа. Это мой набор?',
-        a: 'Вводите продукты по одному. В очищении есть parfum и limonene; в сыворотке и креме - масло герани и ароматические аллергены; в маске - масло мяты перечной. При чувствительности к пластырям и компрессам с маской также нужна осторожность.',
+        a: 'Вводите продукты по одному. В очищении есть parfum и limonene; в сыворотке и креме - масло герани и ароматические аллергены; в маске - масло мяты перечной. При чувствительности к пластырям и компрессам с маской также нужна осторожность. Тоник без отдушки.',
       },
       {
         q: 'Куда вписать маску, если их всего три?',
-        a: 'В вечер с маской наложите её после бустера на 15-20 минут, затем нанесите сыворотку и крем. Используйте сразу после вскрытия. Недельная частота на упаковке не указана.',
+        a: 'Считайте её дозаправкой, а не ежедневным ритуалом. В вечер, когда кожа стянута, наложите маску после тоника на 15-20 минут, затем нанесите сыворотку и крем. Используйте сразу после вскрытия. Маски продаются и отдельно.',
       },
     ],
   },

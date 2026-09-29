@@ -137,7 +137,7 @@ const CUTOUTS: Record<string, string> = {
   // 58 ANTI-AGING BEAUTY BOX
   '/images/bb_age_campaign/main.jpg': '/images/cutout/58-v3.webp',
   // 59 DEEP MOISTURIZING BEAUTY BOX
-  '/images/bb_box_deep/Main.jpeg': '/images/cutout/59-v2.webp',
+  '/images/bb_deep_campaign/main.jpg': '/images/cutout/59-v3.webp',
   // 60 Bio Meso PDRN Ampoule 60000
   '/images/6000/main-v2.jpg': '/images/cutout/60-v2.webp',
   // 61 HR³ MATRIX SCALP BRUSH

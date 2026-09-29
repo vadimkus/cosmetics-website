@@ -159,14 +159,7 @@ PARTS = {
         (0.720, 0.360, 0.945, 0.860, "vision"),
         (0.735, 0.855, 0.895, 0.945, "keywhite"),
     ],
-    # Kit shot: Vision keeps the white bottles and the masks but drops the
-    # black serum bottle and the white box behind them. Both re-traced on
-    # their own crops.
-    "59": [
-        (0.170, 0.180, 0.960, 0.640, "vision"),
-        (0.370, 0.540, 0.560, 0.930, "vision"),
-    ],
-    # Same kit layout: box and black serum re-traced on their own crops.
+    # Kit layout: box and black serum re-traced on their own crops.
     "62": [
         (0.150, 0.170, 0.860, 0.640, "keypaper"),
         # Skin Barrier cream: Vision kept only the half inside the box crop.
@@ -235,8 +228,12 @@ REVISION = {
     # New campaign packshot: box and ten vials square on white, replacing the
     # small legacy HHR.jpg render.
     "45": 3,
-    # New studio shot of the full kit with its title, replacing the 1024 px render.
-    "59": 2,
+    # "The refill." campaign main (bb_deep_campaign/main.jpg, 29 Sep 2026): the five
+    # singles in the open kit case, top down, aqua foam and teal hardware. The main
+    # carries the title, so v3 is Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/bb_deep/campaign/picks/main.png), then normalised. Do not
+    # rebuild 59 from the photograph.
+    "59": 3,
     # Studio pair replacing the render; generator mark painted out first.
     "15": 2,
     # New studio kit shot replacing the flat render.

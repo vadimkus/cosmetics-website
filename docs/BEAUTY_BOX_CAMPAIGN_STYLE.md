@@ -8,6 +8,7 @@ uses the same architecture; only the foam colour, the accent and the campaign id
 First run: product 55, "The Oil Change" (see `SESSION_CHANGES_2026-09-28_BB_PROBLEM_CAMPAIGN.md`).
 Second run: product 58, "Time, well kept" (see `SESSION_CHANGES_2026-09-28_ANTI_AGING_BOX_CAMPAIGN.md`).
 Third run: product 56, "Let the light in." (see `SESSION_CHANGES_2026-09-29_BB_BRIGHT_CAMPAIGN.md`).
+Fourth run: product 59, "The refill." (see `SESSION_CHANGES_2026-09-29_BB_DEEP_CAMPAIGN.md`).
 
 ## The object
 
@@ -58,7 +59,7 @@ The page palette (`beautybox.css`) follows the campaign once a box is redone.
 | 56 Skin Brightening | ivory `#F4EDE1` | sunlit amber `#E9A33E` (dusk navy for the mask) | **Let the light in** (done) |
 | 57 Charming Look | blush | plum | Backstage Kit |
 | 58 Anti-Aging | garnet velvet `#7A1D2E` | brass `#B8925A` (champagne `#D6BC92` ground) | **Time, well kept** (done) |
-| 59 Deep Moisturizing | aqua | deep teal | The Refill |
+| 59 Deep Moisturizing | aqua `#96D4CF` | deep teal `#0E5B61` (pale aqua `#BEE6E2` and sand grounds) | **The refill** (done) |
 | 62 Sensitive Skin | oat | sage | Handle With Care |
 
 ## Every box gets its own idea, not a reskin
@@ -67,9 +68,11 @@ The kit case, the one-pack-per-step slides and the close are the series. The ide
 car service (dipstick, service card, "full service"), 58 is fine watchmaking (guilloché dial, brass
 micrometer, sundial, a blank pocket-watch dial for the schedule, "keep good time"), 56 is a fogged
 window (a wiped stripe through fog, a blind opening onto a garden, moonlight for the mask, "lights
-on"). Each box also gets its own recurring prop so the step slides do not look like 55 in a new
+on"), 59 is a refill (an empty glass on desert stone for the hook, a glass brimming over for the
+proof, "refilled" for the close). Each box also gets its own recurring prop so the step slides do not look like 55 in a new
 colour: in 58 every pack stands on a round brass-rimmed pedestal shaped like a watch case; in 56
-the same four-pane window shadow falls across every step. Pick the idea from what the
+the same four-pane window shadow falls across every step; in 59 a plain glass column of water stands
+beside every step pack and fills a quarter, half, three quarters, then to the brim and stoppered. Pick the idea from what the
 routine promises, then find the objects that say it without a pack in frame.
 
 Hardware follows the accent: 58's latches, hinges and stripe are brass, not aluminium.

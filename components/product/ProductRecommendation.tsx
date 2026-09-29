@@ -529,9 +529,9 @@ export default function ProductRecommendation({
   return (
     <div className="mt-3 lg:mt-6 border-t-2 border-[var(--color-border-primary)] pt-3 lg:pt-6" dir={dir}>
       {/* Product Recommendation Section */}
-      <div className="bg-white border-2 border-red-200 rounded-xl p-2 lg:p-4 shadow-lg">
+      <div className="bg-white border-2 border-[var(--brand-cta-soft)] rounded-xl p-2 lg:p-4 shadow-lg">
         <div className="flex items-center gap-1.5 lg:gap-2 mb-2 lg:mb-3" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
-          <Sparkles className="h-4 w-4 lg:h-5 lg:w-5 text-red-600 flex-shrink-0" />
+          <Sparkles className="h-4 w-4 lg:h-5 lg:w-5 text-[var(--brand-cta-ink)] flex-shrink-0" />
           <h3 className="text-sm lg:text-lg font-bold text-[var(--color-text-primary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.perfectCombination')}</h3>
         </div>
         
@@ -541,7 +541,7 @@ export default function ProductRecommendation({
           {/* Recommended Product Preview */}
           <Link 
             href={`/products/${recommendedProduct.id}`}
-            className="group bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300 hover:border-red-500 transition-all shadow-md hover:shadow-xl"
+            className="group bg-white rounded-lg p-2 lg:p-3 border-2 border-[var(--brand-cta-ring)] hover:border-[var(--brand-cta)] transition-all shadow-md hover:shadow-xl"
           >
             <div className="relative w-full aspect-square mb-2 lg:mb-3 rounded-lg overflow-hidden bg-white">
               <Image
@@ -552,7 +552,7 @@ export default function ProductRecommendation({
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <h4 className="font-semibold text-xs lg:text-sm mb-0.5 lg:mb-1 text-[var(--color-text-primary)] group-hover:text-red-600 transition-colors break-words">
+            <h4 className="font-semibold text-xs lg:text-sm mb-0.5 lg:mb-1 text-[var(--color-text-primary)] group-hover:text-[var(--brand-cta-ink)] transition-colors break-words">
               {recommendedProduct.name}
             </h4>
             {recommendedProduct.size && (
@@ -565,7 +565,7 @@ export default function ProductRecommendation({
               <div className="flex flex-wrap items-center gap-0.5 lg:gap-1" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
                 {pricing.hasDiscount ? (
                   <>
-                    <span className="text-xs lg:text-base font-bold text-red-600">
+                    <span className="text-xs lg:text-base font-bold text-[var(--brand-cta-ink)]">
                       {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
                     {pricing.originalPrice ? (
@@ -578,7 +578,7 @@ export default function ProductRecommendation({
                     </span>
                   </>
                 ) : (
-                  <span className="text-xs lg:text-base font-bold text-red-600">
+                  <span className="text-xs lg:text-base font-bold text-[var(--brand-cta-ink)]">
                     {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                   </span>
                 )}
@@ -592,15 +592,15 @@ export default function ProductRecommendation({
           </Link>
 
           {/* Benefits of Combination */}
-          <div className="bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300">
+          <div className="bg-white rounded-lg p-2 lg:p-3 border-2 border-[var(--brand-cta-ring)]">
             <h4 className="font-semibold text-xs lg:text-sm mb-1.5 lg:mb-2 text-[var(--color-text-primary)] flex items-center gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
-              <Sparkles className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-red-600 flex-shrink-0" />
+              <Sparkles className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-[var(--brand-cta-ink)] flex-shrink-0" />
               <span>{t('product.whyCombineTheseProducts')}</span>
             </h4>
             <ul className="space-y-1 lg:space-y-1.5 text-[10px] lg:text-xs text-[var(--color-text-secondary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
               {description.benefits.map((benefit, index) => (
                 <li key={index} className="flex items-start gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
-                  <span className="text-red-600 mt-0.5 lg:mt-0.5 flex-shrink-0">✓</span>
+                  <span className="text-[var(--brand-cta-ink)] mt-0.5 lg:mt-0.5 flex-shrink-0">✓</span>
                   <span className="break-words"><strong>{benefit.title}</strong> {benefit.text}</span>
                 </li>
               ))}
@@ -609,7 +609,7 @@ export default function ProductRecommendation({
             {user && (
               <button
                 onClick={handleAddBothToCart}
-                className="mt-2 lg:mt-3 px-2 lg:px-3 py-1.5 lg:py-2 text-[10px] lg:text-xs w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-medium touch-manipulation min-h-[44px]"
+                className="mt-2 lg:mt-3 px-2 lg:px-3 py-1.5 lg:py-2 text-[10px] lg:text-xs w-full flex items-center justify-center gap-2 bg-[var(--brand-cta)] text-white rounded-lg hover:bg-[var(--brand-cta-hover)] active:bg-[var(--brand-cta-active)] transition-colors font-medium touch-manipulation min-h-[44px]"
                 dir={dir}
                 style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}
               >

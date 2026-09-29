@@ -103,3 +103,18 @@ Campaign workspace: `~/Desktop/Insta_Olga/stamp/campaign/`.
 - Shipped as `s11b.jpg` (EN/RU/AR) because `/images/*` is immutable; `s11.jpg` stays on disk
   unused. `localizedProductImages.ts` and the updater point at `s11b`; DB applied, live on web
   and mobile in all three locales (commit `bf609e795`).
+
+## Slide 10 re-shot: sterile as art, no stamp (29 Sep, 12:40-13:45)
+
+- Owner: the stamp in the blister did not look like the real pack. A bell-jar version (the bare
+  stamp under a laboratory glass dome) was rejected too; owner asked for no stamp at all and
+  something art-related.
+- Final: a single flawless chalk-white egg resting on a mirror-polished steel disc on a white
+  gallery plinth, after Brancusi's egg sculpture. The egg is nature's sealed, sterile container,
+  opened once, so it carries all three words of the headline. Reference `v10e`, prompt `v10e`.
+- CapCut 2k Medium 1:1 (owner: Medium only, never Max). Picked `v10f_5` (largest egg, clean
+  shell and reflection). Type clears everywhere.
+- Shipped as `s10b.jpg` (EN/RU/AR); map and updater point at `s10b`; DB applied, live on web and
+  mobile (commit `0ae50f7dc`).
+- Batch note: a run stalled when CapCut had left full screen (clicks missed, nothing started).
+  Check the window is full screen and a generation shows in Generations before walking away.

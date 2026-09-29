@@ -74,3 +74,18 @@ Campaign workspace: `~/Desktop/Insta_Olga/stamp/campaign/`.
 - `scripts/create-product-67-dts-stamp.ts` brought in line (folder, category, concerns).
 - Tests: `__tests__/data/product67LocalizedCopy.test.ts` adds a scalp-positioning test (no
   face or hair-loss wording in any locale, HR³ named in every description, mobile pairing 45).
+- `ProductRecommendation.tsx`: pairing intros uppercase product names; Greek letters are now
+  left as they are, so "SOLUTION α" no longer renders as "SOLUTION Α" (read as A).
+
+## Live check (29 Sep, 11:45-12:05)
+
+- Commits `58e9c0fb7` (rework) and `2f1c01961` (α fix) on main; Vercel served the new
+  images about 5 minutes after the push. Updater dry run, then `--apply`; paths `/products/67`,
+  `/ru/products/67`, `/ar/products/67`, `/products`, `/` and tag `products` revalidated.
+- Web, in the browser: EN shows main + `stamp_scalp/s1-s12`, tag SCALP/HAIR, pairing card
+  HR³ MATRIX HAIR SOLUTION α; RU switches to `stamp_scalp/ru/s1-s12` and Russian copy
+  ("Кожа головы и волосы"); AR is RTL with `stamp_scalp/ar/s1-s12`.
+- Mobile `/api/mobile/products/67` (EN/RU/AR): image `stamp_scalp/main.jpg`, 13 gallery
+  images with the locale's slides, category Scalp/Hair, `recommendedProductId` 45.
+- Remaining "Power Solution" and face words in the page HTML come from the site-wide message
+  bundle (other products' routine strings), not from product 67.

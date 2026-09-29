@@ -740,7 +740,7 @@ export const products: Product[] = [
     // image is deliberately not repeated in `images`: web and mobile both prepend it.
     image: '/images/led_campaign/main.jpg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/led_campaign/s${i + 1}.jpg`)),
-    videoUrl: '/videos/led.mp4',
+    videoUrl: '/videos/led-reel-web.mp4',
     category: 'Device',
     inStock: true,
   },

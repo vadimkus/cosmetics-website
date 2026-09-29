@@ -353,7 +353,7 @@ const EN: GenoLedCopy = {
 
   video: {
     title: 'See it running',
-    body: 'The housing, the control panel and the light modes of the unit.',
+    body: 'All five lights, a session under the dome and the unit in the room.',
     unsupported: 'Your browser does not support the video tag.',
   },
 
@@ -609,7 +609,7 @@ const AR: GenoLedCopy = {
 
   video: {
     title: 'شاهديه يعمل',
-    body: 'الجهاز ولوحة التحكم والأوضاع الضوئية.',
+    body: 'الأضواء الخمسة، وجلسة تحت القبة، والجهاز في الغرفة.',
     unsupported: 'متصفّحك لا يدعم تشغيل الفيديو.',
   },
 
@@ -865,7 +865,7 @@ const RU: GenoLedCopy = {
 
   video: {
     title: 'Посмотрите в работе',
-    body: 'Корпус, панель управления и световые режимы аппарата.',
+    body: 'Все пять режимов света, сеанс под куполом и аппарат в кабинете.',
     unsupported: 'Ваш браузер не поддерживает воспроизведение видео.',
   },
 

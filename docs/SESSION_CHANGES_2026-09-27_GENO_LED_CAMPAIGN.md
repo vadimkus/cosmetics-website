@@ -85,3 +85,27 @@ Mask under red light, from the CTS/CVS/AWS sequences) and `lib/productQuickFacts
 longer requires the archive hedges, and now fails if archive or source-hedging language returns.
 DB: `scripts/update-product-49-ru-ar-selling-copy-20260927.ts --apply` (descriptionRu/Ar only).
 EN is unchanged.
+
+## 20 s Reel (29 Sep 2026)
+
+- Prompt `~/Desktop/Insta_Olga/lamp/campaign/REEL_PROMPT.txt` (UltraShield format), refs
+  `campaign/reel_refs/01_Main … 13_Final` = the text-free `picks/` plates (not `final/`, whose baked-in text
+  Seedance crops and misspells at 9:16).
+- Seedance plate `campaign/0929_431.mp4` (1080×1920, 24 fps, HEVC 10-bit): clean, no Ai mark, no stray text,
+  no fix pass. Opening hold ran 4.1 s; red/blue/green/yellow are glow changes inside one shot
+  (frames 141 / 155 / 170 / 186), infrared 207, two colours at 246, then 271 / 315 / 355 / 386 / 412.
+- Type `campaign/_scripts/led_reel_type.py` (from `ultra/_scripts/reel_type.py`): Manrope Regular caps,
+  ink #16181D / GENOSYS red #D2232A, mode names in their slide colours as one line in the white band
+  above the arch (y 250), swapped on each colour change. Copy only from the slides: FIVE LIGHTS. · ONE DOME. ·
+  RED 640 / BLUE 423 / GREEN 532 / YELLOW 583 / INFRARED 830 NM. · TWO AT ONCE. · EVERY MODE, DOSED. ·
+  AFTER THE NEEDLE. · NOTHING TO REORDER. · ONE DOME. EVERY ROOM. · end card FIVE LIGHTS. ONE DOME. /
+  GENO-LED IR II / PROFESSIONAL LED / 1,710 LEDS · 5 WAVELENGTHS / DOSE PUBLISHED PER MODE /
+  FACE · BODY · SCALP / SHOP GENOSYS.AE / GENOSYS UAE APP.
+- Audio +4.8 dB + limiter → −15.9 LUFS, −2.0 dBTP, LRA 13. No encoder / C2PA / CapCut bytes.
+- Final `campaign/reel/GENOSYS_GENO-LED_Reel_v1.mp4` (12 MB) + `GENOSYS_GENO-LED_Reel_cover.jpg` (end card),
+  `contact_sheet.jpg`, `caption.txt`.
+- On /products/49 (29 Sep, 16:45): web copy `public/videos/led-reel-web.mp4` (720×1280, ~1.1 Mbit/s + AAC
+  128k, 3.0 MB, faststart, same spec as `ultra2-web.mp4`), 9:16 poster `public/images/led_campaign/reel-poster.jpg`
+  ("FIVE LIGHTS." frame at 3.8 s). `videoUrl` → new file in `data/productConfig.ts` (config wins over DB),
+  `lib/products.ts` and the DB. Page video caption now "All five lights, a session under the dome and the unit
+  in the room." (RU/AR to match). Old `led.mp4` left on disk.

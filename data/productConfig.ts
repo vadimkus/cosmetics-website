@@ -576,7 +576,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 5500
     },
-    videoUrl: '/videos/led.mp4',
+    videoUrl: '/videos/led-reel-web.mp4',
     documentation: [
       {
         title: 'GENO-LED IR II Guide',

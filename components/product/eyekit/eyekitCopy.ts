@@ -52,7 +52,8 @@ export type EyeKitLocale = 'en' | 'ar' | 'ru'
 export interface EyeKitItemCopy {
   id: string
   title: string
-  /** Live catalogue number. Omit for the kit-only eye roller. */
+  /** Live catalogue number linked from the kit. The eye roller (product 69) stays unlinked so
+   *  the separate total keeps counting the three cosmetics only. */
   productNumber?: string
   quantity: number
   step: string
@@ -161,7 +162,7 @@ const EN: EyeKitCopy = {
     'Serum and a gentle roll, patches for 20-40 minutes, then cream',
     'Arbutin 2% and adenosine 0.04% in the serum and the cream',
     'Niacinamide 2% and adenosine 0.04% in the patches',
-    'The 0.25 mm eye roller comes only in this kit',
+    'The GENOSYS Eye Roller 0.25 mm is in the box',
   ],
   kitSize: '1 box',
   fullSizeNote: 'Full-size serum, cream and patches',
@@ -196,7 +197,7 @@ const EN: EyeKitCopy = {
     eyebrow: 'Inside the box',
     title: 'Three full-size formulas and the roller made for them.',
     intro:
-      'Serum, cream and patches are the same full-size products sold on their own pages. The 0.25 mm eye roller is the piece you only get here: one body, 60 fine needles, shaped for the eye contour.',
+      'Serum, cream and patches are the same full-size products sold on their own pages. The 0.25 mm eye roller completes the set: one body, 60 fine needles, shaped for the eye contour.',
     items: [
       {
         id: 'serum',
@@ -213,7 +214,7 @@ const EN: EyeKitCopy = {
         quantity: 1,
         step: 'Over the serum',
         body: 'One body, 0.25 mm, 60 fine needles, sized for the delicate curve around the eye. Roll it lightly over the serum, horizontally and vertically, away from the eye and the lips.',
-        facts: ['0.25 mm', '60 needles', 'One body', 'Kit only'],
+        facts: ['0.25 mm', '60 needles', 'One body', 'Reusable'],
         image: ROLLER_IMAGE,
       },
       {
@@ -238,7 +239,7 @@ const EN: EyeKitCopy = {
     eanLabel: 'Barcode',
     each: 'each',
     viewItem: 'Open this product',
-    kitOnly: 'Only in this kit',
+    kitOnly: 'Also sold on its own',
     boughtSeparately: 'Serum, cream and patches bought separately',
     inThisBox: 'This kit',
     youSave: 'You save',
@@ -382,7 +383,7 @@ const EN: EyeKitCopy = {
       },
       {
         q: 'Can I buy the pieces separately?',
-        a: 'Serum, cream and patches each have their own page. The 0.25 mm eye roller comes only in this kit.',
+        a: 'Serum, cream and patches each have their own page, and so does the 0.25 mm eye roller.',
       },
     ],
   },
@@ -398,7 +399,7 @@ const AR: EyeKitCopy = {
     'السيروم مع تمريرة لطيفة للرولر، لصقات 20-40 دقيقة، ثم الكريم',
     'أربوتين 2% وأدينوزين 0.04% في السيروم والكريم',
     'نياسيناميد 2% وأدينوزين 0.04% في اللصقات',
-    'رولر العين 0.25 مم متوفر في هذا الطقم فقط',
+    'رولر العين GENOSYS بطول 0.25 مم داخل العلبة',
   ],
   kitSize: 'علبة واحدة',
   fullSizeNote: 'سيروم وكريم ولصقات بالحجم الكامل',
@@ -433,7 +434,7 @@ const AR: EyeKitCopy = {
     eyebrow: 'داخل العلبة',
     title: 'ثلاث تركيبات بالحجم الكامل والرولر المصمم لها.',
     intro:
-      'السيروم والكريم واللصقات هي المنتجات نفسها التي تُباع في صفحاتها، بحجمها الكامل. أما رولر العين 0.25 مم فتجدينه هنا فقط: قطعة واحدة، 60 إبرة دقيقة، بشكل يناسب محيط العين.',
+      'السيروم والكريم واللصقات هي المنتجات نفسها التي تُباع في صفحاتها، بحجمها الكامل. ويكتمل الطقم برولر العين 0.25 مم: قطعة واحدة، 60 إبرة دقيقة، بشكل يناسب محيط العين.',
     items: [
       {
         id: 'serum',
@@ -450,7 +451,7 @@ const AR: EyeKitCopy = {
         quantity: 1,
         step: 'فوق السيروم',
         body: 'رولر من قطعة واحدة بعمق 0.25 مم و60 إبرة دقيقة لانحناءة محيط العين الرقيقة. مرّريه بخفة فوق السيروم أفقياً وعمودياً، بعيداً عن العين والشفتين.',
-        facts: ['0.25 مم', '60 إبرة', 'قطعة واحدة', 'في الطقم فقط'],
+        facts: ['0.25 مم', '60 إبرة', 'قطعة واحدة', 'قابل لإعادة الاستخدام'],
         image: ROLLER_IMAGE,
       },
       {
@@ -475,7 +476,7 @@ const AR: EyeKitCopy = {
     eanLabel: 'الباركود',
     each: 'للقطعة',
     viewItem: 'افتحي هذا المنتج',
-    kitOnly: 'في هذا الطقم فقط',
+    kitOnly: 'يُباع منفرداً أيضاً',
     boughtSeparately: 'السيروم والكريم واللصقات منفردة',
     inThisBox: 'هذا الطقم',
     youSave: 'توفّرين',
@@ -619,7 +620,7 @@ const AR: EyeKitCopy = {
       },
       {
         q: 'هل يمكنني شراء القطع منفردة؟',
-        a: 'للسيروم والكريم واللصقات صفحة لكل منها. أما رولر العين 0.25 مم فيأتي في هذا الطقم فقط.',
+        a: 'للسيروم والكريم واللصقات صفحة لكل منها، وكذلك لرولر العين 0.25 مم.',
       },
     ],
   },
@@ -635,7 +636,7 @@ const RU: EyeKitCopy = {
     'Сыворотка и мягкий роллер, патчи на 20-40 минут, затем крем',
     'Арбутин 2% и аденозин 0,04% в сыворотке и креме',
     'Ниацинамид 2% и аденозин 0,04% в патчах',
-    'Роллер для глаз 0,25 мм есть только в этом наборе',
+    'Роллер для глаз GENOSYS 0,25 мм в коробке',
   ],
   kitSize: '1 коробка',
   fullSizeNote: 'Сыворотка, крем и патчи полного объёма',
@@ -670,7 +671,7 @@ const RU: EyeKitCopy = {
     eyebrow: 'Что в коробке',
     title: 'Три полноразмерные формулы и роллер, созданный для них.',
     intro:
-      'Сыворотка, крем и патчи те же, что продаются на своих страницах, в полном объёме. Роллер для глаз 0,25 мм есть только здесь: цельный корпус, 60 тонких игл, форма под контур глаза.',
+      'Сыворотка, крем и патчи те же, что продаются на своих страницах, в полном объёме. Набор дополняет роллер для глаз 0,25 мм: цельный корпус, 60 тонких игл, форма под контур глаза.',
     items: [
       {
         id: 'serum',
@@ -687,7 +688,7 @@ const RU: EyeKitCopy = {
         quantity: 1,
         step: 'Поверх сыворотки',
         body: 'Цельный роллер 0,25 мм, 60 тонких игл под нежный изгиб вокруг глаза. Прокатывайте его легко поверх сыворотки, горизонтально и вертикально, не касаясь глаз и губ.',
-        facts: ['0,25 мм', '60 игл', 'Цельный', 'Только в наборе'],
+        facts: ['0,25 мм', '60 игл', 'Цельный', 'Многоразовый'],
         image: ROLLER_IMAGE,
       },
       {
@@ -712,7 +713,7 @@ const RU: EyeKitCopy = {
     eanLabel: 'Штрихкод',
     each: 'за штуку',
     viewItem: 'Открыть этот продукт',
-    kitOnly: 'Только в этом наборе',
+    kitOnly: 'Продаётся и отдельно',
     boughtSeparately: 'Сыворотка, крем и патчи по отдельности',
     inThisBox: 'Этот набор',
     youSave: 'Вы экономите',
@@ -828,7 +829,7 @@ const RU: EyeKitCopy = {
     items: [
       {
         q: 'Что я получаю по сравнению с покупкой по отдельности?',
-        a: 'Полный ритуал EyeCell в одной коробке дешевле, чем сыворотка, крем и патчи по отдельности, плюс роллер для глаз 0,25 мм, который продаётся только в этом наборе.',
+        a: 'Полный ритуал EyeCell в одной коробке дешевле, чем сыворотка, крем и патчи по отдельности, плюс роллер для глаз 0,25 мм в придачу.',
       },
       {
         q: 'Роллер для глаз и лицевой роллер - это одно и то же?',
@@ -856,7 +857,7 @@ const RU: EyeKitCopy = {
       },
       {
         q: 'Можно купить средства отдельно?',
-        a: 'У сыворотки, крема и патчей есть свои страницы. Роллер для глаз 0,25 мм есть только в этом наборе.',
+        a: 'У сыворотки, крема и патчей есть свои страницы, как и у роллера для глаз 0,25 мм.',
       },
     ],
   },

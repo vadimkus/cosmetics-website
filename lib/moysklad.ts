@@ -282,6 +282,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'HairGen BOOSTER': 'e83c5eb3-9eb7-11ec-0a80-0316003aaa94',                   // HAIRGEN BOOSTER DEVICE
   'Microneedle Roller': 'e6bfaf3b-33ce-11ea-0a80-020c000b009b',               // Standard Detachable 0.25mm (default)
   'Microneedle Stamp': '2e9e930a-bb74-11f1-0a80-083a0004a735',                // DTS Stamp 0.25mm (default), code 54504
+  'Eye Roller': '2c882b4c-6397-11ea-0a80-05560009d0e4',                       // Eye Roller 0,25mm, code 00084
   'Needle Pen-K': '67616f70-42bf-11ea-0a80-01e3000bf0f5',                      // Dermafix Premium
 
   // === Mist ===
@@ -376,6 +377,9 @@ const SIZE_VARIANT_MAP: Record<string, string> = {
   'MICRONEEDLE STAMP | 1.0mm':  '2f6a5f8a-bb74-11f1-0a80-0bc100047ddf', // code 54506
   'MICRONEEDLE STAMP | 1.5mm':  '2fdc76ac-bb74-11f1-0a80-0bc100047df1', // code 54507
   'MICRONEEDLE STAMP | 2.0mm':  '303dd73c-bb74-11f1-0a80-173c00045868', // code 54508
+
+  // === Eye Roller (product 69) - one length ===
+  'EYE ROLLER | 0.25mm': '2c882b4c-6397-11ea-0a80-05560009d0e4', // code 00084, article EBT025
 
   // === CERABARRIER Biome Gel Cleanser (product 66) ===
   'CERABARRIER BIOME GEL CLEANSER | 200ml': '4403ccba-6ed1-11f1-0a80-16ec00a25b21', // code 54484

@@ -62,6 +62,7 @@ import HairGenBoosterProductPage from '@/components/product/hr3/HairGenBoosterPr
 import HairGentronProductPage from '@/components/product/hr3/HairGentronProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 import StampProductPage from '@/components/product/stamp/StampProductPage'
+import EyeRollerProductPage from '@/components/product/eyeroller/EyeRollerProductPage'
 import RollerProductPage from '@/components/product/roller/RollerProductPage'
 
 /**
@@ -205,6 +206,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,
   '67': StampProductPage,
+  '69': EyeRollerProductPage,
   '1': RollerProductPage,
   '41': BbCushionProductPage,
   // 36 is named after an ingredient dosed at 10 ppm, so its page is built on
@@ -326,6 +328,9 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // The stamp is sold for the HR³ solution protocol; the scalp peeling and tonic
   // sit around it, and the Mesopecia Kit bundles a stamp with both.
   '67': ['45', '46', '47', '43'],
+  // The serum it rolls over, then the patches and cream that follow it, then the kit
+  // that bundles all four.
+  '69': ['17', '33', '24', '50'],
   // Three of the Power Solution ampoules it rolls in, and the postcream its how-to
   // names for afterwards.
   '1': ['7', '6', '9', '25'],

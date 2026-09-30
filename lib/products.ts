@@ -895,4 +895,16 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     inStock: true,
     size: '0.25mm',
   },
+  {
+    id: '69',
+    productNumber: '69',
+    name: 'Eye Roller',
+    price: 210,
+    description: 'For your eyes only. The GENOSYS Eye Roller: one small piece with 60 fine stainless-steel needles at 0.25 mm, shaped for the curve under the eyes. Roll it lightly over EyeCell Eye Contour Serum, horizontally and then vertically, with no pressing. Personal and reusable: disinfect it for five minutes in chlorhexidine solution before each reuse. Made in Korea by DTS MG.',
+    image: '/images/eyeroller_art/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/eyeroller_art/s${i + 1}.jpg`)),
+    category: 'Microneedling',
+    inStock: true,
+    size: '0.25mm',
+  },
 ]

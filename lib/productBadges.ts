@@ -14,6 +14,7 @@ export const NEW_LAUNCH_PRODUCT_IDS: readonly string[] = [
   '63', // REVITA GLOW BLEMISH BALM CREAM
   '66', // CERABARRIER BIOME GEL CLEANSER
   '67', // Microneedle Stamp
+  '69', // Eye Roller
 ]
 
 /**

@@ -505,6 +505,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### Devices & Microneedling
 - [Microneedle Roller](https://genosys.ae/products/1){{id:1}} - AED 230 - 450 ultra-thin needles for better product absorption
 - [Microneedle Stamp](https://genosys.ae/products/67){{id:67}} - AED 230 - Scalp stamp: 140 disk-cut needles pressed straight down along each parting, no tangles; made for HR³ MATRIX HAIR SOLUTION α (0.25-0.5 mm, 10-15 min); 0.25-2.0 mm, sterile single use
+- [Eye Roller](https://genosys.ae/products/69){{id:69}} - AED 210 - One-piece eye-contour roller: 60 stainless-steel needles, 0.25 mm; roll over EyeCell Eye Contour Serum horizontally then vertically, no pressing; personal and reusable (5 min in chlorhexidine before each reuse, never share); the same roller as in the Eye Zone Care Kit
 - [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800 - Professional hair growth device
 - [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 460 - Microneedle stamp refills (8 pcs) for HairGen Booster
 - [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 6,600 - Advanced hair device
@@ -582,7 +583,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HR³ MATRIX SCALP BRUSH](https://genosys.ae/products/61){{id:61}} - AED 50 - Soft silicone shower brush. Used wet with shampoo. Guide: [blog](https://genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works)
 
 ### Eye Care Kit
-- [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Four-piece registered kit: serum, 0.25mm eye roller, patches, cream. Arbutin 2% + adenosine 0.04% on serum and cream; niacinamide 2% + adenosine 0.04% on the patches. The eye roller is kit-only, not the 450-needle face roller.
+- [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Four-piece registered kit: serum, 0.25mm eye roller (also sold alone as product 69), patches, cream. Arbutin 2% + adenosine 0.04% on serum and cream; niacinamide 2% + adenosine 0.04% on the patches. The eye roller is kit-only, not the 450-needle face roller.
 
 ### Beauty Boxes (value sets, 15% bundle discount already included!)
 - [PROBLEM SKIN CARE BEAUTY BOX](https://genosys.ae/products/55){{id:55}} - AED 1,120.30 - For oily/acne-prone skin

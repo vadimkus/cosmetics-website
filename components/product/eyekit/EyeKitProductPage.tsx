@@ -9,7 +9,8 @@
  *
  *   concern   dark circles, eye bags, crow's feet
  *   contents  serum, roller, patches, cream. Live price / size / barcode /
- *             link for 17, 24 and 33. The roller is kit-only.
+ *             link for 17, 24 and 33. The roller is also sold alone (product 69) but
+ *             stays unlinked here, outside the separate total.
  *   howTo     cleanse, serum + roll, patches 20-40 min, cream
  *   roller    0.25mm, how to roll it, 5-minute chlorhexidine soak
  *   evidence  the two functional pairs and the 0.25mm roller

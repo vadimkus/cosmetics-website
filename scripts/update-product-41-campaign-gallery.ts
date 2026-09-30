@@ -1,8 +1,8 @@
 /**
- * Product 41 (SKIN CARING BLEMISH BALM CUSHION): "Shade to go." campaign.
+ * Product 41 (SKIN CARING BLEMISH BALM CUSHION): "Covered." art set.
  *
- * - Main image -> /images/cushion_campaign/main.jpg (carton and open compact on white, no type),
- *   gallery -> s1.jpg ... s12.jpg. AR/RU slides swap in at render through
+ * - Main image -> /images/cushion_campaign/main.jpg (carton and open compact on white, no type).
+ * - Gallery -> /images/cushion_art/s1.jpg ... s12.jpg. AR/RU slides swap in at render through
  *   lib/localizedProductImages.ts, so the record holds the EN paths.
  * - Descriptions move to the campaign voice in all three languages. RU/AR come from
  *   data/product41LocalizedCopy.ts so the record and the code never drift.
@@ -14,8 +14,8 @@
 import { prisma } from '../lib/prisma'
 import { PRODUCT_41_AR_DESCRIPTION, PRODUCT_41_RU_DESCRIPTION } from '../data/product41LocalizedCopy'
 
-const DIR = '/images/cushion_campaign'
-const MAIN = `${DIR}/main.jpg`
+const DIR = '/images/cushion_art'
+const MAIN = '/images/cushion_campaign/main.jpg'
 const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 

@@ -102,7 +102,7 @@ interface ActiveIngredient {
  *  card from the campaign, served per locale through localizeProductImage. */
 const SHADE_FIGURE = '/images/cushion_2/s4.jpeg'
 const PUFF_FIGURE = '/images/cushion_2/s2.jpeg'
-const HOWTO_FIGURE = '/images/cushion_campaign/s10.jpg'
+const HOWTO_FIGURE = '/images/cushion_art/s10.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

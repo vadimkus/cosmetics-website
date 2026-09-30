@@ -203,9 +203,9 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
-  // Product 41, SKIN CARING BLEMISH BALM CUSHION, "Shade to go." campaign. The main packshot
-  // carries no type and is not translated.
-  '/images/cushion_campaign': {
+  // Product 41, SKIN CARING BLEMISH BALM CUSHION, "Covered." art set. The main packshot
+  // (cushion_campaign/main.jpg) carries no type and is not translated.
+  '/images/cushion_art': {
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },

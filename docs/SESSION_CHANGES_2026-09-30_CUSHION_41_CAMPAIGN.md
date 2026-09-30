@@ -109,3 +109,29 @@ Brief (Vadim): "next one?" after product 57. Picked 41 as the top seller still o
 - `~/Desktop/Insta_Olga/cushion41/campaign/`: `_assets/` (real pack cut-outs), `_scripts/` (refs,
   prompts, batch, slides, copy, export), `_gen/` (references and all takes), `picks/`,
   `final/{,ru,ar}` with contact sheets.
+
+## Redo: "Covered." art set (30 Sep 2026, 16:50)
+
+Vadim: redo 41 minimal, art, conceptual, in the SPF50 (product 39) style. The first set broke the
+new no-Dubai rule (Burj at sunset, café by the mashrabiya). Main image kept; all 12 slides redone.
+
+- System (`.cursor/rules/campaign-slides-conceptual.mdc`): warm nude `#E3AA85` (the formula, the
+  skin) + jet black `#141212` (the pack), gold as material accent only. One metaphor per slide, product
+  only on the final card. Manrope Regular caps 140 px, support 64 px; black ink on nude, nude on black.
+- Slides: 1 woman framed in a gold hoop, COVER STORY. · 2 nude parasol, 50+ SHADE, TO GO. · 3 black
+  silk with a glow underneath, UNDERCOVER AGENTS. (niacinamide 2%, adenosine 0.04%) · 4 nude
+  multi-tool with three gold tools, ONE PRESS. THREE JOBS. · 5 black ribbon on three gold pins, PINNED
+  IN PLACE. (three fixing polymers) · 6 nude velvet waterdrop sponge, SHAPED LIKE A DROP. · 7 gold hand
+  mirror, MIRROR, MIRROR, IN THE LID. · 8 ivory / beige / camel pebble cairn, THREE SHADES. ONE
+  FORMULA. · 9 two gold keys, THE SPARE IS IN THE BOX. (15 g refill) · 10 gold wax-seal stamp, PRESS.
+  PAT. BUILD. · 11 gold pocket watch, BACK IN TWO HOURS. (top up in strong sun) · 12 carton + open
+  compact, YOU'RE COVERED. + card (15 G × 2, SPF50+ PA++++, niacinamide, adenosine).
+- RU: ГЕРОИНЯ ОБЛОЖКИ. · АГЕНТЫ ПОД ПРИКРЫТИЕМ. · СВЕТ МОЙ, ЗЕРКАЛЬЦЕ. · ВЫ ПОД ЗАЩИТОЙ.
+  AR: قصة الغلاف. · عملاء متخفّون. · أنتِ محميّة. AR s8 sets the shade codes as one Latin line
+  (the و + #code mix broke the bidi order); AR s12 card column pulled in to x 1040 to clear the carton.
+- Workspace `~/Desktop/Insta_Olga/cushion41/campaign/_scripts/c41_art*.py`, CapCut keys b1-b12.
+  Picks b1_1, b2_2, b3_2, b4_3, b5_1, b6_2, b7_2, b8_4, b9_2, b10_1, b11_2, b12_2 (carton print clean).
+  `c41_batch.sh` replaced with the pause-and-resume version.
+- 36 JPEGs (1600 px, 168-347 KB) in `public/images/cushion_art/{,ru/,ar/}`. Page how-to figure now
+  the localized `cushion_art/s10.jpg`; registry, fallback gallery, updater and test point there. Main
+  stays `cushion_campaign/main.jpg`; page headline "Shade to go." unchanged (slide 2 echoes it).

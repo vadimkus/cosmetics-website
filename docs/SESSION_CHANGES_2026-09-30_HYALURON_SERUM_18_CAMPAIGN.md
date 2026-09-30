@@ -53,3 +53,12 @@
 ## Checks
 
 - Full Jest 148 suites / 1605 tests pass; `tsc --noEmit` clean; eslint clean on changed files.
+
+## Live (30 Sep 2026, 13:28)
+
+- Deploy `c04450f3e` served all 37 files; DB updated with `--apply` (image, 12-slide gallery,
+  description EN/RU/AR). Revalidated `/products/18`, `/ru/products/18`, `/ar/products/18`,
+  `/products`, `/` and tag `products`.
+- Web: "Drink up." / "Напоите кожу." / "اروي بشرتكِ."; RU and AR serve all 12 localized slides;
+  no `hyaluron_serum` slides left.
+- Mobile API: main + 12 slides, 12 localized per locale, description opens with the campaign line.

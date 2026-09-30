@@ -59,3 +59,12 @@ Second most-ordered product still on legacy images (55 September order mentions)
 ## Checks
 
 - Full Jest 148 suites / 1605 tests pass; `tsc --noEmit` clean; eslint clean on changed files.
+
+## Live (30 Sep 2026, 12:40)
+
+- Deploy `c3168fbcd` served all 37 files; DB updated with `--apply` (image, 12-slide gallery,
+  description EN/RU/AR). Revalidated `/products/10`, `/ru/products/10`, `/ar/products/10`,
+  `/products`, `/` and tag `products`.
+- Web: headline "It fizzes." / "Играет пузырьками." / "منظّف فوّار."; RU and AR pages serve all 12
+  localized slides; no `cleanser_o` slides left.
+- Mobile API: main + 12 slides, 12 localized per locale, description opens with the campaign line.

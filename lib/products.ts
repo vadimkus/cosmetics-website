@@ -612,7 +612,7 @@ export const products: Product[] = [
     price: 300,
     description: 'Shade to go. Coverage, sun protection and skincare in one press of the puff, and Korea licenses it for all three at once. Five UV filters to SPF50+ PA++++, niacinamide 2% and adenosine 0.04%, with a 15 g refill already in the box.',
     image: '/images/cushion_campaign/main.jpg',
-    images: JSON.stringify([...Array.from({ length: 11 }, (_, i) => `/images/cushion_art/s${i + 1}.jpg`), '/images/cushion_art/s13.jpg', '/images/cushion_art/s12.jpg']),
+    images: JSON.stringify(['s1', 's2', 's3', 's4b', 's5b', 's6', 's7', 's8', 's9', 's10', 's11', 's13', 's12'].map(n => `/images/cushion_art/${n}.jpg`)),
     videoUrl: '/videos/cushion-reel-web.mp4',
     category: 'Cushion BB',
     inStock: true,
@@ -710,7 +710,8 @@ export const products: Product[] = [
     // "Five lights. One dome." campaign set (led_campaign), matching the database. The main
     // image is deliberately not repeated in `images`: web and mobile both prepend it.
     image: '/images/led_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/led_campaign/s${i + 1}.jpg`)),
+    // s9 (a woman in a towel on a spa bed) left out on 30 Sep: a marketplace shot in a premium set.
+    images: JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12].map(i => `/images/led_campaign/s${i}.jpg`)),
     videoUrl: '/videos/led-reel-web.mp4',
     category: 'Device',
     inStock: true,
@@ -766,7 +767,7 @@ export const products: Product[] = [
     price: 36,
     description:
       'One 23g single-use non-woven sheet with a moisture-focused essence. Glycerin 10.052% and butylene glycol 8.010% form an 18.062% humectant base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Apply for 15-20 minutes. Dermatologically tested. Contains Alcohol 0.1%, Parfum (Fragrance) 0.01% and soybean extract.',
-    image: '/images/collagen_campaign/main.jpg',
+    image: '/images/collagen_mask/Main.jpeg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/collagen_campaign/s${i + 1}.jpg`)),
     category: 'Mask',
     inStock: true,
@@ -902,7 +903,7 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     price: 210,
     description: 'For your eyes only. The GENOSYS Eye Roller: one small piece with 60 fine stainless-steel needles at 0.25 mm, shaped for the curve under the eyes. Roll it lightly over EyeCell Eye Contour Serum, horizontally and then vertically, with no pressing. Personal and reusable: disinfect it for five minutes in chlorhexidine solution before each reuse. Made in Korea by DTS MG.',
     image: '/images/eyeroller_art/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/eyeroller_art/s${i + 1}.jpg`)),
+    images: JSON.stringify(['s1', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12'].map(n => `/images/eyeroller_art/${n}.jpg`)),
     category: 'Microneedling',
     inStock: true,
     size: '0.25mm',

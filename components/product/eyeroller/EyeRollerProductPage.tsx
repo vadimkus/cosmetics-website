@@ -14,7 +14,7 @@ const EYE_ROLLER_VARIANT: DtsToolVariant = {
   productNumber: '69',
   getCopy: getEyeRollerCopy,
   slides: {
-    why: ['s3', 's11', 's6', 's8'].map(slide),
+    why: ['s3b', 's11', 's6', 's8'].map(slide),
     pairing: slide('s4'),
     lengths: slide('s2'),
     howTo: slide('s5'),

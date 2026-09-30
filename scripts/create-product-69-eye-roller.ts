@@ -28,7 +28,8 @@ import {
 const ID = '69'
 const DIR = '/images/eyeroller_art'
 const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// s3b (pearls) replaced the sewing-needle slide on 30 Sep: never show needles to buyers.
+const GALLERY = ['s1', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12'].map(n => `${DIR}/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DATA = {

@@ -1,33 +1,53 @@
 ---
-description: Product campaign slides are conceptual art, never Dubai scenes
+description: Product gallery campaign slides - product story first, conceptual art, clean hero, no needles or tools, no Dubai
 alwaysApply: true
 ---
 
-# Campaign Slides — Conceptual Art, No Dubai
+# Campaign Slides — Product Story First
 
-Applies to every product gallery / carousel campaign (the 12 slides under `public/images/<x>_campaign/`,
-CapCut or Seedance plates, EN/RU/AR).
+Applies to every product gallery / carousel campaign (the 12 slides under `public/images/<x>_campaign/`
+or `<x>_art/`, CapCut or Seedance plates, EN/RU/AR).
 
-## Hard rule: no Dubai images
+## The job: a product story that sticks
 
-- No Dubai or city scenes in any slide: no skyline, Burj Khalifa, towers, streets, traffic, malls,
-  office lobbies, heat haze over a road.
-- Heat, sun, AC or Gulf context goes in the **words**, never in a location photo.
+We are not being creative for its own sake. Each campaign tells **the product's story** so it sticks
+in the buyer's memory. Creative works together with marketing; creative for taste alone is a failure.
 
-## The standard is product 39 (and product 12)
+- One through-line per product, said in one line, that carries a real benefit. Product 69 "For your
+  eyes only." works: it is made for the eye area *and* it is personal. Product 49 "Five lights. One
+  dome." works: every slide teaches one light.
+- Every slide must make the buyer understand the product better. If a metaphor needs explaining or
+  could belong to any product, it fails. Product 41 "Covered." (multi-tool, keys, wax seal, pocket
+  watch) was criticised as "not about the cushion at all".
+- When a metaphor would confuse, show the product doing its job instead (compact and puff, a swatch of
+  the formula). Clarity beats cleverness.
+- It is business, not play.
 
-Reference set: `public/images/ultra_campaign/s1–s12.jpg`, notes in
-`docs/SESSION_CHANGES_2026-09-26_ULTRA_SHIELD_CAMPAIGN.md`.
+## Hard rules
+
+1. **Clean hero.** The main image (the product card on the site and in the app) is a clean packshot on
+   white. Never add props, drops, splashes, light shafts, type or scenery to it. Product 53's gel drops
+   were rejected: "it is a product card, it must be clean".
+2. **Never show needles or instruments to buyers.** No sewing needles, pins, syringes, scalpels,
+   calipers, microscopes, multi-tools, knives, lab gear, and no macro shots of microneedles. A
+   microneedling product is shown whole, never its needles in close-up.
+3. **No marketplace lifestyle shots.** No woman in a towel, no spa bed, no stock "person using the
+   product" scene: it kills the premium chain. People only when the metaphor needs them, framed as art.
+4. **No Dubai images.** No skyline, Burj Khalifa, towers, streets, traffic, malls, office lobbies, heat
+   haze. Heat, sun, AC or Gulf context goes in the words, never in a location photo.
+5. **Do not redo a live campaign unless asked.** Fix the weak slides; do not replace a set that works.
+
+## Style (product 39 and product 69 are the reference sets)
 
 - **Two colours only**: the pack colour + one concept colour, alternating seamless backgrounds.
-- **One visual metaphor per slide**, shot as a surreal minimal studio still (balloon on a ceiling,
-  ghost in a director's chair, velvet rope, hourglass). Not stock lifestyle.
+- **One visual metaphor per slide**, shot as a minimal studio still. Not stock lifestyle.
 - **Witty headline in two levels**, caps, then one short support line with the real fact.
 - **Giant numerals** for real doses.
-- **Product appears late** (final one or two slides), so there are few label renders to garble.
-- People only when the metaphor needs them, framed as art (a prop, a gesture), not a street scene.
+- **Product appears late** (final one or two slides) unless showing it is what makes the story clear.
+- **Real packs stay real**: on pack slides composite the real cut-out packs onto the plate, or re-shoot
+  a reference, so labels are never garbled.
 - Type: Manrope **Regular**, caps headline ~140 px on 2560, leading 0.92; support 64 px sentence case;
-  pack colour on the light colour, white on the pack colour. Final card lists the product and
+  pack colour on the light colour, light colour on the pack colour. Final card lists the product and
   credentials and ends SHOP GENOSYS.AE / GENOSYS UAE APP.
 
-Claims still follow `selling-tone.mdc` and the product's source audit.
+Claims follow `selling-tone.mdc` and the product's source audit.

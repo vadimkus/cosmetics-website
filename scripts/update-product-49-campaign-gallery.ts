@@ -26,7 +26,8 @@ const prisma = new PrismaClient(
 )
 
 const MAIN = '/images/led_campaign/main.jpg'
-const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/led_campaign/s${i + 1}.jpg`)
+// s9 (woman in a towel) dropped 30 Sep 2026 - a marketplace shot in a premium set.
+const GALLERY = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12].map(i => `/images/led_campaign/s${i}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/led_campaign/', `/led_campaign/${l}/`)))
 const CUTOUT = '/images/cutout/49-v2.webp'
 

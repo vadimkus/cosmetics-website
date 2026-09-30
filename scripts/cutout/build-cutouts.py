@@ -271,15 +271,14 @@ REVISION = {
     "3": 2,
     # Same fault on three more campaign mains, each newer than its cut-out by four weeks:
     # "Let it snow" (booster_campaign/main.jpg, both bottles; v1 had the 200 ml alone),
-    # peptide_campaign/main.jpg (sachet and box; v1 had the sachet alone) and
-    # collagen_campaign/main.jpg (v1 was traced from the earlier sachet shot).
+    # and peptide_campaign/main.jpg (sachet and box; v1 had the sachet alone). Product 53 went
+    # back to its clean collagen_mask/Main.jpeg on 30 Sep, which is what 53.webp was traced from.
     # The bottles stand buried in snow, which Vision tears into a crumbled base, so 16-v2 is
     # the two supplied container PNGs (~/Desktop/Insta_Olga/booster) placed at the main's
     # measured scale and position (1000 ml 0.3142 at 415,175; 200 ml 0.1795 at 968,472),
     # then normalised. Do not rebuild 16 from the photograph.
     "16": 2,
     "37": 2,
-    "53": 2,
     # "Oil off. Cool on." campaign packshot (pct_campaign/main.jpg, 28 Sep 2026): the 200 ml
     # mist and 500 ml pump on white, with ice at their bases. Like 16, v3 is the two supplied
     # container PNGs (~/Desktop/problem_boost) at the main's layout (pct_refs.py pair), then

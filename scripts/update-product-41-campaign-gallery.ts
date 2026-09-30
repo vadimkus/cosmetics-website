@@ -17,8 +17,9 @@ import { PRODUCT_41_AR_DESCRIPTION, PRODUCT_41_RU_DESCRIPTION } from '../data/pr
 
 const DIR = '/images/cushion_art'
 const MAIN = '/images/cushion_campaign/main.jpg'
-// s13 is the shade swatch slide, shown just before the closing card
-const GALLERY = [...Array.from({ length: 11 }, (_, i) => `${DIR}/s${i + 1}.jpg`), `${DIR}/s13.jpg`, `${DIR}/s12.jpg`]
+// s13 is the shade swatch slide, shown just before the closing card. s4b (the real compact and puff)
+// and s5b (a formula swatch) replaced the multi-tool and the pins on 30 Sep: no tools to buyers.
+const GALLERY = ['s1', 's2', 's3', 's4b', 's5b', 's6', 's7', 's8', 's9', 's10', 's11', 's13', 's12'].map(n => `${DIR}/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DESCRIPTION =

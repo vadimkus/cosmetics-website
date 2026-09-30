@@ -835,7 +835,7 @@ It features a 2-way system for customizable care:
 
 The ampoule functions as a spicule peeling or bio-meso peeling treatment, inducing a peel-off effect on the skin. It contains a significantly higher concentration of spicules compared to other products, delivering intensive results.`,
     image: '/images/6000/main-v2.jpg',
-    images: null,
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/biomeso_art/s${i + 1}.jpg`)),
     category: 'Bio Meso',
     inStock: true,
     size: '3ml x 4 ampoules',

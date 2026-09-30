@@ -7,6 +7,8 @@ import { productTranslations } from '@/data/productTranslations'
 import { productTranslationsRu } from '@/data/productTranslationsRu'
 import { getBioMesoExpertCopy } from '@/components/product/biomeso/biomesoExpertCopy'
 import { getCatalogQuickFacts } from '@/lib/productQuickFactsCatalog'
+import { localizeProductImage } from '@/lib/localizedProductImages'
+import { products } from '@/lib/products'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 
@@ -130,5 +132,13 @@ describe('product 60 audited localized copy', () => {
     }
     expect(copy).toContain('обученного специалиста')
     expect(copy).toContain('مختص مدرّب')
+  })
+
+  it('serves the "Needless to say." art gallery with RU/AR slides', () => {
+    const gallery = JSON.parse(products.find(p => p.id === '60')?.images ?? '[]')
+    expect(gallery).toHaveLength(12)
+    expect(gallery[0]).toBe('/images/biomeso_art/s1.jpg')
+    expect(localizeProductImage('/images/biomeso_art/s6.jpg', 'ru')).toBe('/images/biomeso_art/ru/s6.jpg')
+    expect(localizeProductImage('/images/biomeso_art/s6.jpg', 'ar')).toBe('/images/biomeso_art/ar/s6.jpg')
   })
 })

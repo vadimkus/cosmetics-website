@@ -129,10 +129,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // willow sits at 0.001% and there is no salicylic acid. Not the toner,
   // which runs zinc at ten times this.
   '20': PcserumProductPage,
-  // 30 is the last step of the same line. The distinctive fact is that there
-  // is no oil in it: no plant oil, no butter, no wax, no emulsifier, just
-  // 86.6% water thickened by 1.3% of polymer. Zinc PCA 0.05%, the same dose
-  // as the serum. Massage, not pat. Two tubes, 50g and 250g.
+  // 30 is the last step of the same line: an oil-free gel cream (no plant
+  // oils, butters or waxes) with zinc PCA 0.05%, the serum's dose. Massaged
+  // in, 50g and 250g. "Everything under control." art set.
   '30': PccreamProductPage,
   // 29 is the cream half of the pair whose serum is 18. The carton prints the
   // dose of every hyaluronate: 1,000.9 ppm for the first and 30 ppb for the

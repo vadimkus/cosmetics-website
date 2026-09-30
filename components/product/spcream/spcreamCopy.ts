@@ -72,7 +72,7 @@
  * richest cream in the range by a wide margin, and the three creams now
  * divide cleanly:
  *
- *   30  Problem Control      no oil at all, 86.6% water
+ *   30  Problem Control      oil-free gel cream
  *   29  Hyaluron             light and watery, 72.4% water
  *   27  Skin Barrier         the rich one, 49.9% water, 17.5% glycerin,
  *                            3% shea butter, 5,000 ppm ceramide
@@ -306,7 +306,7 @@ const EN: SpcreamCopy = {
     items: [
       'This one: 49.9% water, 17.5% glycerin, 3% shea butter, 5,000 ppm ceramide',
       'Hyaluron Cream: 72.4% water, light and watery, 1,000 ppm hyaluronate',
-      'Problem Control Cream: 86.6% water, no oil in it at all',
+      'Problem Control Cream: an oil-free gel cream for oily skin',
       'Sensitive and dry skin is this one. Dehydrated skin is the Hyaluron',
       'Oily and blemish-prone skin is the Problem Control',
       'All three are leave-on, morning and night',
@@ -389,7 +389,7 @@ const EN: SpcreamCopy = {
       },
       {
         q: 'How is it different from the other two creams?',
-        a: 'By texture and by who it is for. This is 49.9% water with 17.5% glycerin and 3% shea butter, so it is the rich one, for sensitive and dry skin. The Hyaluron Cream is 72.4% water and light, for dehydrated skin of any type. The Problem Control Cream has no oil in it at all, for oily skin. They are three different answers, not three grades of the same one.',
+        a: 'By texture and by who it is for. This is 49.9% water with 17.5% glycerin and 3% shea butter, so it is the rich one, for sensitive and dry skin. The Hyaluron Cream is 72.4% water and light, for dehydrated skin of any type. The Problem Control Cream is an oil-free gel cream, for oily skin. They are three different answers, not three grades of the same one.',
       },
       {
         q: 'It says botanical extracts on the box. How much?',

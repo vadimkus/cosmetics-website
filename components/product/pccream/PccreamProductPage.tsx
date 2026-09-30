@@ -59,6 +59,7 @@ import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -96,19 +97,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s2 is the
- *  sebum / hydrate / soothe slide, s4 the complex with the percentages, s5
- *  the toner-serum-cream ritual and s3 the oil-free texture claim.
- *
- *  Two of these still need a re-export and neither line is repeated in copy:
- *  s2 prints "sebum control", but the cream's registered function is
- *  "anti-blemishes, oil control" and it is the serum that adds sebum; s4
- *  prints "No Phytolex SC", which the safety assessment contradicts at
- *  0.500%. */
-const ENGINE_IMAGE = '/images/problem_cream/s4.jpeg'
-const HOWTO_IMAGE = '/images/problem_cream/s5.jpeg'
-const EFFECTS_IMAGE = '/images/problem_cream/s2.jpeg'
-const PROOF_IMAGE = '/images/problem_cream/s3.jpeg'
+/** Section art from the "Everything under control." set: the water gel (s3) for the formula,
+ *  the last domino (s9) for how to use, the shine sheriff (s4) for what it does and the empty
+ *  oil cruet (s2) for the oil-free proof. */
+const ENGINE_IMAGE = '/images/problemcream_art/s3.jpg'
+const HOWTO_IMAGE = '/images/problemcream_art/s9.jpg'
+const EFFECTS_IMAGE = '/images/problemcream_art/s4.jpg'
+const PROOF_IMAGE = '/images/problemcream_art/s2.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -646,7 +641,7 @@ export default function PccreamProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={localizeProductImage(EFFECTS_IMAGE, locale)}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -694,7 +689,7 @@ export default function PccreamProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={localizeProductImage(ENGINE_IMAGE, locale)}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -741,7 +736,7 @@ export default function PccreamProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={localizeProductImage(HOWTO_IMAGE, locale)}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -811,7 +806,7 @@ export default function PccreamProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={PROOF_IMAGE}
+                  src={localizeProductImage(PROOF_IMAGE, locale)}
                   alt={copy.clean.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"

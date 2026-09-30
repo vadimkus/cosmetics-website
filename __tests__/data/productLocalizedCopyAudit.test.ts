@@ -2165,18 +2165,8 @@ describe('audited product localization copy', () => {
     })
 
     for (const required of [
-      '86,595%',
-      '86.595%',
-      '1,3%',
-      '1.3%',
       '0,05%',
       '0.05%',
-      '1,5%',
-      '1.5%',
-      '0,5%',
-      '0.5%',
-      '5,87',
-      '5.87',
       '50 г',
       '50 غ',
       '250 г',
@@ -2197,6 +2187,15 @@ describe('audited product localization copy', () => {
       'ни эмульгатор',
       'لا مستحلب',
       '5-Free',
+      // Selling voice: no lab or dossier vocabulary on the product 30 surfaces.
+      'спецификац',
+      'измерен',
+      'партия',
+      'المقاسة',
+      'النطاق المقبول',
+      'الدفعة',
+      '86,595',
+      '86.595',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
     }

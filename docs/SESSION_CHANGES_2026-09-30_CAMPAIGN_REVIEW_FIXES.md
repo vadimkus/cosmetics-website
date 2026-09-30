@@ -17,7 +17,7 @@ asked. Real packs are composited or re-shot so labels stay exact.
 | Product | Change |
 |---|---|
 | 49 GENO-LED IR II | s9 (woman in a towel on a spa bed, "AFTER THE NEEDLE.") out of the gallery: main + 11 slides |
-| 53 Collagen Mask | main back to the clean `collagen_mask/Main.jpeg` (the campaign main had gel drops); cut-out map back to `cutout/53.webp` |
+| 53 Collagen Mask | briefly set back to the clean `collagen_mask/Main.jpeg`; 23:33 Vadim: "put back the red mask with drops", so the campaign main `collagen_campaign/main.jpg` (cut-out `53-v2.webp`) is live again and is a named exception in the rule |
 | 41 BB Cushion | "Covered." set kept (Vadim's choice). s4 multi-tool -> **s4b**: the real open compact and puff composited on black ("ONE PRESS. THREE JOBS."); s5 gold pins -> **s5b**: a formula swipe on nude ("STAYS IN PLACE."). 13 slides |
 | 69 Eye Roller | s3 sewing needle -> **s3b**: a strand of pearls ("60 FINE NEEDLES."); only slide changed (Vadim) |
 

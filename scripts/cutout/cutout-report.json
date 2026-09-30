@@ -482,8 +482,8 @@
   {
     "product": "53",
     "status": "ok",
-    "source": "/images/collagen_mask/Main.jpeg",
-    "file": "/images/cutout/53.webp",
+    "source": "/images/collagen_campaign/main.jpg",
+    "file": "/images/cutout/53-v2.webp",
     "name": "INTENSIVE REPAIR COLLAGEN MASK",
     "coverage": 0.598,
     "bytes": 69908,

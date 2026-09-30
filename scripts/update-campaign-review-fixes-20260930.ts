@@ -4,7 +4,8 @@
  * - 41 BB Cushion: s4b (real compact and puff) and s5b (formula swatch) replace the multi-tool and the
  *   pins; the rest of the "Covered." set stays.
  * - 69 Eye Roller: s3b (pearls) replaces the sewing needle.
- * - 53 Collagen Mask: main back to the clean packshot /images/collagen_mask/Main.jpeg.
+ * - 53 Collagen Mask: its main was briefly set back to collagen_mask/Main.jpeg, then Vadim kept the
+ *   campaign main with the gel drops (collagen_campaign/main.jpg), so 53 is not touched here.
  *
  * Run after the deploy carrying the new slides is live; it refuses to write otherwise.
  *   npx tsx --env-file=.env.local scripts/update-campaign-review-fixes-20260930.ts          (dry run)
@@ -18,13 +19,10 @@ const UPDATES: Record<string, { images?: string[]; image?: string }> = {
   '49': { images: gallery('led_campaign', ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's10', 's11', 's12']) },
   '41': { images: gallery('cushion_art', ['s1', 's2', 's3', 's4b', 's5b', 's6', 's7', 's8', 's9', 's10', 's11', 's13', 's12']) },
   '69': { images: gallery('eyeroller_art', ['s1', 's2', 's3b', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12']) },
-  '53': { image: '/images/collagen_mask/Main.jpeg' },
 }
 
 const NEW_FILES = [
   ...['', 'ru/', 'ar/'].flatMap(l => [`/images/cushion_art/${l}s4b.jpg`, `/images/cushion_art/${l}s5b.jpg`, `/images/eyeroller_art/${l}s3b.jpg`]),
-  '/images/collagen_mask/Main.jpeg',
-  '/images/cutout/53.webp',
 ]
 
 async function live(path: string): Promise<boolean> {

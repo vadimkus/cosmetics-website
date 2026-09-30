@@ -17,9 +17,9 @@ describe('product 30 selling copy', () => {
   ]).toLowerCase()
 
   it('leads with the campaign line in every language', () => {
-    expect(getPccreamCopy('en').headline).toBe('Everything under control.')
-    expect(getPccreamCopy('ru').headline).toBe('Всё под контролем.')
-    expect(getPccreamCopy('ar').headline).toBe('كل شيء تحت السيطرة.')
+    expect(getPccreamCopy('en').headline).toBe('Water, not oil.')
+    expect(getPccreamCopy('ru').headline).toBe('Вода, а не масло.')
+    expect(getPccreamCopy('ar').headline).toBe('ماء، لا زيت.')
   })
 
   it('keeps the selling facts', () => {
@@ -55,8 +55,10 @@ describe('product 30 selling copy', () => {
 
   it('serves the art gallery, localized', () => {
     const product = products.find(p => p.id === '30')
+    expect(product?.image).toBe('/images/problemcream_v2/main.jpg')
     expect(JSON.parse(product?.images ?? '[]')).toHaveLength(12)
-    expect(localizeProductImage('/images/problemcream_art/s4.jpg', 'ru')).toBe('/images/problemcream_art/ru/s4.jpg')
-    expect(localizeProductImage('/images/problemcream_art/s4.jpg', 'ar')).toBe('/images/problemcream_art/ar/s4.jpg')
+    expect(localizeProductImage('/images/problemcream_v2/s4.jpg', 'ru')).toBe('/images/problemcream_v2/ru/s4.jpg')
+    expect(localizeProductImage('/images/problemcream_v2/s4.jpg', 'ar')).toBe('/images/problemcream_v2/ar/s4.jpg')
+    expect(localizeProductImage('/images/problemcream_v2/main.jpg', 'ar')).toBe('/images/problemcream_v2/main.jpg')
   })
 })

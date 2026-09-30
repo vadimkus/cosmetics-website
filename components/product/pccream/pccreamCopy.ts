@@ -1,5 +1,5 @@
 /**
- * Bespoke copy for INTENSIVE PROBLEM CONTROL CREAM (product 30), "Everything under control."
+ * Bespoke copy for INTENSIVE PROBLEM CONTROL CREAM (product 30), "Water, not oil."
  *
  * EN lives here; RU and AR live in pccreamLocalizedCopy.ts. Selling voice (.cursor/rules/
  * selling-tone.mdc): an oil-free gel cream (no plant oils, butters or waxes), zinc PCA 0.05% at the
@@ -111,7 +111,7 @@ export interface PccreamCopy {
 
 const EN: PccreamCopy = {
   eyebrow: 'Gel cream · Oily and blemish-prone skin',
-  headline: 'Everything under control.',
+  headline: 'Water, not oil.',
   subheadline:
     'The moisturiser oily skin actually wants to wear. A fresh, oil-free gel cream with zinc PCA to keep shine in check, two sugars that hold water and a comfort trio that keeps skin calm. Massage it in as the last step, morning and night.',
   heroBullets: [
@@ -318,7 +318,7 @@ const EN: PccreamCopy = {
   },
   closing: {
     title: 'The moisturiser oily skin can actually keep on.',
-    body: 'Zinc PCA in a fresh, oil-free gel cream. Everything under control.',
+    body: 'Zinc PCA in a fresh, oil-free gel cream. Water, not oil.',
   },
   reviewsTitle: 'Reviews',
   backToProducts: 'All products',

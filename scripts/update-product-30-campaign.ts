@@ -1,8 +1,7 @@
 /**
- * Product 30, INTENSIVE PROBLEM CONTROL CREAM: the "Everything under control." art set as the
+ * Product 30, INTENSIVE PROBLEM CONTROL CREAM: the "Water, not oil." set (v2) as main and
  * gallery, plus the selling-voice copy (EN fields from PRODUCT_30_EN, RU/AR descriptions from
- * product30Ru / product30Ar in data/product30LocalizedCopy.ts). The main stays at
- * /images/problem_cream/main.jpeg.
+ * product30Ru / product30Ar in data/product30LocalizedCopy.ts). The main is both tubes on white.
  *
  * Run after the deploy carrying the images is live; it refuses to write otherwise.
  *   npx tsx --env-file=.env.local scripts/update-product-30-campaign.ts          (dry run)
@@ -11,7 +10,8 @@
 import { prisma } from '../lib/prisma'
 import { PRODUCT_30_EN, product30Ar, product30Ru } from '../data/product30LocalizedCopy'
 
-const DIR = '/images/problemcream_art'
+const DIR = '/images/problemcream_v2'
+const MAIN = `${DIR}/main.jpg`
 const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
@@ -32,7 +32,7 @@ async function main() {
   console.log(`product 30: ${product.name} (${product.id}), gallery now ${product.images}`)
 
   const missing: string[] = []
-  for (const path of [...GALLERY, ...LOCALIZED]) {
+  for (const path of [MAIN, ...GALLERY, ...LOCALIZED]) {
     if (!(await live(path))) missing.push(path)
   }
   if (missing.length) {
@@ -40,7 +40,7 @@ async function main() {
     process.exitCode = 1
     return
   }
-  console.log(`  all ${GALLERY.length + LOCALIZED.length} files return 200`)
+  console.log(`  all ${1 + GALLERY.length + LOCALIZED.length} files return 200`)
 
   if (!apply) {
     console.log('Dry run - pass --apply to write.')
@@ -50,6 +50,7 @@ async function main() {
   await prisma.product.update({
     where: { id: product.id },
     data: {
+      image: MAIN,
       images: JSON.stringify(GALLERY),
       ...PRODUCT_30_EN,
       descriptionRu: product30Ru.description,

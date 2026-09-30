@@ -97,13 +97,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art from the "Everything under control." set: the water gel (s3) for the formula,
- *  the last domino (s9) for how to use, the shine sheriff (s4) for what it does and the empty
- *  oil cruet (s2) for the oil-free proof. */
-const ENGINE_IMAGE = '/images/problemcream_art/s3.jpg'
-const HOWTO_IMAGE = '/images/problemcream_art/s9.jpg'
-const EFFECTS_IMAGE = '/images/problemcream_art/s4.jpg'
-const PROOF_IMAGE = '/images/problemcream_art/s2.jpg'
+/** Section art from the "Water, not oil." set: the 86% water droplet (s2) for the formula, the
+ *  toner-serum-cream line-up (s9) for how to use, zinc PCA "Fresh, not shiny." (s4) for what it does
+ *  and "0 oils, butters or waxes" (s3) for the oil-free proof. */
+const ENGINE_IMAGE = '/images/problemcream_v2/s2.jpg'
+const HOWTO_IMAGE = '/images/problemcream_v2/s9.jpg'
+const EFFECTS_IMAGE = '/images/problemcream_v2/s4.jpg'
+const PROOF_IMAGE = '/images/problemcream_v2/s3.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

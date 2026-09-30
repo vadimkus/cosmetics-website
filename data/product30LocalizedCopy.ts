@@ -2,14 +2,14 @@ const product30FullInci =
   'Aqua (Water), Dipropylene Glycol, 1,2-Hexanediol, Trehalose, Zinc PCA, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Sodium Polyacrylate, Xylitol, Allantoin, Betaine, Lactobacillus/Pumpkin Ferment Extract, Panthenol, Beta-Glucan, Betula Platyphylla Japonica Bark Extract, Leuconostoc/Radish Root Ferment Filtrate, Phaseolus Radiatus Extract, Polyglutamic Acid, Rumex Crispus Root Extract, Disodium EDTA, Potassium Hydroxide, Butylene Glycol, Dimethicone, Glycerin, Hydrogenated Lecithin.'
 
 /**
- * Product 30, INTENSIVE PROBLEM CONTROL CREAM: the product record copy, "Everything under control."
+ * Product 30, INTENSIVE PROBLEM CONTROL CREAM: the product record copy, "Water, not oil."
  * EN goes to the DB through scripts/update-product-30-campaign.ts; RU/AR are served through
  * data/productLocalizedCopyAudit.ts. Selling voice, same facts as components/product/pccream.
  */
 
 export const PRODUCT_30_EN = {
   description:
-    'Everything under control. The moisturiser oily skin actually wants to wear: a fresh, oil-free gel cream with no plant oils, butters or waxes. Zinc PCA 0.05% keeps oil and shine in check, trehalose and xylitol help skin hold on to water, and panthenol, allantoin and beta-glucan keep it calm. Massage it in as the last step, morning and night. 50g homecare and 250g professional. No perfume. Dermatologically tested.',
+    'Water, not oil. The moisturiser oily skin actually wants to wear: a fresh, oil-free gel cream with no plant oils, butters or waxes. Zinc PCA 0.05% keeps oil and shine in check, trehalose and xylitol help skin hold on to water, and panthenol, allantoin and beta-glucan keep it calm. Massage it in as the last step, morning and night. 50g homecare and 250g professional. No perfume. Dermatologically tested.',
   productDetails: JSON.stringify({
     form: 'Oil-free gel cream, tube',
     size: '50g homecare / 250g professional',
@@ -52,7 +52,7 @@ export const PRODUCT_30_EN = {
 
 export const product30Ru = {
   description:
-    'Всё под контролем. Увлажнение, которое жирная кожа действительно готова носить: свежий гель-крем без растительных масел, баттеров и восков. Цинк PCA 0,05% держит жирность и блеск под контролем, трегалоза и ксилитол помогают коже удерживать воду, а пантенол, аллантоин и бета-глюкан сохраняют её спокойной. Наносите утром и вечером последним шагом и мягко массируйте до впитывания. Тубы 50 г и 250 г. Без отдушки. Дерматологически протестировано.',
+    'Вода, а не масло. Увлажнение, которое жирная кожа действительно готова носить: свежий гель-крем без растительных масел, баттеров и восков. Цинк PCA 0,05% держит жирность и блеск под контролем, трегалоза и ксилитол помогают коже удерживать воду, а пантенол, аллантоин и бета-глюкан сохраняют её спокойной. Наносите утром и вечером последним шагом и мягко массируйте до впитывания. Тубы 50 г и 250 г. Без отдушки. Дерматологически протестировано.',
   productDetails: JSON.stringify({
     form: 'Гель-крем без масел, туба',
     size: '50 г для домашнего ухода / 250 г для профессионального применения',
@@ -100,7 +100,7 @@ export const product30Ru = {
 
 export const product30Ar = {
   description:
-    'كل شيء تحت السيطرة. الترطيب الذي ترغب البشرة الدهنية فعلاً في ارتدائه: كريم جل منعش خالٍ من الزيوت النباتية والزبدات والشموع. زنك PCA بتركيز 0.05% يُبقي الدهون واللمعان تحت السيطرة، والتريهالوز والزيليتول يساعدان البشرة على الاحتفاظ بالماء، والبانثينول والألانتوين وبيتا غلوكان تحافظ على هدوئها. يُستخدم صباحاً ومساءً كخطوة أخيرة مع التدليك بلطف حتى يتغلغل. أنبوبا 50 غ و250 غ. بلا عطر. مختبر جلدياً.',
+    'ماء، لا زيت. الترطيب الذي ترغب البشرة الدهنية فعلاً في ارتدائه: كريم جل منعش خالٍ من الزيوت النباتية والزبدات والشموع. زنك PCA بتركيز 0.05% يُبقي الدهون واللمعان تحت السيطرة، والتريهالوز والزيليتول يساعدان البشرة على الاحتفاظ بالماء، والبانثينول والألانتوين وبيتا غلوكان تحافظ على هدوئها. يُستخدم صباحاً ومساءً كخطوة أخيرة مع التدليك بلطف حتى يتغلغل. أنبوبا 50 غ و250 غ. بلا عطر. مختبر جلدياً.',
   productDetails: JSON.stringify({
     form: 'كريم جل خالٍ من الزيوت، أنبوب',
     size: '50 غ للعناية المنزلية / 250 غ للاستخدام المهني',

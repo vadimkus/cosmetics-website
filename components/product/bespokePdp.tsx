@@ -131,7 +131,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   '20': PcserumProductPage,
   // 30 is the last step of the same line: an oil-free gel cream (no plant
   // oils, butters or waxes) with zinc PCA 0.05%, the serum's dose. Massaged
-  // in, 50g and 250g. "Everything under control." art set.
+  // in, 50g and 250g. "Water, not oil." set.
   '30': PccreamProductPage,
   // 29 is the cream half of the pair whose serum is 18. The carton prints the
   // dose of every hyaluronate: 1,000.9 ppm for the first and 30 ppb for the

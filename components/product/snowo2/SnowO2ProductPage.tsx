@@ -56,6 +56,7 @@ import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -93,14 +94,12 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art from the September 2026 campaign set (cleanser_o), each slide
- *  paired with the section it illustrates. S2 is "make-up, dirt, impurities.
- *  off", S4 the bubble engine with the 8% ether figure, S6 the four-step
- *  "don't add water" how-to. All figures on the slides match Formula_up and
- *  COA WOB052. */
-const EFFECTS_IMAGE = '/images/cleanser_o/S2.jpeg'
-const HOWTO_IMAGE = '/images/cleanser_o/S6.jpeg'
-const ENGINE_IMAGE = '/images/cleanser_o/S4.jpeg'
+/** Section art from the "It fizzes." campaign, served per locale through
+ *  localizeProductImage: s4 the bubbles rising on skin, s5 the 8% bubble
+ *  maker, s10 the dry / fizz / rinse card. */
+const EFFECTS_IMAGE = '/images/snowo2_campaign/s4.jpg'
+const HOWTO_IMAGE = '/images/snowo2_campaign/s10.jpg'
+const ENGINE_IMAGE = '/images/snowo2_campaign/s5.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -172,10 +171,10 @@ export default function SnowO2ProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -628,7 +627,7 @@ export default function SnowO2ProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={localizeProductImage(EFFECTS_IMAGE, locale)}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -676,7 +675,7 @@ export default function SnowO2ProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={localizeProductImage(ENGINE_IMAGE, locale)}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -723,7 +722,7 @@ export default function SnowO2ProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={localizeProductImage(HOWTO_IMAGE, locale)}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"

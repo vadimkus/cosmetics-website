@@ -197,9 +197,9 @@ REVISION = {
     # New campaign packshot: the tube square on white, replacing the shot the
     # page had run on since July.
     "34": 2,
-    # New campaign packshot: both bottles square on white, replacing the
-    # August main_clean render.
-    "10": 2,
+    # "It fizzes." campaign main (snowo2_campaign/main.jpg, 30 Sep 2026): the 180 ml and
+    # 500 ml pumps on white, no type. v2 was the August both-bottles render (cleanser_o).
+    "10": 3,
     # New render (main-v2.jpg, 16 Sep 2026): same box-and-four-syringes layout
     # on a flat white field, replacing the July glossy-floor shot.
     "60": 2,

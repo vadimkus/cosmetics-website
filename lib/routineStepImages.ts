@@ -14,7 +14,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '1': '/images/roller_campaign/main.jpg',
   '3': '/images/Booster.jpg',
   '6': '/images/cts_campaign/main.jpg',
-  '10': '/images/cleanser_o/Main.jpeg',
+  '10': '/images/snowo2_campaign/main.jpg',
   '11': '/images/defender_0/Main.jpeg',
   '12': '/images/epi_peel_o/Main.jpeg',
   '14': '/images/mist_0/Main.jpeg',

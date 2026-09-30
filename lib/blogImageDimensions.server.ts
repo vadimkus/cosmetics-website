@@ -21,6 +21,7 @@ const BLOG_IMAGE_DIMENSIONS: Readonly<Record<string, BlogImageDimensions>> = {
   '/images/overnight/main.jpeg': { width: 1024, height: 1024 },
   '/images/overnight/main-v2.jpeg': { width: 1254, height: 1254 },
   '/images/cleanser_o/Main.jpeg': { width: 1254, height: 1254 },
+  '/images/snowo2_campaign/main.jpg': { width: 1600, height: 1600 },
   '/images/pcs_v/Main.jpeg': { width: 1024, height: 1024 },
   '/images/shampoo_o/Main.jpeg': { width: 1402, height: 1402 },
   '/images/revita/main.jpg': { width: 1024, height: 1024 },

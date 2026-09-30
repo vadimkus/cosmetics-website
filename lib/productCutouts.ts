@@ -156,6 +156,8 @@ const CUTOUTS: Record<string, string> = {
   '/images/stamp_scalp/main.jpg': '/images/cutout/67-v2.webp',
   // 68 GLASS SKIN RITUAL KIT
   '/images/glass_skin_campaign/main.jpg': '/images/cutout/68.webp',
+  // 69 Eye Roller
+  '/images/eyeroller_art/main.jpg': '/images/cutout/69.webp',
 }
 
 /**

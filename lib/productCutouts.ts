@@ -133,7 +133,7 @@ const CUTOUTS: Record<string, string> = {
   // 56 SKIN BRIGHTENING BEAUTY BOX
   '/images/bb_bright_campaign/main.jpg': '/images/cutout/56-v2.webp',
   // 57 CHARMING LOOK BEAUTY BOX
-  '/images/bbbox_charming/main.jpeg': '/images/cutout/57.webp',
+  '/images/bb_charming_campaign/main.jpg': '/images/cutout/57-v2.webp',
   // 58 ANTI-AGING BEAUTY BOX
   '/images/bb_age_campaign/main.jpg': '/images/cutout/58-v3.webp',
   // 59 DEEP MOISTURIZING BEAUTY BOX

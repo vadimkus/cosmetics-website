@@ -313,6 +313,12 @@ REVISION = {
     # (~/Desktop/Insta_Olga/bb_bright/campaign/picks/main.png), then normalised. Do not
     # rebuild 56 from the photograph.
     "56": 2,
+    # "Curtain up." campaign main (bb_charming_campaign/main.jpg, 30 Sep 2026): the five
+    # singles in the open kit case, top down, blush foam and plum hardware, one closed cushion
+    # compact. The main carries the title, so v2 is Vision run on the text-free CapCut take
+    # (~/Desktop/Insta_Olga/bb_charming/campaign/picks/main.png), then normalised. Do not
+    # rebuild 57 from the photograph.
+    "57": 2,
     # "Full moon glow." holiday campaign main (glass_skin_campaign/main.jpg, 29 Sep 2026): the
     # moon jar lid beside the open navy tray, top down. The main carries the title, so 68 is
     # Vision run on the text-free CapCut take

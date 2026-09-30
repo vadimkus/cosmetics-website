@@ -73,37 +73,31 @@
   }
 }
 
-/* --- 57, CHARMING LOOK -------------------------------------------------- */
-/* The obvious cue is the cushion: black case, gold rim, and CHARMING LOOK set on
-   the carton between two bronze rules. But 63, the RevitaGlow BB, already owns
-   warm gold (#c2955f), and two BB pages in the same gold would read as one
-   template. So the accent comes from the other colour in the photograph, the
-   pink overnight-mask tube, pulled down to a muted plum.
-   Plum is unclaimed across the set: far less saturated than 58's garnet, warmer
-   and darker than biomeso's lilac, and nothing like 63's gold. The creams keep a
-   pink cast so the page still reads as the make-up box rather than a second
-   anti-aging one. */
+/* --- 57, CHARMING LOOK · "Curtain up." (Beauty Box style v1) ------------ */
+/* The page follows the campaign: blush foam and a deep plum accent, the backstage
+   colours of the kit case and the velvet stage riser. Warm gold stays with 63, the
+   RevitaGlow BB, so the cushion's gold rim is not borrowed here. */
 .cera-page.bb-mauve {
-  --cera-cream: #faf6f8;
-  --cera-cream-deep: #f1e7ec;
-  --cera-blush: #f5e9ef;
-  --cera-blush-deep: #ddc4d1;
-  --cera-rose: #8e5f77;
-  --cera-rose-ink: #653d52;
+  --cera-cream: #fbf6f5;
+  --cera-cream-deep: #f4e7e4;
+  --cera-blush: #f6e4e1;
+  --cera-blush-deep: #eac4c0;
+  --cera-rose: #7a2e5c;
+  --cera-rose-ink: #5a2244;
   --cera-ink: #161013;
   --cera-body: #372e33;
   --cera-muted: #66555e;
-  --cera-line: #e9dde3;
+  --cera-line: #ecdcd9;
   --cera-shot: #ffffff;
 }
 
 .bb-mauve .cera-stage {
-  box-shadow: 0 20px 52px -34px rgba(101, 61, 82, 0.3);
+  box-shadow: 0 20px 52px -34px rgba(90, 34, 68, 0.3);
 }
 
 @media (hover: hover) {
   .bb-mauve .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(22, 16, 19, 0.04), 0 26px 48px -26px rgba(101, 61, 82, 0.32);
+    box-shadow: 0 2px 4px rgba(22, 16, 19, 0.04), 0 26px 48px -26px rgba(90, 34, 68, 0.32);
   }
 }
 

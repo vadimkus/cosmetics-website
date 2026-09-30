@@ -13,7 +13,8 @@
  *     Registration DOC/Artwork/[GENOSYS]SNOW O2(180ml).pdf
  *     Intertek_folder/Certififcate of Analysis/9 SNOW O2 - COA-GENOSYS (WIE048).pdf
  *     Applied to a dry face; oxygen bubbles form, then a circular massage and
- *     tepid water. Methyl Perfluoroisobutyl Ether 3.000% is the bubble agent.
+ *     tepid water. Methyl Perfluoroisobutyl Ether 8% is the bubble agent, as on
+ *     the SNOW O₂ page (the 3.000% in the old ingredient list is stale).
  *     pH 5.86. Contains Sodium Laureth Sulfate, Parfum, Limonene.
  *
  *   Snow Booster 200ml (product 16)
@@ -114,14 +115,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'The make-up step that is also the sunscreen and the treatment.',
+  headline: 'Curtain up.',
   subheadline:
-    'The cushion at the centre of this box is licensed in Korea as a triple-function cosmetic: UV protection, brightening and wrinkle improvement, all three on one certificate. It reaches SPF50+ PA++++ on five filters, and carries niacinamide at 2% and adenosine at 0.04% while it covers. Around it: the oxygen cleanser, the fragrance-free toner, a biphasic remover for the eye area and a 100g overnight mask.',
+    'Office light, phone cameras, Dubai sun: your skin is on stage from morning to night. This box gets it ready and takes it all off again. A cleanser that bubbles up on a dry face, a toner with no added fragrance that you can mist over make-up, and at the centre a cushion Korea licenses for three jobs at once: SPF50+ PA++++ from five filters, brightening with niacinamide 2% and wrinkle care with adenosine 0.04%. At night, a two-phase remover for eyes and lips, and an overnight cream mask you leave on once or twice a week.',
   heroBullets: [
-    'The cushion is a Korean triple-function cosmetic, registered for UV protection, brightening and wrinkle improvement at once',
-    'SPF50+ PA++++ from five filters, with niacinamide 2% and adenosine 0.04% in the same formula',
-    'Two 15g cushions, not one: a compact and a sealed refill, so the whole thing is not thrown away when the sponge is spent',
-    'Five full retail sizes for less than the same five bought one at a time',
+    'The cushion is a Korean triple-function cosmetic: UV protection, brightening and wrinkle care on one licence',
+    'SPF50+ PA++++ from five filters, with niacinamide 2% and adenosine 0.04% in the same press of the puff',
+    'Two 15g cushions, the compact and a sealed refill, in #01 Ivory, #02 Beige or #03 Camel',
+    'Five full sizes for less than the same five bought one at a time',
   ],
   kitSize: '5 products',
   fullSizeNote: 'Full sizes',
@@ -154,7 +155,7 @@ const EN: BeautyBoxCopy = {
         step: 'Step 1 - Cleanse',
         body:
           'Goes on to a dry face, where oxygen bubbles form on their own and lift make-up and the day off the skin. Massage in circles as they appear, then rinse with tepid water.',
-        facts: ['Foams on its own', 'Bubble agent at 3%', 'pH 5.86', '180ml'],
+        facts: ['Foams on its own', 'Bubble agent 8%', 'Contains parfum and limonene', '180ml'],
       },
       {
         titleKey: 'routineSnowBoosterTitle',
@@ -242,7 +243,7 @@ const EN: BeautyBoxCopy = {
       },
     ],
     note:
-      'The cushion carries a full SPF50+ PA++++ licence, which covers the commute, the office and the errands. SPF is graded at 2mg per square centimetre, a heavier layer than anyone pats on as make-up, so for a beach day or a long walk put your sunscreen down first and let the cushion sit on top as the colour.',
+      'The cushion carries a full SPF50+ PA++++ licence, which covers the commute, the office and the errands. Outdoors, reapply at least every two hours and after water, sweat or towelling. SPF is graded at 2mg per square centimetre, a heavier layer than anyone pats on as make-up, so for a beach day or a long walk put your sunscreen down first and let the cushion sit on top as the colour.',
   },
   evidence: {
     eyebrow: 'What is in it',
@@ -272,7 +273,7 @@ const EN: BeautyBoxCopy = {
         value: '2%',
         title: 'Niacinamide in the overnight mask',
         body:
-          'The same Korean brightening functional as the cushion, with Adenosine 0.04% as the wrinkle-care pair. Oxygen and the named growth factors print at 0%. Last step. Do not wash off.',
+          'The same Korean brightening functional as the cushion, with adenosine 0.04% as the wrinkle-care pair. Last step of the evening, and it stays on till morning.',
       },
     ],
     footnote:
@@ -284,7 +285,7 @@ const EN: BeautyBoxCopy = {
     forTitle: 'A good match if',
     forList: [
       'You wear make-up most days and would rather the base did some work than just sit there',
-      'Redness, blemishes or uneven tone are what you want covered, and treated while covered',
+      'Redness, blemishes or uneven tone are what you want covered, with coverage you can build only where you need it',
       'You want daily UV protection built into a step you already do',
       'You take eye make-up off every night and want something that does not drag at the lash line',
       'You are buying for someone else: this is the box that reads as a gift rather than a prescription',
@@ -303,7 +304,7 @@ const EN: BeautyBoxCopy = {
       { productNumber: '59', label: 'Deep Moisturizing Beauty Box' },
     ],
     note:
-      'The cleanser, toner, cushion and remover are all dermatologically tested. The cushion is worn all day, so if this shade is new to you, wear it for a day before an event rather than on the morning of one.',
+      'The cleanser, toner, cushion and remover are all dermatologically tested. The cushion is worn all day, so if this shade is new to you, wear it for a day before an event rather than on the morning of one. Follow the pregnancy and breastfeeding warning printed on the SNOW O₂ pack.',
   },
   details: {
     eyebrow: 'Specifications',
@@ -311,7 +312,7 @@ const EN: BeautyBoxCopy = {
     rows: [
       { label: 'Contents', value: '5 products: cleanser 180ml, toner 200ml, cushion 15g with a 15g refill, remover 200ml, overnight mask 100g' },
       { label: 'Shades', value: 'Cushion in #01 Ivory, #02 Beige or #03 Camel. Beige is the deeper of the first two' },
-      { label: 'Skin type', value: 'All skin types. The cushion is made for use after professional treatment, so it suits skin that is easily reddened' },
+      { label: 'Cushion', value: 'Buildable coverage in thin layers. After an in-clinic procedure, ask your practitioner before putting make-up back on' },
       { label: 'Routine', value: 'Cleanse, tone, cushion by day. Remover, cleanse, mask by night, once or twice a week' },
       { label: 'Registration', value: 'Cushion is a Korean triple-function cosmetic: UV protection, brightening, wrinkle improvement. Overnight mask is dual-function: brightening, wrinkle improvement' },
       { label: 'Sun protection', value: 'SPF50+ PA++++, licensed on the cushion. Layer a dedicated sunscreen underneath for a long day outdoors' },
@@ -840,9 +841,9 @@ void [_AR, _RU]
 const AR_AUDITED: BeautyBoxCopy = {
   eyebrow: 'مجموعة تجميل',
   backToProducts: 'المنتجات',
-  headline: 'تغطية صباحية متقنة، وتنظيف مسائي واضح.',
+  headline: 'ارفعي الستار.',
   subheadline:
-    'خمسة منتجات كاملة الحجم وست قطع فعلية، لأن كوشن SKIN CARING يأتي بعبوة 15 غ وعبوة إعادة تعبئة 15 غ. اختاري إحدى الدرجات الثلاث، واستخدمي الكوشن كآخر خطوة صباحية؛ وعند وضع المكياج يبدأ المساء بمزيل الشفاه والعينين ثم تنظيف الوجه.',
+    'إضاءة المكتب، وكاميرات الهواتف، وشمس دبي: بشرتكِ على المسرح من الصباح حتى المساء. هذه المجموعة تجهّزها للظهور وتزيل كل شيء مساءً. خمسة منتجات كاملة الحجم وست قطع فعلية، لأن كوشن SKIN CARING يأتي بعبوة 15 غ وعبوة إعادة تعبئة 15 غ. اختاري إحدى الدرجات الثلاث، واستخدمي الكوشن كآخر خطوة صباحية؛ وعند وضع المكياج يبدأ المساء بمزيل الشفاه والعينين ثم تنظيف الوجه.',
   heroBullets: [
     'كوشن SPF 50+ PA++++ بخمسة مرشحات ونياسيناميد 2% وأدينوزين 0.04%',
     'ثلاث درجات: #01 Ivory و#02 Beige و#03 Camel، مع اختيار الدرجة قبل الإضافة إلى السلة',
@@ -1005,9 +1006,9 @@ const AR_AUDITED: BeautyBoxCopy = {
 const RU_AUDITED: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Продуманный тон утром, понятное очищение вечером.',
+  headline: 'Занавес поднят.',
   subheadline:
-    'Пять полноразмерных продуктов и шесть физических единиц: кушон SKIN CARING включает основной блок 15 г и рефилл 15 г. Выберите один из трёх оттенков, наносите кушон последним утренним шагом, а вечером используйте ремувер только тогда, когда был макияж.',
+    'Офисный свет, камеры телефонов, солнце Дубая: ваша кожа на сцене с утра до вечера. Набор готовит её к выходу и вечером снимает всё. Пять полноразмерных продуктов и шесть физических единиц: кушон SKIN CARING включает основной блок 15 г и рефилл 15 г. Выберите один из трёх оттенков, наносите кушон последним утренним шагом, а вечером используйте ремувер только тогда, когда был макияж.',
   heroBullets: [
     'Кушон SPF 50+ PA++++ на пяти УФ-фильтрах с ниацинамидом 2% и аденозином 0,04%',
     'Три оттенка: #01 Ivory, #02 Beige и #03 Camel, выбор обязателен перед добавлением в корзину',

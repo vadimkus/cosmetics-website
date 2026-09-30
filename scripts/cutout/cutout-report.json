@@ -522,11 +522,11 @@
   {
     "product": "57",
     "status": "ok",
-    "source": "/images/bbbox_charming/main.jpeg",
-    "file": "/images/cutout/57.webp",
+    "source": "/images/bb_charming_campaign/main.jpg",
+    "file": "/images/cutout/57-v2.webp",
     "name": "CHARMING LOOK BEAUTY BOX",
-    "coverage": 0.27,
-    "bytes": 63606,
+    "coverage": 0.42,
+    "bytes": 63308,
     "review": false
   },
   {

@@ -372,11 +372,11 @@
   {
     "product": "43",
     "status": "ok",
-    "source": "/images/hair_tonic/main-v2.jpeg",
-    "file": "/images/cutout/43.webp",
+    "source": "/images/tonic_campaign/main.jpg",
+    "file": "/images/cutout/43-v2.webp",
     "name": "HR\u00b3 MATRIX HAIR TONIC \u03b1",
-    "coverage": 0.146,
-    "bytes": 23302,
+    "coverage": 0.148,
+    "bytes": 37426,
     "review": false
   },
   {

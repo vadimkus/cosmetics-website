@@ -105,7 +105,7 @@ const CUTOUTS: Record<string, string> = {
   // 42 INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]
   '/images/blemish_o/Main.jpeg': '/images/cutout/42-v2.webp',
   // 43 HR³ MATRIX HAIR TONIC α
-  '/images/hair_tonic/main-v2.jpeg': '/images/cutout/43.webp',
+  '/images/tonic_campaign/main.jpg': '/images/cutout/43-v2.webp',
   // 44 HR³ MATRIX MEDI SCALP SHAMPOO α
   '/images/shampoo_o/Main.jpeg': '/images/cutout/44-v2.webp',
   // 45 HR³ MATRIX HAIR SOLUTION α

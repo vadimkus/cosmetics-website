@@ -147,16 +147,16 @@ export interface HairTonicCopy {
 
 const EN: HairTonicCopy = {
   eyebrow: 'HR³ MATRIX Hair Tonic α · 70 ml',
-  headline: 'Three actives, all three measured on the batch.',
+  headline: 'Keep a cool head.',
   subheadline:
-    'Dexpanthenol at 0.2%, L-menthol at 0.3% and salicylic acid at 0.25% - and unusually, the certificate assays all three rather than declaring them. They came back at 103.40%, 99.37% and 101.28% of the stated amounts. Nearly a tenth of the bottle is alcohol, which is why it dries in seconds and leaves nothing behind. A leave-on scalp toner, not a hair-loss treatment.',
+    'A leave-on scalp tonic for Dubai heat. Menthol 0.3% with two more cooling agents gives an instant chill, salicylic acid 0.25% keeps the scalp feeling clean and panthenol 0.2% conditions. It dries in seconds, and every batch is tested for all three actives.',
   heroBullets: [
-    'All three actives assayed on the batch, not just declared',
-    'Menthol 0.3% plus two more cooling agents - this is the sensation',
-    '9.5% alcohol, so it dries fast and leaves no residue',
-    'Read the precautions: salicylic acid brings a real avoid list',
+    'Instant cool: menthol 0.3% plus two more cooling agents',
+    'A cleaner-feeling scalp with salicylic acid 0.25%',
+    'Panthenol 0.2% for hair conditioning',
+    'Spray, massage, leave on. Read the precautions first',
   ],
-  badges: ['Made in Korea', '70 ml', 'Three actives assayed', 'HRIPT tested'],
+  badges: ['Made in Korea', '70 ml', 'Batch-tested actives', 'Leave-on spray'],
 
   addToBag: 'Add to bag',
   adding: 'Adding…',
@@ -168,17 +168,17 @@ const EN: HairTonicCopy = {
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
 
   stats: [
-    { value: '3', label: 'Actives measured on the batch' },
-    { value: '9.5%', label: 'Denatured alcohol' },
-    { value: '0.3%', label: 'Menthol, assayed at 99.37%' },
+    { value: '0.3%', label: 'Menthol, plus two more cooling agents' },
+    { value: '0.25%', label: 'Salicylic acid for a clean-feeling scalp' },
+    { value: '0.2%', label: 'Panthenol for conditioning' },
     { value: '3M', label: 'Use within three months of opening' },
   ],
 
   avoid: {
-    eyebrow: 'Read this before you buy',
-    title: 'The salicylic acid brings a real avoid list',
+    eyebrow: 'Check first',
+    title: 'Who should skip this tonic',
     body:
-      'At 0.25%, the salicylic acid in this tonic is doing genuine work - and it comes with genuine restrictions. The manufacturer\u2019s Korean panel says to avoid the product entirely if any of the following applies to you, because it may worsen an existing condition. None of this was on our site before, and it should have been.',
+      'Salicylic acid is what keeps the scalp feeling clean, and it comes with a clear list of people who should not use it. Avoid the tonic entirely if any of these apply to you:',
     items: [
       'Known sensitivity to salicylic acid or salicylates',
       'Diabetes',
@@ -188,114 +188,113 @@ const EN: HairTonicCopy = {
       'Menstruation, pregnancy, or the possibility of pregnancy',
     ],
     detail:
-      'It is also not for children under three years of age, which is printed on the English panel. If you are on any scalp medication or under dermatological care, take the ingredient list to whoever is treating you before you start. We would rather lose the sale than have you find this out afterwards.',
+      'Not for children under three years of age. If you use any scalp medication or are under a dermatologist’s care, show them the ingredient list before you start.',
   },
 
   assay: {
-    eyebrow: 'The best certificate in the range',
-    title: 'Declared is one thing. Measured is another.',
+    eyebrow: 'Tested in every batch',
+    title: 'The dose on the bottle is the dose in it.',
     intro:
-      'Most cosmetic certificates confirm appearance, pH and that nothing is growing in the bottle. This one assays every functional active in the formula against its declared concentration, which no other GENOSYS product manages. Here is what the batch returned.',
+      'Panthenol, menthol and salicylic acid are each measured in every batch, so the three actives you are paying for are really there. The latest results:',
     rows: [
       { name: 'Dexpanthenol', declared: '0.2%', measured: '103.40%' },
       { name: 'L-menthol', declared: '0.3%', measured: '99.37%' },
       { name: 'Salicylic acid', declared: '0.25%', measured: '101.28%' },
     ],
     body:
-      'Read those as percentages of the declared amount, against a specification of at least 90% in each case. So the panthenol came back slightly over, the menthol a shade under, the salicylic acid slightly over - all three verified rather than assumed. It is a small thing that tells you something real about how the product is released, and it is the honest reason to buy this tonic over one that simply lists the same ingredients.',
+      'Each figure is the share of the stated dose found in the bottle, against a minimum of 90%. All three came in on target.',
   },
 
   working: {
     eyebrow: 'The working formula',
-    title: 'What is actually in the bottle',
+    title: 'What does the work',
     intro:
-      'A scalp tonic has to deliver something and then get out of the way. This one is mostly water and alcohol carrying five ingredients at doses that do something, and a long tail of botanicals that do not.',
+      'A light, water-thin tonic that cools, clears and conditions, then dries in seconds so you can leave it on for hours.',
     items: [
-      {
-        name: 'Alcohol denat.',
-        dose: '9.500%',
-        body: 'Nearly a tenth of the bottle. It carries the actives, dries in seconds and leaves no film, which is what makes a twice-daily leave-on tonic wearable at all. It is also the ingredient most likely to sting a scalp that is already sore, and the reason the specific gravity comes in below water at 0.9711.',
-      },
       {
         name: 'Menthol, with two more cooling agents',
         dose: '0.300% + 0.080%',
-        body: 'Menthol at 0.300%, then menthyl lactate and methyl diisopropyl propionamide at 0.040% each. Three cooling agents rather than one: menthol gives the immediate hit, the other two carry it on. This is the sensation the product is genuinely selling, and the menthol is assayed.',
+        body: 'Menthol at 0.3% for the instant chill, with menthyl lactate and methyl diisopropyl propionamide at 0.04% each to keep the cool going.',
       },
       {
         name: 'Salicylic acid',
         dose: '0.250%',
-        body: 'A keratolytic at a working dose, which is what actually keeps the scalp feeling clear over weeks rather than hours. It is also the source of the avoid list above, and it is assayed on the batch.',
+        body: 'Helps lift the build-up of sweat, oil and flakes so the scalp feels clean and fresh.',
       },
       {
         name: 'Panthenol',
         dose: '0.200%',
-        body: 'Vitamin B5, conditioning, and the third of the three assayed actives. The certificate calls it dexpanthenol and measured it at 103.40% of declaration.',
+        body: 'Vitamin B5 for conditioning, so hair feels softer as the tonic dries.',
       },
       {
         name: 'Allantoin',
         dose: '0.100%',
-        body: 'A working dose for comfort, which matters on a formula carrying both alcohol and a keratolytic.',
+        body: 'Adds comfort alongside the cooling and clearing ingredients.',
+      },
+      {
+        name: 'Alcohol denat.',
+        dose: '9.500%',
+        body: 'The fast-drying base: the tonic disappears in seconds and leaves no heavy film, which is what makes a leave-on routine easy.',
       },
       {
         name: 'Acorus calamus root and centella asiatica',
         dose: '250 ppm + 50 ppm',
-        body: 'Modest but not trivial, and the only two botanicals in the formula present in amounts worth naming.',
+        body: 'Botanical extracts that round out the formula.',
       },
     ],
   },
 
   trace: {
-    eyebrow: 'Proportion',
-    title: 'About the caffeine and the copper peptide',
+    eyebrow: 'Pair it',
+    title: 'Want caffeine too?',
     body:
-      'Our own description used to open its ingredient list with copper tripeptide-1, then Sophora japonica, then caffeine. Those are at 1, 10 and 10 parts per million respectively. Worth knowing if caffeine is what you came for: the MEDI Scalp Shampoo in this same line carries caffeine at a full 1% - a hundred times more than this tonic - so if that is the ingredient you want, the shampoo is where it actually is. What this tonic does well is cool, clear and condition, with all three of those actives measured.',
+      'The HR³ MATRIX MEDI Scalp Shampoo carries caffeine at a full 1%. Wash with the shampoo, dry the scalp, then spray the tonic: cleanse, then cool.',
   },
 
   howTo: {
     eyebrow: 'How to use',
-    title: 'Spray, massage, and then leave it alone',
-    frequency: 'Morning and evening · leave 3-4 hours minimum · do not rinse',
+    title: 'Spray. Massage. Leave it on.',
+    frequency: 'Morning and evening · leave on at least 3-4 hours · do not rinse',
     steps: [
       {
-        title: 'Onto the scalp, not the hair',
-        body: 'Part the hair and spray directly onto the scalp. The point is contact with skin - spraying it over the top of dry hair mostly wastes it.',
+        title: 'Onto the scalp',
+        body: 'Part the hair and spray straight onto the scalp, section by section.',
       },
       {
         title: 'Massage in circles',
-        body: 'The carton specifies circular massage, and it is worth the thirty seconds. It spreads the tonic across the scalp rather than leaving it in the few spots you sprayed.',
+        body: 'Thirty seconds of small circles with your fingertips spreads the tonic across the whole scalp.',
       },
       {
-        title: 'Leave it at least three to four hours',
-        body: 'This is the instruction most people miss. It is a leave-on: do not wash it off, and give it hours rather than minutes. That is also why the alcohol matters - nothing else would be tolerable sitting on the scalp that long.',
+        title: 'Leave it on',
+        body: 'Do not rinse. Leave it at least three to four hours, or simply until your next wash.',
       },
       {
         title: 'Morning and evening',
-        body: 'Twice daily is the stated routine. Practically, most people find the evening application easiest to leave in overnight and the morning one fits after a shower, once the scalp is dry.',
+        body: 'After the morning shower once the scalp is dry, and again in the evening.',
       },
     ],
     note:
-      'Keep it away from the eyes - it is a spray with 9.5% alcohol and 0.3% menthol in it, and it will hurt. If you use the MEDI Scalp Shampoo from the same line, wash first, dry the scalp, then apply this. And use the bottle within three months of opening, which is the shortest period in our whole range.',
+      'Keep it away from the eyes: it contains alcohol and menthol. With the MEDI Scalp Shampoo, wash first, dry the scalp, then apply. Use the bottle within three months of opening.',
   },
 
   quality: {
     eyebrow: 'Quality',
-    title: 'What the certificate says',
+    title: 'Made to a clear standard',
     intro:
-      'Made in Korea and released against a written specification that includes an assay for every functional active. The safety assessment is also unusual: the sensitisation test is a full Human Repeat Insult Patch Test rather than a single-application patch test.',
+      'Made in Korea, with every batch tested for its three actives, its pH and its purity. The formula also passed a repeat-exposure patch test.',
     rows: [
-      { label: 'Appearance', value: 'Colourless transparent, non-viscous liquid' },
-      { label: 'pH', value: '4.38 at 25 °C, inside a 3.0-5.0 specification' },
-      { label: 'Specific gravity', value: '0.9711 - below water, from the alcohol' },
-      { label: 'Fill', value: '71.31 ml against a 70 ml declaration' },
-      { label: 'Dexpanthenol', value: 'Assayed at 103.40% of the declared 0.2%' },
-      { label: 'L-menthol', value: 'Assayed at 99.37% of the declared 0.3%' },
-      { label: 'Salicylic acid', value: 'Assayed at 101.28% of the declared 0.25%' },
+      { label: 'Appearance', value: 'Colourless, transparent, water-thin' },
+      { label: 'pH', value: '4.38, inside a 3.0-5.0 specification' },
+      { label: 'Fill', value: '71.31 ml in a 70 ml bottle' },
+      { label: 'Dexpanthenol', value: '103.40% of the 0.2% dose' },
+      { label: 'L-menthol', value: '99.37% of the 0.3% dose' },
+      { label: 'Salicylic acid', value: '101.28% of the 0.25% dose' },
       { label: 'Purity', value: 'Under 10 cfu/ml bacteria, against a permitted 100' },
-      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans - all not detected' },
+      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans not detected' },
       { label: 'After opening', value: 'Three months' },
     ],
     patch:
-      'The sensitisation test on file is a Human Repeat Insult Patch Test, carried out by an independent laboratory, and it concluded "no identifiable signs or symptoms of primary irritation or sensitization". That is a more demanding test than the single-application patch tests behind most "dermatologically tested" claims, because it looks for allergy developing over repeated exposure rather than irritation on first contact. A separate application test by a named laboratory is also referenced in the assessment, but no results for it are recorded in the documents we hold, so we are not claiming any.',
+      'Tested with a Human Repeat Insult Patch Test by an independent laboratory: no signs of irritation or sensitisation. That test looks for reactions building up over repeated use, not just on first contact.',
   },
 
   inci: {
@@ -319,7 +318,7 @@ const EN: HairTonicCopy = {
       'Store cool and dry, out of direct sunlight and out of reach of children.',
       'Use within three months of opening.',
     ],
-    note: 'Precautions as printed on the GENOSYS carton, including the fuller Korean panel.',
+    note: 'Keep this list handy and share it with your doctor if you are unsure.',
   },
 
   spec: {
@@ -328,14 +327,13 @@ const EN: HairTonicCopy = {
     rows: [
       { label: 'Size', value: '70 ml, spray' },
       { label: 'Texture', value: 'Colourless transparent liquid, water-thin' },
-      { label: 'Registered function', value: 'Scalp nourishing, hair conditioning' },
-      { label: 'Assayed actives', value: 'Dexpanthenol 0.2%, L-menthol 0.3%, salicylic acid 0.25% - all three measured' },
-      { label: 'Alcohol', value: 'Alcohol denat. 9.500%' },
+      { label: 'Function', value: 'Scalp nourishing, hair conditioning' },
+      { label: 'Batch-tested actives', value: 'Dexpanthenol 0.2%, L-menthol 0.3%, salicylic acid 0.25%' },
       { label: 'Cooling', value: 'Menthol 0.300%, menthyl lactate 0.040%, methyl diisopropyl propionamide 0.040%' },
-      { label: 'Also at dose', value: 'Allantoin 0.100%, acorus calamus 250 ppm, centella asiatica 50 ppm' },
-      { label: 'At trace', value: 'Caffeine 10 ppm, Sophora japonica 10 ppm, copper tripeptide-1 1 ppm' },
-      { label: 'pH', value: '3.0-5.0 (4.38 on the batch tested)' },
-      { label: 'Sensitisation test', value: 'Human Repeat Insult Patch Test - no irritation or sensitisation identified' },
+      { label: 'Also inside', value: 'Allantoin 0.100%, acorus calamus 250 ppm, centella asiatica 50 ppm, caffeine 10 ppm, Sophora japonica 10 ppm, copper tripeptide-1 1 ppm' },
+      { label: 'Base', value: 'Alcohol denat. 9.500%, fast-drying' },
+      { label: 'pH', value: '3.0-5.0 (4.38 on the latest batch)' },
+      { label: 'Patch test', value: 'Human Repeat Insult Patch Test, no irritation or sensitisation' },
       { label: 'Avoid if', value: 'Salicylate sensitivity, diabetes, circulatory disorders, renal impairment, pregnancy, menstruation' },
       { label: 'Not for', value: 'Children under 3. Keep away from the eyes' },
       { label: 'After opening', value: 'Three months' },
@@ -348,28 +346,28 @@ const EN: HairTonicCopy = {
     title: 'Before you buy',
     items: [
       {
-        q: 'Will this stop my hair falling out?',
-        a: 'We are not going to tell you that. Outside Korea this product is registered as a scalp toner - the carton\u2019s function line reads "scalp nourishing, hair conditioning" - and that is the claim we will stand behind. What it demonstrably does is cool the scalp, keep it feeling clear with salicylic acid at a measured 0.25%, and condition with panthenol at a measured 0.2%. If you are losing hair, that is a conversation for a doctor, not a tonic.',
+        q: 'What does it do?',
+        a: 'It is a leave-on scalp tonic: it cools the scalp with menthol, keeps it feeling clean with salicylic acid, and conditions the hair with panthenol. Its function is scalp nourishing and hair conditioning.',
       },
       {
-        q: 'What does "assayed" actually mean here?',
-        a: 'It means the laboratory measured how much of each active is in the batch, rather than the manufacturer simply declaring what went in. Dexpanthenol came back at 103.40% of its declared 0.2%, L-menthol at 99.37% of 0.3%, salicylic acid at 101.28% of 0.25%, all against a minimum of 90%. No other product we sell has all of its actives measured this way.',
+        q: 'Does it treat hair loss?',
+        a: 'No. It is a scalp-care tonic, not a hair-loss treatment. If you are worried about hair loss, speak to a doctor.',
       },
       {
-        q: 'Is 9.5% alcohol a problem?',
-        a: 'It depends on your scalp. It is what makes the tonic dry in seconds, leave no residue and stay tolerable sitting on the skin for three or four hours, which is what the instructions ask for. On a sensitive, flaking or already-irritated scalp, twice daily may be too much - start once a day in the evening and see. On a scalp that runs oily, the alcohol is the point.',
+        q: 'How does "tested in every batch" work?',
+        a: 'Every batch is measured for its three actives. The latest came back at 103.40% of the 0.2% panthenol, 99.37% of the 0.3% menthol and 101.28% of the 0.25% salicylic acid, against a minimum of 90%.',
       },
       {
-        q: 'Why the long list of people who should avoid it?',
-        a: 'The salicylic acid. At 0.25% it is a real keratolytic dose, and salicylates carry established cautions - the manufacturer\u2019s own Korean panel lists diabetes, circulatory disorders, renal impairment, active infection, pregnancy and menstruation. That list was on the Korean panel and on no other, including the English one, and it was missing from our site until now.',
+        q: 'Will the alcohol dry my scalp?',
+        a: 'The 9.5% alcohol is what makes it dry in seconds and feel light enough to leave on for hours. On a sensitive or already irritated scalp, start once a day in the evening. On a scalp that runs oily, it feels especially fresh.',
       },
       {
-        q: 'It says caffeine on the label. How much?',
-        a: 'Ten parts per million, which is not a dose anyone should buy the product for. If caffeine is what you are after, the MEDI Scalp Shampoo in this same line has it at a full 1% - a hundred times more. We would rather point you at the right product than let the ingredient list do the selling.',
+        q: 'Why the list of people who should avoid it?',
+        a: 'Salicylic acid carries established cautions for salicylate sensitivity, diabetes, circulatory disorders, renal impairment, active infection, pregnancy and menstruation. If any apply, choose another product.',
       },
       {
         q: 'Why only three months after opening?',
-        a: 'That is what the carton specifies, and it is the shortest period of any product we sell. At 70 ml used twice daily you will finish the bottle inside that window comfortably, so in practice it rarely bites - but it is worth knowing before you buy two.',
+        a: 'That is the period printed on the carton. Used morning and evening, a 70 ml bottle lasts comfortably within it.',
       },
     ],
   },

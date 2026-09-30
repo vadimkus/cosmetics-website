@@ -472,9 +472,10 @@ export const products: Product[] = [
     id: '29',
     name: 'MOISTURE REPLENISHING HYALURON CREAM',
     price: 290,
-    description: 'The carton prints the dose of every hyaluronate beside its name, which almost nobody does. Sodium hyaluronate at 1,000.9 ppm, then seven more at 30 parts per billion. The one carrying the cream is the high molecular weight grade, the heavy form that stays on the surface and stops water leaving, and glycerin at 9% sits right behind it. Hydration measured 82% higher immediately after a single use and was still significantly up at 72 hours. Massage it in morning and night, after the serum. 50g and 250g.',
-    image: '/images/hyaluron/main.jpeg',
-    images: null,
+    description: 'Sealed fresh. Dubai air takes water from your skin all day; this cream puts it back and puts a lid on it. Glycerin at 9% and PENTAVITIN pull water in, and 1,000.9 ppm of high-weight hyaluronic acid rests on the surface like a fine film and keeps it there. Hydration rose 82% straight after one use and was still higher 72 hours later. Massage it in morning and night, after the serum. 50g and 250g.',
+    // "Sealed fresh." campaign set (mhcream_campaign), matching the database.
+    image: '/images/mhcream_campaign/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/mhcream_campaign/s${i + 1}.jpg`)),
     category: 'Cream',
     inStock: true,
     videoUrl: '/videos/hyaluron.mp4',

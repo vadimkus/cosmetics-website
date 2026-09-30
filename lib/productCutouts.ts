@@ -77,7 +77,7 @@ const CUTOUTS: Record<string, string> = {
   // 28 INTENSIVE HYDRO SOOTHING CREAM
   '/images/hydro_soothing_o/Main.jpeg': '/images/cutout/28-v2.webp',
   // 29 MOISTURE REPLENISHING HYALURON CREAM
-  '/images/hyaluron/main.jpeg': '/images/cutout/29.webp',
+  '/images/mhcream_campaign/main.jpg': '/images/cutout/29-v2.webp',
   // 30 INTENSIVE PROBLEM CONTROL CREAM
   '/images/problem_cream/main.jpeg': '/images/cutout/30.webp',
   // 31 MULTI VITA RADIANCE CREAM

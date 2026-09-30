@@ -81,6 +81,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getMhcreamCopy } from './mhcreamCopy'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 
 interface Props {
   product: Product
@@ -95,18 +96,14 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s2 is the
- *  four-step mechanism, s4 the complex with the doses, s3 the +82% and
- *  72-hour trial result and s5 the routine.
- *
- *  Two need a re-export and neither line is repeated in copy: s5 prints
- *  "gently pat", which is the serum's instruction, where this carton asks for
- *  massage; and s4 credits the mushroom complex with anti-inflammatory and
- *  antioxidant action at 0.17 ppm. */
-const ENGINE_IMAGE = '/images/hyaluron/s4.jpeg'
-const HOWTO_IMAGE = '/images/hyaluron/s5.jpeg'
-const EFFECTS_IMAGE = '/images/hyaluron/s2.jpeg'
-const PROOF_IMAGE = '/images/hyaluron/s3.jpeg'
+/** Section art from the "Sealed fresh." campaign, each slide beside the section it
+ *  illustrates: s2 grape or raisin (what it does), s5 the waxy leaf (the heavy hyaluronic acid),
+ *  s10 the application (how to use), s3 the +82% (the proof). RU/AR swap in through
+ *  localizeProductImage. */
+const ENGINE_IMAGE = '/images/mhcream_campaign/s5.jpg'
+const HOWTO_IMAGE = '/images/mhcream_campaign/s10.jpg'
+const EFFECTS_IMAGE = '/images/mhcream_campaign/s2.jpg'
+const PROOF_IMAGE = '/images/mhcream_campaign/s3.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -183,10 +180,14 @@ export default function MhcreamProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${displayName} · ${i + 1}/${list.length}`,
     }))
-  }, [displayName, product.image, product.images])
+  }, [displayName, locale, product.image, product.images])
+  const effectsImage = localizeProductImage(EFFECTS_IMAGE, locale)
+  const engineImage = localizeProductImage(ENGINE_IMAGE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
+  const proofImage = localizeProductImage(PROOF_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -197,7 +198,7 @@ export default function MhcreamProductPage({
   }, [routineProducts])
 
   const routineSteps = useMemo(() => {
-    const routine = PRODUCT_ROUTINES['19']
+    const routine = PRODUCT_ROUTINES['29']
     if (!routine) return []
     return routine.steps.map(s => {
       const pid = ROUTINE_STEP_PRODUCT_IDS[s.titleKey]
@@ -650,7 +651,7 @@ export default function MhcreamProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={EFFECTS_IMAGE}
+                src={effectsImage}
                 alt={copy.effects.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -698,7 +699,7 @@ export default function MhcreamProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={engineImage}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -745,7 +746,7 @@ export default function MhcreamProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={howToImage}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -815,7 +816,7 @@ export default function MhcreamProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={PROOF_IMAGE}
+                  src={proofImage}
                   alt={copy.clean.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"

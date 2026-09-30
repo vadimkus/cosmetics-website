@@ -31,7 +31,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '25': '/images/soothing_rep_o/Main.jpeg',
   '27': '/images/skin_barr/main.jpeg',
   '28': '/images/hydro_soothing_o/Main.jpeg',
-  '29': '/images/hyaluron/main.jpeg',
+  '29': '/images/mhcream_campaign/main.jpg',
   '30': '/images/problem_cream/main.jpeg',
   '31': '/images/radiance/main.jpeg',
   '32': '/images/multifunc_cream/main.jpeg',

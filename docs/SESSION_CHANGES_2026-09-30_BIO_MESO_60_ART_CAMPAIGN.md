@@ -54,3 +54,4 @@ the audited descriptions unchanged; the page's two inline figures (`6000/S3`, `S
   `scripts/update-product-60-campaign-gallery.ts` (gallery only, HEAD-checks all 36 first), gallery
   assertions in `__tests__/data/product60LocalizedCopy.test.ts`.
 - Full Jest 148 suites pass; tsc clean.
+- Live 18:45: deploy `997c9d701`, DB `--apply` (gallery only), revalidated. Web serves the 12 `biomeso_art` slides with the kept main and the S3/S4 inline figures; mobile API main + 12, 12 localized per RU/AR.

@@ -6,6 +6,8 @@ import {
 } from '@/data/product41LocalizedCopy'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { localizeProductImage } from '@/lib/localizedProductImages'
+import { products } from '@/lib/products'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
@@ -155,5 +157,16 @@ describe('product 41 localized copy', () => {
     expect(ru).toContain('водостойкость средства не заявлена')
     expect(ar).toContain('الطبقة المقاومة للماء موجودة داخل إسفنجة')
     expect(ar).toContain('لا يدّعي المنتج مقاومة الماء')
+  })
+
+  it('serves the "Shade to go." campaign: main, twelve slides and the localized how-to card', () => {
+    const product = products.find(p => p.id === '41')
+    expect(product?.image).toBe('/images/cushion_campaign/main.jpg')
+    expect(JSON.parse(product?.images ?? '[]')).toHaveLength(12)
+    expect(localizeProductImage('/images/cushion_campaign/s10.jpg', 'ru')).toBe('/images/cushion_campaign/ru/s10.jpg')
+    expect(localizeProductImage('/images/cushion_campaign/s10.jpg', 'ar')).toBe('/images/cushion_campaign/ar/s10.jpg')
+    expect(getBbCushionCopy('en').headline).toBe('Shade to go.')
+    expect(getBbCushionCopy('ru').headline).toBe('Тень с собой.')
+    expect(getBbCushionCopy('ar').headline).toBe('ظلّكِ معكِ.')
   })
 })

@@ -654,7 +654,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/41">
                   <Image
-                    src="/images/cushion_2/main.jpeg"
+                    src="/images/cushion_campaign/main.jpg"
                     alt="SKIN CARING BLEMISH BALM CUSHION"
                     width={500}
                     height={300} 

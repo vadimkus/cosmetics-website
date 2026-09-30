@@ -179,9 +179,9 @@ export interface BbCushionCopy {
 
 const EN: BbCushionCopy = {
   eyebrow: 'Skin Caring Blemish Balm Cushion · SPF50+ PA++++',
-  headline: 'One press covers you, shields you and treats you.',
+  headline: 'Shade to go.',
   subheadline:
-    'Press, pat, and you are done: even coverage that still reads as skin, the highest sun rating Korea awards, and two skincare actives working underneath it all day. Korea licenses this cushion for all three at once - sun, tone and wrinkles - which is a licence almost no base makeup holds.',
+    'The Dubai sun finds you all day: the office window, the car, the terrace. This compact goes with you. Press, pat, and you are done: even coverage that still reads as skin, SPF50+ PA++++ from five filters, and niacinamide 2% with adenosine 0.04% working underneath it all day. The mirror is in the lid and a second 15 g refill is in the box.',
   heroBullets: [
     'SPF50+ PA++++, the top of both scales, from five filters',
     'Niacinamide at a full 2% for tone, adenosine at 0.04% for fine lines',
@@ -1059,9 +1059,9 @@ const RU: BbCushionCopy = {
 
 const AR_AUDITED: BbCushionCopy = {
   ...AR,
-  headline: 'تغطية طبيعية وحماية عالية في خطوة واحدة.',
+  headline: 'ظلّكِ معكِ.',
   subheadline:
-    'كوشن خفيف قابل للبناء يمنح البشرة مظهراً متجانساً وإشراقة طبيعية، مع حماية SPF 50+ PA++++ بخمسة مرشحات. يدعم النياسيناميد 2% مظهر لون أكثر تجانساً، ويعتني الأدينوزين 0.04% بمظهر التجاعيد.',
+    'شمس دبي تجدكِ طوال اليوم: نافذة المكتب والسيارة والشرفة، وهذا الكوشن يرافقكِ أينما ذهبتِ. كوشن خفيف قابل للبناء يمنح البشرة مظهراً متجانساً وإشراقة طبيعية، مع حماية SPF 50+ PA++++ بخمسة مرشحات. يدعم النياسيناميد 2% مظهر لون أكثر تجانساً، ويعتني الأدينوزين 0.04% بمظهر التجاعيد.',
   heroBullets: [
     'خمسة مرشحات للأشعة فوق البنفسجية بتصنيف SPF 50+ PA++++',
     'نياسيناميد 2% وأدينوزين 0.04%',
@@ -1294,9 +1294,9 @@ const AR_AUDITED: BbCushionCopy = {
 
 const RU_AUDITED: BbCushionCopy = {
   ...RU,
-  headline: 'Естественное покрытие и высокая защита в одном шаге.',
+  headline: 'Тень с собой.',
   subheadline:
-    'Лёгкий BB-кушон с регулируемой плотностью покрытия, естественным сиянием и SPF 50+ PA++++ на пяти УФ-фильтрах. Ниацинамид 2% поддерживает более ровный тон, а аденозин 0,04% ухаживает за видимыми морщинами.',
+    'Солнце Дубая находит вас весь день: окно офиса, машина, терраса, а этот кушон всегда с вами. Лёгкий BB-кушон с регулируемой плотностью покрытия, естественным сиянием и SPF 50+ PA++++ на пяти УФ-фильтрах. Ниацинамид 2% поддерживает более ровный тон, а аденозин 0,04% ухаживает за видимыми морщинами.',
   heroBullets: [
     'Пять УФ-фильтров · SPF 50+ PA++++',
     'Ниацинамид 2% · аденозин 0,04%',

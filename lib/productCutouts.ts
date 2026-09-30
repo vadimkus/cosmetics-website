@@ -101,7 +101,7 @@ const CUTOUTS: Record<string, string> = {
   // 40 MULTI SUN CREAM [SPF 40 PA++]
   '/images/multisun_campaign/main.jpg': '/images/cutout/40-v2.webp',
   // 41 SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]
-  '/images/cushion_2/main.jpeg': '/images/cutout/41.webp',
+  '/images/cushion_campaign/main.jpg': '/images/cutout/41-v2.webp',
   // 42 INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]
   '/images/blemish_o/Main.jpeg': '/images/cutout/42-v2.webp',
   // 43 HR³ MATRIX HAIR TONIC α

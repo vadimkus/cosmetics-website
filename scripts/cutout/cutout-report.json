@@ -352,11 +352,11 @@
   {
     "product": "41",
     "status": "ok",
-    "source": "/images/cushion_2/main.jpeg",
-    "file": "/images/cutout/41.webp",
+    "source": "/images/cushion_campaign/main.jpg",
+    "file": "/images/cutout/41-v2.webp",
     "name": "SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]",
-    "coverage": 0.575,
-    "bytes": 132576,
+    "coverage": 0.337,
+    "bytes": 86386,
     "review": false
   },
   {
@@ -640,6 +640,16 @@
     "review": false
   },
   {
+    "product": "68",
+    "status": "ok",
+    "source": "/images/glass_skin_campaign/main.jpg",
+    "file": "/images/cutout/68.webp",
+    "name": "GLASS SKIN RITUAL KIT",
+    "coverage": 0.326,
+    "bytes": 47688,
+    "review": false
+  },
+  {
     "product": "7",
     "status": "ok",
     "source": "/images/pcs_v/Main.jpeg",
@@ -667,16 +677,6 @@
     "name": "POWER SOLUTION AWS",
     "coverage": 0.567,
     "bytes": 52562,
-    "review": false
-  },
-  {
-    "product": "68",
-    "status": "ok",
-    "source": "/images/glass_skin_campaign/main.jpg",
-    "file": "/images/cutout/68.webp",
-    "name": "GLASS SKIN RITUAL KIT",
-    "coverage": 0.326,
-    "bytes": 47688,
     "review": false
   }
 ]

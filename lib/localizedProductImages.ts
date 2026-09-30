@@ -203,6 +203,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
+  // Product 41, SKIN CARING BLEMISH BALM CUSHION, "Shade to go." campaign. The main packshot
+  // carries no type and is not translated.
+  '/images/cushion_campaign': {
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+  },
   // Product 68, GLASS SKIN RITUAL KIT, "Full moon glow." holiday campaign. The main kit shot
   // carries the English product name only and is not translated.
   '/images/glass_skin_campaign': {

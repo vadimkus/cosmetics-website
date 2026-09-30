@@ -81,6 +81,7 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getBbCushionCopy, type BbCushionShade } from './bbCushionCopy'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { translateSize } from '@/utils/sizeTranslations'
 
 interface Props {
@@ -97,10 +98,11 @@ interface ActiveIngredient {
 }
 
 /** Section art. s4 is the shade-matching guide and belongs beside the shade
- *  section, s2 the exploded puff, s3 the finish on skin. */
+ *  section, s2 the exploded puff. The how-to figure is the "Press. Pat. Build."
+ *  card from the campaign, served per locale through localizeProductImage. */
 const SHADE_FIGURE = '/images/cushion_2/s4.jpeg'
 const PUFF_FIGURE = '/images/cushion_2/s2.jpeg'
-const HOWTO_FIGURE = '/images/cushion_2/s3.jpeg'
+const HOWTO_FIGURE = '/images/cushion_campaign/s10.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -920,7 +922,7 @@ export default function BbCushionProductPage({
             <CeraReveal>
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={HOWTO_FIGURE}
+                  src={localizeProductImage(HOWTO_FIGURE, locale)}
                   alt={copy.howTo.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"

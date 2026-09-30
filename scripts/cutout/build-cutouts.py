@@ -322,6 +322,9 @@ REVISION = {
     # "Shade to go." campaign main (cushion_campaign/main.jpg, 30 Sep 2026): the carton and the
     # open compact on white, no type. v1 was the open compact alone from cushion_2/main.jpeg.
     "41": 2,
+    # "Drink up." campaign main (hsserum_campaign/main.jpg, 30 Sep 2026): the carton and the
+    # dropper bottle on white, no type. v1 was the black-bottle studio shot (hyaluron_serum).
+    "18": 2,
     # "Full moon glow." holiday campaign main (glass_skin_campaign/main.jpg, 29 Sep 2026): the
     # moon jar lid beside the open navy tray, top down. The main carries the title, so 68 is
     # Vision run on the text-free CapCut take

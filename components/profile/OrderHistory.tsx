@@ -131,7 +131,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/multif_serum/main.jpeg',
       'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '/images/multifunc_cream/main.jpeg',
       'INTENSIVE PROBLEM CONTROL CREAM': '/images/problem_cream/main.jpeg',
-      'MOISTURE REPLENISHING HYALURON SERUM': '/images/hyaluron_serum/main.jpeg',
+      'MOISTURE REPLENISHING HYALURON SERUM': '/images/hsserum_campaign/main.jpg',
       'ALL FOR SENSITIVE SERUM': '/images/sensitive_serum/main.jpeg',
       'PROBLEM CONTROL SERUM': '/images/problems_serum/main.jpeg',
       'HR³ MATRIX HAIR TONIC α': '/images/hair_tonic/main-v2.jpeg',

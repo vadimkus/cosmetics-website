@@ -49,6 +49,7 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { loginPathWithReturn } from '@/lib/loginReturn'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
@@ -92,9 +93,12 @@ interface ActiveIngredient {
   description: string
 }
 
-const ENGINE_IMAGE = '/images/hyaluron_serum/s4.jpeg'
-const HOWTO_IMAGE = '/images/hyaluron_serum/s5.jpeg'
-const PROOF_IMAGE = '/images/hyaluron_serum/s3.jpeg'
+/** Section art from the "Drink up." campaign, served per locale through
+ *  localizeProductImage: s4 the 2,000 ppm drop, s10 the cleanse / pat / seal
+ *  card, s8 the after-one-use portrait. */
+const ENGINE_IMAGE = '/images/hsserum_campaign/s4.jpg'
+const HOWTO_IMAGE = '/images/hsserum_campaign/s10.jpg'
+const PROOF_IMAGE = '/images/hsserum_campaign/s8.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -162,10 +166,10 @@ export default function HsserumProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, locale])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -613,7 +617,7 @@ export default function HsserumProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={ENGINE_IMAGE}
+                  src={localizeProductImage(ENGINE_IMAGE, locale)}
                   alt={copy.engine.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -660,7 +664,7 @@ export default function HsserumProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={HOWTO_IMAGE}
+                src={localizeProductImage(HOWTO_IMAGE, locale)}
                 alt={copy.howTo.title}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -730,7 +734,7 @@ export default function HsserumProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={PROOF_IMAGE}
+                  src={localizeProductImage(PROOF_IMAGE, locale)}
                   alt={copy.clean.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"

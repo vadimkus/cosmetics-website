@@ -21,7 +21,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '15': '/images/pct_campaign/main.jpg',
   '16': '/images/Second/main_booster.jpg',
   '17': '/images/eye_serum/main.jpeg',
-  '18': '/images/hyaluron_serum/main.jpeg',
+  '18': '/images/hsserum_campaign/main.jpg',
   '19': '/images/sensitive_serum/main.jpeg',
   '20': '/images/problems_serum/main.jpeg',
   '21': '/images/radiance_serum/Main.jpeg',

@@ -212,15 +212,15 @@ export const HSSERUM_FULL_INCI =
   "Aqua (Water), Butylene Glycol, Glycerin, Glycereth-26, 1,2-Hexanediol, Dipropylene Glycol, Isopentyldiol, Cocos Nucifera (Coconut) Water, Hydrolyzed Hyaluronic Acid (2,000 ppm), Sodium Hyaluronate (0.9 ppm), Sodium Hyaluronate Crosspolymer (0.03 ppm), Potassium Hyaluronate (0.03 ppm), Hydroxypropyltrimonium Hyaluronate (0.03 ppm), Hydrolyzed Sodium Hyaluronate (0.03 ppm), Hyaluronic Acid (0.03 ppm), Sodium Acetylated Hyaluronate (0.001 ppm), Saccharide Isomerate, Glyceryl Glucoside, Tremella Fuciformis Polysaccharide, Saccharomyces Ferment Filtrate, Trametes Versicolor Extract, Sparassis Crispa Extract, Ganoderma Lucidum (Mushroom) Extract, Phellinus Linteus Extract, Tremella Fuciformis (Mushroom) Extract, Solanum Melongena (Eggplant) Fruit Extract, Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Annona Cherimolia Fruit Extract, Coccinia Indica Fruit Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Panthenol, Ethylhexylglycerin, Carbomer, Xanthan Gum, Pelargonium Graveolens Flower Oil, Citric Acid, Sodium Citrate, Polyglutamic Acid, Disodium EDTA, Polyglyceryl-10 Laurate, Tromethamine, Sodium Dehydroacetate, Phenylpropanol, Pentylene Glycol, Citronellol."
 
 const EN: HsserumCopy = {
-  eyebrow: 'Serum · Moisturizing',
-  headline: '2,000 ppm. Pat it in.',
+  eyebrow: 'Hydrating serum · 30 ml',
+  headline: 'Drink up.',
   subheadline:
-    'A coconut-water serum with a hyaluronic acid complex and mushrooms. Hydrolyzed HA at 2,000 ppm is the named dose. Apply on the face and gently pat, morning and evening.',
+    'A sky-blue coconut-water serum for skin that runs dry in the AC. Hydrolyzed hyaluronic acid at 2,000 ppm leads the Hyaluronan 11 Multi-Complex, PENTAVITIN helps hold the water, and deep hydration rises after the very first use. Pat it in, morning and evening.',
   heroBullets: [
-    'Moisturizing serum. Multi-level hydration.',
+    'Multi-level hydration from the Hyaluronan 11 Multi-Complex',
     'Hydrolyzed hyaluronic acid 2,000 ppm',
-    'Apply on the face and pat, morning and evening',
-    'Dermatologically tested · 30 ml',
+    'Deep hydration up immediately after one use',
+    'Light, sky-blue serum. Dermatologically tested · 30 ml',
   ],
   badges: ['Dermatologically tested', 'Made in Korea', '30 ml dropper', 'Morning and evening'],
   packSize: '30ml',
@@ -235,123 +235,123 @@ const EN: HsserumCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over 1,000 AED · Ships from Dubai',
   stats: [
-    { value: '2,000 ppm', label: 'Hydrolyzed hyaluronic acid, the named dose' },
-    { value: '0.615%', label: 'Saccharide isomerate, PENTAVITIN' },
-    { value: 'AM & PM', label: 'Apply on the face, then pat' },
-    { value: '30 ml', label: 'One dropper. Then the cream if you pair it.' },
+    { value: '2,000 ppm', label: 'Hydrolyzed hyaluronic acid' },
+    { value: '0.615%', label: 'PENTAVITIN, the moisture holder' },
+    { value: '1 use', label: 'Deep hydration up immediately' },
+    { value: '30 ml', label: 'Morning and evening, then the cream' },
   ],
   effects: {
     eyebrow: 'What it does',
-    title: 'Moisturize. Then stay.',
+    title: 'Fill up. Then stay full.',
     intro:
-      'The carton function is moisturizing. Multi-level hydration from a hyaluronic acid complex, on a coconut-water serum, with mushrooms in the formula.',
+      'Office AC, the car, the mall: Dubai air pulls water out of skin all day, even when it looks oily. This serum puts it back at every level and helps it stay.',
     cards: [
       {
-        title: 'Moisturize',
-        body: 'Hydrolyzed HA at 2,000 ppm is the water that goes in. The rest of the Hyaluronan 11 complex sits with it.',
+        title: 'Fill up',
+        body: 'Hydrolyzed hyaluronic acid at 2,000 ppm draws water into the skin the moment it goes on.',
       },
       {
-        title: 'Multi-level',
-        body: 'The carton says multi-level hydration. Low, mid and high weights are how the brand counts the complex, not eleven finished acids at 2,000 ppm each.',
+        title: 'Every level',
+        body: 'The Hyaluronan 11 Multi-Complex brings hyaluronic acid in several molecular sizes for multi-level hydration.',
       },
       {
-        title: 'Pat, morning and evening',
-        body: 'Apply on the face and gently pat with fingers. That is the whole ritual. Then the cream if you pair it.',
+        title: 'Stay full',
+        body: 'PENTAVITIN helps skin hold on to the water, and the cream on top seals it in.',
       },
     ],
   },
   engine: {
-    eyebrow: 'The dose',
-    title: 'Hydrolyzed HA at 2,000 ppm. That is the serum.',
+    eyebrow: 'The formula',
+    title: '2,000 ppm of hyaluronic acid, and help to hold it.',
     body:
-      'The carton prints the figure next to hydrolyzed hyaluronic acid. Around it sit seven more hyaluronate names the brand counts as Hyaluronan 11 Multi-Complex. Saccharide isomerate at 0.615% is the other real dose. Coconut water is 0.80%. Mushrooms are traces under the water.',
+      'Hydrolyzed hyaluronic acid leads a complex of hyaluronates the brand calls Hyaluronan 11 Multi-Complex. PENTAVITIN (saccharide isomerate) at 0.615% helps skin keep the water, on a light coconut-water serum with mushroom extracts.',
     points: [
       {
         title: 'Hydrolyzed hyaluronic acid · 2,000 ppm',
-        body: 'The named HA at a real dose. This is why the serum feels like water going in, not a film you have to wait on.',
+        body: 'The headline dose. It sinks in like water, with no film to wait on.',
       },
       {
         title: 'Hyaluronan 11 Multi-Complex',
-        body: 'The brand name. Eight hyaluronate INCIs on the registered list. One of them is the 2,000 ppm. The others finish in parts per million.',
+        body: 'Hyaluronic acid in several forms and molecular weights, for hydration at every level.',
       },
       {
         title: 'PENTAVITIN · 0.615%',
-        body: 'Saccharide isomerate. The deck calls it a moisture magnet. It is in the formula at a dose you can name, not a trace.',
+        body: 'Saccharide isomerate, the moisture holder, at a dose you can name.',
       },
       {
-        title: 'Coconut water · 0.80%',
-        body: 'The carton calls this a coconut-water serum. Aqua is still the water. Leftover copy sold 78% coconut water instead of purified water. That is not this bottle.',
+        title: 'Coconut water and mushrooms',
+        body: 'A light coconut-water serum with a family of mushroom extracts. The sky-blue colour is the formula itself, with no pigment added.',
       },
     ],
-    figureAlt: 'GENOSYS Moisture Replenishing Hyaluron Serum bottle and carton',
+    figureAlt: 'GENOSYS Moisture Replenishing Hyaluron Serum: 2,000 ppm hyaluronic acid',
   },
   clean: {
     eyebrow: 'After one use',
-    title: 'Inner hydration, immediately.',
+    title: 'Deep hydration, immediately.',
     intro:
-      'The DTS MG deck measured inner hydration before and right after a single use. The number moved. It did not jump 52%.',
+      'DTS MG measured deep (inner) skin hydration in 21 women aged 20 to 59, before and straight after a single application.',
     items: [
-      'Inner hydration improved immediately after one use',
-      'Before 50.81, after 52.238. That is the chart, not a 52% claim',
-      'Twenty-one women, ages 20 to 59, said they felt the moisture',
-      'The same panel said the moisture lasted',
+      'Deep skin hydration rose immediately after one use',
+      'From 50.81 before to 52.238 straight after',
+      'The women felt the moisture',
+      'And said it lasted',
     ],
-    note: 'DTS MG deck, 21 women. Positive answers include moderate. Not a 52% hydration result.',
+    note: 'Clinical test by DTS MG, 21 adult women aged 20 to 59, single application.',
   },
   howTo: {
     eyebrow: 'How to use',
-    title: 'Apply. Pat. Morning and evening.',
+    title: 'Cleanse. Pat. Seal.',
     frequency: 'Morning and evening',
     steps: [
       {
-        title: 'After the toner',
-        body: 'The face is clean. Toner first when you use one. This is the serum that goes on next.',
+        title: 'Cleanse',
+        body: 'Start on clean skin, after toner if you use one.',
       },
       {
-        title: 'On the face',
-        body: 'Apply the product on the face. Enough to cover. The English carton does not count drops.',
+        title: 'Smooth it on',
+        body: 'Enough to cover the face in a light layer.',
       },
       {
         title: 'Pat',
-        body: 'Gently pat with fingers. That is the step. Not a 4-step mechanism. Not a cotton pad.',
+        body: 'Gently pat with your fingertips until it sinks in.',
       },
       {
-        title: 'Then the cream',
-        body: 'Moisture Replenishing Hyaluron Cream follows when you pair them. This bottle is the serum.',
+        title: 'Seal',
+        body: 'Follow with Moisture Replenishing Hyaluron Cream to lock the water in.',
       },
     ],
-    note: 'The colour is the formula. No pigment is added.',
+    note: 'The sky-blue colour is the formula itself. No pigment is added.',
     videoTitle: 'Watch the serum',
   },
   actives: {
     eyebrow: 'Inside',
-    title: 'What is actually in the bottle',
+    title: 'What makes it drink.',
     intro:
-      'The 2,000 ppm is hydrolyzed HA. PENTAVITIN is 0.615%. Coconut water is 0.80%. Glyceryl glucoside is 0.0005%. The mushrooms are traces. They are in the formula. They are not why you pick this bottle.',
+      'Hydrolyzed hyaluronic acid at 2,000 ppm, the Hyaluronan 11 Multi-Complex, PENTAVITIN at 0.615% and a light coconut-water serum with mushroom extracts.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'Every ingredient, in the same order as the box in your hand, which is the order of the registered formula.',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Who it is for',
-    title: 'Dry. Dehydrated. Short of water.',
+    title: 'Dry, or just thirsty.',
     forTitle: 'Pick this when',
     forList: [
-      'Skin is dry, or only short of water for a while',
-      'You want the moisturizing serum, not the cream',
-      'You will apply and pat, morning and evening',
+      'Skin feels tight or dull after a day in the AC',
+      'Skin is dry, or only short of water for a while, even if it is oily',
+      'You want a light serum under your cream, morning and evening',
     ],
     notTitle: 'Look elsewhere if',
     notList: [
-      'You want the oil-control serum. That is Problem Control.',
-      'You want the hyaluron cream only. That is product 29.',
-      'You came for a 4-step electrolyte story or a +52% result.',
+      'You need oil control first: that is PROBLEM CONTROL SERUM',
+      'You want a single rich step: MOISTURE REPLENISHING HYALURON CREAM does that alone',
+      'You need a fragrance-free serum: this one carries a light geranium note',
     ],
-    note: 'Dehydrated is a water shortage, not a skin type. It can sit on oily skin too.',
+    note: 'Dehydration is a shortage of water, not a skin type. It can sit on oily skin too.',
   },
   routine: {
     eyebrow: 'The routine',
     title: 'Cleanse. Mist. Serum. Cream.',
-    intro: 'The hyaluron pair. This bottle is the serum in the middle.',
+    intro: 'The hyaluron pair: this serum fills, the cream seals.',
     thisProduct: 'This serum',
     viewProduct: 'View',
     chooseOptions: 'Choose options',
@@ -359,48 +359,52 @@ const EN: HsserumCopy = {
   },
   faq: {
     eyebrow: 'Before you buy',
-    title: 'Straight answers',
+    title: 'Quick answers',
     items: [
       {
-        q: 'Is this 78% coconut water?',
-        a: 'No. The deck writes a 78% coconut-water complex instead of purified water. The registered formula is Aqua to 100 and coconut water at 0.80%. The carton still calls it a coconut-water serum.',
+        q: 'Is it for oily skin too?',
+        a: 'Yes. Dehydration is a shortage of water, not a skin type, so oily and combination skin can be thirsty too. The serum is light and sinks in without a heavy film.',
       },
       {
-        q: 'Is hydration +52% after one use?',
-        a: 'No. The deck chart goes from 50.81 to 52.238 immediately after one use. Leftover copy read 52.238 as 52%. Inner hydration moved. It did not jump by half.',
+        q: 'Why is it blue?',
+        a: 'That sky-blue colour comes from the ingredients themselves. No pigment is added.',
       },
       {
         q: 'What is Hyaluronan 11?',
-        a: 'The brand name for the HA complex. The registered INCI lists eight hyaluronate names. Hydrolyzed HA is the 2,000 ppm. The brand counts types and weights. Both can be true.',
+        a: 'The Hyaluronan 11 Multi-Complex: hyaluronic acid in several forms and molecular weights, led by hydrolyzed hyaluronic acid at 2,000 ppm, for multi-level hydration.',
+      },
+      {
+        q: 'How fast does it work?',
+        a: 'In a DTS MG test on 21 women, deep skin hydration rose immediately after a single use, from 50.81 to 52.238.',
+      },
+      {
+        q: 'Do I need the cream as well?',
+        a: 'It works on its own, but the pair is better: serum first to fill with water, Moisture Replenishing Hyaluron Cream on top to seal it in.',
       },
       {
         q: 'Is it fragrance-free?',
-        a: 'No. Geranium flower oil and citronellol are in the formula. The carton does not print a fragrance-free badge.',
-      },
-      {
-        q: 'Same as the hyaluron cream?',
-        a: 'No. This is the 30 ml serum. The cream is a different formula and a different page. Pair them if you want both.',
+        a: 'No. Geranium flower oil and citronellol give it a light scent.',
       },
     ],
   },
   details: {
-    eyebrow: 'The spec',
-    title: 'What the documents say',
+    eyebrow: 'The details',
+    title: 'Everything in one place',
     rows: [
-      { label: 'Function', value: 'Moisturizing' },
+      { label: 'Type', value: 'Hydrating serum' },
       { label: 'Size', value: '30 ml dropper' },
       { label: 'pH', value: '5.08, inside a 5.3±0.5 specification' },
-      { label: 'Appearance', value: 'Sky-blue serum. No pigment added.' },
-      { label: 'PAO', value: '12 months after opening' },
+      { label: 'Colour', value: 'Sky blue, from the formula itself, no pigment added' },
+      { label: 'After opening', value: 'Use within 12 months' },
       { label: 'Shelf life', value: 'Three years unopened, expiry printed on the bottle' },
       { label: 'Testing', value: 'Dermatologically tested' },
-      { label: 'Origin', value: 'Made in Korea, DTS MG' },
+      { label: 'Made by', value: 'DTS MG, Korea' },
     ],
     barcodeLabel: 'Barcode',
   },
   closing: {
-    title: '2,000 ppm. Then pat.',
-    body: 'Morning and evening, on the face. The cream can follow.',
+    title: 'Drink up. Then seal.',
+    body: 'Pat it in morning and evening, and let the cream lock the water in.',
   },
   reviewsTitle: 'Reviews',
   backToProducts: 'All products',
@@ -408,7 +412,7 @@ const EN: HsserumCopy = {
 
 const AR: HsserumCopy = {
   eyebrow: 'سيروم · ترطيب',
-  headline: 'رطوبة خفيفة. راحة تدوم.',
+  headline: 'اروي بشرتكِ.',
   subheadline:
     'سيروم خفيف يعوض الرطوبة بحمض الهيالورونيك المتحلل 2,000 جزء في المليون، بينما يساعد PENTAVITIN بنسبة 0.615% على الاحتفاظ بها. يُربت على الوجه صباحاً ومساءً.',
   heroBullets: [
@@ -603,7 +607,7 @@ const AR: HsserumCopy = {
 
 const RU: HsserumCopy = {
   eyebrow: 'Сыворотка · Увлажнение',
-  headline: 'Лёгкая влага. Долгий комфорт.',
+  headline: 'Напоите кожу.',
   subheadline:
     'Лёгкая сыворотка восполняет влагу благодаря гидролизованной гиалуроновой кислоте 2 000 ppm, а PENTAVITIN 0,615% помогает коже её удерживать. Наносите утром и вечером мягкими похлопывающими движениями.',
   heroBullets: [

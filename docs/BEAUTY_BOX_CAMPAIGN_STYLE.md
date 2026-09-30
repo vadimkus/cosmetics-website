@@ -96,6 +96,13 @@ white tube with red lettering, not the old salmon-band "INTENSIVE MULTI FUNCTION
    one photograph. The kit case reference is drawn flat (shell, foam, pockets) with the real packs
    laid in, then re-shot.
 2. Print is never restored by hand. A take with a wrong word on a pack is rejected and re-rolled.
+   When a scale keeps failing (kit case, five-pack line-up: "SOC ic", "viamins"), build the next
+   reference from CapCut's own word-perfect take instead of the real pack art: lift the whole case
+   onto a new ground, or cut the packs out with Vision and re-stand them (`rehost()` / `lift()` in
+   `bb_charming/campaign/_scripts/bbc_refs.py`). It keeps print it has already drawn right.
+   A pack in the kit case appears once: the cushion is one closed compact with its logo, never the
+   compact plus a refill pan. CapCut fills an empty pocket with a second disc about half the time;
+   reject those takes.
 3. Claims come only from each member product's audited page copy (and the box copy module's
    sourcing block). No figure appears on a slide that is not on the member's own page.
 4. Workspace per box: `~/Desktop/Insta_Olga/<box>/campaign/` with `_prompts/`, `_gen/gi` (decoded

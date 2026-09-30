@@ -88,6 +88,18 @@ Brief (Vadim): "next one?" after product 57. Picked 41 as the top seller still o
 - Mobile API: main + 12 per locale (`/ru/`, `/ar/` slides), `localizedDescription` opens with the
   campaign line in RU and AR.
 
+## Reel (30 Sep 2026)
+
+- 20 s "Shade to go." Reel: Seedance 2.5 from 11 text-free plates (`~/Desktop/Cushion_41_Reel/seedance_refs/`,
+  prompt `SEEDANCE_PROMPT.txt`), source `0930_974.mp4`. Came back clean: all 11 shots in order, no Ai mark, logos
+  correct, lid never moves, pad emblem only.
+- Type pass `cushion41/campaign/_scripts/c41_reel_type.py` (Manrope Regular caps, campaign palette), audio to
+  −16.0 LUFS / −1.5 dBTP. Instagram master `~/Desktop/Cushion_41_Reel/GENOSYS_Cushion_Reel_v1.mp4` + dark cover.
+- Site: `public/videos/cushion-reel-web.mp4` (720×1280, 1.1 Mbps, 2.9 MB, metadata stripped) replaces
+  `/videos/cushion.mp4` in `data/productConfig.ts`, the `lib/products.ts` fallback and the DB after deploy.
+  9:16 poster `public/images/cushion_campaign/reel-poster.jpg` ("SHADE TO GO." frame). Video caption in EN/AR/RU
+  now describes the Reel (the old one described the swatch demo). The old `cushion.mp4` file stays on disk.
+
 ## Files outside the repo
 
 - `~/Desktop/Insta_Olga/cushion41/campaign/`: `_assets/` (real pack cut-outs), `_scripts/` (refs,

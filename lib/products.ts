@@ -613,7 +613,7 @@ export const products: Product[] = [
     description: 'Shade to go. Coverage, sun protection and skincare in one press of the puff, and Korea licenses it for all three at once. Five UV filters to SPF50+ PA++++, niacinamide 2% and adenosine 0.04%, with a 15 g refill already in the box.',
     image: '/images/cushion_campaign/main.jpg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/cushion_campaign/s${i + 1}.jpg`)),
-    videoUrl: '/videos/cushion.mp4',
+    videoUrl: '/videos/cushion-reel-web.mp4',
     category: 'Cushion BB',
     inStock: true,
   },

@@ -938,7 +938,7 @@ export default function BbCushionProductPage({
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}
-                    poster={product.image}
+                    poster="/images/cushion_campaign/reel-poster.jpg"
                     controls
                     playsInline
                     muted

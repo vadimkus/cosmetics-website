@@ -365,8 +365,8 @@ const EN: BbCushionCopy = {
   },
 
   video: {
-    title: 'See the finish',
-    body: 'How it picks up on the puff, how it sits once patted in, and how far one press actually goes.',
+    title: 'See it in the sun',
+    body: 'The compact in Dubai light, one press into the pad, a touch-up at lunch and the three shades side by side.',
     unsupported: 'Your browser does not support the video tag.',
   },
 
@@ -659,8 +659,8 @@ const AR: BbCushionCopy = {
   },
 
   video: {
-    title: 'شاهدي النتيجة',
-    body: 'كيف يلتقطه الإسفنج، وكيف يستقرّ بعد التربيت، وإلى أي مدى تكفي ضغطة واحدة.',
+    title: 'شاهديه تحت الشمس',
+    body: 'العلبة في ضوء دبي، وضغطة واحدة على الوسادة، ولمسة تصحيح وقت الغداء، والدرجات الثلاث جنباً إلى جنب.',
     unsupported: 'متصفّحك لا يدعم تشغيل الفيديو.',
   },
 
@@ -952,8 +952,8 @@ const RU: BbCushionCopy = {
   },
 
   video: {
-    title: 'Посмотрите, как ложится',
-    body: 'Как средство набирается на спонж, как выглядит после похлопывания и на сколько хватает одного нажатия.',
+    title: 'Посмотрите при дневном солнце',
+    body: 'Компакт в дубайском свете, одно нажатие спонжем, поправка макияжа в обед и три оттенка рядом.',
     unsupported: 'Ваш браузер не поддерживает воспроизведение видео.',
   },
 

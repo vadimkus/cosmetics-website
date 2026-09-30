@@ -473,7 +473,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '41': {
     id: '41',
-    videoUrl: '/videos/cushion.mp4',
+    videoUrl: '/videos/cushion-reel-web.mp4',
     pricing: {
       basePrice: 300
     },

@@ -105,3 +105,6 @@ art like product 39. Main image kept; all 12 slides redone from scratch.
   CapCut keys a1-a12. Picks a1_3, a2_2, a3_2, a4_3, a5_2, a6_4, a7_2, a8_1, a9_1, a10_1, a11_4, a12_1.
 - 36 progressive JPEGs (1600 px, 181-490 KB) in `public/images/tonic_art/{,ru/,ar/}`; registry,
   fallback gallery and the DB updater point there. Main stays `tonic_campaign/main.jpg`.
+- Live 16:25: deploy `91bb06588`, DB `--apply`, revalidated. Web serves the 12 `tonic_art` slides
+  with the kept main; mobile API main + 12, 12 localized per RU/AR. The rejected first-set slides
+  (`tonic_campaign/s*.jpg`, `ru/`, `ar/`) removed afterwards; `tonic_campaign/main.jpg` stays.

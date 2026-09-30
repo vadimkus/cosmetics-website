@@ -159,11 +159,14 @@ describe('product 41 localized copy', () => {
     expect(ar).toContain('لا يدّعي المنتج مقاومة الماء')
   })
 
-  it('serves the "Covered." art set: main, twelve slides and the localized how-to slide', () => {
+  it('serves the "Covered." art set: main, thirteen slides and the localized how-to slide', () => {
     const product = products.find(p => p.id === '41')
+    const gallery = JSON.parse(product?.images ?? '[]')
     expect(product?.image).toBe('/images/cushion_campaign/main.jpg')
-    expect(JSON.parse(product?.images ?? '[]')).toHaveLength(12)
-    expect(JSON.parse(product?.images ?? '[]')[0]).toBe('/images/cushion_art/s1.jpg')
+    expect(gallery).toHaveLength(13)
+    expect(gallery[0]).toBe('/images/cushion_art/s1.jpg')
+    expect(gallery.slice(-2)).toEqual(['/images/cushion_art/s13.jpg', '/images/cushion_art/s12.jpg'])
+    expect(localizeProductImage('/images/cushion_art/s13.jpg', 'ar')).toBe('/images/cushion_art/ar/s13.jpg')
     expect(localizeProductImage('/images/cushion_art/s10.jpg', 'ru')).toBe('/images/cushion_art/ru/s10.jpg')
     expect(localizeProductImage('/images/cushion_art/s10.jpg', 'ar')).toBe('/images/cushion_art/ar/s10.jpg')
     expect(getBbCushionCopy('en').headline).toBe('Shade to go.')

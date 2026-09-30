@@ -278,6 +278,8 @@ REVISION = {
     # measured scale and position (1000 ml 0.3142 at 415,175; 200 ml 0.1795 at 968,472),
     # then normalised. Do not rebuild 16 from the photograph.
     "16": 2,
+    # "Water, not oil." main (problemcream_v2/main.jpg, 30 Sep 2026): both tubes on white.
+    "30": 2,
     "53": 2,
     "37": 2,
     # "Oil off. Cool on." campaign packshot (pct_campaign/main.jpg, 28 Sep 2026): the 200 ml

@@ -232,11 +232,11 @@
   {
     "product": "30",
     "status": "ok",
-    "source": "/images/problem_cream/main.jpeg",
-    "file": "/images/cutout/30.webp",
+    "source": "/images/problemcream_v2/main.jpg",
+    "file": "/images/cutout/30-v2.webp",
     "name": "INTENSIVE PROBLEM CONTROL CREAM",
     "coverage": 0.321,
-    "bytes": 54040,
+    "bytes": 50458,
     "review": false
   },
   {

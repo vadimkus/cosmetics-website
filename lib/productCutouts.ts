@@ -79,7 +79,7 @@ const CUTOUTS: Record<string, string> = {
   // 29 MOISTURE REPLENISHING HYALURON CREAM
   '/images/mhcream_campaign/main.jpg': '/images/cutout/29-v2.webp',
   // 30 INTENSIVE PROBLEM CONTROL CREAM
-  '/images/problem_cream/main.jpeg': '/images/cutout/30.webp',
+  '/images/problemcream_v2/main.jpg': '/images/cutout/30-v2.webp',
   // 31 MULTI VITA RADIANCE CREAM
   '/images/radiance/main.jpeg': '/images/cutout/31.webp',
   // 32 MULTI FUNCTIONAL ANTI-WRINKLE CREAM

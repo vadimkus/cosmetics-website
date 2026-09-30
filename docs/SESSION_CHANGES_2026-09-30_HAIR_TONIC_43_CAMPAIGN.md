@@ -68,3 +68,15 @@ Taken instead of product 12, which already carries the 12-slide set Vadim locked
 ## Checks
 
 - Full Jest 148 suites / 1605 tests pass; `tsc --noEmit` clean; eslint clean on changed files.
+
+## Live (30 Sep 2026, 15:20)
+
+- Deploy `16851ae99` served all 37 files; DB updated with `--apply` (image, 12-slide gallery,
+  description EN/RU/AR). Revalidated `/products/43`, `/ru/products/43`, `/ar/products/43`,
+  `/products`, `/` and tag `products`.
+- Web: "Keep a cool head." / "Холодная голова." / "حافظي على برودة رأسكِ."; EN serves all 12 slides,
+  no `hair_tonic/` images left. RU/AR swap to localized slides client-side (same as product 18).
+- Product 43 DB record: no KFDA / hair-loss / 5α / thinning text left.
+- Mobile API: main + 12 slides, 12 localized per locale, description opens with the campaign line.
+- Still on the page from companions, not product 43: product 44's `directions` ("KFDA-approved
+  functional product for hair loss prevention") and the site-wide `pc44*` / `pc46*` message keys.

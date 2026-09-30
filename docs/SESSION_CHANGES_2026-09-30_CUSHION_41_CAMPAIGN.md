@@ -135,3 +135,4 @@ new no-Dubai rule (Burj at sunset, café by the mashrabiya). Main image kept; al
 - 36 JPEGs (1600 px, 168-347 KB) in `public/images/cushion_art/{,ru/,ar/}`. Page how-to figure now
   the localized `cushion_art/s10.jpg`; registry, fallback gallery, updater and test point there. Main
   stays `cushion_campaign/main.jpg`; page headline "Shade to go." unchanged (slide 2 echoes it).
+- Live 17:05: deploy `d55579132`, DB `--apply`, revalidated; web serves the 12 `cushion_art` slides with the kept main, mobile API 12 localized per RU/AR. Old `cushion_campaign/s*.jpg` (+ ru/, ar/) removed; `main.jpg` and `reel-poster.jpg` stay.

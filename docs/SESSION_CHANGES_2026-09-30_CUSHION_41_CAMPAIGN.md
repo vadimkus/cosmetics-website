@@ -99,6 +99,10 @@ Brief (Vadim): "next one?" after product 57. Picked 41 as the top seller still o
   `/videos/cushion.mp4` in `data/productConfig.ts`, the `lib/products.ts` fallback and the DB after deploy.
   9:16 poster `public/images/cushion_campaign/reel-poster.jpg` ("SHADE TO GO." frame). Video caption in EN/AR/RU
   now describes the Reel (the old one described the swatch demo). The old `cushion.mp4` file stays on disk.
+- Shipped `ef951d1a6`; video + poster 200 after the Vercel deploy. DB `videoUrl` set with
+  `scripts/set-product-video.ts 41 /videos/cushion-reel-web.mp4`. Revalidated tag `products`, `/products/41`,
+  `/ru/products/41`, `/ar/products/41`. Live HTML in EN/RU/AR references the reel and poster with the new caption,
+  no `/videos/cushion.mp4` left; mobile API `data.videoUrl` = `/videos/cushion-reel-web.mp4`.
 
 ## Files outside the repo
 

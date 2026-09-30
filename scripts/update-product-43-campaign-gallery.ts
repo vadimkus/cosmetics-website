@@ -1,8 +1,8 @@
 /**
- * Product 43 (HR³ MATRIX HAIR TONIC α): "Keep a cool head." campaign.
+ * Product 43 (HR³ MATRIX HAIR TONIC α): "Forecast: cool up top." art set.
  *
- * - Main image -> /images/tonic_campaign/main.jpg (the spray bottle on white, no type),
- *   gallery -> s1.jpg ... s12.jpg. AR/RU slides swap in at render through
+ * - Main image -> /images/tonic_campaign/main.jpg (the spray bottle on white, no type).
+ * - Gallery -> /images/tonic_art/s1.jpg ... s12.jpg. AR/RU slides swap in at render through
  *   lib/localizedProductImages.ts, so the record holds the EN paths.
  * - Descriptions move to the campaign voice in all three languages. RU/AR come from
  *   data/product43LocalizedCopy.ts so the record and the code never drift.
@@ -14,8 +14,8 @@
 import { prisma } from '../lib/prisma'
 import { PRODUCT_43_AR_TRANSLATION, PRODUCT_43_RU_TRANSLATION } from '../data/product43LocalizedCopy'
 
-const DIR = '/images/tonic_campaign'
-const MAIN = `${DIR}/main.jpg`
+const DIR = '/images/tonic_art'
+const MAIN = '/images/tonic_campaign/main.jpg'
 const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 

@@ -1,0 +1,33 @@
+---
+description: Product campaign slides are conceptual art, never Dubai scenes
+alwaysApply: true
+---
+
+# Campaign Slides — Conceptual Art, No Dubai
+
+Applies to every product gallery / carousel campaign (the 12 slides under `public/images/<x>_campaign/`,
+CapCut or Seedance plates, EN/RU/AR).
+
+## Hard rule: no Dubai images
+
+- No Dubai or city scenes in any slide: no skyline, Burj Khalifa, towers, streets, traffic, malls,
+  office lobbies, heat haze over a road.
+- Heat, sun, AC or Gulf context goes in the **words**, never in a location photo.
+
+## The standard is product 39 (and product 12)
+
+Reference set: `public/images/ultra_campaign/s1–s12.jpg`, notes in
+`docs/SESSION_CHANGES_2026-09-26_ULTRA_SHIELD_CAMPAIGN.md`.
+
+- **Two colours only**: the pack colour + one concept colour, alternating seamless backgrounds.
+- **One visual metaphor per slide**, shot as a surreal minimal studio still (balloon on a ceiling,
+  ghost in a director's chair, velvet rope, hourglass). Not stock lifestyle.
+- **Witty headline in two levels**, caps, then one short support line with the real fact.
+- **Giant numerals** for real doses.
+- **Product appears late** (final one or two slides), so there are few label renders to garble.
+- People only when the metaphor needs them, framed as art (a prop, a gesture), not a street scene.
+- Type: Manrope **Regular**, caps headline ~140 px on 2560, leading 0.92; support 64 px sentence case;
+  pack colour on the light colour, white on the pack colour. Final card lists the product and
+  credentials and ends SHOP GENOSYS.AE / GENOSYS UAE APP.
+
+Claims still follow `selling-tone.mdc` and the product's source audit.

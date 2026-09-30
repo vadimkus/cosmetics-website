@@ -80,3 +80,28 @@ Taken instead of product 12, which already carries the 12-slide set Vadim locked
 - Mobile API: main + 12 slides, 12 localized per locale, description opens with the campaign line.
 - Still on the page from companions, not product 43: product 44's `directions` ("KFDA-approved
   functional product for hair loss prevention") and the site-wide `pc44*` / `pc46*` message keys.
+
+## Redo: "Forecast: cool up top." art set (30 Sep 2026, 16:10)
+
+Vadim rejected the first set (Dubai street and skyline photos, lifestyle look) and asked for concept
+art like product 39. Main image kept; all 12 slides redone from scratch.
+
+- New rule `.cursor/rules/campaign-slides-conceptual.mdc` (always applied): no Dubai or city scenes in
+  campaign slides; the product 39 / 12 system is the standard.
+- System: menthol mint `#86E0C8` (concept, the cool) + cognac `#5C1F15` (pack, the amber glass),
+  alternating seamless sets, one metaphor per slide, product only on the last slide. Manrope Regular
+  caps headline 140 px, support 64 px, giant numerals; cognac on mint, white on cognac. AR in Noto
+  Sans Arabic Regular, right-aligned inside the left column.
+- Slides: 1 woman with her own snow cloud, FORECAST: COOL UP TOP. · 2 three stacked ice cubes, 0.3%
+  MENTHOL. WITH BACKUP. · 3 desk fan streaming silk, BUILT-IN BREEZE. · 4 squeegee stripe through
+  fogged glass, 0.25% CLEAR THE WAY. · 5 silk tassel and comb, CONDITION: EXCELLENT. · 6 blank door
+  hanger, DO NOT DISTURB. · 7 stopwatch, DRY IN SECONDS. · 8 spinning top, GOING IN CIRCLES IS THE
+  POINT. · 9 level brass scale (ice cube vs weight), WHAT IT SAYS IS WHAT IT HAS. · 10 twin alarm
+  clocks in morning and evening light, AM. PM. THAT'S THE ROUTINE. · 11 magnifying glass, CHECK
+  FIRST. with the full precaution list · 12 bottle with a mint light shaft, COOL HEAD. CLEAR SCALP.
+  + card (70 ML, actives, dermatologically tested, Made in Korea, shop lines).
+- RU: ПРОГНОЗ: ПРОХЛАДНО. … ХОЛОДНАЯ ГОЛОВА. AR: توقعات الطقس: برودة فوق الرأس. … رأسٌ بارد. فروةٌ نقية.
+- Workspace `_scripts/c43_art_prompts.py`, `c43_art.py`, `c43_art_copy.py`, `c43_art_export.py`;
+  CapCut keys a1-a12. Picks a1_3, a2_2, a3_2, a4_3, a5_2, a6_4, a7_2, a8_1, a9_1, a10_1, a11_4, a12_1.
+- 36 progressive JPEGs (1600 px, 181-490 KB) in `public/images/tonic_art/{,ru/,ar/}`; registry,
+  fallback gallery and the DB updater point there. Main stays `tonic_campaign/main.jpg`.

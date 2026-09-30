@@ -643,7 +643,7 @@ export const products: Product[] = [
     price: 290,
     description: 'Keep a cool head. 70 ml leave-on scalp tonic for scalp nourishing and hair conditioning. Menthol 0.3% with menthyl lactate and a second cooling agent gives an instant chill, salicylic acid 0.25% keeps the scalp feeling clean and panthenol 0.2% conditions; every batch is tested for all three. Spray onto the scalp, massage in circles and leave on at least 3-4 hours, morning and evening. Do not use with salicylate sensitivity, diabetes, circulatory disorders, renal impairment, an infected or reddened scalp, or during menstruation or pregnancy. Use within 3 months of opening. Made in Korea.',
     image: '/images/tonic_campaign/main.jpg',
-    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/tonic_campaign/s${i + 1}.jpg`)),
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/tonic_art/s${i + 1}.jpg`)),
     category: 'Scalp/Hair',
     inStock: true,
     videoUrl: '/videos/hairt.mp4',

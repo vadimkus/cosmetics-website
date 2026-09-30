@@ -430,26 +430,6 @@ export default function HairTonicProductPage({ product, unitsSold = 0, routinePr
         </div>
       </section>
 
-      {/* ─────────────── The avoid list, before anything else ───────────── */}
-      <section className="mx-auto max-w-[900px] px-4 pt-14 sm:px-6 lg:pt-20">
-        <CeraReveal className="hr3-alert p-6 md:p-9">
-          <p className="cera-eyebrow hr3-alert__title">{copy.avoid.eyebrow}</p>
-          <h2 className="cera-serif hr3-alert__title mt-3 text-[26px] leading-tight sm:text-[33px]">
-            {copy.avoid.title}
-          </h2>
-          <p className="mt-5 text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.avoid.body}</p>
-          <ul className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-            {copy.avoid.items.map(item => (
-              <li key={item} className={`flex gap-2.5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
-                <span className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-[#b4801f]" aria-hidden="true" />
-                <span className="text-[15px] font-medium leading-relaxed text-[var(--cera-ink)]">{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 text-[15px] leading-relaxed text-[var(--cera-body)]">{copy.avoid.detail}</p>
-        </CeraReveal>
-      </section>
-
       {/* ───────────────── The three assayed actives ────────────────────── */}
       <section className="mx-auto max-w-[1040px] px-4 py-16 sm:px-6 lg:py-20">
         <CeraSectionHeader eyebrow={copy.assay.eyebrow} title={copy.assay.title} intro={copy.assay.intro} />

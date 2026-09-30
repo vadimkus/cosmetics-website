@@ -27,11 +27,12 @@
  * we do not hold that filing, and it appears only on the Korean, Russian and
  * Arabic panels.
  *
- * THE SAFETY BLOCK COMES FIRST. The Korean panel tells people with salicylate
+ * THE AVOID LIST IS NOT OPTIONAL. The Korean panel tells people with salicylate
  * sensitivity, diabetes, circulatory disorders, renal impairment, active infection
  * or a reddened scalp, and anyone menstruating, pregnant or possibly pregnant, to
- * AVOID the product because existing symptoms may worsen. That appears on no other
- * panel and was nowhere on our site. Given diabetes prevalence in the UAE it leads.
+ * AVOID the product because existing symptoms may worsen. It lives in the
+ * Precautions section (safety.points), like every other product page's cautions;
+ * a separate warning block above the product story was removed on 30 Sep 2026.
  *
  * THE HONEST SELLING POINT is the certificate. Three functional actives measured
  * on the batch - dexpanthenol, L-menthol and salicylic acid - is the best quality
@@ -69,14 +70,6 @@ export interface HairTonicCopy {
   freeDelivery: string
 
   stats: Array<{ value: string; label: string }>
-
-  avoid: {
-    eyebrow: string
-    title: string
-    body: string
-    items: string[]
-    detail: string
-  }
 
   assay: {
     eyebrow: string
@@ -173,23 +166,6 @@ const EN: HairTonicCopy = {
     { value: '0.2%', label: 'Panthenol for conditioning' },
     { value: '3M', label: 'Use within three months of opening' },
   ],
-
-  avoid: {
-    eyebrow: 'Check first',
-    title: 'Who should skip this tonic',
-    body:
-      'Salicylic acid is what keeps the scalp feeling clean, and it comes with a clear list of people who should not use it. Avoid the tonic entirely if any of these apply to you:',
-    items: [
-      'Known sensitivity to salicylic acid or salicylates',
-      'Diabetes',
-      'Circulatory disorders',
-      'Renal impairment',
-      'An active scalp infection, or a scalp that is currently red and inflamed',
-      'Menstruation, pregnancy, or the possibility of pregnancy',
-    ],
-    detail:
-      'Not for children under three years of age. If you use any scalp medication or are under a dermatologist’s care, show them the ingredient list before you start.',
-  },
 
   assay: {
     eyebrow: 'Tested in every batch',
@@ -362,10 +338,6 @@ const EN: HairTonicCopy = {
         a: 'The 9.5% alcohol is what makes it dry in seconds and feel light enough to leave on for hours. On a sensitive or already irritated scalp, start once a day in the evening. On a scalp that runs oily, it feels especially fresh.',
       },
       {
-        q: 'Why the list of people who should avoid it?',
-        a: 'Salicylic acid carries established cautions for salicylate sensitivity, diabetes, circulatory disorders, renal impairment, active infection, pregnancy and menstruation. If any apply, choose another product.',
-      },
-      {
         q: 'Why only three months after opening?',
         a: 'That is the period printed on the carton. Used morning and evening, a 70 ml bottle lasts comfortably within it.',
       },
@@ -403,23 +375,6 @@ const _AR: HairTonicCopy = {
     { value: '0.3%', label: 'منثول، مقيس عند 99.37%' },
     { value: '3M', label: 'يُستخدم خلال ثلاثة أشهر من الفتح' },
   ],
-
-  avoid: {
-    eyebrow: 'اقرئي هذا قبل الشراء',
-    title: 'حمض الساليسيليك يجلب قائمة تجنّب حقيقية',
-    body:
-      'عند 0.25%، يؤدّي حمض الساليسيليك في هذا التونيك عملاً حقيقياً - ويأتي بقيود حقيقية. وتقول اللوحة الكورية للشركة بتجنّب المنتج تماماً إن كان أيٌّ من التالي ينطبق عليك، لأنه قد يفاقم حالة قائمة. ولم يكن أيٌّ من هذا على موقعنا سابقاً، وكان ينبغي أن يكون.',
-    items: [
-      'حساسية معروفة لحمض الساليسيليك أو الساليسيلات',
-      'السكّري',
-      'اضطرابات الدورة الدموية',
-      'قصور الكلى',
-      'عدوى نشطة في فروة الرأس، أو فروة محمرّة وملتهبة حالياً',
-      'الحيض أو الحمل أو احتمال الحمل',
-    ],
-    detail:
-      'وهو أيضاً ليس للأطفال تحت سن الثالثة، وهذا مطبوع على اللوحة الإنجليزية. وإن كنتِ على أي دواء لفروة الرأس أو تحت رعاية جلدية، فخذي قائمة المكوّنات إلى من يعالجك قبل البدء. نفضّل خسارة البيع على أن تعرفي هذا لاحقاً.',
-  },
 
   assay: {
     eyebrow: 'أفضل شهادة في المجموعة',
@@ -590,10 +545,6 @@ const _AR: HairTonicCopy = {
         a: 'يتوقّف على فروتك. فهو ما يجعل التونيك يجفّ في ثوانٍ ولا يترك أثراً ويبقى محتملاً جالساً على الجلد ثلاث أو أربع ساعات، وهو ما تطلبه التعليمات. وعلى فروة حسّاسة أو متقشّرة أو متهيّجة أصلاً، قد يكون مرتين يومياً أكثر من اللازم - ابدئي مرة واحدة مساءً وراقبي. وعلى فروة دهنية، فالكحول هو المقصود.',
       },
       {
-        q: 'لماذا القائمة الطويلة لمن ينبغي أن يتجنّبوه؟',
-        a: 'حمض الساليسيليك. فعند 0.25% هو جرعة محلّلة للكيراتين حقيقية، وللساليسيلات تحفّظات مستقرّة - وتسرد اللوحة الكورية للشركة السكّري واضطرابات الدورة الدموية والقصور الكلوي والعدوى النشطة والحمل والحيض. وكانت تلك القائمة على اللوحة الكورية وعلى غيرها لا، بما فيها الإنجليزية، وكانت غائبة عن موقعنا حتى الآن.',
-      },
-      {
         q: 'مكتوب كافيين على الملصق. كم؟',
         a: 'عشرة أجزاء من المليون، وهي ليست جرعة ينبغي أن يشتري أحد المنتج من أجلها. وإن كان الكافيين مرادك، فشامبو MEDI للفروة في المجموعة نفسها فيه 1% كاملة - مئة ضعف. ونفضّل أن ندلّك على المنتج الصحيح بدل أن نترك قائمة المكوّنات تقوم بالبيع.',
       },
@@ -635,23 +586,6 @@ const _RU: HairTonicCopy = {
     { value: '0,3%', label: 'Ментола, измерено 99,37%' },
     { value: '3M', label: 'Использовать в течение трёх месяцев после вскрытия' },
   ],
-
-  avoid: {
-    eyebrow: 'Прочтите перед покупкой',
-    title: 'Салициловая кислота несёт реальный список ограничений',
-    body:
-      'При 0,25% салициловая кислота в этом тонике делает настоящую работу - и приходит с настоящими ограничениями. Корейская панель производителя предписывает полностью отказаться от средства, если к вам относится что-либо из перечисленного, поскольку оно может усугубить имеющееся состояние. Ничего из этого раньше на нашем сайте не было, а должно было быть.',
-    items: [
-      'Известная чувствительность к салициловой кислоте или салицилатам',
-      'Диабет',
-      'Нарушения кровообращения',
-      'Почечная недостаточность',
-      'Активная инфекция кожи головы или покраснение и воспаление',
-      'Менструация, беременность или её возможность',
-    ],
-    detail:
-      'Средство также не предназначено для детей младше трёх лет - это указано на английской панели. Если вы принимаете какие-либо препараты для кожи головы или находитесь под наблюдением дерматолога, покажите состав тому, кто вас ведёт, прежде чем начинать. Мы предпочтём потерять продажу, чем чтобы вы узнали об этом потом.',
-  },
 
   assay: {
     eyebrow: 'Лучший сертификат в линейке',
@@ -820,10 +754,6 @@ const _RU: HairTonicCopy = {
       {
         q: '9,5% спирта - это проблема?',
         a: 'Зависит от вашей кожи головы. Именно спирт даёт высыхание за секунды, отсутствие следа и терпимость при трёх-четырёх часах на коже - а это то, что требует инструкция. На чувствительной, шелушащейся или уже раздражённой коже дважды в день может быть много: начните раз в день вечером и посмотрите. На жирной коже головы спирт и есть смысл.',
-      },
-      {
-        q: 'Почему такой длинный список тех, кому не следует?',
-        a: 'Салициловая кислота. При 0,25% это реальная кератолитическая доза, а у салицилатов есть устоявшиеся предостережения - корейская панель производителя перечисляет диабет, нарушения кровообращения, почечную недостаточность, активную инфекцию, беременность и менструацию. Этот список был на корейской панели и ни на одной другой, включая английскую, и до сих пор отсутствовал на нашем сайте.',
       },
       {
         q: 'На этикетке написано «кофеин». Сколько?',

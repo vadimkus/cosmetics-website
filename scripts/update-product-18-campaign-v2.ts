@@ -12,7 +12,8 @@ import { prisma } from '../lib/prisma'
 
 const DIR = '/images/hsserum_v2'
 const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 11 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// s4b (1 Oct 2026) replaces s4, which cited a test panel.
+const GALLERY = Array.from({ length: 11 }, (_, i) => `${DIR}/s${i + 1}${i === 3 ? 'b' : ''}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const PRODUCT_DETAILS = JSON.stringify({
@@ -33,9 +34,9 @@ const BENEFITS = JSON.stringify([
   'Deep hydration for skin that runs dry in the AC',
   'Hyaluronan 11 Multi-Complex with hydrolyzed hyaluronic acid 2,000 ppm',
   'PENTAVITIN helps skin hold on to the water',
-  'Deep skin hydration up right after one use (DTS MG test, 21 women)',
+  'Deep hydration rises from the very first use',
   'Light coconut-water serum, sky blue with no pigment added',
-  'Dermatologically tested. Made in Korea, DTS MG',
+  'Dermatologically tested. Made in Korea',
 ])
 
 async function live(path: string): Promise<boolean> {

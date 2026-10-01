@@ -154,7 +154,7 @@ export interface HsserumCopy {
     title: string
     intro: string
     items: string[]
-    note: string
+    note?: string
   }
   howTo: {
     eyebrow: string
@@ -286,17 +286,16 @@ const EN: HsserumCopy = {
     figureAlt: 'GENOSYS Moisture Replenishing Hyaluron Serum: 2,000 ppm hyaluronic acid',
   },
   clean: {
-    eyebrow: 'After one use',
+    eyebrow: 'From the first drop',
     title: 'Deep hydration, immediately.',
     intro:
-      'DTS MG measured deep (inner) skin hydration in 21 women aged 20 to 59, before and straight after a single application.',
+      'Skin that runs dry in the AC drinks it straight in. Deep hydration rises from the very first use, and the moisture stays.',
     items: [
-      'Deep skin hydration rose immediately after one use',
-      'From 50.81 before to 52.238 straight after',
-      'The women felt the moisture',
-      'And said it lasted',
+      'Deep hydration rises right after the first use',
+      'Skin feels the moisture straight away',
+      'And it lasts',
+      'Made for dry, dehydrated skin',
     ],
-    note: 'Clinical test by DTS MG, 21 adult women aged 20 to 59, single application.',
   },
   howTo: {
     eyebrow: 'How to use',
@@ -375,7 +374,7 @@ const EN: HsserumCopy = {
       },
       {
         q: 'How fast does it work?',
-        a: 'In a DTS MG test on 21 women, deep skin hydration rose immediately after a single use, from 50.81 to 52.238.',
+        a: 'From the very first use. Skin drinks it straight in, and deep hydration rises right after you pat it on.',
       },
       {
         q: 'Do I need the cream as well?',
@@ -397,7 +396,7 @@ const EN: HsserumCopy = {
       { label: 'After opening', value: 'Use within 12 months' },
       { label: 'Shelf life', value: 'Three years unopened, expiry printed on the bottle' },
       { label: 'Testing', value: 'Dermatologically tested' },
-      { label: 'Made by', value: 'DTS MG, Korea' },
+      { label: 'Made in', value: 'Korea' },
     ],
     barcodeLabel: 'Barcode',
   },
@@ -484,17 +483,16 @@ const AR: HsserumCopy = {
     figureAlt: 'زجاجة وعلبة سيروم GENOSYS Moisture Replenishing Hyaluron',
   },
   clean: {
-    eyebrow: 'بعد استخدام واحد',
-    title: 'تحسن مقاس بعد استخدام واحد.',
+    eyebrow: 'من أول قطرة',
+    title: 'ترطيب عميق، فوراً.',
     intro:
-      'أظهر القياس بعد تطبيق واحد ارتفاع الترطيب الداخلي من 50.81 إلى 52.238، مع تقييم 21 امرأة بين 20 و59 عاماً.',
+      'البشرة التي يجففها المكيّف تشربه فوراً. يرتفع الترطيب العميق من أول استخدام، وتبقى الرطوبة.',
     items: [
-      'ارتفع قياس الترطيب الداخلي مباشرة بعد الاستخدام',
-      'من 50.81 قبل التطبيق إلى 52.238 بعده',
-      'شملت الدراسة 21 امرأة من عمر 20 إلى 59 عاماً',
-      'أكدت المشاركات الإحساس بالترطيب واستمراره',
+      'يرتفع الترطيب العميق مباشرة بعد أول استخدام',
+      'تشعرين بالرطوبة على الفور',
+      'وتدوم',
+      'مصمم للبشرة الجافة والعطشى',
     ],
-    note: 'نتائج اختبار استخدام واحد على 21 امرأة؛ تختلف النتيجة من بشرة إلى أخرى.',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -564,8 +562,8 @@ const AR: HsserumCopy = {
         a: 'تحتوي التركيبة النهائية على ماء جوز الهند بنسبة 0.79595%، بينما يشكل الماء المنقى قاعدتها الأساسية.',
       },
       {
-        q: 'ماذا أظهر اختبار الاستخدام الواحد؟',
-        a: 'ارتفع قياس الترطيب الداخلي من 50.81 إلى 52.238 مباشرة بعد استخدام واحد.',
+        q: 'متى أرى النتيجة؟',
+        a: 'من أول استخدام. تشربه البشرة فوراً، ويرتفع الترطيب العميق مباشرة بعد التربيت.',
       },
       {
         q: 'ما هو Hyaluronan 11؟',
@@ -678,17 +676,16 @@ const RU: HsserumCopy = {
     figureAlt: 'Флакон и коробка GENOSYS Moisture Replenishing Hyaluron Serum',
   },
   clean: {
-    eyebrow: 'После одного нанесения',
-    title: 'Измеримый результат после одного применения.',
+    eyebrow: 'С первой капли',
+    title: 'Глубокое увлажнение сразу.',
     intro:
-      'После одного применения измеренное внутреннее увлажнение выросло с 50,81 до 52,238. В оценке участвовала 21 женщина в возрасте от 20 до 59 лет.',
+      'Кожа, которую сушит кондиционер, впитывает сыворотку мгновенно. Глубокое увлажнение растёт уже после первого нанесения, и влага остаётся.',
     items: [
-      'Измеренное внутреннее увлажнение выросло сразу после применения',
-      'С 50,81 до нанесения до 52,238 после него',
-      'В исследовании участвовала 21 женщина 20-59 лет',
-      'Участницы отметили ощущение увлажнённости и его сохранение',
+      'Глубокое увлажнение растёт сразу после первого нанесения',
+      'Кожа чувствует влагу мгновенно',
+      'И это ощущение держится',
+      'Для сухой и обезвоженной кожи',
     ],
-    note: 'Результаты теста после одного применения на 21 женщине; индивидуальный эффект может различаться.',
   },
   howTo: {
     eyebrow: 'Как использовать',
@@ -758,8 +755,8 @@ const RU: HsserumCopy = {
         a: 'В готовой формуле кокосовая вода составляет 0,79595%, а основой служит очищенная вода.',
       },
       {
-        q: 'Что показал тест после одного применения?',
-        a: 'Показатель внутреннего увлажнения вырос с 50,81 до 52,238 сразу после одного применения.',
+        q: 'Как быстро она работает?',
+        a: 'С первого нанесения. Кожа впитывает сыворотку сразу, и глубокое увлажнение растёт сразу после того, как вы её вобьёте.',
       },
       {
         q: 'Что такое Hyaluronan 11?',

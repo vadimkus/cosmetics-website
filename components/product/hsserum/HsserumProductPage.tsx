@@ -11,7 +11,7 @@
  *
  *   effects  Moisturize. Multi-level hydration. Pat AM/PM.
  *   engine   Hydrolyzed HA 2,000 ppm, then Hyaluronan 11
- *   proof    Immediate inner hydration after one use; 21-woman panel
+ *   proof    Deep hydration from the first use
  *   howTo    Apply on the face and pat, morning and evening, plus video
  *   actives  ingredient cards from the product record, plus the full INCI
  *   suited   dry and dehydrated skin; not the cream; not a 4-step electrolyte story
@@ -95,11 +95,11 @@ interface ActiveIngredient {
 
 /** Section art from the "Drink up." campaign, served per locale through
  *  localizeProductImage ("Drink up." set, hsserum_v2): s3 the 2,000 ppm drop, s8 drink it in (pat),
- *  s4 drink fast (the 21-woman test). Formerly
+ *  s4b drink from drop one. Formerly
  *  card, s8 the after-one-use portrait. */
 const ENGINE_IMAGE = '/images/hsserum_v2/s3.jpg'
 const HOWTO_IMAGE = '/images/hsserum_v2/s8.jpg'
-const PROOF_IMAGE = '/images/hsserum_v2/s4.jpg'
+const PROOF_IMAGE = '/images/hsserum_v2/s4b.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -762,9 +762,11 @@ export default function HsserumProductPage({
               </CeraReveal>
             ))}
           </ul>
-          <CeraReveal>
-            <p className="mt-6 text-[14px] leading-relaxed text-[var(--cera-muted)]">{copy.clean.note}</p>
-          </CeraReveal>
+          {copy.clean.note ? (
+            <CeraReveal>
+              <p className="mt-6 text-[14px] leading-relaxed text-[var(--cera-muted)]">{copy.clean.note}</p>
+            </CeraReveal>
+          ) : null}
             </div>
           </div>
         </div>

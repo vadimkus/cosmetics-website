@@ -270,15 +270,8 @@ export const products: Product[] = [
     price: 370,
     description: '10ml. Intensive all-in-one eye serum for deep wrinkles, dark circles and eye puffs. Arbutin 2% and Adenosine 0.04% are the Korean functional pair. Morning and evening, pat and leave on. Dermatologically tested. Avoid during pregnancy and lactation.',
     image: '/images/eye_serum/main-v2.jpg',
-    images: JSON.stringify([
-      '/images/eye_serum/s1.jpeg',
-      '/images/eye_serum/s2.jpeg',
-      '/images/eye_serum/s3.jpeg',
-      '/images/eye_serum/s4.jpeg',
-      '/images/eye_serum/s5.jpeg',
-      '/images/eye_serum/s6.jpeg',
-      '/images/eye_serum/s7.jpeg',
-    ]),
+    // "Tired has a shape." campaign (1 Oct 2026); RU / AR renders swap in by locale.
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/eyeserum_shape/s${i + 1}.jpg`)),
     category: 'Eye care',
     inStock: true,
   },

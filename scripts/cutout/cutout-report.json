@@ -162,11 +162,11 @@
   {
     "product": "24",
     "status": "ok",
-    "source": "/images/eye_cream/main.jpeg",
-    "file": "/images/cutout/24.webp",
+    "source": "/images/eye_cream/main-v2.jpg",
+    "file": "/images/cutout/24-v2.webp",
     "name": "EyeCell EYE CONTOUR CREAM",
     "coverage": 0.154,
-    "bytes": 13806,
+    "bytes": 18446,
     "review": false
   },
   {
@@ -192,31 +192,31 @@
   {
     "product": "27",
     "status": "ok",
-    "source": "/images/skin_barr/main.jpeg",
-    "file": "/images/cutout/27.webp",
+    "source": "/images/skin_barr/main-v2.jpg",
+    "file": "/images/cutout/27-v2.webp",
     "name": "SKIN BARRIER PROTECTING CREAM",
-    "coverage": 0.228,
-    "bytes": 36218,
+    "coverage": 0.229,
+    "bytes": 39396,
     "review": false
   },
   {
     "product": "28",
     "status": "ok",
-    "source": "/images/hydro_soothing_o/Main.jpeg",
-    "file": "/images/cutout/28-v2.webp",
+    "source": "/images/hydro_soothing_o/main-v2.jpg",
+    "file": "/images/cutout/28-v3.webp",
     "name": "INTENSIVE HYDRO SOOTHING CREAM",
-    "coverage": 0.344,
-    "bytes": 53096,
+    "coverage": 0.352,
+    "bytes": 61110,
     "review": false
   },
   {
     "product": "29",
     "status": "ok",
-    "source": "/images/mhcream_campaign/main.jpg",
-    "file": "/images/cutout/29-v2.webp",
+    "source": "/images/mhcream_campaign/main-v2.jpg",
+    "file": "/images/cutout/29-v3.webp",
     "name": "MOISTURE REPLENISHING HYALURON CREAM",
-    "coverage": 0.312,
-    "bytes": 56696,
+    "coverage": 0.313,
+    "bytes": 57122,
     "review": false
   },
   {
@@ -592,11 +592,11 @@
   {
     "product": "63",
     "status": "ok",
-    "source": "/images/revita_o/main.jpg",
-    "file": "/images/cutout/63.webp",
+    "source": "/images/revita_o/main-v2.jpg",
+    "file": "/images/cutout/63-v2.webp",
     "name": "REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]",
-    "coverage": 0.436,
-    "bytes": 55250,
+    "coverage": 0.427,
+    "bytes": 65652,
     "review": false
   },
   {

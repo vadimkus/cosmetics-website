@@ -67,17 +67,17 @@ const CUTOUTS: Record<string, string> = {
   // 23 ND Cell ANTI-WRINKLE CREAM
   '/images/nd_cell_o/Main.jpeg': '/images/cutout/23-v2.webp',
   // 24 EyeCell EYE CONTOUR CREAM
-  '/images/eye_cream/main.jpeg': '/images/cutout/24.webp',
+  '/images/eye_cream/main-v2.jpg': '/images/cutout/24-v2.webp',
   // 25 SOOTHING REPAIR POSTCREAM
   '/images/soothing_rep_o/Main.jpeg': '/images/cutout/25-v2.webp',
   // 26 EGF REPAIR OXYMASK CREAM
   '/images/EGF.jpg': '/images/cutout/26.webp',
   // 27 SKIN BARRIER PROTECTING CREAM
-  '/images/skin_barr/main.jpeg': '/images/cutout/27.webp',
+  '/images/skin_barr/main-v2.jpg': '/images/cutout/27-v2.webp',
   // 28 INTENSIVE HYDRO SOOTHING CREAM
-  '/images/hydro_soothing_o/Main.jpeg': '/images/cutout/28-v2.webp',
+  '/images/hydro_soothing_o/main-v2.jpg': '/images/cutout/28-v3.webp',
   // 29 MOISTURE REPLENISHING HYALURON CREAM
-  '/images/mhcream_campaign/main.jpg': '/images/cutout/29-v2.webp',
+  '/images/mhcream_campaign/main-v2.jpg': '/images/cutout/29-v3.webp',
   // 30 INTENSIVE PROBLEM CONTROL CREAM
   '/images/problemcream_v2/main.jpg': '/images/cutout/30-v2.webp',
   // 31 MULTI VITA RADIANCE CREAM
@@ -145,7 +145,7 @@ const CUTOUTS: Record<string, string> = {
   // 62 SENSITIVE SKIN BEAUTY BOX
   '/images/bb_sensitive_campaign/main.jpg': '/images/cutout/62-v4.webp',
   // 63 REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]
-  '/images/revita_o/main.jpg': '/images/cutout/63.webp',
+  '/images/revita_o/main-v2.jpg': '/images/cutout/63-v2.webp',
   // 64 Hair Stamp For HAIRGEN BOOSTER
   '/images/needles2/Main.jpeg': '/images/cutout/64.webp',
   // 65 Bio-Meso PDRN Homecare Ampoule 5000

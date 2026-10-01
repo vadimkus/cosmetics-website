@@ -168,7 +168,8 @@ REVISION = {
     # New campaign packshot: two tubes rather than the single one the first
     # cut-out was traced from. A new number, because /images/* is served
     # immutable for a year and anyone who has seen the old file keeps it.
-    "28": 2,
+    # 3: white-canvas main (hydro_soothing_o/main-v2.jpg, 1 Oct 2026).
+    "28": 3,
     # New campaign packshot, traced from a different frame than the original.
     "42": 2,
     # New campaign packshot: the 1kg pouch square on white, where the previous
@@ -208,6 +209,10 @@ REVISION = {
     "44": 2,
     # New studio packshot on white, replacing the July render.
     # 19-22: bottle-only mains on white shot in CapCut (1 Oct 2026, matching 18): main-v2.jpg.
+    # White-canvas cream mains (1 Oct 2026): 24 the real tube composited, 27 and 63 CapCut re-shoots.
+    "24": 2,
+    "27": 2,
+    "63": 2,
     "19": 2,
     "20": 2,
     "21": 3,
@@ -285,7 +290,8 @@ REVISION = {
     # 250g tubes on white with water droplets at their bases. Like 15, v2 is the two supplied
     # container PNGs (~/Desktop/moisture) at the main's layout (50g left at 130 mm, 250g right
     # at 200 mm), then normalised. Do not rebuild 29 from the photograph.
-    "29": 2,
+    # 3: white-canvas main without the water drops (mhcream_campaign/main-v2.jpg, 1 Oct 2026).
+    "29": 3,
     # "The Oil Change" campaign main (bb_problem_campaign/main.jpg, 28 Sep 2026): the five
     # singles in the open kit case, top down. The main carries the title, so v4 is Vision run
     # on the text-free CapCut take (~/Desktop/Insta_Olga/bb_problem/campaign/picks/main.png),

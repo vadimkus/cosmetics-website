@@ -28,8 +28,9 @@ import {
 const ID = '70'
 const REPLACED = '47'
 const DIR = '/images/mesopecia_art'
-const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// main-v2, s11b, s12b: the packs stand apart (the first main had the stamp lying on the box).
+const MAIN = `${DIR}/main-v2.jpg`
+const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}${i >= 10 ? 'b' : ''}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 async function live(path: string): Promise<boolean> {

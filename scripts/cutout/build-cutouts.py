@@ -145,7 +145,7 @@ PARTS = {
         (0.130, 0.620, 0.470, 0.900, "vision"),
         (0.470, 0.670, 0.900, 0.945, "vision"),
     ],
-    # Mesopecia Kit (mesopecia_tend/main.jpg, box straight, packs apart): the
+    # Mesopecia Kit (mesopecia_tend/main-v2.jpg, box straight, packs apart): the
     # ivory stamp and the two vials re-traced on their own crops, the bottle too.
     "70": [
         (0.700, 0.160, 0.950, 0.690, "vision"),
@@ -162,7 +162,8 @@ PARTS = {
 REVISION = {
     # 2: packs-apart main (mesopecia_art/main-v2.jpg, 1 Oct 2026), the stamp off the box.
     # 3: "Tend the ground." main (mesopecia_tend/main.jpg, 1 Oct 2026), box straight.
-    "70": 3,
+    # 4: the same main with the stamp re-shot off-white (main-v2.jpg).
+    "70": 4,
     "65": 2,
     "66": 2,
     # Scalp rework packshot (stamp_scalp/main.jpg): re-shot from the 4x master with

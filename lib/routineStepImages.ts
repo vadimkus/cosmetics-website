@@ -13,7 +13,7 @@ import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> = {
   '1': '/images/roller_campaign/main.jpg',
   '69': '/images/eyeroller_art/main.jpg',
-  '70': '/images/mesopecia_tend/main.jpg',
+  '70': '/images/mesopecia_tend/main-v2.jpg',
   '3': '/images/Booster.jpg',
   '6': '/images/cts_campaign/main.jpg',
   '10': '/images/snowo2_campaign/main.jpg',

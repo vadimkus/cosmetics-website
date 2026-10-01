@@ -28,8 +28,9 @@ import {
 const ID = '70'
 const REPLACED = '47'
 const DIR = '/images/mesopecia_tend'
-const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// main-v2 and the b slides: the stamp re-shot off-white.
+const MAIN = `${DIR}/main-v2.jpg`
+const GALLERY = ['s1b', 's2b', 's3', 's4', 's5', 's6', 's7b', 's8b', 's9b', 's10b', 's11b', 's12b'].map(n => `${DIR}/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 async function live(path: string): Promise<boolean> {

@@ -223,10 +223,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   // Product 69, GENOSYS Eye Roller, "For your eyes only." art set. main.jpg is a packshot with
   // no type, so only the twelve slides have Russian and Arabic exports.
   // Product 70, MESOPECIA KIT, "Tend the ground." art set. main.jpg is the four packs on white
-  // with no type, so only the twelve slides have Russian and Arabic exports.
+  // with no type, so only the twelve slides have Russian and Arabic exports. The b files carry the
+  // stamp re-shot off-white (it had come out cream); s3 to s6 have no stamp.
   '/images/mesopecia_tend': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1b.jpg', 's2b.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7b.jpg', 's8b.jpg', 's9b.jpg', 's10b.jpg', 's11b.jpg', 's12b.jpg'],
+    ar: ['s1b.jpg', 's2b.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7b.jpg', 's8b.jpg', 's9b.jpg', 's10b.jpg', 's11b.jpg', 's12b.jpg'],
   },
   '/images/eyeroller_art': {
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's3b.jpg'],

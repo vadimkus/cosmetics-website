@@ -159,7 +159,7 @@ const CUTOUTS: Record<string, string> = {
   // 69 Eye Roller
   '/images/eyeroller_art/main.jpg': '/images/cutout/69.webp',
   // 70 MESOPECIA KIT
-  '/images/mesopecia_tend/main.jpg': '/images/cutout/70-v3.webp',
+  '/images/mesopecia_tend/main-v2.jpg': '/images/cutout/70-v4.webp',
 }
 
 /**

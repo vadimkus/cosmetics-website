@@ -71,13 +71,13 @@ import { getMesopeciaCopy } from './mesopeciaCopy'
 /** Section art from the "Tend the ground." campaign, each slide beside the section it illustrates:
  *  s1 (the ground), s2 (three steps), s9 (nothing pulls), and s3, s5, s7 on the clear, feed and
  *  press cards. AR and RU renders swap in through localizeProductImage. */
-const CONCERN_IMAGE = '/images/mesopecia_tend/s1.jpg'
-const STEPS_IMAGE = '/images/mesopecia_tend/s2.jpg'
-const STAMP_SECTION_IMAGE = '/images/mesopecia_tend/s9.jpg'
+const CONCERN_IMAGE = '/images/mesopecia_tend/s1b.jpg'
+const STEPS_IMAGE = '/images/mesopecia_tend/s2b.jpg'
+const STAMP_SECTION_IMAGE = '/images/mesopecia_tend/s9b.jpg'
 const EVIDENCE_IMAGES = [
   '/images/mesopecia_tend/s3.jpg',
   '/images/mesopecia_tend/s5.jpg',
-  '/images/mesopecia_tend/s7.jpg',
+  '/images/mesopecia_tend/s7b.jpg',
 ]
 
 function SectionFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {

@@ -136,3 +136,20 @@ this campaign / we need to put items here and there inside slides, mix / redo".
   `lib/productCutouts.ts`, `lib/routineStepImages.ts`, `MesopeciaProductPage.tsx`, the create script,
   the product 70 test. DB: `scripts/update-product-70-tend-the-ground-20261001.ts` (HEAD-checks first).
   `mesopecia_art/` kept on disk for old order emails and caches.
+
+## v3.1: stamp re-shot off-white (1 Oct 2026, night)
+
+Vadim: "stamp color is different to the rest of objects... pls reshoot in capcut".
+
+- Cause: the stamp reference was cut from the owner's phone photo before white balance (median
+  216/210/175, cream); the balanced photo reads near neutral (226/224/222). The live main measured
+  247/231/202 on the stamp.
+- `k3_neutral.py` takes each pick with a stamp (main, 1, 2, 7, 8, 9, 10, 11, 12), keeps the stamp's
+  lightness inside a Vision mask and drops most of its chroma; that image is the CapCut reference for a
+  re-shoot "one light, one neutral white balance, stamp matte off-white".
+- First run: slide 8 came back with slide 7's scene (CapCut kept the reference) and slide 7 printed a
+  logo on the stamp's plain back; both re-shot under fresh keys (`w7x`, `w8x`, prompt says the back is
+  plain). Real vial artwork pasted again on main, 1, 2 (label turned sideways), 11, 12, and the real
+  bottle on 12 (`k3_fix.py`).
+- New files: `main-v2.jpg`, `s1b`, `s2b`, `s7b` to `s12b` (+ `ru/`, `ar/`); s3 to s6 have no stamp and
+  stay. Cut-out `70-v4.webp` (REVISION 4). DB: `scripts/update-product-70-stamp-offwhite-20261001.ts`.

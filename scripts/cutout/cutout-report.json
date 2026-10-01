@@ -222,11 +222,11 @@
   {
     "product": "3",
     "status": "ok",
-    "source": "/images/hairgen_campaign/main2.jpg",
-    "file": "/images/cutout/3-v2.webp",
+    "source": "/images/hairgen_campaign/main-v3.jpg",
+    "file": "/images/cutout/3-v3.webp",
     "name": "HairGen BOOSTER",
-    "coverage": 0.523,
-    "bytes": 75828,
+    "coverage": 0.352,
+    "bytes": 60394,
     "review": false
   },
   {
@@ -422,11 +422,11 @@
   {
     "product": "48",
     "status": "ok",
-    "source": "/images/gentron_campaign/main.jpg",
-    "file": "/images/cutout/48-v2.webp",
+    "source": "/images/gentron_campaign/main-v2.jpg",
+    "file": "/images/cutout/48-v3.webp",
     "name": "Hair-GENTRON",
-    "coverage": 0.237,
-    "bytes": 76090,
+    "coverage": 0.241,
+    "bytes": 72128,
     "review": false
   },
   {

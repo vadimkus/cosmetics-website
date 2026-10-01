@@ -67,11 +67,6 @@ FLOOR = {
     # bottle's reflection away but kept the small one's whole, which rendered as
     # a second, upside-down bottle hanging under it.
     "66": 0.866,
-    # Carton and device on a glossy black floor (hairgen_campaign/main2.jpg). The device
-    # stands in front, so one rule cannot serve both: the carton's contact edge is the dark
-    # hairline at 83.2%, and the LED needle tips meet their own reflection at 84.1%, the
-    # narrowest blue row. Given as (x0, x1, floor) spans; the device starts at x=0.64.
-    "3": [(0.0, 0.64, 0.832), (0.64, 1.0, 0.841)],
 }
 
 # Regions Vision drops that are part of the product, as fractions of the source
@@ -97,11 +92,6 @@ REPAIR = {
     "9": [(0.6000, 0.4500, 0.7400, 0.7960)],
     # CVS main (cvs_campaign/main.jpg) is the same template render again.
     "5": [(0.6000, 0.4500, 0.7400, 0.7960)],
-    # The carton's silver side panel behind the device (hairgen_campaign/main2.jpg). Mid-grey
-    # metal in shadow reads as backdrop to Vision, which tore it out from the dark-to-silver
-    # break at y=0.678 to the floor. The panel runs from the corner edge at x=0.590 behind the
-    # device, and every torn pixel up to x=0.6525 measures as panel, so it is restored whole.
-    "3": [(0.5900, 0.6780, 0.6525, 0.8255)],
 }
 
 # Product hidden behind a prop, where the photograph has no product pixels to restore.
@@ -269,7 +259,9 @@ REVISION = {
     # "In. Not on." campaign packshot (hairgen_campaign/main2.jpg): carton and device on a
     # glossy black floor. v1 was traced from the retired glassware photograph and was still
     # mapped to the new main, so the closing band showed the old shot.
-    "3": 2,
+    # 3: white-canvas main, device alone without the carton (hairgen_campaign/main-v3.jpg,
+    # 1 Oct 2026). The black-floor FLOOR and REPAIR rules for the old main were removed.
+    "3": 3,
     # Same fault on three more campaign mains, each newer than its cut-out by four weeks:
     # "Let it snow" (booster_campaign/main.jpg, both bottles; v1 had the 200 ml alone),
     # peptide_campaign/main.jpg (sachet and box; v1 had the sachet alone) and
@@ -304,7 +296,8 @@ REVISION = {
     # cleanly. v2 is Vision run on the three-quarter studio photo with the controller
     # (~/Desktop/hair_gentron, the main's reference), then normalised. Do not rebuild 48
     # from the campaign main.
-    "48": 2,
+    # 3: white-canvas main (gentron_campaign/main-v2.jpg, 1 Oct 2026), traced from the main itself.
+    "48": 3,
     # "Time, well kept." campaign main (bb_age_campaign/main.jpg, 28 Sep 2026): the five
     # singles in the open kit case, top down, garnet foam and brass hardware. The main
     # carries the title, so v3 is Vision run on the text-free CapCut take

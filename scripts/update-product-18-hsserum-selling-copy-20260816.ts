@@ -42,20 +42,20 @@ const PRODUCT_DETAILS = JSON.stringify({
 
 const KEY_FEATURES = JSON.stringify([
   {
-    title: 'Apply and pat',
-    description: 'On the face, morning and evening. The carton stops here.',
+    title: 'Drink from drop one',
+    description: 'Deep hydration rises from the very first use.',
   },
   {
-    title: '2,000 ppm',
-    description: 'Hydrolyzed HA, the named dose. This is the moisturizing serum, not the cream.',
+    title: 'Hyaluronic acid 2,000 ppm',
+    description: 'Hydrolyzed hyaluronic acid leads the formula and sinks straight in.',
   },
   {
-    title: 'Hyaluronan 11',
-    description: 'Brand name. Eight hyaluronate INCIs. One of them is the 2,000 ppm.',
+    title: 'Hyaluronan 11 Multi-Complex',
+    description: 'Hyaluronic acid in several forms and weights, for hydration at every level.',
   },
   {
-    title: 'Not +52%',
-    description: 'Inner hydration moved after one use. The leftover 52% was a misread of 52.238.',
+    title: 'Pat it in',
+    description: 'On clean skin, morning and evening. Seal with the Moisture Replenishing Hyaluron Cream.',
   },
 ])
 

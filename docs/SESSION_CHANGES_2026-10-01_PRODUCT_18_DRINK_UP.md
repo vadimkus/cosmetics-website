@@ -43,3 +43,16 @@ with the page headlines ("Напоите кожу.", "اروي بشرتكِ."). 
   Live: EN/RU/AR new main, 11 localized slides, no old slides.
 - Cut-out builder: the REVISION table already had `"18": 2` further down, which overrode a new entry and
   rebuilt 18-v2 in place; restored from git and the existing entry bumped to 3 (new file 18-v3).
+
+## Serums 19-22 on white (follow-up, Vadim: "yes, do all four now")
+
+- Bottle-only mains re-shot in CapCut from Vision cut-outs of the grey studio mains, laid on white at
+  product 18's scale. Labels clean on every take; picks chosen for scale closest to 18 (bottle height
+  ~76% of frame): 19 `s19_1`, 20 `s20_1`, 21 `s21_2`, 22 `s22_4`. Background lifted to pure white.
+- New files: `sensitive_serum/main-v2.jpg`, `problems_serum/main-v2.jpg`, `radiance_serum/main-v2.jpg`,
+  `multif_serum/main-v2.jpg`; cut-outs `19-v2`, `20-v2`, `21-v3`, `22-v2` (REVISION entries added once
+  each, no duplicates).
+- Repointed: DB `image`, fallback (22's fallback gallery no longer lists its main), routine images,
+  order history, downloads, SEO landing pages EN/RU/AR, the old per-product image scripts.
+- Commits `efc3731cb`, `20565777b`; revalidated; the /products grid shows all five serums on white,
+  no old mains left.

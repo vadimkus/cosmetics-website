@@ -207,7 +207,11 @@ REVISION = {
     # earlier shampoo/Main.jpg render.
     "44": 2,
     # New studio packshot on white, replacing the July render.
-    "21": 2,
+    # 19-22: bottle-only mains on white shot in CapCut (1 Oct 2026, matching 18): main-v2.jpg.
+    "19": 2,
+    "20": 2,
+    "21": 3,
+    "22": 2,
     # New campaign packshot: box and ten vials square on white, replacing the
     # small legacy HHR.jpg render.
     "45": 3,

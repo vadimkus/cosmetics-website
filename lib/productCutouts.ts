@@ -57,13 +57,13 @@ const CUTOUTS: Record<string, string> = {
   // 18 MOISTURE REPLENISHING HYALURON SERUM
   '/images/hsserum_v2/main.jpg': '/images/cutout/18-v3.webp',
   // 19 ALL FOR SENSITIVE SERUM
-  '/images/sensitive_serum/main.jpeg': '/images/cutout/19.webp',
+  '/images/sensitive_serum/main-v2.jpg': '/images/cutout/19-v2.webp',
   // 20 PROBLEM CONTROL SERUM
-  '/images/problems_serum/main.jpeg': '/images/cutout/20.webp',
+  '/images/problems_serum/main-v2.jpg': '/images/cutout/20-v2.webp',
   // 21 
-  '/images/radiance_serum/Main.jpeg': '/images/cutout/21-v2.webp',
+  '/images/radiance_serum/main-v2.jpg': '/images/cutout/21-v3.webp',
   // 22 MULTI FUNCTIONAL ANTI-WRINKLE SERUM
-  '/images/multif_serum/main.jpeg': '/images/cutout/22.webp',
+  '/images/multif_serum/main-v2.jpg': '/images/cutout/22-v2.webp',
   // 23 ND Cell ANTI-WRINKLE CREAM
   '/images/nd_cell_o/Main.jpeg': '/images/cutout/23-v2.webp',
   // 24 EyeCell EYE CONTOUR CREAM

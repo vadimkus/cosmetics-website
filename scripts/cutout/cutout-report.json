@@ -102,11 +102,11 @@
   {
     "product": "19",
     "status": "ok",
-    "source": "/images/sensitive_serum/main.jpeg",
-    "file": "/images/cutout/19.webp",
+    "source": "/images/sensitive_serum/main-v2.jpg",
+    "file": "/images/cutout/19-v2.webp",
     "name": "ALL FOR SENSITIVE SERUM",
-    "coverage": 0.224,
-    "bytes": 48812,
+    "coverage": 0.222,
+    "bytes": 48494,
     "review": false
   },
   {
@@ -122,31 +122,31 @@
   {
     "product": "20",
     "status": "ok",
-    "source": "/images/problems_serum/main.jpeg",
-    "file": "/images/cutout/20.webp",
+    "source": "/images/problems_serum/main-v2.jpg",
+    "file": "/images/cutout/20-v2.webp",
     "name": "PROBLEM CONTROL SERUM",
-    "coverage": 0.223,
-    "bytes": 55104,
+    "coverage": 0.225,
+    "bytes": 56458,
     "review": false
   },
   {
     "product": "21",
     "status": "ok",
-    "source": "/images/radiance_serum/Main.jpeg",
-    "file": "/images/cutout/21-v2.webp",
-    "name": null,
-    "coverage": 0.248,
-    "bytes": 56402,
+    "source": "/images/radiance_serum/main-v2.jpg",
+    "file": "/images/cutout/21-v3.webp",
+    "name": "MULTI VITA RADIANCE SERUM",
+    "coverage": 0.249,
+    "bytes": 66240,
     "review": false
   },
   {
     "product": "22",
     "status": "ok",
-    "source": "/images/multif_serum/main.jpeg",
-    "file": "/images/cutout/22.webp",
+    "source": "/images/multif_serum/main-v2.jpg",
+    "file": "/images/cutout/22-v2.webp",
     "name": "MULTI FUNCTIONAL ANTI-WRINKLE SERUM",
     "coverage": 0.231,
-    "bytes": 44360,
+    "bytes": 48502,
     "review": false
   },
   {

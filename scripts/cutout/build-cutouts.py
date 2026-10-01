@@ -102,10 +102,6 @@ REPAIR = {
 # carries the pack's lighting across instead of repeating the clone source's. Only for
 # surfaces that are uniform along the row, such as a sachet's crimped seal.
 CLONE = {
-    # An ice cube stands over the sachet's bottom seal (peptide_campaign/main.jpg) and
-    # Vision cut a V into the pack there. The seal and the plain blue above it are
-    # uniform along the row, and x=0.15 to 0.27 is clear of ice and type.
-    "37": [(0.2656, 0.7250, 0.3813, 0.7750, 0.1156)],
 }
 
 # Secondary subjects Vision drops when it locks onto the largest object.
@@ -202,6 +198,7 @@ REVISION = {
     # 19-22: bottle-only mains on white shot in CapCut (1 Oct 2026, matching 18): main-v2.jpg.
     # White-canvas cream mains (1 Oct 2026): 24 the real tube composited, 27 and 63 CapCut re-shoots.
     "33": 2,  # white-canvas jar main (patch/main-v2.jpg, 1 Oct 2026)
+    "17": 2,  # white-canvas main (eye_serum/main-v2.jpg, 1 Oct 2026)
     "24": 2,
     "27": 2,
     "63": 2,
@@ -229,7 +226,9 @@ REVISION = {
     # "Cold start" campaign packshot (scalp_campaign/main.jpg, 26 Sep 2026) has ice
     # around the bottle, so v2 is normalised from the supplied transparent container
     # PNG (current label) rather than traced from the photograph.
-    "46": 2,
+    # 3: white-canvas main without the ice (scalp_campaign/main-v2.jpg, 1 Oct 2026), traced
+    # from the main itself.
+    "46": 3,
     # "Every needle counts." campaign packshot (roller_campaign/main.jpg, 27 Sep 2026):
     # the single roller on white, replacing the seven-device family photo.
     "1": 2,
@@ -274,7 +273,9 @@ REVISION = {
     # "Water, not oil." main (problemcream_v2/main.jpg, 30 Sep 2026): both tubes on white.
     "30": 2,
     "53": 2,
-    "37": 2,
+    # 3: white-canvas main without the ice (peptide_campaign/main-v2.jpg, 1 Oct 2026); the
+    # CLONE repair for the ice cube over the seal was removed with it.
+    "37": 3,
     # "Oil off. Cool on." campaign packshot (pct_campaign/main.jpg, 28 Sep 2026): the 200 ml
     # mist and 500 ml pump on white, with ice at their bases. Like 16, v3 is the two supplied
     # container PNGs (~/Desktop/problem_boost) at the main's layout (pct_refs.py pair), then

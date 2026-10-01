@@ -53,7 +53,7 @@ const CUTOUTS: Record<string, string> = {
   // 16 SNOW BOOSTER
   '/images/booster_campaign/main.jpg': '/images/cutout/16-v2.webp',
   // 17 EyeCell EYE CONTOUR SERUM
-  '/images/eye_serum/main.jpeg': '/images/cutout/17.webp',
+  '/images/eye_serum/main-v2.jpg': '/images/cutout/17-v2.webp',
   // 18 MOISTURE REPLENISHING HYALURON SERUM
   '/images/hsserum_v2/main.jpg': '/images/cutout/18-v3.webp',
   // 19 ALL FOR SENSITIVE SERUM
@@ -93,7 +93,7 @@ const CUTOUTS: Record<string, string> = {
   // 36 SOOTHING BOMB SEA ALGAE MASK
   '/images/seaalgae_campaign/main.jpg': '/images/cutout/36-v2.webp',
   // 37 PEPTIDE GEL MASK
-  '/images/peptide_campaign/main.jpg': '/images/cutout/37-v2.webp',
+  '/images/peptide_campaign/main-v2.jpg': '/images/cutout/37-v3.webp',
   // 38 EZ CO₂ MASK KIT
   '/images/ez_mask/main.jpeg': '/images/cutout/38.webp',
   // 39 ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]
@@ -111,7 +111,7 @@ const CUTOUTS: Record<string, string> = {
   // 45 HR³ MATRIX HAIR SOLUTION α
   '/images/hair_sol_o/Main.jpeg': '/images/cutout/45-v3.webp',
   // 46 HR³ MATRIX SCALP PEELING α
-  '/images/scalp_campaign/main.jpg': '/images/cutout/46-v2.webp',
+  '/images/scalp_campaign/main-v2.jpg': '/images/cutout/46-v3.webp',
   // 47 HR³ MATRIX MESOPECIA KIT
   '/images/meso.jpg': '/images/cutout/47.webp',
   // 48 Hair-GENTRON

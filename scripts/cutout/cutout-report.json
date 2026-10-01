@@ -82,11 +82,11 @@
   {
     "product": "17",
     "status": "ok",
-    "source": "/images/eye_serum/main.jpeg",
-    "file": "/images/cutout/17.webp",
+    "source": "/images/eye_serum/main-v2.jpg",
+    "file": "/images/cutout/17-v2.webp",
     "name": "EyeCell EYE CONTOUR SERUM",
-    "coverage": 0.105,
-    "bytes": 15330,
+    "coverage": 0.103,
+    "bytes": 21796,
     "review": false
   },
   {
@@ -302,11 +302,11 @@
   {
     "product": "37",
     "status": "ok",
-    "source": "/images/peptide_campaign/main.jpg",
-    "file": "/images/cutout/37-v2.webp",
+    "source": "/images/peptide_campaign/main-v2.jpg",
+    "file": "/images/cutout/37-v3.webp",
     "name": "PEPTIDE GEL MASK",
     "coverage": 0.493,
-    "bytes": 63456,
+    "bytes": 55318,
     "review": false
   },
   {
@@ -402,11 +402,11 @@
   {
     "product": "46",
     "status": "ok",
-    "source": "/images/scalp_campaign/main.jpg",
-    "file": "/images/cutout/46-v2.webp",
+    "source": "/images/scalp_campaign/main-v2.jpg",
+    "file": "/images/cutout/46-v3.webp",
     "name": "HR\u00b3 MATRIX SCALP PEELING \u03b1",
-    "coverage": 0.207,
-    "bytes": 40162,
+    "coverage": 0.212,
+    "bytes": 52992,
     "review": false
   },
   {

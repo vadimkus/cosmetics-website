@@ -316,7 +316,8 @@ REVISION = {
     "41": 2,
     # "Drink up." campaign main (hsserum_campaign/main.jpg, 30 Sep 2026): the carton and the
     # dropper bottle on white, no type. v1 was the black-bottle studio shot (hyaluron_serum).
-    "18": 2,
+    # 3: "Drink up." main (hsserum_v2/main.jpg, 1 Oct 2026), the bottle alone on white, no carton.
+    "18": 3,
     # "Keep a cool head." campaign main (tonic_campaign/main.jpg, 30 Sep 2026): the amber spray
     # bottle on white, no type. v1 was the August studio shot (hair_tonic/main-v2.jpeg).
     "43": 2,

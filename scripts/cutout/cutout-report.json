@@ -92,11 +92,11 @@
   {
     "product": "18",
     "status": "ok",
-    "source": "/images/hsserum_campaign/main.jpg",
-    "file": "/images/cutout/18-v2.webp",
+    "source": "/images/hsserum_v2/main.jpg",
+    "file": "/images/cutout/18-v3.webp",
     "name": "MOISTURE REPLENISHING HYALURON SERUM",
-    "coverage": 0.442,
-    "bytes": 80232,
+    "coverage": 0.234,
+    "bytes": 53656,
     "review": false
   },
   {

@@ -55,7 +55,7 @@ const CUTOUTS: Record<string, string> = {
   // 17 EyeCell EYE CONTOUR SERUM
   '/images/eye_serum/main.jpeg': '/images/cutout/17.webp',
   // 18 MOISTURE REPLENISHING HYALURON SERUM
-  '/images/hsserum_campaign/main.jpg': '/images/cutout/18-v2.webp',
+  '/images/hsserum_v2/main.jpg': '/images/cutout/18-v3.webp',
   // 19 ALL FOR SENSITIVE SERUM
   '/images/sensitive_serum/main.jpeg': '/images/cutout/19.webp',
   // 20 PROBLEM CONTROL SERUM

@@ -393,7 +393,6 @@ const EN: HsserumCopy = {
     rows: [
       { label: 'Type', value: 'Hydrating serum' },
       { label: 'Size', value: '30 ml dropper' },
-      { label: 'pH', value: '5.08, inside a 5.3±0.5 specification' },
       { label: 'Colour', value: 'Sky blue, from the formula itself, no pigment added' },
       { label: 'After opening', value: 'Use within 12 months' },
       { label: 'Shelf life', value: 'Three years unopened, expiry printed on the bottle' },
@@ -588,7 +587,6 @@ const AR: HsserumCopy = {
     rows: [
       { label: 'الوظيفة', value: 'ترطيب' },
       { label: 'الحجم', value: 'قطّارة 30 مل' },
-      { label: 'pH', value: '5.08، داخل مواصفة 5.3±0.5' },
       { label: 'المظهر', value: 'سيروم أزرق سماوي. لا صباغ مضاف.' },
       { label: 'بعد الفتح', value: '12 شهراً بعد الفتح' },
       { label: 'الصلاحية', value: 'ثلاث سنوات غير مفتوح، تاريخ الانتهاء على الزجاجة' },
@@ -783,7 +781,6 @@ const RU: HsserumCopy = {
     rows: [
       { label: 'Функция', value: 'Увлажнение' },
       { label: 'Объём', value: 'Пипетка 30 мл' },
-      { label: 'pH', value: '5,08, внутри спецификации 5,3±0,5' },
       { label: 'Вид', value: 'Небесно-голубая сыворотка. Пигмент не добавляли.' },
       { label: 'После вскрытия', value: '12 месяцев после открытия' },
       { label: 'Срок', value: 'Три года невскрытой, срок годности на флаконе' },

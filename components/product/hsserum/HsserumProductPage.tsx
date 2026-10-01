@@ -94,11 +94,12 @@ interface ActiveIngredient {
 }
 
 /** Section art from the "Drink up." campaign, served per locale through
- *  localizeProductImage: s4 the 2,000 ppm drop, s10 the cleanse / pat / seal
+ *  localizeProductImage ("Drink up." set, hsserum_v2): s3 the 2,000 ppm drop, s8 drink it in (pat),
+ *  s4 drink fast (the 21-woman test). Formerly
  *  card, s8 the after-one-use portrait. */
-const ENGINE_IMAGE = '/images/hsserum_campaign/s4.jpg'
-const HOWTO_IMAGE = '/images/hsserum_campaign/s10.jpg'
-const PROOF_IMAGE = '/images/hsserum_campaign/s8.jpg'
+const ENGINE_IMAGE = '/images/hsserum_v2/s3.jpg'
+const HOWTO_IMAGE = '/images/hsserum_v2/s8.jpg'
+const PROOF_IMAGE = '/images/hsserum_v2/s4.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

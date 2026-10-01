@@ -31,9 +31,9 @@ describe('product 70 Mesopecia Kit', () => {
     expect(productTranslations['70']).toEqual(PRODUCT_70_AR_TRANSLATION)
     const product = products.find(p => p.id === '70')
     expect(product?.price).toBe(PRODUCT_70_PRICE)
-    expect(product?.image).toBe('/images/mesopecia_art/main-v2.jpg')
+    expect(product?.image).toBe('/images/mesopecia_tend/main.jpg')
     expect(JSON.parse(product?.images ?? '[]')).toHaveLength(12)
-    expect(localizeProductImage('/images/mesopecia_art/s1.jpg', 'ru')).toBe('/images/mesopecia_art/ru/s1.jpg')
+    expect(localizeProductImage('/images/mesopecia_tend/s1.jpg', 'ru')).toBe('/images/mesopecia_tend/ru/s1.jpg')
     expect(products.find(p => p.id === '47')?.isHidden).toBe(true)
   })
 

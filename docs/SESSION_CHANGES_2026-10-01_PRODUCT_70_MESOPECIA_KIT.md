@@ -109,3 +109,30 @@ Vadim: "box should not be overlapping stamp, pls reshoot" (main and the two pack
   `scripts/update-product-70-packs-apart-20261001.ts`; `lib/products.ts`, the image registry,
   routine image and create script repointed. Cut-out `70-v2.webp` (REVISION 2; PARTS re-traces the
   white stamp and the vials, which Vision dropped). Old files and `picks/*_v1.png` kept.
+
+## v3: new main and the "Tend the ground." campaign (1 Oct 2026, evening)
+
+Vadim: "i don't like main. (box - can be straight, bottle is not that big) - redo / and don't like
+this campaign / we need to put items here and there inside slides, mix / redo".
+
+- **Main** (`/images/mesopecia_tend/main.jpg`): Hair Solution box standing straight, front-on (the lid
+  artwork unwarped from the open-box photo and used as the reference), Scalp Peeling bottle at its real
+  size beside it (0.76 of the box width tall), the real ivory stamp uncapped in front, two vials.
+  Packs apart, pure white. Cut-out `70-v3.webp` (REVISION 3, PARTS re-trace bottle, stamp, vials).
+- **Campaign** "Tend the ground.": the scalp is the ground in a raked-sand garden. Clear (peeling), feed
+  (solution), press (stamp). Every slide carries real packs in a different mix. Ivory and cognac.
+  1 kit in rake rings · 2 bottle, vial, stamp on three stones · 3 bottle in fresh rake lines ·
+  4 bottle on ice · 5 vial and a drop into a still pool · 6 open box of 8 and a loose vial ·
+  7 stamp beside its pressed marks, vial behind · 8 0.25 MM, stamp on a stone and a vial ·
+  9 stamp across a silk tassel, bottle behind · 10 two vials and the stamp in parallel grooves ·
+  11 kit on ivory paper · 12 closing card on white.
+- Slide 1 / 12 headline: TEND THE GROUND. / ВСЁ НАЧИНАЕТСЯ С ПОЧВЫ. / اعتني بالتربة. Slides 2 to 11 keep
+  the v2 copy (RU dashes corrected: 1–2 см, 10–15 минут, 0,25–0,5 мм).
+- CapCut redrew "SCAL" / "4 ml" on the vials in the main and slides 1, 6, 11, 12, and "CALP PEELING" on
+  the slide 12 bottle: the real vial and bottle artwork is pasted over them (`k3_fix.py`, Vision outline,
+  take shadow kept). Slides 2, 5, 7, 8, 10 already read SOLUTION.
+- Workspace `~/Desktop/Insta_Olga/mesopecia70/v3` (`k3_refs.py`, `k3_prompts.py`, `k3_fix.py`,
+  `k3_art.py`, `k3_export.py`). Code repointed: `lib/products.ts`, `lib/localizedProductImages.ts`,
+  `lib/productCutouts.ts`, `lib/routineStepImages.ts`, `MesopeciaProductPage.tsx`, the create script,
+  the product 70 test. DB: `scripts/update-product-70-tend-the-ground-20261001.ts` (HEAD-checks first).
+  `mesopecia_art/` kept on disk for old order emails and caches.

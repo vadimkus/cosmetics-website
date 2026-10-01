@@ -672,11 +672,11 @@
   {
     "product": "70",
     "status": "ok",
-    "source": "/images/mesopecia_art/main-v2.jpg",
-    "file": "/images/cutout/70-v2.webp",
+    "source": "/images/mesopecia_tend/main.jpg",
+    "file": "/images/cutout/70-v3.webp",
     "name": "MESOPECIA KIT",
-    "coverage": 0.358,
-    "bytes": 119438,
+    "coverage": 0.437,
+    "bytes": 96792,
     "review": false
   },
   {

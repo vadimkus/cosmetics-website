@@ -510,7 +510,7 @@ export const products: Product[] = [
     name: 'EyeCell EYE PEPTIDE GEL PATCH',
     price: 380,
     description: '101g (60 patches / 30 applications). Take-off hydrogel eye mask for calming and moisturizing the contour. Niacinamide 2% and Adenosine 0.04% are the Korean functional pair. Under the eyes and/or eyebrow bones for 20 to 40 minutes, then remove. Dermatologically tested.',
-    image: '/images/patch/main.jpeg',
+    image: '/images/patch/main-v2.jpg',
     images: null,
     category: 'Eye care',
     inStock: true,
@@ -621,7 +621,7 @@ export const products: Product[] = [
     name: 'INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]',
     price: 250,
     description: '50g. Natural coverage cream that helps cover redness and express natural skin tone. It is a natural coverage cream that protects skin from the harmful environmental factors. It covers redness and blemishes after the dermatological treatment and helps express natural skin tone. Key ingredients: Arbutin 2%, Adenosine, Allantoin, Eucalyptus Globulus Leaf Oil, Perilla Ocymoides Seed Oil, Rumex Crispus Root Extract. Dermatologically tested.',
-    image: '/images/blemish_o/Main.jpeg',
+    image: '/images/blemish_o/main-v2.jpg',
     images: JSON.stringify([
       '/images/blemish_o/S1.jpeg',
       '/images/blemish_o/S2.jpeg',

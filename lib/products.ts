@@ -298,7 +298,7 @@ export const products: Product[] = [
     name: 'ALL FOR SENSITIVE SERUM',
     price: 330,
     description: '30ml. Serum for sensitive, reactive skin. Relieves, protects and moisturizes - MultiEx BSASM® Plus at 1%, with betaine, allantoin and hyaluronic acid. Morning and night. Dermatologically tested.',
-    image: '/images/sensitive_serum/main.jpeg',
+    image: '/images/sensitive_serum/main-v2.jpg',
     images: JSON.stringify([
       '/images/sensitive_serum/s1.jpeg',
       '/images/sensitive_serum/s2.jpeg',
@@ -316,7 +316,7 @@ export const products: Product[] = [
     name: 'PROBLEM CONTROL SERUM',
     price: 330,
     description: '30ml leave-on serum for oily and combination skin. Korea registers it for anti-blemishes, oil and sebum control, and zinc PCA at a full 0.05% is the ingredient carrying that. Nine tenths of the bottle is water, so it sinks in and leaves nothing sitting on the surface. Two or three drops after your toner, patted in, morning and night. No perfume of any kind. Dermatologically tested.',
-    image: '/images/problems_serum/main.jpeg',
+    image: '/images/problems_serum/main-v2.jpg',
     images: JSON.stringify([
       '/images/problems_serum/s1.jpeg',
       '/images/problems_serum/s2.jpeg',
@@ -335,7 +335,7 @@ export const products: Product[] = [
     name: 'MULTI VITA RADIANCE SERUM',
     price: 330,
     description: 'Twelve vitamins, and the carton prints the dose beside every one of them. Niacinamide at 20,000 ppm, panthenol at 10,000, stable vitamin C at 1,000, vitamin E at 300, and then eleven more measured in parts per billion. Korea registers this as a whitening functional cosmetic with niacinamide named as the active. MELAZERO, the patented complex, is loquat leaf and spearmint. In the maker\'s two-week trial, surface melanin fell 28.0%. Pat it in morning and night, and wear sunscreen over it by day. Not for use during pregnancy.',
-    image: '/images/radiance_serum/Main.jpeg',
+    image: '/images/radiance_serum/main-v2.jpg',
     images: null,
     category: 'Serum',
     inStock: true,
@@ -347,9 +347,8 @@ export const products: Product[] = [
     name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM',
     price: 330,
     description: '30ml. Anti-aging serum with bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. It is an anti-aging serum that helps visibly smooth the signs of wrinkles and reinforces skin firmness with a nourishing ingredient - bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Anti-aging Peptide 6, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine), Collagen, Elastin, Propolis Extract, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
-    image: '/images/multif_serum/main.jpeg',
+    image: '/images/multif_serum/main-v2.jpg',
     images: JSON.stringify([
-      '/images/multif_serum/main.jpeg',
       '/images/multif_serum/s1.jpeg',
       '/images/multif_serum/s2.jpeg',
       '/images/multif_serum/s3.jpeg',

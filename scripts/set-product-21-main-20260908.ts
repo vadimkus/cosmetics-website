@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma'
 
 // Product 21, MULTI VITA RADIANCE SERUM: new studio packshot as the main
 // image. Gallery unchanged. Run after the deploy carrying the file is live.
-const MAIN = '/images/radiance_serum/Main.jpeg'
+const MAIN = '/images/radiance_serum/main-v2.jpg'
 const apply = process.argv.includes('--apply')
 
 async function main() {

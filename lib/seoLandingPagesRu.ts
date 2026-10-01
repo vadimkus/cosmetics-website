@@ -43,7 +43,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гель-в-пену с тремя очищающими компонентами, pH 6,37 и отдушкой 0,5%.' },
-      { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/Main.jpeg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
+      { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/main-v2.jpg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'Крем GENOSYS Skin Barrier Protecting Cream', description: 'Поддержка сухой и перегруженной кожи с церамидами и аминокислотами.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main-v4.jpg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
     ],
@@ -364,7 +364,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Смываемый гель-в-пену; пять керамидов и ферментные лизаты присутствуют в следовых концентрациях.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ru/products/14', image: '/images/mist_0/Main.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'Лёгкий этап увлажнения, который дополняет, но не заменяет крем.' },
-      { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
+      { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/sensitive_serum/main-v2.jpg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Несмываемый крем с церамидами, аминокислотами и эмолентами.' },
     ],
     sections: [

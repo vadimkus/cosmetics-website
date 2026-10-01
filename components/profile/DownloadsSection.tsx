@@ -314,7 +314,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/21">
                   <Image
-                    src="/images/radiance_serum/Main.jpeg"
+                    src="/images/radiance_serum/main-v2.jpg"
                     alt="MULTI VITA RADIANCE SERUM"
                     width={500}
                     height={300} 
@@ -484,7 +484,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/20">
                   <Image
-                    src="/images/problems_serum/main.jpeg"
+                    src="/images/problems_serum/main-v2.jpg"
                     alt="PROBLEM CONTROL SERUM"
                     width={500}
                     height={300} 

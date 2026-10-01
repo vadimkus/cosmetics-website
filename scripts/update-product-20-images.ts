@@ -9,7 +9,7 @@
  */
 import { prisma } from '../lib/prisma'
 
-const NEW_MAIN = '/images/problems_serum/main.jpeg'
+const NEW_MAIN = '/images/problems_serum/main-v2.jpg'
 const NEW_GALLERY = [
   '/images/problems_serum/s1.jpeg',
   '/images/problems_serum/s2.jpeg',

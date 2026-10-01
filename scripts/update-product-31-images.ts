@@ -18,7 +18,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const NEW_MAIN = '/images/radiance/main.jpeg'
+const NEW_MAIN = '/images/radiance/main-v2.jpg'
 const NEW_GALLERY = [
   '/images/radiance/s1.jpeg',
   '/images/radiance/s2.jpeg',

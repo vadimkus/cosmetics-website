@@ -480,7 +480,7 @@ export const products: Product[] = [
     name: 'MULTI VITA RADIANCE CREAM',
     price: 290,
     description: 'A full 2% of niacinamide, and this is the one product in the range whose certificate actually tests for it rather than taking the recipe\'s word: the batch on file came back at 2.04%. Same active and same dose as the Multi Vita serum, carried here in 13% macadamia oil instead of water. The orange colour is the astaxanthin itself, with no pigment added. In the maker\'s two-week trial surface melanin fell 29.7%. 50g and 230g. Morning and night, with sunscreen over it by day.',
-    image: '/images/radiance/main.jpeg',
+    image: '/images/radiance/main-v2.jpg',
     images: null,
     category: 'Cream',
     inStock: true,
@@ -492,7 +492,7 @@ export const products: Product[] = [
     name: 'MULTI FUNCTIONAL ANTI-WRINKLE CREAM',
     price: 290,
     description: '50g (Homecare) / 250g (Professional). Multi-functional anti-wrinkle and brightening cream with bakuchiol, a natural alternative to retinol. Helps visibly smooth wrinkles, reinforce skin firmness, and even skin tone with propolis, collagen, adenosine, niacinamide, mango seed butter, and a lipid barrier liposome. Gently massage morning and evening. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Propolis Extract, Hydrolyzed Collagen & Elastin, Adenosine, Niacinamide, Mango Seed Butter, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine). Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
-    image: '/images/multifunc_cream/main.jpeg',
+    image: '/images/multifunc_cream/main-v2.jpg',
     images: JSON.stringify([
       '/images/multifunc_cream/s1.jpeg',
       '/images/multifunc_cream/s2.jpeg',

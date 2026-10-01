@@ -213,7 +213,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/31">
                   <Image
-                    src="/images/radiance/main.jpeg"
+                    src="/images/radiance/main-v2.jpg"
                     alt="MULTI VITA RADIANCE CREAM"
                     width={500}
                     height={300} 

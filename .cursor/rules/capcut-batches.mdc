@@ -1,0 +1,25 @@
+---
+description: CapCut image batches - bring CapCut to the front and start, never ask first
+alwaysApply: true
+---
+
+# CapCut Batches
+
+When a campaign or main-image job needs CapCut renders, **do not ask Vadim whether CapCut is open
+or to bring it to the front.** CapCut is open. Bring it forward yourself and start shooting:
+
+```bash
+osascript -e 'tell application "CapCut" to activate'
+./<batch>.sh <keys...>   # run in the background
+```
+
+- No confirmation prompts (no AskQuestion "is CapCut in front?") before or during a batch.
+- If the batch logs "waiting for CapCut in front", re-run the `activate` line yourself; do not ask.
+- Only stop and tell Vadim if CapCut is not running at all or the batch fails three times.
+
+## Product mains on white
+
+Product card mains are both (or all) real packs on a pure white canvas, nothing else, as on product 30
+(`problemcream_v2/main.jpg`). Build the reference from the real cut-outs on white at that scale (tallest
+pack about 74% of the frame height, group centred, bottoms at 90%), re-shoot it in CapCut, check every
+label at full size, and export under a new filename.

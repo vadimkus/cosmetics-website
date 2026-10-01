@@ -269,7 +269,7 @@ export const products: Product[] = [
     name: 'EyeCell EYE CONTOUR SERUM',
     price: 370,
     description: '10ml. Intensive all-in-one eye serum for deep wrinkles, dark circles and eye puffs. Arbutin 2% and Adenosine 0.04% are the Korean functional pair. Morning and evening, pat and leave on. Dermatologically tested. Avoid during pregnancy and lactation.',
-    image: '/images/eye_serum/main.jpeg',
+    image: '/images/eye_serum/main-v2.jpg',
     images: JSON.stringify([
       '/images/eye_serum/s1.jpeg',
       '/images/eye_serum/s2.jpeg',
@@ -554,7 +554,7 @@ export const products: Product[] = [
     name: 'PEPTIDE GEL MASK',
     price: 380,
     description: '38g × 5. Face hydrogel sheet. After a dermatological procedure, sit 20-40 minutes, take the sheet off, massage the leftover in. Glycerin 20% is the pouch. The peptide sits at 0.05 ppm. Dermatologically tested.',
-    image: '/images/peptide_campaign/main.jpg',
+    image: '/images/peptide_campaign/main-v2.jpg',
     images: JSON.stringify(
       ['s1', 's2', 's3', 's4b', 's5', 's6b', 's7', 's8', 's9b', 's10b', 's11', 's12']
         .map(s => `/images/peptide_campaign/${s}.jpg`),
@@ -674,7 +674,7 @@ export const products: Product[] = [
     name: 'HR³ MATRIX SCALP PEELING α',
     price: 290,
     description: '100ml. Scalp peeling product with deep cleansing and heat cooling effects. It is a scalp peeling product which gives the deep cleansing effect for the scalp and refreshes the scalp with cooling effect. Key ingredients: Copper Tripeptide-1, Serenoa Serrulata Fruit Extract (Saw Palmetto), Salicylic Acid, Menthol, Black Complex, Camellia Sinensis Leaf Extract. Dermatologically tested.',
-    image: '/images/scalp_campaign/main.jpg',
+    image: '/images/scalp_campaign/main-v2.jpg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/scalp_campaign/s${i + 1}.jpg`)),
     category: 'Scalp/Hair',
     inStock: true,

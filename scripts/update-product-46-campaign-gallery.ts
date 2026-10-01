@@ -1,6 +1,6 @@
 /**
  * Product 46 (HR³ MATRIX SCALP PEELING α): the "Cold start" campaign.
- * Main image -> /images/scalp_campaign/main.jpg (bottle on ice, no type),
+ * Main image -> /images/scalp_campaign/main-v2.jpg (bottle alone on white, 1 Oct 2026),
  * gallery -> /images/scalp_campaign/s1.jpg ... s12.jpg. AR/RU slides swap in at render
  * through lib/localizedProductImages.ts, so the record holds the EN paths only.
  * The old /images/scal.jpg and /images/Second/pp.jpg stay on disk (routineStepImages
@@ -21,7 +21,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const MAIN = '/images/scalp_campaign/main.jpg'
+const MAIN = '/images/scalp_campaign/main-v2.jpg'
 const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/scalp_campaign/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/scalp_campaign/', `/scalp_campaign/${l}/`)))
 

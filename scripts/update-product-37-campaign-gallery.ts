@@ -1,6 +1,6 @@
 /**
  * Product 37 (PEPTIDE GEL MASK): the "Blue means cool" campaign.
- * Main image -> /images/peptide_campaign/main.jpg (pouch + box packshot, no type),
+ * Main image -> /images/peptide_campaign/main-v2.jpg (pouch + box on white, no ice, 1 Oct 2026),
  * gallery -> /images/peptide_campaign/s1.jpg ... s12.jpg, with s4b / s6b / s9b / s10b in
  * place of the first exports (they drew the two-piece mask as one sheet). AR/RU slides
  * swap in at render through lib/localizedProductImages.ts, so the record holds the EN
@@ -22,7 +22,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const MAIN = '/images/peptide_campaign/main.jpg'
+const MAIN = '/images/peptide_campaign/main-v2.jpg'
 const GALLERY = ['s1', 's2', 's3', 's4b', 's5', 's6b', 's7', 's8', 's9b', 's10b', 's11', 's12']
   .map(s => `/images/peptide_campaign/${s}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/peptide_campaign/', `/peptide_campaign/${l}/`)))

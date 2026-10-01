@@ -242,21 +242,21 @@
   {
     "product": "31",
     "status": "ok",
-    "source": "/images/radiance/main.jpeg",
-    "file": "/images/cutout/31.webp",
+    "source": "/images/radiance/main-v2.jpg",
+    "file": "/images/cutout/31-v2.webp",
     "name": "MULTI VITA RADIANCE CREAM",
-    "coverage": 0.363,
-    "bytes": 53412,
+    "coverage": 0.359,
+    "bytes": 58940,
     "review": false
   },
   {
     "product": "32",
     "status": "ok",
-    "source": "/images/multifunc_cream/main.jpeg",
-    "file": "/images/cutout/32-v2.webp",
+    "source": "/images/multifunc_cream/main-v2.jpg",
+    "file": "/images/cutout/32-v3.webp",
     "name": "MULTI FUNCTIONAL ANTI-WRINKLE CREAM",
-    "coverage": 0.348,
-    "bytes": 46318,
+    "coverage": 0.344,
+    "bytes": 67928,
     "review": false
   },
   {

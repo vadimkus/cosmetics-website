@@ -81,9 +81,9 @@ const CUTOUTS: Record<string, string> = {
   // 30 INTENSIVE PROBLEM CONTROL CREAM
   '/images/problemcream_v2/main.jpg': '/images/cutout/30-v2.webp',
   // 31 MULTI VITA RADIANCE CREAM
-  '/images/radiance/main.jpeg': '/images/cutout/31.webp',
+  '/images/radiance/main-v2.jpg': '/images/cutout/31-v2.webp',
   // 32 MULTI FUNCTIONAL ANTI-WRINKLE CREAM
-  '/images/multifunc_cream/main.jpeg': '/images/cutout/32-v2.webp',
+  '/images/multifunc_cream/main-v2.jpg': '/images/cutout/32-v3.webp',
   // 33 EyeCell EYE PEPTIDE GEL PATCH
   '/images/patch/main.jpeg': '/images/cutout/33.webp',
   // 34 SKIN RESCUE OVERNIGHT CREAM MASK

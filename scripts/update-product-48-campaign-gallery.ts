@@ -1,6 +1,6 @@
 /**
  * Product 48 (Hair-GENTRON): the "Lights on. World off." campaign.
- * Main image -> /images/gentron_campaign/main.jpg (helmet + controller on black, no type),
+ * Main image -> /images/gentron_campaign/main-v2.jpg (helmet + controller on white, 1 Oct 2026),
  * gallery -> s1 ... s12. AR/RU slides swap in at render through lib/localizedProductImages.ts,
  * so the record holds the EN paths only.
  * Text fields move to the selling copy of the bespoke page: EN description, details, features,
@@ -17,7 +17,7 @@ import { prisma } from '../lib/prisma'
 import { PRODUCT_48_AR_TRANSLATION, PRODUCT_48_RU_TRANSLATION } from '../data/product48LocalizedCopy'
 
 const DIR = '/images/gentron_campaign'
-const MAIN = `${DIR}/main.jpg`
+const MAIN = `${DIR}/main-v2.jpg`
 const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 

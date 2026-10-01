@@ -32,7 +32,7 @@ export const products: Product[] = [
     name: 'HairGen BOOSTER',
     price: 1800,
     description: 'Auto-microneedling handpiece with blue and red LED for professional scalp care. A fresh stamp of 52 microneedles screws onto a sealed 4 ml vial of HR³ MATRIX HAIR SOLUTION α, and the head stamps for you while the solution feeds through it, so the ampoule goes into the scalp, not onto the hair. Feels like a massage, not needles. Three speeds (280, 330 and 400 per minute) and a ten-minute session that ends itself. 24-month warranty. Made in Korea.',
-    image: '/images/hairgen_campaign/main2.jpg',
+    image: '/images/hairgen_campaign/main-v3.jpg',
     images: JSON.stringify([
       '/images/hairgen_campaign/s1.jpg',
       '/images/hairgen_campaign/s2.jpg',
@@ -695,7 +695,7 @@ export const products: Product[] = [
     price: 6600,
     description: 'Lights on, world off. Hair-GENTRON is an LED helmet for the scalp: put it on, press one button and sit back. Red, infrared and blue light, an air-pressure massage around the head, gentle warmth and your own music run together for ten minutes, then the helmet switches itself off. Four light modes, a 10, 20 or 30-minute timer, and separate buttons for the massage and the heat. It weighs 1.0 kg, runs from the USB-C adaptor in the box or four AA batteries, and needs nothing replaced between sessions, at home or in the treatment room. CE marked (EMC and LVD), safety tested to IEC/EN 60335-2-32. Model HGHY01, made in Korea.',
     // "Lights on. World off." campaign set (gentron_campaign), matching the database.
-    image: '/images/gentron_campaign/main.jpg',
+    image: '/images/gentron_campaign/main-v2.jpg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/gentron_campaign/s${i + 1}.jpg`)),
     videoUrl: '/videos/gentron.mp4',
     category: 'Device',

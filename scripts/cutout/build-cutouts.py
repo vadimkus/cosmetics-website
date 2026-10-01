@@ -138,10 +138,12 @@ PARTS = {
     "60": [
         (0.465, 0.270, 0.905, 0.885, "vision"),
     ],
-    # Mesopecia Kit (mesopecia_art/main.jpg): Vision keeps the box, bottle,
-    # stamp and one vial, and drops the other vial. Both re-traced together.
+    # Mesopecia Kit (mesopecia_art/main-v2.jpg, packs apart): Vision keeps the box
+    # and the bottle and drops the white stamp and the small vials. Each re-traced
+    # on its own crop.
     "70": [
-        (0.515, 0.690, 0.740, 0.900, "vision"),
+        (0.070, 0.550, 0.600, 0.950, "vision"),
+        (0.585, 0.640, 0.865, 0.875, "vision"),
     ],
 }
 
@@ -151,6 +153,8 @@ PARTS = {
 # under its old name never reaches anyone who has already loaded the page. A new
 # revision means a new URL.
 REVISION = {
+    # 2: packs-apart main (mesopecia_art/main-v2.jpg, 1 Oct 2026), the stamp off the box.
+    "70": 2,
     "65": 2,
     "66": 2,
     # Scalp rework packshot (stamp_scalp/main.jpg): re-shot from the 4x master with

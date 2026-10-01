@@ -91,3 +91,21 @@ Workspace `~/Desktop/Insta_Olga/mesopecia70/campaign/` (`m70_*` scripts). Export
 - Live: EN/RU/AR pages 200 on the bespoke layout with localized headline and slides; 45 / 46 / 67 link to
   70; grid lists 70, not 47; `/products/47` 308 to 70; mobile API returns 70 with `ar/` slides, 47 is 404.
 - Tests: 152 suites, 1,633 passing (bespoke page counts 52 → 53).
+
+## Follow-up: packs apart (same day)
+
+Vadim: "box should not be overlapping stamp, pls reshoot" (main and the two pack slides).
+
+- `m70_refs.py` lays the packs out in two rows with nothing touching: box and bottle at the back, the
+  stamp in front of the box and the two vials side by side in front of the bottle, each slid up until
+  it would touch what is behind it (3.5% margin). The first layout is kept as `m70_refs_v1.py`.
+- CapCut first re-used the old reference under the same filename (takes came back with the old
+  layout); re-shot from a copy under a new name (`dmain4`). Take 1: the only one with PROFESSIONAL and
+  DERMATOLOGICALLY TESTED spelled right. Real box artwork pasted back by `m70_fix_main.py` (the
+  stamp-tip repair now only runs when the stamp lies on the box).
+- Slides 11 and 12 recomposed with smaller pack groups (1420 / 1060 px) so the squarer group keeps
+  clear of the type in all three languages.
+- New files: `main-v2.jpg`, `s11b.jpg`, `s12b.jpg` (+ `ru/`, `ar/`); DB swapped by
+  `scripts/update-product-70-packs-apart-20261001.ts`; `lib/products.ts`, the image registry,
+  routine image and create script repointed. Cut-out `70-v2.webp` (REVISION 2; PARTS re-traces the
+  white stamp and the vials, which Vision dropped). Old files and `picks/*_v1.png` kept.

@@ -38,7 +38,7 @@ export const products: Product[] = [
       '/images/hairgen_campaign/s2.jpg',
       '/images/hairgen_campaign/s3.jpg',
       '/images/hairgen_campaign/s4b.jpg',
-      '/images/hairgen_campaign/s5b.jpg',
+      '/images/hairgen_campaign/s5c.jpg',
       '/images/hairgen_campaign/s6.jpg',
       '/images/hairgen_campaign/s7b.jpg',
       '/images/hairgen_campaign/s8b.jpg',

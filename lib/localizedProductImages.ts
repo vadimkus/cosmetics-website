@@ -106,11 +106,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1b.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6b.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 3, HairGen BOOSTER, "In. Not on." campaign. The main packshot is not translated;
-  // the b-slides replace renders that showed a handle the device does not have.
+  // the b-slides replace renders that showed a handle the device does not have. s5c (1 Oct
+  // 2026) replaces the s5b model shot with the device and a feather.
   '/images/hairgen_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's5c.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
       's10.jpg', 's11.jpg', 's11b.jpg', 's12.jpg', 's12b.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's5c.jpg', 's6.jpg', 's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's9b.jpg',
       's10.jpg', 's11.jpg', 's11b.jpg', 's12.jpg', 's12b.jpg'],
   },
   // Product 1, GENOSYS DTS Microneedle Roller, "Every needle counts." campaign. The main

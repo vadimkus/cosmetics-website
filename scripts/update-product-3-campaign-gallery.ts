@@ -26,7 +26,7 @@ const prisma = new PrismaClient(
 
 // Second pass (27 Sep): renders showing a handle the device does not have were redone under new
 // names, because /images is served immutable.
-const SLIDES = ['s1', 's2', 's3', 's4b', 's5b', 's6', 's7b', 's8b', 's9b', 's10', 's11b', 's12b']
+const SLIDES = ['s1', 's2', 's3', 's4b', 's5c', 's6', 's7b', 's8b', 's9b', 's10', 's11b', 's12b']
 const MAIN = '/images/hairgen_campaign/main-v3.jpg'
 const GALLERY = SLIDES.map(s => `/images/hairgen_campaign/${s}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/hairgen_campaign/', `/hairgen_campaign/${l}/`)))

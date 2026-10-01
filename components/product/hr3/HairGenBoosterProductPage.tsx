@@ -87,7 +87,7 @@ interface Props {
 const IDEA_IMAGE = '/images/hairgen_campaign/s4b.jpg'
 const BUILD_IMAGE = '/images/hairgen_campaign/s3.jpg'
 const HOWTO_IMAGE = '/images/hairgen_campaign/s9b.jpg'
-const DEPTH_IMAGE = '/images/hairgen_campaign/s5b.jpg'
+const DEPTH_IMAGE = '/images/hairgen_campaign/s5c.jpg'
 const SPEC_IMAGE = '/images/hairgen_campaign/s11b.jpg'
 
 function SlideFigure({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {

@@ -152,3 +152,20 @@ Picks: main mainc_2, 04b_2, 05b_4, 07b_4, 08b_2, 09b_1, 11b_4, 12b_2 (9 jobs, 14
 ~1,600 left). New files under new names (immutable cache): `main2.jpg`, `s4b s5b s7b s8b s9b s11b
 s12b.jpg` in EN / ru / ar. Page figures, fallback, update script and cutout source point at them;
 the old files stay on disk and in the localization registry.
+
+## Slide 5 re-shot (1 Oct 2026)
+
+Vadim on s5b ("FEELS LIKE A MASSAGE.", woman with bare shoulders, hand clamping the device from
+above): "reshoot this slide, don't like how it's done. do a better job in capcut".
+
+- New slide `s5c` (EN / RU / AR): the device alone on the silver plate, a white feather that has
+  just come to rest against its light bumps. The feather carries "no pain, no needling feel"
+  without a model, which also takes the slide out of the marketplace-lifestyle look.
+- CapCut workspace `~/Desktop/Insta_Olga/hair_gen/campaign/_capcut/` (`h5_batch.sh`, prompts
+  `h5c` feather and `h5d` silk cushion, reference `ref_front_white.png`). Pick `h5c_1`: label
+  sharp and correct, body true to the real device. The cushion takes read as a jewellery display.
+- Typeset with `hairgen_slides.py [en|ru|ar] 5` (copy unchanged; its CAMP path now points at
+  `Desktop/Insta_Olga/hair_gen`); previous masters kept as `final/05_v2.png`, `picks/s5_v2.png`.
+- Repointed: DB gallery (`scripts/update-product-3-slide5-feather-20261001.ts`, path swap only),
+  `lib/products.ts`, the stamp-section figure in `HairGenBoosterProductPage.tsx`,
+  `lib/localizedProductImages.ts`, `scripts/update-product-3-campaign-gallery.ts`.

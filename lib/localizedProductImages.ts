@@ -122,9 +122,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   },
   // Product 67, GENOSYS DTS Microneedle Stamp, "Press. Don't pull." campaign (1 Oct 2026), shot from
   // the owner's photographs of the real stamp, box and blister. The main stays in stamp_scalp.
+  // The b-slides re-shoot 1-8 with the head uncapped and 12 as the bare stamp, no box.
   '/images/stamp_press': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's1b.jpg', 's2.jpg', 's2b.jpg', 's3.jpg', 's3b.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's6b.jpg',
+      's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's12b.jpg'],
+    ar: ['s1.jpg', 's1b.jpg', 's2.jpg', 's2b.jpg', 's3.jpg', 's3b.jpg', 's4.jpg', 's4b.jpg', 's5.jpg', 's5b.jpg', 's6.jpg', 's6b.jpg',
+      's7.jpg', 's7b.jpg', 's8.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's12b.jpg'],
   },
   // Product 67, the earlier "Press here." scalp set. Its main packshot (not translated) is still
   // the product image; s10b and s11b replace the first s10 and s11 exports.

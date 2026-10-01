@@ -72,3 +72,20 @@ Workspace `~/Desktop/Insta_Olga/stamp67v3/`:
   lengths s6, how-to s5, session s8/s9, details s10/s11/s12), test paths.
 - DB: `scripts/update-product-67-press-campaign-20261001.ts` (images field only, after all 36 URLs
   return 200).
+
+## Uncapped re-shoot (1 Oct 2026, evening)
+
+Vadim: "remove the lid from stamp. slide 12 - reshoot, no box and open roller".
+
+- The clear cap is off on every slide showing the bare stamp (1-8): the head is the black plate.
+  New cut-outs from his uncapped photos: printed side 26 (turned 180°), plain back 5. All top-view
+  photos have the cap on, so `vertu` is the top view with the cap rows removed and a black plate
+  band on the collar (`s3_cut.py uncap_top_view`), re-shot by CapCut.
+- Slide 12: the bare stamp alone, out of its pack, on a steep diagonal; no carton (`u12`).
+- Slides 9-11 show the sealed blister and carton, where the stamp ships capped; unchanged.
+- References `u<n>` (`s3_refs.py u ...`), prompts `u<n>` (head described bare, "no clear cap" in the
+  negative); one CapCut pass of nine. Picks 1/1, 2/1, 3/1, 4/1, 5/2, 6/1, 7/2 (real vial pasted
+  again; `s3_fix_vial.py` now searches 30-58.5% of the width so it skips the stamp), 8/1, 12/2.
+  Capped picks kept in `picks/capped/`.
+- Shipped as `s1b-s8b`, `s12b` (EN/RU/AR); gallery s1b-s8b, s9, s10, s11, s12b. Map, fallback,
+  page figures and `scripts/update-product-67-uncapped-20261001.ts` updated.

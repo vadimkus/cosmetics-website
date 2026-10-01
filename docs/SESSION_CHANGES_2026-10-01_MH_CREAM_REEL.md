@@ -24,7 +24,13 @@ The rose shot goes day → dusk → day; its headline ink follows the background
 - `~/Desktop/MH_Cream_29_Reel/GENOSYS_MH_Cream_Reel_v1.mp4`: 19.625 s, 471 frames, H.264 High 4.2, BT.709, AAC 48 kHz 192k, −16.0 LUFS / −1.4 dBTP, SEI and encoder tags stripped, faststart. 18.4 MB.
 - `~/Desktop/MH_Cream_29_Reel/GENOSYS_MH_Cream_Reel_cover_dark.jpg`: end-card frame on navy.
 
-## Next
+## Shipped
 
-- Post the Reel to @genosys.uae.
-- Web: 720×1280 copy `public/videos/mhcream-reel-web.mp4` + poster, wire product 29 page, DB video URL, revalidate.
+- Instagram: https://www.instagram.com/genosys.uae/reel/Dd9evDYKDum/ (details in `2026-09-29_instagram-grid-plan.md`).
+- Web, commit `0499b1852`: `public/videos/mhcream-reel-web.mp4` (720×1280, 1.1 Mbps, 2.9 MB, metadata stripped)
+  replaces `/videos/hyaluron.mp4` in `data/productConfig.ts`, the `lib/products.ts` fallback and the DB
+  (`scripts/set-product-video.ts 29 …`). Poster `public/images/mhcream_campaign/reel-poster.jpg` (opening
+  SEALED FRESH. frame); video now `muted` like the cushion page. How-to video title EN "Sealed fresh, in 20
+  seconds", RU "Свежесть под замком за 20 секунд", AR "نضارة محفوظة في 20 ثانية". Revalidated `/products/29`,
+  `/ru/…`, `/ar/…`; live HTML in all three references the reel and poster. Product 29 tests (166) pass.
+- `/videos/hyaluron.mp4` left on disk (older docs reference it).

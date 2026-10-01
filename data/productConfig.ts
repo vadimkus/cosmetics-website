@@ -557,6 +557,12 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       basePrice: 1100
     }
   },
+  '70': {
+    id: '70',
+    pricing: {
+      basePrice: 1100
+    }
+  },
   '48': {
     id: '48',
     pricing: {

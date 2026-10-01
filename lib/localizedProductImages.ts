@@ -211,6 +211,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   },
   // Product 69, GENOSYS Eye Roller, "For your eyes only." art set. main.jpg is a packshot with
   // no type, so only the twelve slides have Russian and Arabic exports.
+  // Product 70, MESOPECIA KIT, "The root of it." art set. main.jpg is the three packs on white
+  // with no type, so only the twelve slides have Russian and Arabic exports.
+  '/images/mesopecia_art': {
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+  },
   '/images/eyeroller_art': {
     ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's3b.jpg'],
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's3b.jpg'],

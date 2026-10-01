@@ -63,6 +63,7 @@ import HairGentronProductPage from '@/components/product/hr3/HairGentronProductP
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 import StampProductPage from '@/components/product/stamp/StampProductPage'
 import EyeRollerProductPage from '@/components/product/eyeroller/EyeRollerProductPage'
+import MesopeciaProductPage from '@/components/product/mesopecia/MesopeciaProductPage'
 import RollerProductPage from '@/components/product/roller/RollerProductPage'
 
 /**
@@ -206,6 +207,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   '61': ScalpBrushProductPage,
   '67': StampProductPage,
   '69': EyeRollerProductPage,
+  '70': MesopeciaProductPage,
   '1': RollerProductPage,
   '41': BbCushionProductPage,
   // 36 is named after an ingredient dosed at 10 ppm, so its page is built on
@@ -323,10 +325,12 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // The tonic it pairs with, the brush, then the rest of the scalp line.
   '44': ['43', '61', '46', '45'],
   // The kit it ships inside, the tonic, the peeling that precedes it, then the shampoo.
-  '45': ['47', '43', '46', '44'],
+  '45': ['70', '43', '46', '44'],
   // The stamp is sold for the HR³ solution protocol; the scalp peeling and tonic
   // sit around it, and the Mesopecia Kit bundles a stamp with both.
-  '67': ['45', '46', '47', '43'],
+  '67': ['45', '46', '70', '43'],
+  // The three products inside the Mesopecia Kit, in the order they are used.
+  '70': ['46', '45', '67'],
   // The serum it rolls over, then the patches and cream that follow it, then the kit
   // that bundles all four.
   '69': ['17', '33', '24', '50'],
@@ -334,15 +338,15 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // names for afterwards.
   '1': ['7', '6', '9', '25'],
   // The ampoule it precedes, the kit that pairs them, then the daily products.
-  '46': ['45', '47', '44', '43'],
+  '46': ['45', '70', '44', '43'],
   // The two liquids inside the box first: this page argues that anyone wanting a full
   // course should buy 45 standalone, since the kit holds six vials against its eight.
   '47': ['45', '46', '43', '44'],
   // The two consumables the device cannot run without, then the prep step.
   '3': ['45', '64', '46'],
-  // The manufacturer brochure pairs the helmet with the Mesopecia Kit, so that leads.
+  // The helmet pairs with the Mesopecia Kit, so that leads.
   // Then the other hair device, then the two liquids.
-  '48': ['47', '3', '45', '46'],
+  '48': ['70', '3', '45', '46'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

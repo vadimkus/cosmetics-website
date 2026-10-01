@@ -27,6 +27,7 @@ import {
   isPeptideGelMaskPackProductName,
   PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME,
 } from '@/lib/moyskladPeptideGelMaskExplosion'
+import { explodeMesopeciaKitItem, isMesopeciaKitProductName } from '@/lib/moyskladMesopeciaKitExplosion'
 import { buildMoySkladAddressFull } from '@/lib/moyskladAddress'
 
 // ============================================================================
@@ -755,6 +756,7 @@ export async function createMoySkladOrder(
     const unmappedItems: string[] = []
     const explodedBeautyBoxes: string[] = []
     const explodedPowerSolutionBoxes: string[] = []
+    let explodedMesopeciaKits = 0
 
     type LineToMap = {
       productName: string
@@ -812,6 +814,27 @@ export async function createMoySkladOrder(
             price: exploded.retailPrice * (100 - exploded.discountPercent) / 100,
             retailPrice: exploded.retailPrice,
             discountPercent: exploded.discountPercent,
+          })
+        }
+        continue
+      }
+
+      if (isMesopeciaKitProductName(item.productName)) {
+        explodedMesopeciaKits += item.quantity || 1
+        for (const exploded of explodeMesopeciaKitItem({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          ...(item.retailPrice != null ? { retailPrice: item.retailPrice } : {}),
+          ...(item.discountPercent != null ? { discountPercent: item.discountPercent } : {}),
+        })) {
+          linesToMap.push({
+            productName: exploded.productName,
+            quantity: exploded.quantity,
+            price: exploded.retailPrice * (100 - exploded.discountPercent) / 100,
+            retailPrice: exploded.retailPrice,
+            discountPercent: exploded.discountPercent,
+            ...(exploded.size != null ? { size: exploded.size } : {}),
           })
         }
         continue
@@ -957,6 +980,9 @@ export async function createMoySkladOrder(
       descParts.push(
         `Power Solution boxes → vials (×${POWER_SOLUTION_VIALS_PER_BOX}): ${[...new Set(explodedPowerSolutionBoxes)].join(', ')}`
       )
+    }
+    if (explodedMesopeciaKits > 0) {
+      descParts.push(`Mesopecia Kit → stamp 0.25mm + Hair Solution α + Scalp Peeling α (×${explodedMesopeciaKits})`)
     }
     if (unmappedItems.length > 0) {
       descParts.push(`Unmapped items: ${unmappedItems.join(', ')}`)

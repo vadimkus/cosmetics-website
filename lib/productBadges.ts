@@ -15,6 +15,7 @@ export const NEW_LAUNCH_PRODUCT_IDS: readonly string[] = [
   '66', // CERABARRIER BIOME GEL CLEANSER
   '67', // Microneedle Stamp
   '69', // Eye Roller
+  '70', // MESOPECIA KIT
 ]
 
 /**

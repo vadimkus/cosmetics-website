@@ -579,7 +579,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HR³ MATRIX MEDI SCALP SHAMPOO α](https://genosys.ae/products/44){{id:44}} - AED 340 - Scalp shampoo
 - [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} - AED 740 - Hair treatment
 - [HR³ MATRIX SCALP PEELING α](https://genosys.ae/products/46){{id:46}} - AED 290 - Scalp exfoliation
-- [HR³ MATRIX MESOPECIA KIT](https://genosys.ae/products/47){{id:47}} - AED 1,100 - Complete hair kit
+- [MESOPECIA KIT](https://genosys.ae/products/70){{id:70}} - AED 1,100 - Three-step scalp kit: HR³ MATRIX SCALP PEELING α 100 ml (clear), HAIR SOLUTION α 4 ml × 8 vials (feed), Microneedle Stamp 0.25 mm × 1 (press). One sterile single-use stamp per session; more stamps are sold separately (product 67). No hair-loss or regrowth claims.
 - [HR³ MATRIX SCALP BRUSH](https://genosys.ae/products/61){{id:61}} - AED 50 - Soft silicone shower brush. Used wet with shampoo. Guide: [blog](https://genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works)
 
 ### Eye Care Kit

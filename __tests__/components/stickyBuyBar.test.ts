@@ -31,7 +31,7 @@ const rel = (f: string) => path.relative(path.join(__dirname, '..', '..'), f)
 
 describe('bespoke floating buy bar', () => {
   it('is present on the pages we expect', () => {
-    expect(bespokePages.length).toBe(52)
+    expect(bespokePages.length).toBe(53)
   })
 
   describe.each(bespokePages.map(f => [rel(f), f] as const))('%s', (_name, file) => {

@@ -351,7 +351,7 @@ const EN: HairSolutionCopy = {
       { label: 'Frequency', value: 'Once or twice a week' },
       { label: 'Not for', value: 'Pregnancy and lactation. Not near the eyes' },
       { label: 'Shelf life', value: 'Three years unopened; use a vial immediately once opened' },
-      { label: 'Also in', value: 'The HR³ MATRIX Mesopecia Kit' },
+      { label: 'Also in', value: 'The Mesopecia Kit' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
   },
@@ -587,7 +587,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       { label: 'التكرار', value: 'مرة أو مرتين أسبوعياً' },
       { label: 'ليس لأجل', value: 'الحمل والإرضاع. ولا قرب العينين' },
       { label: 'الصلاحية', value: 'ثلاث سنوات غير مفتوح؛ وتُستخدم الأمبولة فوراً عند فتحها' },
-      { label: 'موجود أيضاً في', value: 'طقم إتش آر³ ماتريكس ميزوبيشيا' },
+      { label: 'موجود أيضاً في', value: 'طقم Mesopecia Kit' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
     ],
   },
@@ -823,7 +823,7 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
       { label: 'Частота', value: 'Раз или два в неделю' },
       { label: 'Не для', value: 'Беременности и кормления. Не рядом с глазами' },
       { label: 'Срок', value: 'Три года невскрытым; ампулу использовать сразу после открытия' },
-      { label: 'Также входит в', value: 'Набор HR³ MATRIX Mesopecia' },
+      { label: 'Также входит в', value: 'Набор Mesopecia Kit' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
   },
@@ -881,4 +881,4 @@ export function getHairSolutionCopy(locale: string | undefined): HairSolutionCop
 }
 
 /** The kit it ships inside, the tonic, the peeling that precedes it, then the shampoo. */
-export const COMPANION_PRODUCT_IDS = ['47', '43', '46', '44'] as const
+export const COMPANION_PRODUCT_IDS = ['70', '43', '46', '44'] as const

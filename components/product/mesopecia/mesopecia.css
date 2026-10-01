@@ -1,0 +1,48 @@
+/**
+ * Palette for the MESOPECIA KIT page (product 70), "The root of it."
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the variables. All three
+ * liquids in the kit sit in amber glass, so the page is warm ivory paper with cognac as the
+ * accent, the two colours of the campaign art.
+ *
+ * Scoped to `.cera-page.mk-page`.
+ */
+
+.cera-page.mk-page {
+  --cera-cream: #f6f1ea;
+  --cera-cream-deep: #ebe2d6;
+  --cera-blush: #f1e6da;
+  --cera-blush-deep: #d9c2a8;
+  --cera-rose: #8a4a2b;
+  --cera-rose-ink: #6e3b24;
+  --cera-ink: #1d1611;
+  --cera-body: #3d332c;
+  --cera-muted: #75685e;
+  --cera-line: #e0d5c8;
+  --cera-shot: #efe7dd;
+}
+
+.mk-page .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(110, 59, 36, 0.3);
+}
+
+@media (hover: hover) {
+  .mk-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(29, 22, 17, 0.04), 0 26px 48px -26px rgba(138, 74, 43, 0.32);
+  }
+}
+
+.mk-page .mk-saving {
+  background: var(--cera-blush);
+  border-top: 2px solid var(--cera-blush-deep);
+}
+
+.mk-page .mk-notfor {
+  background: color-mix(in srgb, var(--cera-cream-deep) 60%, white);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.mk-page .mk-fact {
+  background: color-mix(in srgb, var(--cera-blush) 55%, white);
+  border: 1px solid color-mix(in srgb, var(--cera-blush-deep) 65%, white);
+}

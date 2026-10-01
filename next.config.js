@@ -171,6 +171,12 @@ const nextConfig = {
   // temporary 307, which keeps Google from consolidating signals on the apex)
   async redirects() {
     return [
+      // Product 47 (the HR³ MATRIX MESOPECIA KIT) was replaced by GENOSYS's own kit, product 70.
+      ...['', '/ru', '/ar'].map(prefix => ({
+        source: `${prefix}/products/47`,
+        destination: `${prefix}/products/70`,
+        permanent: true,
+      })),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.genosys.ae' }],

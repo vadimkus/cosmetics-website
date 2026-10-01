@@ -108,7 +108,7 @@ const EN: HairGenBoosterCopy = {
     rows: [
       { label: 'Hair-GENTRON', value: 'AED 6,600', note: 'once · no consumable', here: true },
       { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'then AED 150 a session' },
-      { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'roller + peeling + six vials' },
+      { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'stamp + peeling + eight vials' },
     ],
     body:
       'HairGen BOOSTER and the Mesopecia Kit work an ampoule into the scalp and use a fresh one every time. The helmet gives light, massage and warmth, and uses nothing up.',
@@ -324,7 +324,7 @@ const AR: HairGenBoosterCopy = {
     rows: [
       { label: 'Hair-GENTRON', value: '6,600 درهم', note: 'مرة · بلا مستهلك', here: true },
       { label: 'HairGen BOOSTER', value: '1,800 درهم', note: 'ثم 150 درهماً للجلسة' },
-      { label: 'Mesopecia Kit', value: '1,100 درهم', note: 'رولر + تقشير + ست قارورات' },
+      { label: 'Mesopecia Kit', value: '1,100 درهم', note: 'ختم + تقشير + ثماني قارورات' },
     ],
     body:
       'يُدخل HairGen BOOSTER وMesopecia Kit الأمبولة إلى فروة الرأس ويستخدمان واحدة جديدة في كل مرة. أما الخوذة فتمنح الضوء والتدليك والدفء ولا تستهلك شيئاً.',
@@ -539,7 +539,7 @@ const RU: HairGenBoosterCopy = {
     rows: [
       { label: 'Hair-GENTRON', value: 'AED 6,600', note: 'один раз · без расходника', here: true },
       { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'затем AED 150 за сеанс' },
-      { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'роллер + пилинг + шесть флаконов' },
+      { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'штамп + пилинг + восемь флаконов' },
     ],
     body:
       'HairGen BOOSTER и Mesopecia Kit вводят ампулу в кожу головы и каждый раз используют новую. Шлем даёт свет, массаж и тепло и ничего не расходует.',
@@ -670,4 +670,4 @@ export function getHairGentronCopy(locale: string | undefined): HairGenBoosterCo
 }
 
 /** Brochure combination first, then the other hair device, then the two liquids. */
-export const COMPANION_PRODUCT_IDS = ['47', '3', '45', '46'] as const
+export const COMPANION_PRODUCT_IDS = ['70', '3', '45', '46'] as const

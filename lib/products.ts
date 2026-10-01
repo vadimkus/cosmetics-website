@@ -688,6 +688,9 @@ export const products: Product[] = [
     images: null,
     category: 'Scalp/Hair',
     inStock: true,
+    // Replaced by product 70 (GENOSYS's own Mesopecia Kit) on 1 Oct 2026; /products/47
+    // redirects there. The row stays so past orders still resolve.
+    isHidden: true,
   },
   {
     id: '48',
@@ -906,5 +909,17 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     category: 'Microneedling',
     inStock: true,
     size: '0.25mm',
+  },
+  {
+    id: '70',
+    productNumber: '70',
+    name: 'MESOPECIA KIT',
+    price: 1100,
+    description: 'The root of it. Beautiful hair starts at the scalp, and the Mesopecia Kit cares for it in three steps, with every product in one box: HR³ MATRIX SCALP PEELING α 100 ml to clear the scalp, eight 4 ml vials of HR³ MATRIX HAIR SOLUTION α to nourish and condition, and a sterile 0.25 mm GENOSYS stamp to work it in, parting by parting. Made in Korea.',
+    image: '/images/mesopecia_art/main.jpg',
+    images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/mesopecia_art/s${i + 1}.jpg`)),
+    category: 'Scalp/Hair',
+    inStock: true,
+    size: '1 kit',
   },
 ]

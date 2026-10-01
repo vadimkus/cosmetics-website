@@ -360,7 +360,7 @@ const EN: ScalpPeelingCopy = {
       { label: 'pH', value: '4.00-5.00 (4.31 on the batch tested)' },
       { label: 'Application', value: 'On a cotton swab, rubbed firmly, section by section. Not rinsed' },
       { label: 'Testing', value: 'Patch tested, non-irritant. A 20-subject use test exists with no recorded results' },
-      { label: 'Also in', value: 'The HR³ MATRIX Mesopecia Kit' },
+      { label: 'Also in', value: 'The Mesopecia Kit' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
   },
@@ -902,4 +902,4 @@ export function getScalpPeelingCopy(locale: string | undefined): ScalpPeelingCop
 }
 
 /** The ampoule it precedes, the kit that pairs them, then the daily products. */
-export const COMPANION_PRODUCT_IDS = ['45', '47', '44', '43'] as const
+export const COMPANION_PRODUCT_IDS = ['45', '70', '44', '43'] as const

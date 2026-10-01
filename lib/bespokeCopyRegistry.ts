@@ -31,6 +31,7 @@ import { getEpiCopy } from '@/components/product/epi/epiCopy'
 import { getEyeCreamCopy } from '@/components/product/eyecream/eyecreamCopy'
 import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
 import { getEyePatchCopy } from '@/components/product/eyepatch/eyepatchCopy'
+import { getEyeRollerCopy } from '@/components/product/eyeroller/eyeRollerCopy'
 import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
 import { getEzCo2Copy } from '@/components/product/ezco2/ezco2Copy'
 import { getGenoLedCopy } from '@/components/product/genoled/genoLedCopy'
@@ -45,6 +46,7 @@ import { getScalpPeelingCopy } from '@/components/product/hr3/scalpPeelingCopy'
 import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
 import { getHydroCoolCopy } from '@/components/product/hydrocool/hydroCoolCopy'
 import { getHydroSoothingCopy } from '@/components/product/hydrosoothing/hydroSoothingCopy'
+import { getMesopeciaCopy } from '@/components/product/mesopecia/mesopeciaCopy'
 import { getMhcreamCopy } from '@/components/product/mhcream/mhcreamCopy'
 import { getMistCopy } from '@/components/product/mist/mistCopy'
 import { getMultiSunCopy } from '@/components/product/multisun/multiSunCopy'
@@ -66,11 +68,13 @@ import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSo
 import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
 import { getRemoverCopy } from '@/components/product/remover/removerCopy'
 import { getRevitaGlowCopy } from '@/components/product/revitaglow/revitaGlowCopy'
+import { getRollerCopy } from '@/components/product/roller/rollerCopy'
 import { getScalpBrushCopy } from '@/components/product/scalpbrush/scalpBrushCopy'
 import { getSeaAlgaeCopy } from '@/components/product/sealgae/seaAlgaeCopy'
 import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
 import { getSpcreamCopy } from '@/components/product/spcream/spcreamCopy'
 import { getSrsCopy } from '@/components/product/srs/srsCopy'
+import { getStampCopy } from '@/components/product/stamp/stampCopy'
 import { getUltraShieldCopy } from '@/components/product/ultrashield/ultraShieldCopy'
 
 /**
@@ -81,6 +85,7 @@ import { getUltraShieldCopy } from '@/components/product/ultrashield/ultraShield
 export type BespokeCopyGetter = (locale: string) => object
 
 export const BESPOKE_COPY_GETTERS: Record<string, BespokeCopyGetter> = {
+  '1': getRollerCopy,
   '3': getHairGenBoosterCopy,
   '4': getHesCopy,
   '5': getPowerSolutionCopy,
@@ -143,7 +148,10 @@ export const BESPOKE_COPY_GETTERS: Record<string, BespokeCopyGetter> = {
   '64': getHairStampCopy,
   '65': getBioMesoCopy,
   '66': getCeraCopy,
+  '67': getStampCopy,
   '68': (locale: string) => pickBeautyBoxLocale(BEAUTY_BOXES['68'].copy, locale),
+  '69': getEyeRollerCopy,
+  '70': getMesopeciaCopy,
 }
 
 export function getBespokeCopy(

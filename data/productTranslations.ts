@@ -17,6 +17,7 @@ import { applyCartonInciOverrides } from './cartonInciOverrides'
 import { PRODUCT_1_AR_TRANSLATION } from './product1LocalizedCopy'
 import { PRODUCT_67_AR_TRANSLATION } from './product67LocalizedCopy'
 import { PRODUCT_69_AR_TRANSLATION } from './product69LocalizedCopy'
+import { PRODUCT_70_AR_TRANSLATION } from './product70LocalizedCopy'
 import { PRODUCT_39_AR_TRANSLATION } from './product39LocalizedCopy'
 import { PRODUCT_42_AR_TRANSLATION } from './product42LocalizedCopy'
 import { PRODUCT_44_AR_TRANSLATION } from './product44LocalizedCopy'
@@ -814,6 +815,7 @@ const rawProductTranslations: Record<string, ProductTranslation> = {
   '66': PRODUCT_66_AR_TRANSLATION,
   '67': PRODUCT_67_AR_TRANSLATION,
   '69': PRODUCT_69_AR_TRANSLATION,
+  '70': PRODUCT_70_AR_TRANSLATION,
 }
 
 export const productTranslations = applyCartonInciOverrides(rawProductTranslations)

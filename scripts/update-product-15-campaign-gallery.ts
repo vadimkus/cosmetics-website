@@ -1,7 +1,7 @@
 /**
  * Product 15 (INTENSIVE PROBLEM CONTROL TONER): the "Oil off. Cool on." campaign.
  *
- * - Main image -> /images/pct_campaign/main.jpg (the 200 ml mist and 500 ml pump on white),
+ * - Main image -> /images/pct_campaign/main-v2.jpg (the 200 ml mist and 500 ml pump on white, no ice, 1 Oct 2026),
  *   gallery -> s1.jpg ... s12.jpg. AR/RU slides swap in at render through
  *   lib/localizedProductImages.ts, so the record holds the EN paths.
  * - EN text fields move to the selling copy of the page (no "the carton stops here", no
@@ -26,7 +26,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const MAIN = '/images/pct_campaign/main.jpg'
+const MAIN = '/images/pct_campaign/main-v2.jpg'
 // s9b (28 Sep): the "BACK DAY" gym slide replaced the first upside-down slide; new name, as /images/* is cached immutable.
 const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11', 's12'].map(n => `/images/pct_campaign/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/pct_campaign/', `/pct_campaign/${l}/`)))

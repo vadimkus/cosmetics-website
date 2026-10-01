@@ -1,6 +1,6 @@
 /**
  * Product 16 (SNOW BOOSTER): the "Let it snow" campaign.
- * Main image -> /images/booster_campaign/main.jpg (both sizes on powder snow, no type),
+ * Main image -> /images/booster_campaign/main-v2.jpg (both sizes on white, no snow, 1 Oct 2026),
  * gallery -> /images/booster_campaign/s1.jpg ... s12.jpg. AR/RU slides swap in at render
  * through lib/localizedProductImages.ts, so the record holds the EN paths only.
  * The English text fields move to the selling copy of the bespoke page (same claims as the
@@ -23,7 +23,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const MAIN = '/images/booster_campaign/main.jpg'
+const MAIN = '/images/booster_campaign/main-v2.jpg'
 const GALLERY = Array.from({ length: 12 }, (_, i) => `/images/booster_campaign/s${i + 1}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/booster_campaign/', `/booster_campaign/${l}/`)))
 

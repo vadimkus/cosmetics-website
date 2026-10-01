@@ -243,7 +243,7 @@ export const products: Product[] = [
     description: 'Oil off. Cool on. INTENSIVE PROBLEM CONTROL TONER is the cooling oil-control toner for blemish-prone skin: it takes excess oil and sebum off and puts quick hydration straight back. Zinc PCA 0.5% on a 13.4% hydrating base of butylene glycol, glycerin and dipropylene glycol, with tea tree, peppermint, Anti Sebum P and the SNOW ICE cooling complex for a fresh, cool finish. In a four-week study, measured sebum fell by about half. Non-comedogenic (QACS Ltd.) and dermatologically tested. The 200 ml mist sprays at any angle, even upside down for the back; the 500 ml pump is for the treatment room. Made in Korea.',
     // "Oil off. Cool on." campaign set (pct_campaign), matching the database. The main image
     // is deliberately not repeated in `images`: web and mobile both prepend it.
-    image: '/images/pct_campaign/main.jpg',
+    image: '/images/pct_campaign/main-v2.jpg',
     images: JSON.stringify(['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9b', 's10', 's11', 's12'].map(n => `/images/pct_campaign/${n}.jpg`)),
     category: 'Toner/Mist',
     inStock: true,
@@ -255,7 +255,7 @@ export const products: Product[] = [
     name: 'SNOW BOOSTER',
     price: 260,
     description: '200ml / 1000ml. Daily hydrating toner for all skin types. 3% betaine with glycerin 5.78%, butylene glycol 4.55% and dipropylene glycol 4.00% brings moisture, softness and comfort straight back after cleansing. Smooth it on or spray it morning and evening; the fine mist works over makeup too. Dermatologically tested. Made in Korea.',
-    image: '/images/booster_campaign/main.jpg',
+    image: '/images/booster_campaign/main-v2.jpg',
     images: JSON.stringify(
       Array.from({ length: 12 }, (_, i) => `/images/booster_campaign/s${i + 1}.jpg`),
     ),

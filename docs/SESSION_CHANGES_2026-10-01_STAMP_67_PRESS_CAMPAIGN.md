@@ -89,3 +89,17 @@ Vadim: "remove the lid from stamp. slide 12 - reshoot, no box and open roller".
   Capped picks kept in `picks/capped/`.
 - Shipped as `s1b-s8b`, `s12b` (EN/RU/AR); gallery s1b-s8b, s9, s10, s11, s12b. Map, fallback,
   page figures and `scripts/update-product-67-uncapped-20261001.ts` updated.
+
+## Slides 10 and 11 without the stamp (1 Oct 2026, evening)
+
+Vadim on ONE SESSION. ONE STAMP. and MADE IN KOREA.: "these 2 - do not use stamp, use other objects
+as comparison, reshoot".
+
+- 10 → `s10b`: an ivory ticket with a thin red border and "ADMIT ONE", torn in two. One entry, used
+  once: open before the session, discard after.
+- 11 → `s11b`: a Korean white porcelain moon jar (dal hangari) with its horizontal join seam, the
+  emblem of Korean craft; ivory on paper keeps the two-colour plate.
+- Prompts `w10` / `w11`, no reference (no product in frame); picks 4 and 4. Copy unchanged.
+  Previous picks in `picks/capped/`.
+- Gallery now s1b-s8b, s9, s10b, s11b, s12b; map, fallback, page details figures and
+  `scripts/update-product-67-slides-10-11-20261001.ts` updated.

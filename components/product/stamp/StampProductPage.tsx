@@ -20,7 +20,7 @@ const STAMP_VARIANT: DtsToolVariant = {
     lengths: slide('s6b'),
     howTo: slide('s5b'),
     session: ['s8b', 's9'].map(slide),
-    details: ['s10', 's11', 's12b'].map(slide),
+    details: ['s10b', 's11b', 's12b'].map(slide),
   },
   pairingProductId: '45',
   protocolLengths: new Set(['0.25mm', '0.5mm']),

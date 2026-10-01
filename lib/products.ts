@@ -894,7 +894,7 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     price: 230,
     description: 'The GENOSYS DTS scalp stamp: 140 disk-cut needles in one flat head, pressed straight down along every parting, so nothing tangles and nothing pulls. Made for HR³ MATRIX HAIR SOLUTION α. Five lengths, 0.25 to 2.0 mm. Sterile, single use, CE-marked, made in Korea.',
     image: '/images/stamp_scalp/main.jpg',
-    images: JSON.stringify(['s1b', 's2b', 's3b', 's4b', 's5b', 's6b', 's7b', 's8b', 's9', 's10', 's11', 's12b'].map(s => `/images/stamp_press/${s}.jpg`)),
+    images: JSON.stringify(['s1b', 's2b', 's3b', 's4b', 's5b', 's6b', 's7b', 's8b', 's9', 's10b', 's11b', 's12b'].map(s => `/images/stamp_press/${s}.jpg`)),
     category: 'Scalp/Hair',
     inStock: true,
     size: '0.25mm',

@@ -262,11 +262,11 @@
   {
     "product": "33",
     "status": "ok",
-    "source": "/images/patch/main.jpeg",
-    "file": "/images/cutout/33.webp",
+    "source": "/images/patch/main-v2.jpg",
+    "file": "/images/cutout/33-v2.webp",
     "name": "EyeCell EYE PEPTIDE GEL PATCH",
-    "coverage": 0.537,
-    "bytes": 39800,
+    "coverage": 0.543,
+    "bytes": 54960,
     "review": false
   },
   {
@@ -362,11 +362,11 @@
   {
     "product": "42",
     "status": "ok",
-    "source": "/images/blemish_o/Main.jpeg",
-    "file": "/images/cutout/42-v2.webp",
+    "source": "/images/blemish_o/main-v2.jpg",
+    "file": "/images/cutout/42-v3.webp",
     "name": "INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]",
-    "coverage": 0.258,
-    "bytes": 33480,
+    "coverage": 0.251,
+    "bytes": 37118,
     "review": false
   },
   {

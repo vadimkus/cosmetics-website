@@ -85,7 +85,7 @@ const CUTOUTS: Record<string, string> = {
   // 32 MULTI FUNCTIONAL ANTI-WRINKLE CREAM
   '/images/multifunc_cream/main-v2.jpg': '/images/cutout/32-v3.webp',
   // 33 EyeCell EYE PEPTIDE GEL PATCH
-  '/images/patch/main.jpeg': '/images/cutout/33.webp',
+  '/images/patch/main-v2.jpg': '/images/cutout/33-v2.webp',
   // 34 SKIN RESCUE OVERNIGHT CREAM MASK
   '/images/overnight/main-v2.jpeg': '/images/cutout/34-v2.webp',
   // 35 HYDRO COOL MODELING MASK
@@ -103,7 +103,7 @@ const CUTOUTS: Record<string, string> = {
   // 41 SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]
   '/images/cushion_campaign/main.jpg': '/images/cutout/41-v2.webp',
   // 42 INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]
-  '/images/blemish_o/Main.jpeg': '/images/cutout/42-v2.webp',
+  '/images/blemish_o/main-v2.jpg': '/images/cutout/42-v3.webp',
   // 43 HR³ MATRIX HAIR TONIC α
   '/images/tonic_campaign/main.jpg': '/images/cutout/43-v2.webp',
   // 44 HR³ MATRIX MEDI SCALP SHAMPOO α

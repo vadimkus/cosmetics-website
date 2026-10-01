@@ -171,7 +171,8 @@ REVISION = {
     # 3: white-canvas main (hydro_soothing_o/main-v2.jpg, 1 Oct 2026).
     "28": 3,
     # New campaign packshot, traced from a different frame than the original.
-    "42": 2,
+    # 3: white-canvas main at standard scale (blemish_o/main-v2.jpg, 1 Oct 2026).
+    "42": 3,
     # New campaign packshot: the 1kg pouch square on white, where the previous
     # source was a lifestyle frame with a powder dish beside it.
     "35": 2,
@@ -210,6 +211,7 @@ REVISION = {
     # New studio packshot on white, replacing the July render.
     # 19-22: bottle-only mains on white shot in CapCut (1 Oct 2026, matching 18): main-v2.jpg.
     # White-canvas cream mains (1 Oct 2026): 24 the real tube composited, 27 and 63 CapCut re-shoots.
+    "33": 2,  # white-canvas jar main (patch/main-v2.jpg, 1 Oct 2026)
     "24": 2,
     "27": 2,
     "63": 2,

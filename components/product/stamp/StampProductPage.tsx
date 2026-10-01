@@ -4,10 +4,10 @@ import type { Product } from '@/types'
 import DtsToolProductPage, { type DtsToolVariant } from '../dtstool/DtsToolProductPage'
 import { getStampCopy } from './stampCopy'
 
-const slide = (name: string) => `/images/stamp_scalp/${name}.jpg`
+const slide = (name: string) => `/images/stamp_press/${name}.jpg`
 
 /**
- * GENOSYS DTS Microneedle Stamp, product 67: the "Press here." campaign, paired
+ * GENOSYS DTS Microneedle Stamp, product 67: the "Press. Don't pull." campaign, paired
  * with HR³ MATRIX HAIR SOLUTION α (product 45), whose scalp protocol is
  * documented at 0.25 and 0.5 mm.
  */
@@ -15,12 +15,12 @@ const STAMP_VARIANT: DtsToolVariant = {
   productNumber: '67',
   getCopy: getStampCopy,
   slides: {
-    why: ['s2', 's4', 's3', 's8'].map(slide),
+    why: ['s2', 's3', 's4', 's1'].map(slide),
     pairing: slide('s7'),
     lengths: slide('s6'),
     howTo: slide('s5'),
-    session: ['s9', 's10b'].map(slide),
-    details: ['s1', 's11b', 's12'].map(slide),
+    session: ['s8', 's9'].map(slide),
+    details: ['s10', 's11', 's12'].map(slide),
   },
   pairingProductId: '45',
   protocolLengths: new Set(['0.25mm', '0.5mm']),

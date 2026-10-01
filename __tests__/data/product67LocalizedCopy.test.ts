@@ -80,8 +80,8 @@ describe('product 67, GENOSYS DTS Microneedle Stamp', () => {
     for (const locale of ['en', 'ru', 'ar'] as const) {
       expect(getCatalogQuickFacts('67', locale)).toHaveLength(6)
     }
-    const slides = Array.from({ length: 12 }, (_, i) => `/images/stamp_scalp/s${i + 1}.jpg`)
-    expect(localizeProductImages(slides, 'ru')[0]).toBe('/images/stamp_scalp/ru/s1.jpg')
-    expect(localizeProductImages(slides, 'ar')[11]).toBe('/images/stamp_scalp/ar/s12.jpg')
+    const slides = Array.from({ length: 12 }, (_, i) => `/images/stamp_press/s${i + 1}.jpg`)
+    expect(localizeProductImages(slides, 'ru')[0]).toBe('/images/stamp_press/ru/s1.jpg')
+    expect(localizeProductImages(slides, 'ar')[11]).toBe('/images/stamp_press/ar/s12.jpg')
   })
 })

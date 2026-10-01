@@ -13,6 +13,10 @@ async function main() {
   const p = await prisma.product.findFirst({ where: { productNumber: '18' } })
   if (!p) throw new Error('product 18 not found')
   const gallery: string[] = JSON.parse(p.images || '[]')
+  if (gallery.includes(NEW_SLIDE) && !gallery.includes(OLD_SLIDE)) {
+    console.log('product 18 gallery already on s4c')
+    return
+  }
   if (gallery.filter(g => g === OLD_SLIDE).length !== 1) throw new Error('s4b not in the gallery exactly once')
   const next = gallery.map(g => (g === OLD_SLIDE ? NEW_SLIDE : g))
   await prisma.product.update({ where: { id: p.id }, data: { images: JSON.stringify(next) } })

@@ -138,6 +138,11 @@ PARTS = {
     "60": [
         (0.465, 0.270, 0.905, 0.885, "vision"),
     ],
+    # Mesopecia Kit (mesopecia_art/main.jpg): Vision keeps the box, bottle,
+    # stamp and one vial, and drops the other vial. Both re-traced together.
+    "70": [
+        (0.515, 0.690, 0.740, 0.900, "vision"),
+    ],
 }
 
 # Bumped whenever a cut-out's pixels change.

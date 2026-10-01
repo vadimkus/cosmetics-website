@@ -670,6 +670,16 @@
     "review": false
   },
   {
+    "product": "70",
+    "status": "ok",
+    "source": "/images/mesopecia_art/main.jpg",
+    "file": "/images/cutout/70.webp",
+    "name": "MESOPECIA KIT",
+    "coverage": 0.33,
+    "bytes": 108384,
+    "review": false
+  },
+  {
     "product": "8",
     "status": "ok",
     "source": "/images/sws_0/Main.jpeg",

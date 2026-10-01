@@ -158,6 +158,8 @@ const CUTOUTS: Record<string, string> = {
   '/images/glass_skin_campaign/main.jpg': '/images/cutout/68.webp',
   // 69 Eye Roller
   '/images/eyeroller_art/main.jpg': '/images/cutout/69.webp',
+  // 70 MESOPECIA KIT
+  '/images/mesopecia_art/main.jpg': '/images/cutout/70.webp',
 }
 
 /**

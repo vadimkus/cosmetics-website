@@ -100,10 +100,10 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 16, SNOW BOOSTER, "Let it snow" campaign. main.jpg is a plain packshot and
-  // is not translated.
+  // is not translated. s1b and s6b replace s1 and s6: the 200 ml sprays with its cap off.
   '/images/booster_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1b.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6b.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1b.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6b.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 3, HairGen BOOSTER, "In. Not on." campaign. The main packshot is not translated;
   // the b-slides replace renders that showed a handle the device does not have.

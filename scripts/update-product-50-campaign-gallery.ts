@@ -1,7 +1,7 @@
 /**
  * Product 50 (EyeCell EYE ZONE CARE KIT): the "Rested eyes." campaign.
  *
- * - Main image -> /images/eyekit_campaign/main.jpg, gallery -> s1.jpg ... s12.jpg. AR/RU
+ * - Main image -> /images/eyekit_campaign/main-v2.jpg (the real eye roller, 1 Oct 2026), gallery -> s1.jpg ... s12.jpg. AR/RU
  *   slides swap in at render through lib/localizedProductImages.ts, so the record holds the
  *   EN paths. The member packshots stay in the page's contents list, not in the gallery.
  * - EN text fields move to the selling copy; descriptionRu / descriptionAr follow
@@ -27,7 +27,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const MAIN = '/images/eyekit_campaign/main.jpg'
+const MAIN = '/images/eyekit_campaign/main-v2.jpg'
 const GALLERY = ['s1', 's2', 's3', 's4', 's5', 's6', 's7b', 's8c', 's9', 's10', 's11', 's12'].map(n => `/images/eyekit_campaign/${n}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace('/eyekit_campaign/', `/eyekit_campaign/${l}/`)))
 

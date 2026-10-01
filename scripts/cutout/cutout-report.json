@@ -452,11 +452,11 @@
   {
     "product": "50",
     "status": "ok",
-    "source": "/images/eyekit_campaign/main.jpg",
-    "file": "/images/cutout/50-v2.webp",
+    "source": "/images/eyekit_campaign/main-v2.jpg",
+    "file": "/images/cutout/50-v3.webp",
     "name": "EyeCell EYE ZONE CARE KIT",
-    "coverage": 0.535,
-    "bytes": 100776,
+    "coverage": 0.46,
+    "bytes": 76042,
     "review": false
   },
   {

@@ -138,6 +138,13 @@ PARTS = {
     "60": [
         (0.465, 0.270, 0.905, 0.885, "vision"),
     ],
+    # Eye Zone Care Kit (eyekit_campaign/main-v2.jpg, packs apart): Vision keeps the
+    # box only. Serum and cream, the patch jar and the white roller re-traced.
+    "50": [
+        (0.640, 0.220, 0.905, 0.700, "vision"),
+        (0.130, 0.620, 0.470, 0.900, "vision"),
+        (0.470, 0.670, 0.900, 0.945, "vision"),
+    ],
     # Mesopecia Kit (mesopecia_art/main-v2.jpg, packs apart): Vision keeps the box
     # and the bottle and drops the white stamp and the small vials. Each re-traced
     # on its own crop.
@@ -248,7 +255,8 @@ REVISION = {
     "40": 2,
     # "Rested eyes." campaign packshot (eyekit_campaign/main.jpg, 27 Sep 2026): the box,
     # serum, cream, patch jar and eye roller as one group on white.
-    "50": 2,
+    # 3: main-v2 (1 Oct 2026), the real eye roller, packs apart, no pedestals.
+    "50": 3,
     # "Back to smooth." campaign packshot (cts_campaign/main.jpg, 27 Sep 2026): closed
     # carton and one vial on white, the family angle of 4, 7 and 8, replacing the
     # squared studio-sweep shot.

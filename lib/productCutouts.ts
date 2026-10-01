@@ -119,7 +119,7 @@ const CUTOUTS: Record<string, string> = {
   // 49 GENO-LED IR II
   '/images/led_campaign/main.jpg': '/images/cutout/49-v2.webp',
   // 50 EyeCell EYE ZONE CARE KIT
-  '/images/eyekit_campaign/main.jpg': '/images/cutout/50-v2.webp',
+  '/images/eyekit_campaign/main-v2.jpg': '/images/cutout/50-v3.webp',
   // 51 BIO-FERMENT AGE DEFYING POWDER MASK
   '/images/bio_ferment2/main.jpeg': '/images/cutout/51.webp',
   // 52 SKIN REBOOT PDRN MASK PACK

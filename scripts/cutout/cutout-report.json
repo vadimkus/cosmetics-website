@@ -62,21 +62,21 @@
   {
     "product": "15",
     "status": "ok",
-    "source": "/images/pct_campaign/main.jpg",
-    "file": "/images/cutout/15-v3.webp",
+    "source": "/images/pct_campaign/main-v2.jpg",
+    "file": "/images/cutout/15-v4.webp",
     "name": "INTENSIVE PROBLEM CONTROL TONER",
-    "coverage": 0.287,
-    "bytes": 50952,
+    "coverage": 0.296,
+    "bytes": 50716,
     "review": false
   },
   {
     "product": "16",
     "status": "ok",
-    "source": "/images/booster_campaign/main.jpg",
-    "file": "/images/cutout/16-v2.webp",
+    "source": "/images/booster_campaign/main-v2.jpg",
+    "file": "/images/cutout/16-v3.webp",
     "name": "SNOW BOOSTER",
-    "coverage": 0.325,
-    "bytes": 43130,
+    "coverage": 0.321,
+    "bytes": 46298,
     "review": false
   },
   {

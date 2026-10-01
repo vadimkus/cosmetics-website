@@ -215,8 +215,6 @@ REVISION = {
     # (~/Desktop/Insta_Olga/bb_deep/campaign/picks/main.png), then normalised. Do not
     # rebuild 59 from the photograph.
     "59": 3,
-    # Studio pair replacing the render; generator mark painted out first.
-    "15": 2,
     # "Handle with care." campaign main (bb_sensitive_campaign/main.jpg, 29 Sep 2026): the
     # six singles in the open kit case, top down, oat foam and sage hardware. The main
     # carries the title, so v4 is Vision run on the text-free CapCut take
@@ -269,7 +267,9 @@ REVISION = {
     # the two supplied container PNGs (~/Desktop/Insta_Olga/booster) placed at the main's
     # measured scale and position (1000 ml 0.3142 at 415,175; 200 ml 0.1795 at 968,472),
     # then normalised. Do not rebuild 16 from the photograph.
-    "16": 2,
+    # 3: white-canvas main without the snow (booster_campaign/main-v2.jpg, 1 Oct 2026), traced
+    # from the main itself.
+    "16": 3,
     # "Water, not oil." main (problemcream_v2/main.jpg, 30 Sep 2026): both tubes on white.
     "30": 2,
     "53": 2,
@@ -280,7 +280,9 @@ REVISION = {
     # mist and 500 ml pump on white, with ice at their bases. Like 16, v3 is the two supplied
     # container PNGs (~/Desktop/problem_boost) at the main's layout (pct_refs.py pair), then
     # normalised. Do not rebuild 15 from the photograph.
-    "15": 3,
+    # 4: white-canvas main without the ice (pct_campaign/main-v2.jpg, 1 Oct 2026), traced
+    # from the main itself.
+    "15": 4,
     # "Sealed fresh." campaign packshot (mhcream_campaign/main.jpg, 29 Sep 2026): the 50g and
     # 250g tubes on white with water droplets at their bases. Like 15, v2 is the two supplied
     # container PNGs (~/Desktop/moisture) at the main's layout (50g left at 130 mm, 250g right

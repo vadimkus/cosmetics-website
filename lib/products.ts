@@ -385,7 +385,7 @@ export const products: Product[] = [
     name: 'EyeCell EYE CONTOUR CREAM',
     price: 370,
     description: '20g. Daily all-in-one eye cream for wrinkles, dark circles and puffiness. Arbutin 2% and Adenosine 0.04% are the Korean functional pair. Morning and evening, tap and leave on. Dermatologically tested. Avoid during pregnancy and lactation. Contains peanut oil.',
-    image: '/images/eye_cream/main.jpeg',
+    image: '/images/eye_cream/main-v2.jpg',
     images: JSON.stringify([
       '/images/eye_cream/s1.jpeg',
       '/images/eye_cream/s2.jpeg',
@@ -427,7 +427,7 @@ export const products: Product[] = [
     name: 'SKIN BARRIER PROTECTING CREAM',
     price: 450,
     description: 'Ceramide NP at 0.5%, and the Korean panel on the carton prints the number in brackets: 5,000 ppm. Most creams that put ceramide on the front use it one or two orders of magnitude lower. Behind it, glycerin at 17.49% and shea butter at 3%, which makes this the richest of the three GENOSYS face creams and the one for skin that is sensitive and dry. The carton asks you to pat it in, not rub it. 100g, morning and night. Dermatologically tested.',
-    image: '/images/skin_barr/main.jpeg',
+    image: '/images/skin_barr/main-v2.jpg',
     images: JSON.stringify([
       '/images/skin_barr/s1.jpeg',
       '/images/skin_barr/s2.jpeg',
@@ -446,7 +446,7 @@ export const products: Product[] = [
     name: 'INTENSIVE HYDRO SOOTHING CREAM',
     price: 290,
     description: '50g (Homecare) / 250g (Professional). Soothing and moisturizing gel with aloe vera, snail secretion filtrate. It calms down skin irritation and provides long-lasting hydration to the skin with aloe vera, snail secretion filtrate and hyaluronic acid. Key ingredients: Aloe Barbadensis Leaf Extract, Snail Secretion Filtrate, Hyaluronic Acid, Lactobacillus/Pumpkin Ferment Extract, Beta-Glucan, Phytolex SC. Dermatologically tested. Efficacy test on skin hydration.',
-    image: '/images/hydro_soothing_o/Main.jpeg',
+    image: '/images/hydro_soothing_o/main-v2.jpg',
     images: null,
     category: 'Cream',
     inStock: true,
@@ -457,7 +457,7 @@ export const products: Product[] = [
     price: 290,
     description: 'Sealed fresh. Dubai air takes water from your skin all day; this cream puts it back and puts a lid on it. Glycerin at 9% and PENTAVITIN pull water in, and 1,000.9 ppm of high-weight hyaluronic acid rests on the surface like a fine film and keeps it there. Hydration rose 82% straight after one use and was still higher 72 hours later. Massage it in morning and night, after the serum. 50g and 250g.',
     // "Sealed fresh." campaign set (mhcream_campaign), matching the database.
-    image: '/images/mhcream_campaign/main.jpg',
+    image: '/images/mhcream_campaign/main-v2.jpg',
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/mhcream_campaign/s${i + 1}.jpg`)),
     category: 'Cream',
     inStock: true,

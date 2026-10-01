@@ -2,7 +2,7 @@
  * Product 63 (REVITA GLOW BB CREAM) — point the record at the Aug 2026 studio set in
  * `/images/revita_o/`.
  *
- * MAIN  /images/revita_o/main.jpg — both tubes, no overlaid text.
+ * MAIN  /images/revita_o/main-v2.jpg — both tubes, no overlaid text.
  *
  * GALLERY (main excluded; web and mobile both prepend `product.image` themselves):
  *   s1  Cover. Glow. Revitalize.            gallery only
@@ -27,7 +27,7 @@
 
 import { prisma } from '../lib/prisma'
 
-const MAIN = '/images/revita_o/main.jpg'
+const MAIN = '/images/revita_o/main-v2.jpg'
 
 const GALLERY = [
   '/images/revita_o/s1.jpg',

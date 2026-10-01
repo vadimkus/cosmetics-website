@@ -44,7 +44,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'جل يتحول إلى رغوة بثلاث مواد منظفة، وpH ‏6.37، وعطر 0.5%.' },
       { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/radiance_serum/main-v2.jpg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main-v2.jpg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v4.jpg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
     ],
     sections: [
@@ -279,8 +279,8 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/soothing_rep_o/Main.jpeg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
-      { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
+      { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/hydro_soothing_o/main-v2.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main-v2.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main-v4.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
     ],
     sections: [
@@ -366,7 +366,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'جل يُشطف؛ توجد خمسة سيراميدات ومحللات تخمر بتراكيز ضئيلة.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ar/products/14', image: '/images/mist_0/Main.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'ترطيب خفيف يكمل المرطب ولا يستبدله.' },
       { name: 'All For Sensitive Serum', href: '/ar/products/19', image: '/images/sensitive_serum/main-v2.jpg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'سيروم دعم للرطوبة للبشرة الحساسة المظهر.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'كريم يترك على البشرة مع السيراميد والأحماض الأمينية والزيوت الملينة.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main-v2.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'كريم يترك على البشرة مع السيراميد والأحماض الأمينية والزيوت الملينة.' },
     ],
     sections: [
       { heading: 'ماذا يفعل حاجز البشرة', body: 'يُشبّه الطبقة القرنية بالطوب والملاط: خلايا قرنية داخل مصفوفة غنية بالسيراميدات والكوليسترول والأحماض الدهنية. عند اضطرابها قد يرتفع فقد الماء عبر الجلد وتصبح البشرة جافة أو مشدودة أو خشنة أو حاكة أو شديدة التفاعل.' },

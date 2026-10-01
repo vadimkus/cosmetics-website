@@ -1,7 +1,7 @@
 /**
  * Product 29 (MOISTURE REPLENISHING HYALURON CREAM): the "Sealed fresh." campaign.
  *
- * - Main image -> /images/mhcream_campaign/main.jpg (the 50g and 250g tubes on white),
+ * - Main image -> /images/mhcream_campaign/main-v2.jpg (the 50g and 250g tubes on white),
  *   gallery -> s1.jpg ... s12.jpg. AR/RU slides swap in at render through
  *   lib/localizedProductImages.ts, so the record holds the EN paths.
  * - EN text fields move to the selling copy of the page (no "printed on the carton", no

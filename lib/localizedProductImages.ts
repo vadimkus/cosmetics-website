@@ -246,9 +246,10 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   },
   // Product 10, SNOW O2 CLEANSER, "It fizzes." campaign. main.jpg is a packshot with no
   // type, so only the twelve slides have Russian and Arabic exports.
+  // s2b and s8b replace the Dubai terrace and the sink splash with luxury stills (1 Oct 2026).
   '/images/snowo2_campaign': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's2b.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2b.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8b.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 68, GLASS SKIN RITUAL KIT, "Full moon glow." holiday campaign. The main kit shot
   // carries the English product name only and is not translated.

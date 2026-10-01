@@ -16,7 +16,8 @@ import { AUDITED_PRODUCT_LOCALIZED_COPY } from '../data/productLocalizedCopyAudi
 
 const DIR = '/images/snowo2_campaign'
 const MAIN = `${DIR}/main.jpg`
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+// s2b / s8b (1 Oct 2026): luxury stills replace the Dubai terrace and the sink splash.
+const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}${i === 1 || i === 7 ? 'b' : ''}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 const DESCRIPTION =

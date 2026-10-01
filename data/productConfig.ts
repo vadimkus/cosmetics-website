@@ -325,7 +325,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }
     ],
-    videoUrl: '/videos/hyaluron.mp4',
+    videoUrl: '/videos/mhcream-reel-web.mp4',
     documentation: [
       {
         title: 'MOISTURE REPLENISHING HYALURON CREAM Guide',

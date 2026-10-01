@@ -797,8 +797,10 @@ export default function MhcreamProductPage({
               <div className="mhcream-video relative mt-4 mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
+                  poster="/images/mhcream_campaign/reel-poster.jpg"
                   controls
                   playsInline
+                  muted
                   preload="metadata"
                   className="h-full w-full object-cover"
                 />

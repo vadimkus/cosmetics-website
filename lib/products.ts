@@ -461,7 +461,7 @@ export const products: Product[] = [
     images: JSON.stringify(Array.from({ length: 12 }, (_, i) => `/images/mhcream_campaign/s${i + 1}.jpg`)),
     category: 'Cream',
     inStock: true,
-    videoUrl: '/videos/hyaluron.mp4',
+    videoUrl: '/videos/mhcream-reel-web.mp4',
   },
   {
     id: '30',

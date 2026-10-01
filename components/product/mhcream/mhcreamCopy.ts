@@ -259,7 +259,7 @@ const EN: MhcreamCopy = {
     ],
     note:
       'Keep it cool and dry, but out of the fridge: cold changes the texture.',
-    videoTitle: 'See the texture',
+    videoTitle: 'Sealed fresh, in 20 seconds',
   },
   actives: {
     eyebrow: 'What is in it',
@@ -484,7 +484,7 @@ const AR: MhcreamCopy = {
     ],
     note:
       'احفظيه في مكان بارد وجاف، لكن بعيداً عن الثلاجة: البرودة تغيّر قوامه.',
-    videoTitle: 'شاهدي القوام',
+    videoTitle: 'نضارة محفوظة في 20 ثانية',
   },
   actives: {
     eyebrow: 'المكونات',
@@ -708,7 +708,7 @@ const RU: MhcreamCopy = {
     ],
     note:
       'Храните в прохладном сухом месте, но не в холодильнике: холод меняет текстуру.',
-    videoTitle: 'Посмотрите на текстуру',
+    videoTitle: 'Свежесть под замком за 20 секунд',
   },
   actives: {
     eyebrow: 'Что внутри',

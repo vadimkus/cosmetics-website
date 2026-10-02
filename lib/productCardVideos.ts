@@ -8,6 +8,7 @@
  */
 const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/collagen_campaign/main-v2.jpg': '/videos/cards/53-v1.mp4',
+  '/images/seaalgae_campaign/main.jpg': '/videos/cards/36-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

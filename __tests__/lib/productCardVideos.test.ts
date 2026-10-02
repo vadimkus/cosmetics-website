@@ -6,6 +6,7 @@ import { cardVideoFor } from '@/lib/productCardVideos'
 const PUBLIC = path.join(process.cwd(), 'public')
 const MAPPED: Array<[string, string]> = [
   ['/images/collagen_campaign/main-v2.jpg', '/videos/cards/53-v1.mp4'],
+  ['/images/seaalgae_campaign/main.jpg', '/videos/cards/36-v1.mp4'],
 ]
 
 describe('product card hover videos', () => {

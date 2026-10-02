@@ -37,8 +37,21 @@ the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
   audio, 44 KB, no c2pa/jumb/CapCut/Lavf/x264/Lavc bytes; frame 1 and last frame vs photo 2.48 / 2.47.
 - `__tests__/lib/productCardVideos.test.ts` guards the mapping, file size and metadata.
 
+## Product 36 — Soothing Bomb Sea Algae Mask (green sachet)
+
+- Same shoot: Image to video, Seedance 2.5, `seaalgae_campaign/main.jpg`, 5 s, 720p, 1:1, audio off,
+  same prompt, 185 credits (balance 3,696). Take `~/Desktop/Insta_Olga/seaalgae36/video/36_take1.mp4`.
+- This take washed the whole sachet mid-sweep and greyed the GENOSYS logo and small print, so the
+  plain photo + light delta carried the greying over. Fixed with the generic
+  `scripts/cards/light-pass.py` (replaces the one-off `c53_prep.py`):
+  `--start 0.25 --end 4.5 --blur 12 --gain 0.7 --brighten-only` — only brightening survives, blurred to
+  light-band scale, so printed text stays printed.
+- `public/videos/cards/36-v1.mp4`: 600×600, 4.25 s, 59 KB, no forbidden bytes; frame 1 / last vs photo
+  2.20 / 2.13. Mapped in `lib/productCardVideos.ts`, covered by the test.
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"
-invite drops), then `c53_prep.py`-style photo + light delta, then `make-card-video.py`. New clip =
+invite drops), then `light-pass.py` (add `--brighten-only --blur 12` if the take greys the print), then
+`make-card-video.py --start 0 --dur <end-start>`. New clip =
 new filename (`/videos` is immutable-cached).

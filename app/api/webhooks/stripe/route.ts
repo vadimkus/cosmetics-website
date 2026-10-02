@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { attributionFromStripeMetadata, sendMetaPurchase } from '@/lib/metaCapi'
 import { headers } from 'next/headers'
 import { validateWebhookSignature, aedToFils } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
@@ -308,6 +309,18 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
     } else {
       debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
     }
+
+    // Every succeeded event, not only the claiming one: the payment-status poll
+    // may have claimed the order first. Meta deduplicates on the event id.
+    await sendMetaPurchase({
+      orderNumber: order.orderNumber,
+      total: order.total,
+      customerEmail: order.customerEmail,
+      customerPhone: order.customerPhone,
+      customerEmirate: order.customerEmirate,
+      items: order.items.map((it) => ({ id: it.productId, quantity: it.quantity, price: it.price })),
+      createdAt: order.createdAt,
+    }, attributionFromStripeMetadata(paymentIntent.metadata))
 
   } catch (error) {
     errorLog('❌ Error handling payment_intent.succeeded:', error)

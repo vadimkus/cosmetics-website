@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse, after } from 'next/server'
+import { readMetaAttribution, sendMetaPurchase } from '@/lib/metaCapi'
 import { checkoutSelectionError, resolveCheckoutSelection } from '@/lib/checkoutSelection'
 import { cookies } from 'next/headers'
 import * as Sentry from '@sentry/nextjs'
@@ -143,6 +144,7 @@ export async function POST(request: NextRequest) {
       items,
       locale = 'en'
     } = orderData
+    const metaAttribution = readMetaAttribution(request, orderData.metaConsent)
 
     // Optional customer delivery notes (length-capped, plain text)
     const orderNotes =
@@ -779,6 +781,16 @@ export async function POST(request: NextRequest) {
         errorLog('❌ Exception details:', emailError)
         errorLog('❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack')
       }
+
+      // Meta Purchase after the emails; it never throws and gives up after 4 s.
+      await sendMetaPurchase({
+        orderNumber,
+        total,
+        customerEmail,
+        customerPhone,
+        customerEmirate: emirate,
+        items: serverItems.map((it) => ({ id: it.id, quantity: it.quantity, price: it.price })),
+      }, metaAttribution)
     })
 
     // Return success response immediately - after() keeps the function alive for emails

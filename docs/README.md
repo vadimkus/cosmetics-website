@@ -919,6 +919,7 @@
 | 🟡 **Important** | [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | API security & code quality audit (6 fixes, 5 deferred) |
 | 🟡 **Important** | [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | Pricing logic, discount rules, calculation reference |
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
+| 🟡 **Important** | [META_PIXEL_CAPI.md](./META_PIXEL_CAPI.md) | Meta Pixel + Conversions API: dataset 1644419117314458, consent gating, events, server Purchase, env vars |
 | 🟡 **Important** | [NEWSLETTER_SYSTEM.md](./NEWSLETTER_SYSTEM.md) | **Newsletter system — full reference** — public subscribe/unsubscribe + admin composer. Data model (`NewsletterSubscriber` + `NewsletterCampaign`), APIs, XSS-safe markdown renderer, security model (rate limit · honeypot · CSRF · token rotation · scheme whitelist), operations runbook, 2,000-recipient cap rationale, migration path when we scale. Start here before touching anything under `app/api/newsletter/*` or the admin Newsletter tab. |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |

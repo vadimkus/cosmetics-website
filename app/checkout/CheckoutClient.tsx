@@ -32,6 +32,7 @@ import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing, 
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { trackBeginCheckout } from '@/lib/analytics'
+import { getConsent } from '@/lib/consent'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -485,7 +486,8 @@ export default function CheckoutClient() {
               customerAddress: customerAddress,
               ...(orderNotes ? { orderNotes } : {}),
               ...(loyaltyDiscount > 0 ? { redeemPoints: appliedRedeemPoints } : {}),
-              locale: locale
+              locale: locale,
+              metaConsent: getConsent() === 'accepted'
             }))
           })
 
@@ -596,7 +598,8 @@ export default function CheckoutClient() {
           // Bundle discount data for proper waterfall display
           ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
           ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {}),
-          ...(loyaltyDiscount > 0 ? { redeemPoints: appliedRedeemPoints } : {})
+          ...(loyaltyDiscount > 0 ? { redeemPoints: appliedRedeemPoints } : {}),
+          metaConsent: getConsent() === 'accepted'
         }
 
         // Ensure CSRF token is available

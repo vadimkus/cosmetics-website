@@ -1,4 +1,6 @@
-// Google Analytics 4 tracking utilities
+// Google Analytics 4 tracking utilities, mirrored to the Meta Pixel (lib/metaPixel.ts)
+import { metaPageView, metaPurchaseEventId, metaTrack } from '@/lib/metaPixel'
+
 declare global {
   interface Window {
     gtag: (
@@ -16,6 +18,7 @@ export const trackPageView = (url: string) => {
       page_path: url,
     });
   }
+  metaPageView();
 };
 
 // Track product views
@@ -37,6 +40,14 @@ export const trackProductView = (product: {
       }]
     });
   }
+  metaTrack('ViewContent', {
+    content_ids: [product.id],
+    content_name: product.name,
+    content_category: product.category,
+    content_type: 'product',
+    value: product.price,
+    currency: 'AED',
+  });
 };
 
 // Track add to cart
@@ -60,6 +71,14 @@ export const trackAddToCart = (product: {
       }]
     });
   }
+  metaTrack('AddToCart', {
+    content_ids: [product.id],
+    content_name: product.name,
+    content_type: 'product',
+    contents: [{ id: product.id, quantity: product.quantity || 1, item_price: product.price }],
+    value: product.price * (product.quantity || 1),
+    currency: 'AED',
+  });
 };
 
 // Track begin_checkout (user lands on the checkout page)
@@ -86,6 +105,14 @@ export const trackBeginCheckout = (cart: {
       }))
     });
   }
+  metaTrack('InitiateCheckout', {
+    content_ids: cart.items.map(item => item.id),
+    content_type: 'product',
+    contents: cart.items.map(item => ({ id: item.id, quantity: item.quantity, item_price: item.price })),
+    num_items: cart.items.reduce((n, item) => n + item.quantity, 0),
+    value: cart.value,
+    currency: 'AED',
+  });
 };
 
 // Track purchase
@@ -114,6 +141,14 @@ export const trackPurchase = (order: {
       }))
     });
   }
+  metaTrack('Purchase', {
+    content_ids: order.items.map(item => item.id),
+    content_type: 'product',
+    contents: order.items.map(item => ({ id: item.id, quantity: item.quantity, item_price: item.price })),
+    num_items: order.items.reduce((n, item) => n + item.quantity, 0),
+    value: order.total,
+    currency: 'AED',
+  }, metaPurchaseEventId(order.id));
 };
 
 // Track PDF downloads

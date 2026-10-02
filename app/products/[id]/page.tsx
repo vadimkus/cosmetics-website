@@ -4,6 +4,7 @@ import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientPhaseA'
 import { getBespokePdpLayout, getRoutineProducts } from '@/components/product/bespokePdp'
 import PdpLocaleBar from '@/components/product/PdpLocaleBar'
+import ProductViewTracker from '@/components/ProductViewTracker'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { getUnitsSold } from '@/lib/salesStats'
@@ -155,6 +156,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             site headers hide on this route, so phones get no back button and no
             language control without this. Desktop keeps the site header. */}
         <PdpLocaleBar />
+        <ProductViewTracker id={product.id} name={product.name} category={product.category} price={product.price} />
         <BespokeLayout
           product={product}
           unitsSold={unitsSold}
@@ -164,5 +166,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     )
   }
 
-  return <ProductPageClientRefactored product={product} unitsSold={unitsSold} />
+  return (
+    <>
+      <ProductViewTracker id={product.id} name={product.name} category={product.category} price={product.price} />
+      <ProductPageClientRefactored product={product} unitsSold={unitsSold} />
+    </>
+  )
 }

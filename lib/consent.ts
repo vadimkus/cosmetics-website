@@ -2,7 +2,7 @@
  * Cookie / analytics consent - first-party, lightweight.
  *
  * Stored in localStorage under `genosys_cookie_consent`:
- *   'accepted' → GA + first-party analytics enabled
+ *   'accepted' → GA + first-party analytics + Meta Pixel enabled
  *   'declined' → analytics off (Consent Mode stays denied; tracker won't fire)
  *   (unset)    → undecided: GA loads in Consent-Mode "denied" (cookieless);
  *                first-party tracker holds until a choice is made.
@@ -29,7 +29,7 @@ export function setConsent(value: ConsentValue): void {
   }
   // Update Google Consent Mode v2 live so the current pageview is honored.
   const granted = value === 'accepted' ? 'granted' : 'denied'
-  const w = window as unknown as { gtag?: (...args: unknown[]) => void }
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void; fbq?: (...args: unknown[]) => void }
   if (typeof w.gtag === 'function') {
     w.gtag('consent', 'update', {
       ad_storage: granted,
@@ -38,6 +38,8 @@ export function setConsent(value: ConsentValue): void {
       ad_personalization: granted,
     })
   }
+  // The Meta Pixel only exists once consent was given (lib/metaPixel.ts loads it lazily).
+  if (typeof w.fbq === 'function') w.fbq('consent', value === 'accepted' ? 'grant' : 'revoke')
   // Let listeners (e.g. the page-view tracker) react immediately.
   window.dispatchEvent(new CustomEvent('genosys-consent-change', { detail: value }))
 }

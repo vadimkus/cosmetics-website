@@ -243,6 +243,7 @@ export async function createPaymentIntent(params: {
   orderNumber: string
   locale: string
   description?: string
+  metadata?: Record<string, string>
 }): Promise<Stripe.PaymentIntent> {
   try {
     debugLog('Creating Stripe payment intent:', {
@@ -265,6 +266,7 @@ export async function createPaymentIntent(params: {
         customerEmail: params.customerEmail,
         customerEmirate: params.customerEmirate,
         locale: params.locale,
+        ...params.metadata,
       },
       receipt_email: params.customerEmail,
     }, {

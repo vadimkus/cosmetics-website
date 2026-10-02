@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { attributionToStripeMetadata, readMetaAttribution } from '@/lib/metaCapi'
 import { checkoutSelectionError, resolveCheckoutSelection } from '@/lib/checkoutSelection'
 import * as Sentry from '@sentry/nextjs'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -116,7 +117,8 @@ export async function POST(request: NextRequest) {
       customerAddress,
       orderNotes: rawOrderNotes,
       redeemPoints,
-      locale 
+      locale,
+      metaConsent
     } = await request.json()
 
     // Optional customer delivery notes (length-capped, plain text)
@@ -471,7 +473,8 @@ export async function POST(request: NextRequest) {
       customerEmirate,
       orderNumber: orderId,
       locale: locale || 'en',
-      description: `Order ${orderId}: ${description}`
+      description: `Order ${orderId}: ${description}`,
+      metadata: attributionToStripeMetadata(readMetaAttribution(request, metaConsent)),
     })
 
     // Create order in database with PENDING status

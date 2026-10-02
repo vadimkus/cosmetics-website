@@ -113,6 +113,17 @@ pass + card clip + review sheet + mapping), `cv_harvest.py` (see below).
   bb_sensitive, 68, pdrn_5000_new, cera_o, 11, 10, 28 (takes exist but are not clean) and everything
   from 30 on in `queue.json`.
 
+### Resumed 22:16 (after one physical click in CapCut)
+
+- `cv_gen.py`: queue a take, wait for its new file in `ai_material` (a name not there before; a
+  download re-touches older files), recover it; if it does not decode cleanly, try CapCut's own
+  download of the newest tile; up to 4 takes per product. `set_image` now waits for the "Open" panel
+  and refuses to generate on an empty slot (two takes ran as text-to-video before that fix).
+- **Shipped:** cera_o, bb_sensitive, pdrn_5000_new, 10.
+- **Not done:** 68, 11, 28, 30, 29. From about 23:00 every take had half-masked samples and every
+  CapCut download came back black again, the same decay as at 19:40, about an hour after a restart.
+  Stopped at 23:55; 4184 credits left.
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

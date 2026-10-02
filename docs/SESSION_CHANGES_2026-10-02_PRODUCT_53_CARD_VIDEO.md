@@ -1,0 +1,44 @@
+# 2026-10-02 — Product 53 card hover video (pilot)
+
+First product card with a hover clip: Intensive Repair Collagen Mask (53), a soft light sweep across
+the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
+
+## Behaviour
+
+- `lib/productCardVideos.ts` maps a card **main image path** to a clip, so a new main image drops the
+  video automatically until a matching clip is made.
+- `components/ProductCard/CardHoverVideo.tsx`: enabled only on `(hover: hover) and (pointer: fine)`
+  with reduced motion off. The `src` mounts on the first mouse hover (`preload="none"`), plays muted
+  and looped, shows on `playing`, fades out over 200 ms on leave, then pauses and rewinds.
+- `components/ProductCard/ProductImage.tsx` renders it over the non-PWA card image.
+- Checked on local dev (`/products`): clip mounts on hover, plays at opacity 1, on leave opacity 0,
+  paused, `currentTime` 0; one video element on the page.
+
+## Shoot (CapCut → AI video)
+
+- **Multiframes** (Dreamina Seedance Multiframes, photo as first and last frame): every job ended
+  "Generation timed out", and CapCut resubmitted them itself (8 tiles from 4 clicks). 350 credits,
+  nothing usable. Do not use Multiframes for card loops.
+- **Image to video**, Dreamina Seedance 2.5, one first frame (`collagen_campaign/main-v2.jpg`),
+  5 s, 720p, 1:1, audio off, 185 credits. Prompt:
+  > Studio product shot on a pure white background. The sachet stays perfectly still. A soft band of
+  > light slowly glides across the foil from left to right, a gentle glossy highlight, and has left
+  > the sachet by the fourth second. Static camera.
+- Take: 960×960, 24 fps. Had a faint white "Ai" badge top-left from ~frame 20, and Seedance redrew
+  the red slightly more orange (G 36 vs 20 in the photo).
+
+## Processing
+
+- Workspace `~/Desktop/Insta_Olga/collagen53/video/` (`53_take1.mp4`, `c53_prep.py`, sheets, GIF).
+- `c53_prep.py`: keeps the real photo in every frame and adds only the light,
+  `out = photo + blur(take[n] − take[0.5 s])`, badge corner held at the photo's white, cut
+  0.5–4.5 s, last 0.4 s eases back to the photo.
+- `scripts/cards/make-card-video.py` → `public/videos/cards/53-v1.mp4`: 600×600, 4 s, H.264, no
+  audio, 44 KB, no c2pa/jumb/CapCut/Lavf/x264/Lavc bytes; frame 1 and last frame vs photo 2.48 / 2.47.
+- `__tests__/lib/productCardVideos.test.ts` guards the mapping, file size and metadata.
+
+## Next card
+
+Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"
+invite drops), then `c53_prep.py`-style photo + light delta, then `make-card-video.py`. New clip =
+new filename (`/videos` is immutable-cached).

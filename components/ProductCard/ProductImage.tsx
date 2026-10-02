@@ -1,6 +1,6 @@
 'use client'
 
-import { memo } from 'react'
+import { memo, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -9,6 +9,8 @@ import { errorLog } from '@/lib/logger'
 import { restockNote } from '@/lib/restockInfo'
 import { useTranslation } from '@/hooks/useTranslation'
 import { productTransitionName } from '@/lib/productViewTransition'
+import { cardVideoFor } from '@/lib/productCardVideos'
+import CardHoverVideo from './CardHoverVideo'
 import type { ProductImageProps } from './types'
 
 /**
@@ -59,6 +61,9 @@ const ProductImage = memo(function ProductImage({
     transitionName ? ' product-vt-image' : ''
   }`
   const imageClass = `w-full h-full object-contain ${isRevitaGlow ? 'scale-110' : ''}`
+  // Web only: the PWA and phones keep the still photo.
+  const hoverVideo = isPWA ? null : cardVideoFor(product.image)
+  const hostRef = useRef<HTMLDivElement>(null)
   
   // PWA-specific touch handling styles
   const pwaStyles = {
@@ -76,7 +81,7 @@ const ProductImage = memo(function ProductImage({
   }
   
   return (
-    <div className="relative overflow-hidden">
+    <div ref={hostRef} className="relative overflow-hidden">
       {/* Product Image - Use direct navigation for PWA, Link for web */}
       {isPWA ? (
         <div 
@@ -134,6 +139,7 @@ const ProductImage = memo(function ProductImage({
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
             />
+            {hoverVideo ? <CardHoverVideo src={hoverVideo} hostRef={hostRef} /> : null}
           </motion.div>
         </Link>
       ) : (
@@ -160,6 +166,7 @@ const ProductImage = memo(function ProductImage({
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
             />
+            {hoverVideo ? <CardHoverVideo src={hoverVideo} hostRef={hostRef} /> : null}
           </motion.div>
         </Link>
       )}

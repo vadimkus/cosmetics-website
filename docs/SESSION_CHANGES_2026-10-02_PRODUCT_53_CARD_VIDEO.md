@@ -62,6 +62,16 @@ the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
 - `public/videos/cards/37-v1.mp4`: 600×600, 4.0 s, 39 KB, no forbidden bytes; frame 1 / last vs photo
   2.38 / 2.30.
 
+## Replay fix (`0ca006915`)
+
+- A repeat-hover test showed the clip playing at opacity 0 on later hovers: the replay after
+  pause + rewind did not always fire `playing`, which was the only thing that made the clip visible.
+- `CardHoverVideo` now shows the clip when `play()` resolves, guarded by a `hovering` ref so a late
+  resolve or `playing` event can never show it after the mouse has left.
+- Live check (peptide card, media-event listeners attached): 4/4 hovers play, show and rewind on
+  leave. Synthetic `PointerEvent`s fired right after page load still miss occasionally; confirm with a
+  real mouse.
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

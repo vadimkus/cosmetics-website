@@ -10,8 +10,15 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/collagen_campaign/main-v2.jpg': '/videos/cards/53-v1.mp4',
   '/images/seaalgae_campaign/main.jpg': '/videos/cards/36-v1.mp4',
   '/images/peptide_campaign/main-v2.jpg': '/videos/cards/37-v1.mp4',
+  '/images/bb_age_campaign/main.jpg': '/videos/cards/bb_age-v1.mp4',
+  '/images/bb_charming_campaign/main.jpg': '/videos/cards/bb_charming-v1.mp4',
+  '/images/bb_deep_campaign/main.jpg': '/videos/cards/bb_deep-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {
   return (image && CARD_VIDEOS[image]) || null
+}
+
+export function cardVideoEntries(): Array<[string, string]> {
+  return Object.entries(CARD_VIDEOS)
 }

@@ -1,16 +1,18 @@
 import fs from 'fs'
 import path from 'path'
 
-import { cardVideoFor } from '@/lib/productCardVideos'
+import { cardVideoEntries, cardVideoFor } from '@/lib/productCardVideos'
 
 const PUBLIC = path.join(process.cwd(), 'public')
-const MAPPED: Array<[string, string]> = [
-  ['/images/collagen_campaign/main-v2.jpg', '/videos/cards/53-v1.mp4'],
-  ['/images/seaalgae_campaign/main.jpg', '/videos/cards/36-v1.mp4'],
-  ['/images/peptide_campaign/main-v2.jpg', '/videos/cards/37-v1.mp4'],
-]
+const MAPPED = cardVideoEntries()
 
 describe('product card hover videos', () => {
+  it('maps the three pilot masks', () => {
+    expect(cardVideoFor('/images/collagen_campaign/main-v2.jpg')).toBe('/videos/cards/53-v1.mp4')
+    expect(cardVideoFor('/images/seaalgae_campaign/main.jpg')).toBe('/videos/cards/36-v1.mp4')
+    expect(cardVideoFor('/images/peptide_campaign/main-v2.jpg')).toBe('/videos/cards/37-v1.mp4')
+  })
+
   it.each(MAPPED)('%s maps to an existing, light clip', (image, video) => {
     expect(cardVideoFor(image)).toBe(video)
     expect(fs.existsSync(path.join(PUBLIC, image))).toBe(true)
@@ -19,8 +21,13 @@ describe('product card hover videos', () => {
     expect(fs.statSync(file).size).toBeLessThan(400 * 1024)
   })
 
+  it('gives every clip its own file', () => {
+    const videos = MAPPED.map(([, v]) => v)
+    expect(new Set(videos).size).toBe(videos.length)
+  })
+
   it('returns null for unmapped or missing images', () => {
-    expect(cardVideoFor('/images/eye_serum/main-v2.jpg')).toBeNull()
+    expect(cardVideoFor('/images/not-a-card/main.jpg')).toBeNull()
     expect(cardVideoFor(null)).toBeNull()
     expect(cardVideoFor(undefined)).toBeNull()
   })

@@ -21,6 +21,16 @@ export default function CardHoverVideo({ src, hostRef }: Props) {
   const [loaded, setLoaded] = useState(false)
   const [visible, setVisible] = useState(false)
   const rewind = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hovering = useRef(false)
+
+  const play = useCallback(() => {
+    const v = videoRef.current
+    if (!v) return
+    // A replay after pause + rewind does not always fire `playing`, so show on the resolved promise,
+    // and only if the mouse is still on the card by then.
+    v.play().then(() => { if (hovering.current) setVisible(true) })
+      .catch(() => { /* autoplay refused: the photo simply stays */ })
+  }, [])
 
   useEffect(() => {
     const hover = window.matchMedia('(hover: hover) and (pointer: fine)')
@@ -36,16 +46,14 @@ export default function CardHoverVideo({ src, hostRef }: Props) {
   }, [])
 
   const start = useCallback(() => {
+    hovering.current = true
     if (rewind.current) clearTimeout(rewind.current)
     setLoaded(true)
-    const v = videoRef.current
-    if (!v) return
-    // Back on the card inside the fade-out: still playing, so no new `playing` event.
-    if (!v.paused) setVisible(true)
-    v.play().catch(() => { /* autoplay refused: the photo simply stays */ })
-  }, [])
+    play()
+  }, [play])
 
   const stop = useCallback(() => {
+    hovering.current = false
     setVisible(false)
     rewind.current = setTimeout(() => {
       const v = videoRef.current
@@ -71,8 +79,8 @@ export default function CardHoverVideo({ src, hostRef }: Props) {
 
   // The first hover mounts the source; play once the element exists.
   useEffect(() => {
-    if (loaded) videoRef.current?.play().catch(() => {})
-  }, [loaded])
+    if (loaded) play()
+  }, [loaded, play])
 
   if (!enabled) return null
 
@@ -86,7 +94,7 @@ export default function CardHoverVideo({ src, hostRef }: Props) {
       preload="none"
       aria-hidden="true"
       tabIndex={-1}
-      onPlaying={() => setVisible(true)}
+      onPlaying={() => { if (hovering.current) setVisible(true) }}
       className="pointer-events-none absolute inset-0 h-full w-full object-contain"
       style={{ opacity: visible ? 1 : 0, transition: `opacity ${FADE_MS}ms ease` }}
     />

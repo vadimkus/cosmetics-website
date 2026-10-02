@@ -44,3 +44,13 @@ Without the token the server side is a no-op; the browser pixel works on its own
 ## Tests
 
 `__tests__/lib/metaCapi.test.ts`, `__tests__/lib/metaPixel.test.ts`.
+
+## Status (2 Oct 2026)
+
+- Shipped in `3c266d723`. Live check on genosys.ae: with consent the pixel loads dataset 1644419117314458
+  (`fbq.getState()` eventCount 4 after two product pages: PageView + ViewContent each); without consent no
+  Meta script and no request; the banner shows Accept.
+- **Open:** the Conversions API token. Events Manager greys out "Generate access token" for scripted clicks;
+  Vadim generates it (Settings → Conversions API → Set up without Dataset Quality API → Generate access token)
+  and it goes into Vercel as `META_CAPI_ACCESS_TOKEN`, then redeploy. Until then Purchase comes from the
+  browser pixel only.

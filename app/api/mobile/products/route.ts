@@ -10,6 +10,7 @@ import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
 import { beautyBoxImagesJson } from '@/lib/beautyBoxGallery'
+import { cardVideoFor } from '@/lib/productCardVideos'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -358,6 +359,8 @@ export async function GET(request: NextRequest) {
         // Studio slides carry their claims as printed text, so a translated set is served
         // where one exists. Same mapping the website uses.
         image: localizeProductImage(p.image, locale),
+        // Keyed on the photo the card shows, so a translated main simply gets no clip.
+        cardVideo: cardVideoFor(localizeProductImage(p.image, locale)),
         images: localizeProductImagesJson(
           beautyBoxImagesJson(dbRow?.productNumber ?? null, p.image, p.images, mainImageByNumber),
           locale

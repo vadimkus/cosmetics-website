@@ -61,8 +61,8 @@ const ProductImage = memo(function ProductImage({
     transitionName ? ' product-vt-image' : ''
   }`
   const imageClass = `w-full h-full object-contain ${isRevitaGlow ? 'scale-110' : ''}`
-  // Web only: the PWA and phones keep the still photo.
-  const hoverVideo = isPWA ? null : cardVideoFor(product.image)
+  // Hover loop on desktop, one in-view sweep on touch screens and in the PWA (see CardHoverVideo).
+  const hoverVideo = cardVideoFor(product.image)
   const hostRef = useRef<HTMLDivElement>(null)
   
   // PWA-specific touch handling styles
@@ -110,6 +110,7 @@ const ProductImage = memo(function ProductImage({
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
             />
+            {hoverVideo ? <CardHoverVideo src={hoverVideo} hostRef={hostRef} /> : null}
           </div>
         </div>
       ) : transitionName ? (

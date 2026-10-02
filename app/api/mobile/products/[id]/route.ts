@@ -11,6 +11,7 @@ import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
+import { cardVideoFor } from '@/lib/productCardVideos'
 import { beautyBoxImagesJson, beautyBoxMemberNumbers, isBeautyBoxNumber } from '@/lib/beautyBoxGallery'
 import { getBespokeContent } from '@/lib/bespokeContent'
 
@@ -326,6 +327,7 @@ export async function GET(
       // Studio slides carry their claims as printed text, so a translated set is served
       // where one exists. Same mapping the website uses; see lib/localizedProductImages.
       image: localizeProductImage(enhancedProduct.image, locale),
+      cardVideo: cardVideoFor(localizeProductImage(enhancedProduct.image, locale)),
       images: localizeProductImagesJson(
         beautyBoxImagesJson(typedProduct.productNumber, enhancedProduct.image, enhancedProduct.images, mainImageByNumber),
         locale

@@ -72,6 +72,23 @@ the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
   leave. Synthetic `PointerEvent`s fired right after page load still miss occasionally; confirm with a
   real mouse.
 
+## Mobile web, PWA and app
+
+- **Trigger on touch:** no hover, so the clip plays when the card comes to rest in view.
+  `lib/cardVideoInView.ts` is one page-wide coordinator: 300 ms after scrolling stops, the registered
+  card nearest the middle of the viewport (≥ 70% visible, not yet played this visit, kept in
+  `sessionStorage` `genosys:card-video-played`) plays one sweep, no loop, then fades back. One card at a
+  time; a card that scrolls off stops; when one finishes, the next card in view may take the turn.
+- `CardHoverVideo` picks a mode: `hover` (fine pointer, as before) or `inview` (touch). Off under
+  reduced motion, `saveData` and slow (`2g`/`3g`) connections. Autoplay refused (iOS Low Power Mode):
+  the card is marked done and the photo stays. The PWA now gets the clip too (it was web-only).
+- **Mobile API:** `cardVideo` on `/api/mobile/products` and `/api/mobile/products/[id]`, keyed on the
+  localized main the card shows (the three mask mains are not translated, so RU/AR get it too).
+- Checked on local dev with phone emulation (390×844, touch): starts 300 ms after the last scroll
+  event, plays once, fades back, not replayed on further scrolling; only one clip plays at a time.
+- Tests: `__tests__/lib/cardVideoInView.test.ts` (centre-most wins, played/off-screen skipped, hand-off,
+  stop on scroll-off).
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

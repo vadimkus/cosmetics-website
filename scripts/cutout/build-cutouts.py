@@ -291,7 +291,8 @@ REVISION = {
     "16": 3,
     # "Water, not oil." main (problemcream_v2/main.jpg, 30 Sep 2026): both tubes on white.
     "30": 2,
-    "53": 2,
+    # 3: white-canvas main without the gel drops (collagen_campaign/main-v2.jpg, 2 Oct 2026).
+    "53": 3,
     # 3: white-canvas main without the ice (peptide_campaign/main-v2.jpg, 1 Oct 2026); the
     # CLONE repair for the ice cube over the seal was removed with it.
     "37": 3,

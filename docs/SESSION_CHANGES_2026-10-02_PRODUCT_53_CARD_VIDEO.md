@@ -89,6 +89,30 @@ the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
 - Tests: `__tests__/lib/cardVideoInView.test.ts` (centre-most wins, played/off-screen skipped, hand-off,
   stop on scroll-off).
 
+## Batch: every other product (evening, 2 Oct)
+
+Workspace `~/Desktop/Insta_Olga/cardvideos/` (not in the repo): `queue.json` (62 products, SRS left
+out), `cv_batch.py` (queue one take, wait, download, match by first frame), `cv_process.py` (light
+pass + card clip + review sheet + mapping), `cv_harvest.py` (see below).
+
+- **Shipped:** beauty boxes age, charming, deep, bright, problem (Seedance 2.5), then 6000
+  (Seedance 2.0 Fast, 25 credits instead of 185; same 5 s · 720p · 1:1, audio off).
+- **"Black takes" were not failed generations.** From about 19:40 CapCut showed every new take as a
+  black tile and its own download saved an all-black file, but Seedance had rendered real clips. The
+  take is in `~/Movies/CapCut/User Data/Projects/com.lveditor.draft/0915/ai_material/`, XOR-masked
+  with one byte (whatever turns byte 0 into 0x00) over ftyp + the C2PA uuid box, some top-level boxes
+  and runs of video samples; the rest is raw. Per-file keys sit in the project's
+  `crypto_key_store.dat` (4-byte length + zlib BSON, `cipher_key` / `cipher_type 2` / `uri`).
+  `cv_harvest.py` unmasks each top-level box and each whole sample, and keeps the uuid box as 'free'
+  padding so chunk offsets stay valid.
+- **Only takes that decode cleanly after that are used.** Some masked runs start inside a sample.
+  `cv_repair.py` can make those decode without an ffmpeg error, but the pixels were still corrupt
+  (68, 28, pdrn_5000_new: garbled labels, block smears), so those clips were deleted, not shipped.
+- **Blocked:** after a CapCut restart (to clear the black tiles) the project window ignores
+  synthetic clicks, full screen or windowed, so no new takes could be queued. Products still to do:
+  bb_sensitive, 68, pdrn_5000_new, cera_o, 11, 10, 28 (takes exist but are not clean) and everything
+  from 30 on in `queue.json`.
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

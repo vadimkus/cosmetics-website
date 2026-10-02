@@ -14,7 +14,7 @@ make-card-video.py (run that with --start 0 --dur <end-start>).
 Needs cv2 (~/.venvs/capcut/bin/python).
 
 usage: light-pass.py <take.mp4> <photo.jpg> <out.mkv> [--start 0.5] [--end 4.5] [--fade 0.4]
-                     [--blur 2.5] [--gain 1] [--brighten-only] [--badge 150x115]
+                     [--blur 2.5] [--gain 1] [--brighten-only] [--neutral] [--badge 150x115]
 """
 import argparse
 import json
@@ -44,6 +44,7 @@ def main():
     ap.add_argument('--blur', type=float, default=2.5)
     ap.add_argument('--gain', type=float, default=1.0)
     ap.add_argument('--brighten-only', action='store_true')
+    ap.add_argument('--neutral', action='store_true', help='apply the light as white (drops a warm or cool tint)')
     ap.add_argument('--badge', default='150x115', help='top-left corner held at the photo, WxH at take size')
     a = ap.parse_args()
 
@@ -69,6 +70,8 @@ def main():
             if ref is None:
                 ref = f
             delta = f - ref
+            if a.neutral:
+                delta = np.repeat(delta.mean(axis=2, keepdims=True), 3, axis=2)
             if a.brighten_only:
                 delta = np.maximum(delta, 0)
             delta = cv2.GaussianBlur(delta, (0, 0), a.blur) * a.gain

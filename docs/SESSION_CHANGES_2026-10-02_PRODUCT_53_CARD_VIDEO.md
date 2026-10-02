@@ -49,6 +49,19 @@ the foil. Desktop mouse only; phones, PWA and the app keep the still photo.
 - `public/videos/cards/36-v1.mp4`: 600×600, 4.25 s, 59 KB, no forbidden bytes; frame 1 / last vs photo
   2.20 / 2.13. Mapped in `lib/productCardVideos.ts`, covered by the test.
 
+## Product 37 — Peptide Gel Mask (sachet + box)
+
+- Same shoot on `peptide_campaign/main-v2.jpg`, prompt adapted to both packs ("The sachet and the box
+  stay perfectly still… glides across both packs…"), 185 credits (balance 3,511). Take
+  `~/Desktop/Insta_Olga/peptide37/video/37_take1.mp4`.
+- The screen locked mid-download: CapCut's own cache copy (`…/0915/ai_material/<uuid>.mp4`) stalls
+  without a moov atom while locked. Download from the Generations panel after unlocking.
+- Take had a warm golden glare band and a lens-flare starburst on the box from 4.5 s. Cut at 4.0 s and
+  added `--neutral` to `light-pass.py` (light applied as white):
+  `--start 0 --end 4.0 --blur 12 --gain 0.6 --brighten-only --neutral`.
+- `public/videos/cards/37-v1.mp4`: 600×600, 4.0 s, 39 KB, no forbidden bytes; frame 1 / last vs photo
+  2.38 / 2.30.
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

@@ -67,6 +67,11 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/aws_campaign/main.jpg': '/videos/cards/9-v1.mp4',
   '/images/cts_campaign/main.jpg': '/videos/cards/6-v1.mp4',
   '/images/hes_power/main.jpeg': '/videos/cards/4-v1.mp4',
+  '/images/hair_sol_o/Main.jpeg': '/videos/cards/45-v1.mp4',
+  '/images/mesopecia_tend/main-v2.jpg': '/videos/cards/70-v1.mp4',
+  '/images/ez_mask/main.jpeg': '/videos/cards/38-v1.mp4',
+  '/images/sensitive_serum/main-v2.jpg': '/videos/cards/19-v1.mp4',
+  '/images/roller_campaign/main.jpg': '/videos/cards/1-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

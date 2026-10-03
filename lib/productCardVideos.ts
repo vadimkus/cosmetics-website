@@ -24,6 +24,7 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/defender_0/Main.jpeg': '/videos/cards/11-v1.mp4',
   '/images/hydro_soothing_o/main-v2.jpg': '/videos/cards/28-v1.mp4',
   '/images/multifunc_cream/main-v2.jpg': '/videos/cards/32-v1.mp4',
+  '/images/radiance/main-v2.jpg': '/videos/cards/31-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

@@ -44,6 +44,8 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/pdrn_mask_new/Main.jpeg': '/videos/cards/52-v1.mp4',
   '/images/overnight/main-v2.jpeg': '/videos/cards/34-v1.mp4',
   '/images/eyeroller_art/main.jpg': '/videos/cards/69-v1.mp4',
+  '/images/cvs_campaign/main.jpg': '/videos/cards/5-v1.mp4',
+  '/images/pcs_v/Main.jpeg': '/videos/cards/7-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

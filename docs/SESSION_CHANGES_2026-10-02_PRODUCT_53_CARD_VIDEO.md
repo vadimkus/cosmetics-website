@@ -135,6 +135,21 @@ pass + card clip + review sheet + mapping), `cv_harvest.py` (see below).
   30, 29, 25, 23, 27, 41, revita_o shipped. Rejected: 14 (its only take was mostly corrupt white, so
   the clip did not move), 41's second take (grey wash).
 - Remaining: 40 products with no take yet (42 onward in `queue.json`, plus 14).
+- Afternoon/evening, `cv_gen.py` (one take per try, two tries, gated on first-frame diff, decode
+  errors, `jumps` and `score`): 3, 24, 33, 42, 48, 49, 50, 51, 34, 35, 52, 69, then 5, 7, 8, 12, 43,
+  44, brush_o, 46, needles2, 67, 18, 22, 21, 20, 40, 39, 15, 14, 16, 17, 9, 6, 4, 45, 70, 38, 19, 1.
+  **Every product in `queue.json` now has a card video (65 mappings with 53, 36, 37).**
+- Pitfalls hit and guarded:
+  - After a CapCut restart the AI video panel can open on **Omni reference**; the photo then becomes a
+    loose reference and the take no longer starts on it (4 takes lost). `cv_setup.py` clicks
+    "Image to video" and `settings_ok()` compares the tab row with `mode_ref.npy`.
+  - CapCut crashed once (19:14) and reopened on AI image; rerun `cv_setup.py` after any relaunch.
+  - Generation slowed to 15-22 min per take for an hour; `WAIT` is now 35 min. Never relaunch while
+    an old take is still generating, or it lands as the next product's take.
+  - CapCut renames its temp download when complete; `new_take` now tolerates the file vanishing.
+  - Takes with smeared first frames (45, 70, 38) or a grey haze in the clip (1) are random masking
+    damage; a fresh take fixed every one.
+- Light is faint on 14 and 16 (peak light 11-15) but clean.
 
 ## Next card
 

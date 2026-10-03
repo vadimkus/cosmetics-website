@@ -20,6 +20,9 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/bb_sensitive_campaign/main.jpg': '/videos/cards/bb_sensitive-v1.mp4',
   '/images/pdrn_5000_new/main2c.jpg': '/videos/cards/pdrn_5000_new-v1.mp4',
   '/images/snowo2_campaign/main.jpg': '/videos/cards/10-v1.mp4',
+  '/images/glass_skin_campaign/main.jpg': '/videos/cards/68-v1.mp4',
+  '/images/defender_0/Main.jpeg': '/videos/cards/11-v1.mp4',
+  '/images/hydro_soothing_o/main-v2.jpg': '/videos/cards/28-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

@@ -40,6 +40,10 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/patch/main-v2.jpg': '/videos/cards/33-v1.mp4',
   '/images/eyekit_campaign/main-v2.jpg': '/videos/cards/50-v1.mp4',
   '/images/bio_ferment2/main.jpeg': '/videos/cards/51-v1.mp4',
+  '/images/hydro_o/Main.jpeg': '/videos/cards/35-v1.mp4',
+  '/images/pdrn_mask_new/Main.jpeg': '/videos/cards/52-v1.mp4',
+  '/images/overnight/main-v2.jpeg': '/videos/cards/34-v1.mp4',
+  '/images/eyeroller_art/main.jpg': '/videos/cards/69-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

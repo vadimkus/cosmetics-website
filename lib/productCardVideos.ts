@@ -61,6 +61,12 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/multisun_campaign/main.jpg': '/videos/cards/40-v1.mp4',
   '/images/ultra/main-v4.jpg': '/videos/cards/39-v1.mp4',
   '/images/pct_campaign/main-v2.jpg': '/videos/cards/15-v1.mp4',
+  '/images/mist_0/Main.jpeg': '/videos/cards/14-v1.mp4',
+  '/images/booster_campaign/main-v2.jpg': '/videos/cards/16-v1.mp4',
+  '/images/eye_serum/main-v2.jpg': '/videos/cards/17-v1.mp4',
+  '/images/aws_campaign/main.jpg': '/videos/cards/9-v1.mp4',
+  '/images/cts_campaign/main.jpg': '/videos/cards/6-v1.mp4',
+  '/images/hes_power/main.jpeg': '/videos/cards/4-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

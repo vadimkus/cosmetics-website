@@ -41,10 +41,13 @@ type LocalizedSlide = string | readonly [defaultFile: string, localizedFile: str
 const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly LocalizedSlide[]>>> = {
   // Product 66, CERABARRIER BIOME GEL CLEANSER. Main.jpeg is a packshot with no text on
   // it, so it is deliberately absent from both languages: there is nothing to translate
-  // and shipping a second identical file would only cost a download.
+  // and shipping a second identical file would only cost a download. m1-m7 are the
+  // minimalist slides added on 3 Oct 2026, interleaved with the studio set.
   '/images/cera_o': {
-    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
-    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
+    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg',
+      'm1.jpg', 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 'm7.jpg'],
+    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg',
+      'm1.jpg', 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 'm7.jpg'],
   },
   // Product 65, BIO-MESO PDRN HOMECARE AMPOULE 5000. The supplied translated
   // exports were numbered by sequence rather than by their English counterparts;

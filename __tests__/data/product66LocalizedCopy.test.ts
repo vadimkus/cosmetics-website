@@ -15,12 +15,19 @@ import ruMessages from '@/messages/ru.json'
 
 const productId = 'cmr6dajor031ygfnm6rsjkicf'
 const gallery = [
+  '/images/cera_o/m1.jpg',
   '/images/cera_o/s1.jpeg',
   '/images/cera_o/s2.jpeg',
+  '/images/cera_o/m2.jpg',
   '/images/cera_o/s3.jpeg',
+  '/images/cera_o/m3.jpg',
   '/images/cera_o/s4.jpeg',
+  '/images/cera_o/m4.jpg',
   '/images/cera_o/s5.jpeg',
+  '/images/cera_o/m5.jpg',
   '/images/cera_o/s6.jpeg',
+  '/images/cera_o/m6.jpg',
+  '/images/cera_o/m7.jpg',
   '/images/cera_o/s7.jpeg',
 ]
 

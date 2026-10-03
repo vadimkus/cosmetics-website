@@ -25,6 +25,13 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/hydro_soothing_o/main-v2.jpg': '/videos/cards/28-v1.mp4',
   '/images/multifunc_cream/main-v2.jpg': '/videos/cards/32-v1.mp4',
   '/images/radiance/main-v2.jpg': '/videos/cards/31-v1.mp4',
+  '/images/problemcream_v2/main.jpg': '/videos/cards/30-v1.mp4',
+  '/images/mhcream_campaign/main-v2.jpg': '/videos/cards/29-v1.mp4',
+  '/images/soothing_rep_o/Main.jpeg': '/videos/cards/25-v1.mp4',
+  '/images/nd_cell_o/Main.jpeg': '/videos/cards/23-v1.mp4',
+  '/images/skin_barr/main-v2.jpg': '/videos/cards/27-v1.mp4',
+  '/images/cushion_campaign/main.jpg': '/videos/cards/41-v1.mp4',
+  '/images/revita_o/main-v2.jpg': '/videos/cards/revita_o-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

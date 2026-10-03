@@ -124,6 +124,18 @@ pass + card clip + review sheet + mapping), `cv_harvest.py` (see below).
   CapCut download came back black again, the same decay as at 19:40, about an hour after a restart.
   Stopped at 23:55; 4184 credits left.
 
+### 3 Oct
+
+- Shipped in the morning cycles: 68, 11, 28, 32, 31.
+- **Reusing takes already shot:** `cv_inventory.py` unmasks every take in `ai_material`, matches it to
+  a product and scores decode errors plus `cv_corrupt.jumps` (worst share of 16x16 blocks that jump
+  more than 50 levels between frames; good takes stay under 0.0025). A take with a few concealed
+  decode errors is still usable: the clip is the clean photo plus a blurred, brighten-only delta, so
+  small damage does not show. Judge the built clip, not the take. From 40 takes of seven products:
+  30, 29, 25, 23, 27, 41, revita_o shipped. Rejected: 14 (its only take was mostly corrupt white, so
+  the clip did not move), 41's second take (grey wash).
+- Remaining: 40 products with no take yet (42 onward in `queue.json`, plus 14).
+
 ## Next card
 
 Same recipe: Image to video, one first frame, short positive prompt (negatives like "no drops"

@@ -46,6 +46,21 @@ const CARD_VIDEOS: Readonly<Record<string, string>> = {
   '/images/eyeroller_art/main.jpg': '/videos/cards/69-v1.mp4',
   '/images/cvs_campaign/main.jpg': '/videos/cards/5-v1.mp4',
   '/images/pcs_v/Main.jpeg': '/videos/cards/7-v1.mp4',
+  '/images/sws_0/Main.jpeg': '/videos/cards/8-v1.mp4',
+  '/images/epi_peel_o/Main.jpeg': '/videos/cards/12-v1.mp4',
+  '/images/tonic_campaign/main.jpg': '/videos/cards/43-v1.mp4',
+  '/images/shampoo_o/Main.jpeg': '/videos/cards/44-v1.mp4',
+  '/images/brush_o/Main2.jpeg': '/videos/cards/brush_o-v1.mp4',
+  '/images/scalp_campaign/main-v2.jpg': '/videos/cards/46-v1.mp4',
+  '/images/needles2/Main.jpeg': '/videos/cards/needles2-v1.mp4',
+  '/images/stamp_scalp/main.jpg': '/videos/cards/67-v1.mp4',
+  '/images/hsserum_v2/main.jpg': '/videos/cards/18-v1.mp4',
+  '/images/multif_serum/main-v2.jpg': '/videos/cards/22-v1.mp4',
+  '/images/radiance_serum/main-v2.jpg': '/videos/cards/21-v1.mp4',
+  '/images/problems_serum/main-v2.jpg': '/videos/cards/20-v1.mp4',
+  '/images/multisun_campaign/main.jpg': '/videos/cards/40-v1.mp4',
+  '/images/ultra/main-v4.jpg': '/videos/cards/39-v1.mp4',
+  '/images/pct_campaign/main-v2.jpg': '/videos/cards/15-v1.mp4',
 }
 
 export function cardVideoFor(image: string | null | undefined): string | null {

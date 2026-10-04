@@ -18,7 +18,7 @@ const gallery = [
   '/images/cera_o/m1j.jpg',
   '/images/cera_o/s1.jpeg',
   '/images/cera_o/s2.jpeg',
-  '/images/cera_o/m2j.jpg',
+  '/images/cera_o/m2k.jpg',
   '/images/cera_o/s3.jpeg',
   '/images/cera_o/m3j.jpg',
   '/images/cera_o/s4j.jpeg',

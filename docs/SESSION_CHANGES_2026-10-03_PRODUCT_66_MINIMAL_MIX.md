@@ -102,3 +102,13 @@ Vadim: take the deck hydration figures out of the English copy too, and reshoot 
 - Tests: 46 suites, 541 passing (`ProductQuickFactsHelper` now expects "Amino-acid cleansing"). Commit `fdb77e2dd`.
 - The RU/AR base objects `_RU` / `_AR` in `cerabarrierCopy.ts` still hold the old figures but every such field is
   overridden by RU_AUDITED / AR_AUDITED, so none of it renders.
+
+## 4 Oct 2026: Seedance 2.5 reel kit ("Washed. Still soft.")
+
+- `~/Desktop/Cerabarrier_66_Reel/`: `SEEDANCE_PROMPT.txt` (20 s, 9:16, 11 shots, ~104 BPM warm minimal deep
+  house with water-drop percussion and a wordless hum, no lyrics; end hold on white 18.2–20 s for the end card)
+  and `seedance_refs/` 01–11, all text-free: Main, n1 silk + water, n2 brick wall, n3 five spheres, n5
+  dandelion, n6 gel drop, s3 cropped to the gel/water/foam strip (x ≥ 440), s4 clean plate (water face),
+  s6 cropped to cheek + fingertips (x ≥ 650, clear of "NO TIGHTNESS."), n8 sun + crescent, n7 two sizes on red.
+- Product lock: two white pump bottles (600 ml / 200 ml), pumps never pressed, nothing dispensed; gel and foam
+  appear only as their own texture shot. Visuals carry no claims; headlines come in the type pass.

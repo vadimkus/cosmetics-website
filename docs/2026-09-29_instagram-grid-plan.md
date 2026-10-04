@@ -135,6 +135,18 @@ Mock: `~/Desktop/Insta_Olga/grid_plan_next3.jpg`. Space them ~2 days apart.
 - localhost.run tunnel dropped mid-transfer (503) and ran at ~90 KB/s; restarted, 18 MB took ~4 min in-page.
 - Next: Snow O2 10 campaign. A real-people post is still overdue.
 
+## Posted 4 Oct 2026: CERABARRIER 66 carousel + reel
+
+- **Carousel** https://www.instagram.com/genosys.uae/p/DeEEobfjBk0/ : 14 slides fetched from the live site
+  (`cera_o/Main, m1, s1, s2, m2b, s3, m3, s4b, m4b, s5, m5b, m6, m7b, s7`), 1:1, no location, AI label off.
+  `s6` ("NO TIGHTNESS.", a claim the 21 Aug audit removed) left out. Caption 900 chars on the audited facts,
+  live on first share (`configure_sidecar`), 10 hashtags.
+- **Reel** https://www.instagram.com/genosys.uae/reel/DeEFbS4qJ1O/ : 1080p upload copy (CRF 20, 10 MB) of
+  `GENOSYS_Cerabarrier_Reel_v1.mp4`, Original crop, sound on, custom red cover (two bottles on red,
+  "WASHED. STILL SOFT." set inside the 3:4 grid-safe area), AI label off. Caption 678 chars, live first time.
+- Grid top row: Cerabarrier reel (red) | Cerabarrier carousel (white) | tonetrendz collab reel.
+- Lesson: navigating the tab drops in-page blobs; post, then verify, then re-fetch for the next upload.
+
 ## Upload method, updated 30 Sep 2026 (replaces the localhost route above)
 
 - The Cursor browser now blocks every page from reaching `127.0.0.1` / `localhost` (local network access), even

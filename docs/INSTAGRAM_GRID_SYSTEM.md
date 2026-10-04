@@ -1,83 +1,84 @@
 # Instagram Grid System (@genosys.uae)
 
-Locked 4 Oct 2026. Applies to every feed post and reel from tile 1 onwards, for the next 100+ tiles.
-Earlier plan and post logs: `2026-09-29_instagram-grid-plan.md`.
+Approved 4 Oct 2026. Covers every new feed post and reel, starting from the next post. It replaces the
+"post = product, reel = face" rule tried earlier the same day. Earlier plan and post logs: `2026-09-29_instagram-grid-plan.md`.
 
-## The one rule
+## Decisions (Vadim, 4 Oct 2026)
 
-**Post = product. Reel = face.**
+1. **Campaign rows.** One product is one row of three tiles, all in that campaign's two colours.
+2. **Existing posts stay.** The 12 live tiles keep their place. Only their six reel covers are re-laid in the template.
+   Rows start above them with the next campaign.
+3. **Collabs go to Stories.** Remove ourselves from new clinic collab posts, so the post stays on the partner's grid, and share
+   it in Stories and a Clinics highlight.
 
-| Type | Grid tile shows | Background |
+## Standards this follows (2026)
+
+- The profile grid shows **3:4 tiles** (since Jan 2025). A 1080×1440 post shows uncropped; a square post loses its sides.
+- A reel cover is 1080×1920. The grid shows **y 240–1680**. The Reel icon sits top-right and the view count bottom-left, so no type goes in those corners.
+- **One cover template:** same font, same type position, 3–6 words, readable at 120 px wide.
+- **Layouts:** row themes suit campaign-led brands; colour trios are the Aesop and Kérastase pattern; puzzle grids are for launches only.
+- **Formats:** carousels lead engagement by reach (about 12.9% median, against 9.1% for single images). Reels reach non-followers.
+
+## The row
+
+Newest row on top, read left to right:
+
+| Left | Middle | Right |
 |---|---|---|
-| Carousel / photo post | The clean product packshot (same as the site main image) | Pure white |
-| Reel | A beauty face on the campaign colour, headline top-left | Campaign colour |
+| **HOOK**: the reel | **PROOF**: a carousel | **PRODUCT**: a carousel |
+| The campaign line (WASHED. STILL SOFT.) over the reel's strongest metaphor frame | One giant real number as the cover (5 CERAMIDES, +82%, 50+, 830 NM); slides are the doses and figures | The pack on the campaign colour, with sizes; slides are the product story, how-to, SHOP |
 
-Each campaign ships as a pair: carousel first, then its reel. With 3 columns, the pairs create a white product /
-colour face checkerboard, so the grid reads as one brand from a distance. A collab or third-party tile is
-fine anywhere. It breaks the rhythm for one tile only.
+- **Posting order:** PRODUCT first, then PROOF, then HOOK, all within about an hour, so the row is never left half-built.
+- **Colour:** all three tiles use the campaign's pack colour and concept colour (`campaign-slides-conceptual.mdc`). No white packshot tiles in new rows.
+- **Contrast:** alternate a light-dominant row with a dark-dominant row. Never put two rows from the same colour family next to each other.
+- **Source material:** the 12-slide campaign set splits into the two carousels (numbers, then story and pack), re-laid at 3:4. The reel is the campaign reel.
+- **Pins:** pin 0 or exactly 3 posts (a full brand row). Any other number shifts every row below it.
+- **Volume:** 100 tiles is 33 rows, which is 33 products. That's about 4 months at 2 rows a week.
 
-Never a product on a reel cover, never a face on a post's first slide. Never a lifestyle shot, a needle or tool, or a Dubai location (campaign
-rules in `.cursor/rules/campaign-slides-conceptual.mdc`).
+## Template
 
-## Geometry
+Spec sheet: `~/Desktop/Insta_Olga/grid/plan/TEMPLATE_safe_zones.jpg`.
 
-- The profile grid shows **3:4 tiles**.
-- Reel cover 1080×1920. The grid shows **y 240–1680**. Everything that matters sits in that band.
-- Posts are square or 4:5 and show centre-cropped to 3:4, so keep the product centred with side margin.
+- **Type:** Manrope Regular caps at x 72, with 72 px margins.
+  - Headline: 120 px, 2 lines at most, 3 words per line at most.
+  - Product line: 36 px, wrapped so it never crosses the subject.
+  - Optional kicker: 34 px.
+- **Reel cover (1080×1920):**
+  - The frame is a clean reel frame with no type and no generator mark.
+  - Headline zone y 330–650: headline baselines 450 / 575 (one line: 500), product line under it.
+  - Above 240 and below 1680 is background only.
+  - Built with `~/Desktop/Insta_Olga/grid/_scripts/reel_cover.py <key>`; frames go in `grid/frames/<key>.jpg`.
+  - Clean frames come from the raw Seedance render at the same timestamp (labels don't matter on frames without a pack). Fill generator marks with `clean=(x0, y0, x1, y1)`.
+- **Carousel cover (1080×1440):** the headline zone is the same position relative to the tile, y 90–410.
+- **Check:** `grid_preview.py plan.txt out.jpg` (3:4 tiles, newest first) before anything posts.
 
-## Reel cover template
+## Live covers (4 Oct 2026)
 
-Built by `~/Desktop/Insta_Olga/grid/_scripts/grid_cover.py`:
+`~/Desktop/Reel_Covers_Upload/01–06_*_cover.jpg` (source `grid/covers_v2/`), plus a mock-up in `GRID_after_cover_swap.jpg`.
 
-- The plate is a 1:1 CapCut face, scaled to 1440 and cropped to 1080 wide (`crop` 0 = left … 1 = right), filling the tile.
-- Above the tile, the backdrop continues. Below it, the shoulders dissolve into the backdrop over 160 px (the Reels UI sits there).
-- Type is Manrope Regular caps at x = 72:
-  - Optional kicker at 34 px, baseline 360.
-  - Headline at 104 px, baselines 430 / 540 (one line: 470).
-  - Product name at 32 px, shrunk to fit the width.
-- Ink is the campaign accent or white. On light backdrops it gets a white halo (`glow`); on dark ones, a soft shadow.
-- The headline is the campaign through-line (the same words as the carousel's first slide/reel), never a new slogan.
-
-## Face plate prompt (CapCut, GPT Image 2.5, 2k, 1:1, 4 takes)
-
-`grid_prompts.py` keeps the shared blocks:
-
-- **FRAME**: head and shoulders, face slightly right and low, top of the head about 32% down, the upper-left 40% empty backdrop.
-- **SKIN**: real pores, minimal make-up, hair back, bare shoulders, no jewellery.
-- **NEG**: no text, product, hands, towel, spa or city.
-- **Per campaign**: the backdrop colour, the subject, and one light idea that carries the story (droplets for a cleanser, mist for the toner, a lattice shadow for the cushion, red LED glow for the LED, a diagonal sun for the SPF).
-
-Rotate ethnicity and age across campaigns (East Asian, Arab, Mediterranean, South Asian, European) so the grid
-looks like the UAE customer base. Takes usually come out more centred than asked, so set the crop to 0.4–0.55.
-
-## Covers 1–12 (4 Oct 2026)
-
-| # | Tile | Cover |
+| Reel | Frame | Headline |
 |---|---|---|
-| 1 | CERABARRIER reel | cv1, blush, "WASHED. STILL SOFT." |
-| 2 | CERABARRIER post | white packshot (unchanged) |
-| 3 | tonetrendz collab | theirs (unchanged) |
-| 4 | MH Cream reel | cv2, navy, "SEALED FRESH." |
-| 5 | MH Cream post | white (unchanged) |
-| 6 | Cushion reel | cv3, sand + lattice, "SHADE TO GO." |
-| 7 | Cushion post | white (unchanged) |
-| 8 | GENO-LED reel | cv4, black + red glow, "FIVE LIGHTS. ONE DOME." |
-| 9 | GENO-LED post | white (unchanged) |
-| 10 | PCT Toner reel | cv5, cobalt + mist, "OIL OFF. COOL ON." |
-| 11 | PCT Toner post | white (unchanged) |
-| 12 | Ultra Shield reel | cv6, violet + sun, "THE SUN DOESN'T DO BOUNDARIES. WE DO." |
+| CERABARRIER | red silk under running water | WASHED. STILL SOFT. |
+| MH Cream | rose sealed under a glass dome | SEALED FRESH. |
+| Cushion | mashrabiya lattice light on sand | SHADE TO GO. |
+| GENO-LED | dome glowing red in black | FIVE LIGHTS. ONE DOME. |
+| PCT Toner | water crown on cobalt | OIL OFF. COOL ON. |
+| Ultra Shield | violet filter over half the face, sun on the other half | THE SUN DOESN'T DO BOUNDARIES. WE DO. |
 
-Files: `~/Desktop/Reel_Covers_Upload/` (covers + `GRID_before_after.jpg`). Working folder: `~/Desktop/Insta_Olga/grid/`.
+To swap a cover in the Instagram app (the web version can't change a live cover):
+1. Open the reel and tap ⋯ → **Edit** → **Edit cover**.
+2. Tap **Add from camera roll** and pick the cover.
+3. Tap **Done**, then **Done** again.
 
-## Swapping a live reel cover (Instagram app, phone)
+## Highlights
 
-Open the reel → ⋯ → **Edit** → **Edit cover** → **Add from camera roll** → pick the cover → **Done** → **Done**.
-The web version cannot change a cover after posting.
+Replace the five "🌟NEW🌟" highlights with 6–8 named groups (Cleanse, Hydrate, Sun, Eyes, Pro, Devices, Reviews,
+Clinics), all with one cover style: Manrope caps on the brand colour.
 
-## Per new campaign (checklist)
+## Per new row (checklist)
 
-1. Add a `cvN` prompt to `grid_prompts.py`: the campaign colour, a subject from the next ethnicity in the rotation, and one light idea.
-2. `./grid_batch.sh cvN` (CapCut) and pick the best of the 4 takes.
-3. Add `cvN` to `COVERS` with the plate, crop, ink, glow, headline and product name, then run `grid_cover.py cvN`.
-4. Add both tiles to the top of `plan_after.txt` and run `grid_preview.py plan_after.txt covers/_grid_after.jpg`, so the grid is checked before posting.
-5. Post the carousel (first slide = white main), then the reel with the cover uploaded at posting time.
+1. Pick the next product. Its row must contrast with the row above (light vs dark).
+2. Build PRODUCT and PROOF at 1080×1440 from the campaign slides. Each first slide follows the template.
+3. Take the HOOK frame from the reel, add it to `reel_cover.py`, and render.
+4. Add the three tiles to the top of the plan file and run `grid_preview.py`.
+5. Post PRODUCT, then PROOF, then HOOK, within about an hour. Upload the reel cover at posting time.

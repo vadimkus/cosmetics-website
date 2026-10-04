@@ -80,6 +80,29 @@ and add it to the Clinics highlight.
 With tonetrendz gone, the 12 live tiles fall into a reel / white-post checkerboard
 (`~/Desktop/Reel_Covers_Upload/GRID_after_cover_swap_no_collab.jpg`).
 
+## Batch 1: rows for Eye Kit, Sea Algae, Glass Skin and Bio-Meso (built 4 Oct 2026)
+
+Folder `~/Desktop/IG_Rows/` holds the slides, covers, reels, `README_POSTING.md` (order and all 12 captions) and
+`GRID_preview.jpg`. Built by `~/Desktop/Insta_Olga/grid/_scripts/build_rows.py`, with the row config in `ROWS`.
+
+| Post order | Row | Tone | HOOK (reel) | PROOF (cover) | PRODUCT (cover) |
+|---|---|---|---|---|---|
+| 1 | EyeCell Eye Kit 50 | black | RESTED EYES. | s7 20–40 MINUTES. | s11 ONE BOX. |
+| 2 | Sea Algae Mask 36 | mint | CALM ON CONTACT. | s7 15–20 MINUTES. | s3 SEA ALGAE + CENTELLA. |
+| 3 | Glass Skin Kit 68 | navy | FULL MOON GLOW. | s5 +82% | s11 A GIFT THAT GLOWS. |
+| 4 | Bio-Meso 60 | salmon | NEEDLESS TO SAY. | s11 FOUR MONTHS IN ONE BOX. | s12 3 ML × 4 |
+
+- **3:4 from square slides:** the slide sits centred. Above it, the backdrop colour and gradient are extrapolated; below it, a
+  softened reflection of the floor fades out within about 100 px. Mirroring the top was rejected because it reflected
+  the headlines.
+- **HOOK reels** (none of the four had a campaign reel): built from the campaign's own slides at 9:16.
+  - The hook runs 2.2 s, middle slides 1.5 s each, the closing card 2.8 s.
+  - Slow 3.5% push-in, 0.12 s blends. 0.35 s crossfades were rejected because they ghosted two headlines together.
+  - Silent track: add a trending sound in the app. The cover is the first frame.
+- **Slides left out:** Eye Kit s5 (needle macro), Sea Algae s6 (spa towel), Bio-Meso s2–s3 (instruments)
+  and s7–s9 (panel sizes).
+- **Colour run from the top of the grid:** salmon, navy, mint, black, then the live rows.
+
 ## Highlights
 
 Replace the five "🌟NEW🌟" highlights with 6–8 named groups (Cleanse, Hydrate, Sun, Eyes, Pro, Devices, Reviews,

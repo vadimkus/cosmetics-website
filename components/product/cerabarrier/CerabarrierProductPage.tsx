@@ -78,7 +78,7 @@ const TEXTURE_IMAGE = '/images/cera_o/s3.jpeg' // GEL. WATER. FOAM.
 const COMPLEX_IMAGE = '/images/cera_o/s1.jpeg' // Barrier Lipid × Microbiome Complex
 const RITUAL_IMAGE = '/images/cera_o/s6.jpeg' // NO TIGHTNESS.
 const FORMULA_IMAGE = '/images/cera_o/s5.jpeg' // MORE THAN CERAMIDES.
-const PROOF_IMAGE = '/images/cera_o/s4b.jpeg' // AFTER THE WASH. SOFT. DAILY.
+const PROOF_IMAGE = '/images/cera_o/s4j.jpeg' // AFTER THE WASH. SOFT. DAILY.
 
 /**
  * The size cards stay on the older set: they need one bottle per card, and the 2026 set

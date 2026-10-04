@@ -70,6 +70,16 @@ To swap a cover in the Instagram app (the web version can't change a live cover)
 2. Tap **Add from camera roll** and pick the cover.
 3. Tap **Done**, then **Done** again.
 
+## Removing a collab from our grid (app only)
+
+Open the collab post in the app → ⋯ → **Stop sharing** → **Stop sharing**. The post stays on the partner's profile,
+and we're no longer shown as an author. Instagram web shows the same button, but its `remove_coauthor_attribution` call returns
+an HTML page and nothing changes (tried on tonetrendz `DeCRt1loEVp`, 4 Oct 2026). Then share the post to Stories
+and add it to the Clinics highlight.
+
+With tonetrendz gone, the 12 live tiles fall into a reel / white-post checkerboard
+(`~/Desktop/Reel_Covers_Upload/GRID_after_cover_swap_no_collab.jpg`).
+
 ## Highlights
 
 Replace the five "🌟NEW🌟" highlights with 6–8 named groups (Cleanse, Hydrate, Sun, Eyes, Pro, Devices, Reviews,

@@ -112,3 +112,20 @@ Vadim: take the deck hydration figures out of the English copy too, and reshoot 
   s6 cropped to cheek + fingertips (x ≥ 650, clear of "NO TIGHTNESS."), n8 sun + crescent, n7 two sizes on red.
 - Product lock: two white pump bottles (600 ml / 200 ml), pumps never pressed, nothing dispensed; gel and foam
   appear only as their own texture shot. Visuals carry no claims; headlines come in the type pass.
+
+## 4 Oct 2026: reel cut from Seedance `1004_131.mp4`
+
+- All 11 shots present in order (plus a 1 s white water-ripple transition after shot 1). Shot frames: silk 0–46,
+  ripple 47–75, bricks 76–112, spheres 113–150, dandelion 151–183, gel drop 184–~212 (crossfade into foam),
+  foam ~215–262, rinse 263–307, cheek 308–344 (crossfade 345–352), sun/crescent 353–~398, two sizes on red
+  ~404–438, white end hold 439–480 (1.7 s).
+- Label small print garbled by Seedance ("Miooltioms", "DERMATOLDGICALLY", "Cene Re-birth"). Restored in
+  frames 404–480 with `_work/c66_label_fix.py` from plate n7 (re-shot real print, 2560 px; the registration
+  container PNGs use an older italic pink label and were not used): description + badge block and the bottom
+  tagline on both bottles, 77 frames, tracking jitter < 0.7 px.
+- Type `_work/c66_reel_type.py`: campaign slide copy (c66_copy.py + s3 + s4b), red #B41B21 / blush #F4D9DA,
+  Manrope Regular; sun-shot ink switches red ↔ white with the light (threshold 150 lum). Cheek line uses the
+  pack's "a soft, hydrated finish", not the removed no-tightness claim.
+- Audio +8.95 dB, alimiter 0.84 → −16.0 LUFS / −1.4 dBTP. Output `~/Desktop/Cerabarrier_66_Reel/
+  GENOSYS_Cerabarrier_Reel_v1.mp4` (20.04 s, 481 frames, H.264, 16.9 MB) + `GENOSYS_Cerabarrier_Reel_cover.jpg`
+  (end card). Not yet posted or on the product page.

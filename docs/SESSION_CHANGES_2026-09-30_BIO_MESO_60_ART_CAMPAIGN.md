@@ -55,3 +55,15 @@ the audited descriptions unchanged; the page's two inline figures (`6000/S3`, `S
   assertions in `__tests__/data/product60LocalizedCopy.test.ts`.
 - Full Jest 148 suites pass; tsc clean.
 - Live 18:45: deploy `997c9d701`, DB `--apply` (gallery only), revalidated. Web serves the 12 `biomeso_art` slides with the kept main and the S3/S4 inline figures; mobile API main + 12, 12 localized per RU/AR.
+
+## 4 Oct 2026: s2, s3, s7–s9 replaced
+
+- **s2b**: graphite droplet crown, and **s3b**: salmon glass sphere. Both re-shot in CapCut (AI image, the clean
+  set as reference) to replace the plates that showed calipers and a microscope (no instruments in front of buyers).
+- **s7b–s9b**: the same results, re-typeset without the test-panel line ("Skin moisture, four weeks after one
+  session.").
+- New filenames because `/images` is immutable. Exported in EN/RU/AR to `public/images/biomeso_art/{,ru/,ar/}` by
+  `~/Desktop/Insta_Olga/biomeso60/campaign/_scripts/c60_art_export.py 2 3 7 8 9`. The manifest in
+  `lib/localizedProductImages.ts`, the seed gallery in `lib/products.ts` and
+  `scripts/update-product-60-campaign-gallery.ts` point to the b files. The DB is updated with that script after the deploy.
+- The old s2, s3 and s7–s9 files stay on disk for orders and caches that still reference them.

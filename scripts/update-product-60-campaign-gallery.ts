@@ -1,8 +1,9 @@
 /**
  * Product 60 (BIO-MESO PDRN EXPERT AMPOULE 60000): "Needless to say." art set.
  *
- * - Gallery -> /images/biomeso_art/s1.jpg ... s12.jpg. AR/RU slides swap in at render through
- *   lib/localizedProductImages.ts, so the record holds the EN paths.
+ * - Gallery -> /images/biomeso_art/s1.jpg ... s12.jpg, with s2b/s3b (droplet crown, glass sphere in place of
+ *   the instrument plates) and s7b-s9b (no test-panel line) since 4 Oct 2026. AR/RU slides swap in at render
+ *   through lib/localizedProductImages.ts, so the record holds the EN paths.
  * - Main image (/images/6000/main-v2.jpg) and the audited descriptions are not touched.
  *
  * Run after the deploy carrying the files is live; it refuses to write otherwise.
@@ -12,7 +13,8 @@
 import { prisma } from '../lib/prisma'
 
 const DIR = '/images/biomeso_art'
-const GALLERY = Array.from({ length: 12 }, (_, i) => `${DIR}/s${i + 1}.jpg`)
+const GALLERY = ['s1', 's2b', 's3b', 's4', 's5', 's6', 's7b', 's8b', 's9b', 's10', 's11', 's12']
+  .map(name => `${DIR}/${name}.jpg`)
 const LOCALIZED = ['ru', 'ar'].flatMap(l => GALLERY.map(p => p.replace(`${DIR}/`, `${DIR}/${l}/`)))
 
 async function live(path: string): Promise<boolean> {

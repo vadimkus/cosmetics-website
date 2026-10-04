@@ -140,5 +140,10 @@ describe('product 60 audited localized copy', () => {
     expect(gallery[0]).toBe('/images/biomeso_art/s1.jpg')
     expect(localizeProductImage('/images/biomeso_art/s6.jpg', 'ru')).toBe('/images/biomeso_art/ru/s6.jpg')
     expect(localizeProductImage('/images/biomeso_art/s6.jpg', 'ar')).toBe('/images/biomeso_art/ar/s6.jpg')
+    for (const slide of ['s2', 's3', 's7', 's8', 's9']) {
+      expect(gallery).not.toContain(`/images/biomeso_art/${slide}.jpg`)
+      expect(gallery).toContain(`/images/biomeso_art/${slide}b.jpg`)
+      expect(localizeProductImage(`/images/biomeso_art/${slide}b.jpg`, 'ru')).toBe(`/images/biomeso_art/ru/${slide}b.jpg`)
+    }
   })
 })

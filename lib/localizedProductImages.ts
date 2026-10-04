@@ -252,10 +252,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg', 's3b.jpg'],
   },
   // Product 60, BIO-MESO PDRN EXPERT AMPOULE 60000, "Needless to say." art set. The main
-  // (6000/main-v2.jpg) carries no campaign type and is not translated.
+  // (6000/main-v2.jpg) carries no campaign type and is not translated. s2b (droplet crown) and
+  // s3b (glass sphere) replace the instrument plates; s7b-s9b drop the test-panel line (4 Oct 2026).
   '/images/biomeso_art': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
-    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 's8.jpg', 's9.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ru: ['s1.jpg', 's2b.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7b.jpg', 's8b.jpg', 's9b.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
+    ar: ['s1.jpg', 's2b.jpg', 's3b.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7b.jpg', 's8b.jpg', 's9b.jpg', 's10.jpg', 's11.jpg', 's12.jpg'],
   },
   // Product 41, SKIN CARING BLEMISH BALM CUSHION, "Covered." art set. The main packshot
   // (cushion_campaign/main.jpg) carries no type and is not translated.

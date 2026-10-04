@@ -100,13 +100,17 @@ Folder `~/Desktop/IG_Rows/` holds the slides, covers, reels, `README_POSTING.md`
 - **3:4 from square slides:** the slide sits centred. Above it, the backdrop colour and gradient are extrapolated; below it, a
   softened reflection of the floor fades out within about 100 px. Mirroring the top was rejected because it reflected
   the headlines.
-- **HOOK reels:** the first versions were slideshows of the campaign slides. Vadim rejected them the same day; they're being re-shot in
-  CapCut (Seedance 2.5, 20 s, 9:16). The notes below describe the rejected slideshow build, kept for reference only.
+- **HOOK reels:** the first versions were slideshows of the campaign slides. Vadim rejected them the same day. All four were
+  re-shot in CapCut (Seedance 2.5, 20 s, 1080p, 9:16): Eye Kit and Sea Algae in project 0915, Glass Skin and Bio-Meso
+  in project 1004. Vadim downloads them from the Generations panel. The slideshows sit in each row's
+  `3_HOOK_reel/_superseded_slideshow/`. The notes below describe the rejected slideshow build, kept for reference only.
   - The hook runs 2.2 s, middle slides 1.5 s each, the closing card 2.8 s.
   - Slow 3.5% push-in, 0.12 s blends. 0.35 s crossfades were rejected because they ghosted two headlines together.
   - Silent track: add a trending sound in the app. The cover is the first frame.
-- **Slides left out:** Eye Kit s5 (needle macro), Sea Algae s6 (spa towel), Bio-Meso s2–s3 (instruments)
-  and s7–s9 (panel sizes).
+- **Slides left out:** Eye Kit s5 (needle macro), Sea Algae s6 (spa towel).
+- **Bio-Meso 6 + 6:** s2–s3 re-shot in CapCut (graphite droplet crown, salmon glass sphere) to replace the instrument
+  plates; s7–s9 re-typeset without the panel line. The row reads them from `biomeso60/campaign/art/` through the row's
+  `local` override in `build_rows.py`; the website's `biomeso_art` slides are unchanged.
 - **Colour run from the top of the grid:** salmon, navy, mint, black, then the live rows.
 
 ## Highlights

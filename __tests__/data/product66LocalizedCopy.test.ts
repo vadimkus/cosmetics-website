@@ -21,7 +21,7 @@ const gallery = [
   '/images/cera_o/m2b.jpg',
   '/images/cera_o/s3.jpeg',
   '/images/cera_o/m3.jpg',
-  '/images/cera_o/s4.jpeg',
+  '/images/cera_o/s4b.jpeg',
   '/images/cera_o/m4b.jpg',
   '/images/cera_o/s5.jpeg',
   '/images/cera_o/m5b.jpg',

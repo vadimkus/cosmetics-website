@@ -44,7 +44,7 @@ describe('ProductQuickFactsHelper', () => {
     const region = screen.getByRole('region')
     expect(region).not.toHaveTextContent(/units sold/i)
     expect(region).not.toHaveTextContent(/popular with customers/i)
-    expect(region).toHaveTextContent('+145.8% post-wash hydration')
+    expect(region).toHaveTextContent('Amino-acid cleansing')
   })
 
   it('uses manual-sourced catalog facts for cushion 41', () => {

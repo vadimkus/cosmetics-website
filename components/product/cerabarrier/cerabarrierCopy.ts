@@ -115,7 +115,7 @@ const EN: CeraCopy = {
     'A gel-to-foam cleanser powered by Pink Ceramide and the skin microbiome, supporting a long-lasting moisture barrier for a soft, hydrated finish.',
   heroBullets: [
     'Soft gel transforms into a dense, cushioned foam',
-    '+145.8% skin hydration immediately after washing',
+    'A gentle pH of 6.37, led by an amino-acid cleanser',
     '5 ceramides with a pro- and prebiotic microbiome complex',
     'No tightness, no slippery residue - morning and night',
   ],
@@ -138,8 +138,8 @@ const EN: CeraCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
   stats: [
-    { value: '+145.8%', label: 'Immediate hydration after one wash' },
-    { value: '2.4×', label: 'Increase in skin hydration' },
+    { value: '6.37', label: 'A gentle pH' },
+    { value: '16.4%', label: 'Three cleansers, led by an amino-acid one' },
     { value: '5', label: 'Barrier ceramides - NP · AS · AP · NS · EOP' },
     { value: '2', label: 'Sizes - homecare and professional' },
   ],
@@ -225,12 +225,12 @@ const EN: CeraCopy = {
     fullInciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   proof: {
-    eyebrow: 'Proof',
-    title: 'Measured, then felt',
-    clinicalLabel: 'Clinically proven in a single use',
+    eyebrow: 'After the wash',
+    title: 'Soft, hydrated, every wash',
+    clinicalLabel: 'Dermatologically tested',
     claims: [
-      { value: '145.8%', label: 'Immediate skin hydration improvement post-wash' },
-      { value: '2.4×', label: 'Increase in skin hydration' },
+      { value: '6.37', label: 'A gentle pH' },
+      { value: '5', label: 'Ceramides in every wash' },
     ],
     feelTitle: 'What you will feel',
     feels: [
@@ -239,7 +239,7 @@ const EN: CeraCopy = {
       'No slippery or greasy film left behind',
       'A cushioned, low-friction lather that suits sensitized skin',
     ],
-    disclaimer: 'Clinical testing on a single use. Individual results vary.',
+    disclaimer: 'Individual results vary.',
   },
   routine: {
     eyebrow: 'Complete the routine',
@@ -260,7 +260,7 @@ const EN: CeraCopy = {
       },
       {
         q: 'Will it dry my skin out?',
-        a: 'No. It is formulated to cleanse without stripping: clinical testing measured a 145.8% immediate improvement in skin hydration post-wash and a 2.4× increase in skin hydration. Skin should feel comfortable, not tight.',
+        a: 'No. It is formulated to cleanse without stripping: an amino-acid cleanser, a gentle pH of 6.37 and a base of glycerin, butylene glycol and betaine. Skin should feel comfortable, not tight.',
       },
       {
         q: 'Does it remove makeup?',

@@ -129,3 +129,12 @@ Vadim: take the deck hydration figures out of the English copy too, and reshoot 
 - Audio +8.95 dB, alimiter 0.84 → −16.0 LUFS / −1.4 dBTP. Output `~/Desktop/Cerabarrier_66_Reel/
   GENOSYS_Cerabarrier_Reel_v1.mp4` (20.04 s, 481 frames, H.264, 16.9 MB) + `GENOSYS_Cerabarrier_Reel_cover.jpg`
   (end card). Not yet posted or on the product page.
+
+## 4 Oct 2026: brick wall re-shot with real clay bricks (m2b → m2c)
+
+Vadim: "bricks must be super realistic not artificial". New prompt `_prompts/n2r.txt` (medium-format photo, real
+handmade pale pink fired-clay bricks, porous matte faces, irregular edges, recessed lime mortar; "no CGI, no glossy
+ceramic tiles, no toy blocks"). Two passes (`n2r`, `n2rb`); pick n2rb_2 (deepest pitting and chalky bloom). The
+ceramic-tile plate is kept as `picks/n2_ceramic.png`. Same copy, EN/RU/AR as `cera_o/{,ru/,ar/}m2c.jpg`; registry
+and test updated; DB gallery m2b → m2c (`scripts/update-product-66-real-bricks-20261004.ts --apply`); revalidated,
+live in all three locales. Commit `be9f95e78`.

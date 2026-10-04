@@ -138,3 +138,18 @@ ceramic tiles, no toy blocks"). Two passes (`n2r`, `n2rb`); pick n2rb_2 (deepest
 ceramic-tile plate is kept as `picks/n2_ceramic.png`. Same copy, EN/RU/AR as `cera_o/{,ru/,ar/}m2c.jpg`; registry
 and test updated; DB gallery m2b → m2c (`scripts/update-product-66-real-bricks-20261004.ts --apply`); revalidated,
 live in all three locales. Commit `be9f95e78`.
+
+## 4 Oct 2026: one typeface across the gallery (*j files)
+
+Vadim: "is font the same throughout slides?" (no: the studio set is a thin geometric sans, the new slides were
+Manrope) → "do that".
+
+- Studio face identified by side-by-side render against s2: **Jost** (OFL, Futura-style; Light caps). Arabic
+  studio face: **Tajawal** (Medium headline). Both downloaded to `~/Desktop/Insta_Olga/cera66/_fonts/`.
+- Sizes measured off s2/s3/s6 (cap ~67-76 px on 1254, leading ~1.05; support ~21 px at ~1.45) and scaled to the
+  2560 canvas: headline Jost 300 at 205 px, support Jost 350 at 60 px, numerals Jost 300 at 560 px; Arabic support
+  ×1.3 as on the Arabic studio slides. `c66_art.py` restyled (Manrope version kept as `c66_art_manrope.py`);
+  `s4/s4_type.py` likewise (`s4_type_manrope.py`).
+- Shipped as `m1j-m7j.jpg` and `s4j.jpeg` (+ `ru/`, `ar/`; 24 files) via `c66_export_jost.py`; registry, test,
+  page proof image and DB gallery updated (`scripts/update-product-66-jost-type-20261004.ts --apply`). Live in
+  EN/RU/AR and the mobile API. Commit `a384c4081`.

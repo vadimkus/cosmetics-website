@@ -55,3 +55,30 @@ Workspace `~/Desktop/Insta_Olga/cera66/` (`_scripts/c66_*`):
 - Live: EN/RU/AR pages carry the seven new slides (RU/AR their localized files); mobile API returns
   them, `locale=ar` with the `ar/` files.
 - Commit `c0c6db6b6`.
+
+## 4 Oct 2026: two-sizes slide re-shot, dossier language removed
+
+Vadim on m7 (200 ML HOME. 600 ML CLINIC.): "reshoot this slide and remove dossier language, fix as required".
+
+- **m7 → m7b**: the composite (cut-out pasted on the plate) read as pasted. Re-shot in CapCut GPT Image 2.5
+  from that composite as reference (`_gen/ref/r7.jpg`, prompt `r7`, `c66_batch_ref.sh`): one real photograph,
+  shaded glossy bottles, red bounce, floor reflection. Take r7_1; every label checked at full size and reads
+  as the real print, so no artwork paste was needed. Composite kept as `picks/n7_composite.png`.
+- **Slide copy** (m2 → m2b, m4 → m4b, m5 → m5b, EN/RU/AR): no "specification", "ferment lysates" or "in the
+  formula". 2: "Ceramides and cholesterol are what the skin barrier is built from. This gel carries both."
+  4: "Two probiotic ferments and three prebiotics: fructan, chicory and dandelion root." 5: "A gentle pH,
+  with an amino-acid cleanser at the heart of the gel."
+- **RU/AR page and record copy** (`cerabarrierCopy.ts` RU_AUDITED / AR_AUDITED, `data/product66LocalizedCopy.ts`):
+  the 21 Aug audit had written them in examiner voice (DTS MG presentation, "confirmed by documents",
+  "original report not found", trace concentrations, "not proven", "the pack does not set a frequency",
+  the 25.59 → 56.19 debunk, 5.0000076%). Rewritten as selling copy on the same facts, still without the
+  audit's removed claims: headline "Чистая кожа. Мягкое ощущение." / "بشرة نظيفة وملمس ناعم."; the proof
+  block is now "after the wash" (pH 6.37, five ceramides, what the buyer feels, a short precaution);
+  make-up FAQ is honest guidance (remove long-wear make-up first); frequency "daily cleanser" from the pack.
+- Test: the "unreproducible deck claim" case is replaced by one that fails on dossier vocabulary, DTS MG,
+  the deck figures and the six-decimal percentages in RU/AR. 10 product-66 suites, 136 tests pass.
+- DB: `scripts/update-product-66-selling-copy-20261004.ts --apply` (gallery m1, s1, s2, m2b, s3, m3, s4, m4b,
+  s5, m5b, s6, m6, m7b, s7 and descriptionRu / descriptionAr; EN untouched). Revalidated; live EN/RU/AR pages
+  and the mobile API (`locale=ar`) serve the b slides; no audit phrase left on the RU/AR pages.
+- Commit `61a6a73b9`. Not run: `scripts/update-product-66-localized-copy-20260821.ts` would write the
+  audit's dossier wording into the EN record too; leave it unapplied.

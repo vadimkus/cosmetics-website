@@ -18,16 +18,16 @@ const gallery = [
   '/images/cera_o/m1.jpg',
   '/images/cera_o/s1.jpeg',
   '/images/cera_o/s2.jpeg',
-  '/images/cera_o/m2.jpg',
+  '/images/cera_o/m2b.jpg',
   '/images/cera_o/s3.jpeg',
   '/images/cera_o/m3.jpg',
   '/images/cera_o/s4.jpeg',
-  '/images/cera_o/m4.jpg',
+  '/images/cera_o/m4b.jpg',
   '/images/cera_o/s5.jpeg',
-  '/images/cera_o/m5.jpg',
+  '/images/cera_o/m5b.jpg',
   '/images/cera_o/s6.jpeg',
   '/images/cera_o/m6.jpg',
-  '/images/cera_o/m7.jpg',
+  '/images/cera_o/m7b.jpg',
   '/images/cera_o/s7.jpeg',
 ]
 
@@ -100,22 +100,22 @@ describe('product 66 source-grounded RU/AR copy', () => {
     for (const pattern of forbidden) expect(liveRuAr).not.toMatch(pattern)
   })
 
-  it('treats 145.8% and 2.4x as one unreproducible deck claim', () => {
+  it('sells in RU/AR without dossier language or the deck hydration headline', () => {
     const copy = JSON.stringify([
       PRODUCT_66_RU_TRANSLATION,
       PRODUCT_66_AR_TRANSLATION,
       getCeraCopy('ru'),
       getCeraCopy('ar'),
     ])
-    expect(copy).toContain('25,59')
-    expect(copy).toContain('25.59')
-    expect(copy).toContain('56,19')
-    expect(copy).toContain('56.19')
-    expect(copy).toContain('2,20')
-    expect(copy).toContain('2.20')
-    expect(copy).toContain('119,6')
-    expect(copy).toContain('119.6')
-    expect(copy).toContain('DTS MG')
+    for (const pattern of [
+      /DTS MG|Safety Assessment/,
+      /презентац|документ|измерен|спецификац|исходн\w* отч|следов\w* концентрац|не доказан|не приписыва/i,
+      /عرض DTS|المستندات|مقاس|مواصفة|التقرير الأصلي|تراكيز ضئيلة|لم يثبت|لا ننسب/,
+      /145[,.]8|2[,.]4×|25[,.]59|56[,.]19|119[,.]6/,
+      /5[,.]0000076|3[,.]000041/,
+    ]) {
+      expect(copy).not.toMatch(pattern)
+    }
   })
 
   it('preserves the studio gallery and locale mapping', () => {

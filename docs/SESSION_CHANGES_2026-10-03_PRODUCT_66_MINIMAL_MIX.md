@@ -82,3 +82,23 @@ Vadim on m7 (200 ML HOME. 600 ML CLINIC.): "reshoot this slide and remove dossie
   and the mobile API (`locale=ar`) serve the b slides; no audit phrase left on the RU/AR pages.
 - Commit `61a6a73b9`. Not run: `scripts/update-product-66-localized-copy-20260821.ts` would write the
   audit's dossier wording into the EN record too; leave it unapplied.
+
+## 4 Oct 2026: 145.8% / 2.4x removed, s4 re-shot as s4b
+
+Vadim: take the deck hydration figures out of the English copy too, and reshoot s4.
+
+- **s4 → s4b** (EN/RU/AR, `cera_o/{,ru/,ar/}s4b.jpeg`): same photo. `~/Desktop/Insta_Olga/cera66/s4/s4_clean.py`
+  erases the old type block by block (normalized-blur fill + grain, within 0.5 level of the backdrop, droplets kept);
+  `s4_type.py` sets new copy in the s4 layout: AFTER THE WASH / SOFT. A SOFT, HYDRATED FINISH / DAILY. A GEL
+  CLEANSER FOR EVERY DAY / "Supports a long-lasting moisture barrier, wash after wash." / Dermatologically tested.
+  Made in Korea. (RU ПОСЛЕ УМЫВАНИЯ / МЯГКО. / КАЖДЫЙ ДЕНЬ.; AR بعد الغسل / ناعمة. / يوميًا.). Manrope ExtraLight
+  for the large words, red `#B2222C` as on s4.
+- **EN copy** (`cerabarrierCopy.ts`): hero bullet, two stats, proof block ("After the wash", pH 6.37 and five
+  ceramides, "Dermatologically tested") and the "Will it dry my skin out?" answer no longer cite the figures.
+  Proof image is s4b with new alt text. Quick facts (`productQuickFactsCatalog.ts`, 66): EN "Amino-acid cleansing"
+  and "Gentle pH 6.37"; RU/AR rows without trace-level, presentation or "not fragrance-free" wording.
+- **DB** (`scripts/update-product-66-no-hydration-figure-20261004.ts --apply`): EN description sentence and two
+  benefits rewritten, gallery s4 → s4b. Live EN/RU/AR pages and the mobile API: no 145.8 or 2.4x, s4b served.
+- Tests: 46 suites, 541 passing (`ProductQuickFactsHelper` now expects "Amino-acid cleansing"). Commit `fdb77e2dd`.
+- The RU/AR base objects `_RU` / `_AR` in `cerabarrierCopy.ts` still hold the old figures but every such field is
+  overridden by RU_AUDITED / AR_AUDITED, so none of it renders.

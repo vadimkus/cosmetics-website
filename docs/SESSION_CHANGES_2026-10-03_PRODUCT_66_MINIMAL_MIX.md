@@ -153,3 +153,13 @@ Manrope) → "do that".
 - Shipped as `m1j-m7j.jpg` and `s4j.jpeg` (+ `ru/`, `ar/`; 24 files) via `c66_export_jost.py`; registry, test,
   page proof image and DB gallery updated (`scripts/update-product-66-jost-type-20261004.ts --apply`). Live in
   EN/RU/AR and the mobile API. Commit `a384c4081`.
+
+## 4 Oct 2026: brick wall replaced by the gel-and-cream knot (m2j → m2k)
+
+Vadim sent a reference (clear gel strand and ivory cream strand tied in one knot on red): "reshoot this and change
+our bricks slide". Reference cleaned of type (`_gen/ref/k2.jpg`), re-shot with prompt `k2` (`c66_batch_ref.sh k2
+k2b`, 7 usable takes); pick k2_2. Brick plate kept as `picks/n2_bricks.png`. The bricks headline no longer fits,
+so the copy changes on the same facts: TIED TOGETHER. / "A clear cleansing gel and the barrier's own lipids,
+ceramides and cholesterol, in one wash." (RU В ОДНОЙ СВЯЗКЕ.; AR معًا في عقدة واحدة.). Jost / Tajawal.
+`cera_o/{,ru/,ar/}m2k.jpg`; registry, test, DB (`scripts/update-product-66-knot-20261004.ts --apply`); live in
+EN/RU/AR. Commit `4c46b3668`.

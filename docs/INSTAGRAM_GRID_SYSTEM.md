@@ -11,6 +11,11 @@ Approved 4 Oct 2026. Covers every new feed post and reel, starting from the next
 3. **Collabs go to Stories.** Remove ourselves from new clinic collab posts, so the post stays on the partner's grid, and share
    it in Stories and a Clinics highlight.
 
+4. **No prices on Instagram.** No prices in captions, on slides or on covers. Point to genosys.ae, the app and DM /
+   WhatsApp instead.
+5. **HOOK reels are shot in CapCut.** Dreamina Seedance 2.5 in CapCut's AI video panel, 20 s, 9:16. Never a
+   slideshow of the campaign slides.
+
 ## Standards this follows (2026)
 
 - The profile grid shows **3:4 tiles** (since Jan 2025). A 1080×1440 post shows uncropped; a square post loses its sides.
@@ -95,7 +100,8 @@ Folder `~/Desktop/IG_Rows/` holds the slides, covers, reels, `README_POSTING.md`
 - **3:4 from square slides:** the slide sits centred. Above it, the backdrop colour and gradient are extrapolated; below it, a
   softened reflection of the floor fades out within about 100 px. Mirroring the top was rejected because it reflected
   the headlines.
-- **HOOK reels** (none of the four had a campaign reel): built from the campaign's own slides at 9:16.
+- **HOOK reels:** the first versions were slideshows of the campaign slides. Vadim rejected them the same day; they're being re-shot in
+  CapCut (Seedance 2.5, 20 s, 9:16). The notes below describe the rejected slideshow build, kept for reference only.
   - The hook runs 2.2 s, middle slides 1.5 s each, the closing card 2.8 s.
   - Slow 3.5% push-in, 0.12 s blends. 0.35 s crossfades were rejected because they ghosted two headlines together.
   - Silent track: add a trending sound in the app. The cover is the first frame.

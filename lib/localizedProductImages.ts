@@ -43,14 +43,17 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly Localized
   // it, so it is deliberately absent from both languages: there is nothing to translate
   // and shipping a second identical file would only cost a download. m1-m7 are the
   // minimalist slides added on 3 Oct 2026, interleaved with the studio set; m2b, m4b,
-  // m5b and m7b replaced m2, m4, m5 and m7 on 4 Oct, and s4b (no hydration figures) replaced s4.
+  // m5b and m7b replaced m2, m4, m5 and m7 on 4 Oct, and s4b (no hydration figures) replaced s4;
+  // m2c (real clay bricks) replaced m2b.
   '/images/cera_o': {
     ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg',
       'm1.jpg', 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 'm7.jpg',
-      'm2b.jpg', 'm4b.jpg', 'm5b.jpg', 'm7b.jpg', 's4b.jpeg'],
+      'm2b.jpg', 'm4b.jpg', 'm5b.jpg', 'm7b.jpg', 's4b.jpeg',
+      'm2c.jpg'],
     ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg',
       'm1.jpg', 'm2.jpg', 'm3.jpg', 'm4.jpg', 'm5.jpg', 'm6.jpg', 'm7.jpg',
-      'm2b.jpg', 'm4b.jpg', 'm5b.jpg', 'm7b.jpg', 's4b.jpeg'],
+      'm2b.jpg', 'm4b.jpg', 'm5b.jpg', 'm7b.jpg', 's4b.jpeg',
+      'm2c.jpg'],
   },
   // Product 65, BIO-MESO PDRN HOMECARE AMPOULE 5000. The supplied translated
   // exports were numbered by sequence rather than by their English counterparts;

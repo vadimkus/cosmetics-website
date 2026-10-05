@@ -167,6 +167,12 @@ const EN: BeautyBoxCopy = {
     note:
       'Revita Glow carries SPF 38 PA+++, so it is your morning sun protection as well as your base. For long hours outdoors, reapply through the day. Wash the puff regularly and let it dry in the open case.',
   },
+  video: {
+    eyebrow: 'Full moon glow. In 20 seconds',
+    title: 'Open the box with us',
+    body: 'The moon, the moon jar on the lid, then everything inside: the serum, the cream, Revita Glow, the puff and its mirror case. Ready to give, or to keep.',
+    poster: '/images/glass_skin_campaign/reel-poster.jpg',
+  },
   evidence: {
     eyebrow: 'The proof',
     title: 'Why skin glows',
@@ -383,6 +389,12 @@ const AR: BeautyBoxCopy = {
     note:
       'يحمل Revita Glow حماية ⁦SPF 38 PA+++⁩، فهو واقي الشمس الصباحي وأساسكِ معاً. عند البقاء طويلاً في الخارج، جدّدي وضعه خلال النهار. اغسلي الإسفنجة بانتظام واتركيها تجف في العلبة المفتوحة.',
   },
+  video: {
+    eyebrow: 'توهّج البدر. في 20 ثانية',
+    title: 'افتحي العلبة معنا',
+    body: 'القمر، وجرة القمر على الغطاء، ثم كل ما في الداخل: السيروم والكريم وRevita Glow والإسفنجة مع علبة المرآة. جاهزة لتكون هدية، أو لتبقى لكِ.',
+    poster: '/images/glass_skin_campaign/reel-poster.jpg',
+  },
   evidence: {
     eyebrow: 'الدليل',
     title: 'لماذا تتوهّج البشرة',
@@ -594,6 +606,12 @@ const RU: BeautyBoxCopy = {
     ],
     note:
       'Revita Glow даёт SPF 38 PA+++, поэтому это и утренняя защита от солнца, и тональная основа. Если долго находитесь на улице, обновляйте его в течение дня. Регулярно мойте пуф и давайте ему высохнуть в открытом футляре.',
+  },
+  video: {
+    eyebrow: 'Сияние полной луны. За 20 секунд',
+    title: 'Откройте коробку вместе с нами',
+    body: 'Луна, лунная ваза на крышке, а затем всё, что внутри: сыворотка, крем, Revita Glow, пуф и футляр с зеркалом. Готово к подарку - или к себе.',
+    poster: '/images/glass_skin_campaign/reel-poster.jpg',
   },
   evidence: {
     eyebrow: 'Доказательства',

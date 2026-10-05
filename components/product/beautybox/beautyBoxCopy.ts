@@ -81,6 +81,14 @@ export interface BeautyBoxCopy {
     steps: { title: string; body: string }[]
     note: string
   }
+  /** Shown only when the product record carries a videoUrl. The poster is the
+   *  reel's own 9:16 cover, so the frame never shows a cropped packshot. */
+  video?: {
+    eyebrow: string
+    title: string
+    body: string
+    poster: string
+  }
   evidence: {
     eyebrow: string
     title: string

@@ -862,6 +862,40 @@ export default function BeautyBoxProductPage({
         </div>
       </section>
 
+      {/* ──────────────────────────── The reel ──────────────────────────── */}
+      {product.videoUrl ? (
+        <section className="border-t border-[var(--cera-line)] py-16 lg:py-24">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <CeraReveal>
+                <div className="relative mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-ink)]">
+                  <video
+                    className="h-full w-full object-cover"
+                    src={product.videoUrl}
+                    poster={copy.video?.poster || product.image}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label={copy.video?.title || t('product.watchVideo')}
+                  >
+                    {t('product.videoNotSupported')}
+                  </video>
+                </div>
+              </CeraReveal>
+              <CeraReveal>
+                <p className="cera-eyebrow">{copy.video?.eyebrow || t('product.watchVideo')}</p>
+                {copy.video ? (
+                  <>
+                    <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.video.title}</h2>
+                    <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-body)]">{copy.video.body}</p>
+                  </>
+                ) : null}
+              </CeraReveal>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* ─────────────────────── What was measured ──────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader

@@ -10,7 +10,7 @@ Canonical public file:
 - **Legacy alias** (same bytes, kept for old bookmarks): `/documents/commercial-license.pdf`
 - **Download name**: `Genosys-Commercial-License-5023192.pdf`
 - **License number**: 5023192
-- **Expiry (current PDF)**: 08-11-2026
+- **Expiry (current PDF)**: 08-11-2029 (renewed 5 Oct 2026, RAKEZ SR-1841205)
 - **Unit**: VUET0209, Compass Building - Al Hulaila, Al Hulaila Industrial Zone-FZ, RAK
 
 To renew again:

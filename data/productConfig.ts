@@ -773,7 +773,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '68': {
     id: '68',
     pricing: {
-      basePrice: 740
+      basePrice: 652.5
     },
     colors: [
       { value: 'Bright', label: '#01 Bright', available: true },

@@ -313,7 +313,7 @@ const EN: SnowO2Copy = {
     ],
     note:
       'Keep it away from the eyes and mucous membranes; if it gets in, rinse with cool water. Avoid it during pregnancy and while breastfeeding. For eye make-up and lips, use SKIN DEFENDER Lip & Eye Makeup Remover.',
-    videoTitle: 'The wash, on a face',
+    videoTitle: 'Start clean, in 18 seconds',
   },
   actives: {
     eyebrow: 'Inside the pump',

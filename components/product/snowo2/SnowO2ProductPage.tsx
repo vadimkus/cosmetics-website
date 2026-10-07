@@ -773,6 +773,7 @@ export default function SnowO2ProductPage({
               <div className="snowo2-video relative mt-4 mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
+                  poster="/images/snowo2_campaign/reel-poster.jpg"
                   controls
                   playsInline
                   preload="metadata"

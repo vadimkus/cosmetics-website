@@ -150,7 +150,7 @@ export const products: Product[] = [
     category: 'Cleanser',
     inStock: true,
     size: '180ml',
-    videoUrl: '/videos/cleanser.mp4',
+    videoUrl: '/videos/snowo2-reel-web.mp4',
   },
   {
     id: '11',

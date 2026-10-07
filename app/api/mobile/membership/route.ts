@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
 
     const orderAgg = await prisma.order.aggregate({
       where: {
-        customerEmail: user.email,
+        customerEmail: { equals: user.email, mode: 'insensitive' },
         status: 'DELIVERED',
       },
       _sum: { total: true },

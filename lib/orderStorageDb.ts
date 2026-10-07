@@ -296,7 +296,7 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
     
     // Try exact match first with normalized email
     let orders = await prisma.order.findMany({
-      where: { customerEmail: normalizedEmail },
+      where: { customerEmail: { equals: normalizedEmail, mode: 'insensitive' } },
       include: {
         items: true
       },
@@ -351,7 +351,7 @@ export const getOrdersCountByEmail = async (email: string): Promise<number> => {
     
     // Try exact match first
     let count = await prisma.order.count({
-      where: { customerEmail: normalizedEmail }
+      where: { customerEmail: { equals: normalizedEmail, mode: 'insensitive' } }
     })
     
     // If no orders found, try case-insensitive count

@@ -371,7 +371,7 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
       debugLog('Address updated, updating existing orders for user:', user.email)
       const newAddress = updates.address === '' || updates.address === null ? '' : updates.address
       await prisma.order.updateMany({
-        where: { customerEmail: user.email },
+        where: { customerEmail: { equals: user.email, mode: 'insensitive' } },
         data: { customerAddress: newAddress || '' }
       })
       debugLog('Updated existing orders with new address')

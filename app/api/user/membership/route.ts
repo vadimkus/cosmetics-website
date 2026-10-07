@@ -81,7 +81,7 @@ export async function GET() {
 
     // Refresh stats from delivered orders (cheap aggregate, keeps profile accurate)
     const agg = await prisma.order.aggregate({
-      where: { customerEmail: user.email, status: 'DELIVERED' },
+      where: { customerEmail: { equals: user.email, mode: 'insensitive' }, status: 'DELIVERED' },
       _sum: { total: true },
       _count: true,
     })

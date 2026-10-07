@@ -155,8 +155,8 @@ describe('mobile orders history email matching', () => {
     expect(prisma.order.findMany).toHaveBeenCalledWith(expect.objectContaining({
       where: {
         OR: [
-          { customerEmail: 'relay@privaterelay.appleid.com' },
-          { customerEmail: 'real.customer@example.com' },
+          { customerEmail: { equals: 'relay@privaterelay.appleid.com', mode: 'insensitive' } },
+          { customerEmail: { equals: 'real.customer@example.com', mode: 'insensitive' } },
         ],
       },
     }))
@@ -179,8 +179,8 @@ describe('mobile orders history email matching', () => {
       where: {
         id: 'order-contact',
         OR: [
-          { customerEmail: 'relay@privaterelay.appleid.com' },
-          { customerEmail: 'real.customer@example.com' },
+          { customerEmail: { equals: 'relay@privaterelay.appleid.com', mode: 'insensitive' } },
+          { customerEmail: { equals: 'real.customer@example.com', mode: 'insensitive' } },
         ],
       },
     }))

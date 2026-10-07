@@ -11,15 +11,21 @@ export function getCustomerOrderEmails(user: MobileOrderUser): string[] {
   ))
 }
 
+// Orders keep the email exactly as typed at checkout ("Liza..." vs "liza..."), and
+// Postgres equality is case-sensitive, so the match must be insensitive.
+const emailMatch = (email: string) => ({
+  customerEmail: { equals: email, mode: 'insensitive' as const },
+})
+
 export function getCustomerEmailWhere(user: MobileOrderUser) {
   const emails = getCustomerOrderEmails(user)
 
   if (emails.length <= 1) {
-    return { customerEmail: emails[0] || user.email }
+    return emailMatch(emails[0] || user.email)
   }
 
   return {
-    OR: emails.map((customerEmail) => ({ customerEmail })),
+    OR: emails.map(emailMatch),
   }
 }
 

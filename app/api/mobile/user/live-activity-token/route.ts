@@ -77,7 +77,7 @@ export async function PUT(request: NextRequest) {
       // Scoped to this customer's own order, so one account cannot attach a token to
       // somebody else's card.
       const updated = await prisma.order.updateMany({
-        where: { orderNumber, customerEmail: user.email },
+        where: { orderNumber, customerEmail: { equals: user.email, mode: 'insensitive' } },
         data: { liveActivityToken: token },
       })
       if (updated.count === 0) {

@@ -19,3 +19,10 @@
 
 The soundtrack is the Dexter title music, used without a licence (Olga's brief assumes a licensed track).
 Swap the audio if a rights holder objects.
+
+## Reverted (7 Oct 2026, 17:11)
+
+Vadim asked for the previous video back. Code restored to the state before `f0e4e40e9` (videoUrl
+`/videos/cleanser.mp4`, original how-to video titles, no poster), the reel web copy and poster removed from
+`public/`, DB `videoUrl` reset with `scripts/set-product-video.ts 10 /videos/cleanser.mp4`, pages revalidated.
+The reel files remain in git history and in `~/Desktop/new_prompt/IG_POST/REEL/`.

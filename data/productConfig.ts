@@ -151,7 +151,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '10': {
     id: '10',
-    videoUrl: '/videos/snowo2-reel-web.mp4',
+    videoUrl: '/videos/cleanser.mp4',
     pricing: {
       basePrice: 330,
       sizeVariants: {

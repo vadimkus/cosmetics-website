@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
+import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE, postLoginHandoffPath } from '@/lib/loginReturn'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
 import { exchangeAppleCodeForTokens, getAppleWebClientId, getAppleWebRedirectUri } from '@/lib/appleWebAuth'
@@ -449,7 +449,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     // IMPORTANT: This callback is typically a cross-site POST (response_mode=form_post).
     // NextResponse.redirect defaults to 307 which preserves the method, causing a POST to /products → 405.
     // Use 303 See Other to force a GET on the redirected page.
-    const response = NextResponse.redirect(new URL(redirectPath, normalizedOrigin), 303)
+    const response = NextResponse.redirect(new URL(postLoginHandoffPath(redirectPath), normalizedOrigin), 303)
 
     // Clear oauth cookies
     response.cookies.delete('apple-oauth-state')

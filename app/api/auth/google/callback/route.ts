@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { googlePictureForNewUser, googlePictureUpdate } from '@/lib/googleProfilePicture'
-import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE } from '@/lib/loginReturn'
+import { isSafeReturnPath, POST_LOGIN_REDIRECT_COOKIE, postLoginHandoffPath } from '@/lib/loginReturn'
 import { exchangeCodeForTokens, verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -309,7 +309,7 @@ export async function GET(request: NextRequest) {
     
     // Clear OAuth cookies and redirect directly to products
     const response = NextResponse.redirect(
-      new URL(redirectPath, normalizedOrigin)
+      new URL(postLoginHandoffPath(redirectPath), normalizedOrigin)
     )
     response.cookies.delete('google-oauth-state')
     response.cookies.delete('oauth-from-pwa')

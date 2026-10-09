@@ -33,6 +33,22 @@ export function currentReturnPath(): string | null {
   return isSafeReturnPath(path) ? path : null
 }
 
+export const POST_LOGIN_HANDOFF_PATH = '/login/complete'
+
+/**
+ * Where an OAuth callback should redirect after setting the session.
+ *
+ * Paths like /products/* are claimed by the GENOSYS app as universal links. With the
+ * app installed (iPhone, or the iPad app on a Mac), the redirect out of Google or Apple
+ * opens the app instead of Safari: the website session is set but never shown, and the
+ * app is still logged out. /login/* is not in apple-app-site-association, and the
+ * handoff page moves on with a script navigation, which never opens the app.
+ */
+export function postLoginHandoffPath(target: string): string {
+  const to = isSafeReturnPath(target) ? target : '/products'
+  return `${POST_LOGIN_HANDOFF_PATH}?to=${encodeURIComponent(to)}`
+}
+
 /** `/login?redirect=<returnTo>` for the locale; plain `/login` when nothing to return to. */
 export function loginPathWithReturn(locale: Locale, returnTo?: string | null): string {
   const base = getLocalizedPath('/login', locale)

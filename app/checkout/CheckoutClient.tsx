@@ -37,6 +37,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { loginPathWithReturn } from '@/lib/loginReturn'
+import { isValidCheckoutPhone } from '@/lib/checkoutPhone'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import dynamic from 'next/dynamic'
@@ -63,6 +64,7 @@ export default function CheckoutClient() {
   const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
+  const [phoneError, setPhoneError] = useState<string | null>(null)
   // Use ref for synchronous double-submission prevention (state updates are async)
   const isSubmittingRef = useRef(false)
   const { isMobileWeb } = useIsMobileWeb()
@@ -385,16 +387,18 @@ export default function CheckoutClient() {
         return
       }
 
-      // UAE phone validation (same rule as the mobile app):
-      // accepts +9715XXXXXXXX / 9715XXXXXXXX / 05XXXXXXXX and landlines 0X-XXXXXXX
-      const normalizedPhone = customerPhone.replace(/[\s\-()]/g, '')
-      const uaePhonePattern = /^(\+?971|0)(2|3|4|5|6|7|9)\d{7,8}$/
-      if (!uaePhonePattern.test(normalizedPhone)) {
-        alert(t('checkout.invalidPhone') || 'Please enter a valid UAE phone number (e.g. 050 123 4567).')
+      // An alert here was easy to lose (iOS can suppress repeats), which left the
+      // button looking dead. The error sits under the field and scrolls into view.
+      if (!isValidCheckoutPhone(customerPhone)) {
+        setPhoneError(t('checkout.invalidPhone'))
+        const phoneInput = document.getElementById('checkout-phone')
+        phoneInput?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        phoneInput?.focus({ preventScroll: true })
         isSubmittingRef.current = false
         setIsProcessing(false)
         return
       }
+      setPhoneError(null)
 
       // Validate variant selection for all cart items
       const itemsMissingColor = items.filter(item => {
@@ -1084,10 +1088,18 @@ export default function CheckoutClient() {
                         autoComplete="tel"
                         inputMode="tel"
                         defaultValue={user?.phone || ''}
-                        className={`ed-field !text-[16px] min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
+                        onChange={() => { if (phoneError) setPhoneError(null) }}
+                        aria-invalid={phoneError ? true : undefined}
+                        aria-describedby={phoneError ? 'checkout-phone-error' : undefined}
+                        className={`ed-field !text-[16px] min-h-[44px] ${phoneError ? '!border-red-500' : ''} ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterPhoneNumber')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
+                      {phoneError && (
+                        <p id="checkout-phone-error" role="alert" className={`mt-1.5 text-sm text-red-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {phoneError}
+                        </p>
+                      )}
                     </div>
                   </div>
 

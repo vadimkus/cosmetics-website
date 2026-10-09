@@ -410,7 +410,7 @@
     "tryAgainCheckout": "Try checkout again",
     "color": "Color",
     "variantRequiredMessage": "Please select color/size for: {products}. Go back to your bag to choose.",
-    "invalidPhone": "Please enter a valid UAE phone number (e.g. 050 123 4567).",
+    "invalidPhone": "Please enter a valid phone number: 050 123 4567, or with the country code, e.g. +44 7700 900123.",
     "orderNotPlaced": "We couldn't place your order and nothing has been charged. Please try again, or message us on WhatsApp and we will place it for you."
   },
   "invoice": {

@@ -133,10 +133,10 @@ export default function TermsClient() {
     // Section: Returns
     returnsTitle: locale === 'ar' ? 'الاستبدال والإرجاع' : locale === 'ru' ? 'Возврат и обмен' : 'Returns and Exchanges',
     returnsText: locale === 'ar' 
-      ? 'نقبل الإرجاع والاستبدال خلال 7 أيام من تاريخ التسليم للمنتجات غير المفتوحة وفي عبوتها الأصلية. يرجى التواصل معنا لبدء عملية الإرجاع أو الاستبدال.'
+      ? 'نقبل الإرجاع والاستبدال خلال 10 أيام من تاريخ التسليم للمنتجات غير المفتوحة وفي عبوتها الأصلية. يرجى التواصل معنا لبدء عملية الإرجاع أو الاستبدال.'
       : locale === 'ru' 
-        ? 'Мы принимаем возврат и обмен в течение 7 дней с момента доставки для невскрытых товаров в оригинальной упаковке. Пожалуйста, свяжитесь с нами, чтобы начать процесс возврата или обмена.'
-        : 'We accept returns and exchanges within 7 days of delivery for unopened products in their original packaging. Please contact us to initiate a return or exchange.',
+        ? 'Мы принимаем возврат и обмен в течение 10 дней с момента доставки для невскрытых товаров в оригинальной упаковке. Пожалуйста, свяжитесь с нами, чтобы начать процесс возврата или обмена.'
+        : 'We accept returns and exchanges within 10 days of delivery for unopened products in their original packaging. Please contact us to initiate a return or exchange.',
     
     // Section: Disclaimers
     disclaimersTitle: locale === 'ar' ? 'إخلاء المسؤولية' : locale === 'ru' ? 'Отказ от ответственности' : 'Disclaimers',

@@ -21,3 +21,12 @@ Vadim: the FAQ wording is the standard, use it everywhere. **Dubai 1-2 hours, ot
 ## Not changed (flagged)
 
 - Returns differ: site FAQ 7 days, `app/delivery/page.tsx` schema 10 days, app RU/AR FAQ 30 days.
+
+## Returns: 10 days everywhere (Vadim, 22:22)
+
+- Website FAQ (EN/RU/AR, two answers each) and `app/terms/TermsClient.tsx` were 7 days; Google return schema
+  (`merchantReturnDays` in Product, ProductsList, HomeItemList, CollectionPage schemas) was 14. All now 10, matching
+  the delivery page and `returnPeriodValue`.
+- App: EN FAQ a6/a10, terms p1, return checklist were 7 days; RU/AR FAQ a2 said 30 days (14 opened). All now 10 days,
+  unopened, original packaging.
+- Still different (not asked): refund processing 3-5 business days (delivery page) vs 5-7 (FAQ).

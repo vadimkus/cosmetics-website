@@ -128,7 +128,7 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
         "@type": "MerchantReturnPolicy",
         "applicableCountry": "AE",
         "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 14,
+        "merchantReturnDays": 10,
         "returnMethod": "https://schema.org/ReturnByMail",
         "returnFees": "https://schema.org/FreeReturn"
       },

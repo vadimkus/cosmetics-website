@@ -109,9 +109,9 @@ export default function DeliveryPageClient() {
           </h1>
           <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
             {pick(
-              'Same-day inside Dubai, next day everywhere else in the country, on a tracked courier from our own stock in Dubai.',
-              'في اليوم نفسه داخل دبي، وفي اليوم التالي في بقية الدولة، عبر شركة توصيل مع تتبّع ومن مخزوننا في دبي.',
-              'В Дубае в тот же день, по остальной стране на следующий, курьером с отслеживанием и с нашего склада в Дубае.',
+              '1-2 hours inside Dubai, 24-36 hours everywhere else in the country, on a tracked courier from our own stock in Dubai.',
+              'خلال 1-2 ساعة داخل دبي، و24-36 ساعة في بقية الدولة، عبر شركة توصيل مع تتبّع ومن مخزوننا في دبي.',
+              'По Дубаю за 1-2 часа, по остальной стране за 24-36 часов, курьером с отслеживанием и с нашего склада в Дубае.',
             )}
           </p>
 
@@ -141,9 +141,9 @@ export default function DeliveryPageClient() {
               icon: Clock,
               title: pick('How long it takes', 'كم يستغرق', 'Сколько идёт'),
               body: pick(
-                'One hour inside Dubai and 24 to 36 hours to the rest of the Emirates. Orders placed before the afternoon cut-off go out the same day.',
-                'ساعة واحدة داخل دبي و24 إلى 36 ساعة لبقية الإمارات. الطلبات قبل موعد الإغلاق بعد الظهر تخرج في اليوم نفسه.',
-                'Час внутри Дубая и 24-36 часов до остальных эмиратов. Заказы до дневного отсечения уходят в тот же день.',
+                '1-2 hours inside Dubai and 24-36 hours to the rest of the Emirates. Orders placed before the afternoon cut-off go out the same day.',
+                '1-2 ساعة داخل دبي و24-36 ساعة لبقية الإمارات. الطلبات قبل موعد الإغلاق بعد الظهر تخرج في اليوم نفسه.',
+                '1-2 часа по Дубаю и 24-36 часов до остальных эмиратов. Заказы до дневного отсечения уходят в тот же день.',
               ),
             },
             {

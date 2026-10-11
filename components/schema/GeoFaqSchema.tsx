@@ -87,7 +87,7 @@ export const GENOSYS_FAQ_EN: FaqItem[] = [
   },
   {
     question: "Does GENOSYS UAE offer free shipping?",
-    answer: "Yes, GENOSYS Middle East offers free shipping across all 7 emirates of the UAE (Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain) for orders over 1000 AED. Standard delivery takes 1-3 business days."
+    answer: "Yes, GENOSYS Middle East offers free shipping across all 7 emirates of the UAE (Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain) for orders over 1000 AED. Delivery takes 1-2 hours in Dubai and 24-36 hours to the other emirates."
   },
   {
     question: "Is GENOSYS a professional or consumer brand?",
@@ -134,7 +134,7 @@ export const GENOSYS_FAQ_AR: FaqItem[] = [
   },
   {
     question: "هل يوفر GENOSYS الإمارات شحن مجاني؟",
-    answer: "نعم، يوفر GENOSYS الشرق الأوسط شحناً مجانياً عبر جميع الإمارات السبع (دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين) للطلبات التي تزيد عن 1000 درهم. يستغرق التوصيل القياسي من 1 إلى 3 أيام عمل."
+    answer: "نعم، يوفر GENOSYS الشرق الأوسط شحناً مجانياً عبر جميع الإمارات السبع (دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين) للطلبات التي تزيد عن 1000 درهم. يستغرق التوصيل 1-2 ساعة داخل دبي و24-36 ساعة لبقية الإمارات."
   },
   {
     question: "هل GENOSYS علامة احترافية أم للمستهلك العادي؟",
@@ -181,7 +181,7 @@ export const GENOSYS_FAQ_RU: FaqItem[] = [
   },
   {
     question: "Есть ли бесплатная доставка GENOSYS в ОАЭ?",
-    answer: "Да, GENOSYS Middle East предлагает бесплатную доставку по всем 7 эмиратам ОАЭ (Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн) при заказе свыше 1000 дирхамов. Стандартная доставка занимает 1-3 рабочих дня."
+    answer: "Да, GENOSYS Middle East предлагает бесплатную доставку по всем 7 эмиратам ОАЭ (Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн) при заказе свыше 1000 дирхамов. Доставка по Дубаю занимает 1-2 часа, в другие эмираты 24-36 часов."
   },
   {
     question: "GENOSYS - это профессиональный бренд или для обычных покупателей?",

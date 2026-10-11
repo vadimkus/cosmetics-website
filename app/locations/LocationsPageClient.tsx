@@ -48,7 +48,7 @@ const locations = [
     nameRu: 'Рас-эль-Хайма',
     description: 'Our office is located in Ras Al Khaimah.',
     shippingCost: '70 AED',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
   {
     slug: 'ajman',
@@ -57,7 +57,7 @@ const locations = [
     nameRu: 'Аджман',
     description: 'Reliable delivery of premium Korean dermacosmetics to Ajman',
     shippingCost: '70 AED',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
   {
     slug: 'fujairah',
@@ -66,7 +66,7 @@ const locations = [
     nameRu: 'Фуджейра',
     description: 'Quality skincare products delivered across Fujairah',
     shippingCost: '70 AED',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
   {
     slug: 'umm-al-quwain',
@@ -75,7 +75,7 @@ const locations = [
     nameRu: 'Умм-эль-Кайвайн',
     description: 'Premium skincare products delivered across Umm Al Quwain',
     shippingCost: '70 AED',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
 ]
 

@@ -1220,7 +1220,7 @@ export default function CheckoutClient() {
                       <p className={`text-xs text-[var(--cera-ok)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {selectedEmirate === 'Dubai' 
                           ? (t('checkout.deliveryTimeDubai') || 'Your order will be delivered by Careem within 1-2 hours.')
-                          : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
+                          : `${t('checkout.deliveryTimeOther') || 'Your order will be delivered within 24-36 hours to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
                         {selectedEmirate !== 'Dubai' && (
                           <span className="block mt-1.5">
                             {t('checkout.trackingNumberWillBeShared') || 'Tracking number will be shared via WhatsApp/Email.'}

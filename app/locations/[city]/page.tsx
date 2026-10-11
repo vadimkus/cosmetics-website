@@ -84,7 +84,7 @@ const locations: Record<string, {
     email: 'sales@genosys.ae',
     shippingInfo: 'We deliver to all areas of Ras Al Khaimah including Al Nakheel, Al Qawasim, Al Hamra, and more.',
     shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
     coordinates: { lat: 25.7895, lng: 55.9590 }
   },
   ajman: {
@@ -96,7 +96,7 @@ const locations: Record<string, {
     email: 'sales@genosys.ae',
     shippingInfo: 'We deliver to all areas of Ajman including Al Nuaimiya, Al Jerf, Al Rashidiya, and more.',
     shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
   fujairah: {
     name: 'Fujairah',
@@ -107,7 +107,7 @@ const locations: Record<string, {
     email: 'sales@genosys.ae',
     shippingInfo: 'We deliver to all areas of Fujairah including Fujairah City, Al Faseel, and surrounding areas.',
     shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
   'umm-al-quwain': {
     name: 'Umm Al Quwain',
@@ -118,7 +118,7 @@ const locations: Record<string, {
     email: 'sales@genosys.ae',
     shippingInfo: 'We deliver to all areas of Umm Al Quwain including Umm Al Quwain City and surrounding areas.',
     shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    deliveryTime: '24-36 hours via Quiqup',
   },
 }
 

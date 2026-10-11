@@ -597,7 +597,7 @@ function SuccessContent() {
                 <span className="font-semibold text-[var(--cera-ink)]">
                   {orderData.customerEmirate?.toLowerCase() === 'dubai'
                     ? (t('success.deliveryDubai') || '1-2 hours')
-                    : (t('success.deliveryOther') || '1-2 business days')}
+                    : (t('success.deliveryOther') || '24-36 hours')}
                 </span>
               </p>
             </div>

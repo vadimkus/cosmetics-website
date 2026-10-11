@@ -30,3 +30,6 @@ Vadim: the FAQ wording is the standard, use it everywhere. **Dubai 1-2 hours, ot
 - App: EN FAQ a6/a10, terms p1, return checklist were 7 days; RU/AR FAQ a2 said 30 days (14 opened). All now 10 days,
   unopened, original packaging.
 - Still different (not asked): refund processing 3-5 business days (delivery page) vs 5-7 (FAQ).
+- The live FAQ reads `FaqItem` rows from the DB, not `messages/*.json`: two items (return policy, return or exchange)
+  updated in EN/RU/AR by `scripts/faq-returns-10-days-20261011.ts --apply`, then `faq` tag and `/faq`, `/ru/faq`,
+  `/ar/faq` revalidated. Chatbot facts (`lib/chatbot/config.ts`) also 10 days. Live check: 8 × "within 10 days", 0 × 7.

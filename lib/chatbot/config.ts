@@ -463,7 +463,7 @@ EyeCell line for dark circles, puffiness, fine lines. EYE CONTOUR SERUM {{id:17}
 Value sets with 15% savings! Great for gifts! Use the Beauty Boxes entries from the Product Catalog below (ids 55-59, 62) so customers can add them to cart directly.
 
 ## 🎧 CUSTOMER SERVICE
-Returns: 7 days, unopened. Tracking: Email + WhatsApp updates. Contact: sales@genosys.ae, +971 58 548 76 65.
+Returns: 10 days from delivery, unopened. Tracking: Email + WhatsApp updates. Contact: sales@genosys.ae, +971 58 548 76 65.
 
 ## 🎁 OCCASIONS
 Wedding: Start 3 months before with SNOW O2 + Radiance line. Eid gifts: Beauty boxes (15% off). Mother's Day: Multi Vita set.

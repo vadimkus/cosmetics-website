@@ -645,7 +645,7 @@
       },
       "returnPolicy": {
         "q": "What is your return policy?",
-        "a": "We accept returns within 10 days of delivery for unopened products. Products must be in their original packaging and unused. Refunds will be processed within 5-7 business days after we receive the returned items."
+        "a": "We accept returns within 10 days of delivery for unopened products. Products must be in their original packaging and unused. Refunds will be processed within 3-5 business days after we receive the returned items."
       },
       "bulkDiscounts": {
         "q": "Do you offer bulk discounts?",

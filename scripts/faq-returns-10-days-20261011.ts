@@ -17,6 +17,9 @@ const apply = process.argv.includes('--apply')
 
 const SWAPS: [RegExp, string][] = [
   [/within 7 days of delivery/g, 'within 10 days of delivery'],
+  [/(Refunds?[^.]*?)5-7/g, '$13-5'],
+  [/(Возврат средств[^.]*?)5-7/g, '$13-5'],
+  [/(الاسترداد[^.]*?)5-7/g, '$13-5'],
   [/within 7 days from delivery/g, 'within 10 days from delivery'],
   [/в течение 7 дней/g, 'в течение 10 дней'],
   [/خلال 7 أيام/g, 'خلال 10 أيام'],

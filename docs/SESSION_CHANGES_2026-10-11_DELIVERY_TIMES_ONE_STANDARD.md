@@ -33,3 +33,4 @@ Vadim: the FAQ wording is the standard, use it everywhere. **Dubai 1-2 hours, ot
 - The live FAQ reads `FaqItem` rows from the DB, not `messages/*.json`: two items (return policy, return or exchange)
   updated in EN/RU/AR by `scripts/faq-returns-10-days-20261011.ts --apply`, then `faq` tag and `/faq`, `/ru/faq`,
   `/ar/faq` revalidated. Chatbot facts (`lib/chatbot/config.ts`) also 10 days. Live check: 8 × "within 10 days", 0 × 7.
+- Refund processing: **3-5 business days** everywhere (was 5-7 in FAQ JSON, FAQ DB item and app a10).

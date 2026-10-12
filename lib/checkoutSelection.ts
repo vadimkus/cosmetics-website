@@ -1,4 +1,5 @@
 import type { Product } from '@/types'
+import { getProductColors } from '@/data/productConfig'
 
 /**
  * Server-side check of the size and colour a customer chose, run by every
@@ -70,6 +71,12 @@ export function resolveCheckoutSelection(
     const found = match(rawColor, colors)
     if (!found && !lenient) return { ok: false, code: 'OPTION_REQUIRED', dimension: 'color', options: colors }
     selectedColor = found || ''
+  } else if (colors.length === 0 && rawColor) {
+    // Shades that live only in data/productConfig.ts (Revita Glow 63, GLASS SKIN RITUAL KIT 68)
+    // were dropped here, so the order lost the shade the customer picked. Keep a real one;
+    // a missing pick is not rejected, as before.
+    const configShades = getProductColors(product.productNumber || product.id).map((c) => c.value)
+    selectedColor = match(rawColor, configShades) || ''
   }
 
   if (!lenient && variants.length > 0 && (selectedSize || selectedColor) && selectedSize !== PROMO_MARKER) {

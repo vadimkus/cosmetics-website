@@ -9,7 +9,9 @@ import { z } from 'zod'
 import type { Product } from '@/types'
 import { prisma } from '@/lib/prisma'
 import { getProductsListCached, getSkinRecommendations } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 import { MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
+import { getMcpOrderStatus, placeMcpOrder } from '@/lib/mcp/order'
 import {
   SITE_ORIGIN,
   asLocale,
@@ -27,14 +29,17 @@ import {
 } from '@/lib/mcp/catalog'
 
 export const MCP_SERVER_NAME = 'genosys'
-export const MCP_SERVER_VERSION = '1.0.0'
+export const MCP_SERVER_VERSION = '1.1.0'
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false } as const
 
 const INSTRUCTIONS = `GENOSYS is the official UAE distributor of GENOSYS professional Korean dermacosmetics (genosys.ae, Dubai).
 Use these tools to answer skincare and haircare shopping questions with the live catalog.
 - Prices are AED and already include 5% UAE VAT. Quote them as given; do not add VAT.
-- Always give the product link. When the shopper is ready to buy, call create_bag_link and share that link: it opens genosys.ae with the items in their bag (they sign in or create a free account there to check out).
+- Always give the product link.
+- To buy right here in the chat: collect name, email, phone, emirate and full delivery address, show the items with prices, delivery fee and total, get the shopper's clear yes, then call place_order and share pay_url. Payment is card, Apple Pay or Google Pay on a secure Stripe page; the order is confirmed by email once paid. Never invent customer details.
+- If the shopper prefers the website, call create_bag_link instead: it opens genosys.ae with the items in their bag.
+- order_status checks an order with its number and the email used.
 - Products are cosmetics, not medicines: do not promise medical results. For pregnancy, a skin condition or a reaction, suggest a doctor or dermatologist.
 - Delivery is UAE only. Product names stay in English in every language.`
 
@@ -259,6 +264,72 @@ export function createGenosysMcpServer(): McpServer {
             : `Delivery AED 45 in Dubai, AED 70 other emirates; free from AED ${MOBILE_CHECKOUT_CONFIG.freeShippingThreshold}`,
         note: 'The shopper signs in or creates a free account on genosys.ae, then checks out. Final prices are confirmed at checkout.',
       })
+    }
+  )
+
+  server.registerTool(
+    'place_order',
+    {
+      title: 'Place a GENOSYS order',
+      description:
+        'Create a GENOSYS UAE order from this chat and get a secure Stripe payment link (card, Apple Pay, Google Pay). Call only after the shopper has confirmed the items, the total and their delivery details. The order is confirmed by email once paid; unpaid orders are not shipped. Delivery is UAE only. Prices are retail AED including VAT.',
+      inputSchema: {
+        items: z
+          .array(
+            z.object({
+              product_id: z.string().min(1).max(64).describe('Id from search_products / get_product.'),
+              quantity: z.number().int().min(1).max(20).optional(),
+              size: z.string().max(40).optional(),
+              color: z.string().max(60).optional().describe('Shade label or value, e.g. "#01 Bright".'),
+            })
+          )
+          .min(1)
+          .max(20),
+        customer: z.object({
+          name: z.string().min(2).max(100).describe('Full name of the person receiving the order.'),
+          email: z.string().email().max(200).describe('Receipt and order updates go here. If it matches a GENOSYS account, the order appears in that account.'),
+          phone: z.string().min(7).max(30).describe('For the courier: UAE number or one with its country code.'),
+          emirate: z.enum(['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain']),
+          address: z.string().min(8).max(500).describe('Building or villa, street, area, and apartment number.'),
+        }),
+        notes: z.string().max(1000).optional().describe('Delivery notes, e.g. preferred time.'),
+        locale: localeInput,
+      },
+      annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+    },
+    async (args, extra) => {
+      const headers = (extra?.requestInfo?.headers ?? {}) as Record<string, string | string[] | undefined>
+      const forwarded = headers['x-forwarded-for']
+      const ip = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(',')[0]?.trim() || 'unknown'
+      try {
+        const result = await placeMcpOrder({ ...args, locale: asLocale(args.locale) }, ip)
+        if (!result.ok) return errorResult(result.error)
+        return json({
+          ...result,
+          next_step: 'Share pay_url with the shopper. The order is confirmed by email after payment; delivery within 1-2 hours in Dubai, 24-36 hours to the other emirates.',
+        })
+      } catch (error) {
+        errorLog('[MCP] place_order failed', error)
+        return errorResult('The order could not be created right now. Please try again, or order on genosys.ae / WhatsApp +971 58 548 76 65.')
+      }
+    }
+  )
+
+  server.registerTool(
+    'order_status',
+    {
+      title: 'Check a GENOSYS order',
+      description: 'Status and payment of a GENOSYS order. Needs the order number and the email used for the order.',
+      inputSchema: {
+        order_number: z.string().min(6).max(40),
+        email: z.string().email().max(200),
+      },
+      annotations: READ_ONLY,
+    },
+    async ({ order_number, email }) => {
+      const status = await getMcpOrderStatus(order_number, email)
+      if (!status) return errorResult('No order matches that number and email.')
+      return json(status)
     }
   )
 

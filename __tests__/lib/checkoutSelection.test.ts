@@ -64,3 +64,17 @@ describe('resolveCheckoutSelection', () => {
     })
   })
 })
+
+describe('shades kept only in productConfig', () => {
+  const revita = { id: '63', productNumber: '63', name: 'REVITA GLOW BLEMISH BALM CREAM', variants: [] } as unknown as Product
+
+  it('keeps the shade the customer picked', () => {
+    expect(resolveCheckoutSelection(revita, '', 'Natural')).toEqual({ ok: true, selectedSize: '', selectedColor: 'Natural' })
+    expect(resolveCheckoutSelection(revita, '', 'bright')).toEqual({ ok: true, selectedSize: '', selectedColor: 'Bright' })
+  })
+
+  it('still accepts a line with no shade, and drops an unknown one', () => {
+    expect(resolveCheckoutSelection(revita, '', '')).toEqual({ ok: true, selectedSize: '', selectedColor: '' })
+    expect(resolveCheckoutSelection(revita, '', 'Dark')).toEqual({ ok: true, selectedSize: '', selectedColor: '' })
+  })
+})

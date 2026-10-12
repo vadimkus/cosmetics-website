@@ -70,7 +70,7 @@ export async function GET(request: Request) {
       transport: 'streamable-http',
       endpoint: 'https://genosys.ae/mcp',
       docs: 'https://genosys.ae/ai',
-      tools: ['search_products', 'get_product', 'recommend_routine', 'list_categories', 'create_bag_link', 'store_info', 'search', 'fetch'],
+      tools: ['search_products', 'get_product', 'recommend_routine', 'list_categories', 'create_bag_link', 'place_order', 'order_status', 'store_info', 'search', 'fetch'],
     })
   )
 }

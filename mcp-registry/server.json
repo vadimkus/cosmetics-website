@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "ae.genosys/genosys",
   "title": "GENOSYS UAE",
-  "description": "GENOSYS Korean skincare in the UAE: find products, routines, AED prices and bag links.",
-  "version": "1.0.0",
+  "description": "Shop GENOSYS Korean skincare in the UAE from chat: find products, AED prices, order and pay.",
+  "version": "1.1.0",
   "websiteUrl": "https://genosys.ae/ai",
   "icons": [
     {

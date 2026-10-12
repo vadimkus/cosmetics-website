@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import { prisma } from '@/lib/prisma'
 
-type OrderChannel = 'M' | 'W'
+type OrderChannel = 'M' | 'W' | 'A'
 type PaymentKind = 'COD' | 'CARD'
 
 function pad2(n: number) {
@@ -25,6 +25,7 @@ function random4() {
  * - COD website:    CODWYYMMDD####   (example: CODW2512160421)
  * - Card mobile:    GENCardMYYMMDD#### (example: GENCardM2512160421)
  * - Card website:   GENCardWYYMMDD#### (example: GENCardW2512160421)
+ * - Card AI chat:   GENCardAYYMMDD#### (example: GENCardA2512160421), placed through /mcp
  */
 function buildOrderNumber(channel: OrderChannel, payment: PaymentKind, datePart: string) {
   if (payment === 'COD') return `COD${channel}${datePart}${random4()}`

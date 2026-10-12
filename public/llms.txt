@@ -16,7 +16,7 @@
 
 ## AI Assistants (MCP)
 
-- [GENOSYS MCP server](https://genosys.ae/mcp): Public Model Context Protocol server (Streamable HTTP, no auth, read-only). Tools: search_products, get_product, recommend_routine, list_categories, create_bag_link, store_info, search, fetch. Live catalog with AED prices (VAT included) and bag links that open genosys.ae with items in the shopper's bag.
+- [GENOSYS MCP server](https://genosys.ae/mcp): Public Model Context Protocol server (Streamable HTTP, no auth). Tools: search_products, get_product, recommend_routine, list_categories, place_order, order_status, create_bag_link, store_info, search, fetch. Live catalog with AED prices (VAT included); shoppers can order inside the chat and pay on a secure Stripe page (UAE delivery), or get a bag link to genosys.ae.
 - [Use GENOSYS in ChatGPT, Claude and other assistants](https://genosys.ae/ai): How to connect the server, example questions, privacy.
 - MCP Registry name: ae.genosys/genosys
 

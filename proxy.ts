@@ -130,7 +130,7 @@ export function proxy(request: NextRequest) {
 
   // These pages don't have AR/RU versions and should serve English to all crawlers,
   // regardless of Accept-Language or NEXT_LOCALE.
-  const englishOnlyPaths = ['/genosys', '/documents', '/guides', '/login/complete']
+  const englishOnlyPaths = ['/genosys', '/documents', '/guides', '/login/complete', '/add-to-bag']
   const isEnglishOnlyPath = englishOnlyPaths.some(path => pathname === path || pathname.startsWith(`${path}/`))
 
   // If it's an English-only path, skip locale detection entirely
@@ -306,6 +306,6 @@ export const config = {
      * - llms.txt / llms-full.txt / ai-products.txt (AI indexes)
      * - feed/* and opensearch.xml (machine-readable discovery files)
      */
-    '/((?!api|_next/static|_next/image|videos|images|Logo|feed|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|sitemap-index.xml|robots.txt|llms.txt|llms-full.txt|ai-products.txt|opensearch.xml|manifest.json|ar/manifest.json|ru/manifest.json|sw.js).*)',
+    '/((?!api|mcp|\\.well-known|_next/static|_next/image|videos|images|Logo|feed|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|sitemap-index.xml|robots.txt|llms.txt|llms-full.txt|ai-products.txt|opensearch.xml|manifest.json|ar/manifest.json|ru/manifest.json|sw.js).*)',
   ],
 }

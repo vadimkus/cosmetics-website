@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ae.genosys/genosys",
+  "title": "GENOSYS UAE",
+  "description": "GENOSYS Korean skincare in the UAE: find products, routines, AED prices and bag links.",
+  "version": "1.0.0",
+  "websiteUrl": "https://genosys.ae/ai",
+  "icons": [
+    {
+      "src": "https://genosys.ae/icon-512x512.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://genosys.ae/mcp"
+    }
+  ]
+}

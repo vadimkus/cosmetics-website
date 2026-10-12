@@ -40,6 +40,7 @@
     "@ai-sdk/openai": "^4.0.8",
     "@ai-sdk/react": "^4.0.18",
     "@google-cloud/translate": "^9.4.2",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@react-oauth/google": "^0.13.5",

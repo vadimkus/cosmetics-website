@@ -14,6 +14,12 @@
 - [GENOSYS Brand Story](https://genosys.ae/brand): Korean dermacosmetics brand founded in Seoul. Professional-grade skincare backed by clinical research. Available in 40+ countries.
 - [Contact Information](https://genosys.ae/contact): Phone: +971-58-548-7665, Email: sales@genosys.ae, WhatsApp available. Languages: English, Arabic, Russian.
 
+## AI Assistants (MCP)
+
+- [GENOSYS MCP server](https://genosys.ae/mcp): Public Model Context Protocol server (Streamable HTTP, no auth, read-only). Tools: search_products, get_product, recommend_routine, list_categories, create_bag_link, store_info, search, fetch. Live catalog with AED prices (VAT included) and bag links that open genosys.ae with items in the shopper's bag.
+- [Use GENOSYS in ChatGPT, Claude and other assistants](https://genosys.ae/ai): How to connect the server, example questions, privacy.
+- MCP Registry name: ae.genosys/genosys
+
 ## Products
 
 - [All Products](https://genosys.ae/products): Complete catalog of GENOSYS professional Korean dermacosmetics including serums, creams, masks, microneedling devices, and skincare solutions. Prices in AED.

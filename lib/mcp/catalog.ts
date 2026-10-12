@@ -262,6 +262,31 @@ const CONCERN_SYNONYMS: Record<string, string[]> = {
   'barrier-repair': ['barrier', 'ceramide', 'барьер'],
 }
 
+// Product-type words a shopper uses, mapped to catalog categories. The type asked for
+// ("sunscreen for oily skin") must outrank products that only match the skin type.
+const CATEGORY_SYNONYMS: Record<string, string[]> = {
+  sun: ['sunscreen', 'sun cream', 'sunblock', 'spf', 'uv', 'солнцезащит', 'спф', 'واقي الشمس', 'واقي شمس'],
+  'cushion bb': ['cushion', 'bb cream', 'foundation', 'tinted', 'кушон', 'тональн', 'كوشن'],
+  cleanser: ['cleanser', 'face wash', 'cleansing', 'очищ', 'умыва', 'غسول', 'منظف'],
+  'toner/mist': ['toner', 'mist', 'тоник', 'мист', 'تونر'],
+  serum: ['serum', 'ampoule', 'сыворот', 'سيروم'],
+  cream: ['moisturizer', 'moisturiser', 'cream', 'крем', 'كريم', 'مرطب'],
+  mask: ['mask', 'sheet mask', 'patch', 'patches', 'маск', 'патч', 'قناع', 'ماسك'],
+  'eye care': ['eye cream', 'under eye', 'dark circles', 'для глаз', 'العين'],
+  'scalp/hair': ['shampoo', 'hair', 'scalp', 'шампун', 'волос', 'شامبو', 'شعر'],
+  peeling: ['peel', 'peeling', 'exfoliat', 'пилинг', 'تقشير'],
+  device: ['device', 'led', 'gadget', 'прибор', 'جهاز'],
+  microneedling: ['microneedling', 'derma roller', 'roller', 'stamp', 'мезороллер', 'ميكرونيدلينج'],
+  'beauty boxes': ['gift', 'set', 'kit', 'box', 'набор', 'подар', 'هدية', 'مجموعة'],
+}
+
+export function inferCategories(query: string): string[] {
+  const q = normalizeSearchText(query)
+  return Object.entries(CATEGORY_SYNONYMS)
+    .filter(([, words]) => words.some((w) => q.includes(normalizeSearchText(w))))
+    .map(([category]) => category)
+}
+
 const STOP_WORDS = new Set([
   'a', 'an', 'and', 'the', 'for', 'with', 'my', 'me', 'i', 'to', 'of', 'in', 'on', 'is', 'that', 'what',
   'which', 'best', 'good', 'need', 'want', 'something', 'product', 'products', 'skin', 'face', 'genosys',
@@ -291,8 +316,10 @@ function meaningfulTokens(query: string): string[] {
     .filter((t) => t.length > 2 && !STOP_WORDS.has(t))
 }
 
-function looseScore(product: Product, query: string, concerns: string[]): number {
+function looseScore(product: Product, query: string, concerns: string[], wantedCategories: string[] = []): number {
   const tokens = meaningfulTokens(query)
+  const productCategories = categoriesOf(product).map(normalizeSearchText)
+  const categoryIntent = wantedCategories.filter((c) => productCategories.includes(c)).length
   const haystack = normalizeSearchText(
     [
       product.name,
@@ -311,14 +338,14 @@ function looseScore(product: Product, query: string, concerns: string[]): number
   const tokenHits = tokens.filter((t) => haystack.includes(t)).length
   const productConcerns = concernsOf(product)
   const concernHits = concerns.filter((c) => productConcerns.includes(c)).length
-  if (tokenHits === 0 && concernHits === 0) return 0
+  if (tokenHits === 0 && concernHits === 0 && categoryIntent === 0) return 0
   // What the product IS (name, category) outranks what its description mentions:
   // "serum for dry skin" should put a serum above a box that contains one.
   const names = normalizeSearchText([product.name, product.nameRu, product.nameAr].join(' '))
   const cats = normalizeSearchText(product.category)
   const nameHits = tokens.filter((t) => names.includes(t)).length
   const categoryHits = tokens.filter((t) => cats.includes(t)).length
-  return nameHits * 40 + categoryHits * 30 + tokenHits * 10 + concernHits * 25 + Math.min(getProductSearchRelevance(product, query), 1000) / 100
+  return categoryIntent * 120 + nameHits * 40 + categoryHits * 30 + tokenHits * 10 + concernHits * 25 + Math.min(getProductSearchRelevance(product, query), 1000) / 100
 }
 
 export function searchProducts(products: Product[], filters: SearchFilters): Product[] {
@@ -350,11 +377,12 @@ export function searchProducts(products: Product[], filters: SearchFilters): Pro
   if (!query) return pool.slice(0, limit)
 
   const concerns = inferConcerns(query)
+  const wantedCategories = inferCategories(query)
   const core = meaningfulTokens(query).join(' ') || query
   return pool
     .map((p) => {
       const exact = matchesProductSearch(p, query) || matchesProductSearch(p, core)
-      const score = looseScore(p, query, concerns)
+      const score = looseScore(p, query, concerns, wantedCategories)
       return { p, score: score + (exact ? 60 : 0), exact }
     })
     .filter((x) => x.exact || x.score > 0)

@@ -149,6 +149,17 @@ describe('shades and sizes', () => {
   })
 })
 
+describe('ranking by product type', () => {
+  const oilyToner = base({ id: 't', productNumber: '15', name: 'INTENSIVE PROBLEM CONTROL TONER', category: 'Toner/Mist', skinType: 'oily', description: 'Toner for oily skin.', targetConcerns: '["pore-care"]' })
+  const sunCream = base({ id: 'sc', productNumber: '40', name: 'MULTI SUN CREAM [SPF 40 PA++]', category: 'Sun', description: 'Daily sun cream.' })
+  it('puts a sunscreen first for "sunscreen for oily skin"', () => {
+    expect(searchProducts([oilyToner, sunCream], { query: 'sunscreen for oily skin' })[0]?.id).toBe('sc')
+  })
+  it('understands Russian product types', () => {
+    expect(searchProducts([oilyToner, sunCream], { query: 'солнцезащитный крем' })[0]?.id).toBe('sc')
+  })
+})
+
 describe('ranking', () => {
   const box = base({ id: 'b', productNumber: '62', name: 'SENSITIVE SKIN BEAUTY BOX', category: 'Beauty Boxes', description: 'A serum and a cream for dry skin.' })
   it('puts the product that is a serum above a box that mentions one', () => {

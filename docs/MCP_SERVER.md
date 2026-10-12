@@ -91,12 +91,16 @@ Key: `~/Desktop/Drive/Genosys/Company_Legal/Keys/mcp-registry-ed25519.pem`, hex 
 Since 9 Jul 2026 ChatGPT apps are submitted as plugins ("With MCP"). Who: the OpenAI Platform
 organization owner (or `api.apps.write`), with verified identity (business: Genosys Middle East FZ-LLC).
 
-**Steps for Vadim**
-1. platform.openai.com → Apps / Plugins → new submission → **With MCP** → URL `https://genosys.ae/mcp`, auth **None**.
-2. Scan tools (10 tools; annotations are set).
-3. Domain verification: the dashboard shows a token for `/.well-known/openai-apps-challenge`.
-   Send it to the agent; it goes in `public/.well-known/openai-apps-challenge` and deploys in ~5 min.
-4. Fill the fields below, add the 8 test cases, submit. Review result arrives by email (Case ID).
+**Steps for Vadim** (current flow: upload a plugin ZIP, not a form)
+1. platform.openai.com → **Plugins** (not the Playground) → **Upload new or existing plugin**.
+2. Choose the verified developer identity (Genosys Middle East FZ-LLC), upload
+   `~/Desktop/genosys-uae-chatgpt-plugin.zip` (source: `chatgpt-plugin/`, schema-valid).
+3. **MCPs** → genosys → **Connect**, auth **None**. The portal shows a domain-verification token for
+   `https://genosys.ae/.well-known/openai-apps-challenge`: send it to the agent (plain text file, ~5 min deploy).
+4. Wait for the tool scan, then **Review information → Review details**: paste the **video walkthrough URL**
+   (required; record ChatGPT in developer mode running the 5 positive cases, e.g. an unlisted YouTube link).
+   Test cases, commerce note, release notes and RU/AR translations are imported from the ZIP.
+5. **Submit for review**, accept the attestations. After approval, press **Publish plugin**.
 
 **Listing**
 - Name: `GENOSYS UAE`

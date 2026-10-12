@@ -1,0 +1,118 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "genosys-uae",
+  "version": "1.1.0",
+  "description": "Shop GENOSYS Korean professional skincare in the UAE: search the live catalog, get product details and routines, and order with secure Stripe payment.",
+  "author": {
+    "name": "Genosys Middle East FZ-LLC",
+    "email": "sales@genosys.ae",
+    "url": "https://genosys.ae"
+  },
+  "homepage": "https://genosys.ae/ai",
+  "keywords": [
+    "skincare",
+    "korean skincare",
+    "cosmetics",
+    "uae",
+    "dubai",
+    "shopping",
+    "genosys"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GENOSYS UAE",
+        "shortDescription": "Korean skincare, UAE delivery",
+        "longDescription": "GENOSYS UAE is the official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates since 2019.\n\nAsk about skincare and haircare and get answers from the live catalog: serums, creams, sun care, masks, cleansers, eye care, scalp care, devices and beauty boxes. Search in English, Russian or Arabic, compare products, see real prices in AED with VAT included, read the key ingredients and step-by-step use, and get a routine for your skin type and concerns.\n\nWhen you are ready, order right in the chat: confirm your items and delivery details, then pay on a secure Stripe page with card, Apple Pay or Google Pay. The order is confirmed by email once paid. You can also check an order with its number and email, or get a link that fills your bag on genosys.ae.\n\nDelivery is within the UAE only: 1-2 hours in Dubai, 24-36 hours to the other emirates, free from AED 1,000. Products are cosmetics, not medicines; for skin conditions or pregnancy, ask a doctor.",
+        "developerName": "Genosys Middle East FZ-LLC",
+        "category": "Shopping",
+        "capabilities": [
+          "Search products",
+          "Product details and ingredients",
+          "Skincare routines",
+          "Order and pay with Stripe",
+          "Order status",
+          "Delivery and returns info"
+        ],
+        "websiteURL": "https://genosys.ae/ai",
+        "supportURL": "https://genosys.ae/contact",
+        "privacyPolicyURL": "https://genosys.ae/privacy-policy",
+        "termsOfServiceURL": "https://genosys.ae/terms",
+        "defaultPrompt": [
+          "Which GENOSYS serum is good for dry skin?",
+          "Build me a GENOSYS routine for oily, acne-prone skin.",
+          "Order the GLASS SKIN RITUAL KIT to my address in Dubai."
+        ],
+        "brandColor": "#B52C36",
+        "brandColorDark": "#E5707A",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Find a product for a skin concern",
+              "prompt": "Which GENOSYS serum is good for dry skin?",
+              "tools_triggered": "search_products",
+              "expected_behavior": "Lists matching products with MOISTURE REPLENISHING HYALURON SERUM (id 18) first, price AED 330 including VAT, and a genosys.ae product link."
+            },
+            {
+              "description": "Product details with shades",
+              "prompt": "How do I use the GLASS SKIN RITUAL KIT, and which shades does it come in?",
+              "tools_triggered": "get_product",
+              "expected_behavior": "Explains the morning and evening steps, lists the two shades #01 Bright and #02 Natural, and quotes AED 652.5 (was AED 870)."
+            },
+            {
+              "description": "Routine for a skin type",
+              "prompt": "Suggest a GENOSYS routine for oily, acne-prone skin.",
+              "tools_triggered": "recommend_routine",
+              "expected_behavior": "Returns ranked products from the PROBLEM CONTROL line (serum, toner, cream) with prices and links, without medical promises."
+            },
+            {
+              "description": "Delivery information",
+              "prompt": "How much is GENOSYS delivery to Abu Dhabi and how long does it take?",
+              "tools_triggered": "store_info",
+              "expected_behavior": "States AED 70 delivery to Abu Dhabi, 24-36 hours, free from AED 1,000; payment by card, Apple Pay, Google Pay or cash on delivery on the website."
+            },
+            {
+              "description": "Order and pay in chat",
+              "prompt": "Order one GENOSYS hyaluron serum for Test Reviewer, test@example.com, phone 050 123 4567, to Villa 12, Street 5, Jumeirah 1, Dubai.",
+              "tools_triggered": "search_products, place_order",
+              "expected_behavior": "Shows the item, AED 330 plus AED 45 Dubai delivery, total AED 375, asks for confirmation, then returns a GENCardA order number and a checkout.stripe.com payment link. No charge is made unless the reviewer pays; unpaid orders are never shipped."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Shade must be chosen before ordering a product with shades",
+              "prompt": "Order the GLASS SKIN RITUAL KIT to Dubai Marina for Test Reviewer, test@example.com, 050 123 4567."
+            },
+            {
+              "description": "Delivery outside the UAE is not offered",
+              "prompt": "Ship two GENOSYS serums to Riyadh, Saudi Arabia."
+            },
+            {
+              "description": "No medical claims",
+              "prompt": "Will a GENOSYS cream cure my eczema?"
+            }
+          ]
+        },
+        "commerce": true,
+        "commerce_description": "Shoppers can buy GENOSYS cosmetics for delivery in the UAE. The app creates an order and returns a Stripe Checkout link; payment (card, Apple Pay, Google Pay) happens on Stripe, never inside the app. Prices are the public retail prices in AED with 5% VAT included. Unpaid orders are not fulfilled."
+      },
+      "publication": {
+        "release_notes": "First release: catalog search in English, Russian and Arabic, product details, skincare routines, delivery information, ordering with Stripe payment, order status and bag links to genosys.ae.",
+        "translations": {
+          "ru-RU": {
+            "subtitle": "Корейская косметика, ОАЭ",
+            "description": "GENOSYS UAE — официальный дистрибьютор профессиональной корейской косметики GENOSYS в ОАЭ с 2019 года. Подбирайте средства по живому каталогу на русском, английском или арабском, смотрите цены в AED с НДС, состав и способ применения, получайте уход под ваш тип кожи и оформляйте заказ прямо в чате с оплатой на защищённой странице Stripe. Доставка только по ОАЭ: 1-2 часа по Дубаю, 24-36 часов по другим эмиратам, бесплатно от 1 000 AED."
+          },
+          "ar-AE": {
+            "subtitle": "عناية كورية، توصيل بالإمارات",
+            "description": "GENOSYS UAE هو الموزع الرسمي لمستحضرات GENOSYS الكورية الاحترافية في الإمارات منذ 2019. ابحثي في الكتالوج المباشر بالعربية أو الإنجليزية أو الروسية، واطّلعي على الأسعار بالدرهم شاملة الضريبة والمكونات وطريقة الاستخدام، واحصلي على روتين يناسب بشرتكِ، ثم اطلبي داخل المحادثة وادفعي عبر صفحة Stripe الآمنة. التوصيل داخل الإمارات فقط: خلال 1-2 ساعة في دبي و24-36 ساعة لباقي الإمارات، ومجاني من 1,000 درهم."
+          }
+        }
+      }
+    }
+  }
+}

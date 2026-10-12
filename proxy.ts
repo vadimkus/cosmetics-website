@@ -130,7 +130,7 @@ export function proxy(request: NextRequest) {
 
   // These pages don't have AR/RU versions and should serve English to all crawlers,
   // regardless of Accept-Language or NEXT_LOCALE.
-  const englishOnlyPaths = ['/genosys', '/documents', '/guides']
+  const englishOnlyPaths = ['/genosys', '/documents', '/guides', '/login/complete']
   const isEnglishOnlyPath = englishOnlyPaths.some(path => pathname === path || pathname.startsWith(`${path}/`))
 
   // If it's an English-only path, skip locale detection entirely

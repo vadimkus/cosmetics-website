@@ -3,7 +3,7 @@
 Lets AI assistants (ChatGPT, Claude, Cursor, VS Code, any MCP client) browse the live GENOSYS
 catalog, recommend products and routines, and **take paid orders inside the chat**.
 
-- Live since 12 Oct 2026. Commits `d912594d2` (1.0, browse + bag links), `4bd5f5473` (1.1, ordering).
+- Live since 12 Oct 2026. Form checkout (1.2) added the same day. Commits `d912594d2` (1.0, browse + bag links), `4bd5f5473` (1.1, ordering).
 - Public page for shoppers: `https://genosys.ae/ai` (`/ru/ai`, `/ar/ai`). Listed in `llms.txt`.
 - Official MCP Registry: **`ae.genosys/genosys`** 1.1.0, active (domain-verified on genosys.ae).
 - ChatGPT Plugins directory: **not yet submitted**, package below (Vadim submits from his OpenAI account).
@@ -34,6 +34,7 @@ catalog, recommend products and routines, and **take paid orders inside the chat
 | `recommend_routine` | no | Same scoring as the site's skin quiz (`getSkinRecommendations`), at-home by default |
 | `list_categories` | no | Categories and concerns with counts |
 | `create_bag_link` | no | One link that fills the bag on genosys.ae |
+| `open_checkout` | no | Shows the **checkout form** in the chat (MCP Apps `ui://genosys/checkout-v1.html`): items, shade picker, quantities, name/email/phone, emirate, address, live total, "Continue to secure payment" (calls `place_order`, opens Stripe). Renders in ChatGPT, Claude, VS Code; Cursor may show text only, so the text fallback asks in chat |
 | `place_order` | **yes** | Creates a PENDING order + Stripe Checkout link (card, Apple Pay, Google Pay) |
 | `order_status` | no | Needs order number **and** email |
 | `store_info` | no | Delivery times/fees, payment, returns, contact, apps, policies |

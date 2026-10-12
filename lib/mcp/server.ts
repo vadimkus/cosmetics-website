@@ -12,6 +12,7 @@ import { getProductsListCached, getSkinRecommendations } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
 import { getMcpOrderStatus, placeMcpOrder } from '@/lib/mcp/order'
+import { CHECKOUT_UI_META, CHECKOUT_UI_URI, MCP_APP_MIME, checkoutHtml } from '@/lib/mcp/checkoutWidget'
 import {
   SITE_ORIGIN,
   asLocale,
@@ -20,6 +21,7 @@ import {
   concernsOf,
   productDetail,
   productSlug,
+  productOptions,
   productUrl,
   resolveSelection,
   searchProducts,
@@ -29,7 +31,7 @@ import {
 } from '@/lib/mcp/catalog'
 
 export const MCP_SERVER_NAME = 'genosys'
-export const MCP_SERVER_VERSION = '1.1.0'
+export const MCP_SERVER_VERSION = '1.2.0'
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false } as const
 
@@ -37,7 +39,8 @@ const INSTRUCTIONS = `GENOSYS is the official UAE distributor of GENOSYS profess
 Use these tools to answer skincare and haircare shopping questions with the live catalog.
 - Prices are AED and already include 5% UAE VAT. Quote them as given; do not add VAT.
 - Always give the product link.
-- To buy right here in the chat: collect name, email, phone, emirate and full delivery address, show the items with prices, delivery fee and total, get the shopper's clear yes, then call place_order and share pay_url. Payment is card, Apple Pay or Google Pay on a secure Stripe page; the order is confirmed by email once paid. Never invent customer details.
+- To buy right here in the chat, call open_checkout with the chosen items: it shows the shopper a checkout form (delivery details, live total, payment button). Do not ask for the delivery details in chat when the form is shown.
+- If the form cannot be shown in this app: collect name, email, phone, emirate and full delivery address, show the items with prices, delivery fee and total, get the shopper's clear yes, then call place_order and share pay_url. Payment is card, Apple Pay or Google Pay on a secure Stripe page; the order is confirmed by email once paid. Never invent customer details.
 - If the shopper prefers the website, call create_bag_link instead: it opens genosys.ae with the items in their bag.
 - order_status checks an order with its number and the email used.
 - Products are cosmetics, not medicines: do not promise medical results. For pregnancy, a skin condition or a reaction, suggest a doctor or dermatologist.
@@ -264,6 +267,111 @@ export function createGenosysMcpServer(): McpServer {
             : `Delivery AED 45 in Dubai, AED 70 other emirates; free from AED ${MOBILE_CHECKOUT_CONFIG.freeShippingThreshold}`,
         note: 'The shopper signs in or creates a free account on genosys.ae, then checks out. Final prices are confirmed at checkout.',
       })
+    }
+  )
+
+  server.registerResource(
+    'genosys-checkout',
+    CHECKOUT_UI_URI,
+    { title: 'GENOSYS checkout form', description: 'Delivery details and payment for a GENOSYS order.', mimeType: MCP_APP_MIME, _meta: CHECKOUT_UI_META },
+    async () => ({ contents: [{ uri: CHECKOUT_UI_URI, mimeType: MCP_APP_MIME, text: checkoutHtml(), _meta: CHECKOUT_UI_META }] })
+  )
+
+  server.registerTool(
+    'open_checkout',
+    {
+      title: 'Open GENOSYS checkout',
+      description:
+        'Show the shopper a checkout form for these items: shade picker where needed, quantities, delivery details (name, email, phone, emirate, address), live total and a button that creates the order and opens secure Stripe payment. Use when the shopper wants to buy. Pass any details the shopper already gave as prefill.',
+      inputSchema: {
+        items: z
+          .array(
+            z.object({
+              product_id: z.string().min(1).max(64),
+              quantity: z.number().int().min(1).max(20).optional(),
+              size: z.string().max(40).optional(),
+              color: z.string().max(60).optional(),
+            })
+          )
+          .min(1)
+          .max(20),
+        prefill: z
+          .object({
+            name: z.string().max(100).optional(),
+            email: z.string().max(200).optional(),
+            phone: z.string().max(30).optional(),
+            emirate: z.enum(['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain']).optional(),
+            address: z.string().max(500).optional(),
+            notes: z.string().max(1000).optional(),
+          })
+          .optional(),
+        locale: localeInput,
+      },
+      annotations: READ_ONLY,
+      _meta: {
+        ui: { resourceUri: CHECKOUT_UI_URI },
+        'ui/resourceUri': CHECKOUT_UI_URI,
+        'openai/outputTemplate': CHECKOUT_UI_URI,
+        'openai/widgetAccessible': true,
+        'openai/toolInvocation/invoking': 'Preparing checkout…',
+        'openai/toolInvocation/invoked': 'Checkout ready',
+      },
+    },
+    async ({ items, prefill, locale }) => {
+      const loc = asLocale(locale)
+      const products = await loadProducts()
+      const lines = []
+      for (const item of items) {
+        const product = findProduct(products, item.product_id)
+        if (!product) return errorResult(`No GENOSYS product with id "${item.product_id}".`)
+        if (!product.inStock) return errorResult(`${product.name} is out of stock right now.`)
+        if (product.isPriceOnRequest) return errorResult(`${product.name} is a professional product sold on request: contact GENOSYS on WhatsApp +971 58 548 76 65.`)
+        const options = productOptions(product)
+        const shades = options.filter((o) => o.color).map((o) => ({ value: o.color as string, label: o.label }))
+        const sizes = options.filter((o) => o.size && !o.color)
+        if (sizes.length && !item.size) {
+          return errorResult(`${product.name} comes in ${sizes.map((o) => o.label).join(', ')}: ask which size, then call open_checkout with it.`)
+        }
+        const picked = resolveSelection(product, item.size, item.color || (shades.length ? shades[0]?.value : null))
+        if (!picked.ok) return errorResult(picked.error)
+        const color = item.color && shades.length ? picked.color : null
+        lines.push({
+          id: productSlug(product),
+          name: product.name,
+          size: picked.size,
+          size_label: picked.size || product.size || null,
+          color,
+          color_label: color ? shades.find((s) => s.value === color)?.label ?? color : null,
+          shades,
+          quantity: item.quantity ?? 1,
+          unit_price_aed: picked.price_aed ?? 0,
+          image: summarizeProduct(product, loc).image,
+        })
+      }
+      const subtotal = lines.reduce((sum, l) => sum + l.unit_price_aed * l.quantity, 0)
+      const data = {
+        locale: loc,
+        items: lines,
+        delivery: {
+          free_from_aed: MOBILE_CHECKOUT_CONFIG.freeShippingThreshold,
+          rates_aed: Object.fromEntries(MOBILE_CHECKOUT_CONFIG.emirates.map((e) => [e.name, e.shippingCost])),
+        },
+        prefill: prefill ?? {},
+        estimated_subtotal_aed: Math.round(subtotal * 100) / 100,
+      }
+      return {
+        content: [
+          {
+            type: 'text' as const,
+            text:
+              `Checkout form shown for: ${lines.map((l) => `${l.quantity} × ${l.name}${l.color_label ? ` (${l.color_label})` : ''} AED ${l.unit_price_aed}`).join('; ')}. ` +
+              'The shopper fills in delivery details and pays in the form; do not ask for them in chat. ' +
+              'If this app cannot display the form, collect name, email, phone, emirate and address in chat and call place_order instead.',
+          },
+        ],
+        structuredContent: data,
+        _meta: { ui: { resourceUri: CHECKOUT_UI_URI } },
+      }
     }
   )
 

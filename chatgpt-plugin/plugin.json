@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "genosys-uae",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Shop GENOSYS Korean professional skincare in the UAE: search the live catalog, get product details and routines, and order with secure Stripe payment.",
   "author": {
     "name": "Genosys Middle East FZ-LLC",
@@ -76,10 +76,10 @@
               "expected_behavior": "States AED 70 delivery to Abu Dhabi, 24-36 hours, free from AED 1,000; payment by card, Apple Pay, Google Pay or cash on delivery on the website."
             },
             {
-              "description": "Order and pay in chat",
-              "prompt": "Order one GENOSYS hyaluron serum for Test Reviewer, test@example.com, phone 050 123 4567, to Villa 12, Street 5, Jumeirah 1, Dubai.",
-              "tools_triggered": "search_products, place_order",
-              "expected_behavior": "Shows the item, AED 330 plus AED 45 Dubai delivery, total AED 375, asks for confirmation, then returns a GENCardA order number and a checkout.stripe.com payment link. No charge is made unless the reviewer pays; unpaid orders are never shipped."
+              "description": "Order with the in-chat checkout form",
+              "prompt": "I want to buy one GENOSYS hyaluron serum, delivered in Dubai.",
+              "tools_triggered": "search_products, open_checkout, place_order",
+              "expected_behavior": "Shows the GENOSYS checkout form with the serum at AED 330. After the reviewer fills in Test Reviewer, test@example.com, 050 123 4567, Dubai, Villa 12 Street 5 Jumeirah 1, the total shows AED 375 (AED 45 delivery) and Continue to secure payment returns a GENCardA order number and opens a checkout.stripe.com page. No charge is made unless the reviewer pays; unpaid orders are never shipped."
             }
           ],
           "negative": [
@@ -101,7 +101,7 @@
         "commerce_description": "Shoppers can buy GENOSYS cosmetics for delivery in the UAE. The app creates an order and returns a Stripe Checkout link; payment (card, Apple Pay, Google Pay) happens on Stripe, never inside the app. Prices are the public retail prices in AED with 5% VAT included. Unpaid orders are not fulfilled."
       },
       "publication": {
-        "release_notes": "First release: catalog search in English, Russian and Arabic, product details, skincare routines, delivery information, ordering with Stripe payment, order status and bag links to genosys.ae.",
+        "release_notes": "First release: catalog search in English, Russian and Arabic, product details, skincare routines, delivery information, an in-chat checkout form with Stripe payment, order status and bag links to genosys.ae.",
         "translations": {
           "ru-RU": {
             "subtitle": "Корейская косметика, ОАЭ",

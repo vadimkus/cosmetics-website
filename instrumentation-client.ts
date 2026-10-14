@@ -366,16 +366,34 @@ function isReactStreamingRevealNullNodeRace(event: Sentry.ErrorEvent): boolean {
   })
 }
 
-function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): boolean {
+/**
+ * Meta Android in-app browser injected logger.
+ *
+ * Instagram and Facebook on Android inject `app://navigation_performance_logger_android`
+ * into every page. Its listeners call the native bridge (`postMessage`,
+ * `enableDidUserTypeOnKeyboardLogging`) after the app has torn the WebView's
+ * Java object down, so they throw "Error invoking <method>: Java object is gone".
+ * When the listener was added through `addEventListener`, Sentry's own wrapper
+ * from our bundle sits outermost in the stack (JAVASCRIPT-NEXTJS-2H/2J/2K,
+ * Facebook 561/582 on Android 13/14); otherwise it arrives via window.onerror.
+ *
+ * Dropped only when the throwing frame is the injected logger and no other
+ * frame is anything but the logger or a `_next/static/chunks` wrapper.
+ */
+function isMetaAndroidNavigationLoggerError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
   const exc = values[0]
   if (!exc) return false
   if (exc.type !== 'Error') return false
-  if (!/Error invoking enableDidUserTypeOnKeyboardLogging: Java object is gone/i.test(exc.value || '')) {
+  if (!/Error invoking \w+: Java object is gone/i.test(exc.value || '')) return false
+  const mechanism = exc.mechanism?.type || ''
+  if (
+    mechanism !== 'auto.browser.global_handlers.onerror' &&
+    !mechanism.startsWith('auto.browser.browserapierrors.')
+  ) {
     return false
   }
-  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
 
   const ua = getUserAgent()
   const os =
@@ -388,14 +406,17 @@ function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): bool
     getTagValue(event, 'browser.name') ||
     getTagValue(event, 'browser') ||
     ua
-  if (!/Android/i.test(os) || !/Instagram/i.test(browser)) return false
+  if (!/Android/i.test(os)) return false
+  if (!/Instagram|Facebook|FBAN|FBAV|FB_IAB/i.test(browser)) return false
 
+  const isLoggerFrame = (file: string) => /^app:\/\/navigation_performance_logger_android/i.test(file)
   const frames = exc.stacktrace?.frames || []
-  if (frames.length === 0) return false
+  const innermost = frames[frames.length - 1]
+  if (!innermost || !isLoggerFrame(innermost.filename || innermost.abs_path || '')) return false
 
   return frames.every((frame) => {
     const file = frame.filename || frame.abs_path || ''
-    return /^app:\/\/navigation_performance_logger_android/i.test(file)
+    return isLoggerFrame(file) || /_next\/static\/chunks\//.test(file)
   })
 }
 
@@ -575,7 +596,7 @@ if (dsn) {
       if (isReactStreamingRevealNullNodeRace(event)) return null
       if (isBrowserTranslationContentDocumentProbe(event)) return null
       if (isBlobOnlyBoundingClientRectProbe(event)) return null
-      if (isInstagramAndroidNavigationLoggerError(event)) return null
+      if (isMetaAndroidNavigationLoggerError(event)) return null
       if (isInjectedZpScriptError(event)) return null
       if (isWebKitEmptyRangesBug(event)) return null
       if (isWebKitBareInvalidStateError(event)) return null

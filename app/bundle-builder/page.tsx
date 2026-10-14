@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     url: 'https://genosys.ae/bundle-builder',
     siteName: 'GENOSYS',
     locale: 'en_AE',
-    images: [{ url: 'https://genosys.ae/images/genosys-products.jpg', width: 1200, height: 630, alt: 'GENOSYS custom skincare set' }],
+    images: [{ url: 'https://genosys.ae/images/genosys-share-2026-10.jpg', width: 1200, height: 630, alt: 'GENOSYS custom skincare set' }],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@genosys_official',
     title: 'Build Your Skincare Set - Custom Bundle | GENOSYS UAE',
     description: 'Pick products across categories and save up to 20% with automatic bundle discounts.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/bundle-builder',

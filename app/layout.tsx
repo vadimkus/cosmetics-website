@@ -182,7 +182,7 @@ export const metadata: Metadata = {
         alt: 'GENOSYS - Professional Korean Dermacosmetics',
       },
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Professional Korean Dermacosmetics Products',

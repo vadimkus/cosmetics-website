@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: 'ar_AE',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: '/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS تم تأكيد الطلب',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'تم تأكيد الطلب - GENOSYS Professional Korean Dermacosmetics',
     description: 'تم تأكيد طلبك من منتجات العناية بالبشرة الاحترافية GENOSYS بنجاح.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/success',

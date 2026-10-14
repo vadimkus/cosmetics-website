@@ -180,7 +180,7 @@ const OG_LOCALES: Record<SeoLocale, string> = {
 }
 
 // Default OG image
-const DEFAULT_OG_IMAGE = '/images/genosys-products.jpg'
+const DEFAULT_OG_IMAGE = '/images/genosys-share-2026-10.jpg'
 const DEFAULT_OG_IMAGE_ALT: Record<SeoLocale, string> = {
   en: 'GENOSYS Premium Korean Dermacosmetics',
   ar: 'مستحضرات التجميل الكورية المميزة من GENOSYS',

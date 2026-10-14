@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: '/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Favorites',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Favorites - GENOSYS Products',
     description: 'View your saved GENOSYS products.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/favorites',

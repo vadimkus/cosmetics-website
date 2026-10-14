@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Premium Korean Dermacosmetics',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'GENOSYS | Official Korean Dermacosmetics Distributor UAE',
     description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices and skincare products.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae',

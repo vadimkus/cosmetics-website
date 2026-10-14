@@ -367,7 +367,7 @@ export default function BrandPageClient() {
             <div className="relative overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <div className="relative aspect-[16/8] w-full">
                 <Image
-                  src="/images/genosys-products.jpg"
+                  src="/images/genosys-share-2026-10.jpg"
                   alt="GENOSYS Professional Korean Dermacosmetics - Microneedling Devices and Skincare Solutions"
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"

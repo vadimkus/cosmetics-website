@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: '/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Login',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Login - GENOSYS Professional Korean Dermacosmetics',
     description: 'Access your GENOSYS professional account. Login to view prices and manage orders.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/login',

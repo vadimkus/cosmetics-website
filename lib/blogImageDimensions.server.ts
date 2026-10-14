@@ -37,6 +37,7 @@ const BLOG_IMAGE_DIMENSIONS: Readonly<Record<string, BlogImageDimensions>> = {
   '/images/pwa/pwa-device-selection.png': { width: 864, height: 1774 },
   '/images/ios.png': { width: 1486, height: 788 },
   '/images/stripe.png': { width: 1026, height: 566 },
+  '/images/genosys-share-2026-10.jpg': { width: 1200, height: 630 },
   '/images/genosys-products.jpg': { width: 1516, height: 720 },
   '/blog/biomeso3.png': { width: 476, height: 434 },
   '/blog/bioo.jpeg': { width: 1280, height: 854 },

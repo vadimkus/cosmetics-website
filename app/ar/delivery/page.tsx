@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: 'ar_AE',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'خدمة توصيل GENOSYS الإمارات',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'معلومات التوصيل - شحن سريع الإمارات',
     description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/delivery',

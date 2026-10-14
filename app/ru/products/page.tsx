@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: 'https://genosys.ae/ru/products',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'Коллекция продукции GENOSYS',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Продукция GENOSYS - Профессиональная корейская дерматокосметика ОАЭ',
     description: 'Магазин профессиональной корейской дерматокосметики GENOSYS. Полная коллекция устройств для микронидлинга, сывороток, кремов и многое другое.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/products',

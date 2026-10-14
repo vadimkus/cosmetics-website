@@ -231,7 +231,7 @@ export default async function RussianBlogPostPage({ params }: BlogPostPageProps)
             "@type": "BlogPosting",
             "headline": title,
             "description": excerpt || stripHtml(content).substring(0, 160),
-            "image": post.featuredImage || "https://genosys.ae/images/genosys-products.jpg",
+            "image": post.featuredImage || "https://genosys.ae/images/genosys-share-2026-10.jpg",
             "datePublished": post.publishedAt?.toISOString(),
             "dateModified": post.updatedAt.toISOString(),
             "author": {

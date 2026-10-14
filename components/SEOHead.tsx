@@ -20,7 +20,7 @@ export default function SEOHead({
   description,
   keywords,
   canonical,
-  ogImage = '/images/genosys-products.jpg',
+  ogImage = '/images/genosys-share-2026-10.jpg',
   ogType = 'website',
   twitterCard = 'summary_large_image',
   twitterSite = '@genosys_official',

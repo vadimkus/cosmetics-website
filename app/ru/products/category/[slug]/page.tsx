@@ -44,7 +44,7 @@ export async function generateMetadata(
       url: `${baseUrl}/ru/products/category/${slug}`,
       siteName: 'GENOSYS',
       locale: 'ru_AE',
-      images: [{ url: `${baseUrl}/images/genosys-products.jpg`, width: 1200, height: 630, alt: seo.h1 }],
+      images: [{ url: `${baseUrl}/images/genosys-share-2026-10.jpg`, width: 1200, height: 630, alt: seo.h1 }],
     },
     alternates: {
       canonical: `${baseUrl}/ru/products/category/${slug}`,

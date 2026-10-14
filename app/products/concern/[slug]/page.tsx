@@ -39,7 +39,7 @@ export async function generateMetadata(
   const seo = concern.seo.en
   const baseUrl = 'https://genosys.ae'
   const visual = getConcernVisual(slug)
-  const socialImage = visual ? `${baseUrl}${visual.image}` : `${baseUrl}/images/genosys-products.jpg`
+  const socialImage = visual ? `${baseUrl}${visual.image}` : `${baseUrl}/images/genosys-share-2026-10.jpg`
   
   return {
     title: seo.title,

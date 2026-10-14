@@ -54,7 +54,7 @@ export async function generateMetadata(
       siteName: 'GENOSYS',
       locale: 'en_AE',
       images: [{
-        url: `${baseUrl}/images/genosys-products.jpg`,
+        url: `${baseUrl}/images/genosys-share-2026-10.jpg`,
         width: 1200,
         height: 630,
         alt: seo.h1,
@@ -64,7 +64,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
-      images: [`${baseUrl}/images/genosys-products.jpg`],
+      images: [`${baseUrl}/images/genosys-share-2026-10.jpg`],
     },
     alternates: {
       canonical: `${baseUrl}/products/category/${slug}`,

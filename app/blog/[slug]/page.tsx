@@ -220,7 +220,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               "@type": "BlogPosting",
               "headline": post.title,
               "description": post.excerpt || stripHtml(post.content).substring(0, 160),
-              "image": post.featuredImage ? buildUrl(post.featuredImage) : buildUrl('/images/genosys-products.jpg'),
+              "image": post.featuredImage ? buildUrl(post.featuredImage) : buildUrl('/images/genosys-share-2026-10.jpg'),
               "datePublished": post.publishedAt?.toISOString(),
               "dateModified": post.updatedAt.toISOString(),
               "author": {

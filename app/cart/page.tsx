@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: '/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Shopping Bag',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Shopping Bag - GENOSYS Professional Korean Dermacosmetics',
     description: 'Review your selected GENOSYS professional Korean dermacosmetics products.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/cart',

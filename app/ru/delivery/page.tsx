@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: 'ru_AE',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'Служба доставки GENOSYS ОАЭ',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Информация о доставке - Быстрая доставка ОАЭ',
     description: 'Быстрая и надежная служба доставки по всему ОАЭ. Доставка в течение 1 часа в Дубае, 24-36 часов по всему ОАЭ.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/delivery',

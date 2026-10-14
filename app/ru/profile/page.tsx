@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: '/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'Профиль GENOSYS',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Профиль - Управление аккаунтом GENOSYS',
     description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов и обновляйте личную информацию',
-    images: ['/images/genosys-products.jpg'],
+    images: ['/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/profile',

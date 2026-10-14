@@ -26,7 +26,7 @@ export default function LocalBusinessSchema() {
     },
     "image": {
       "@type": "ImageObject",
-      "url": `${baseUrl}/images/genosys-products.jpg`,
+      "url": `${baseUrl}/images/genosys-share-2026-10.jpg`,
       "width": 1200,
       "height": 630
     },

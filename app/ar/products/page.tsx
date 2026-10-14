@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: 'https://genosys.ae/ar/products',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-share-2026-10.jpg',
         width: 1200,
         height: 630,
         alt: 'مجموعة منتجات GENOSYS',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'منتجات GENOSYS - مجموعة مستحضرات التجميل الكورية الاحترافية في الإمارات',
     description: 'تسوق مستحضرات التجميل الكورية الاحترافية من GENOSYS. مجموعة كاملة من رولرات الميكرونيدلينغ، والسيرومات، والكريمات، والمزيد.',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-share-2026-10.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/products',

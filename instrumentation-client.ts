@@ -377,6 +377,9 @@ function isReactStreamingRevealNullNodeRace(event: Sentry.ErrorEvent): boolean {
  * from our bundle sits outermost in the stack (JAVASCRIPT-NEXTJS-2H/2J/2K,
  * Facebook 561/582 on Android 13/14); otherwise it arrives via window.onerror.
  *
+ * Older app builds throw the bare "Java object is gone" without the method prefix
+ * (JAVASCRIPT-NEXTJS-1W, Facebook 582 on Android 9).
+ *
  * Dropped only when the throwing frame is the injected logger and no other
  * frame is anything but the logger or a `_next/static/chunks` wrapper.
  */
@@ -386,7 +389,7 @@ function isMetaAndroidNavigationLoggerError(event: Sentry.ErrorEvent): boolean {
   const exc = values[0]
   if (!exc) return false
   if (exc.type !== 'Error') return false
-  if (!/Error invoking \w+: Java object is gone/i.test(exc.value || '')) return false
+  if (!/^(?:Error invoking \w+: )?Java object is gone$/i.test(exc.value || '')) return false
   const mechanism = exc.mechanism?.type || ''
   if (
     mechanism !== 'auto.browser.global_handlers.onerror' &&
@@ -576,6 +579,31 @@ function isInjectedWebkitMessageHandlersError(event: Sentry.ErrorEvent): boolean
   })
 }
 
+/**
+ * Google app (iOS) injected script recursion.
+ *
+ * The Google Search app (GSA) opens results in its own WKWebView and injects a
+ * minified script. In JAVASCRIPT-NEXTJS-2M (GSA 442 / iOS 26.6.1, one visitor,
+ * one blog post, 8 throws) its functions `Fk` and `Hk` call each other until
+ * "RangeError: Maximum call stack size exceeded". Every frame points at the page
+ * document itself: the reported lines (192, 200, 228) are our JSON-LD in the
+ * HTML, so the code is not ours, and no frame touches our bundles.
+ */
+function isGoogleAppInjectedRecursion(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'RangeError' || !/Maximum call stack size exceeded/i.test(exc.value || '')) return false
+  if (!/\bGSA\//.test(getUserAgent())) return false
+  const frames = exc.stacktrace?.frames || []
+  if (frames.length === 0) return false
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return !/\/_next\//.test(file) && !/\.(?:js|mjs)(?:\?|$)/.test(file)
+  })
+}
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -603,6 +631,7 @@ if (dsn) {
       if (isDeploymentSkewChunkError(event)) return null
       if (isInjectedShopLookupRejection(event)) return null
       if (isInjectedWebkitMessageHandlersError(event)) return null
+      if (isGoogleAppInjectedRecursion(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

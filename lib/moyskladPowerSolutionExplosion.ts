@@ -1,7 +1,7 @@
 /**
- * Power Solution boxes on genosys.ae are sold as 10-vial kits.
- * MoySklad often has vial stock but no box stock - explode each box line
- * into individual vials (1 box = 10 vials) on admin push.
+ * Power Solution boxes and the SKIN RENEWAL PEELING SYSTEM (SRS) box are sold on
+ * genosys.ae as 10-vial boxes. MoySklad stocks the vials - explode each box line
+ * into individual vials (1 box = 10 vials) on push.
  *
  * Retail: box price ÷ 10 per vial (e.g. 580 AED box → 10 × 58 AED vials).
  */
@@ -24,6 +24,7 @@ const POWER_SOLUTION_BOX_TO_VIAL: Record<string, string> = {
   'POWER SOLUTION HES': 'POWER SOLUTION HES 1 VIAL 2ML',
   'POWER SOLUTION PCS': 'POWER SOLUTION PCS 1 VIAL 2ML',
   'POWER SOLUTION CTS': 'POWER SOLUTION CTS 1 VIAL 2ML',
+  'SKIN RENEWAL PEELING SYSTEM (SRS)': 'SKIN RENEWAL PEELING SYSTEM (SRS) 1 VIAL 2ML',
 }
 
 function normalizeProductName(name: string): string {

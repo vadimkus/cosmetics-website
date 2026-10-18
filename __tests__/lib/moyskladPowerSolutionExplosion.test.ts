@@ -11,6 +11,19 @@ describe('moyskladPowerSolutionExplosion', () => {
     expect(isPowerSolutionBoxProductName('Multi Vita Radiance Serum')).toBe(false)
   })
 
+  it('explodes the SRS box to 10 SRS vials (GENCardM2610182681: 405 AED box = 10 x 40.50)', () => {
+    expect(isPowerSolutionBoxProductName('SKIN RENEWAL PEELING SYSTEM (SRS)')).toBe(true)
+    const lines = explodePowerSolutionBoxItem({
+      productName: 'SKIN RENEWAL PEELING SYSTEM (SRS)',
+      quantity: 1,
+      price: 405,
+    })
+    expect(lines).toEqual([
+      expect.objectContaining({ productName: 'SKIN RENEWAL PEELING SYSTEM (SRS) 1 VIAL 2ML', quantity: 10, retailPrice: 40.5 }),
+    ])
+    expect(sumExplodedPowerSolutionLinesAed(lines)).toBe(405)
+  })
+
   it('explodes 1 SWS box to 10 vials at 58 AED each (580 box retail)', () => {
     const lines = explodePowerSolutionBoxItem({
       productName: 'POWER SOLUTION SWS',

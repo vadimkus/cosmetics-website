@@ -204,6 +204,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'POWER SOLUTION HES 1 VIAL 2ML': '4ba9c825-45d6-11ea-0a80-067800168f95', // 00071
   'POWER SOLUTION PCS 1 VIAL 2ML': '8a43a8e9-45d4-11ea-0a80-048a00166b96', // 00065
   'POWER SOLUTION CTS 1 VIAL 2ML': 'c4784fc1-45d5-11ea-0a80-02fd001636a2', // 00069
+  'SKIN RENEWAL PEELING SYSTEM (SRS) 1 VIAL 2ML': '249b01f4-3446-11ea-0a80-03f90001b3de', // 40.50 AED
 
   // === Power Solutions - boxes (legacy fallback only; push explodes to vials above) ===
   'POWER SOLUTION AWS': '05507ec8-3447-11ea-0a80-05dc00016a6b',       // 00017 Box

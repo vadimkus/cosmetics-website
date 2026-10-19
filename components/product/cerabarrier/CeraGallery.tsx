@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
+import { useHorizontalSwipe } from './useHorizontalSwipe'
 
 export interface CeraGalleryImage {
   src: string
@@ -26,7 +27,8 @@ export interface CeraGalleryImage {
 /**
  * Hero gallery for the CERABARRIER page (product 66): a soft cream stage for
  * the packshot, a thumbnail rail (vertical on desktop, horizontal on mobile)
- * and a keyboard-navigable lightbox.
+ * and a keyboard-navigable lightbox. On touch screens the stage and the
+ * lightbox swipe left and right with one finger, as in the iOS app.
  */
 export default function CeraGallery({
   images,
@@ -49,6 +51,23 @@ export default function CeraGallery({
   const go = useCallback((delta: number) => {
     setLightbox(prev => (prev === null ? prev : (prev + delta + count) % count))
   }, [count])
+  const step = useCallback((delta: number) => {
+    setActive(prev => (prev + delta + count) % count)
+  }, [count])
+
+  const stageSwipe = useHorizontalSwipe({ onNext: () => step(1), onPrev: () => step(-1), isRtl })
+  const lightboxSwipe = useHorizontalSwipe({ onNext: () => go(1), onPrev: () => go(-1), isRtl })
+
+  // Keep the active thumbnail in view on the horizontal (mobile) rail. Scrolls
+  // the rail only; scrollIntoView would also scroll the page.
+  const railRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const rail = railRef.current
+    const thumb = rail?.children[active] as HTMLElement | undefined
+    if (!rail || !thumb || rail.scrollWidth <= rail.clientWidth) return
+    const left = thumb.offsetLeft - rail.offsetLeft - (rail.clientWidth - thumb.clientWidth) / 2
+    rail.scrollTo({ left, behavior: 'smooth' })
+  }, [active])
 
   useEffect(() => {
     if (lightbox === null) return
@@ -73,7 +92,7 @@ export default function CeraGallery({
     <div className="lg:flex lg:items-start lg:gap-5">
       {/* Thumbnail rail */}
       {count > 1 && (
-        <div className="order-2 mt-3 flex gap-2.5 overflow-x-auto pb-1 lg:order-1 lg:mt-0 lg:w-[80px] lg:flex-none lg:flex-col lg:overflow-visible lg:pb-0">
+        <div ref={railRef} className="order-2 mt-3 flex gap-2.5 overflow-x-auto pb-1 lg:order-1 lg:mt-0 lg:w-[80px] lg:flex-none lg:flex-col lg:overflow-visible lg:pb-0">
           {images.map((img, i) => (
             <button
               key={img.src}
@@ -124,12 +143,23 @@ export default function CeraGallery({
           </div>
         ) : null}
 
-        <div className="cera-stage relative aspect-square w-full overflow-hidden rounded-[28px] sm:rounded-[34px]">
+        <div
+          className="cera-stage relative aspect-square w-full overflow-hidden rounded-[28px] sm:rounded-[34px]"
+          style={{ touchAction: count > 1 ? 'pan-y' : undefined }}
+          {...(count > 1 ? stageSwipe.handlers : {})}
+        >
           <button
             type="button"
-            onClick={() => setLightbox(active)}
+            onClick={() => {
+              if (stageSwipe.consumeClick()) return
+              setLightbox(active)
+            }}
             className="group absolute inset-0 cursor-zoom-in"
             aria-label="Open full-size image"
+            style={{
+              transform: stageSwipe.offset ? `translateX(${stageSwipe.offset}px)` : undefined,
+              transition: stageSwipe.dragging ? 'none' : 'transform 250ms ease-out',
+            }}
           >
             <Image
               key={current.src}
@@ -202,6 +232,12 @@ export default function CeraGallery({
           <div
             className="relative h-[78vh] w-full max-w-4xl"
             onClick={e => e.stopPropagation()}
+            style={{
+              touchAction: count > 1 ? 'pan-y' : undefined,
+              transform: lightboxSwipe.offset ? `translateX(${lightboxSwipe.offset}px)` : undefined,
+              transition: lightboxSwipe.dragging ? 'none' : 'transform 250ms ease-out',
+            }}
+            {...(count > 1 ? lightboxSwipe.handlers : {})}
           >
             <Image
               src={images[lightbox].src}

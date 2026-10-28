@@ -63,6 +63,7 @@ import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
+import { restockNote } from '@/lib/restockInfo'
 import ProductReviews from '@/components/product/ProductReviews'
 
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
@@ -209,8 +210,10 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
 
   const priceLabel = canSeePrices ? `${pricing.displayPrice.toFixed(2)} ${isRtl ? 'درهم' : 'AED'}` : null
 
+  const restock = !product.inStock ? restockNote(product.id, locale) : null
+
   const ctaLabel = !product.inStock
-    ? copy.outOfStock
+    ? (restock || copy.outOfStock)
     : !user
       ? t('product.loginToSeePrice')
       : isAdding
@@ -238,7 +241,7 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
             <CeraGallery
               images={galleryImages}
               isRtl={isRtl}
-              badge={product.inStock ? t('product.inStock') : t('product.soldOut')}
+              badge={product.inStock ? t('product.inStock') : (restock || t('product.soldOut'))}
             />
           </div>
 

@@ -37,3 +37,11 @@ Scheduled for **Sun 1 Nov 2026 10:00 Dubai** by a one-shot launchd job
 `~/Library/LaunchAgents/com.vadim.genosys-newsletter-biomeso.plist` running
 `~/Library/Scripts/genosys_send_biomeso_post.sh`; it removes itself after the run.
 Log: `~/Library/Logs/genosys/newsletter_biomeso_post_2026-11-01.log`.
+
+## Localized slides (1 Nov, 00:10)
+
+RU and AR emails now show RU / AR versions of the two slides (`proof_ru_01/02.jpg`, `proof_ar_01/02.jpg`), typeset by
+`Insta_Olga/02_PRODUCTS/60_BIO_MESO_PDRN_60000/NO_NEEDLES_2026-10/04_WORK/IG_POST/_scripts/typeset_localized.py`
+(RU Manrope wght 200; AR Noto Sans Arabic wght 300 from `public/fonts/3fd1b3eda9c5392f.woff2`, right-aligned RTL).
+Finals: `NO_NEEDLES_2026-10/01_FINAL/PROOF_60000_RU/` and `_AR/`. Tests re-sent and checked.
+The collagen myth blog post (same day) uses clean plates with no type, so its RU/AR pages needed no change.

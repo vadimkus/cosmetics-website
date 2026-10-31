@@ -54,7 +54,7 @@ const extLink = (href: string, text: string) =>
 const hero = (kicker: string, title: string, line: string) => `
   <div class="rounded-3xl bg-[#EFE6C4] p-8 md:p-12">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#6F6440]">${kicker}</p>
-    <h2 class="text-4xl md:text-6xl font-light leading-[0.95] mt-4 text-[#323132]">${title}</h2>
+    <h2 class="text-4xl md:text-6xl leading-[0.95] mt-4 text-[#323132]"><span class="font-light">${title}</span></h2>
     <p class="text-lg text-[#4A4636] mt-6 max-w-2xl">${line}</p>
   </div>`
 
@@ -152,7 +152,7 @@ const faq = (items: [string, string][]) => `
 
 const cta = (title: string, line: string, buttons: [string, string][]) => `
   <div class="rounded-3xl bg-[#EFE6C4] p-8 md:p-12 text-center">
-    <h2 class="text-3xl md:text-5xl font-light leading-tight text-[#323132]">${title}</h2>
+    <h2 class="text-3xl md:text-5xl leading-tight text-[#323132]"><span class="font-light">${title}</span></h2>
     <p class="text-[#4A4636] mt-4 mb-7 max-w-2xl mx-auto">${line}</p>
     <div class="flex flex-wrap justify-center gap-3">
       ${buttons.map(([href, label], i) => `<a href="${href}" class="inline-block rounded-full ${i === 0 ? 'bg-[#323132] text-white hover:bg-[#4A4636]' : 'border border-[#323132] text-[#323132] hover:bg-white'} px-7 py-3 font-semibold">${label}</a>`).join('\n      ')}
@@ -195,13 +195,13 @@ ${feature('myth-plate', 'Small heaps of white powder arranged in a ring on a pla
     ${p('Pooled together, the trials showed better hydration, elasticity and wrinkles. Split by who paid for them, the picture changed: trials funded by supplement makers found an effect, the others did not. The highest-quality trials found no significant effect either. The authors concluded there is currently no clinical evidence that collagen supplements prevent or treat skin ageing.')}
     ${p('To be fair to the other side: supplement makers have challenged how the paper sorted some trials by funding, so the debate is not closed. What it does mean is that the cleanest evidence does not back the promise on the jar.')}
   </div>
-${feature('myth-spoon', 'A woman in profile with a spoon of collagen powder held near her jaw', 'So, should you stop?',
+${feature('myth-dish', 'A small dish of white powder on a pale yellow table', 'So, should you stop?',
     p('That is your call. Collagen is a protein, and protein is good food. Just count it as nutrition, not as skincare. If the goal is your face, the shortest way to it is the one you can see: what you put on it.'),
     'plain')}
 
   <div class="text-center py-2">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#8A5A4E]">Care that goes on the face</p>
-    <h2 class="text-4xl md:text-5xl font-light leading-tight text-[#323132] mt-3">No needles.<br />Just hands.</h2>
+    <h2 class="text-4xl md:text-5xl leading-tight text-[#323132] mt-3"><span class="font-light">No needles.<br />Just hands.</span></h2>
   </div>
 ${feature('sponge', 'A freshwater sponge torn open on a plate beside salmon roe', 'A sponge and a salmon.',
     p('BIO-MESO PDRN starts from two unlikely sources. The first is a freshwater sponge, whose skeleton is made of microscopic, needle-like structures called spicules. The second is salmon: PDRN, the DNA fragment the line is named after, comes from salmon milt.') +
@@ -307,13 +307,13 @@ ${feature('myth-plate', 'Маленькие горки белого порошк
     ${p('Вместе исследования показали улучшение увлажнённости, упругости и морщин. Но если разделить их по тому, кто платил, картина меняется: исследования, оплаченные производителями добавок, эффект нашли, остальные нет. Исследования самого высокого качества значимого эффекта тоже не нашли. Вывод авторов: клинических доказательств того, что коллагеновые добавки предотвращают или лечат старение кожи, сейчас нет.')}
     ${p('Справедливости ради: производители добавок оспаривают, как в работе распределили часть исследований по источнику финансирования, так что спор не закрыт. Но самые чистые данные обещание на банке не подтверждают.')}
   </div>
-${feature('myth-spoon', 'Женщина в профиль с ложкой коллагенового порошка у линии подбородка', 'Так бросать или нет?',
+${feature('myth-dish', 'Маленькая пиала с белым порошком на светло-жёлтом столе', 'Так бросать или нет?',
     p('Решать вам. Коллаген это белок, а белок хорошая еда. Просто считайте его питанием, а не уходом за кожей. Если цель лицо, самый короткий путь к нему тот, который видно: то, что вы на него наносите.'),
     'plain')}
 
   <div class="text-center py-2">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#8A5A4E]">Уход, который наносят на лицо</p>
-    <h2 class="text-4xl md:text-5xl font-light leading-tight text-[#323132] mt-3">Без игл.<br />Только руки.</h2>
+    <h2 class="text-4xl md:text-5xl leading-tight text-[#323132] mt-3"><span class="font-light">Без игл.<br />Только руки.</span></h2>
   </div>
 ${feature('sponge', 'Разорванная пресноводная губка на тарелке рядом с лососёвой икрой', 'Губка и лосось.',
     p('BIO-MESO PDRN начинается с двух неожиданных источников. Первый это пресноводная губка, скелет которой состоит из микроскопических игольчатых структур, спикул. Второй это лосось: PDRN, фрагмент ДНК, давший линии имя, получают из молок лосося.') +
@@ -423,13 +423,13 @@ ${feature('myth-plate', 'أكوام صغيرة من مسحوق أبيض مرتب
     ${p('مجتمعةً، أظهرت التجارب تحسناً في الترطيب والمرونة والتجاعيد. لكن عند تقسيمها حسب الجهة الممولة تغيّرت الصورة: التجارب التي موّلتها شركات المكمّلات وجدت تأثيراً، والأخرى لم تجد. كما لم تجد التجارب الأعلى جودة تأثيراً يُذكر. وخلص الباحثان إلى أنه لا يوجد حالياً دليل سريري على أن مكمّلات الكولاجين تقي من شيخوخة البشرة أو تعالجها.')}
     ${p('وللإنصاف: اعترض مصنّعو المكمّلات على طريقة تصنيف بعض التجارب حسب التمويل، فالنقاش لم يُحسم بعد. لكن أنظف الأدلة لا تؤيد الوعد المكتوب على العبوة.')}
   </div>
-${feature('myth-spoon', 'امرأة من الجانب تمسك ملعقة مسحوق كولاجين قرب خط الفك', 'إذن، هل تتوقفين؟',
+${feature('myth-dish', 'وعاء صغير فيه مسحوق أبيض على طاولة صفراء فاتحة', 'إذن، هل تتوقفين؟',
     p('القرار لكِ. الكولاجين بروتين، والبروتين غذاء جيد. فقط اعتبريه تغذية لا عناية بالبشرة. وإن كان الهدف وجهكِ، فأقصر طريق إليه هو الذي ترينه: ما تضعينه عليه.'),
     'plain')}
 
   <div class="text-center py-2">
     <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#8A5A4E]">عناية تُوضع على الوجه</p>
-    <h2 class="text-4xl md:text-5xl font-light leading-tight text-[#323132] mt-3">بلا إبر.<br />فقط اليدان.</h2>
+    <h2 class="text-4xl md:text-5xl leading-tight text-[#323132] mt-3"><span class="font-light">بلا إبر.<br />فقط اليدان.</span></h2>
   </div>
 ${feature('sponge', 'إسفنجة مياه عذبة ممزقة على طبق بجانب بيض السلمون', 'إسفنجة وسمكة سلمون.',
     p(`تبدأ ${L('BIO-MESO PDRN')} من مصدرين غير متوقعين. الأول إسفنجة مياه عذبة، هيكلها مكوّن من تراكيب مجهرية شبيهة بالإبر تُسمّى الشويكات. والثاني السلمون: فـ${L('PDRN')}، جزء الحمض النووي الذي سُمّيت به المجموعة، مصدره حليب السلمون.`) +

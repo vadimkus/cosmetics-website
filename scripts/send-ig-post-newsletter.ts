@@ -72,7 +72,7 @@ function bodyHtml(locale: Locale) {
   const p = (t: string, extra = '') =>
     `<p dir="${dir}" style="font-family:${font}; font-size:15px; color:#1d1d1f; line-height:1.6; margin:0 0 16px; text-align:${align};${extra}">${esc(t)}</p>`
   const img = (n: string, alt: string) =>
-    `<a href="${POST_URL}"><img src="${IMG}/proof_${n}.jpg" alt="${esc(alt)}" width="560" style="width:100%; max-width:560px; height:auto; border-radius:14px; display:block; margin:0 0 16px;" /></a>`
+    `<a href="${POST_URL}"><img src="${IMG}/proof_${locale === 'en' ? '' : locale + '_'}${n}.jpg" alt="${esc(alt)}" width="560" style="width:100%; max-width:560px; height:auto; border-radius:14px; display:block; margin:0 0 16px;" /></a>`
   return `${img('01', c.title)}
 <h1 dir="${dir}" style="font-family:${font}; font-size:26px; font-weight:600; color:#1d1d1f; letter-spacing:-0.02em; line-height:1.25; margin:8px 0 12px; text-align:${align};">${esc(c.title)}</h1>
 ${p(c.p1)}

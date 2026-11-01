@@ -4,6 +4,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Globe, Mail, MapPin } from 'lucide-react'
 import {
   Facebook,
@@ -139,12 +140,23 @@ export default function ContactClient() {
           )}
 
           {/* ────────────────────────────── Hero ──────────────────────────── */}
-          <header className="mt-8 text-center md:mt-16">
+          <header className="relative isolate mt-8 overflow-hidden text-center md:mt-16 md:rounded-[24px] md:border md:border-[var(--cera-line)] md:px-10 md:py-24">
+            {/* Paper-and-glass still (Sunra GPT Image 2.5): objects on both edges, centre kept clear for the copy. */}
+            <Image
+              src="/images/home/why_genosys/contact-hero-2026-11.webp"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 1120px) 100vw, 1120px"
+              className="-z-10 hidden object-cover md:block"
+              style={{ objectPosition: '50% 80%' }}
+              aria-hidden="true"
+            />
             <p className="cera-eyebrow mb-3">{pick('Get in touch', 'تحدث إلينا', 'Свяжитесь с нами')}</p>
             <h1 className="cera-serif text-[34px] leading-[1.05] md:text-[56px] lg:text-[64px]">
               {t('navigation.contact')}
             </h1>
-            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] md:max-w-[40ch] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
               {pick(
                 'Questions about a product, an order, or which routine suits your skin. A real person in Dubai answers, usually the same day.',
                 'أسئلة عن منتج أو طلب أو الروتين المناسب لبشرتك. يردّ عليك شخص حقيقي في دبي، غالباً في اليوم نفسه.',
@@ -195,6 +207,27 @@ export default function ContactClient() {
 
           {/* ───────────────────────── Official distributor ───────────────── */}
           <section className="ed-panel ed-panel--seal mt-12 p-6 md:mt-16 md:p-10">
+            {/* Blank paper and glass still on the trailing edge, mirrored in Arabic. */}
+            <div
+              className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[40%] md:block ${isRTL ? 'left-0' : 'right-0'}`}
+              aria-hidden="true"
+            >
+              <Image
+                src="/images/home/why_genosys/contact-docs-2026-11.webp"
+                alt=""
+                fill
+                sizes="(max-width: 1120px) 40vw, 448px"
+                className="object-cover"
+                style={{ objectPosition: '100% 70%', transform: isRTL ? 'scaleX(-1)' : undefined }}
+              />
+              <span
+                className={`absolute inset-0 ${
+                  isRTL
+                    ? 'bg-[linear-gradient(270deg,#fff_0%,rgba(255,255,255,0.5)_30%,transparent_60%)]'
+                    : 'bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0.5)_30%,transparent_60%)]'
+                }`}
+              />
+            </div>
             <div className={`md:flex md:items-start md:gap-10 ${isRTL ? 'md:flex-row-reverse md:text-right' : ''}`}>
               <div className="md:max-w-[34ch] md:flex-none">
                 <span className="ed-mark ed-mark--solid mb-4 h-12 w-12" aria-hidden="true">

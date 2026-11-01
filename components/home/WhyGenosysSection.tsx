@@ -102,7 +102,7 @@ export default function WhyGenosysSection({
         {/* Glass ampoules (Sunra GPT Image 2.5 still) sit on the trailing edge and
             are mirrored in Arabic, so the glass never lands under the copy column. */}
         <div
-          className={`pointer-events-none absolute inset-y-0 -z-20 w-[76%] sm:w-[68%] ${
+          className={`pointer-events-none absolute top-0 -z-20 h-[320px] w-[62%] [mask-image:linear-gradient(to_bottom,#000_65%,transparent)] lg:inset-y-0 lg:h-auto lg:w-[68%] lg:[mask-image:none] ${
             isRtl ? 'left-0' : 'right-0'
           }`}
           aria-hidden="true"
@@ -114,7 +114,7 @@ export default function WhyGenosysSection({
             sizes="(max-width: 767px) 76vw, 780px"
             className="object-cover"
             style={{
-              objectPosition: '85% 50%',
+              objectPosition: '80% 6%',
               transform: isRtl ? 'scaleX(-1)' : undefined,
             }}
           />
@@ -128,21 +128,18 @@ export default function WhyGenosysSection({
           aria-hidden="true"
         />
 
-        <div className={`grid items-center gap-7 md:grid-cols-12 md:gap-10 ${isRtl ? 'text-right' : 'text-left'}`}>
-          <div className="md:col-span-7">
+        {/* Copy stays in the leading column so the glass on the trailing edge is never under text. */}
+        <div className={isRtl ? 'text-right' : 'text-left'}>
+          <div className="md:max-w-[58%]">
             <p className="cera-eyebrow">{copy.eyebrow}</p>
             <h2 className="cera-serif mt-3 text-[34px] leading-[1.04] sm:text-[42px] lg:text-[50px]">
               <span className="block">{copy.headline[0]}</span>
               <span className="block">{copy.headline[1]}</span>
             </h2>
+            <p className="mt-4 max-w-[46ch] text-[15px] leading-relaxed text-[var(--cera-body)]">
+              {copy.support}
+            </p>
           </div>
-          <p
-            className={`max-w-[44ch] text-[15px] leading-relaxed text-[var(--cera-body)] md:col-span-5 ${
-              isRtl ? 'md:me-auto' : 'md:ms-auto'
-            }`}
-          >
-            {copy.support}
-          </p>
         </div>
 
         <div className="mt-9 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-11">

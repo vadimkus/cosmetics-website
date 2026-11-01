@@ -141,15 +141,19 @@ export default function ContactClient() {
 
           {/* ────────────────────────────── Hero ──────────────────────────── */}
           <header className="relative isolate mt-8 overflow-hidden text-center md:mt-16 md:rounded-[24px] md:border md:border-[var(--cera-line)] md:px-10 md:py-24">
-            {/* Paper-and-glass still (Sunra GPT Image 2.5): objects on both edges, centre kept clear for the copy. */}
+            {/* Two glass spheres on the edges, one point of light between them (Sunra GPT Image 2.5); centre kept clear for the copy. */}
             <Image
-              src="/images/home/why_genosys/contact-hero-2026-11.webp"
+              src="/images/editorial/contact-spheres.webp"
               alt=""
               fill
               priority
               sizes="(max-width: 1120px) 100vw, 1120px"
               className="-z-10 hidden object-cover md:block"
-              style={{ objectPosition: '50% 80%' }}
+              style={{ objectPosition: '50% 72%' }}
+              aria-hidden="true"
+            />
+            <span
+              className="pointer-events-none absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_48%_70%_at_50%_52%,rgba(250,247,245,0.88),rgba(250,247,245,0.55)_55%,transparent_100%)] md:block"
               aria-hidden="true"
             />
             <p className="cera-eyebrow mb-3">{pick('Get in touch', 'تحدث إلينا', 'Свяжитесь с нами')}</p>
@@ -207,25 +211,22 @@ export default function ContactClient() {
 
           {/* ───────────────────────── Official distributor ───────────────── */}
           <section className="ed-panel ed-panel--seal mt-12 p-6 md:mt-16 md:p-10">
-            {/* Blank paper and glass still on the trailing edge, mirrored in Arabic. */}
+            {/* Macro of paper strata with one rose sheet (Sunra GPT Image 2.5), trailing edge, mirrored in Arabic. */}
             <div
-              className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[40%] md:block ${isRTL ? 'left-0' : 'right-0'}`}
+              className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[40%] md:block ${
+                isRTL
+                  ? 'left-0 [mask-image:linear-gradient(270deg,transparent_0%,#000_45%)]'
+                  : 'right-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_45%)]'
+              }`}
               aria-hidden="true"
             >
               <Image
-                src="/images/home/why_genosys/contact-docs-2026-11.webp"
+                src="/images/editorial/contact-strata.webp"
                 alt=""
                 fill
                 sizes="(max-width: 1120px) 40vw, 448px"
                 className="object-cover"
-                style={{ objectPosition: '100% 70%', transform: isRTL ? 'scaleX(-1)' : undefined }}
-              />
-              <span
-                className={`absolute inset-0 ${
-                  isRTL
-                    ? 'bg-[linear-gradient(270deg,#fff_0%,rgba(255,255,255,0.5)_30%,transparent_60%)]'
-                    : 'bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0.5)_30%,transparent_60%)]'
-                }`}
+                style={{ objectPosition: '100% 50%', transform: isRTL ? 'scaleX(-1)' : undefined }}
               />
             </div>
             <div className={`md:flex md:items-start md:gap-10 ${isRTL ? 'md:flex-row-reverse md:text-right' : ''}`}>

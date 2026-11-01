@@ -6,7 +6,7 @@ import {
   IconMadeInKorea,
 } from '@/components/icons/BrandIcons'
 
-const BACKGROUND_IMAGE = '/images/editorial/why-wrist-glass.webp'
+const BACKGROUND_IMAGE = '/images/home/why_genosys/ampoules-2026-11.webp'
 
 const COPY = {
   en: {
@@ -99,13 +99,11 @@ export default function WhyGenosysSection({
       dir={dir}
     >
       <div className="relative isolate mx-auto max-w-[1200px] overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-[var(--cera-cream)] px-6 py-10 sm:px-9 sm:py-12 lg:px-14 lg:py-14">
-        {/* Wrist behind an optical glass block (Sunra GPT Image 2.5 still) sits on the trailing edge and
+        {/* Glass ampoules (Sunra GPT Image 2.5 still) sit on the trailing edge and
             are mirrored in Arabic, so the glass never lands under the copy column. */}
         <div
-          className={`pointer-events-none absolute top-0 -z-20 h-[320px] w-[62%] [mask-image:linear-gradient(to_bottom,#000_65%,transparent)] lg:inset-y-0 lg:h-auto lg:w-[68%] ${
-            isRtl
-              ? 'left-0 lg:[mask-image:linear-gradient(270deg,transparent_0%,#000_42%)]'
-              : 'right-0 lg:[mask-image:linear-gradient(90deg,transparent_0%,#000_42%)]'
+          className={`pointer-events-none absolute top-0 -z-20 h-[320px] w-[62%] [mask-image:linear-gradient(to_bottom,#000_65%,transparent)] lg:inset-y-0 lg:h-auto lg:w-[68%] lg:[mask-image:none] ${
+            isRtl ? 'left-0' : 'right-0'
           }`}
           aria-hidden="true"
         >
@@ -116,7 +114,7 @@ export default function WhyGenosysSection({
             sizes="(max-width: 767px) 76vw, 780px"
             className="object-cover"
             style={{
-              objectPosition: '80% 0%',
+              objectPosition: '80% 6%',
               transform: isRtl ? 'scaleX(-1)' : undefined,
             }}
           />

@@ -740,23 +740,26 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   return (
     <section className="reveal-on-view home-band home-band--white px-4">
       <div className={`ed-panel ed-panel--seal mx-auto max-w-[1200px] p-7 sm:p-10 lg:p-14 ${isRtl ? 'text-right' : ''}`}>
-        {/* Twelve-niche wall, one lit (Sunra GPT Image 2.5) on the trailing edge, clear of the text
+        {/* Paper-and-glass still (Sunra GPT Image 2.5) on the trailing edge, clear of the text
             and the benefits card; mirrored in Arabic. Desktop only: below lg the layout stacks. */}
         <div
-          className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[44%] lg:block ${
-            isRtl
-              ? 'left-0 [mask-image:linear-gradient(270deg,transparent_0%,#000_45%)]'
-              : 'right-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_45%)]'
-          }`}
+          className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[44%] lg:block ${isRtl ? 'left-0' : 'right-0'}`}
           aria-hidden="true"
         >
           <Image
-            src="/images/editorial/newsletter-niches.webp"
+            src="/images/home/why_genosys/newsletter-2026-11.webp"
             alt=""
             fill
             sizes="(max-width: 1200px) 44vw, 528px"
             className="object-cover"
             style={{ objectPosition: '100% 60%', transform: isRtl ? 'scaleX(-1)' : undefined }}
+          />
+          <span
+            className={`absolute inset-0 ${
+              isRtl
+                ? 'bg-[linear-gradient(270deg,#fff_0%,rgba(255,255,255,0.55)_28%,transparent_55%)]'
+                : 'bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0.55)_28%,transparent_55%)]'
+            }`}
           />
         </div>
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">

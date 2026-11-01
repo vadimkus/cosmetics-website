@@ -4,7 +4,6 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowLeft, Globe, Mail, MapPin } from 'lucide-react'
 import {
   Facebook,
@@ -140,27 +139,12 @@ export default function ContactClient() {
           )}
 
           {/* ────────────────────────────── Hero ──────────────────────────── */}
-          <header className="relative isolate mt-8 overflow-hidden text-center md:mt-16 md:rounded-[24px] md:border md:border-[var(--cera-line)] md:px-10 md:py-24">
-            {/* Two glass spheres on the edges, one point of light between them (Sunra GPT Image 2.5); centre kept clear for the copy. */}
-            <Image
-              src="/images/editorial/contact-spheres.webp"
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 1120px) 100vw, 1120px"
-              className="-z-10 hidden object-cover md:block"
-              style={{ objectPosition: '50% 72%' }}
-              aria-hidden="true"
-            />
-            <span
-              className="pointer-events-none absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_48%_70%_at_50%_52%,rgba(250,247,245,0.88),rgba(250,247,245,0.55)_55%,transparent_100%)] md:block"
-              aria-hidden="true"
-            />
+          <header className="mt-8 text-center md:mt-16">
             <p className="cera-eyebrow mb-3">{pick('Get in touch', 'تحدث إلينا', 'Свяжитесь с нами')}</p>
             <h1 className="cera-serif text-[34px] leading-[1.05] md:text-[56px] lg:text-[64px]">
               {t('navigation.contact')}
             </h1>
-            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] md:max-w-[40ch] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
               {pick(
                 'Questions about a product, an order, or which routine suits your skin. A real person in Dubai answers, usually the same day.',
                 'أسئلة عن منتج أو طلب أو الروتين المناسب لبشرتك. يردّ عليك شخص حقيقي في دبي، غالباً في اليوم نفسه.',
@@ -211,24 +195,6 @@ export default function ContactClient() {
 
           {/* ───────────────────────── Official distributor ───────────────── */}
           <section className="ed-panel ed-panel--seal mt-12 p-6 md:mt-16 md:p-10">
-            {/* Macro of paper strata with one rose sheet (Sunra GPT Image 2.5), trailing edge, mirrored in Arabic. */}
-            <div
-              className={`pointer-events-none absolute inset-y-0 -z-10 hidden w-[40%] md:block ${
-                isRTL
-                  ? 'left-0 [mask-image:linear-gradient(270deg,transparent_0%,#000_45%)]'
-                  : 'right-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_45%)]'
-              }`}
-              aria-hidden="true"
-            >
-              <Image
-                src="/images/editorial/contact-strata.webp"
-                alt=""
-                fill
-                sizes="(max-width: 1120px) 40vw, 448px"
-                className="object-cover"
-                style={{ objectPosition: '100% 50%', transform: isRTL ? 'scaleX(-1)' : undefined }}
-              />
-            </div>
             <div className={`md:flex md:items-start md:gap-10 ${isRTL ? 'md:flex-row-reverse md:text-right' : ''}`}>
               <div className="md:max-w-[34ch] md:flex-none">
                 <span className="ed-mark ed-mark--solid mb-4 h-12 w-12" aria-hidden="true">

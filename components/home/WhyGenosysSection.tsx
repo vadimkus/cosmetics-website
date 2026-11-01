@@ -6,7 +6,7 @@ import {
   IconMadeInKorea,
 } from '@/components/icons/BrandIcons'
 
-const BACKGROUND_IMAGE = '/images/home/skin_concern/anti-aging.webp'
+const BACKGROUND_IMAGE = '/images/home/why_genosys/ampoules-2026-11.webp'
 
 const COPY = {
   en: {
@@ -99,8 +99,8 @@ export default function WhyGenosysSection({
       dir={dir}
     >
       <div className="relative isolate mx-auto max-w-[1200px] overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-[var(--cera-cream)] px-6 py-10 sm:px-9 sm:py-12 lg:px-14 lg:py-14">
-        {/* The portrait bleeds in from the trailing edge at low opacity and is
-            mirrored in Arabic, so the face never lands under the copy column. */}
+        {/* Glass ampoules (Sunra GPT Image 2.5 still) sit on the trailing edge and
+            are mirrored in Arabic, so the glass never lands under the copy column. */}
         <div
           className={`pointer-events-none absolute inset-y-0 -z-20 w-[76%] sm:w-[68%] ${
             isRtl ? 'left-0' : 'right-0'
@@ -114,9 +114,7 @@ export default function WhyGenosysSection({
             sizes="(max-width: 767px) 76vw, 780px"
             className="object-cover"
             style={{
-              objectPosition: '76% 68%',
-              opacity: 0.3,
-              filter: 'saturate(0.2) sepia(0.16) contrast(0.84) brightness(1.12)',
+              objectPosition: '85% 50%',
               transform: isRtl ? 'scaleX(-1)' : undefined,
             }}
           />

@@ -851,6 +851,11 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 Cedre Villas Community Centre
   📞 +971 4 333 6166 | 🌐 biancospa.ae
 
+**DUBAI - NAD AL SHEBA (AL MEYDAN ROAD):**
+- **L'INSTANT BEAUTY SALON, Nad Al Sheba** - Ladies Beauty Salon
+  📍 Injazzat Residence, Al Bateel Real Estate, Shop 2, Al Meydan Road
+  📞 +971 58 526 6080 | 🌐 linstantdxb.com
+
 **DUBAI - DUBAI HILLS:**
 - **BIANCO SPA, Dubai Hills Mall** - Spa & Wellness Center
   📍 1st Floor, Dubai Hills Mall

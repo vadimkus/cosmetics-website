@@ -501,5 +501,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?daddr=Index+Tower+-+Zaa%27beel+Second+-+DIFC+-+Dubai",
     logo: "/images/partners/lifting.png",
     theme: "pink"
+  },
+  {
+    id: "linstant-nad-al-sheba",
+    name: "L'INSTANT BEAUTY SALON, NAD AL SHEBA",
+    type: "Ladies Beauty Salon",
+    description: "Beauty salon on Al Meydan Road offering facials, nails, hair, lashes and brows, make-up and an oriental bath for women.",
+    location: "Injazzat Residence, Al Bateel Real Estate, Shop 2, Al Meydan Road, Nad Al Sheba 1, Dubai",
+    phone: "+971 58 526 6080",
+    website: "https://www.linstantdxb.com/",
+    directions: "https://www.google.com/maps?daddr=Injazzat+Residence+-+Al+Meydan+Rd+-+Nad+Al+Sheba+1+-+Dubai",
+    logo: "/images/partners/linstant.png",
+    theme: "pink"
   }
 ];

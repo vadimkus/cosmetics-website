@@ -725,6 +725,9 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 #### Silicon Oasis (1 location)
 - BIANCO SPA
 
+#### Nad Al Sheba (1 location)
+- L'INSTANT BEAUTY SALON (Al Meydan Road)
+
 #### Dubai Hills (1 location)
 - BIANCO SPA (Dubai Hills Mall)
 

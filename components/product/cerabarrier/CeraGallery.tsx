@@ -138,7 +138,7 @@ export default function CeraGallery({
           <div className={`mb-3 flex ${isRtl ? 'justify-start' : 'justify-end'}`}>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cera-line)] bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)]">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              {badge}
+              <span suppressHydrationWarning>{badge}</span>
             </span>
           </div>
         ) : null}

@@ -5,7 +5,7 @@ import { Star } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
-import { restockNote } from '@/lib/restockInfo'
+import { useRestockNote } from '@/lib/restockInfo'
 
 interface ProductDetailsProps {
   product: Product
@@ -13,6 +13,7 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const { t, dir, locale, messages } = useTranslation()
+  const restock = useRestockNote(product.id, locale, product.inStock)
   
   return (
     <div className="space-y-6" dir={dir}>
@@ -45,14 +46,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <span className="inline-block bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-xs font-medium">
           {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(', ')}
         </span>
-        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+        <span suppressHydrationWarning className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
           product.inStock
             ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]'
-            : restockNote(product.id, locale)
+            : restock
               ? 'bg-[var(--status-orange-bg)] text-[var(--status-orange)]'
               : 'bg-red-100 text-red-800'
         }`}>
-          {product.inStock ? t('product.inStock') : (restockNote(product.id, locale) || t('product.outOfStock'))}
+          {product.inStock ? t('product.inStock') : (restock || t('product.outOfStock'))}
         </span>
       </div>
     </div>

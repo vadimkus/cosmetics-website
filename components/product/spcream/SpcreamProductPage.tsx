@@ -65,6 +65,7 @@ import { isFullInciEntry, withFullInciFallback } from '@/lib/localizedIngredient
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
+import { useRestockNote } from '@/lib/restockInfo'
 import ProductReviews from '@/components/product/ProductReviews'
 import ProductOptionDialog from '@/components/product/ProductOptionDialog'
 import type { ProductOptionSelection } from '@/lib/productOptions'
@@ -349,8 +350,10 @@ export default function SpcreamProductPage({
 
   const priceLabel = canSeePrices ? `${pricing.displayPrice.toFixed(2)} ${isRtl ? 'درهم' : 'AED'}` : null
 
+  const restock = useRestockNote(product.id, locale, product.inStock)
+
   const ctaLabel = !product.inStock
-    ? copy.outOfStock
+    ? (restock || copy.outOfStock)
     : !user
       ? copy.loginToShop
       : isAdding
@@ -378,7 +381,7 @@ export default function SpcreamProductPage({
             <CeraGallery
               images={galleryImages}
               isRtl={isRtl}
-              badge={product.inStock ? t('product.inStock') : t('product.soldOut')}
+              badge={product.inStock ? t('product.inStock') : (restock || t('product.soldOut'))}
             />
           </div>
 
@@ -512,7 +515,7 @@ export default function SpcreamProductPage({
                   }`}
                 >
                   {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-                  {ctaLabel}
+                  <span suppressHydrationWarning>{ctaLabel}</span>
                 </button>
 
                 <button
@@ -967,7 +970,7 @@ export default function SpcreamProductPage({
                             }`}
                           >
                             {justAdded ? <Check className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                            {ctaLabel}
+                            <span suppressHydrationWarning>{ctaLabel}</span>
                           </button>
                         ) : item && !step.needsSizeChoice ? (
                           <button
@@ -1099,7 +1102,7 @@ export default function SpcreamProductPage({
             }`}
           >
             {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-            {ctaLabel}
+            <span suppressHydrationWarning>{ctaLabel}</span>
           </button>
         }
       />
@@ -1195,7 +1198,7 @@ export default function SpcreamProductPage({
               }`}
             >
               {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-              {ctaLabel}
+              <span suppressHydrationWarning>{ctaLabel}</span>
             </button>
           )}
 

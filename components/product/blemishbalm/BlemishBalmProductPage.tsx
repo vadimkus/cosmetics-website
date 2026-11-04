@@ -63,7 +63,7 @@ import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
-import { restockNote } from '@/lib/restockInfo'
+import { useRestockNote } from '@/lib/restockInfo'
 import ProductReviews from '@/components/product/ProductReviews'
 
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
@@ -210,7 +210,7 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
 
   const priceLabel = canSeePrices ? `${pricing.displayPrice.toFixed(2)} ${isRtl ? 'درهم' : 'AED'}` : null
 
-  const restock = !product.inStock ? restockNote(product.id, locale) : null
+  const restock = useRestockNote(product.id, locale, product.inStock)
 
   const ctaLabel = !product.inStock
     ? (restock || copy.outOfStock)
@@ -360,7 +360,7 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
                   }`}
                 >
                   {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-                  {ctaLabel}
+                  <span suppressHydrationWarning>{ctaLabel}</span>
                 </button>
 
                 <button
@@ -909,7 +909,7 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
             }`}
           >
             {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-            {ctaLabel}
+            <span suppressHydrationWarning>{ctaLabel}</span>
           </button>
         }
       />
@@ -1000,7 +1000,7 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
               }`}
             >
               {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}
-              {ctaLabel}
+              <span suppressHydrationWarning>{ctaLabel}</span>
             </button>
           )}
 

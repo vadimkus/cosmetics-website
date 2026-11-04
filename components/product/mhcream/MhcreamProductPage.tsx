@@ -219,7 +219,7 @@ export default function MhcreamProductPage({
         linked,
         needsSizeChoice: sizes.length > 0,
         lowestPrice,
-        isSelf: pid === '19',
+        isSelf: pid === '29',
         image: linked?.image || getRoutineStepImage(s.titleKey),
         title: t(`product.${s.titleKey}`),
       }

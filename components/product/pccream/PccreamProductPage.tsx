@@ -188,7 +188,7 @@ export default function PccreamProductPage({
   }, [routineProducts])
 
   const routineSteps = useMemo(() => {
-    const routine = PRODUCT_ROUTINES['19']
+    const routine = PRODUCT_ROUTINES['30']
     if (!routine) return []
     return routine.steps.map(s => {
       const pid = ROUTINE_STEP_PRODUCT_IDS[s.titleKey]
@@ -209,7 +209,7 @@ export default function PccreamProductPage({
         linked,
         needsSizeChoice: sizes.length > 0,
         lowestPrice,
-        isSelf: pid === '19',
+        isSelf: pid === '30',
         image: linked?.image || getRoutineStepImage(s.titleKey),
         title: t(`product.${s.titleKey}`),
       }

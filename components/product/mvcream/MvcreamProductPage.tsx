@@ -190,7 +190,7 @@ export default function MvcreamProductPage({
   }, [routineProducts])
 
   const routineSteps = useMemo(() => {
-    const routine = PRODUCT_ROUTINES['19']
+    const routine = PRODUCT_ROUTINES['31']
     if (!routine) return []
     return routine.steps.map(s => {
       const pid = ROUTINE_STEP_PRODUCT_IDS[s.titleKey]
@@ -211,7 +211,7 @@ export default function MvcreamProductPage({
         linked,
         needsSizeChoice: sizes.length > 0,
         lowestPrice,
-        isSelf: pid === '19',
+        isSelf: pid === '31',
         image: linked?.image || getRoutineStepImage(s.titleKey),
         title: t(`product.${s.titleKey}`),
       }

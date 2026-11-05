@@ -16,8 +16,7 @@ type DatedNote = { availableOn: string }
 
 export const RESTOCK_NOTES: Record<string, FixedNote | DatedNote> = {
   // POWER SOLUTION SWS (8) restocked 2026-07-26 - note removed
-  // INTENSIVE BLEMISH BALM CREAM — out of stock 2026-10-28, due ~2026-11-02
-  '42': { en: 'Coming in 5 days', ru: 'Поступит через 5 дней', ar: 'متوفر خلال 5 أيام' },
+  // INTENSIVE BLEMISH BALM CREAM (42) restocked 2026-11-05 - note removed
   // SKIN BARRIER PROTECTING CREAM — out of stock 2026-10-30; 35 days on 2026-11-04
   '27': { availableOn: '2026-12-09' },
 }

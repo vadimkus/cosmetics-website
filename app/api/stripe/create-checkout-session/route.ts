@@ -11,6 +11,7 @@ import { Product } from '@/types/index'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { rememberSessionRelayContactEmail } from '@/lib/sessionRelayContactEmail'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { prisma } from '@/lib/prisma'
 import { getProductById } from '@/lib/productsDb'
@@ -134,6 +135,8 @@ export async function POST(request: NextRequest) {
       itemCount: items.length,
       emirate: customerEmirate
     })
+
+    await rememberSessionRelayContactEmail(customerEmail)
 
     // Fetch user to check for contactEmail (for Apple Private Relay users)
     const user = await findUserByEmail(customerEmail)

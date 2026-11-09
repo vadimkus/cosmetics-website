@@ -26,6 +26,10 @@ jest.mock('@/lib/logger', () => ({
   errorLog: jest.fn(),
 }))
 
+jest.mock('@/lib/sessionRelayContactEmail', () => ({
+  rememberSessionRelayContactEmail: jest.fn(),
+}))
+
 jest.mock('@/lib/orderStorageDb', () => ({
   addOrder: jest.fn(async () => ({ id: 'cod-db-id' })),
   // The route now checks the page's provisional number is unused before

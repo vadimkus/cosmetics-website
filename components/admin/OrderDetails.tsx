@@ -9,6 +9,8 @@ import { errorLog } from '@/lib/logger'
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
   items: OrderItem[]
+  /** Apple relay accounts only: the contactEmail status emails go to. */
+  notificationEmail?: string
 }
 
 interface OrderDetailsProps {
@@ -115,6 +117,9 @@ export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHe
             <div className="space-y-2 text-xs sm:text-sm">
               <div className="break-words"><span className="font-medium">Name:</span> {order.customerName}</div>
               <div className="break-all"><span className="font-medium">Email:</span> {order.customerEmail}</div>
+              {order.notificationEmail && (
+                <div className="break-all"><span className="font-medium">Emails go to:</span> {order.notificationEmail}</div>
+              )}
               <div className="break-words"><span className="font-medium">Phone:</span> {order.customerPhone}</div>
               <div className="break-words"><span className="font-medium">Address:</span> {order.customerAddress}</div>
             </div>

@@ -3,6 +3,7 @@ import { readOrders, getOrdersByEmail, countOrders, READ_ORDERS_DEFAULT_LIMIT } 
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { prisma } from '@/lib/database'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 // Hard ceiling so a hand-crafted ?limit= can't trigger an unbounded scan.
 const MAX_ORDERS_LIMIT = 2000
@@ -93,10 +94,23 @@ export async function GET(request: NextRequest) {
       debugLog(`📊 Admin orders API: Returning ${orders.length} non-deleted orders (page) of ${total} total`)
     }
     
+    // Apple Private Relay orders: show the address status emails actually go to.
+    const relayEmails = [...new Set(orders.map(o => o.customerEmail).filter(isApplePrivateRelayEmail))]
+    const contactByRelay = new Map<string, string>()
+    if (relayEmails.length) {
+      const relayUsers = await prisma.user.findMany({
+        where: { email: { in: relayEmails }, contactEmail: { not: null } },
+        select: { email: true, contactEmail: true },
+      })
+      for (const u of relayUsers) if (u.contactEmail?.trim()) contactByRelay.set(u.email, u.contactEmail.trim())
+    }
+
     // Serialize orders to ensure dates are properly converted to strings
     const serializedOrders = orders.map(order => {
+      const notificationEmail = contactByRelay.get(order.customerEmail)
       const baseOrder = {
         ...order,
+        ...(notificationEmail ? { notificationEmail } : {}),
         createdAt: order.createdAt.toISOString(),
         updatedAt: order.updatedAt.toISOString()
       }

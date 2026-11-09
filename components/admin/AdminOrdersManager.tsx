@@ -10,6 +10,8 @@ import { addCsrfToBody } from '@/lib/csrfClient'
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
   items: OrderItem[]
+  /** Apple relay accounts only: the contactEmail status emails go to. */
+  notificationEmail?: string
 }
 
 interface AdminOrdersManagerProps {
@@ -326,6 +328,9 @@ export default function AdminOrdersManager({
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                           <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
                           <div className="text-sm text-gray-500">{order.customerEmail}</div>
+                          {order.notificationEmail && (
+                            <div className="text-xs text-emerald-700" title="Apple relay account: status emails go to this address">→ {order.notificationEmail}</div>
+                          )}
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
                           {/* Fulfillment stays primary. Credit/consignment payment

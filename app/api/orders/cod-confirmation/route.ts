@@ -19,6 +19,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { rememberSessionRelayContactEmail } from '@/lib/sessionRelayContactEmail'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
@@ -176,6 +177,8 @@ export async function POST(request: NextRequest) {
       customerName,
       itemCount: items?.length || 0
     })
+
+    await rememberSessionRelayContactEmail(customerEmail)
 
     // Look up user's discount percentage
     const user = await findUserByEmail(customerEmail)

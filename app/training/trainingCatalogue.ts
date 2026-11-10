@@ -123,6 +123,7 @@ export const PRODUCT_SHEETS: ProductSheet[] = [
  * reading in the other languages could not see them at all.
  */
 export const TRAINING_VIDEOS: TrainingVideo[] = [
+  { id: 'dermajevity-protocol', title: 'GENOSYS DERMAJEVITY TREATMENT PROTOCOL', youtubeId: 'KVyQBbDvCI0', duration: '25-30', level: 'professional' },
   { id: 'bodycell-stretch-mark', title: 'Genosys Bodycell Stretch Mark Treatment', youtubeId: 'SvjziVjhb8s', duration: '15-20', level: 'professional' },
   { id: 'ndcell-neck', title: 'Genosys NDcell Neck & Decollete Treatment', youtubeId: 'm07q2XRt_OM', duration: '18-22', level: 'advanced' },
   { id: 'eyecell', title: 'Genosys EyeCell Treatment', youtubeId: 'xH58EZtykZE', duration: '16-20', level: 'advanced' },

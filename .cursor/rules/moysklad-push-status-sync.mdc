@@ -1,0 +1,42 @@
+# MoySklad Push → Website Status Sync
+
+Locked by Vadim, 23 Nov 2026. Applies to every order pushed from genosys.ae to MoySklad — the
+admin "Push to MoySklad" button (`app/api/admin/orders/[id]/push-moysklad/route.ts`) and every
+one-off `scripts/moysklad-push-*.ts` script, since both call the shared `createMoySkladOrder`
+in `lib/moysklad.ts`.
+
+## Rule
+
+The instant a push to MoySklad **succeeds** (SO + invoice + shipment created), the website
+order's `status` updates automatically:
+
+- **Paid online** (`paymentMethod` is anything other than `cod`, e.g. `stripe`, `apple_pay`) → **`SHIPPED`**
+- **COD** (`paymentMethod === 'cod'`, not yet collected at push time) → **`CONFIRMED`**
+
+Implemented inside `createMoySkladOrder` itself (not the caller), right before its final
+`return { success: true, ... }`, so it fires for both the admin UI and every script without
+needing to touch each one-off script's boilerplate. Best-effort: wrapped in its own try/catch,
+logged on failure, never throws — matches the function's existing "fire-and-forget, never
+blocks checkout" contract.
+
+Only fires on a **real push** (`createMoySkladOrder` actually called). Scripts that find the
+order already in MoySklad and only re-export the invoice (`exportFromSo`) do **not** trigger a
+status change — nothing new was pushed.
+
+## Status casing
+
+Use the app's canonical uppercase values only: `PENDING`, `CONFIRMED`, `PAID`, `SHIPPED`,
+`DELIVERED`, `CANCELLED` (see `app/api/admin/orders/[id]/route.ts` `validStatuses` and
+`lib/expoPush.ts` `OrderStatus`). Never lowercase (`shipped`, `confirmed`) — the `status` column
+is a plain `String`, so lowercase values silently "work" but don't match any status badge, email
+template, or push-notification branch anywhere else in the app.
+
+## Do not
+
+- Do not call this a notification trigger — it only updates the DB `status` column via
+  `prisma.order.update`, the same low-level path as `lib/orderStorageDb.ts`'s
+  `updateOrderStatus`. It does not send the customer an email or push notification (those are
+  wired separately in `app/api/admin/orders/[id]/route.ts` for *admin-initiated* status changes
+  only).
+- Do not special-case Apple Pay or other online methods separately from Stripe — anything that
+  isn't `cod` is "paid online" for this rule.

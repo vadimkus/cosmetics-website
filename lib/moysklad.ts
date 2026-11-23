@@ -250,7 +250,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'EPI TURNOVER BOOSTING PEELING GEL': 'cd901a4e-e88b-11ea-0a80-05ae00007806', // 100g
   // Pack on website (5 masks) - push explodes to singles below; keep pack key unused after explode
   'PEPTIDE GEL MASK': '3068531d-3444-11ea-0a80-06a300016deb',                 // 00012 single (legacy fallback)
-  [PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME]: '3068531d-3444-11ea-0a80-06a300016deb', // 00012 after pack explode
+  [PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME]: '3068531d-3444-11ea-0a80-06a300016deb', // 00012, 'PEPTIDE GEL MASK 39G SINGLE' after pack explode
   'EZ CO₂ MASK KIT': 'f34ed25a-343f-11ea-0a80-05dc0001110e',                  // Box (5 treatments)
   'HYDRO COOL MODELING MASK': '806e9e52-3444-11ea-0a80-05dc00014e2d',          // 1kg
   'EyeCell EYE PEPTIDE GEL PATCH': '3e1bd611-42bd-11ea-0a80-01e3000bd9c2',     // Box
@@ -1178,6 +1178,22 @@ export async function createMoySkladOrder(
       debugLog(`✅ MoySklad: Incoming payment created! ID: ${createdPayment.id}, Name: ${createdPayment.name}`)
     } else {
       debugLog(`⏭️ MoySklad: Skipping paymentin for unpaid/COD order ${orderData.orderNumber}`)
+    }
+
+    // Standing rule (Vadim, 23 Nov 2026): once an order is successfully pushed
+    // to MoySklad, reflect that on the website order itself: SHIPPED if it
+    // was paid online, CONFIRMED if it's COD (not yet collected). Best-effort;
+    // never throws, matching this function's fire-and-forget contract.
+    const postPushStatus = orderData.paymentMethod?.trim().toLowerCase() === 'cod' ? 'CONFIRMED' : 'SHIPPED'
+    try {
+      const { prisma } = await import('@/lib/prisma')
+      await prisma.order.update({
+        where: { orderNumber: orderData.orderNumber },
+        data: { status: postPushStatus },
+      })
+      debugLog(`✅ MoySklad: Website order ${orderData.orderNumber} status → ${postPushStatus}`)
+    } catch (statusErr) {
+      errorLog(`❌ MoySklad: Failed to update website status for ${orderData.orderNumber}:`, statusErr)
     }
 
     return {

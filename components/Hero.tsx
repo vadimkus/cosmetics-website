@@ -33,30 +33,33 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useRouter } from 'next/navigation'
 import DesktopHero3DVisual from '@/components/desktop-experience/DesktopHero3DVisual'
+import { partnersData } from '@/lib/partners'
 
 interface HeroProps {
   initialLocale?: Locale
   initialDir?: 'ltr' | 'rtl'
 }
 
+const PARTNER_COUNT = partnersData.length
+
 /** The three credentials under the hero, as figure + label. */
 function heroProof(locale: Locale) {
   if (locale === 'ar') {
     return [
-      { value: '+30', label: 'عيادة في الإمارات' },
+      { value: `+${PARTNER_COUNT}`, label: 'عيادة في الإمارات' },
       { value: 'كوريا', label: 'مستحضرات احترافية' },
       { value: '2019', label: 'الموزّع الرسمي منذ' },
     ]
   }
   if (locale === 'ru') {
     return [
-      { value: '30+', label: 'клиник в ОАЭ' },
+      { value: `${PARTNER_COUNT}+`, label: 'клиник в ОАЭ' },
       { value: 'Корея', label: 'проф. дерматокосметика' },
       { value: '2019', label: 'официальный дистрибьютор с' },
     ]
   }
   return [
-    { value: '30+', label: 'UAE clinics' },
+    { value: `${PARTNER_COUNT}+`, label: 'UAE clinics' },
     { value: 'Korea', label: 'Pro dermacosmetics' },
     { value: '2019', label: 'Official distributor since' },
   ]
@@ -155,7 +158,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const startAnalysisText = useMemo(() => t('hero.startAnalysis'), [t])
   const shopProductsText = useMemo(() => t('hero.shopProducts'), [t])
   const signInToShopText = useMemo(() => t('hero.signInToShop'), [t])
-  const socialProofText = useMemo(() => t('hero.socialProof'), [t])
+  const socialProofText = useMemo(() => t('hero.socialProof', { count: PARTNER_COUNT }), [t])
 
   const eyebrowText =
     locale === 'ar'

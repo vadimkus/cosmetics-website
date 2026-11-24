@@ -675,7 +675,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 - TDRA NOC
 - Dubai Municipality Registration (Montaji)
 
-### Partner Locations (30+ locations)
+### Partner Locations (43 locations)
 
 #### Dubai Marina Area (5 locations)
 - UNIQUE PERSONA
@@ -957,7 +957,7 @@ The `{{id:NUMBER}}` enables the "Add to Cart" button in chat!
 | Ingredients documented | 35+ |
 | Skin routines | 6 |
 | Skin concern protocols | 12 |
-| Partner locations | 30+ |
+| Partner locations | 43 |
 | Blog posts | 10 |
 | Languages | 3 |
 

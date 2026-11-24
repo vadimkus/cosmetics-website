@@ -135,7 +135,7 @@
     "startAnalysis": "Start free skin analysis",
     "shopProducts": "Shop products",
     "signInToShop": "Sign in to shop",
-    "socialProof": "Used by 30+ UAE clinics · AI-powered · Korean Professional"
+    "socialProof": "Used by {count}+ UAE clinics · AI-powered · Korean Professional"
   },
   "navigation": {
     "home": "Home",

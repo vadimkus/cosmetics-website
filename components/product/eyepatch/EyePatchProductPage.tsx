@@ -94,14 +94,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. s3 is the
- *  four-jobs slide, s4 the formula breakdown (Niacinamide 2%, Adenosine
- *  0.04%, 46.5 ppb) and s5 the eye ritual. Main / s1 / s6 still print
- *  10 Years Back on the jar and s4 bakes in "Intertek formula"; both are
- *  later image jobs. The editorial copy does not repeat them. */
-const EFFECTS_IMAGE = '/images/patch/s3.jpeg'
-const HOWTO_IMAGE = '/images/patch/s5.jpeg'
-const ENGINE_IMAGE = '/images/patch/s4.jpeg'
+/** Section art, each slide paired with the section it illustrates (Bible 9.14
+ *  refresh, Nov 2026): s3-v2 is the eye-contour sensation slide, s4-v2 the
+ *  facts card (Niacinamide 2%, Adenosine 0.04%, pH 6.85) and s5-v2 the
+ *  60-patch / 20–40 min ritual slide. */
+const EFFECTS_IMAGE = '/images/patch/s3-v2.jpg'
+const HOWTO_IMAGE = '/images/patch/s5-v2.jpg'
+const ENGINE_IMAGE = '/images/patch/s4-v2.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

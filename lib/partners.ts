@@ -513,5 +513,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?daddr=Injazzat+Residence+-+Al+Meydan+Rd+-+Nad+Al+Sheba+1+-+Dubai",
     logo: "/images/partners/linstant.png",
     theme: "pink"
+  },
+  {
+    id: "escape-8-spa",
+    name: "ESCAPE 8 SPA, MEYDAN",
+    type: "Luxury Day Spa & Wellness Center",
+    description: "Luxury day spa in Meydan offering GENOSYS Korean facials, massage, Japanese head spa, private contrast therapy (infrared sauna, steam room and cold plunge), and nails. Open daily 12:00-02:00 with free parking. Rated 4.9/5 across 300+ reviews.",
+    location: "Azizi Riviera 15, Shop 3 & 4, Meydan, Nad Al Sheba 1, Dubai",
+    phone: "+971 4 565 2620",
+    website: "https://www.escape8spa.com/",
+    directions: "https://www.google.com/maps/dir/?api=1&destination=Escape+8+Spa&destination_place_id=ChIJ7xln_8RpXz4RZA-uknZfLCE",
+    logo: "/images/partners/escape8.png",
+    theme: "emerald"
   }
 ];

@@ -851,10 +851,14 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 Cedre Villas Community Centre
   📞 +971 4 333 6166 | 🌐 biancospa.ae
 
-**DUBAI - NAD AL SHEBA (AL MEYDAN ROAD):**
+**DUBAI - NAD AL SHEBA / MEYDAN:**
 - **L'INSTANT BEAUTY SALON, Nad Al Sheba** - Ladies Beauty Salon
   📍 Injazzat Residence, Al Bateel Real Estate, Shop 2, Al Meydan Road
   📞 +971 58 526 6080 | 🌐 linstantdxb.com
+
+- **ESCAPE 8 SPA, Meydan** - Luxury Day Spa & Wellness Center (GENOSYS Korean Facials, massage, Japanese head spa, contrast suite, nails)
+  📍 Azizi Riviera 15, Shop 3 & 4, Meydan, Nad Al Sheba 1
+  📞 +971 4 565 2620 | 💬 +971 52 560 7388 | 🌐 escape8spa.com
 
 **DUBAI - DUBAI HILLS:**
 - **BIANCO SPA, Dubai Hills Mall** - Spa & Wellness Center

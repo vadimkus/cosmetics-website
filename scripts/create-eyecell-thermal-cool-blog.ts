@@ -41,16 +41,16 @@ const prefix = (locale: Locale) => (locale === 'en' ? '' : `/${locale}`)
 const L = (s: string) => `<span dir="ltr">${s}</span>`
 
 const imgCard = (file: string, alt: string, dark = false) =>
-  `<img src="${IMG}/${file}" alt="${alt}" width="1200" height="1200" class="w-full h-auto rounded-2xl ${dark ? 'shadow-2xl shadow-black/50 ring-1 ring-white/10' : 'shadow-lg shadow-slate-900/10'}" loading="lazy" />`
+  `<img src="${IMG}/${file}" alt="${alt}" width="1200" height="1200" class="w-full h-auto rounded-2xl ${dark ? 'shadow-2xl' : 'shadow-lg'}" loading="lazy" />`
 
 const link = (href: string, text: string) =>
-  `<a href="${href}" class="text-slate-900 font-semibold underline decoration-slate-400 underline-offset-4 hover:decoration-slate-900">${text}</a>`
+  `<a href="${href}" class="text-[#323132] font-semibold underline underline-offset-4 hover:text-gray-600">${text}</a>`
 
 const p = (text: string, dark = false) =>
   `<p class="${dark ? 'text-slate-300' : 'text-gray-700'} mt-4 leading-relaxed">${text}</p>`
 
 const hero = (kicker: string, title: string, line: string) => `
-  <div class="rounded-3xl border border-slate-200/80 p-8 md:p-12" style="background: linear-gradient(135deg, #F3F6FA 0%, #E5EBF3 100%);">
+  <div class="rounded-3xl bg-gradient-to-br from-sky-50 to-slate-50 border border-slate-200 p-8 md:p-12">
     <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">${kicker}</p>
     <h2 class="text-4xl md:text-6xl leading-[0.98] mt-4 text-[#323132]"><span class="font-light">${title}</span></h2>
     <p class="text-lg text-slate-700 mt-6 max-w-2xl leading-relaxed">${line}</p>
@@ -64,7 +64,7 @@ const thermalShowcase = (
   videoTitle: string,
   videoLead: string
 ) => `
-  <div class="rounded-3xl p-6 md:p-10 text-white space-y-10" style="background: linear-gradient(155deg, #050814 0%, #0A1328 55%, #0F2042 100%);">
+  <div class="rounded-3xl bg-slate-950 p-6 md:p-10 text-white space-y-10 shadow-2xl">
     <div class="grid items-center gap-6 md:grid-cols-2 md:gap-10">
       <div class="mx-auto w-full max-w-sm">${imgCard('thermal-cool-eye.jpg', eyeAlt, true)}</div>
       <div>
@@ -73,11 +73,11 @@ const thermalShowcase = (
         ${bodyHtml}
       </div>
     </div>
-    <div class="border-t border-white/10 pt-8">
+    <div class="rounded-2xl bg-slate-900 p-6 md:p-8">
       <h3 class="text-2xl md:text-3xl font-light text-white text-center">${videoTitle}</h3>
       <p class="text-slate-300 mt-3 text-center max-w-xl mx-auto leading-relaxed">${videoLead}</p>
       <div class="mt-6 mx-auto max-w-sm">
-        <div class="flex justify-center rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-black ring-1 ring-white/15">
+        <div class="flex justify-center rounded-3xl overflow-hidden shadow-2xl bg-black">
           <video
             src="${VIDEO}"
             poster="${POSTER}"
@@ -102,19 +102,17 @@ const feature = (
   tone: 'ice' | 'white' | 'mist',
   reverse = false
 ) => {
-  const bgStyle =
+  const surface =
     tone === 'ice'
-      ? 'background: linear-gradient(135deg, #F1F5F9 0%, #E6ECF4 100%);'
+      ? 'bg-gradient-to-br from-sky-50 to-slate-50 border border-slate-200'
       : tone === 'mist'
-        ? 'background: #F6F8FB;'
-        : 'background: #FFFFFF;'
-  const borderClass = tone === 'white' ? 'border border-slate-200/80' : ''
-  const mediaCol = `<div class="mx-auto w-full max-w-sm ${reverse ? 'md:order-2' : ''}">${imgCard(file, alt)}</div>`
-  const textCol = `<div class="${reverse ? 'md:order-1' : ''}"><h2 class="text-3xl font-light leading-tight text-[#323132]">${heading}</h2>${body}</div>`
+        ? 'bg-slate-100 border border-slate-200'
+        : 'bg-white border border-slate-200'
+  const mediaCol = `<div class="mx-auto w-full max-w-sm">${imgCard(file, alt)}</div>`
+  const textCol = `<div><h2 class="text-3xl font-light leading-tight text-[#323132]">${heading}</h2>${body}</div>`
   return `
-  <div class="grid items-center gap-6 rounded-3xl ${borderClass} p-5 md:grid-cols-2 md:gap-10 md:p-8" style="${bgStyle}">
-    ${mediaCol}
-    ${textCol}
+  <div class="grid items-center gap-6 rounded-3xl ${surface} p-5 md:grid-cols-2 md:gap-10 md:p-8">
+    ${reverse ? `${textCol}\n    ${mediaCol}` : `${mediaCol}\n    ${textCol}`}
   </div>`
 }
 
@@ -122,7 +120,7 @@ const stats = (items: [string, string][]) => `
   <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
     ${items
       .map(
-        ([value, label]) => `<div class="rounded-2xl border border-slate-200 bg-[#F4F7FA] p-5 text-center">
+        ([value, label]) => `<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center">
       <p class="text-3xl md:text-4xl font-light text-[#323132]" dir="ltr">${value}</p>
       <p class="text-sm text-slate-600 mt-2">${label}</p>
     </div>`
@@ -137,7 +135,7 @@ const ritualBlock = (
   altSpoon: string,
   items: [string, string, string][]
 ) => `
-  <div class="rounded-3xl p-6 md:p-10 border border-slate-200/80" style="background: linear-gradient(135deg, #F4F7FB 0%, #EAEFF6 100%);">
+  <div class="rounded-3xl bg-slate-100 border border-slate-200 p-6 md:p-10">
     <h2 class="text-3xl font-light text-[#323132]">${heading}</h2>
     <p class="text-gray-700 mt-3 max-w-2xl leading-relaxed">${lead}</p>
     <div class="mt-6 grid gap-5 sm:grid-cols-2">
@@ -147,7 +145,7 @@ const ritualBlock = (
     <ol class="mt-7 grid gap-4 sm:grid-cols-3">
       ${items
         .map(
-          ([n, title, body]) => `<li class="rounded-2xl bg-white p-5 shadow-sm border border-slate-200/70">
+          ([n, title, body]) => `<li class="rounded-2xl bg-white p-5 shadow-sm border border-slate-200">
         <p class="text-4xl font-light text-slate-400" dir="ltr">${n}</p>
         <p class="font-semibold text-[#323132] mt-2">${title}</p>
         <p class="text-sm text-gray-700 mt-2 leading-relaxed">${body}</p>
@@ -159,11 +157,11 @@ const ritualBlock = (
 
 const fit = (yesTitle: string, yes: string[], noTitle: string, no: string[]) => `
   <div class="mt-5 grid gap-4 md:grid-cols-2">
-    <div class="rounded-2xl border border-slate-200 bg-[#F4F7FA] p-6">
+    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
       <p class="font-semibold text-[#323132]">${yesTitle}</p>
       <ul class="mt-3 space-y-2 text-gray-700">${yes.map((line) => `<li>✓ ${line}</li>`).join('')}</ul>
     </div>
-    <div class="rounded-2xl border border-slate-200/70 bg-white p-6">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6">
       <p class="font-semibold text-[#323132]">${noTitle}</p>
       <ul class="mt-3 space-y-2 text-gray-700">${no.map((line) => `<li>→ ${line}</li>`).join('')}</ul>
     </div>
@@ -199,7 +197,7 @@ const closerCta = (
   line: string,
   buttons: [string, string][]
 ) => `
-  <div class="grid items-center gap-8 rounded-3xl border border-slate-200/90 p-6 md:grid-cols-2 md:p-10" style="background: linear-gradient(135deg, #EEF2F7 0%, #E1E8F1 100%);">
+  <div class="grid items-center gap-8 rounded-3xl bg-gradient-to-br from-sky-50 to-slate-50 border border-slate-200 p-6 md:grid-cols-2 md:p-10">
     <div class="mx-auto w-full max-w-sm">${imgCard('s6-v2.jpg', altCloser)}</div>
     <div>
       <h2 class="text-3xl md:text-5xl leading-[1.02] text-[#323132]"><span class="font-light">${title}</span></h2>
@@ -210,7 +208,7 @@ const closerCta = (
             ([href, label], i) =>
               `<a href="${href}" class="inline-block rounded-full ${
                 i === 0
-                  ? 'bg-[#323132] text-white hover:bg-slate-800'
+                  ? 'bg-[#323132] text-white hover:bg-gray-800'
                   : 'border border-[#323132] text-[#323132] hover:bg-white'
               } px-6 py-3 text-sm font-semibold">${label}</a>`
           )

@@ -76,6 +76,8 @@ import {
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { getBioMesoCopy, type BioMesoCopy } from './biomesoCopy'
+import BioMesoHowFilm from './BioMesoHowFilm'
+import { getHowFilmCopy, HOW_FILM_CARD_FOR_STEP, HOW_FILM_MEDIA, type HowMedia } from './biomesoHowFilmCopy'
 import { translateSize } from '@/utils/sizeTranslations'
 
 /**
@@ -91,6 +93,12 @@ export interface BioMesoPageConfig {
   getCopy: (locale: string) => BioMesoCopy
   /** Inline art for the mechanism section. */
   mechanismImage: string
+  /**
+   * Three short films of the weekly evening (words come from getHowFilmCopy). When present they take the place of the
+   * static ritual figure in "How to use it"; the step cards beside it stay and light up in time with the film. Only the
+   * Homecare 5000 has them so far.
+   */
+  howFilmMedia?: HowMedia[]
   /** Inline art for the application section. */
   ritualImage: string
   /** The three below are optional because only the Homecare 5000 has a slide set
@@ -124,6 +132,8 @@ const HOMECARE_CONFIG: BioMesoPageConfig = {
   productNumber: '65',
   getCopy: getBioMesoCopy,
   mechanismImage: '/images/pdrn_5000_new/S3.jpeg',
+  // S7 stays in the gallery strip; inline, the film replaces it in "How to use it" (howFilmMedia).
+  howFilmMedia: HOW_FILM_MEDIA,
   ritualImage: '/images/pdrn_5000_new/S7.jpeg',
   timelineImage: '/images/pdrn_5000_new/S6.jpeg',
   complexImage: '/images/pdrn_5000_new/S4.jpeg',
@@ -172,6 +182,10 @@ export default function BioMesoProductPage({
 
   const isRtl = dir === 'rtl'
   const copy = config.getCopy(locale)
+  const howFilm = config.howFilmMedia ? getHowFilmCopy(locale) : null
+  // The film step on screen (null while the film is off screen); its card in "How to use it" lights up.
+  const [filmStep, setFilmStep] = useState<number | null>(null)
+  const litCard = filmStep === null ? -1 : (HOW_FILM_CARD_FOR_STEP[filmStep] ?? -1)
 
   // Single 50 ml SKU - no variants, so no size is ever passed to the cart.
   const [quantity, setQuantity] = useState(1)
@@ -845,7 +859,10 @@ export default function BioMesoProductPage({
               <ol className="mt-9 space-y-4">
                 {copy.howTo.steps.map((step, i) => (
                   <CeraReveal key={step.title} as="li" delay={i * 80}>
-                    <div className="cera-card flex gap-5 p-5 sm:gap-6 sm:p-6">
+                    <div
+                      className="cera-card biomeso-ritual-card flex gap-5 p-5 sm:gap-6 sm:p-6"
+                      data-film-active={i === litCard ? 'true' : 'false'}
+                    >
                       <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[var(--cera-rose)] sm:h-14 sm:w-14">
                         <span className="cera-serif cera-numeral text-[22px] text-white sm:text-[26px]">{i + 1}</span>
                       </span>
@@ -871,16 +888,26 @@ export default function BioMesoProductPage({
             </div>
 
             <CeraReveal className="lg:pt-4">
-              <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
-                <Image
-                  src={ritualImage}
-                  alt={`${product.name} - how to use`}
-                  fill
-                  sizes="(max-width: 1024px) 92vw, 40vw"
-                  quality={85}
-                  className="object-cover"
+              {howFilm && config.howFilmMedia ? (
+                <BioMesoHowFilm
+                  steps={howFilm.steps}
+                  media={config.howFilmMedia}
+                  ui={howFilm.ui}
+                  dir={isRtl ? 'rtl' : 'ltr'}
+                  onActiveChange={setFilmStep}
                 />
-              </div>
+              ) : (
+                <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
+                  <Image
+                    src={ritualImage}
+                    alt={`${product.name} - how to use`}
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 40vw"
+                    quality={85}
+                    className="object-cover"
+                  />
+                </div>
+              )}
             </CeraReveal>
           </div>
         </div>

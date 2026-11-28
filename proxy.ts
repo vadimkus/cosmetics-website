@@ -239,7 +239,7 @@ export function proxy(request: NextRequest) {
     '/sitemap-index.xml',
     '/opensearch.xml',
   ]
-  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !pathname.startsWith('/guides') && !staticAssets.includes(pathname)) {
+  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/fonts') && !pathname.startsWith('/favicon/') && !pathname.startsWith('/Logo') && !pathname.startsWith('/guides') && !staticAssets.includes(pathname)) {
     // Check for user's language preference cookie first (set by language switcher)
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     
@@ -299,6 +299,8 @@ export const config = {
      * - _next/image (image optimization files)
      * - videos (video files)
      * - images (image files)
+     * - fonts, favicon/ (self-hosted font and icon files: a 307 to /ru/fonts or /ar/fonts is a 404, so ru/ar first
+     *   visits lost the site fonts and the tab icon)
      * - Logo (logo files)
      * - favicon.ico (favicon file)
      * - sitemap.xml / sitemap-index.xml (sitemaps)
@@ -306,6 +308,6 @@ export const config = {
      * - llms.txt / llms-full.txt / ai-products.txt (AI indexes)
      * - feed/* and opensearch.xml (machine-readable discovery files)
      */
-    '/((?!api|mcp|\\.well-known|_next/static|_next/image|videos|images|Logo|feed|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|sitemap-index.xml|robots.txt|llms.txt|llms-full.txt|ai-products.txt|opensearch.xml|manifest.json|ar/manifest.json|ru/manifest.json|sw.js).*)',
+    '/((?!api|mcp|\\.well-known|_next/static|_next/image|videos|images|fonts|Logo|feed|favicon/|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|sitemap-index.xml|robots.txt|llms.txt|llms-full.txt|ai-products.txt|opensearch.xml|manifest.json|ar/manifest.json|ru/manifest.json|sw.js).*)',
   ],
 }

@@ -19,6 +19,9 @@
  */
 
 import { getBespokeCopy } from './bespokeCopyRegistry'
+import { getMobileHowFilm, type BespokeFilm } from './mobileHowFilm'
+
+export type { BespokeFilm } from './mobileHowFilm'
 
 export interface BespokeEntry {
   title?: string | undefined
@@ -53,6 +56,8 @@ export interface BespokeBlock {
   rows?: BespokeRow[] | undefined
   questions?: BespokeQuestion[] | undefined
   lists?: BespokeList[] | undefined
+  /** Films that go with the block, today only the three-film player of "How to use it" on product 65. */
+  film?: BespokeFilm | undefined
 }
 
 export interface BespokeContent {
@@ -243,6 +248,13 @@ export function getBespokeContent(
     const bi = ORDER.indexOf(b.key)
     return (ai === -1 ? ORDER.length : ai) - (bi === -1 ? ORDER.length : bi)
   })
+
+  // The website shows the "How to use it" films beside the step cards; the app draws them above the same cards.
+  const film = getMobileHowFilm(productNumber, locale)
+  if (film) {
+    const howTo = blocks.find((block) => block.key === 'howTo')
+    if (howTo) howTo.film = film
+  }
 
   const content: BespokeContent = {
     eyebrow: text(copy.eyebrow),

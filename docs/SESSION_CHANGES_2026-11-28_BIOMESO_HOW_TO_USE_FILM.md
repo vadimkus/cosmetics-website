@@ -84,6 +84,29 @@ per language (desktop Chrome and iPhone WebKit), 192 of 192 on the dev server be
 after it. On narrow phones (360, 375 and 390 px wide) every tab label stays on two lines or fewer in all three languages (the
 Russian "Прижать и роллинг" needed tighter tab padding under 480 px). `npx jest __tests__/data`: 461 of 461.
 
+## The iOS and Android app (added the same evening)
+
+Vadim, 22:12: "its working on mobile web but not working on IOS app". The app is native (`~/genosys-mobile-app`, Expo, runtime
+1.13.0) and never drew the website's page, so the films did not exist there. They do now, in the same words and with the same
+behaviour.
+
+- **API** (this repo, commit `a6029fca8`): `GET /api/mobile/products/65` sends the films on the `howTo` bespoke block as
+  `film` (steps, poster and film paths, which card lights up, the player's labels), read from the module the web player reads
+  (`lib/mobileHowFilm.ts`, wired in `lib/bespokeContent.ts`), in the buyer's language, about 1.4 KB. Additive: older apps ignore
+  it. `__tests__/lib/bespokeContentFilm.test.ts` keeps it plain JSON, tied to the web module and its files, and off every other
+  product.
+- **App** (`genosys-mobile-app` commit `15a4af6`, its own note `docs/SESSION_CHANGES_2026-11-28_HOW_FILM_NATIVE_OTA.md`):
+  `components/product/HowFilm.js` + `utils/howFilm.js`, shipped as an OTA update to runtime 1.13.0, iOS group
+  `df2d113b-f24a-475d-8bc7-6d6e4dc08421`, Android group `643d07ab-b1d4-491a-bb48-2213318d246a`. Open the app twice to get it.
+- **Kill switch:** remove `'65'` from `FILM_PRODUCTS` in `lib/mobileHowFilm.ts` and the film disappears from the app on the next
+  product load (the step cards stay). A re-shot film or a corrected caption also reaches the app through this module with no
+  update; a re-shot film needs a new file name (`-v2`) as on the web.
+- **Checked:** the real app components run in Chrome through react-native-web against the live payload and the real films
+  (`~/Desktop/GENOSYS/05_VIDEO/BIOMESO_HOW_IT_WORKS_2026-11/04_WORK/APP_TEST/verify_app.mjs`): 54 checks in English (with a film
+  that 404s, and Reduce Motion), 48 in Russian, 48 in Arabic; the app's own smoke tests and `verify:release` pass; the iOS bundle
+  compiles. **Not run on a phone or a simulator** (no Xcode on this Mac), so the native side is reasoned from the app's shipped
+  video code, not observed.
+
 ## Also fixed (found while testing in Russian)
 
 `proxy.ts` sent any request without a locale prefix to `/ru/...` or `/ar/...` when `Accept-Language` contained `ru` or `ar`

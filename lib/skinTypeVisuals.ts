@@ -6,10 +6,17 @@ export interface SkinTypeVisual {
 /**
  * Artwork for the five skin-type options in the /skin-recommendation quiz.
  *
- * Deliberately the same shape and treatment as CONCERN_VISUALS in
- * lib/concernVisuals.ts: 960x720 macro abstracts, subject weighted into the
- * right third, left side falling away to near-white so the copy laid over it
- * stays legible without a heavy scrim.
+ * Same job as CONCERN_VISUALS in lib/concernVisuals.ts: a macro still behind
+ * the copy, subject weighted into the right third, left side falling away to
+ * near-white so the label and description stay legible without a heavy scrim.
+ *
+ * The "-v2" set (28 Nov 2026) is photographed, not procedural: GPT Image 2.5
+ * via CapCut, 21:9 at 1600x680, one real material per skin type (wind-rippled
+ * sand, golden oil droplets, sage plaster meeting dewy glass, champagne satin,
+ * a single feather). Filenames carry the version because /images/* is served
+ * immutable for a year; the v1 files stay on disk for pages cached before the
+ * switch. Source takes and prompts: ~/Desktop/GENOSYS/03_PRODUCTS_TRAINING/
+ * Images/SKIN_QUIZ_CARDS_2026-11/.
  *
  * Kept separate from the concern set because these describe a skin type rather
  * than a concern, and only one word overlaps ("sensitive"). Sharing the file
@@ -17,23 +24,23 @@ export interface SkinTypeVisual {
  */
 export const SKIN_TYPE_VISUALS = {
   dry: {
-    image: '/images/skin-types/dry.webp',
+    image: '/images/skin-types/dry-v2.webp',
     imagePosition: '62% center',
   },
   oily: {
-    image: '/images/skin-types/oily.webp',
+    image: '/images/skin-types/oily-v2.webp',
     imagePosition: '64% center',
   },
   combination: {
-    image: '/images/skin-types/combination.webp',
+    image: '/images/skin-types/combination-v2.webp',
     imagePosition: '66% center',
   },
   normal: {
-    image: '/images/skin-types/normal.webp',
+    image: '/images/skin-types/normal-v2.webp',
     imagePosition: '64% center',
   },
   sensitive: {
-    image: '/images/skin-types/sensitive.webp',
+    image: '/images/skin-types/sensitive-v2.webp',
     imagePosition: '60% center',
   },
 } as const satisfies Record<string, SkinTypeVisual>

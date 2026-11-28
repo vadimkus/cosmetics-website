@@ -55,17 +55,19 @@
    right third of each frame and the wash below keeps the left side clean, so
    the label and description never sit on a busy area. */
 
-/* Held well back. These tiles are roughly half the width of a homepage concern
-   tile at the same breakpoint, so artwork at full strength runs straight under
-   the label instead of sitting beside it. */
+/* Held back, but not faded. These tiles are roughly half the width of a
+   homepage concern tile at the same breakpoint, so artwork at full strength
+   runs under the label. The photographed "-v2" set keeps its subject in the
+   right third with an empty left half, and the wash below does the rest, so
+   it can sit at 0.82 and still read as artwork rather than a stain. */
 .skinrec-option__image {
-  opacity: 0.62;
+  opacity: 0.82;
   transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease;
 }
 
 @media (hover: hover) {
   .skinrec-option:hover .skinrec-option__image {
-    opacity: 0.78;
+    opacity: 0.94;
   }
 }
 
@@ -112,7 +114,7 @@
 /* A chosen tile tints blush, which would be lost behind an opaque wash, so the
    artwork steps back and the wash warms to let the selection read. */
 .skinrec-option[data-selected='true'] .skinrec-option__image {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .skinrec-option[data-selected='true'] .skinrec-option__wash {

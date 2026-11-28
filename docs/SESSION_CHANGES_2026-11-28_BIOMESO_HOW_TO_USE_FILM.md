@@ -77,6 +77,13 @@ poster, the pause mark above the film, the matching card lights up, hints, no si
 captions, no console errors; desktop Chrome (H.264) and iPhone WebKit. Run against the dev server and then against
 `https://genosys.ae`.
 
+**Result, 28 Nov 2026:** commit `05ef15e78` pushed to main, Vercel deployment `dpl_6gMQR8LKaxBVw27Y97yREJ6eqhza` READY in about
+5.5 minutes and aliased to genosys.ae. The three films and three posters answer 200 (`video/mp4`, `image/jpeg`, `Accept-Ranges:
+bytes`), and `/products/65`, `/ru/products/65` and `/ar/products/65` reference all of them. `verify_page.mjs`: 64 of 64 checks
+per language (desktop Chrome and iPhone WebKit), 192 of 192 on the dev server before the push and 192 of 192 on `https://genosys.ae`
+after it. On narrow phones (360, 375 and 390 px wide) every tab label stays on two lines or fewer in all three languages (the
+Russian "Прижать и роллинг" needed tighter tab padding under 480 px). `npx jest __tests__/data`: 461 of 461.
+
 ## Also fixed (found while testing in Russian)
 
 `proxy.ts` sent any request without a locale prefix to `/ru/...` or `/ar/...` when `Accept-Language` contained `ru` or `ar`
@@ -85,3 +92,7 @@ captions, no console errors; desktop Chrome (H.264) and iPhone WebKit. Run again
 `next.config.js`. Russian and Arabic visitors lost the Inter font files and the tab icon (confirmed on production: Inter
 `error` in a Russian browser, `loaded` in an English one). Fix: `fonts` and `favicon/` added to the matcher exclusion and to
 the redirect condition. Browsers that already cached the 307 keep it until it expires.
+
+Live after the deploy: the font and the favicon answer 200 under a Russian or Arabic `Accept-Language` and under
+`NEXT_LOCALE=ru`; in a Russian and an Arabic browser Inter and Cormorant Garamond report `loaded` and no font or favicon
+request returns a 3xx or 4xx; pages still redirect by language (`/products/65` with `ru-RU` gives 307 to `/ru/products/65`).
